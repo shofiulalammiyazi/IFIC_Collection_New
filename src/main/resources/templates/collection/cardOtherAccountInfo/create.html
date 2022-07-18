@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title> Agency</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<div class="col-xs-12">
+			<div>
+				<div class="col-md-offset-2 col-md-8">
+					<!-- .box -->
+					<div class="box box-info">
+						<div class="box-header with-border">
+					        <h3 th:if="${cardOther.id == null}" class="box-title">Create Card Other Account Info</h3>
+                            <h3 th:if="${cardOther.id != null}" class="box-title">Update Card Other Account Info</h3>
+						</div>
+						<!-- Horizontal Form -->
+						<form  class="form-horizontal validate" method="post" th:action="@{/cardOtherAccountInfo/create}" th:object="${cardOther}">
+						    <input type="hidden" th:field="*{id}"></input>
+							<div class="box-body">
+
+								<div class="form-group">
+									<label  class="col-sm-4 custom-form-lebel-right required">Choose Customer ID</label>
+									<div class="col-sm-8">
+										<select id="loan_id" class="form-control input-sm select2" th:field="*{customerBasicInfoEntity.id}">
+											<option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.customerId}">Choose One</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label  class="col-sm-4 custom-form-lebel-right required"> Other Account No</label>
+									<div class="col-sm-8">
+										<input type="text" name="name" class="form-control required" th:required="true" th:field="*{otherAccountNo}" placeholder="Other Account Number" />
+									</div>
+								</div>
+
+
+
+								<div class="form-group">
+									<label  class="col-sm-4 custom-form-lebel-right required">Remarks </label>
+									<div class="col-sm-8">
+										<input type="text" name="remarks" class="form-control required" th:required="true" th:field="*{otherRemark}" placeholder="Remarks" />
+									</div>
+								</div>
+
+								 <div class="form-group">
+									<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+									<div class="col-sm-8">
+										<fieldset id="group1">
+											<input  type="radio" name="enabled" id="enabled" th:checked="${cardOther?.enabled==true} or ${cardOther?.id == null}"  th:value="true"> Active</input>
+											<input type="radio"  name="enabled" id="enabled" th:checked="${cardOther?.enabled==false} and ${cardOther?.id != null}" th:value="false"> Inactive </input>
+										</fieldset>
+									</div>
+								</div>
+								
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer text-center">
+								<button type="submit" class="btn btn-info ">Submit</button>
+								<a type="submit" class="btn btn-danger" href="/cardOtherAccountInfo/list">Cancel</a>
+							</div>
+							<!-- /.box-footer -->
+						</form>
+					</div>
+					<!-- /.box -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

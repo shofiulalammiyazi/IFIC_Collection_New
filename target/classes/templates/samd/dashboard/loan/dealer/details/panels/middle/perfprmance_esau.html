@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Performance & ESAU</title>
+
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="tll_performanceesau">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Performance & ESAU</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <table name="letter_info"
+                       class=" table table-striped table-bordered"
+                       style="display:block; overflow:auto">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="2" id="current_month_name"></th>
+                        <th class="text-center" colspan="2" id="current_previous_month"></th>
+                        <th class="text-center" id="last_three_month"></th>
+                        <th class="text-center" id="last_six_month"></th>
+                        <th class="text-center" id="last_12_month"></th>
+                        <th class="text-center">-</th>
+                        <th class="text-center" colspan="2" id="last_6_1"></th>
+                        <th class="text-center" colspan="2" id="last_6_2"></th>
+                        <th class="text-center" colspan="2" id="last_6_3"></th>
+                        <th class="text-center" colspan="2" id="last_6_4"></th>
+                        <th class="text-center" colspan="2" id="last_6_5"></th>
+                        <th class="text-center" colspan="2"></th>
+                    </tr>
+                    <tr>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>AVG</td>
+                        <td>AVG</td>
+                        <td>AVG</td>
+                        <td>-</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                        <td>Achievement</td>
+                        <td>Rating</td>
+                    </tr>
+                    </thead>
+                    <tbody id="esa_loan_tbody">
+                    <tr >
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $("#tab-esau-samd").click(function () {
+
+            $(".esau_tr").html('');
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin = $("#globalUserPinForSummary").val();
+            var unit = $("#globalUnitForSummary").val();
+            var designation = $("#globalUserDesignationForSummary").val();
+            var userId = $("#globalUserIdForSummary").val();
+
+            if (unit == 'Card') {
+                $.ajax({
+                    type: "GET",
+                    url: "/collection/dashboard/team/esau/card",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: {
+                        userPin: userPin,
+                        unit: unit,
+                        designation: designation,
+                        userId: userId
+                    },
+                    success: function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        console.log(data);
+
+                        var row = "<tr class='esau_tr'>\n" +
+                            "                            <td class='text-right'>" + data.performanceAvg + "</td>\n" +
+                            "                            <td> class='text-left'" + data.ratingName + "</td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                        </tr>";
+
+                        $("#esa_card_tbody").append(row);
+                    }
+                })
+            } else if (unit == 'Loan') {
+                console.log("samd")
+                $.ajax({
+                    type: "GET",
+                    url: "/collection/samd/dashboard/team/esau/loan",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: {
+                        userPin: userPin,
+                        unit: "SAM",
+                        designation: designation,
+                        userId: userId
+                    },
+                    success: function (json) {
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        console.log(data);
+
+                        var row = "<tr class='esau_tr'>\n" +
+                            "                            <td class='text-right'>" + data.performanceAvg + "</td>\n" +
+                            "                            <td class='text-left'>" + data.ratingName + "</td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                            <td></td>\n" +
+                            "                        </tr>";
+
+                        $("#esa_loan_tbody").append(row);
+                    }
+                })
+            }
+        })
+    </script>
+
+    <script>
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        var today = new Date();
+        var current_month = monthNames[today.getMonth()];
+
+        $("#current_month_name").text(''+current_month+','+new Date().getFullYear().toString().substr(-2)+'');
+
+
+        var d;
+        var month;
+        var year;
+
+        //last 1 month
+        last_1_month = [];
+        for(var i = 1; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_1_month.push(month+','+year);
+        }
+        $("#current_previous_month").text(last_1_month[0])
+        //last three month
+        var last_three_month = [];
+        for(var i = 3; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_three_month.push(month+','+year);
+        }
+        $("#last_three_month").text(last_three_month[0]+' to '+last_three_month[2]);
+        //for last 6 month
+        var last_six_month = [];
+        for(var i = 6; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_six_month.push(month+','+year);
+        }
+        $("#last_six_month").text(last_six_month[0]+' to '+last_six_month[5]);
+        $("#last_6_1").text(last_six_month[4]);
+        $("#last_6_2").text(last_six_month[3]);
+        $("#last_6_3").text(last_six_month[2]);
+        $("#last_6_4").text(last_six_month[1]);
+        $("#last_6_5").text(last_six_month[0]);
+        var last_12_month = [];
+        for(var i = 12; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_12_month.push(month+','+year);
+        }
+        $("#last_12_month").text(last_12_month[0]+' to '+last_12_month[11]);
+
+    </script>
+
+</div>
+</body>
+</html>
+

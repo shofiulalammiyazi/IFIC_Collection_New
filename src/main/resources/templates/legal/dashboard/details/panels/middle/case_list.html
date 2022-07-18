@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>LitigationCaseInfo List<</title>
+
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="list-table">
+
+    <script src="/js/datatable/dataTables.buttons.min.js"></script>
+    <script src="/js/datatable/jszip.min.js"></script>
+    <script src="/js/datatable/pdfmake.min.js"></script>
+    <script src="/js/datatable/vfs_fonts.js"></script>
+    <script src="/js/datatable/buttons.html5.min.js"></script>
+    <script src="/js/datatable/buttons.print.min.js"></script>
+
+    <div class="csi-view-form-full-area csi-view-indtable" style="overflow-x:auto;">
+
+        <div style="text-align: center">
+            <h5>Case List</h5>
+        </div>
+
+        <div class="col-md-12">
+            <label class="col-sm-1 control-label">Case Filed </label>
+            <div class="col-sm-3">
+                <select id="caseFiled" class="form-control" name="caseFiledType">
+                    <option>All</option>
+                    <option th:each="caseFiled:${caseFiledTypeList}" th:text="${caseFiled.name}"
+                            th:value="${caseFiled.id}"></option>
+                </select>
+            </div>
+
+            <!--<label class="col-sm-1 control-label">Case/Suit Type </label>-->
+            <!--<div class="col-sm-3">-->
+            <!--<select id="caseType" class="form-control" name="caseType">-->
+            <!--<option>All</option>-->
+            <!--<option th:each="caseType:${caseTypeList}" th:text="${caseType.name}" th:value="${caseType.id}"></option>-->
+            <!--</select>-->
+            <!--</div>-->
+
+            <!--<label class="col-sm-1 control-label">Course of Action </label>-->
+            <!--<div class="col-sm-3">-->
+            <!--<select id="courseOfAction" class="form-control" name="courseOfAction">-->
+            <!--<option>All</option>-->
+            <!--<option th:each="courseOfAction:${courseOfActionList}" th:text="${courseOfAction.name}" th:value="${courseOfAction.id}"></option>-->
+            <!--</select>-->
+            <!--</div>-->
+
+            <label class="col-sm-1 control-label">Next Date (From)</label>
+            <div class="col-sm-3">
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right datepicker" name="fromDate" id="fromDate"
+                           placeholder="From Date">
+
+                </div>
+            </div>
+
+            <label class="col-sm-1 control-label">Next Date (To)</label>
+            <div class="col-sm-3">
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right datepicker" name="toDate" id="toDate"
+                           placeholder="To Date">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12" style="text-align: center;margin-top: 1%">
+            <button type="Reset" class="btn btn-primary" onclick="resetFilter()">Reset</button>
+        </div>
+        <!--<hr/>-->
+        <!--<hr/>-->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="casehistoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:150%;overflow-x: scroll;height:500px; overflow-y: scroll;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="casehistoryModalLabel">History Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body" id="casehistoryBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap-spinner-loading" style="margin-top: 6%; visibility: hidden" id="loaderDiv">
+            <div class="spinner-loading spinner-loading-4"></div>
+        </div>
+
+        <table name="letter_info" id="litigationTable" class=" table table-striped table-bordered custom_dt">
+            <thead>
+            <th>SL#</th>
+            <th>LD No.</th>
+            <th>Account No</th>
+            <th>Account Name</th>
+            <th>Case Filed</th>
+            <th>Nature of Suit</th>
+            <th>Court</th>
+            <th>Branch Name</th>
+            <th>Date of Filing</th>
+            <th>Next Date</th>
+            <th>Case Number</th>
+            <th>Case Year</th>
+            <th>Status</th>
+            <th>Action</th>
+
+
+            </thead>
+
+            <tfoot>
+            <th>SL#</th>
+            <th>LD No.</th>
+            <th>Account No</th>
+            <th>Account Name</th>
+            <th>Case Filed</th>
+            <th>Nature of Suit</th>
+            <th>Court</th>
+            <th>Branch Name</th>
+            <th>Date of Filing</th>
+            <th>Next Date</th>
+            <th>Case Number</th>
+            <th>Case Year</th>
+            <th>Status</th>
+            <th>Action</th>
+
+            </tfoot>
+
+        </table>
+
+
+        <script>
+
+            $(document).ready(function () {
+                var table = loadToable();
+                perColumnSearchFieldFunction(table);
+
+
+                $("#caseFiled").change(function () {
+                    //$("#target").val($("#target option:first").val());
+                    table.draw();
+                })
+
+                $("#caseType").change(function () {
+                    table.draw();
+                });
+
+                $("#courseOfAction").change(function () {
+                    //$('#litigationTable').DataTable().destroy();
+                    //filterTable();
+                    table.draw();
+                });
+
+                $('.datepicker').datepicker({
+                    format: 'dd-mm-yyyy',
+                    autoclose: true
+                });
+
+                $('.datepicker').change(function () {
+                    let fromDate = $("#fromDate").val();
+                    let toDate = $("#toDate").val();
+                    if (fromDate != "" && toDate != "") {
+                        $("#caseFiled").val($("#caseFiled option:first").val());
+                        $('#litigationTable').DataTable().destroy();
+                        var table = filterTable();
+                        perColumnSearchFieldFunction(table);
+                    }
+                });
+
+                $.fn.dataTable.ext.search.push(
+                    function (settings, data, dataIndex) {
+                        var selectedCaseFiled = $("#caseFiled option:selected").text();
+                        var caseFiled = data[4];
+                        var selectedCourseOfAction = $("#courseOfAction option:selected").text();
+                        var courseOfAction = data[10];
+                        var nextDate = data[6];
+                        let fromDate = $("#fromDate").val();
+                        let toDate = $("#toDate").val();
+
+
+                        if (selectedCaseFiled == "All")
+                            return true;
+                        if (selectedCaseFiled != "All") {
+                            if (selectedCaseFiled == caseFiled) {
+                                return true;
+                            }
+                            else
+                                return false;
+                        }
+                        /*if(selectedCourseOfAction=="All")
+                            return true;
+                        if(selectedCourseOfAction!="All"){
+                            alert(courseOfAction);
+                            if(selectedCourseOfAction==courseOfAction)
+                                return true;
+                            else
+                                return false;
+                        }*/
+
+
+                        //return false;
+                    }
+                );
+
+            });
+
+
+            function loadToable() {
+                var table = $('#litigationTable').DataTable({
+                    "sAjaxSource": "/legal/setup/rest/get-litigations",
+                    "sAjaxDataProp": "",
+
+                    "aoColumns": [
+                        {
+                            "mData": "",
+                            render: function (data, type, row, meta) {
+                                return '<div style="text-align: right" onmouseover="showToolTip(event)" onmouseleave="hideToolTip(event)">' + (meta.row + meta.settings._iDisplayStart + 1) + '<span style="cursor:pointer;border-radius: 6px;padding: 5px 5px;visibility: hidden" title="History" onclick="findAllPrevHistory(' + row.id + ')"><i class="fa fa-list"></i></span></div>'
+                            }
+                        },
+                        {
+                            "mData": "ldNo",
+                            render: function (data, type, row, meta) {
+                                if (data) {
+                                    return '<a style="cursor:pointer" title="Details" href=\"/legal/data-entry/litigation-case-info/view?id=' + row.id + '\" target="_blank">' + data + '</a>';
+                                }
+                            }
+                        },
+                        {
+                            "mData": "customerAccNum",
+                            render: function (data, type, row, meta) {
+                                if (data && data.toLowerCase() !== 'null')
+                                    return '<a style="cursor:pointer"><span onclick="profileLinkFunc(\'' + data + '\')">' + data + '</span></a>';
+                                else
+                                    return '';
+                            }
+                        },
+                        {"mData": "nameOfAcc"},
+                        {"mData": "caseFiled.name"},
+                        {"mData": "caseType.name"},
+                        {
+                            "mData": "court",
+                            render: function (data, type, row, meta) {
+                                console.log(row);
+                                return !data ? '' : data.name === 'Others' ? row.otherCourt : data.name;
+                            }
+                        },
+                        // {"mData": "court.name"},
+                        {"mData": "branchName"},
+                        {"mData": "dateOfFiling"},
+                        {
+                        "mData": "blaAttendanceHistoryList[0].nextDate",
+                            render: function (data, type, row, meta) {
+
+                                return data.slice(data.length-11);
+                            }
+                        },
+                        {"mData": "caseNumber"},
+                        {"mData": "caseYear"},
+                        {
+                            "mData": "status",
+                            render: function (data, type, row, meta) {
+                                return data ? data.name : '';
+                            }
+                        },
+                        // {"mData": "status.name"},
+                        {
+                            "mData": "courseOfAction",
+                            render: function (data, type, row, meta) {
+                                return data ? data.name : '';
+                            }
+                        },
+                        // {"mData": "courseOfAction.name"},
+                    ],
+                    initComplete: function () {
+                        // Apply the search
+                        this.api().columns().every(function (index) {
+
+
+                            var that = this;
+
+                            var column = this;
+
+                            if (index == 5 || index == 6 || index == 13) {
+                                var select = $('<select class="form-control"><option value="">Show All</option></select>')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    if((d+'') === '[object Object]'){
+                                        select.append('<option value="' + d.name + '">' + d.name + '</option>')
+                                    }else{
+                                        select.append('<option value="' + d + '">' + d + '</option>');
+                                    }
+                                });
+                            }
+
+
+                            $('input', this.footer()).on('keyup change clear', function () {
+                                if (that.search() !== this.value) {
+                                    that.search(this.value)
+                                        .draw();
+                                }
+                            });
+                        });
+                    },
+                    dom: 'Bfrtip',
+
+                    buttons: ['excel']
+                })
+                return table;
+            }
+
+            function filterTable() {
+                let fDate = $("#fromDate").val();
+                let tDate = $("#toDate").val();
+
+                var table = $('#litigationTable').DataTable({
+                    "sAjaxSource": "/legal/setup/rest/get-litigations-by-nextdate?fdate=" + fDate + "&tdate=" + tDate,
+                    "sAjaxDataProp": "",
+
+                    "aoColumns": [
+                        {
+                            "mData": "",
+                            render: function (data, type, row, meta) {
+                                return '<div style="text-align: right" onmouseover="showToolTip(event)" onmouseleave="hideToolTip(event)">' + (meta.row + meta.settings._iDisplayStart + 1) + '<span style="cursor:pointer;border-radius: 6px;padding: 5px 5px;visibility: hidden" title="History" onclick="findAllPrevHistory(' + row.id + ')"><i class="fa fa-list"></i></span></div>'
+                            }
+                        },
+                        {
+                            "mData": "ldNo",
+                            render: function (data, type, row, meta) {
+                                if (data) {
+                                    return '<a style="cursor:pointer" href=\"/legal/data-entry/litigation-case-info/view?id=' + row.id + '\" target="_blank">' + data + '</a>';
+                                }
+                            }
+                        },
+                        {
+                            "mData": "customerAccNum",
+                            render: function (data, type, row, meta) {
+                                if (data && data.toLowerCase() !== 'null')
+                                    return '<a style="cursor:pointer"><span onclick="profileLinkFunc(\'' + data + '\')">' + data + '</span></a>';
+                                else
+                                    return '';
+                            }
+                        },
+                        {"mData": "nameOfAcc"},
+                        {"mData": "caseFiled.name"},
+                        {"mData": "caseType.name"},
+                        {"mData": "court.name"},
+                        {"mData": "branchName"},
+                        {"mData": "dateOfFiling"},
+                        {
+                            "mData": "blaAttendanceHistoryList[0].nextDate",
+                            render: function (data, type, row, meta) {
+
+                                return data.slice(-11);
+                            }
+                        },
+                        {"mData": "caseNumber"},
+                        {"mData": "caseYear"},
+                        {"mData": "status.name"},
+                        {
+                            "mData": "courseOfAction",
+                            render: function (data, type, row, meta) {
+                                return data ? data.name : '';
+                            }
+                        },
+                        // {"mData": "courseOfAction.name"},
+                    ],
+                    initComplete: function () {
+                        // Apply the search
+                        this.api().columns().every(function (index) {
+
+
+                            var that = this;
+
+                            var column = this;
+
+                            if (index == 5 || index == 6 || index == 13) {
+                                var select = $('<select class="form-control"><option value="">Show All</option></select>')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column.search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>')
+                                });
+                            }
+
+
+                            $('input', this.footer()).on('keyup change clear', function () {
+                                if (that.search() !== this.value) {
+                                    that
+                                        .search(this.value)
+                                        .draw();
+                                }
+                            });
+                        });
+                    },
+                    dom: 'Bfrtip',
+                    buttons: ['excel']
+                })
+                return table;
+            }
+
+            function perColumnSearchFieldFunction(table) {
+                $('#litigationTable tfoot th').each(function (index) {
+                    var title = $(this).text();
+                    if (index > 0)
+                        $(this).html('<input class="form-control" type="text" placeholder="Search ' + title + '" />');
+
+                });
+                // table.column(10).every( function () {
+                //
+                //     var column = this;
+                //     var select = $('<select><option value=""></option></select>')
+                //         .appendTo($(column.footer()).empty())
+                //         .on('change', function() {
+                //             var val = $.fn.dataTable.util.escapeRegex(
+                //                 $(this).val()
+                //             );
+                //
+                //             column
+                //                 .search(val ? '^' + val + '$' : '', true, false)
+                //                 .draw();
+                //         });
+                //
+                //     column.data().unique().sort().each(function(d, j) {
+                //         select.append('<option value="' + d + '">' + d + '</option>')
+                //     });
+                // });
+
+            }
+
+            function checkCaseFiled() {
+
+            }
+
+            function checkCaseType() {
+
+            }
+
+            function resetFilter() {
+                $("#fromDate").val("");
+                $("#toDate").val("");
+                $("#caseFiled").val($("#caseFiled option:first").val());
+                $('#litigationTable').DataTable().destroy();
+                var table = loadToable();
+                perColumnSearchFieldFunction(table);
+            }
+
+            function showToolTip(e) {
+                var spanTip = (e.target.children);
+                if (spanTip[0])
+                    spanTip[0].style.visibility = "visible";
+            }
+
+            function hideToolTip(e) {
+                var spanTip = (e.target.children);
+                let icon = spanTip[0].children[0];
+                icon.style.visibility = "hidden";
+            }
+
+            function findAllPrevHistory(id) {
+                $("#casehistoryModal").modal();
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+
+                $("#loaderDiv").css('visibility', 'visible');
+
+                $.ajax({
+                    type: "GET",
+                    url: "/legal/setup/rest/get-litigation-revision",
+                    data: {"id": id},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+
+                }).done(function (data) {
+
+                    console.log(data);
+                    $("#casehistoryBody").find('div').remove();
+                    $("#loaderDiv").css('visibility', 'hidden');
+                    let table = '<table id="historyTable" class="table table-striped table-bordered table-condensed"><thead><tr><th>SL#</th><th>Ld No</th><th>Case Filed</th><th>Case SubType</th><th>Case/Suit</th><th>Name of Acc.</th><th>Branch</th><th>Plaintiff</th><th>Suit/Case Num.</th><th>Filing Year</th><th>Court Name</th><th>Business Segment</th><th>Recovery</th><th>Collateral Security</th><th>Course Of Action</th><th>Updated</th></tr></thead>';
+                    table += '<tbody>'
+                    $.each(data, function (key, item) {
+                        let caseFiledSubType = item.caseFiledSubType != null ? item.caseFiledSubType.name : "";
+                        let collateralSecurity = item.collateralSecurity != null ? item.collateralSecurity.name : "";
+                        let courseOfAction = item.courseOfAction != null ? item.courseOfAction.name : "";
+                        let updateDate = key == 0 ? moment(item.createdDate).format("MMMM Do YYYY, h:mm:ss a") : moment(item.modifiedDate).format("MMMM Do YYYY, h:mm:ss a");
+                        table += '<tr><td>' + (++key) + '</td><td>' + item.ldNo + '</td><td>' + item.caseFiled.name + '</td><td>' + caseFiledSubType + '</td><td>' + item.caseType.name + '</td><td>' + item.nameOfAcc + '</td><td>' + item.branchName + '</td><td><ul style="list-style: none;padding-left: 0"><li>Name: ' + item.plaintiffName + '</li><li>Designation: ' + item.plaintiffDesignation + '</li><li>Phone: ' + item.plaintiffPhoneNo + '</li></ul></td><td>' + item.caseNumber + '</td><td>' + item.caseYear + '</td><td>' + item.court.name + '</td><td>' + item.businessSegment + '</td><td><ul style="list-style: none;padding-left: 0"><li>Before: ' + item.recoveryBeforeCaseAmount + '</li><li>After: ' + item.recoveryAfterCaseAmount + '</li></ul></td><td>' + collateralSecurity + '</td><td>' + courseOfAction + '</td><td>' + updateDate + '</td></tr>'
+                    });
+
+                    table += '</tbody></table>';
+                    $("#casehistoryBody").append(table);
+                    $("#historyTable").DataTable({});
+                }).fail(function (data) {
+
+                })
+            }
+
+            function profileLinkFunc(accNum) {
+                // let url = "/profile/loanprofile/search?account="+accNum;
+                // let origin = window.location.origin;
+                // let win = window.open(origin+url,'_blank');
+                // win.focus();
+                let url = window.location.protocol + "//" + window.location.host + "/profile/loanprofile/search?account=" + accNum;
+                let win = window.open(url);
+                win.focus();
+
+            }
+
+        </script>
+
+    </div>
+</div>
+</body>
+
+
+</html>

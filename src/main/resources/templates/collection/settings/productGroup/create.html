@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title> Product Group</title>
+</head>
+<body>
+	<div  layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="box box-primary">
+
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 th:if="${group.id == null}" class="box-title">Create New Product Group</h3>
+								<h3 th:if="${group.id != null}" class="box-title">Update Product Group</h3>
+							</div>
+
+							<form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/product_group/create}" th:object="${group}">
+								<input type="hidden" th:field="*{id}"></input>
+								<input type="hidden" th:field="*{cardAccount}" v-model="cardOrLoan"></input>
+								<div class="box-body">
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required">Group Name</label>
+										<div class="col-sm-8">
+											<input type="text" name="name" class="form-control input-sm required" th:required="true" th:field="*{name}" placeholder="Group Name" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required">Short Name</label>
+										<div class="col-sm-8">
+											<input type="text" name="shortName" class="form-control input-sm required" th:required="true" th:field="*{shortName}" placeholder="Short Name" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required">Group Code </label>
+										<div class="col-sm-8">
+											<input type="text" name="code" class="form-control input-sm required" th:field="*{code}" placeholder="Group Code " />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required" >Account Type</label>
+										<div class="col-sm-8">
+											<label>
+												<input  v-model="cardOrLoan" name="removelines" type="radio" class ="cheker" autocomplete="off" v-bind:value="'Loan'" checked>
+												Loan
+											</label>
+											<label>
+												<input v-model="cardOrLoan" name="removelines" type="radio" class ="cheker" v-bind:value="'Card'">
+												Card
+											</label>
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+										<div class="col-sm-8" >
+											<fieldset id="group1">
+												<input type="radio" name="enabled" th:checked="${group?.enabled==true} or ${group?.id == null}" th:value="true"> Active</input>
+												<input type="radio"  name="enabled"  th:checked="${group?.enabled==false} and ${group?.id != null}" th:value="false"> Inactive </input>
+											</fieldset>
+										</div>
+									</div>
+
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer text-center">
+									<button type="submit" class="btn btn-info btn-sm ">Submit</button>
+									<a type="submit" class="btn btn-danger btn-sm" href="/collection/product_group/list">Cancel</a>
+								</div>
+								<!-- /.box-footer -->
+							</form>
+							<script>
+                                new Vue({
+                                    el:'#app',
+                                    data:{
+                                        cardOrLoan:'Loan',
+                                    }
+                                })
+							</script>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

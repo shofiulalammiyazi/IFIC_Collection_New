@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1"/>
+        <title>Previous Statement </title>
+    </head>
+<body>
+<div id="layout-cibReport" th:fragment="previous-statement">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Previous Statement </h3>
+        </div>
+        <div class="box-body" >
+            <div class="form-horizontal csi-view-form">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <input type="hidden" name="refId" id="refId" th:value="${refId}"  />
+                <table class=" table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>SL No</th>
+                            <th>Date</th>
+                            <th>Details </th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr th:each="rf,stat : ${referencelist}">
+                            <td th:text="${rf?.accountNo}"></td>
+                            <td th:text="${rf?.name}"></td>
+                            <td th:text="${rf?.name}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Card</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary shadow csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+							<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<a id="tab-pd" href="#" class="list-group-item active" title="Account Details">Account Details</a>
+								</div>
+							</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+
+							<!-- TAB CONTENT Details-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content active">
+									<div th:replace="agency/dashboard/details/panels/middle/account_details.html :: account-details"></div>
+								</div>
+							</div>
+
+
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

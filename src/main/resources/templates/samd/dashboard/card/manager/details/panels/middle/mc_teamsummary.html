@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Monitoring Team Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="team-summary">
+
+
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Monitoring Team Summary</h3>
+
+        </div>
+
+        <div class="box-body">
+            <form class="form-horizontal" style="background-color: rgb(233, 238, 243); padding: 15px;" method="post" id="advSearchForm" name="advSearchForm" action="">
+                <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                    <label  class="col-sm-2 custom-form-lebel-right">Supervisor</label>
+                    <div class="col-sm-2">
+                        <input v-model="accountNo" type="text" class="form-control input-sm" placeholder="Supervisor" id="accountNo" name="accountNo" />
+                    </div>
+                    <label  class="col-sm-2 custom-form-lebel-right">Team Leader</label>
+                    <div class="col-sm-2">
+                        <input v-model="cif" type="text" class="form-control input-sm" placeholder="Team Leader" id="cifNo" name="cifNo" />
+                    </div>
+                    <label  class="col-sm-2 custom-form-lebel-right">Dealer</label>
+                    <div class="col-sm-2">
+                        <input v-model="customerName" type="text" class="form-control input-sm" placeholder="Dealer" id="customerName" name="customerName" />
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                    <label  class="col-sm-2 custom-form-lebel-right">Zone</label>
+                    <div class="col-sm-2">
+                        <input v-model="fatherName" type="text" class="form-control input-sm" placeholder="Zone" id="loan_fatherName" name="fatherName" />
+                    </div>
+                    <label  class="col-sm-2 custom-form-lebel-right">Age Code</label>
+                    <div class="col-sm-2">
+                        <input v-model="motherName" type="text" class="form-control input-sm" placeholder="Age Code" id="loan_motherName" name="motherName"/>
+                    </div>
+                    <label  class="col-sm-2 custom-form-lebel-right">Account Activity</label>
+                    <div class="col-sm-2">
+                        <input v-model="mobile" type="text" class="form-control input-sm" placeholder="Account Activity" id="loan_mobileNo" name="mobileNo" />
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-2 pull-right" style="margin-top: 20px;">
+                    <button @click.prevent="getCustomerResult" class="btn btn-success btn-sm btn-block pull-right" id="advCustSearchButton" name="advCustSearchButton">Search</button>
+                </div>
+            </form>
+        </div>
+
+            <!--{ "cardNo": "123456", "clientName": "Dewan", "outstandingBalance": "4000", "autoDebitAccount": "1314253535", "dob": "10-04-1990", "mobileNo": "01763546474", "cardStatus": "Active" }-->
+
+    </div>
+
+    <br/>
+
+    <table name="datatable-responsive"
+           class="table table-striped table-bordered table-condensed custom_dt">
+        <thead>
+        <tr>
+            <th>Zone</th>
+            <th>Age Code</th>
+            <th>No of Accounts</th>
+            <th>Outstanding Total</th>
+            <th>Min Due Total</th>
+            <th>PTP- Broken</th>
+            <th>PTP- Kept</th>
+            <th>PTP- Cured</th>
+            <th>Diary Notes</th>
+            <th>Follow Up</th>
+        </tr>
+        </thead>
+        <tbody id="advCustSrcBody">
+        <tr>
+            <td>Dhaka</td>
+            <td>12</td>
+            <td>25</td>
+            <td>254000</td>
+            <td>10000</td>
+            <td>38</td>
+            <td>25</td>
+            <td>2</td>
+            <td>2100</td>
+            <td>SMS</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+
+
+</html>

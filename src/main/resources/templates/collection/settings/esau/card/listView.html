@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>ESAU Rating List- Card</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box">
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 class="box-title">ESAU Rating List- Card</h3>
+							</div>
+
+							<div class="box-body">
+								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/card/esau/create}"><span class="glyphicon glyphicon-plus"> </span> Add ESAU Rating-Card</a>
+								<table th:if="${esauCardList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+									<thead>
+									<tr>
+										<th>Sl No.</th>
+										<th>Age Code</th>
+										<th>Month Count</th>
+										<th>Avg. Upper Limit</th>
+										<th>Avg. Lower Limit</th>
+										<th>Rating Name</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="esau,status : ${esauCardList}">
+										<td th:text="${status.count}"></td>
+										<td>
+													<span th:each="age: ${esau.ageCodeEntities}">
+														<p th:text="${age.name}"></p>
+													</span>
+										</td>
+										<td><span th:text="${esau.countMonth}"></span></td>
+										<td><span th:text="${esau.finalAvgUpperLimit}"></span></td>
+										<td><span th:text="${esau.finalAvgLowerLimit}"></span></td>
+										<td><span th:text="${esau.ratingName}"></span></td>
+										<td style="text-align: center">
+											<span th:if="${esau.enabled == true}" th:text="Active"></span>
+											<span th:if="${esau.enabled == false}" th:text="Inactive"></span>
+										</td>
+										<td style="text-align: center">
+											<a class="btn btn-xs btn-primary" th:href="@{/collection/card/esau/edit(id=${esau.id})}"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-xs btn-success" th:href="@{/collection/card/esau/view(id=${esau.id})}"><i class="fa fa-eye"></i>View</a>
+											<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

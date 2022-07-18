@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>KPI Target Vs Achievement</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="age_code_wise">
+    <div class="box-header with-border">
+        <h3 class="box-title">KPI Target Vs Achievement Details</h3>
+    </div>
+    <br/>
+    <br/>
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#kpi-amount" title="Amount Wise">Amount Wise</a>
+            </li>
+            <li id="tab-product_wise_summary_by_acc">
+                <a data-toggle="tab" href="#kpi-account" title="Account Wise">Account Wise</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="kpi-amount">
+            <div>
+                <center><h5>Amount Wise Target Details</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                        <tr>
+                            <!--<th>Product</th>-->
+                            <th>Age Code</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center" colspan="7">Flow</th>
+                            <th class="text-center" colspan="7">Save</th>
+                            <th class="text-center" colspan="7">Back</th>
+                            <th class="text-center" colspan="7">Regular</th>
+                            <th class="text-center" colspan="7">PAR</th>
+                            <th class="text-center" colspan="7">NPL</th>
+                            <th class="text-center" colspan="7">Raw Col.</th>
+                            <th class="text-center" colspan="7">Min. Due</th>
+                        </tr>
+                        <tr>
+                        <!--<td class="text-center"></td>-->
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Daily Shortfall</td>
+                    </tr>
+                    </thead>
+                    <tbody id="kpi_target_achievement_amount_wise" class="tbl-row">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane top-buffer" id="kpi-account">
+            <div>
+                <center><h5>Account Wise Target Details</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                        <tr>
+                            <!--<th>Product</th>-->
+                            <th>Age Code</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center" colspan="7">Flow</th>
+                            <th class="text-center" colspan="7">Save</th>
+                            <th class="text-center" colspan="7">Back</th>
+                            <th class="text-center" colspan="7">Regular</th>
+                            <th class="text-center" colspan="7">PAR</th>
+                            <th class="text-center" colspan="7">NPL</th>
+                            <th class="text-center" colspan="7">Raw Col.</th>
+                            <th class="text-center" colspan="7">Min. Due</th>
+                        </tr>
+                        <tr>
+                            <!--<td class="text-center"></td>-->
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+
+                            <td class="text-center">Target</td>
+                            <td class="text-center">Ach</td>
+                            <td class="text-center">Shortfall</td>
+                            <td class="text-center">Performance</td>
+                            <td class="text-center">Weight</td>
+                            <td class="text-center">Weighted Performance</td>
+                            <td class="text-center">Daily Shortfall</td>
+                        </tr>
+                    </thead>
+                    <tbody id="kpi_target_achievement_account_wise" class="tbl-row">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

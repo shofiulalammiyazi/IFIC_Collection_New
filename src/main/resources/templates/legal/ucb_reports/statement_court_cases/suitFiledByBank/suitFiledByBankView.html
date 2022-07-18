@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <style>
+        b {
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 2px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+
+                <div class="col-xs-12">
+                    <div id="printBody" class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="5">
+                                                <b>Name of the Bank: United Commercial Bank Limited</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h4 style="text-align: center">STATEMENT OF SUITS FILED BY/AGAINST THE BANK</h4>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <b>A. Suits filed by the Bank :</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <th colspan="5" style="text-align: right">Figure in Lac</th>
+
+                                                    <tr>
+                                                        <th style="text-align: center">Nature of suit</th>
+                                                        <th style="text-align: center" colspan="2">No of suit</th>
+                                                        <th style="text-align: center" colspan="2">Amount outstanding in the Bank's books for which suit filed</th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style="text-align: center">For upto 5 years</th>
+                                                        <th style="text-align: center">For more than 5 years</th>
+                                                        <th style="text-align: center">Pending upto 5 years</th>
+                                                        <th style="text-align: center">Pending for more than 5 years</th>
+                                                        <th></th>
+
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>B. Suits filed against the Bank :</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">Nature of suit</th>
+                                                        <th>No. of suits pending</th>
+                                                        <th style="text-align: center">Amount of the claim against the bank</th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Course Of Action</title>
+
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <style>
+        .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+            font-size: 13px;
+        }
+
+        .multiselect__tag {
+            font-size: 12px;
+        }
+
+        select {
+            -webkit-appearance: menulist;
+        }
+    </style>
+    <div id="app" class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${courseOfAction.id == null}" class="box-title">Create Course Of Action</h3>
+                            <h3 th:if="${courseOfAction.id}" class="box-title">Update Course Of Action</h3>
+                            <button class="btn btn-sm btn-danger pull-right" @click="reset">Reset</button>
+                        </div>
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/legal/setup/courseofaction/create}"
+                              th:object="${courseOfAction}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{caseTypesIdList}" v-model="getSelectedCaseTypeList"/>
+                            <div class="box-body">
+
+                                <p th:if="${error}" class="text-center text-danger" th:text="${error}">Error </p>
+                                <p th:if="${message}" class="text-center text-success" th:text="${message}">Error </p>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Course Of Action: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="3" name="name" class="form-control input-sm required"
+                                               th:required="true"
+                                               th:field="*{name}" placeholder="Name of case action"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">
+                                        Contested type:
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select id="contestedStatus"
+                                                v-model="contested"
+                                                name="contested"
+                                                th:field="*{contestedType}"
+                                                class="form-control">
+                                            <option value="">Select an option</option>
+                                            <option value="Contested">Contested</option>
+                                            <option value="Not Contested">Not Contested</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">CaseType:</label>
+                                    <div class="col-sm-6">
+                                        <multiselect v-model="selectedCaseTypeList" placeholder="Search a Case Type"
+                                                     label="name" track-by="id" :options="getCaseTypes" :close-on-select="false"
+                                                     :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('caseTypes')}"
+                                           th:errors="*{caseTypes}">Case type Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">
+                                        Cronological Sequence:
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="number"  name="sequence" class="form-control input-sm required"
+                                               th:required="true"
+                                               th:field="*{sequence}" placeholder="Serial in case form dropdown"
+                                               min="1"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('sequence')}" th:errors="*{sequence}">Name
+                                        Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="enabled">
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${courseOfAction.enabled ==true}" th:value="true">
+                                            Active</input>
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${courseOfAction.enabled ==false}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Save</button>
+                                <a type="submit" class="btn btn-danger btn-sm"
+                                   href="/legal/setup/courseofaction/list">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var selectCaseTypes = /*[[${selectedCaseTypes}]]*/ [];
+        var caseTypeOptios = /*[[${caseTypeOptions}]]*/ [];
+        /*]]>*/
+
+
+        setWindowFocusLossNotification("Please save changes before leaving the page");
+
+
+    </script>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                selectedCaseTypeList: [],
+                selectedCaseType: {},
+                caseTypeOption: [],
+                contested: ""
+            },
+            created: function () {
+                this.setExistingValues();
+                this.caseTypeOption = Array.isArray(caseTypeOptios) ? caseTypeOptios : [];
+            },
+            computed: {
+                getSelectedCaseType: function () {
+                    return this.selectedCaseType.id;
+                },
+                getSelectedCaseTypeList: function () {
+                    return this.selectedCaseTypeList.map(item => {return item.id});
+                },
+                getCaseTypes: function () {
+                    if (this.contested) {
+                        // Ensure that user can only select 'Artharin Suit' option. isEqualIgnoreCase() is defined in /js/common.js
+                        this.selectedCaseTypeList = this.selectedCaseTypeList.filter(c => isEqualIgnoreCase(c.name, "Artharin Suit"));
+                        return this.caseTypeOption.filter(c => isEqualIgnoreCase(c.name, "Artharin Suit"));
+                    }
+                    return this.caseTypeOption;
+                }
+            },
+            methods: {
+                setExistingValues: function () {
+                    this.selectedCaseTypeList = Array.isArray(selectCaseTypes) ? selectCaseTypes : [];
+                    this.selectedCaseType = this.selectedCaseTypeList.length ? this.selectedCaseTypeList[0] : {};
+                    this.contested = "";
+                },
+                reset: function () {
+                    clearFormFieldValuesGeneralized('app');
+                    this.setExistingValues();
+                }
+            }
+        })
+
+        //        new Vue({
+        //            el: '#app',
+        //            components: {
+        //                Multiselect: VueMultiselect.default
+        //            },
+        //            data: {
+        //                selectedCaseTypeList: [],
+        //                selectedCaseType: [],
+        //                caseTypeOption: [],
+        //                contested: ""
+        //            },
+        //            created: function () {
+        //                this.selectedCaseTypeList = Array.isArray(selectCaseTypes) ? selectCaseTypes : [];
+        //                this.selectedCaseType = this.selectedCaseTypeList.length ? this.selectedCaseTypeList[0] : {};
+        //                this.caseTypeOption = Array.isArray(caseTypeOptios) ? caseTypeOptios : [];
+        //            },
+        //            computed: {
+        //                getSelectedCaseTypeList: function () {
+        //                    return this.selectedCaseTypeList.map(item => {
+        //                        return item.id
+        //                    });
+        //                },
+        //                getCaseTypes: function () {
+        //                    if (this.contested) {
+        //                        // Ensure that user can only select 'Artharin Suit' option. isEqualIgnoreCase() is defined in /js/common.js
+        //                        this.selectedCaseTypeList = this.selectedCaseTypeList.filter(c => isEqualIgnoreCase(c.name, "Artharin Suit"));
+        //                        return this.caseTypeOption.filter(c => isEqualIgnoreCase(c.name, "Artharin Suit"));
+        //                    }
+        //                    return this.caseTypeOption;
+        //                }
+        //            }
+        //        })
+
+    </script>
+</div>
+</body>
+</html>

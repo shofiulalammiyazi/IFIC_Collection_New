@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="distri_info">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Distribution and Status Summary</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#dass-amount" id="loanAmountWiseDistSummaryTab">Amount Wise</a>
+            </li>
+            <li id="tab-account_wise_summary">
+                <a data-toggle="tab" href="#dass-account" id="loanAccWiseDistSummaryTab">Account Wise</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="dass-amount">
+            <div th:replace="dashboard/loan/shared/queue_status_summary/amount_wise  :: amount_wise_fragement"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane top-buffer" id="dass-account">
+            <div th:replace="dashboard/loan/shared/queue_status_summary/account_wise  :: account_wise_fragement"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+
+</html>
+

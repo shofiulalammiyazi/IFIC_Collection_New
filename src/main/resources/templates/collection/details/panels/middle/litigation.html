@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Litigation</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="litigation">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <!--<li id="tab-samcard" class="active"><a data-toggle="tab" href="#samloan" title="SAM:">SAM</a></li>-->
+            <!--<li id="tab-writeoffcard"><a data-toggle="tab" href="#writeoffloan" title="Write off">Write off</a></li>-->
+            <!--<li id="tab-casedetailscard"><a data-toggle="tab" href="#casedetailsloan " title="Case Details">Case Details</a></li>-->
+            <li id="tab-caseentry"><a data-toggle="tab" href="#caseentry " title="Case Entry">Case Entry</a></li>
+            <li id="tab-caselists"><a data-toggle="tab" href="#caselists " title="Case Lists">Case Lists</a></li>
+            <!--<li id="tab-filefollowup"><a data-toggle="tab" href="#filefollowup " title="File Follow Up">File Follow Up</a></li>-->
+
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!--<div role="tabpanel" class="tab-pane top-buffer active" id="samloan">-->
+            <!--<div th:replace="collection/demoloan360/details/panels/middle/sam :: samloan"></div>-->
+        <!--</div>-->
+        <!--<div role="tabpane2" class="tab-pane top-buffer" id="writeoffloan">-->
+            <!--<div th:replace="collection/demoloan360/details/panels/middle/writeoff :: writeoffloan"></div>-->
+        <!--</div>-->
+
+        <div role="tabpane3" class="tab-pane top-buffer" id="casedetailsloan">
+            <div th:replace="collection/details/panels/middle/litigation/casedetails :: casedetails"></div>
+        </div>
+        <div role="tabpanel4" class="tab-pane top-buffer" id="caseentry">
+            <div th:replace="collection/details/panels/middle/litigation/caseentry :: caseentry"></div>
+        </div>
+        <div role="tabpanel5" class="tab-pane top-buffer" id="caselists">
+            <div th:replace="collection/details/panels/middle/litigation/caselists :: caselists"></div>
+        </div>
+        <!--<div role="tabpanel6" class="tab-pane top-buffer" id="filefollowup">-->
+            <!--<div th:replace="collection/details/panels/middle/litigation/filefollowup :: filefollowup"></div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>
+</body>
+</html>

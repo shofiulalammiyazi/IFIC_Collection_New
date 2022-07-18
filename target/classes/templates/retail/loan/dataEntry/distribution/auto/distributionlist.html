@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Auto Distribution List</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row" id="loan-auto-distribution-list">
+                <div class="col-md-12">
+                    <div class="box" id="entity-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Auto Distribution List</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+
+                                <div class="tab-content" style="overflow-y: auto; max-height: 45em">
+                                    <div class="tab-pane active" id="approval">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em" id="loan-auto-distribution-list-table">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-right">SL</th>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Location</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Bucket</th>
+                                                    <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Dealer</th>
+                                                    <th class="text-center">Dealer pin</th>
+                                                    <th class="text-center">Agency</th>
+                                                    <th class="text-center">Remarks</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr th:each="loanAutoDistribution,index: ${list}">
+                                                    <td class="text-left" th:text="${index?.count}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.accountNo}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.location}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.productCode}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.dpdBucket}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.outstanding}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.dealerName}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.dealerPin}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.agencyId}" ></td>
+                                                    <td class="text-left" th:text="${loanAutoDistribution?.remarks}" ></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <th:block >
+                <script src="/js/datatable/dataTables.buttons.min.js"></script>
+                <script src="/js/datatable/jszip.min.js"></script>
+                <script src="/js/datatable/pdfmake.min.js"></script>
+                <script src="/js/datatable/vfs_fonts.js"></script>
+                <script src="/js/datatable/buttons.html5.min.js"></script>
+                <script src="/js/datatable/buttons.print.min.js"></script>
+            </th:block>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var loandistributionList  = [[${list}]];
+                var reportTitle  = [[${reportTitle}]];
+
+                console.log(loandistributionList);
+                /*]]>*/
+            </script>
+
+            <script>
+                loandistributionApp = new Vue({
+                    el: '#loan-auto-distribution-list',
+                    data: {
+                        loandistributionListData : loandistributionList,
+                        reportTitle: reportTitle,
+                    },
+                    updated: function () {
+                        araExecutionTable.destroy();
+                        loanautodistribution = initTable("#loan-auto-distribution-list-table")
+                    }
+                })
+
+                var table;
+                function initTable(id) {
+                    return $(id).DataTable( {
+                        dom: 'Bfrtip',
+                        buttons: ['excel']
+                    });
+                }
+
+                $(document).ready(function () {
+                    loanautodistribution = initTable("#loan-auto-distribution-list-table")
+                })
+
+                // $('body').delegate('.btn-generate-pdf', 'click', () => {
+                //     printElementIncludingStyles('pdf-box')
+                // })
+            </script>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Target Weight By Account-Card </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${cardTargetWeightByAcc.id == null}" class="box-title">Create Target Weight By Account-Card</h3>
+                            <h3 th:if="${cardTargetWeightByAcc.id != null}" class="box-title">Update Target Weight By Account-Card</h3>
+                        </div>
+
+                        <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/kpi/card/weightByAccount/create}" th:object="${cardTargetWeightByAcc}">
+                            <input type="hidden" th:field="*{id}"></input>
+                            <input type="hidden" th:field="*{productTypeIds}" v-model="getSelectedProductTypeId"></input>
+                            <input type="hidden" th:field="*{locationIds}" v-model="getSelectedLocationId"></input>
+                            <input type="hidden" th:field="*{ageCodeIds}" v-model="getSelectedAgeCodeId"></input>
+                            <input type="hidden" th:field="*{dealerNameIds}" v-model="getSelectedDealerNameId"></input>
+                            <input type="hidden" th:field="*{statusCdIds}" v-model="getSelectedStatusCdId"></input>
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Product Type</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedProductType" placeholder="Search a Product Type" label="name" track-by="id"  :options="productTypeOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button style="padding: 10px;" class="btn btn-primary btn-sm" @click.prevent="selectAllProduct">All Product</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Age Code</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedAgeCode" placeholder="Search a Age Code" label="name" track-by="id"  :options="ageCodeOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Location</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedLocation" placeholder="Search a Location" label="city" track-by="id"  :options="locationOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Dealer Name</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedDealerName" placeholder="Search a DealerName" label="firstName" track-by="id"  :options="getSelectedDealerNameFormObject" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Min Due Target (%)</label>
+                                    <div class="col-sm-8">
+                                        <input name="minDueTarget" type="text" id="minDueTarget" th:field="*{minDueTarget}" onkeyup="javascript:checkNumber2('minDueTarget');" class="form-control required" placeholder="Min Due Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Save Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="saveTarget" type="text" id="saveTarget" th:field="*{saveTarget}" onkeyup="javascript:checkNumber2('saveTarget');" class="form-control required" placeholder="Save Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Back Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="backTarget" type="text" id="backTarget" th:field="*{backTarget}" onkeyup="javascript:checkNumber2('backTarget');" class="form-control required" placeholder="Back Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Flow Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="flowTarget" type="text" id="flowTarget" th:field="*{flowTarget}" onkeyup="javascript:checkNumber2('flowTarget');" class="form-control required" placeholder="Flow Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Regular Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="regularTarget" type="text" id="regularTarget" th:field="*{regularTarget}" onkeyup="javascript:checkNumber2('regularTarget');" class="form-control required" placeholder="Regular Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Raw Collection Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="rawCollectionTarget" type="text" id="rawCollectionTarget" th:field="*{rawCollectionTarget}" onkeyup="javascript:checkNumber2('rawCollectionTarget');" class="form-control required" placeholder="Raw Collection Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Raw Collection Greater Than Min. Due Amount</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="group1">
+                                            <input  type="radio" name="rawColGtMinDue" id="rawColGtMinDue" th:checked="${cardTargetWeightByAcc.rawColGtMinDue ==true}"  th:value="true"> Yes</input>
+                                            <input type="radio"  name="rawColGtMinDue" id="rawColGtMinDue" th:checked="${cardTargetWeightByAcc.rawColGtMinDue ==false}" th:value="false"> No</input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">PAR Release Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="PARRelTarget" type="text" id="PARRelTarget" th:field="*{PARRelTarget}" onkeyup="javascript:checkNumber2('PARRelTarget');" class="form-control required" placeholder="PAR Rel. Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">NPL Release Target (%)</label>
+                                    <div class="col-sm-8">
+
+                                        <input name="NPLRelTarget" type="text" id="NPLRelTarget" th:field="*{NPLRelTarget}" onkeyup="javascript:checkNumber2('NPLRelTarget');" class="form-control required" placeholder="NPL Rel. Target"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Status CD</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedStatusCd" placeholder="Search a Status CD" label="statuscdName" track-by="id"  :options="statusCdOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Status</label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <input  type="radio" name="enabled" id="enabled" th:checked="${cardTargetWeightByAcc.enabled ==true}"  th:value="true"> Active</input>
+                                            <input type="radio"  name="enabled" id="enabled" th:checked="${cardTargetWeightByAcc.enabled ==false}" th:value="false"> Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" th:if="${cardTargetWeightByAcc?.id != null}" class="btn btn-info btn-sm">Update</button>
+                                <button type="submit" th:if="${cardTargetWeightByAcc?.id == null}" class="btn btn-info btn-sm">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/kpi/card/weightByAccount/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var productTypeList = /*[[${productTypeList}]]*/ || [];
+                            var selectedProductTypeList = /*[[${selectedProductTypeList}]]*/ || [];
+                            var locationList = /*[[${locationList}]]*/ || [];
+                            var selectedLocationList = /*[[${selectedLocationList}]]*/ || [];
+                            var ageCodeList = /*[[${ageCodeList}]]*/ || [];
+                            var selectedAgeCodeList = /*[[${selectedAgeCodeList}]]*/ || [];
+                            var dealerNameList = /*[[${dealerNameList}]]*/ || [];
+                            var selectedDealerNameList = /*[[${selectedDealerNameList}]]*/ || [];
+                            var statusCdList = /*[[${statusCdList}]]*/ || [];
+                            var selectedStatusCdList = /*[[${selectedStatusCdList}]]*/ || [];
+                            /*]]>*/
+                        </script>
+                        <script>
+                            new Vue({
+                                el: '#app',
+                                components:{
+                                    Multiselect: VueMultiselect.default
+                                },
+                                data:{
+                                    productTypeOption:[],
+                                    selectedProductType:[],
+                                    locationOption:[],
+                                    selectedLocation:[],
+                                    ageCodeOption:[],
+                                    selectedAgeCode:[],
+                                    dealerNameOption:[],
+                                    selectedDealerName:[],
+                                    statusCdOption:[],
+                                    selectedStatusCd:[]
+
+                                },
+                                methods:{
+                                    selectAllProduct:function () {
+                                        this.selectedProductType = [];
+                                        this.selectedProductType = this.productTypeOption;
+                                    }
+                                },
+                                created: function () {
+                                    this.productTypeOption = JSON.parse(productTypeList) ? JSON.parse(productTypeList) : [];
+                                    this.selectedProductType = JSON.parse(selectedProductTypeList) ? JSON.parse(selectedProductTypeList) : [];
+                                    this.locationOption = JSON.parse(locationList) ? JSON.parse(locationList) : [];
+                                    this.selectedLocation = JSON.parse(selectedLocationList) ? JSON.parse(selectedLocationList) : [];
+                                    this.ageCodeOption = JSON.parse(ageCodeList) ? JSON.parse(ageCodeList) : [];
+                                    this.selectedAgeCode = JSON.parse(selectedAgeCodeList) ? JSON.parse(selectedAgeCodeList) : [];
+                                    this.dealerNameOption = JSON.parse(dealerNameList) ? JSON.parse(dealerNameList) : [];
+                                    this.selectedDealerName = JSON.parse(selectedDealerNameList) ? JSON.parse(selectedDealerNameList) : [];
+
+                                    this.selectedDealerName = this.selectedDealerName.map(dealer => {return {firstName: dealer.user.firstName, id: dealer.id}});
+
+                                    this.statusCdOption = JSON.parse(statusCdList) ? JSON.parse(statusCdList) : [];
+                                    this.selectedStatusCd = JSON.parse(selectedStatusCdList) ? JSON.parse(selectedStatusCdList) : [];
+                                },
+                                computed:{
+                                    getSelectedProductTypeId: function () {
+                                        return this.selectedProductType.map(productType => { return productType.id});
+                                    },
+                                    getSelectedLocationId: function () {
+                                        return this.selectedLocation.map(location => { return location.id});
+                                    },
+                                    getSelectedAgeCodeId: function () {
+                                        return this.selectedAgeCode.map(ageCode => { return ageCode.id});
+                                    },
+                                    getSelectedDealerNameId: function () {
+                                        return this.selectedDealerName.map(dealerName => { return dealerName.id});
+                                    },
+                                    getSelectedStatusCdId: function () {
+                                        return this.selectedStatusCd.map(statusCd => { return statusCd.id});
+                                    },
+                                    getSelectedDealerNameFormObject: function () {
+                                        return this.dealerNameOption.map(dealer => {return {firstName: dealer.user.firstName, id: dealer.id}});
+                                    }
+                                },
+                            })
+                        </script>
+
+                        <style>
+                            .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                                font-size: 13px;
+                            }
+                            .multiselect__tag{
+                                font-size: 12px;
+                            }
+                            select {
+                                -webkit-appearance: menulist;
+                            }
+
+                        </style>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

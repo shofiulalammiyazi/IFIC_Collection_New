@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Team PTP Details</title>
+</head>
+<body>
+    <div id="layout-cibReport" th:fragment="tll_ptpstatus">
+        <div class="box-header with-border">
+            <h3 class="box-title" >Team PTP Details</h3>
+        </div>
+        <br/><br/>
+
+        <div class="multi-line-broadcom-div">
+            <ul id="info-tabs" class="nav nav-tabs">
+                <li id="tab-team-lead-ptp" class="active">
+                    <a data-toggle="tab" href="#team-lead-ptp-summary-loan" title="Team Leader PTP Details">Team Leader PTP Details</a>
+                </li>
+                <li id="tab-dealer-wise-ptp">
+                    <a data-toggle="tab" href="#dealer-wise-ptp-summary-loan" title="Dealer Wise PTP Details">Dealer Wise PTP Details</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane top-buffer active"  id="team-lead-ptp-summary-loan">
+                <center><h5>Team Leader PTP Details</h5></center>
+                <!--<div>-->
+                    <!--<div id="ptp-summary">-->
+                        <!--<table class="table table-bordered custom_dt">-->
+                            <!--<thead >-->
+                                <!--<tr>-->
+                                    <!--<th class="text-center">PTP</th>-->
+                                    <!--<th class="text-center">No of Account</th>-->
+                                    <!--<th class="text-center">Amount</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody id="ptp_status_summery_view" class="tbl-row">-->
+                                <!--<tr v-for="ptp in ptpList">-->
+                                    <!--<td><a data-toggle="modal"-->
+                                           <!--data-target="#modal-ptp-details" style="cursor: pointer" @click="changeFilter(ptp.status)">{{ptp.status}}</a></td>-->
+                                    <!--<td>{{ptp.count}}</td>-->
+                                    <!--<td class="text-right">{{ptp.totalAmount | fixedTwoDigit}}</td>-->
+                                <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+
+                        <!--<div class="modal fade" id="modal-ptp-details">-->
+                            <!--<div class="modal-dialog" style="height: 100%; width: 70%; padding-right: 20px;">-->
+                                <!--<div class="modal-content" style="max-height: 900px;">-->
+                                    <!--<div class="modal-header" style="text-align: center;">-->
+                                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                        <!--<h4 class="modal-title">PTP Details</h4>-->
+                                    <!--</div>-->
+                                    <!--<div style="overflow: auto; max-height: 800px; padding: 20px; margin-bottom: 20px;">-->
+                                        <!--<table class="table table-condensed table-hover table-bordered">-->
+                                            <!--<thead >-->
+                                                <!--<tr>-->
+                                                    <!--<th class="text-center" >SL</th>-->
+                                                    <!--<th class="text-center">Account No</th>-->
+                                                    <!--<th class="text-center">Status</th>-->
+                                                    <!--<th class="text-center">Amount</th>-->
+                                                <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="tbl-row">-->
+                                                <!--<tr v-for="(ptp,index) in accountListStatusWise">-->
+                                                    <!--<td>{{index+1}}</td>-->
+                                                    <!--<td><a :href="'/profile/loanprofile/search?account='+ ptp.accountNo" target="_blank">{{ptp.accountNo}}</a></td>-->
+                                                    <!--<td>{{ptp.status}}</td>-->
+                                                    <!--<td class="text-right" >{{ptp.amount}}</td>-->
+                                                <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<script th:inline="javascript">-->
+                        <!--// $(document).ready(function() {-->
+                        <!--//     $("#tab_ptp_status_summary").click(function (event) {-->
+                        <!--//         ptp_summary.getPtpList();-->
+                        <!--//     });-->
+                        <!--// });-->
+                    <!--</script>-->
+
+                    <!--<script>-->
+                        <!--var ptp_summary = new Vue({-->
+                            <!--el: '#ptp-summary',-->
+                            <!--data: {-->
+                                <!--filter: '',-->
+                                <!--ptpList: [],-->
+                                <!--summaryStatusWiseList: [],-->
+                            <!--},-->
+                            <!--computed: {-->
+                                <!--accountListStatusWise() {-->
+                                    <!--return this.ptpList.filter(ptp => ptp.status === this.filter);-->
+                                <!--}-->
+                            <!--},-->
+                            <!--filters:{-->
+                                <!--fixedTwoDigit: function(value){-->
+                                    <!--return value.toFixed(2);-->
+                                <!--}-->
+                            <!--},-->
+                            <!--methods: {-->
+                                <!--getPtpList() {-->
+                                    <!--let unit = $("#globalUnitForSummary").val().toLowerCase();-->
+                                    <!--let url = 'https://' + window.location.host + '/collection/dashboard/distribution/ptp_status?unit=' + unit;-->
+
+                                    <!--this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})-->
+                                        <!--.then(res => {-->
+                                            <!--if (res.body) {-->
+                                                <!--console.log(res.body);-->
+                                                <!--this.ptpList = res.body;-->
+                                                <!--this.summaryStatusWise();-->
+
+                                            <!--}-->
+                                        <!--}).catch(err => {-->
+                                        <!--console.log(err);-->
+                                    <!--})-->
+                                <!--},-->
+
+                                <!--summaryStatusWise() {-->
+                                    <!--this.summaryStatusWiseList = [];-->
+                                    <!--ptpSummaryTeamLeader.updatePtpList(this.ptpList);-->
+                                    <!--let brokenCount = 0, brokenSum = 0, keptCount = 0, keptSum = 0, curedCount = 0, curedSum = 0;-->
+                                    <!--for (let index = 0; index < this.ptpList.length; index++) {-->
+                                        <!--let ptp = this.ptpList[index];-->
+
+                                        <!--if (ptp.status.toLowerCase() === 'broken') {-->
+                                            <!--brokenCount++;-->
+                                            <!--brokenSum += parseFloat(ptp.amount != null ? ptp.amount : 0);-->
+                                        <!--}-->
+                                        <!--else if (ptp.status.toLowerCase() === 'kept') {-->
+                                            <!--keptCount++;-->
+                                            <!--keptSum += parseFloat(ptp.amount != null ? ptp.amount : 0)-->
+                                        <!--}-->
+                                        <!--else if (ptp.status.toLowerCase() === 'cured' ) {-->
+                                            <!--curedCount++;-->
+                                            <!--curedSum += parseFloat(ptp.amount != null ? ptp.amount : 0)-->
+                                        <!--}-->
+                                    <!--}-->
+
+                                    <!--this.summaryStatusWiseList.push({-->
+                                        <!--"status": "broken",-->
+                                        <!--"count": brokenCount,-->
+                                        <!--"totalAmount": brokenSum-->
+                                    <!--});-->
+
+                                    <!--this.summaryStatusWiseList.push({-->
+                                        <!--"status": "kept",-->
+                                        <!--"count": keptCount,-->
+                                        <!--"totalAmount": keptSum-->
+                                    <!--});-->
+
+                                    <!--this.summaryStatusWiseList.push({-->
+                                        <!--"status": "cured",-->
+                                        <!--"count": curedCount,-->
+                                        <!--"totalAmount": curedSum-->
+                                    <!--});-->
+
+                                    <!--console.log(this.summaryStatusWiseList);-->
+                                <!--},-->
+                                <!--changeFilter(filter) {-->
+                                    <!--this.filter = filter;-->
+                                <!--}-->
+
+
+                            <!--}-->
+                        <!--});-->
+                    <!--</script>-->
+                <!--</div>-->
+                <div th:replace="retail/card/dashboard/shared/ptp/dealer-ptp-summary :: ptp_status_summary_fragement"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane top-buffer" id="dealer-wise-ptp-summary-loan">
+                <div th:replace="retail/card/dashboard/shared/ptp/team-lead-ptp-summary :: team-lead-ptp-summary"></div>
+            </div>
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                    var dealerList = /*[[${dealerDetail}]]*/ [];
+                /*]]>*/
+            </script>
+            <script>
+                var ptpSummaryTeamLeader = new Vue({
+                    el: '#dealer-wise-ptp-summary-loan',
+                    data: {
+                        selectedDealerList: [],
+                        dealerList: [],
+
+                        ptpList:[],
+                        ptpSummaryDealerWiseList:[],
+                    },
+                    computed:{
+                        selectedDealerName(){
+                            return this.selectedDealerList.map(dealer => dealer.dealerPin);
+                        },
+                        filterDealerWisePtpSummary(){
+                            this.ptpSummaryDealerWiseList = [];
+
+                            for(let i=0; i<this.selectedDealerName.length; i++){
+                                let dealerPin = this.selectedDealerName[i];
+                                let pushToArray = false;
+                                let brokenCount = 0, brokenSum = 0, keptCount = 0, keptSum = 0, curedCount = 0, curedSum = 0;
+
+                                this.ptpList.forEach(item => {
+                                    if(item.dealerPin === dealerPin){
+                                        pushToArray = true;
+
+                                        if (item.status.toLowerCase() === 'broken') {
+                                            brokenCount++;
+                                            brokenSum += parseFloat(item.amount != null ? item.amount : 0);
+                                        }
+                                        else if (item.status.toLowerCase() === 'kept') {
+                                            keptCount++;
+                                            keptSum += parseFloat(item.amount != null ? item.amount : 0)
+                                        }
+                                        else if (item.status.toLowerCase() === 'cured' ) {
+                                            curedCount++;
+                                            curedSum += parseFloat(item.amount != null ? item.amount : 0)
+                                        }
+                                    }
+                                });
+
+                                if(pushToArray){
+                                    this.ptpSummaryDealerWiseList.push({
+                                        "dealerPin": dealerPin,
+                                        "brokenCount": brokenCount,
+                                        "brokenSum": brokenSum,
+                                        "keptCount": keptCount,
+                                        "keptSum": keptSum,
+                                        "curedCount": curedCount,
+                                        "curedSum": curedSum,
+                                    })
+                                }
+
+                            }
+                            return 1;
+                        }
+                    },
+                    components:{
+                        Multiselect: VueMultiselect.default
+                    },
+                    created(){
+                        this.dealerList = dealerList;
+                    },
+                    methods:{
+                        nameWithPin({ dealerPin, dealerName}){
+                            return `${dealerPin} - ${dealerName}`;
+                        },
+                        updatePtpList( data){
+                            this.ptpList = data;
+                        }
+                    }
+                })
+            </script>
+        </div>
+    </div>
+</body>
+</html>

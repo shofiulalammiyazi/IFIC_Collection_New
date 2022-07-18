@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Customer And Borrower Info</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="customer_and_borrower_info">
+    <div id="update_additionalInfo" class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Customer and Borrower's Info</h3>
+
+        </div>
+        <div class="box-body">
+
+            <!--<div class="form-control col-sm-6">-->
+            <!--<label class="col-sm-6">Status :</label>-->
+            <!--<label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="status">{{entity.status}}</label>-->
+            <!--</div>-->
+
+            <!--</br>-->
+            <!--</br>-->
+
+            <div class="box-footer">
+                <button  class="btn printer pull-right" @click="print" >Print</button>
+                <!--<button v-if="!isEditing && (!entity.status || entity.status == 'CONFIRM' || entity.status == 'REJECT')" class="btn btn-info pull-right" @click="isEditing = true">Edit</button>-->
+                <!--<button v-if="isEditing" class="btn btn-primary pull-right" @click="save">Save</button>-->
+            </div>
+
+
+            <form class="form-horizontal csi-view-form">
+
+                <input type="hidden" name="customerId"/>
+
+                <div class="csi-indi-form-box">
+                    <div  action="" method="post" class="form-group row csi-view-form-group">
+
+                        <div id="printBody" class="box">
+                            <table class="table table-condensed">
+                                <tbody>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Branch Name :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="branchName">{{branchInfo.branchName}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Loan Account Name :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="accountName">{{loanAccInfo.accountName}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Loan Account Number :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="loanAcNumber">{{loanAccInfo.accountNumber}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">CASA Account Number :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="casaAcNumber">{{loanAccDetails.sattlementLoanAc}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Loan Limit :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="loanLimit">{{numberToBdt(loanAccDetails.limitAmount)}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Loan Outstanding :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="loanOS">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Overdue :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="overDue">{{numberToBdt(loanAccDetails.overdue)}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Overdue Amount(Monthend) :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="overDueAmount">{{numberToBdt(loanAccDetails.amountPaidLastMnth)}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">EMI (Per Sanction) :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="emi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Present EMI :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="presentEmi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Rate of Interest(Per Sanction) :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="rateOfInterest">{{loanAccDetails.interestRate}} %</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Present Rate of Interest :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="presentRateInterest">{{loanAccDetails.interestRate}} %</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Bucket :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="bucket">{{loanAccDetails.dpdBucket}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Current Month Schedule date :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="crntScheduleDate">{{formatDate(loanAccInfo.scheduleCurDate)}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Last payment date :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="paymentDate">{{loanAccStatement.valueDate | formatDate}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Last payment Amount :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="paymentAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Total payment till date :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="totalPayment">{{numberToBdt(loanAccStatement.totalCustomerPaid)}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Disburse Date :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="disburseDate">{{loanAccDetails.disbursementDate}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Deferred Status-Yes/No :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="deferredStatus">{{ deferredAccount !==null?deferredAccount.status:""}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Expiry Date(After Deferral) :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="expiryDate">{{loanAccDetails.expiryDate}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Occupation :</label>
+                                            <label class="col-sm-6 custom-form-lebel"  v-if="customerInfo.employer != '' && entity.occupation == null ">{{customerInfo.employer}}</label>
+                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.employer != '' && entity.occupation != null" id="occupation">{{entity.occupation}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Organization Name :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="organizationName">{{entity.organizationName}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Contact No :</label>
+                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo != null" id="contactNo">{{entity.contactNo}}</label>
+                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo == null" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Email Address :</label>
+                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email == null "  id="emailAddress">{{customerInfo.email}}</label>
+                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email != null " id="email">{{entity.email}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Spouse Mobile No :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="spouseMobileNo">{{entity.spouseMobileNo}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Spouse occupation :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="spouseOccupation">{{entity.spouseOccupation}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-3">Home Address :</label>
+                                            <label class="col-sm-9 custom-form-lebel" v-if="customerInfo.correspondenceAddress != '' && latestAdditionalInfo.homeAddress == null" id="homeAddress">{{customerInfo.correspondenceAddress}}</label>
+                                            <label class="col-sm-9 custom-form-lebel" v-if="customerInfo.correspondenceAddress != '' && latestAdditionalInfo.homeAddress != null">{{latestAdditionalInfo.homeAddress}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-3">Office Address :</label>
+                                            <label class="col-sm-9 custom-form-lebel" id="officeAddress" v-if="customerInfo.correspondenceAddress != '' && latestAdditionalInfo.officeAddress != null">{{latestAdditionalInfo.officeAddress}}</label>
+                                            <label class="col-sm-9 custom-form-lebel" v-if="customerInfo.correspondenceAddress != '' && latestAdditionalInfo.officeAddress == null">{{customerInfo.correspondenceAddress}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-3">Permanent Address :</label>
+                                            <label class="col-sm-9 custom-form-lebel" id="permanentAddress" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress != null">{{latestAdditionalInfo.permanentAddress}}</label>
+                                            <label class="col-sm-9 custom-form-lebel" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress == null">{{customerInfo.permanentAddress}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">FID status :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="fidStatus">{{loanAccDetails.fid}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Credit Card Client ID (If Any) :</label>
+                                            <label class="col-sm-6 custom-form-lebel"  id="creditCardId">{{entity.creditCardId}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                           <!-- <label class="col-sm-6">RM Name & ID :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="rmNameId">{{entity.rmNameId}}</label>-->
+                                            <label class="col-sm-6">RM Name & ID :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="rmNameId">{{rmName}}-{{loanAccInfo.rmCode}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                         <!--   <label class="col-sm-6">RM mobile no :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="rmMobileNo">{{entity.rmMobileNo}}</label>-->
+                                            <label class="col-sm-6">RM mobile no :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="rmMobileNo">{{rmContactNo}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Dealer Name :</label>
+                                            <label class="col-sm-3 custom-form-lebel"
+                                                   th:text="${distributionInfo != null ? distributionInfo.dealerName : ''}"></label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="dealerName">{{entity.dealerName}}</label>-->
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-6">Dealer mobile No :</label>
+                                            <label class="col-sm-6 custom-form-lebel" id="dealerMobileNo">{{entity.dealerMobileNo}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group" style="margin-bottom: 0px !important;">
+                                            <label class="col-sm-3">Remarks :</label>
+                                            <label class="col-sm-9 custom-form-lebel" id="remarks">{{entity.remarks}}</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <!--<div class="box-footer">-->
+            <!--&lt;!&ndash;<button v-if="!isEditing && (!entity.status || entity.status == 'CONFIRM' || entity.status == 'REJECT')" class="btn btn-info pull-right" @click="isEditing = true">Edit</button>&ndash;&gt;-->
+            <!--<button v-if="isEditing" class="btn btn-primary pull-right" @click="save">Save</button>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+
+        var distributionInfo1 = [[${distributionInfo1}]];
+
+
+        var update_additionalInfo = new Vue({
+            el: "#update_additionalInfo",
+            data: {
+                entity: {customerId: customerId},
+                accountDistributionInfo: {},
+                branchInfo: {},
+                loanAccInfo: {},
+                loanAccDetails: {},
+                loanAccStatement: {},
+                customerInfo: {},
+
+                showOccupation:false,
+                showContactNo:false,
+                showEmail:false,
+                showHomeAddress:false,
+                showOfficeAddress:false,
+                showPermanentAddress:false,
+                latestAdditionalInfo:{},
+                deferredAccount:[],
+                rmInformation:{},
+                rmName:'',
+                rmContactNo:'',
+            },
+            computed: {
+            },
+            created: function () {
+
+                this.setAccountDistributionInfo();
+                // this.getAccountInfo(this.accountNo);
+                // this.getAccountDetails(this.accountNo);
+                // this.getAccountStatement(this.accountNo);
+                this.getData();
+                this.getDeferredData();
+
+                profile_information.customerAndBorrowerInfo = this;
+            },
+
+
+            methods: {
+                setLatestAdditionalInfo: function (data) {
+                    this.latestAdditionalInfo = data;
+                },
+
+                numberToBdt: function (value) {
+                    return formatBdtInEnglish(value);
+                },
+                formatDate: function (date) {
+                    return formatDate_DD_MM_YYYY(date)
+                },
+
+                setAccountDistributionInfo() {
+                    let distributionInfo = [[${distributionInfo1}]];
+                    this.accountDistributionInfo = distributionInfo ? distributionInfo : {};
+                },
+
+                // getCustomerInfo(customerNo) {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/customer-info?customerNo=' + customerNo;
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         if (typeof res.body !== 'string')
+                //     {
+                //         this.customerInfo = res.body;
+                //         visitLedgerApp.homeAddress = this.customerInfo.correspondenceAddress;
+                //         visitLedgerApp.permanentAddress = this.customerInfo.permanentAddress;
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // },
+                //
+                // getBranchInfo(branchCode) {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/branch-info?branchCode=' + branchCode;
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         let data = res.body;
+                //     if (data) {
+                //         this.branchInfo = res.body;
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // },
+                //
+                // getAccountInfo(accountNo) {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/account-info?accountNo=' + accountNo;
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         let data = res.body;
+                //     if (data) {
+                //         this.loanAccInfo = res.body;
+                //         let customerNo = data.customerId;
+                //         if (customerNo) this.getCustomerInfo(customerNo);
+                //         let branchCode = data.branchCode;
+                //         if (branchCode){
+                //             this.getBranchInfo(branchCode);
+                //             this.getCasaAccInfo(branchCode, accountNo);
+                //         }
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // }, test() {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/test';
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         let data = res.body;
+                //     if (data) {
+                //
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // },
+                //
+                // getAccountDetails(accountNo) {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/account-details?accountNo=' + accountNo;
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         let data = res.body;
+                //     if (data) {
+                //         this.loanAccDetails = res.body;
+                //
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // },
+                // getAccountStatement(accountNo) {
+                //     let host = window.location.host;
+                //     let url = 'https://' + host + '/loan/api/loan-account-statement/latest?accountNo=' + accountNo;
+                //     this.$http.get(url,
+                //         {
+                //             credentials: true,
+                //             headers: {
+                //                 'X-CSRF-TOKEN': window.csrfToken,
+                //             }
+                //         }
+                //     ).then(res => {
+                //         let data = res.body;
+                //     if (data) {
+                //         this.loanAccStatement = res.body;
+                //
+                //     }
+                // }).catch(err => {
+                //         console.log(err);
+                // });
+                // },
+
+                enforcePhoneFormat() {
+                    let x = this.dealerMobileNo
+                        .replace(/\D/g, "")
+                        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+
+                    this.dealerMobileNo = !x[2]
+                        ? x[1]:"";
+                    // : "(" + x[0] + ") " + x[1] + (x[3] ? "-" + x[3] : "");
+                },
+
+                // save: function () {
+                //     let vm = this;
+                //     let entity = JSON.stringify(vm.entity);
+                //     var token = $("meta[name='_csrf']").attr("content");
+                //     var header = $("meta[name='_csrf_header']").attr("content");
+                //     $.ajax({
+                //         type: 'POST',
+                //         contentType: "application/json",
+                //         url: '/loan/api/customer-other-info/save',
+                //         data: entity,
+                //         beforeSend: function (xhr) {
+                //             xhr.setRequestHeader(header, token);
+                //         },
+                //         success: function (response) {
+                //             console.log(response);
+                //             if (typeof response.body !== 'string' && response.success) {
+                //                 vm.entity.id = response.id;
+                //                 vm.entity.status = response.status;
+                //                 vm.isEditing = false;
+                //                 swal("Saved Successfully");
+                //             } else {
+                //                 swal("Something went wrong");
+                //             }
+                //         }
+                //     })
+                // },
+                getData: function () {
+                    var host = window.location.host;
+                    var url = 'https://' + host + '/collection/additionalInfo/latest?accountNo=' + accountNo;
+                    console.log("testing : " + url );
+                    this.$http.get(url,
+                        {
+                            credentials: true, headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }).then(res => {
+                        if (typeof res.body !== 'string') {
+                        this.entity = res.body ? res.body : {customerId: customerId};
+                    }
+                }).catch(err => {
+                        console.log(err);
+                })
+                },
+
+                getDeferredData: function () {
+                    var host = window.location.host;
+                    var url = 'https://' + host + '/collection/deferred/find?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true, headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }).then(res => {
+                        if (res.body) {
+                        this.deferredAccount = res.body;
+                    }
+                }).catch(err => {
+                        console.log(err);
+                    alert('error')
+                })
+                },
+
+                getAccountInfo(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-info?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                    if (data) {
+                        this.rmInformation = res.body;
+                    }
+                }).catch(err => {
+                        console.log(err);
+                });
+                },
+
+                print: function () {
+                    printElementIncludingStylesCustomer('printBody');
+                },
+
+            },
+            filters: {
+                dateFormat: function (value) {
+                    if(value ==undefined || value == null || value ==''){return ''}
+                    //console.log("date format value : "+value)
+                    if (!value) return '';
+                    let date = new Date(value);
+                    let day = date.getDate();
+                    if (day < 10) day = '0' + day;
+                    return day + '-' + profile_information.monthNames[date.getMonth()] + '-' + date.getFullYear();
+                },
+                formatDate: function (value) {
+                    return formatDate_DD_MM_YYYY(value);
+                },
+                getAbsoluteValue: function (value) {
+                    return value < 0 ? value * -1 : value;
+                },
+                valueWithTwoPrecesion: function (value) {
+                    console.log("valueWithTwoPrecesion value : "+value)
+                    return (typeof value === "number") ? value : 0;
+                },
+                getEmiDueDay: function (value) {
+                    if (!value) return '';
+                    let day = new Date(value).getDate();
+                    if (day < 10) day = '0' + day;
+                    return day + ' (M)';
+                },
+                formatCurrency(value) {
+                    return formatBdCurrency(value);
+                },
+                getDateFormatFromNumeric: function (value) {
+                    if (!value) return "";
+                    let split = value.split(' ');
+                    value = split[0];
+                    return value.substr(8, 2) + '-' + profile_information.monthNames[parseInt(value.substr(5, 2)) - 1] + '-' + value.substr(0, 4);
+                },
+
+
+
+            }
+
+
+        })
+
+        // $(document).ready(function () {
+        //
+        //         $.ajax({
+        //             url: '/loan/api/customer-info?customerNo=' + $("#rmCodeId").text(),
+        //             success: function (response) {
+        //                 update_additionalInfo.rmName = response.customerName;
+        //                 update_additionalInfo.rmContactNo = response.mobileNumber;
+        //                 /*alert("jjjjj"+response.customerName)*/
+        //             },
+        //             error: function (response) {
+        //                 alert('Unsuccessful');
+        //             }
+        //         })
+        //
+        // });
+
+
+    </script>
+
+
+</div>
+</body>
+
+</html>

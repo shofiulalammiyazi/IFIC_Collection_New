@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Liability position borrower discussed</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="liability-position-borrower-discussed">
+    <div class="csi-view-form-full-area csi-view-indtable" id="liability-discussion">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Liability position borrower discussed</h3>
+            <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" id="add-liability" data-toggle="modal" data-target="#modal-liability-position-discussion" >
+                <i class="fa fa-plus-square"></i>
+                Add More
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-liability-position-discussion"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <h3 >Liability position borrower discussed</h3>
+                            </div>
+
+                            <form  id="liability-borrower-discussion-form" action="" method="post" class="form-horizontal" >
+                                <input type="hidden" name="id" id="liability-borrower-discussion-id">
+                                <input name="_csrf" type="hidden">
+                                <input name="customerId" type="hidden">
+                                <div class="modal-body">
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Name of the Borrower:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-borrowerName" name="borrowerName"  class="form-control" placeholder="Borrower name"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">A/C Number:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-accountNum" name="accountNum" class="form-control" placeholder="Account No."></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Limit:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-limit" name="limit"  class="form-control" placeholder="Limit"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">Outstanding:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-osdt" name="osdt"  class="form-control" placeholder="Outstanding"></input>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Bank's Claim:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-bankClaim" name="bankClaim"  class="form-control" placeholder="Bank's Claim"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">MV:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="liability-marketvalue" name="marketvalue"  class="form-control" placeholder="Market Value"></input>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">FSV:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="liability-forcedSalesValue" name="forcedSalesValue"  class="form-control" placeholder="Forced Sales value"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">CL Status:</label>
+                                        <div class="col-sm-4">
+                                            <select id="liability-position-discussion-clstatus" name="clStatus" class="form-control">
+                                                <option value="0">Select CL Status</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <h4>Interest</h4>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Suspense:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-suspense" name="suspense"  class="form-control" placeholder="Suspense"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">Unapplied :</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liability-unapplied" name="unapplied"  class="form-control" placeholder="Unapplied"></input>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table type="datatable-responsive" id="liability-discussion-table"
+                           class="table table-striped table-bordered table-condensed" width="100%">
+                        <thead>
+                        <tr>
+                            <td rowspan="2">SL</td>
+                            <td rowspan="2">Name of the borrower</td>
+                            <td rowspan="2">A/C Number</td>
+                            <td rowspan="2">Limit</td>
+                            <td rowspan="2">OSTD</td>
+                            <td  colspan="2" style="text-align: center">Interest</td>
+                            <td rowspan="2">Banks claim</td>
+                            <td rowspan="2">MV</td>
+                            <td rowspan="2">FSV</td>
+                            <td rowspan="2">CL Status</td>
+                            <td rowspan="2">Action</td>
+                        </tr>
+                        <tr>
+                            <td>Suspense</td>
+                            <td>Unapplied</td>
+                        </tr>
+                        </thead>
+                        <tbody id="liability-discussion-body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $('#liability-borrower-discussion-form input[name="_csrf"]').val(csrfToken);
+            $('#liability-borrower-discussion-form input[name="customerId"]').val(customerId)
+
+            function liabilitylist() {
+
+                $.getJSON('/collection/samd/data-entry/visit-report/liability-discussion/list?customerId='+customerId, function (json) {
+                    formData = json;
+                    console.log(formData);
+
+                    var tr = [];
+                    var n = 1;
+                    for (var i = 0; i < json.length; i++){
+                        tr += ('<tr>');
+                        tr += ('<td>' + n + '</td>');
+                        tr += ('<td>' + (json[i].borrowerName == null ? '' : json[i].borrowerName) + '</td>');
+                        tr += ('<td>' + (json[i].accountNum == null ? '' : json[i].accountNum ) + '</td>');
+                        tr += ('<td>' + (json[i].limit == null ? '' : json[i].limit) + '</td>');
+                        tr += ('<td>' + (json[i].osdt == null ? '' : json[i].osdt) + '</td>');
+                        tr += ('<td>' + (json[i].suspense == null ? '' : json[i].suspense) + '</td>');
+                        tr += ('<td>' + (json[i].unapplied == null ? '' : json[i].unapplied) + '</td>');
+                        tr += ('<td>' + (json[i].bankClaim == null ? '' : json[i].bankClaim) + '</td>');
+                        tr += ('<td>' + (json[i].marketvalue == null ? '' : json[i].marketvalue) + '</td>');
+                        tr += ('<td>' + (json[i].forcedSalesValue == null ? '' : json[i].forcedSalesValue) + '</td>');
+                        tr += ('<td>' + (json[i].clStatus == null ? '' : json[i].clStatus.name) + '</td>');
+                        tr += ('<td><a class="btn btn-primary btn-xs" id="edit-liability-discussion-loan" data-toggle="modal" data-target="#modal-liability-position-discussion" data-id = "'+json[i].id+'" <i class="fa fa-edit"></i>Edit</a></td>');
+                        tr += ('</tr>')
+                        n++;
+                    }
+                    $('#liability-discussion-body').html(tr);
+
+
+                })
+
+             }
+
+
+
+            $('#tab-liabilityPositionBorrowerDiscussed').on('click', function () {
+                liabilitylist();
+                getLatestLiabilityPositionClStatus();
+            })
+
+            $('#add-liability').on('click', function () {
+                $('#liability-borrower-discussion-form').find("input[type!=hidden], select").val("");
+            })
+
+
+            function getLatestLiabilityPositionClStatus(){
+                $.ajax({
+                    url: '/collection/samd/data-entry/settlement-latest-liability-loan-listing/cl-status',
+                    success: function (response) {
+                        let options = "<option value=''>Select CL Status</option>";
+                        $.each(response, function (index, data) {
+                            options += "<option value='"+data.id+"'>"+data.name+"</option>";
+                        })
+                        $('#liability-position-discussion-clstatus').html(options);
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful");
+                    }
+                })
+            }
+
+
+            $("tbody").delegate("#edit-liability-discussion-loan", "click", function () {
+                $.ajax({
+                    url: '/collection/samd/data-entry/visit-report/liability-discussion/find?id='+$(this).data('id'),
+                    success: function (response) {
+                        $('#liability-borrower-discussion-id').val(response.id);
+                        $('#liability-borrowerName').val(response.borrowerName);
+                        $('#liability-accountNum').val(response.accountNum);
+                        $('#liability-limit').val(response.limit);
+                        $('#liability-osdt').val(response.osdt);
+                        $('#liability-suspense').val(response.suspense);
+                        $('#liability-unapplied').val(response.unapplied);
+                        $('#liability-bankClaim').val(response.bankClaim);
+                        $('#liability-marketvalue').val(response.marketvalue);
+                        $('#liability-forcedSalesValue').val(response.forcedSalesValue);
+                        $('#liability-position-discussion-clstatus').val(response.clStatus == null ? '' : response.clStatus.id);
+                    },
+                    error: function (response) {
+                        console.log("Something went wrong.")
+                    }
+                })
+            })
+
+
+            $('#liability-borrower-discussion-form').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/samd/data-entry/visit-report/liability-discussion/save',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-liability-position-discussion').modal('toggle');
+                        $('#liability-borrower-discussion-form').find("input:not(:hidden)").val("");
+                        $('#liability-borrower-discussion-form').find("select").val("");
+                        $('#liability-discussion-body').html("");
+                        liabilitylist();
+
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

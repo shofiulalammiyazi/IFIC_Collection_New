@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Agency </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <style>
+                            .form-horizontal .control-label {
+                                padding-top: 0px;
+                                margin-bottom: 0;
+                                text-align: right;
+                            }
+                        </style>
+                        <div class="box-header with-border">
+                            <h3 class="box-title">View Agency Details</h3>
+                            <a th:href="@{/collection/samd/agency/list}" class="btn btn-primary btn-sm" style="float: right;">Back To List</a>
+                        </div>
+
+                        <form class="form-horizontal">
+                            <div class="box-body">
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Agency Name</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${agency.name}" ></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Agency Contact Person</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${agency.contactPerson}" ></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Agency Phone</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${agency.contactNo}" ></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Remarks</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${agency.remarks}" ></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Status</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:if="${agency.enabled == true}" th:text="Active"></level>
+                                        <level th:if="${agency.enabled == false}" th:text="Inactive"></level>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">View File</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <a class="btn btn-success btn-xs" target="_blank" title="Preview"
+                                           th:href="@{'/collection/dms/document/preview?id='+${agency.dmsFileId}+'&type='+${agency.dmsFileType}}">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

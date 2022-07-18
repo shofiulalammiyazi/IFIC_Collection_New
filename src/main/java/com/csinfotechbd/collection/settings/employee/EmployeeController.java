@@ -1,0 +1,329 @@
+package com.csinfotechbd.collection.settings.employee;
+/*
+Created by Monirul Islam at 7/7/2019 
+*/
+
+import com.csinfotechbd.collection.allocationLogic.PeopleAllocationLogicInfo;
+import com.csinfotechbd.collection.allocationLogic.PeopleAllocationLogicService;
+import com.csinfotechbd.collection.emi.EmiEntity;
+import com.csinfotechbd.collection.settings.branch.BranchService;
+import com.csinfotechbd.collection.settings.department.DepartmentService;
+import com.csinfotechbd.collection.settings.designation.DesignationService;
+import com.csinfotechbd.collection.settings.division.DivisionService;
+import com.csinfotechbd.collection.settings.employeeStatus.EmployeeStatusService;
+import com.csinfotechbd.collection.settings.jobRole.JobRoleService;
+import com.csinfotechbd.collection.settings.location.LocationService;
+import com.csinfotechbd.collection.settings.unit.UnitService;
+import com.csinfotechbd.user.User;
+//import com.ibm.icu.util.Calendar;
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping(value = "/collection/employee/")
+public class EmployeeController {
+
+    private final EmployeeService employeeService;
+    private final DesignationService designationService;
+    private final LocationService locationService;
+    private final JobRoleService jobRoleService;
+    private final DepartmentService departmentService;
+    private final DivisionService divisionService;
+    private final UnitService unitService;
+    private final EmployeeStatusService employeeStatusService;
+    private final PeopleAllocationLogicService peopleAllocationLogicService;
+    private final BranchService branchService;
+
+    @GetMapping(value = "list")
+    public String viewAll(Model model) {
+        List<EmployeeInfoEntity> activeEmployees=employeeService.getAll().stream().filter(e->e.getEmployeeStatus().getName().equalsIgnoreCase("WORKING")).collect(Collectors.toList());
+        model.addAttribute("empList", employeeService.getAll());
+        model.addAttribute("activeEmployees", activeEmployees);
+        return "collection/settings/employee/employee";
+    }
+
+    @GetMapping(value = "create")
+    public String addPage(Model model) {
+        model.addAttribute("entity", new EmployeeInfoEntity());
+        return populateDateFormModel(model);
+    }
+
+    @GetMapping(value = "edit")
+    public String editPage(Model model, @RequestParam(value = "id") Long id) {
+        model.addAttribute("entity", employeeService.getById(id));
+        return populateDateFormModel(model);
+    }
+
+    private String populateDateFormModel(Model model) {
+        model.addAttribute("desList", designationService.getActiveList());
+        model.addAttribute("locationList", locationService.getActiveList());
+        model.addAttribute("roleList", jobRoleService.getActiveList());
+        model.addAttribute("deptList", departmentService.getActiveList());
+        model.addAttribute("divList", divisionService.getActiveList());
+        model.addAttribute("unitList", unitService.getActiveList());
+        model.addAttribute("statusList", employeeStatusService.getAllActive());
+        model.addAttribute("branches", branchService.getActiveList());
+        return "collection/settings/employee/create";
+    }
+
+    @PostMapping(value = "create")
+    public String saveNew(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
+        if (!result.hasErrors()) {
+            boolean isValid = isValidEmployee(employee, model);
+            boolean isExist = true;
+            if (employee.getId() == null){
+                isExist = isEmailExist(employee.getEmail());
+            }
+            if (isExist == true){
+                if (isValid) {
+                    String output = employeeService.save(employee);
+                    switch (output) {
+                        case "1":
+                            return "redirect:/collection/employee/list";
+                        default:
+                            model.addAttribute("error", output);
+                    }
+                }
+            }else
+                model.addAttribute("emailExist", true);
+
+        }
+        model.addAttribute("entity", employee);
+        return populateDateFormModel(model);
+
+    }
+
+
+    private boolean isEmailExist(String email) {
+        EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(email);
+        if (employeeInfoEntity == null){
+            return true;
+        }
+        return false;
+    }
+
+    @GetMapping(value = "view")
+    public String viewPage(@RequestParam(value = "id") Long id, Model model) {
+        EmployeeInfoEntity employee = employeeService.getById(id);
+        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
+        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
+        String unit = employee.getUnit();
+        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
+        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
+        if (allocationLogicInfo != null) {
+            User user = null;
+            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
+            switch (designation) {
+                case "dealer":
+                    user = allocationLogicInfo.getTeamlead().getUser();
+                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
+                case "teamleader":
+                    user = allocationLogicInfo.getSupervisor().getUser();
+                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
+                case "supervisor":
+                    user = allocationLogicInfo.getManager().getUser();
+                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
+            }
+        }
+        model.addAttribute("age", age);
+        model.addAttribute("workingYear", workingYear);
+        model.addAttribute("entity", employee);
+        return "collection/settings/employee/view";
+    }
+
+    public String diffDate(Date start, Date end) {
+
+        if (start == null) return "Not definable";
+        if (end == null) end = new Date();
+
+        Calendar calStart = Calendar.getInstance(Locale.US);
+        calStart.setTime(start);
+
+        Calendar calEnd = Calendar.getInstance(Locale.US);
+        calEnd.setTime(end);
+
+        int year = calEnd.get(Calendar.YEAR) - calStart.get(Calendar.YEAR);
+        int month = 0;
+        if (calEnd.get(Calendar.MONTH) < calStart.get(Calendar.MONTH)) {
+            year = year - 1;
+            month = 12 - calEnd.get(Calendar.MONTH) - 1;
+            month = month + calStart.get(Calendar.MONTH) - 1;
+            month = month + calStart.get(Calendar.MONTH);
+
+        } else {
+            month = calEnd.get(Calendar.MONTH) - calStart.get(Calendar.MONTH);
+        }
+
+        return year + " Years and " + month + " Months";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "check")
+    public boolean checkRoom(@RequestParam("pin") String pin) {
+        return employeeService.existsByPin(pin);
+    }
+
+    private boolean isValidEmployee(EmployeeInfoEntity employee, Model model) {
+        boolean isValid = true;
+
+//            if (!employeeService.isValidPhone(employee.getHomePhone())) {
+//                model.addAttribute("invalidHomePhone", true);
+//                isValid = false;
+//            }
+
+//            if (!employeeService.isValidPhone(employee.getOfficePhone())) {
+//                model.addAttribute("invalidOfficePhone", true);
+//                isValid = false;
+//            }
+
+        if (employee.getDesignation().getId() == null) {
+            isValid = false;
+            model.addAttribute("designationValidation", true);
+        }
+        if (employee.getDepartment().getId() == null) {
+            isValid = false;
+            model.addAttribute("departmentValidation", true);
+        }
+        return isValid;
+    }
+
+
+    @GetMapping(value = "pending-profile")
+    public String pendingProfile(Model model) {
+        List<EmployeeInfoEntity>employeeInfoEntityList=employeeService.getAll();
+        List<EmployeeInfoEntity> empPendingProfileList = employeeInfoEntityList.stream()
+                .filter(employeeInfoPendingList -> employeeInfoPendingList.getLocation().getId() == null
+                        || employeeInfoPendingList.getHomePhone() == null
+                        || employeeInfoPendingList.getJobNature() == null
+                        || employeeInfoPendingList.getJobRole().getId() == null
+                        || employeeInfoPendingList.getJoiningDate() == null
+                        || employeeInfoPendingList.getGender() == null
+                        || employeeInfoPendingList.getDOB() == null
+                        || employeeInfoPendingList.getBloodGroup() == null
+                        || employeeInfoPendingList.getEmergencyContactPerson() == null
+                        || employeeInfoPendingList.getEmergencyContactNo() == null
+                        || employeeInfoPendingList.getEmergencyContactRel() == null
+                        || employeeInfoPendingList.getPresentAddress() == null
+                        || employeeInfoPendingList.getPermanentAddress() == null
+                        || employeeInfoPendingList.getOfficeAddress() == null
+                        || employeeInfoPendingList.getIpAddress() == null
+                        || employeeInfoPendingList.getIpPhoneNo() == null
+                        || employeeInfoPendingList.getMobileLimit() == 0.0
+                        || employeeInfoPendingList.getDivision().getDivId() == null
+                        || employeeInfoPendingList.getEmployeeStatus().getId() == null
+                        || employeeInfoPendingList.getSignature() == null
+                        || employeeInfoPendingList.getAdviceLetter() == null
+                        || employeeInfoPendingList.getAdviceLetterDate() == null
+                        || employeeInfoPendingList.getDomainId() == null
+                        || employeeInfoPendingList.getLoanAccountNo() == null
+                        || employeeInfoPendingList.getCreditCardNo() == null
+                        || employeeInfoPendingList.getClientId() == null
+                        || employeeInfoPendingList.getAccountNo() == null
+                        || employeeInfoPendingList.getCif() == null
+                        || employeeInfoPendingList.getFatherName() == null
+                        || employeeInfoPendingList.getMotherName() == null
+                        || employeeInfoPendingList.getServiceTag()== null
+                        || employeeInfoPendingList.getAssetTag()== null
+                        || employeeInfoPendingList.getSpouseName()==null
+                        || employeeInfoPendingList.getSpousePhone()==null
+                        || employeeInfoPendingList.getLastEducation()==null
+                        || employeeInfoPendingList.getDomicileAddress()==null
+                        || employeeInfoPendingList.getPcBrand()==null
+                        || employeeInfoPendingList.getPcModel()==null
+                        || employeeInfoPendingList.getTrainingDetails()==null
+                        || employeeInfoPendingList.getHostName()==null
+                        || employeeInfoPendingList.getPemail()==null
+                        || employeeInfoPendingList.getNid()==null
+                        || employeeInfoPendingList.getETin()==null
+                        || employeeInfoPendingList.getMaritalStatus()==null
+                        || employeeInfoPendingList.getPhoto()==null
+
+                )
+                .collect(Collectors.toList());
+
+        model.addAttribute("empList", empPendingProfileList);
+        return "collection/settings/employee/employeependingprofiles";
+    }
+
+
+
+    @GetMapping(value = "edit-pending")
+    public String editPendingPage(Model model, @RequestParam(value = "id") Long id) {
+        model.addAttribute("entity", employeeService.getById(id));
+
+        model.addAttribute("desList", designationService.getActiveList());
+        model.addAttribute("locationList", locationService.getActiveList());
+        model.addAttribute("roleList", jobRoleService.getActiveList());
+        model.addAttribute("deptList", departmentService.getActiveList());
+        model.addAttribute("divList", divisionService.getActiveList());
+        model.addAttribute("unitList", unitService.getActiveList());
+        model.addAttribute("statusList", employeeStatusService.getAllActive());
+        return "collection/settings/employee/editPending";
+    }
+
+
+    @GetMapping(value = "pending-view")
+    public String pendingViewPage(@RequestParam(value = "id") Long id, Model model) {
+        EmployeeInfoEntity employee = employeeService.getById(id);
+        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
+        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
+        String unit = employee.getUnit();
+        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
+        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
+        if (allocationLogicInfo != null) {
+            User user = null;
+            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
+            switch (designation) {
+                case "dealer":
+                    user = allocationLogicInfo.getTeamlead().getUser();
+                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
+                case "teamleader":
+                    user = allocationLogicInfo.getSupervisor().getUser();
+                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
+                case "supervisor":
+                    user = allocationLogicInfo.getManager().getUser();
+                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
+            }
+        }
+        model.addAttribute("age", age);
+        model.addAttribute("workingYear", workingYear);
+        model.addAttribute("entity", employee);
+        return "collection/settings/employee/pendingView";
+    }
+
+
+    @GetMapping(value = "/findByDesignation")
+    @ResponseBody
+    public List<EmployeeInfoDto> getEmployeeByDesignation(@RequestParam Long id){
+
+        return employeeService.getByDesignationAndUnit(id);
+    }
+
+    @GetMapping("/upload-excel")
+    public String employeeUpload() {
+        return "collection/settings/employee/uploademployee";
+    }
+
+    @PostMapping("/upload-excel")
+    public String employeeUpload(@RequestParam("file") MultipartFile multipartFile, HttpSession session) {
+        List errors = employeeService.saveEmployeeFromExcel(multipartFile);
+        session.setAttribute("errors", errors);
+        return "redirect:list";
+    }
+
+}

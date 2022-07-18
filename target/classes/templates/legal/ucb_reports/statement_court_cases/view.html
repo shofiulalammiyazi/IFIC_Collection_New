@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div v-if="!data.length" class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row" style="height: 11em; overflow-y: scroll">
+                                <div class="col-sm-5">
+                                    <input type="text" placeholder="Account Name" class="form-control"
+                                           pattern="[a-zA-Z .\\-]+" title="Please insert valid words"
+                                           v-model="accountName">
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-5">
+                                    <multiselect v-model="selectedCaseFiledTypes"
+                                                 placeholder="Search Case Filed Types"
+                                                 label="name" track-by="id" :options="caseFiledTypes"
+                                                 :multiple="true" :taggable="true"
+                                                 :close-on-select="false"></multiselect>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-sm btn-info pull-right ajax"
+                                            @click="selectedCaseFiledTypes = caseFiledTypes">
+                                        All
+                                    </button>
+                                </div>
+                                <div class="col-sm-5">
+                                    <multiselect v-model="selectedCaseTypes" placeholder="Search Nature of Suits"
+                                                 label="name" track-by="id" :options="caseTypes"
+                                                 :multiple="true" :taggable="true"
+                                                 :close-on-select="false"></multiselect>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-sm btn-info pull-right ajax"
+                                            @click="selectedCaseTypes = caseTypes">
+                                        All
+                                    </button>
+                                </div>
+                                <div class="col-sm-5">
+                                    <multiselect v-model="selectedBranch" placeholder="Search Branch"
+                                                 label="branchName" track-by="branchId" :options="branches"
+                                                 :multiple="true" :taggable="true"
+                                                 :close-on-select="false"></multiselect>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-sm btn-info pull-right ajax"
+                                            @click="selectedBranch = branches">
+                                        All
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                        Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Test account name = M/S MD SALIM & BROTHERS-->
+            <div id="printBody" class="row" v-show="data.length">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button @click="print" class="btn btn-sm btn-primary pull-right">Print
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div>
+                                        <b>United Commercial Bank Limited</b>
+                                    </div>
+                                    <div>
+                                        <b>Legal Wing, SAMD</b>
+                                    </div>
+                                    <div>
+                                        <b>Corporate Office</b>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <img src="/images/ucbl_logo_x.png" class="pull-right">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <u>
+                                        <h6 class="text-center text-bold" th:text="${reportTitle}"></h6>
+                                    </u>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <b class="col-sm-3">Name of the Account :</b>
+                                <span class="col-sm-9">{{accountName}}</span>
+                            </div>
+                            <div class="row">
+                                <b class="col-sm-3">Name of the Defandant/Accused :</b>
+                                <span class="col-sm-9">{{data.length ? data[0].accountName : ''}}</span>
+                            </div>
+
+                            <form v-for="(suit,index) in data">
+                                <div class="row">
+                                    <b class="col-sm-3">Suit/Case filed :</b>
+                                    <span class="col-sm-8">{{suit.caseFiledType}}</span>
+                                    <span @click="removeData(index)" class="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <b class="col-sm-3">Branch Name :</b>
+                                        <span class="col-sm-9">{{suit.branchName>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Nature of Suit/Case :</b>
+                                        <span>{{suit.caseType}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b>Court Name :</b>
+                                        <span>{{suit.court}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b class="col-sm-6">Suit/Case No :</b>
+                                        <span class="col-sm-6">{{suit.caseNumber}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b class="col-sm-6">Date of filing :</b>
+                                        <span class="col-sm-6">{{suit.dateOfFiling}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b class="col-sm-6">Case Name :</b>
+                                        <span class="col-sm-6">{{suit.caseAmount}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <b>Lawyer Name :</b>
+                                            <span>{{suit.lawyerName}}</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <b>Lawyer Contact Number :</b>
+                                            <span>{{suit.lawyerPhone}}</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <b>Collateral Security Value :</b>
+                                            <b class="col-sm-4">MV :</b>
+                                            <span class="col-sm-8">{{suit.marketValue | formatCurrency}}</span>
+                                            <b class="col-sm-4">FSV :</b>
+                                            <span class="col-sm-8">{{suit.forcedSaleValue | formatCurrency}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b class="col-sm-6">Total Legal cost:</b>
+                                        <span class="col-sm-6">{{suit.legalExpense | formatCurrency}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b class="col-sm-6">Recovery:</b>
+                                        <span class="col-sm-6">{{suit.totalRecovery | formatCurrency}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <b>Next Date with Course of Action :</b>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-xs-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-condensed report-table">
+                                                <thead>
+                                                <tr>
+                                                    <th>SL</th>
+                                                    <th>Case Date</th>
+                                                    <th>Next Course of Action</th>
+                                                    <th>BLA Att.</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(revision,index) in suit.revisions">
+                                                    <td>{{index + 1}}</td>
+                                                    <td>{{revision.caseDate}}</td>
+                                                    <td>{{revision.courseOfAction}}</td>
+                                                    <td>{{revision.blaAttendance}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var reportTitle = /*[[${reportTitle}]]*/ [];
+            var caseFiledTypes = /*[[${caseFiledTypes}]]*/ [];
+            var caseTypes = /*[[${caseTypes}]]*/ [];
+            var branches = /*[[${branches}]]*/ [];
+            /*]]>*/
+        </script>
+
+        <script>
+            var customerWiseReportApp = new Vue({
+                el: '#report-app',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    accountName: '',
+                    caseFiledTypes: [],
+                    selectedCaseFiledTypes: [],
+                    caseTypes: [],
+                    selectedCaseTypes: [],
+                    branches: [],
+                    selectedBranch: [],
+                    data: [],
+                    isPrintState: false
+                },
+                created: function () {
+                    this.caseFiledTypes = Array.isArray(caseFiledTypes) ? caseFiledTypes : [];
+                    this.caseTypes = Array.isArray(caseTypes) ? caseTypes : [];
+                    this.branches = Array.isArray(branches) ? branches : [];
+                },
+                filters: {
+                    formatCurrency(value) {
+                        return formatBdCurrency(value);
+                    }
+                },
+                methods: {
+                    getReport: function (e) {
+                        e.preventDefault();
+                        let vm = this;
+                        vm.loading = true;
+
+                        let caseFiledTypes = vm.selectedCaseFiledTypes.map(item => item.id).join(",");
+                        let caseTypes = vm.selectedCaseTypes.map(item => item.id).join(",");
+                        let branches = vm.selectedBranch.map(item => item.branchName).join(",");
+
+                        let host = window.location.host;
+                        let url = 'https://' + host + '/legal/report/customer-wise-court-case-details/report?' +
+                            'accountName=' + encodeURIComponent(vm.accountName) + '&caseFiledTypes=' + caseFiledTypes + '&caseTypes=' + caseTypes + '&branches=' + branches;
+                        vm.$http.get(url)
+                            .then(res => {
+                                if (res.ok) {
+                                    if (!Array.isArray(res.body)) {
+                                        notifyError();
+                                        return;
+                                    }
+                                    vm.data = res.body;
+                                    vm.loading = false;
+                                }
+                            }).catch(err => {
+                        })
+                    },
+                    removeData: function (index) {
+                        this.data.splice(index, 1);
+                    },
+                    print: function () {
+
+                    },
+                }
+            })
+        </script>
+    </div>
+
+</div>
+
+</body>
+</html>

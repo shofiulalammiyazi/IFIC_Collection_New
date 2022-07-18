@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="panel-middle-collection-card">
+    <style type="text/css">
+        .customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .customers td, .customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /*.customers tr:hover {background-color: #ddd;}*/
+
+        .customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <div id="app">
+        <div th:replace="collection/cardprofile/cardGeneralView :: card-general-view"></div>
+        <div th:replace="collection/cardprofile/cardGeneralView_Profile :: profile"></div>
+        <div th:replace="collection/cardprofile/cardGeneralView_Personal :: personal"></div>
+        <div th:replace="collection/cardprofile/cardGeneralView_Account :: account"></div>
+        <!--<div th:replace="collection/cardprofile/cardGeneralView_BasicSupply :: basicsupply"></div>-->
+
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var accountNo = /*[[${cardCustomerInfo.customerId}]]*/ [];
+        var ptplist = /*[[${ptps}]]*/ [];
+        var ptpNotGson = /*[[${ptpsNotGson}]]*/
+        var followUplist = /*[[${folllowups}]]*/ [];
+        var dailyNotelist = /*[[${dailyNotes}]]*/ [];
+        var dairyNotelist = /*[[${dairyNotes}]]*/ [];
+        var hotNotelist = /*[[${hotNotes}]]*/ [];
+        var reasonDelins = /*[[${reasonDelins}]]*/ [];
+        var contactList = /*[[${contacts}]]*/ [];
+        var VLList = /*[[${visitLedger}]]*/ [];
+        var approvedPayment = /*[[${approvedPayment}]]*/ [];
+        var approvedTransaction = /*[[${approvedTransaction}]]*/ [];
+        var stmtDate = /*[[${statementDate}]]*/ [];
+        var cardList = /*[[${cardOtherInfoList}]]*/ [];
+        var secured = /*[[${secured}]]*/ [];
+        var agecodeList = /*[[${agecode}]]*/ [];
+        var mtsf = /*[[${mtsf}]]*/ {};
+        var profileInformation = /*[[${profileInformation}]]*/ {};
+        var personalInformation = /*[[${personalInformation}]]*/ {};
+        var paymentInfoDuringMonth = /*[[${paymentInfoDuringMonth}]]*/ {};
+        var autoPayAcUsd = /*[[${autoPayAcUsd}]]*/ {};
+        var autoPayAcBdt = /*[[${autoPayAcBdt}]]*/ {};
+
+        var emiList = /*[[${emiList}]]*/ [];
+
+        var bdtEmiAmt = /*[[${bdtEmiAmt}]]*/ 0;
+        var usdEmiAmt = /*[[${usdEmiAmt}]]*/ 0;
+
+        var accountInformation = /*[[${accountInformation}]]*/ {};
+        var cId = /*[[${customerId}]]*/ "";
+        /*]]>*/
+
+    </script>
+
+    <script>
+        var profileInformation = new Vue({
+            el: "#app",
+            data: {
+                profileInformation: {},
+                personalInformation: {},
+                accountInformation: {},
+                paymentInfoDuringMonth:{},
+                autoPayAcUsd:{},
+                autoPayAcUsd:{},
+                referenceInformation: {},
+                accountNo: accountNo,
+                paymentInfo: {},
+                lineLimit: "",
+                availAbleLimit: "",
+                statementAmount: "",
+                dueDate: "",
+                unStatementAmount: "",
+                history: [],
+                basicSupply: [],
+                plasticdCd: "",
+                ageCode: "",
+                anniversaryDate: "",
+                exposure: 0,
+                statementDate: "",
+                cardList: "",
+                autoPayAmount: 0,
+                secured: {},
+                cardOtherAccountList: [],
+                ageCodeClassification: [],
+                product: {
+                    name: "",
+                },
+                mtsf: {},
+                hotNoteList : [],
+                followUpList : [],
+                dailyNoteList : [],
+                dairyNoteList : [],
+                ptpList : [],
+                reasonDelinsList: [],
+                contactList:[],
+                VLList : [],
+
+                emiList : [],
+                bdtEmiAmt: 0,
+                usdEmiAmt: 0,
+            },
+            mounted: function () {
+                // console.log('when component is mounted!');
+                // const { Printd } = window.printd;
+                // this.d = new Printd();
+                // const { contentWindow } = this.d.getIFrame();
+                //
+                // contentWindow.addEventListener(
+                //     'beforeprint', () => console.log('before print event!'));
+                //
+                // contentWindow.addEventListener(
+                //     'afterprint', () => console.log('after print event!'));
+            },
+            computed: {
+                buttonDisableOrNot() {
+                    return this.accountNo.length < 16 || this.accountNo.length > 22;
+                },
+                getAvailableBalance() {
+                    return this.availAbleLimit = parseFloat(this.lineLimit) - parseFloat(this.paymentInfo.outstanBalanceWithIPP);
+                },
+                getAvailableLimit() {
+                    return this.getAvailableBalance * .9;
+                },
+                getOverLimit() {
+                    return (parseFloat(this.lineLimit) - parseFloat(this.paymentInfo.outstanBalance)).toFixed(2);
+                }
+
+            },
+            methods: {
+
+                dismissModal() {
+                    $('#modal-dashboard').modal('hide');
+                },
+                loadCustomerProfile() {
+                    var host = window.location.host;
+                    var url = 'https://'+host+'/api/soap/getCustomerProfileAccOrCard?AccNoOrCard='+accountNo;
+
+                    var headers = {credentials : true, headers:{
+                            'X-CSRF-TOKEN' : window.csrfToken,
+                        }};
+
+                },
+                setHotNotesAndDairyNotes: function () {
+                    let arrWithoutHoteNote = new Array();
+                    let arrWithHoteNote = new Array();
+
+
+                    for (let i = 0; i < this.hotNoteList.length; i++) {
+                        this.hotNoteList[i].check = "H";
+                        arrWithHoteNote.push(this.hotNoteList[i]);
+                    }
+                    for (let i = 0; i < this.followUpList.length; i++) {
+                        this.followUpList[i].check = "F";
+                        arrWithoutHoteNote.push(this.followUpList[i]);
+                    }
+                    for (let i = 0; i < this.dairyNoteList.length; i++) {
+                        this.dairyNoteList[i].check = "DR";
+                        arrWithoutHoteNote.push(this.dairyNoteList[i]);
+                    }
+                    for (let i = 0; i < this.dailyNoteList.length; i++) {
+                        this.dailyNoteList[i].check = "DL";
+                        arrWithoutHoteNote.push(this.dailyNoteList[i]);
+                    }
+                    for (let i = 0; i < this.ptpList.length; i++) {
+                        this.ptpList[i].check = "P";
+                        arrWithoutHoteNote.push(this.ptpList[i]);
+                    }
+
+                    for (let i = 0; i < this.reasonDelinsList.length; i++) {
+                        this.reasonDelinsList[i].check = "RD";
+                        arrWithoutHoteNote.push(this.reasonDelinsList[i]);
+                    }
+
+                    for (let i = 0; i < this.contactList.length; i++) {
+                        this.contactList[i].check = "CA";
+                        arrWithoutHoteNote.push(this.contactList[i]);
+                    }
+
+                    for (let i = 0; i < this.VLList.length; i++) {
+                        this.VLList[i].check = "VL";
+                        arrWithoutHoteNote.push(this.VLList[i]);
+                    }
+
+                    arrWithoutHoteNote.sort(function (a, b) {
+                        return new Date(b.createdDate) - new Date(a.createdDate);
+                    })
+                    for (let i = 0; i < arrWithoutHoteNote.length; i++)
+                        arrWithHoteNote.push(arrWithoutHoteNote[i]);
+                    this.history = arrWithHoteNote;
+                },
+            },
+            filters: {
+                getAbsoluteValue: function (value) {
+                    return value < 0 ? value * -1 : value;
+                },
+                valueWithTwoPrecesion: function (value) {
+                    if(value != null && value != "" && !isNaN(value)){
+                        return value.toFixed(2);
+                    }else {
+                        return 0.0;
+                    }
+
+                },
+                getDateFormatFromNumeric: function (value) {
+                    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                    ];
+                    if (value == undefined) return "";
+                    return value.substr(6, 2) + '-' + monthNames[parseInt(value.substr(4, 2)) - 1] + '-' + value.substr(0, 4);
+                }
+            },
+            created: function () {
+                this.mtsf = mtsf;
+                this.personalInformation = personalInformation;
+                this.profileInformation = profileInformation;
+                this.accountInformation = accountInformation;
+                this.paymentInfoDuringMonth = paymentInfoDuringMonth;
+                this.autoPayAcUsd = autoPayAcUsd;
+                this.autoPayAcBdt = autoPayAcBdt;
+                this.statementDate = stmtDate;
+                this.bdtEmiAmt = bdtEmiAmt;
+                this.usdEmiAmt = usdEmiAmt;
+
+                /*var ptpList = JSON.parse(ptplist) != null ? JSON.parse(ptplist) : [];
+                var followUpList = JSON.parse(followUplist) != null ? JSON.parse(followUplist) : [];
+                var dailyNoteUpList = JSON.parse(dailyNotelist) != null ? JSON.parse(dailyNotelist) : [];
+                var dairyNoteList = JSON.parse(dairyNotelist) != null ? JSON.parse(dairyNotelist) : [];
+                var hotNoteList = JSON.parse(hotNotelist) != null ? JSON.parse(hotNotelist) : [];*/
+                this.cardList = JSON.parse(cardList) != null ? JSON.parse(cardList) : [];
+                this.secured = JSON.parse(secured) != null ? JSON.parse(secured) : [];
+                this.ageCodeClassification = JSON.parse(agecodeList) != null ? JSON.parse(agecodeList) : [];
+                this.loadCustomerProfile();
+
+                this.hotNoteList = hotNotelist;
+                this.followUpList = followUplist;
+                this.dailyNoteList = dailyNotelist;
+                this.dairyNoteList = dairyNotelist;
+                this.ptpList = ptpNotGson;
+                this.reasonDelinsList = reasonDelins;
+                this.contactList = contactList;
+                this.VLList = VLList;
+                this.setHotNotesAndDairyNotes();
+                this.emiList = emiList;
+            }
+            });
+        // setTimeout(function () {
+        //     showModal();
+        // }, 1000)
+
+
+    </script>
+    <!-- Input Form -->
+    <div th:replace="collection/cardprofile/form-panel :: collection-card-form-panel"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>SMS Push Pull Alert</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="sms-push-pull-alert">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+
+            <li id="tab-push-pull-alert"><a data-toggle="tab" href="#push-pull-alert" title="Push Pull Alert">Push Pull Alert</a></li>
+            <li id="tab-sms-details"><a data-toggle="tab" href="#sms-details" title="SMS Details">SMS Details</a></li>
+
+
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+
+        <div role="tabpanel1" class="tab-pane top-buffer" id="push-pull-alert">
+            <div th:replace="collection/details/panels/middle/push_pull :: push-pull"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="sms-details">
+            <div th:replace="collection/details/panels/middle/sms_push_pull :: sms-push-pull"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

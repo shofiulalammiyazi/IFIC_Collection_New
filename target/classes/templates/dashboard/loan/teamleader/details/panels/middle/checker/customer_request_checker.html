@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Request</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="customer_request_checker">
+
+    <div class="csi-view-form-full-area csi-view-indtable" id="customerReq-info-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Customer Request</h3>
+
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade" id="modal-customer-req-view-checker"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Customer Request</h3>
+                            </div>
+
+                            <div class="box-body">
+
+                                <!--<button id="cardRefModalSubmitBtn" class="btn btn-info" onclick="guarantorInfoSave()">Save</button>-->
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left ">Date :</label>
+                                    <label  class="col-sm-3 custom-form-control" id="custrDate">{{customerReqEntity.custDate}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Time :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custrTime">{{customerReqEntity.custTime}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Through :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custReqThrough">{{customerReqEntity.reqThough}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Detail :</label>
+                                    <label class="col-sm-9 custom-form-control"id="custreqDetails" >{{customerReqEntity.reqDetails}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Mobile No :</label>
+                                    <label class="col-sm-9 custom-form-control"id="custmobileNo">{{customerReqEntity.mobileNo}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Time :</label>
+                                    <label class="col-sm-9 custom-form-control" id="custreqTime">{{customerReqEntity.reqTime}}</label>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Div class="form-horizontal csi-view-form">
+                <!--<input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />-->
+                <!--<input type="hidden" name="refId" id="refId" th:value="${refId}"  />-->
+                <!--<input name="_csrf" value="" type="hidden">-->
+                <table name="customer_req_info" id="custRequestInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Account No</th>
+                        <th>Account Name</th>
+                        <th>Date</th>
+                        <th>Request Time</th>
+                        <th>Outstanding</th>
+                        <th>Overdue</th>
+                        <th>Bucket</th>
+                        <th>CL Status</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="customer in customerRequestsEntities">
+                        <td>{{customer.customerBasicInfo.accountNo}}</td>
+                        <td>{{customer.customerBasicInfo.customerName}}</td>
+                        <td>{{customer.custDate}}</td>
+                        <td>{{customer.reqTime}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{customer.customerBasicInfo.clStatus}}</td>
+                        <td>{{customer.status}}</td>
+                        <td><button class="btn btn-success btn-xs view-customerReq-entity" id="view-customerReq-entity" v-bind:data-id="customer.id" data-toggle="modal" data-target="#modal-customer-req-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>
+                            <button v-bind:data-id="customer.id" id="view-customerReq-approve" class="view-customerReq-approve btn btn-success btn-xs"><i fa fa-eye></i>Approve</button>
+                            <button v-bind:data-id="customer.id" id="view-customerReq-reject" class="view-customerReq-reject btn btn-danger btn-xs"><i fa fa-eye></i>Reject</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var customerRequestsEntities = /*[[${customerRequestsEntities}]]*/ [];
+        console.log(customerRequestsEntities);
+        /*]]>*/
+    </script>
+    <script>
+
+        customerReqInfoChecker = new Vue({
+            el: '#customerReq-info-checker-id',
+            data: {
+                customerRequestsEntities: [],
+                customerReqEntity: {}
+            },
+            created: function () {
+                this.customerRequestsEntities = Array.isArray(customerRequestsEntities) ? customerRequestsEntities : [];
+            }
+        })
+
+        $(document).ready(function () {
+
+            $('.view-customerReq-entity').click(function () {
+
+                $.ajax({
+                    url: '/collection/setting/customerRequests/findByCustomerId?id='+$(this).data('id'),
+                    success: function (response) {
+                        customerReqInfoChecker.customerReqEntity = response;
+                        console.log("data" + response);
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-customerReq-approve').click(function () {
+                $.ajax({
+                    url: '/collection/setting/customerRequests/approveCustomer?id='+$(this).data('id'),
+                    success: function (response) {
+
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-customerReq-reject').click(function () {
+                $.ajax({
+                    url: '/collection/setting/customerRequests/rejectCustomer?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+        })
+
+    </script>
+
+</div>
+</body>
+</html>

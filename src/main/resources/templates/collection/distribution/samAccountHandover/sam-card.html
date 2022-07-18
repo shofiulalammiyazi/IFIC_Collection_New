@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Sam Account Handover- Card</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Sam Account Handover- Card</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div id="app" class="x_content">
+                                <!--<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/distribution/samaccount/create}"><span class="glyphicon glyphicon-plus"> </span> Add Sam Account Handler </a>-->
+                                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-default-dealercard" style="margin-bottom: 10px; margin-right: 5px; float: right;"><span class="glyphicon glyphicon-plus"> </span> Account Recover Sam </a>
+                                <table th:if="${samList!=null}" style="display: block; overflow: auto" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <!--<th>Loan Account No</th>-->
+                                        <!--<th>Loan Account Name</th>-->
+                                        <th>Card No</th>
+                                        <th>Card Name</th>
+                                        <th>Customer Id</th>
+                                        <!--<th>DPD Bucket</th>-->
+                                        <th>Age Code</th>
+                                        <th>Product Unit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="sam,status in samViewList">
+                                        <td>
+                                            <label class = "mdl-checkbox mdl-js-checkbox">
+                                                <input v-model="selectedList" :id="'sam' + sam.index" :value="sam.id" type = "checkbox"
+                                                       class = "mdl-checkbox__input" checked>
+                                            </label>
+                                        </td>
+                                        <!--<td><span v-if="sam.loanAccountNo">{{sam.loanAccountNo}}</span></td>-->
+                                        <!--<td><span v-if="sam.accountName">{{sam.accountName}}</span></td>-->
+                                        <td><span v-if="sam.cardNo">{{sam.cardNo}}</span></td>
+                                        <td style="width: 150px"><span v-if="sam.cardName">{{sam.cardName}}</span></td>
+                                        <td><span>{{sam.customerId}}</span></td>
+                                        <!--<td><span v-if="sam.dpdBucket">{{sam.dpdBucket}}</span></td>-->
+                                        <td><span v-if="sam.ageCode">{{sam.ageCode}}</span></td>
+                                        <td><span v-if="sam.productUnit">{{sam.productUnit}}</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="modal fade" id="modal-default-dealercard">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Manual Allocation (Dealer)</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row form-group">
+                                                    <label  class="col-sm-4 custom-form-lebel-right required">Dealer</label>
+                                                    <div class="col-sm-8">
+                                                        <select v-model="dealerId" id="dealer_id" class="form-control input-sm">
+                                                            <option value="">Choose One</option>
+                                                            <option th:each="dealer : ${dealerList}" th:value="${dealer.id}" th:text="${dealer.getDealer().getUser().getFirstName()}">Loan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                <a href="#" class="btn btn-success" @click="addManualAllocation()" id="btn_ingresar">Submit</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                var samviewlist = /*[[${samListJson}]]*/  || "";
+                                /*]]>*/
+                            </script>
+
+                            <script>
+                                new Vue({
+                                    el:"#app",
+                                    data:{
+                                        samViewList:[],
+                                        selectedList:[],
+                                        dealerId:"",
+                                        suprevisorId:""
+                                    },
+                                    created:function () {
+                                        this.samViewList = JSON.parse(samviewlist);
+                                    },
+                                    methods:{
+                                        addManualAllocation:function () {
+                                            var host = window.location.host;
+                                            this.$http.post('https://'+host+'/collection/distribution/api/samupdate', {
+                                                id:this.dealerId,
+                                                list: this.selectedList,
+                                                sid:this.suprevisorId,
+                                            }, {credentials : true, headers:{
+                                                    'X-CSRF-TOKEN' : window.csrfToken,
+                                                }}).then(res => {
+
+                                                if(res.body){
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                                console.log(err);
+                                        })
+                                        },
+                                        addManualAccountRecoverSam : function () {
+                                            alert("Button Clicked!")
+
+                                        }
+
+                                    }
+                                })
+                            </script>
+
+
+                            <script type="text/javascript">
+                                $('.openmodale').click(function (e) {
+                                    e.preventDefault();
+                                    $('.modale').addClass('opened');
+                                });
+                                $('.closemodale').click(function (e) {
+                                    e.preventDefault();
+                                    $('.modale').removeClass('opened');
+                                });
+                                $('.submitmodale').click(function (e) {
+                                    e.preventDefault();
+                                    $('.modale').removeClass('opened');
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="ISO-8859-1"></meta>
+            <title>Proposal Management</title>
+        </head>
+
+<body>
+<div class="bs-example" th:fragment="settlement">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-body">
+            <div class="multi-line-broadcom-div">
+                <ul id="info-tabs" class="nav nav-tabs">
+                    <li id="tab-settlement-latest-liability-position"><a data-toggle="tab" href="#settlement-latest-liability-position" title="Latest Liability Position as Per Loan Listing">Latest Liability Position as Per Loan Listing</a></li>
+                    <li id="tab-settlement-interest-charge-details"><a data-toggle="tab" href="#settlement-interest-charge-details" title="Interest Charged/ Settlement/ Recovery Details">Interest Charged/ Settlement/ Recovery Details</a></li>
+                    <li id="tab-settlement-proposal-details"><a data-toggle="tab" href="#settlement-proposal-details" title="Proposal Details">Proposal Details</a></li>
+                </ul>
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane top-buffer" id="settlement-latest-liability-position">
+                    <div th:replace="collection/details/panels/middle/proposalManagement/settlement_latest_liability_position :: settlement-latest-liability-position"></div>
+                </div>
+
+                <div class="tab-pane top-buffer" id="settlement-interest-charge-details">
+                    <div th:replace="collection/details/panels/middle/proposalManagement/settlement_interest_charge_details :: settlement-interest-charge-details"></div>
+                </div>
+
+                <div class="tab-pane top-buffer" id="settlement-proposal-details">
+                    <div th:replace="collection/details/panels/middle/proposalManagement/settlement_proposal_details :: settlement-proposal-details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Age & Classification Rule List</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box">
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 class="box-title">Age & Classification Rule List</h3>
+							</div>
+
+							<div class="box-body">
+								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/age_classification_rule/create}"><span class="glyphicon glyphicon-plus"> </span> Add Rule </a>
+								<table th:if="${ruleList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
+									<thead>
+									<tr>
+										<th>Sl No.</th>
+										<th>Age Code</th>
+										<th>Classification Status</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="rule,status : ${ruleList}">
+										<td th:text="${status.count}"></td>
+										<td><span th:text="${rule.ageCode.name}"></span></td>
+										<td><span th:text="${rule.classificationStatus}"></span></td>
+
+										<td>
+											<span th:if="${rule.enabled == true}" th:text="Active"></span>
+											<span th:if="${rule.enabled == false}" th:text="Inactive"></span>
+										</td>
+										<td>
+											<a class="btn btn-primary btn-xs" th:href="@{/collection/age_classification_rule/edit(id=${rule.id})}"><i class="fa fa-edit"></i>Edit</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>General Info View</title>
+</head>
+<body>
+<div id="layout-generalPreview" th:fragment="frag-general-view-PreView">
+    <script type="text/javascript" th:src="@{/collection/dashboard/AccountWiseDistributionSummary.js}"></script>
+    <script type="text/javascript" th:src="@{/collection/dashboard/dashboardTeamLeadCombined.js}"></script>
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="loandetail-area-sp box box-primary shadow">
+                <form method="post" id="generalInfoFormViw">
+                    <div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">
+                        <div class="loan-init-details-sp-inner">
+
+                            <input id="globalUserPinForSummary" type="hidden" th:value="${employee?.pin}"/>
+                            <input id="globalUserIdForSummary" type="hidden" th:value="${employee?.id}"/>
+                            <input id="globalUserDesignationForSummary" type="hidden"
+                                   th:value="${employee?.designation?.name}"/>
+
+                            <div class="row csi-view-form-group"
+                                 th:if="${#strings.contains(employee.unit,'Card')} and ${#strings.contains(employee.unit,'Loan')} != true">
+                                <input id="globalUnitForSummary" type="hidden" th:value="Card"/>
+                            </div>
+
+                            <div class="row csi-view-form-group"
+                                 th:if="${#strings.contains(employee.unit,'Card')} != true and ${#strings.contains(employee.unit,'Loan')}">
+                                <input id="globalUnitForSummary" type="hidden" th:value="Loan"/>
+                            </div>
+
+                            <!--<div class="row csi-view-form-group"-->
+                                 <!--th:if="${#strings.contains(employee.unit,'Card')} and ${#strings.contains(employee.unit,'Loan')}">-->
+                                <!--<a th:href="@{/(viewCardDash=false)}" target="_blank" th:if="${viewCardDash == true}">-->
+                                    <!--<button type="button" class="btn btn-primary">View Loan Dashboard</button>-->
+                                <!--</a>-->
+                                <!--<a th:href="@{/(viewCardDash=true)}" target="_blank"-->
+                                   <!--th:if="${viewCardDash == false} or ${viewCardDash == null}">-->
+                                    <!--<button type="button" class="btn btn-primary">View Card Dashboard</button>-->
+                                <!--</a>-->
+
+                                <!--<input id="globalUnitForSummary" type="hidden"-->
+                                       <!--th:if="${viewCardDash == false} or ${viewCardDash == null}" th:value="Loan"/>-->
+                                <!--<input id="globalUnitForSummary" type="hidden" th:if="${viewCardDash == true}"-->
+                                       <!--th:value="Card"/>-->
+                            <!--</div>-->
+
+                            <div class="row csi-view-form-group">
+                                <label class="col-sm-2">Employee ID :</label>
+                                <label class="col-sm-3 custom-form-lebel" th:text="${employee?.pin}"></label>
+
+                                <label class="col-sm-3">Employee Name :</label>
+                                <label class="col-sm-3 custom-form-lebel"
+                                       th:text="${#strings.concatReplaceNulls('', employee?.user.firstName, ' ', employee?.user.lastName)}">
+
+                                </label>
+
+                                <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
+                                <!--<label class="col-sm-3">Designation :</label>-->
+                                <!--<label class="col-sm-4 custom-form-lebel" th:text="${employee?.getDesignation().getName()}"></label>-->
+                            </div>
+
+                            <!--<div class="row csi-view-form-group">-->
+                                <!--<label class="col-sm-2">Team Leader PIN :</label>-->
+                                <!--<label class="col-sm-3 custom-form-lebel"-->
+                                       <!--th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>-->
+                                <!--<label class="col-sm-3">Team Leader Name :</label>-->
+                                <!--<label class="col-sm-4 custom-form-lebel"-->
+                                       <!--th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getTeamlead()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getTeamlead()?.getUser()?.getLastName())}">-->
+                                <!--</label>-->
+                            <!--</div>-->
+
+                            <!--<div class="row csi-view-form-group">-->
+                                <!--<label class="col-sm-2">Supervisor PIN :</label>-->
+                                <!--<label class="col-sm-3 custom-form-lebel"-->
+                                       <!--th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>-->
+
+                                <!--<label class="col-sm-3">Supervisor Name :</label>-->
+                                <!--<label class="col-sm-4 custom-form-lebel"-->
+                                       <!--th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getSupervisor()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getSupervisor()?.getUser()?.getLastName())}">-->
+                                <!--</label>-->
+                            <!--</div>-->
+
+                            <!--<div class="row csi-view-form-group">-->
+                                <!--<label class="col-sm-2">Manager PIN :</label>-->
+                                <!--<label class="col-sm-3 custom-form-lebel"-->
+                                       <!--th:text="${peopleAllocationLogic?.getManager()?.getPin()}"></label>-->
+                                <!--<label class="col-sm-3">Manager Name :</label>-->
+                                <!--<label class="col-sm-4 custom-form-lebel"-->
+                                       <!--th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getManager()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getManager()?.getUser()?.getLastName())}">-->
+                                <!--</label>-->
+                            <!--</div>-->
+
+                            <!--<div class="row csi-view-form-group">-->
+                                <!--<label class="col-sm-2">Login Status :</label>-->
+                                <!--<label class="col-sm-3 custom-form-lebel"-->
+                                       <!--th:text="${#strings.capitalize(session.loginStatus)}"></label>-->
+                                <!--<label class="col-sm-3">Login Time :</label>-->
+                                <!--<label class="col-sm-4 custom-form-lebel"-->
+                                       <!--th:text="${#calendars.format(session.loginTime, 'hh:mm a')}"></label>-->
+                            <!--</div>-->
+
+                            <!--<div class="row csi-view-form-group">-->
+                                <!--<label class="col-sm-2">Current Date :</label>-->
+                                <!--<label class="col-sm-3 custom-form-lebel"-->
+                                       <!--th:text="${#calendars.format(#calendars.createNow(), 'dd-MMM-yyyy')}"></label>-->
+                            <!--</div>-->
+
+                            <!--<div class="row csi-view-form-group">-->
+                            <!--<label class="col-sm-3">Login Time :</label>-->
+                            <!--<label class="col-sm-9 custom-form-lebel" th:text="${#dates.format(loginTime, 'dd-MMM-yyyy hh:mm')}"></label>-->
+
+                            <!--<label class="col-sm-3">Login Status :</label>-->
+                            <!--<label class="col-sm-4 custom-form-lebel">Regular</label>-->
+                            <!--</div>-->
+
+                        </div>
+
+                        <div id="admin-lte-div" class="row csi-view-form-group">
+                            <div class="col-md-12 shadow-sm" style="padding: 10px 10px">
+                                <div class="col-md-3" style="text-align: center">
+                                    <span style="font-size: 20px" >No of Accounts</span><br>
+                                    <span style="font-size: 18px">{{ getTotalAccounts }}</span>
+                                </div>
+                                <div class="col-md-3" style="text-align: center">
+                                    <span style="font-size: 20px" >Total Outstanding</span><br>
+                                    <span style="font-size: 18px">{{ getTotalOutstanding | formatBdtInEnglish }}</span>
+                                </div>
+                                <div class="col-md-3" style="text-align: center">
+                                    <span style="font-size: 20px" >Total Over Due</span><br>
+                                    <span style="font-size: 18px">{{ getTotalMinDue | formatBdtInEnglish}}</span>
+                                    <!--<span style="font-size: 15px" th:text="${@numberUtils.formatBdtInEnglish(totalMindue)}"></span>-->
+                                </div>
+                                <div class="col-md-3" style="text-align: center">
+                                    <span style="font-size: 20px" >Performance</span><br>
+                                    <span style="font-size: 20px">{{ getPerformance }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var totalAccounts = /*[[${totalAccounts}]]*/  0;
+        var totalOutstanding = /*[[${totalOutstanding}]]*/  0;
+        var totalMindue = /*[[${totalMindue}]]*/  0;
+        var performance = /*[[${performance}]]*/  0;
+        /*]]>*/
+    </script>
+    <script>
+        var DashboardAdminLteDiv = new Vue({
+            el : '#admin-lte-div',
+            computed: {
+                getTotalAccounts(){
+                    return totalAccounts;
+                },
+                getTotalOutstanding(){
+                    return parseFloat(totalOutstanding).toFixed(2);
+                },
+                getTotalMinDue(){
+                    return parseFloat(totalMindue).toFixed(2);
+                },
+                getPerformance(){
+                    return parseFloat(performance).toFixed(2);
+                },
+                formatBdtInEnglish: function (value) {
+                    return formatBdtInEnglish(value);
+                },
+            },
+            filters: {
+                dateFormat: function (value) {
+                    console.log(value)
+                    return formatDate_DD_MMM_YYYY(value);
+                },
+                formatBdtInEnglish: function (value) {
+                    return formatBdtInEnglish(value);
+                },
+            }
+        })
+    </script>
+
+</div>
+
+
+</body>
+</html>

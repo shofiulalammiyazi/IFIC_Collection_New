@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Audit Trail Description </title>
+</head>
+
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="content">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="box box-info" id="audit-trail-app">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Audit Trail Description</h2>
+
+                    <a class="btn btn-default btn-sm pull-right" th:href="@{/audittrail/list}">Back</a>
+                </div>
+
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">Module Name :</label>
+                            <div class="col-sm-8 padding-7">
+                                <span th:text="${auditdata.moduleName}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">Action :</label>
+                            <div class="col-sm-8 padding-7">
+                                <span th:text="${auditdata.operationType}"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label" th:text="${auditdata.operationType + ' By :'}"></label>
+                            <div class="col-sm-8 padding-7">
+                                <span th:text="${auditdata.username}"></span>
+                                <span>-</span>
+                                <span th:text="${auditdata.name}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label" th:text="${auditdata.operationType + ' By IP :'}"></label>
+                            <div class="col-sm-8 padding-7">
+                                <span th:text="${auditdata.requestIP}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">Time of Operation :</label>
+                            <div class="col-sm-8 padding-7">
+                                <span th:text="${#dates.format(auditdata.createdDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">Present Data :</label>
+                            <div class="col-sm-8 padding-7">
+                                <span>{{getPresentData()}}</span>
+                            </div>
+                        </div>
+
+                        <div th:if="${auditdata.operationType != 'Created'}" class="form-group ">
+                            <label class="col-sm-2 control-label">Previous Data :</label>
+                            <div class="col-sm-8 padding-7">
+                                <span>{{getPreviousData()}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <style>
+                .padding-7{
+                    padding: 7px;
+                }
+            </style>
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var auditdata = /*[[${auditdata}]]*/ "";
+                /*]]>*/
+            </script>
+
+            <script>
+                var auditTrailApp = new Vue({
+                    el: '#audit-trail-app',
+                    data: {
+                        auditData: auditdata
+                    },
+                    methods: {
+                        getPresentData: function () {
+                            return this.auditData.presentData ? this.auditData.presentData
+                                .split('"').join('')
+                                .split('{').join('')
+                                .split('}').join('')
+                                .split(',').join(', ')
+                                .split(':').join(' : ') : ''
+                        },
+                        getPreviousData: function () {
+                            return this.auditData.previousData ? this.auditData.previousData
+                                .split('"').join('')
+                                .split('{').join('')
+                                .split('}').join('')
+                                .split(',').join(', ')
+                                .split(':').join(' : ') : ''
+                        }
+                    }
+                })
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

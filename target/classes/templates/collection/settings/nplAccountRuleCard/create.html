@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title> NPL Account Rule-Card</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${nplRuleCard.id == null}" class="box-title">Create New NPL Account Rule-Card</h3>
+                            <h3 th:if="${nplRuleCard.id != null}" class="box-title">Update NPL Account Rule-Card</h3>
+                        </div>
+
+                        <form  class="form-horizontal validate" method="post" th:action="@{/collection/npl_acc_rule_card/create}" th:object="${nplRuleCard}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Age Code</label>
+                                        <div class="col-sm-8">
+                                            <div th:each="bucket :${ageCodeList}">
+                                                <input type="checkbox"  class="flat-red" name="ageCodeList" th:value="${bucket?.id}" th:checked="${#lists.contains(allowedAgeCodeIdList,''+bucket?.id)}" ><label th:text="${bucket.name}"></label></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Product Type </label>
+                                        <div class="col-sm-8">
+                                            <div th:each="prod :${prodTypeList}">
+                                                <input type="checkbox" name="productTypeList" class="flat-red" th:value="${prod?.id}" th:checked="${#lists.contains(allowedProdIdList,''+prod.id)}" ><label th:text="${prod.name}"></label></input>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required"> Min. Sanction Amount</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="minSanctionAmount" id="minSanctionAmount" onkeyup="javascript:checkNumber2('minSanctionAmount');" class="form-control required" th:required="true" th:field="*{minSanctionAmount}" placeholder="Min. Sanction Amount" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required"> Min. Disbursement Amount</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="maxDeviation" id="minDisburseAmount" onkeyup="javascript:checkNumber2('minDisburseAmount');" class="form-control required" th:required="true" th:field="*{minDisburseAmount}" placeholder="Min. Disbursement Amount" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required"> Min. Outstanding Amount</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="minOutstanding" id="minOutstanding" onkeyup="javascript:checkNumber2('minOutstanding');" class="form-control required" th:required="true" th:field="*{minOutstanding}" placeholder="Min. Outstanding Amount" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required"> Min. ATE Amount</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="minATE" id="minATE" onkeyup="javascript:checkNumber2('minATE');" class="form-control required" th:required="true" th:field="*{minATE}" placeholder="Min. ATE Amount" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" th:if="${nplRuleCard.id != null}">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-8" >
+                                        <fieldset id="group1" >
+                                            <input type="radio" name="enabled" th:checked="${nplRuleCard?.enabled == true} " th:value="true" > Active</input>
+                                            <input type="radio"  name="enabled" th:checked="${nplRuleCard?.enabled == false}" th:value="false" required> Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:if="${nplRuleCard?.id == null}" style="display: none">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-8" >
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" th:checked="${nplRuleCard?.enabled==true} or ${nplRuleCard?.id == null}" th:value="true"> Active</input>
+                                            <input type="radio"  name="enabled"  th:checked="${nplRuleCard?.enabled==false} and ${nplRuleCard?.id != null}" th:value="false"> Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/npl_account_rule/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

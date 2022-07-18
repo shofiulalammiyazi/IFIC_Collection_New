@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Team PTP Details</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="box-header with-border">
+        <h3 class="box-title">Team PTP Details</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-ptp" class="active">
+                <a data-toggle="tab" href="#tab_team_ptp">Team PTP Details</a>
+            </li>
+            <li id="tab-ptp-dealer-wise">
+                <!--<a data-toggle="tab" href="#dealer-wise-team-ptp">-->
+                <!--Team Leader & Dealer Wise Details-->
+                <!--</a>-->
+                <a data-toggle="tab" href="#dealer-wise-team-ptp">
+                    Dealer Wise Team PTP Details
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="tab_team_ptp">
+            <div th:replace="dashboard/shared/ptp/ptp-status-summery :: content"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane top-buffer" id="dealer-wise-team-ptp">
+            <!--<div class="box-body">-->
+                <!--<div th:replace="dashboard/shared/team-selection :: content(context='ptp')"></div>-->
+
+            <!--</div>-->
+
+            <div id="manager-ptp-multiselect-update" class="box-body">
+                <div v-if="!!supervisorList" class="col-sm-12" style="margin-bottom: 10px;">
+                    <label class="col-sm-2" style="margin-top: 10px">Select Manager(s): </label>
+                    <div class="col-sm-4">
+                        <multiselect v-model="selectedSupervisorList" placeholder="Choose one or more supervisor"
+                                     :custom-label="nameWithPin" track-by="dealerPin" :options="supervisorList"
+                                     :multiple="true"
+
+                                     @input="onSupervisorChange"
+
+                                     :taggable="true"></multiselect>
+                    </div>
+                    <div class="col-sm-3"><button class="btn btn-primary" @click="selectAllSupervisor">Select All Managers</button></div>
+                </div>
+                <div v-if="!!teamLeaderList" class="col-sm-12" style="margin-bottom: 10px;">
+                    <label class="col-sm-2" style="margin-top: 10px">Select Supervisor: </label>
+                    <div class="col-sm-4">
+                        <multiselect v-model="selectedTeamLeaderList" placeholder="Choose one or more Team Leader"
+                                     :custom-label="nameWithPin" track-by="dealerPin" :options="teamLeaderList"
+                                     :multiple="true"
+                                     @input="onTeamLeadChange"
+                                     :taggable="true"></multiselect>
+                    </div>
+                    <div class="col-sm-3"><button class="btn btn-primary" @click="selectAllTeamLeader">Select All Supervisor</button></div>
+                </div>
+
+                <div class="col-sm-12" style="margin-bottom: 10px;">
+                    <label class="col-sm-2" style="margin-top: 10px">Select Dealer(s): </label>
+                    <div class="col-sm-4">
+                        <multiselect v-model="selectedDealerList" placeholder="Choose one or more Dealer"
+                                     :custom-label="nameWithPin" track-by="dealerPin" :options="dealerList"
+                                     :multiple="true" :taggable="true"></multiselect>
+                    </div>
+                    <div class="col-sm-3"><button class="btn btn-primary" onclick="ptpDetails.getDealerWisePtpSummary()">Show Data</button></div>
+                </div>
+            </div>
+            <!--<div class="box-footer">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-sm-2 pull-right">-->
+                        <!--<span onclick="ptpDetails.getDealerWisePtpSummary()"-->
+                              <!--class="btn btn-sm btn-primary">Summary</span>-->
+                        <!--<span onload="ptpDetails.getDealerWisePtpSummary()"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <h5 class="text-center">Dealer Wise Team PTP Details</h5>
+            <div th:replace="dashboard/shared/ptp/dealer-wise-team-ptp-summary :: content"></div>
+
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var teamLeadDetail = /*[[${teamLeadDetail}]]*/ [];
+            var supervisorDetail = /*[[${supervisorDetail}]]*/ [];
+            var dealerDetail = /*[[${dealerDetail}]]*/ [];
+            /*]]>*/
+        </script>
+        <script>
+            var managerPTPApp = new Vue({
+                el: '#manager-ptp-multiselect-update',
+                data: {
+                    dealerList: [],
+                    selectedDealerList: [],
+                    teamLeaderList: [],
+                    selectedTeamLeaderList: [],
+                    supervisorList: [],
+                    selectedSupervisorList: [],
+                    dealerWise :[],
+                    dealerPinList:[]
+                },
+                created(){
+                    this.teamLeaderList = teamLeadDetail;
+
+                    this.supervisorList = supervisorDetail;
+                    this.dealerList = dealerDetail;
+
+
+                },
+                watch: {
+                    selectedSupervisorList: function () {
+                        this.onSupervisorChange();
+                    },
+                    selectedTeamLeaderList: function () {
+                        this.onTeamLeadChange();
+                    }
+                },
+                computed:{
+                    selectedDealerName() {
+                        return this.selectedDealerList.map(dealer => dealer.dealerPin);
+                    },
+
+                    dealerWiseSummaryData : function(){
+                        let dealerSummary = [];
+                        for (i = 0; i<this.selectedDealerList.length; i++){
+                            dealerSummary.push(this.selectedDealerList[i].dealerPin);
+
+                        }
+                        alert(dealerSummary)
+                        return dealerSummary;
+                    },
+
+                },
+
+                components:{
+                    Multiselect: VueMultiselect.default
+                },
+                filters:{
+                    fixedTwoDigit: function(value){
+                        /*return value.toFixed(2);*/
+                    }
+                },
+                methods:{
+                    nameWithPin({ dealerPin, dealerName}){
+                        return `${dealerPin} - ${dealerName}`;
+                    },
+
+                    getDealerPins: function () {
+                        return this.selectedDealerList.map(item => item.dealerPin).join(", ");
+                    },
+
+
+                    getDealerWiseSummaryList() {
+
+                        let dealerPins = this.getDealerPins();
+
+                        let designation = $("#globalUserDesignationForSummary").val();
+
+                        let url = 'https://' + window.location.host + '/collection/reason-delinquency/dealerwisereason/list?dealerPins='+ dealerPins + '&designation=' + designation;
+
+                        this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})
+                            .then(res => {
+                            if (typeof res.body !== 'string') {
+                            this.dealerWise = res.body;
+                            console.log(this.dealerWise)
+                        }else {
+                            notifyError(res.body);
+                        }
+                    }).catch(err => {
+                            console.log(err);
+                    })
+                    },
+
+                    selectAllSupervisor: function(){
+                        this.selectedSupervisorList = this.supervisorList;
+                        this.onSupervisorChange();
+                    },
+                    onSupervisorChange(){
+                        var pinList=[];
+
+                        pinList = this.selectedSupervisorList.map(item => item.dealerPin);
+                        if(pinList.length === 0) {
+                            this.dealerList = [];
+                            this.selectedDealerList = [];
+                            this.teamLeaderList = [];
+                            this.selectedTeamLeaderList = [];
+                            return;
+                        }
+
+                        var host = window.location.host;
+                        this.$http.get('https://' + host + '/collection/allocationlogic/team-leader-list?pinList=' + pinList.join(','),
+                            {
+                                credentials: true, headers: {
+                                    'X-CSRF-TOKEN': window.csrfToken,
+                                }
+                            }).then(res => {
+                            if (Array.isArray(res.body)) {
+                            this.teamLeaderList = res.body;
+                            this.selectedTeamLeaderList = this.teamLeaderList;
+                        }
+                    }).catch(err => {
+                            console.log(err);
+                    })
+                    },
+                    selectAllTeamLeader: function(){
+                        this.selectedTeamLeaderList = this.teamLeaderList;
+                        this.onTeamLeadChange();
+                    },
+                    selectAllDealers:function(){
+                        this.selectedDealerList = this.dealerList
+                    },
+                    onTeamLeadChange(){
+                        var pinList=[];
+
+                        pinList = this.selectedTeamLeaderList.map(item => item.dealerPin);
+                        if(pinList.length === 0) {
+                            this.dealerList = [];
+                            this.selectedDealerList = [];
+                            return;
+                        }
+
+                        this.$http.post(window.location.origin+'/collection/allocationlogic/dealer-list', {
+                            teamLeadPinList: pinList
+                        }, {credentials : true, headers:{
+                                'X-CSRF-TOKEN' : window.csrfToken,
+                            }}).then(res => {
+                            this.dealerList = res.body;
+                        this.selectedDealerList = this.dealerList;
+                    }).catch(err => {
+                            console.log(err);
+                    })
+                    }
+                }
+            });
+        </script>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

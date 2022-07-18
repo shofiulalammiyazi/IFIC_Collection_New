@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title> DLG Exceptions Rule- Loan</title>
+    <link rel="stylesheet" href="/css/loader/spinner.css"/>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="col-xs-12">
+        <style>
+            .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                font-size: 13px;
+            }
+            .multiselect__tag{
+                font-size: 12px;
+            }
+
+        </style>
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border text-center">
+                        <h3 th:text="${((dlgerl.id == null)?'Create':'Update') + ' Dunning Letter Generation Exception Rules- Loan'}" class="box-title">Create</h3>
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/settings/dlgexceptionrulesloan/create}" th:object="${dlgerl}">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{productTypeIds}" v-model="getSelectedProductTypeId"/>
+                        <input type="hidden" th:field="*{customerCifNo}" v-model="selectedCifNumbers"/>
+                        <input type="hidden" th:field="*{branchIds}" v-model="getSelectedBranches"/>
+                        <input type="hidden" th:field="*{vipStatusIds}" v-model="getSelectedVipStatuses"/>
+                        <!--<input type="hidden" th:field="*{designationIds}" v-model="getSelectedDesignationId"></input>-->
+                        <div class="box-body">
+
+
+                            <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">SAM :</label>
+                                    <div class="col-sm-7">
+                                        <fieldset id="samGroup">
+                                            <input  type="radio" name="sam" id="samYes" th:checked="${dlgerl.sam == true}" th:value="true"> Yes</input>
+                                            <input type="radio"  name="sam" id="samNo" th:checked="${dlgerl.sam == false}" th:value="false"> No </input>
+                                        </fieldset>
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Write Off :</label>
+                                <div class="col-sm-7">
+                                    <fieldset id="writeOffGroup">
+                                        <input  type="radio" name="writeOff" id="writeOffYes" th:checked="${dlgerl.writeOff == true}" th:value="true"> Yes</input>
+                                        <input type="radio"  name="writeOff" id="writeOffNo" th:checked="${dlgerl.writeOff == false}" th:value="false"> No </input>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Product Type</label>
+                                <div class="col-sm-7">
+                                    <multiselect  v-model="selectedProductType" placeholder="Search a Product Type" label="name" track-by="id"  :options="productTypeOption" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Customer CIF Number</label>
+                                <div class="col-sm-7">
+                                    <multiselect  v-model="selectedCustomers" placeholder="Search a Customer"
+                                                  label="cif" track-by="cif"
+                                                  :options="customers" :multiple="true" :taggable="true"
+                                                  :clear-on-select="false" :close-on-select="false"></multiselect>
+                                </div>
+                                <div v-show="loading" class="col-sm-1">
+                                    <div class="wrap-spinner-loading">
+                                        <div class="spinner-loading spinner-loading-1"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Branch</label>
+                                <div class="col-sm-7">
+                                    <multiselect  v-model="selectedBranches" placeholder="Search a Branch" label="branchName" track-by="branchId"  :options="branches" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Hot Note Category</label>
+                                <div class="col-sm-7">
+                                    <multiselect  v-model="selectedVipStatus" placeholder="Search a Hote Note Category" label="name" track-by="id"  :options="vipStatusList" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Min Outstanding Amount</label>
+                                <div class="col-sm-7">
+                                    <input type="text" name="outstanding" class="form-control required" th:required="true" th:field="*{outstanding}" placeholder="Min Outstanding Amount" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Min Overdue Amount</label>
+                                <div class="col-sm-7">
+                                    <input type="text" name="minDue" class="form-control required" th:required="true" th:field="*{minOverDue}" placeholder="Min Overdue Amount" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <button type="submit" th:text="${(dlgerl.id != null)?'Update':'Create'}" class="btn btn-info">Update</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+
+                    <script th:inline="javascript">
+                        new Vue({
+                            el: '#app',
+                            components:{
+                                Multiselect: VueMultiselect.default
+                            },
+                            data:{
+                                loading: false,
+                                productTypeOption: [[${productTypeList}]],
+                                selectedProductType: [[${selectedProductTypeList}]],
+                                branches: [[${branches}]],
+                                selectedBranches: [[${selectedBranches}]],
+                                selectedCustomers: [],
+                                selectedCifNumbers: [[${selectedCifNumbers}]],
+                                customers: [],
+
+
+                                vipStatusList: [[${vipStatusList}]],
+                                selectedVipStatus: [[${selectedVipStatus}]],
+
+                            },
+                            created: function () {
+                                this.getCifNumbers();
+                            },
+                            computed:{
+                                getSelectedProductTypeId: function () {
+                                    return this.selectedProductType.map(productType => { return productType.id});
+                                },
+                                getSelectedBranches: function () {
+                                    return this.selectedBranches.map(branch => { return branch.branchId});
+                                },
+                                getSelectedVipStatuses: function () {
+                                    return this.selectedVipStatus.map(vipStatus => { return vipStatus.id});
+                                }
+
+                            },
+                            watch:{
+                                selectedCustomers: function () {
+                                    this.loading = true;
+                                    this.selectedCifNumbers = this.selectedCustomers.map(customer => { return customer.cif});
+                                    this.loading = false;
+                                }
+                            },
+                            methods:{
+                                getCifNumbers: function(){
+                                    let vm = this;
+                                    vm.loading = true;
+                                    // TODO: Collect customer CIF numbers from UCBL API when available
+                                    let url = '/collection/settings/dlgexceptionrulesloan/dummy-cif';
+                                    vm.$http.get(url)
+                                        .then(res =>
+                                    {
+                                        if (res.ok) {
+                                        vm.customers = res.body;
+                                        vm.selectedCustomers = vm.customers.filter(customer => vm.selectedCifNumbers.includes(customer.cif));
+                                        vm.loading = false;
+                                        }
+                                    }).catch(err => {console.log(err)})
+
+                                }
+                            }
+                        })
+                    </script>
+
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

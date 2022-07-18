@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="performance">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Performance</h3>
+        </div>
+        <div class="box-body" >
+            <div class="box-body" >
+                <form class="form-horizontal csi-view-form">
+                    <table name="letter_info"
+                           class="table table-bordered"
+                           style="display:block; overflow:auto">
+                        <thead >
+                        <tr>
+                            <th class="text-center" colspan="2" id="card_current_month"></th>
+                            <th class="text-center" colspan="2" id="card_previous_month"></th>
+                            <th class="text-center" id="card_last_three_month"></th>
+                            <th class="text-center" id="card_last_six_month"></th>
+                            <th class="text-center" id="card_last_12_month"></th>
+                            <th class="text-center">-</th>
+                            <th class="text-center" colspan="2" id="card_last_6_1"></th>
+                            <th class="text-center" colspan="2" id="card_last_6_2"></th>
+                            <th class="text-center" colspan="2" id="card_last_6_3"></th>
+                            <th class="text-center" colspan="2" id="card_last_6_4"></th>
+                            <th class="text-center" colspan="2" id="card_last_6_5"></th>
+                            <th class="text-center" colspan="2"></th>
+                        </tr>
+                        <tr>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">AVG</td>
+                            <td class="text-center">AVG</td>
+                            <td class="text-center">AVG</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                            <td class="text-center">Achievement</td>
+                            <td class="text-center">Rating</td>
+                        </tr>
+                        </thead>
+                        <tbody id="esa_card_tbody" class="tbl-row">
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        var today = new Date();
+        var d;
+        var month;
+        var year;
+        var current_month = monthNames[today.getMonth()];
+        $("#card_current_month").text(current_month+','+new Date().getFullYear().toString().substr(-2));
+        //last 1 month
+        last_1_month = [];
+        for(var i = 1; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_1_month.push(month+','+year);
+        }
+        $("#card_previous_month").text(last_1_month[0]);
+        //last three month
+        var last_three_month = [];
+        for(var i = 3; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_three_month.push(month+','+year);
+        }
+        $("#card_last_three_month").text(last_three_month[0]+' to '+last_three_month[2]);
+        //for last 6 month
+        var last_six_month = [];
+        for(var i = 6; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_six_month.push(month+','+year);
+        }
+        $("#card_last_six_month").text(last_six_month[0]+' to '+last_six_month[5]);
+        $("#card_last_6_1").text(last_six_month[4]);
+        $("#card_last_6_2").text(last_six_month[3]);
+        $("#card_last_6_3").text(last_six_month[2]);
+        $("#card_last_6_4").text(last_six_month[1]);
+        $("#card_last_6_5").text(last_six_month[0]);
+        var last_12_month = [];
+        for(var i = 12; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            month = monthNames[d.getMonth()];
+            year = d.getFullYear().toString().substr(-2);
+            last_12_month.push(month+','+year);
+        }
+        $("#card_last_12_month").text(last_12_month[0]+' to '+last_12_month[11]);
+
+    </script>
+
+</div>
+</body>
+
+
+</html>
+

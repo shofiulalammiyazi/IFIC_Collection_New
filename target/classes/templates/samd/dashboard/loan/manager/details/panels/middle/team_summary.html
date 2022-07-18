@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Monitoring Team Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="team-summary">
+    <div id="monitoring-team-summary-samd">
+        <div class="csi-view-form-full-area csi-view-indtable">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title">Monitoring Team Summary</h3>
+
+            </div>
+            <div class="box-body">
+                <div class="col-sm-4">
+                    <multiselect v-model="selectedSupervisor" placeholder="Choose Supervisors"
+                                 label="dealerPin" track-by="dealerPin" :options="supervisorList"
+                                 :multiple="false" :close-on-select="false"
+                                 @input="onSupervisorChange"
+                                 :taggable="true" :show-labels="false"></multiselect>
+                </div>
+                <div class="col-sm-4">
+                    <multiselect v-model="selectedTeamleader"
+                                 placeholder="Choose Team Leaders"
+                                 label="pin" track-by="id" :options="teamLeaderList"
+                                 :multiple="false" :show-labels="false" :close-on-select="false"
+                                 @input="onTeamLeadChange"
+                                 :taggable="true"></multiselect>
+                </div>
+                <div class="col-sm-4">
+                    <multiselect v-model="selectedDealer" placeholder="Choose Dealers"
+                                 label="pin" track-by="pin" :options="dealerList"
+                                 :multiple="false" :taggable="true" :show-labels="false"
+                                 :close-on-select="false"></multiselect>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <table name="datatable-responsive"
+               class="table table-striped table-bordered table-condensed custom_dt">
+            <thead>
+            <tr>
+                <th>Zone</th>
+                <th>DPD Bucket</th>
+                <th>No of Accounts</th>
+                <th>Outstanding Total</th>
+                <th>Overdue</th>
+                <th>PTP- Broken</th>
+                <th>PTP- Kept</th>
+                <th>PTP- Cured</th>
+                <th>Diary Notes</th>
+                <th>Follow Up</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Dhaka</td>
+                <td>12</td>
+                <td>25</td>
+                <td>254000</td>
+                <td>10000</td>
+                <td>38</td>
+                <td>25</td>
+                <td>2</td>
+                <td>2100</td>
+                <td>SMS</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script th:inline="javascript">
+        // Global variables
+        /*<![CDATA[*/
+        // var dealerList = /*[[${dealerDetail}]]*/ [];
+        // var teamLeadDetail = /*[[${teamLeadDetail}]]*/ [];
+        var supervisorDetail = /*[[${supervisorDetail}]]*/ [];
+        var unit = /*[[${unit}]]*/ {};
+
+        /*]]>*/
+    </script>
+
+    <script>
+        monitoringTeamSummaryApp = new Vue({
+            el: '#monitoring-team-summary-samd',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                dealerList: [],
+                selectedDealer: {},
+                teamLeaderList: [{teamlead:{user:{}}}],
+                selectedTeamleader: {},
+                supervisorList: supervisorDetail,
+                selectedSupervisor: {},
+                unit: unit,
+                designation: ''
+            },
+            created() {
+                // this.designation = $("#globalUserDesignationForSummary").val().toLowerCase();
+                // this.dealerList = typeof dealerList !== 'undefined' && Array.isArray(dealerList) ? dealerList : [];
+                // this.teamLeaderList = typeof teamLeadDetail !== 'undefined' && Array.isArray(teamLeadDetail) ? teamLeadDetail : [];
+                // this.supervisorList = typeof supervisorDetail !== 'undefined' && Array.isArray(supervisorDetail) ? supervisorDetail : [];
+
+            },
+            computed: {
+                selectedDealerName() {
+                    return this.selectedDealer.dealerPin;
+                },
+                // isManager() {
+                //     return isEqual(this.designation, 'manager');
+                // },
+                // isSupervisor() {
+                //     return isEqual(this.designation, 'supervisor');
+                // },
+                // isTeamLeader() {
+                //     return isEqual(this.designation, 'team leader');
+                // },
+            },
+            methods: {
+                nameWithPin({dealerPin, dealerName}) {
+                    return `${dealerPin} - ${dealerName}`;
+                },
+                getTeamleaderPin({teamlead}) {
+                    return `${teamlead.pin} - ${teamlead.user.firstName} ${teamlead.user.lastName}`;
+                },
+                onSupervisorChange() {
+
+                    let supervisorPin = this.selectedSupervisor.dealerPin;
+                    // if (!pinList.length) {
+                    //     // this.dealerList = [];
+                    //     // this.selectedDealer = [];
+                    //     this.teamLeaderList = [];
+                    //     this.selectedTeamleader = [];
+                    //     return;
+                    // }
+
+                    var host = window.location.host;
+                    this.$http.get('https://' + host + '/collection/allocationlogic/findBy-supervisor?supervisorPin=' + supervisorPin + '&unit='+this.unit,
+                        {
+                            credentials: true, headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }).then(res => {
+                        if (Array.isArray(res.body)) {
+                            console.log('team summary');
+                        this.teamLeaderList = res.body;
+                        // this.selectedTeamleader = this.teamLeaderList;
+                    }
+                }).catch(err => {
+                        console.log(err);
+                })
+                },
+                onTeamLeadChange() {
+
+                    console.log('temleader id = ' + this.selectedTeamleader.id);
+                    let teamleaderId = this.selectedTeamleader.id;
+                    var host = window.location.host;
+                    this.$http.get('https://' + host + '/collection/allocationlogic/findBy-teamleader?teamleaderId='+teamleaderId + '&unit='+this.unit,
+                     {
+                        credentials: true, headers: {
+                            'X-CSRF-TOKEN': window.csrfToken,
+                        }
+                    }).then(res => {
+                        if (Array.isArray(res.body)) {
+                        this.dealerList = res.body;
+                        // this.selectedDealer = this.dealerList;
+                    }
+                }).catch(err => {
+                        console.log(err);
+                })
+                },
+            }
+
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

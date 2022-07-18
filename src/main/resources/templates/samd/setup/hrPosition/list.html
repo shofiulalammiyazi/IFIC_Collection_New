@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Position</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper" >
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title"> Position</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
+                               th:href="@{/collection/samd/setup/hr-position/create}">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span> Position</span>
+                            </a>
+
+                            <table id="hr-position-table" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>SL #</th>
+                                        <th>Short Name</th>
+                                        <th>Position Name</th>
+                                        <th>Updated By</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="position, index : ${positions}">
+                                        <td th:text="${index.index + 1}"></td>
+                                        <td th:text="${position.getShortName()}"></td>
+                                        <td th:text="${position.getName()}"></td>
+                                        <td>
+                                            <span th:if="${position.getCreatedBy() != null}" th:text="${position.getCreatedBy()}"></span>
+                                            <span th:if="${position.getCreatedBy() == null}" th:text="${position.getModifiedBy()}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${position.getCreatedDate() != null}" th:text="${#calendars.format(position.getCreatedDate(), 'dd-MMM-yyyy hh:mm:ss aa')}"></span>
+                                            <span th:if="${position.getCreatedDate() == null}" th:text="${#calendars.format(position.getModifiedDate(), 'dd-MMM-yyyy hh:mm:ss aa')}"></span>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary btn-xs" th:href="@{/collection/samd/setup/hr-position/edit?id=}+${position.getId()}">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function(){
+                        $('#hr-position-table').dataTable({
+                            responsive: true
+                        });
+                    });
+                </script>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>NPL Account Rule-Loan List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">NPL Account Rule-Loan List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/retail/loan/setup/npl-release-loan/create')}" th:href="@{/retail/loan/setup/npl-release-loan/create}"><span class="glyphicon glyphicon-plus"> </span> Add NPL Account Rule</a>
+                            <table id="nplReleaseLoan" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Bucket</th>
+                                    <th>Product Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="rule,status : ${nplLoanList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-success" style="margin-right: 5px" th:each="dpd :${rule.dpdBucketList}" th:text="${dpd.bucketName}"></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-success" style="margin-right: 5px" th:each="productTypeEntity :${rule.productTypeList}" th:text="${productTypeEntity.name}"></button>
+                                    </td>
+                                    <td>
+                                        <span th:if="${rule.enabled == true}">Active</span>
+                                        <span th:if="${rule.enabled == false}">Inactive</span>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a class="btn btn-primary btn-xs"
+                                           th:if="${session.urlList.contains('/retail/loan/setup/npl-release-loan/edit')}"
+                                           th:href="@{/retail/loan/setup/npl-release-loan/edit(id=${rule.id})}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#nplReleaseLoan').dataTable({
+                responsive: true
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

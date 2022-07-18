@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Customer & Borrower Info</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="customer_borrower_info_checker">
+    <div class="csi-view-form-full-area csi-view-indtable" id="customerBorrower-info-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Customer & Borrower Info</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade" id="modal-customer-info-view-checker"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Customer & Borrower Info</h3>
+                            </div>
+
+                            <form class="form-horizontal csi-view-form">
+                                <div class="csi-indi-form-box">
+                                    <div class="form-group row csi-view-form-group">
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Branch Name :</label>
+                                            <label class="col-sm-3 custom-form-control" id="branchName">{{entity.branchName}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Loan Account Name :</label>
+                                            <label class="col-sm-3 custom-form-control" id="accountName">{{entity.accountName}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Loan Account Number :</label>
+                                            <label class="col-sm-3 custom-form-control" id="loanAcNumber">{{entity.loanAcNumber}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">CASA Account Number :</label>
+                                            <label class="col-sm-3 custom-form-control" id="casaAcNumber">{{entity.casaAcNumber}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Loan Limit :</label>
+                                            <label class="col-sm-3 custom-form-control" id="loanLimit">{{entity.loanLimit}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Loan Outstanding :</label>
+                                            <label class="col-sm-3 custom-form-control" id="loanOS">{{entity.loanOS}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Overdue :</label>
+                                            <label class="col-sm-3 custom-form-control" id="overDue">{{entity.overDue}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Overdue Amount(Month end) :</label>
+                                            <label class="col-sm-3 custom-form-control" id="overDueAmount">{{entity.overDueAmount}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">EMI (As per Sanction) :</label>
+                                            <label class="col-sm-3 custom-form-control" id="emi">{{entity.emi}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Present EMI :</label>
+                                            <label class="col-sm-3 custom-form-control" id="presentEmi">{{entity.presentEmi}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Rate of Interest(As per Sanction) :</label>
+                                            <label class="col-sm-3 custom-form-control" id="rateOfInterest">{{entity.rateOfInterest}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Present Rate of Interest :</label>
+                                            <label class="col-sm-3 custom-form-control" id="presentRateInterest">{{entity.presentRateInterest}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Bucket :</label>
+                                            <label class="col-sm-3 custom-form-control" id="bucket">{{entity.bucket}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Current Month Schedule date :</label>
+                                            <label class="col-sm-3 custom-form-control" id="crntScheduleDate">{{formatDate(entity.crntScheduleDate)}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Last payment date :</label>
+                                            <label class="col-sm-3 custom-form-control" id="paymentDate">{{formatDate(entity.paymentDate)}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Last payment Amount :</label>
+                                            <label class="col-sm-3 custom-form-control" id="paymentAmount">{{entity.paymentAmount}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Total payment till date :</label>
+                                            <label class="col-sm-3 custom-form-control" id="totalPayment">{{entity.totalPayment}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Disburse Date :</label>
+                                            <label class="col-sm-3 custom-form-control" id="disburseDate">{{formatDate(entity.disburseDate)}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Deferred Status-Yes/No :</label>
+                                            <label class="col-sm-3 custom-form-control" id="deferredStatus">{{entity.deferredStatus}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Expiry Date (After Deferral) :</label>
+                                            <label class="col-sm-3 custom-form-control" id="expiryDate">{{formatDate(entity.expiryDate)}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Occupation :</label>
+                                            <label class="col-sm-3 custom-form-control" id="occupation">{{entity.occupation}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Organization Name :</label>
+                                            <label class="col-sm-3 custom-form-control" id="organizationName">{{entity.organizationName}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Contact No :</label>
+                                            <label class="col-sm-3 custom-form-control" id="contactNo">{{entity.contactNo}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
+                                            <label class="col-sm-3 custom-form-control" id="emailAddress">{{entity.emailAddress}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Spouse Name :</label>
+                                            <label class="col-sm-3 custom-form-control" id="spouseName">{{entity.spouseName}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Spouse occupation :</label>
+                                            <label class="col-sm-3 custom-form-control" id="spouseOccupation">{{entity.spouseOccupation}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">FID status-Yes/No :</label>
+                                            <label class="col-sm-3 custom-form-control" id="fidStatus">{{entity.fidStatus}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Credit Card Client ID (If Any) :</label>
+                                            <label class="col-sm-3 custom-form-control" id="creditCardId">{{entity.creditCardId}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">RM Name & ID :</label>
+                                            <label class="col-sm-3 custom-form-control" id="rmNameId">{{entity.rmNameId}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">RM mobile no :</label>
+                                            <label class="col-sm-3 custom-form-control" id="rmMobileNo">{{entity.rmMobileNo}}</label>
+                                        </div>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-3 custom-details-lebel-left">Dealer Name :</label>
+                                            <label class="col-sm-3 custom-form-control" id="dealerName">{{entity.dealerName}}</label>
+                                            <label class="col-sm-3 custom-details-lebel-left">Dealer mobile No :</label>
+                                            <label class="col-sm-3 custom-form-control" id="dealerMobileNo">{{entity.dealerMobileNo}}</label>
+                                        </div>
+
+                                        </br>
+
+                                        <div class="form-group row csi-view-form-group">
+                                            <label class="col-sm-2 custom-details-lebel-left">Remarks :</label>
+                                            <label class="col-sm-10 custom-form-control" id="remarks">{{entity.remarks}}</label>
+                                        </div>
+
+                                        <div class="modal-footer text-center">
+                                        <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Div class="form-horizontal csi-view-form">
+                <!--<input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />-->
+                <!--<input type="hidden" name="refId" id="refId" th:value="${refId}"  />-->
+                <!--<input name="_csrf" value="" type="hidden">-->
+                <table name="customer_info" id="customerInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Branch Name </th>
+                        <th>Loan Account Name</th>
+                        <th>Loan Account Number</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="entity in customerBorrowerInfos">
+                        <td>{{entity.branchName}}</td>
+                        <td>{{entity.accountName}}</td>
+                        <td>{{entity.loanAcNumber}}</td>
+                        <td>{{entity.status}}</td>
+                        <td><button class="btn btn-success btn-xs view-customerInfo-entity" id="view-customerInfo-entity" v-bind:data-id="entity.id" data-toggle="modal" data-target="#modal-customer-info-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>
+                            <button v-bind:data-id="entity.id" id="view-customerInfo-approve" class="view-customerInfo-approve btn btn-success btn-xs"><i fa fa-eye></i>Approve</button>
+                            <button v-bind:data-id="entity.id" id="view-customerInfo-reject" class="view-customerInfo-reject btn btn-danger btn-xs"><i fa fa-eye></i>Reject</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var customerBorrowerInfos = /*[[${customerAndBorrowerInfos}]]*/ [];
+        console.log(customerBorrowerInfos);
+        /*]]>*/
+    </script>
+    <script>
+
+        custBorrowerInfoChecker = new Vue({
+            el: '#customerBorrower-info-checker-id',
+            data: {
+                customerBorrowerInfos: [],
+                entity: {}
+            },
+            created: function () {
+                this.customerBorrowerInfos = customerBorrowerInfos;
+            },
+
+            methods: {
+
+                formatDate: function (date) {
+                    return date ? formatDate_DD_MMM_YYYY(date) : ''
+                }
+            }
+        })
+
+        $(document).ready(function () {
+
+            $('.view-customerInfo-entity').click(function () {
+
+                $.ajax({
+                    url: '/loan/api/customer-other-info/edit?id='+$(this).data('id'),
+                    success: function (response) {
+                        custBorrowerInfoChecker.entity = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+
+
+            $('.view-customerInfo-approve').click(function () {
+                $.ajax({
+                    url: '/loan/api/customer-other-info/approve?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-customerInfo-reject').click(function () {
+                $.ajax({
+                    url: '/loan/api/customer-other-info/reject?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+        })
+
+    </script>
+</div>
+</body>
+</html>

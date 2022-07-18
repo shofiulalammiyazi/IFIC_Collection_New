@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>CIB Report</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="allocation-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Allocation Details</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">MO Outstanding :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding" th:text="${distributionInfo?.getOutStanding()}"></label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">MO Overdue/Min Due :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOverdue" th:text="${distributionInfo?.getOpeningOverDue()}"></label>
+
+                    </div>
+                    <div class="form-group row csi-view-form-group" th:if="${#strings.startsWith(session.unit,'SAM')}">
+                        <label class="col-sm-3 custom-details-lebel-left"> MO ATE/Age Code :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="moAteAgecode" th:text="${distributionInfo?.getDpdBucket()}">-</label>
+                    </div>
+
+                    <!--<div class="form-group row csi-view-form-group">
+
+                        &lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Cumulative Repayment :</label>&ndash;&gt;
+                        &lt;!&ndash;<label class="col-sm-3 custom-form-lebel" id="moCumulativeRepay" th:text="${0}"></label>&ndash;&gt;
+                    </div>-->
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Last Month Paid Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="lastMonthPaidAmount" th:text="${distributionInfo?.lastPaidAmount}"></label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">MO Classification Status :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="moClassificationStatus" th:text="${loanAccountBasicInfo?.customer?.getClStatus()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">MO DPD :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moDpd" th:text="${distributionInfo?.getDpd()}"></label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">MO Bucket :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moDpdBucket" th:text="${distributionInfo?.getDpdBucket()}"></label>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-sam">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">Sam Details</h2>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account Name :</label>
+                        <label class="col-sm-6 custom-form-lebel" th:text="${samDetails?.getAccountName()}"></label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account No :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getLoanAccountNo()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Schema Code :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getSchemaCode()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Product Unit :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getProductUnit()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Sam Receive Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getSamRecievedDate()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Disbursement Date :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getDisbursementDate()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Bucket :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getDpdBucket()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Outstanding Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getOutstandingAmount()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Emi Account :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getEmiAccount()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Overdue Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getOverDueAmount()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Minimum Due :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getDueAmount()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Letter Type :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getLetterType()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Remarks :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getRemarks()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Sam Handover Date :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getSamHandoverDate()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">WriteOff Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getWriteOffDate()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Billing Cycle :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getBillingCycle()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Plastic Cd :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getPlasticCd()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Product Group :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${samDetails?.getProductGroup()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Status Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${samDetails?.getStatusDate()}"></label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-writeOff">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">Write-Off Details</h2>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account Name :</label>
+                        <label class="col-sm-6 custom-form-lebel" th:text="${writeOffDetails?.getLoanAccountName()}"></label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Product Unit :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getPrductUnit()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account No :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getLoanAccountNo()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Schema Code :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getSchemaCode()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">File  Date NiAct :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getFileDateNiAct()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Case Amount NiAct :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCaseAmountNiAct()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">File Date Arthorin :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getFileDateArthorin()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Case Amount Arthorin :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCaseAmountArthorin()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">File Date Penal Code :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getFileDatePenalCode()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Case Amount Penal Code :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCaseAmountPenalCode()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Next Asking Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getNextAskingDate()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Case Status :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCaseStatus()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Case Dealing Person :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCaseDealingPerson()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Lawyear Name :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getLawyearName()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Court Name :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getCourtName()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Present Outstanding :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getPresentOutstanding()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Auction Notice Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getAuctionNoticeDate()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">N Public Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getnPublicDate()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Auction Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getAuctionDate()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">WriteOff Account :</label>
+                        <label class="col-sm-3 custom-form-lebel"th:text="${writeOffDetails?.getWriteOffAccount()}"></label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

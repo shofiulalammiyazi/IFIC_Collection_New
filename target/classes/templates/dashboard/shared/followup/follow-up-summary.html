@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1"/>
+        <title>Follow Up</title>
+    </head>
+<body>
+
+<div th:fragment="content" th:remove="tag">
+    <form class="form-horizontal csi-view-form" id="follow-up-summary">
+        <table class="table table-condensed table-bordered custom_dt" width="100%">
+            <thead class="thead-light">
+            <tr>
+                <th class="text-center">Follow Up</th>
+                <th class="text-center">Number of Account</th>
+                <th class="text-center">Total Outstanding</th>
+            </tr>
+
+            </thead>
+
+            <tbody id="followUpTable">
+            <tr v-for="(followup, index) in followupList">
+                <td>
+                    <a data-toggle="modal"
+                       data-target="#modal-followup-details"
+                       style="cursor: pointer"
+                       @click="changeFilter(index)">
+                        {{followup.reason}}
+                    </a>
+                </td>
+                <td class="text-right">{{followup.totalAccount}}</td>
+                <td class="text-right">{{followup.outstandingAmount | formatBdtInEnglish}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+        <div th:replace="dashboard/loan/dealer/details/panels/middle/datewise_followup :: datefollow_info"></div>
+
+        <div class="modal fade" id="modal-followup-details">
+            <div class="modal-dialog" style="height: 100%; width: 70%; padding-right: 20px;">
+                <div class="modal-content" style="max-height: 900px;">
+                    <div class="modal-header" style="text-align: center;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Followup Details</h4>
+                    </div>
+                    <div style="overflow: auto; max-height: 800px; padding: 20px; margin-bottom: 20px;">
+                        <table id="followUpSummaryDetails" name="datatable-responsive"
+                               class="table table-condensed table-hover table-bordered" width="100%">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">SL</th>
+                                <th class="text-center">{{ accOrCard }}</th>
+                                <th class="text-center">{{ accOrCardName }}</th>
+                                <th class="text-center">Followup Date</th>
+                                <th class="text-center">Followup Time</th>
+                                <th class="text-center">Reason</th>
+                                <!--<th class="text-center">Remarks</th>-->
+                                <th class="text-center">Dealer Name</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbl-row">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $("#tab-follow-up").click(function (event) {
+                followUpApp.getFollowupList();
+            });
+        });
+    </script>
+    <script>
+        var followUpApp = new Vue({
+            el: '#follow-up-summary',
+            data: {
+                followupList: [],
+                followupSummaryWiseList: [],
+                accOrCard: 'Account No',
+                accOrCardName: 'Account Name'
+            },
+            filters: {
+                formatBdtInEnglish: function (value) {
+                    return formatBdtInEnglish(value);
+                }
+            },
+
+            methods: {
+                getFollowupList() {
+                   if (this.followupList.length) return;
+
+                    var designation = $("#globalUserDesignationForSummary").val();
+                    var userPin = $("#globalUserPinForSummary").val();
+                    var userId = $("#globalUserIdForSummary").val();
+                    var unit = $("#globalUnitForSummary").val();
+
+                    var url = '/retail/loan/dashboard/follow-up?designation=' + designation + '&userPin=' + userPin;
+                    if (unit == "Card") {
+                        url = "/collection/card/dashboard/followups?designation=" + designation + "&userPin=" + userPin +
+                                "&userId=" + userId + "&unit=" + unit;
+                        this.accOrCard = 'Card No';
+                        this.accOrCardName = 'Contract No';
+                    }
+                    this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})
+                        .then(res => {
+                            if (Array.isArray(res.body)) {
+
+                                this.followupList = res.body;
+                            } else {
+                                notifyError(res.body);
+                            }
+                        }).catch(err => {
+                        console.log(err);
+                    })
+                },
+                changeFilter(index) {
+                    // this.followupSummaryWiseList = this.followupList[index].followUpDetails;
+                    let arr = this.followupList[index].followUpDetails;
+                    this.initializeDataTable("followUpSummaryDetails",arr);
+                },
+
+                initializeDataTable: function (tableId, arr) {
+                    let table = $('#' + tableId).DataTable();
+                    // if (typeof table != 'undefined' && table) table.destroy();
+                    table.clear().draw();
+                    if(!arr){
+                        arr=[];
+                    }
+
+
+                    $('#' + tableId).DataTable({
+                        data:arr,
+                        columns:[
+                            {"data": "",
+                                render: function (data, type, row, meta) {
+                                    return meta.row+meta.settings._iDisplayStart+1;
+                                },
+                            },
+                            {"data": "accountNo"},
+                            {"data": "accountName"},
+                            {"data": "followupDate"},
+                            {"data": "followupTime"},
+                            {"data": "reason"},
+                            {"data": "dealerName"}
+                        ],
+
+                        destroy: true,
+                        // retrieve: true,
+                        paging: true,
+                        "bInfo": false,
+                        "bLengthChange": false,
+                    });
+
+                },
+
+
+            }
+
+        });
+
+        // $('#modal-followup-details').on('show.bs.modal', function () {
+        //     setTimeout(function () {
+        //         $('#example1').DataTable().destroy();
+        //         $('#example1').DataTable();
+        //     }, 100)
+        // })
+
+    </script>
+</div>
+
+
+
+</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Account list</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="personal-info">
+
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            max-height: 700px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px 16px;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+
+    <div class="tableFixHead">
+        <div id="account_details">
+            <table name="letter_info" id="table-card-account-details" class="table tbl-row table-bordered">
+                <thead >
+                <tr class="fixed-th">
+                    <th class="text-center">SL</th>
+                    <th class="text-center">Card No</th>
+                    <th class="text-center">Customer ID</th>
+                    <th class="text-center">Customer Name</th>
+                    <th class="text-center">Customer Phone No</th>
+                    <th class="text-center">Total Outstanding</th>
+                    <th class="text-center">Total Min. Due</th>
+                    <th class="text-center">Age Code</th>
+                    <th class="text-center">Status CD</th>
+                    <th class="text-center">Last Two Month Dealer History</th>
+                    <th class="text-center">Back Amount</th>
+                    <th class="text-center">Save Amount</th>
+                    <th class="text-center">Min Due</th>
+                </tr>
+                </thead>
+                <tbody class="tbl-row">
+                <tr v-for="(account,index) in accountDetails">
+                    <td class="text-right">{{index + 1}}</td>
+                    <td class="text-center">
+                        <span style="cursor: pointer; color: #0b93d5"
+                              @click="viewCardCustomerProfile(account.cardNumber)">
+                            {{account.cardNo}}
+                        </span>
+                    </td>
+                    <td class="text-center">{{account.clientId}}</td>
+                    <td class="text-left">{{account.cardName}}</td>
+                    <td class="text-left">{{account.mobileNumber}}</td>
+                    <td class="text-right">{{account.outstandingAmount | formatCurrency}}</td>
+                    <td class="text-right">{{account.minDuePayment | formatCurrency}}</td>
+                    <td class="text-right">{{account.ageCode}}</td>
+                    <td class="text-right">{{account.stateCode}}</td>
+                    <td class="text-center">
+                        <span class="text-danger pointer" @click="viewDealerHistory">view</span>
+                    </td>
+                    <td class="text-right">{{account.backAmount | formatCurrency}}</td>
+                    <td class="text-right">{{account.saveAmount | formatCurrency}}</td>
+                    <td class="text-right">{{account.minDue | formatCurrency}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <div class="modal fade" id="modal-ptp-summary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" style="text-align: center">PTP Summary</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table tbl-row table-bordered">
+                                    <thead >
+                                    <tr>
+                                        <th class="text-center">Card AMOUNT</th>
+                                        <th class="text-center">Card PTP DATE</th>
+                                        <th class="text-center">Card PTP TIME</th>
+                                        <th class="text-center">Card CONTACT LOCATION</th>
+                                        <th class="text-center">Card PROMISOR DETAILS</th>
+                                        <th class="text-center">Card PTP REMARKS</th>
+                                        <th class="text-center">Card PTP STATUS</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbl-row">
+                                    <tr v-for="ptp in ptpList">
+                                        <td>{{ptp.card_amount}}</td>
+                                        <td>{{ptp.card_ptp_date}}</td>
+                                        <td>{{ptp.card_ptp_time}}</td>
+                                        <td>{{ptp.card_contact_location}}</td>
+                                        <td>{{ptp.card_promisor_details}}</td>
+                                        <td>{{ptp.card_remarks}}</td>
+                                        <td>{{ptp.card_ptp_status}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="loan_filefollowup_btn"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var pin =
+            /*[[${employee.pin}]]*/  ||
+            "";
+            /*]]>*/
+            // $("#tab-bufferdetails").click(function (e) {
+            //     personalInfo.getAccountDetails();
+            // })
+        </script>
+        <script>
+            let personalInfo = new Vue({
+                el: '#account_details',
+                data: {
+                    accountDetails: [],
+                    ptpList: []
+                },
+                created() {
+                    this.getAccountDetails();
+                },
+                filters: {
+                    formatDate: function (value) {
+                        return formatDate_DD_MMM_YYYY(value);
+                    },
+                    formatCurrency(value) {
+                        return formatBdtInEnglish(value);
+                    }
+                },
+                methods: {
+                    getAccountDetails() {
+                        var url = "/collection/retail/card/dashboard/account-details?dealerPin=" + pin;
+                        this.$http.get(url,
+                            {
+                                credentials: true, headers: {
+                                    'X-CSRF-TOKEN': window.csrfToken,
+                                }
+                            }).then(res => {
+                            console.log(res);
+                            if (Array.isArray(res.body)) {
+                                this.accountDetails = res.body;
+                                setTimeout(function () {
+                                    $('#table-card-account-details').DataTable({
+                                        'paging': true,
+                                        'lengthChange': true,
+                                        'searching': true,
+                                        'ordering': true,
+                                        'info': true,
+                                        'autoWidth': true,
+                                        'retrieve': true,
+                                    });
+                                }, 2000);
+                            } else {
+                                swal("Could not load account details");
+                            }
+                        }).catch(err => {
+                            swal("Could not load account details");
+                            console.log(err);
+                        })
+                    },
+                    // getCustomerPtpList(customerId) {
+                    //     console.log("Customer id for ptp = " + customerId);
+                    //     var host = window.location.host;
+                    //     var url = "http://" + host + "/collection/dashboard/api/customerptplist/card?customerId=" + (parseInt(customerId) - 1);
+                    //     this.$http.get(url,
+                    //         {
+                    //             credentials: true, headers: {
+                    //                 'X-CSRF-TOKEN': window.csrfToken,
+                    //             }
+                    //         }).then(res => {
+                    //         if (res.body) {
+                    //             this.ptpList = res.body;
+                    //             console.log(this.ptpList);
+                    //             $("#modal-ptpSummary").show();
+                    //         }
+                    //     }).catch(err => {
+                    //         console.log(err);
+                    //     })
+                    // },
+                    viewCardCustomerProfile(accNo) {
+                        var url = "/card/customer/profile?account=" + accNo;
+                        window.open(url);
+                    },
+                    viewDealerHistory() {
+
+                    },
+                }
+            });
+        </script>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

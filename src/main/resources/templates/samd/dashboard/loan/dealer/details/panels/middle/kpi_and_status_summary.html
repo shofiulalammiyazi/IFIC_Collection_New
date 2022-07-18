@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>KPI and Status Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="info">
+
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >KPI and Status Summary</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#kpi-amount" title="Amount Wise">Amount Wise</a>
+            </li>
+            <li id="tab-product_wise_summary_by_acc-samd">
+                <a data-toggle="tab" href="#kpi-account" title="Account Wise">Account Wise</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="kpi-amount">
+            <div>
+                <center><h5>Amount </h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead>
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="kpi_target_achievement_amount_wise">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <center><h5> Percentage(%)</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead>
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="kpi_target_achievement_amount_wise_percentage">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane top-buffer" id="kpi-account">
+            <div>
+                <center><h5>Account Total & %</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead>
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="kpi_target_achievement_account_wise">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <center><h5>Account Total & Percentage(%)</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead>
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="kpi_target_achievement_account_wise_percentage">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#tab-product-wise-summary-samd").click(function () {
+
+            $('.kpi_target_achievement_amount_wise').remove();
+            $('.kpi_target_achievement_amount_wise_percentage').remove();
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin= $("#globalUserPinForSummary").val();
+            var unit=$("#globalUnitForSummary").val();
+            var designation=$("#globalUserDesignationForSummary").val();
+            var userId=$("#globalUserIdForSummary").val();
+
+            if(unit == 'Card')
+            {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/dashboard/samd/distribution/kpi_vs_achiev/card",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit:unit,
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        console.log(data);
+
+                        for(var i=0; i<data.length; i++) {
+
+                            var flowTarget = data[i].flowTarget;
+                            flowTarget = parseFloat(flowTarget);
+
+                            var saveTarget = data[i].saveTarget;
+                            saveTarget = parseFloat(saveTarget);
+
+                            var backTarget = data[i].backTarget;
+                            backTarget = parseFloat(backTarget);
+
+                            var regTarget = data[i].regTarget;
+                            regTarget = parseFloat(regTarget);
+
+                            var parTarget = data[i].parTarget;
+                            parTarget = parseFloat(parTarget);
+
+                            var nplTarget = data[i].nplTarget;
+                            nplTarget = parseFloat(nplTarget);
+
+                            var rawTarget = data[i].rawTarget;
+                            rawTarget = parseFloat(rawTarget);
+
+                            if( flowTarget <= 0 && saveTarget <= 0 && backTarget <= 0 && regTarget <= 0 && parTarget <= 0 && nplTarget <= 0 && rawTarget <= 0 ) {
+                                continue;
+                            }
+
+                            // NUMBER ONLY
+                            var tr = "";
+                            if(arr.indexOf(data[i].product) != null) {
+                                tr += '<tr class="kpi_target_achievement_amount_wise">\n' +
+                                    '                            <td class="text-right">'+data[i].cardsCategory+'</td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                        </tr>';
+                                arr.push(data[i].product);
+
+                            }
+
+
+
+                            var flowAch__ = data[i].flowAch;
+                            flowAch__ = parseFloat(flowAch__);
+                            var flowPerformace__ = 0;
+                            if( flowTarget > 0 && flowAch__ > 0 ) {
+                                flowPerformace__ = (((flowTarget-flowAch__)/flowTarget)+1)*100;
+                            }
+
+
+                            tr += '<tr class="kpi_target_achievement_amount_wise">\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+data[i].ageCode+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].amntPerAgeCode*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(flowPerformace__*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].saveTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].backTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].regTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].parTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].nplTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].rawTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].minTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAmntPerDay*100)/100+'</td>\n' +
+                                '                        </tr>';
+
+                            $('#kpi_target_achievement_amount_wise').append(tr);
+                        }
+
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        for(var i=0; i<data.length; i++) {
+
+
+                            var flowTarget = data[i].flowTarget;
+                            flowTarget = parseFloat(flowTarget);
+
+                            var saveTarget = data[i].saveTarget;
+                            saveTarget = parseFloat(saveTarget);
+
+                            var backTarget = data[i].backTarget;
+                            backTarget = parseFloat(backTarget);
+
+                            var regTarget = data[i].regTarget;
+                            regTarget = parseFloat(regTarget);
+
+                            var parTarget = data[i].parTarget;
+                            parTarget = parseFloat(parTarget);
+
+                            var nplTarget = data[i].nplTarget;
+                            nplTarget = parseFloat(nplTarget);
+
+                            var rawTarget = data[i].rawTarget;
+                            rawTarget = parseFloat(rawTarget);
+
+                            if( flowTarget <= 0 && saveTarget <= 0 && backTarget <= 0 && regTarget <= 0 && parTarget <= 0 && nplTarget <= 0 && rawTarget <= 0 ) {
+                                continue;
+                            }
+
+
+
+                            // PERCENTAGE ONLY
+                            var tr = "";
+                            if(arr.indexOf(data[i].product) !=null) {
+                                tr += '<tr class="kpi_target_achievement_amount_wise_percentage">\n' +
+                                    '                            <td class="text-right">'+data[i].cardsCategory+'</td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right">'+data[i].amntPerPT+'</td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                        </tr>';
+                                arr.push(data[i].product);
+
+                            }
+
+
+                            tr += '<tr class="kpi_target_achievement_amount_wise_percentage">\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+data[i].ageCode+'</td>\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].flowAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowTargetPerc - ((data[i].flowAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].saveTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].saveAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveTargetPerc - ((data[i].saveAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].savePerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].backTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].backAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backTargetPerc - ((data[i].backAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].regTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].regAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regTargetPerc - ((data[i].regAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].parTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].parAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parTargetPerc - ((data[i].parAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].nplTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].nplAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplTargetPerc - ((data[i].nplAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].rawTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].rawAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawTargetPerc - ((data[i].rawAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAmntPerDay/100)+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].minTargetPerc)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].minAch / data[i].amntPerAgeCode)*100)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minTargetPerc - ((data[i].minAch / data[i].amntPerAgeCode)*100))+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeight)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeightedPerformance)+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAmntPerDay/100)+'</td>\n' +
+                                '                        </tr>';
+
+                            $('#kpi_target_achievement_amount_wise_percentage').append(tr);
+                        }
+                    }
+                }).done(function(){
+
+                });
+            }else if(unit == 'Loan')
+            {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/samd/loan/dashboard/kpi-vs-achievement/amount-wise",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit: "SAM",
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        var total = 0;
+                        var arr = new Array();
+                        var arrPerc = new Array();
+
+                        console.log(data);
+                        $(".kpi_target_achievement_loan_row").html('');
+                        for(var i = 0; i<data.length; i++){
+
+                            var tr = '';
+                            var trPerc = '';
+
+                            //for total on loan amount wise
+                            if(arr.indexOf(data[i].product) < 0) {
+                                tr += '<tr class="kpi_target_achievement_loan_row">\n' +
+                                    '<td>'+data[i].product+'</td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '</tr>';
+                                arr.push(data[i].product);
+                            }
+                            // +Math.round(data[i].amntOfFlowAc*100)/100+
+                            tr += '<tr class="kpi_target_achievement_loan_row">\n' +
+                                '<td></td>\n' +
+                                '<td class="text-right">'+data[i].dpdBucket+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntEachDpd*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfFlowAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfFlowAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallFlow*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].flowPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfSaveAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfSaveAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallSave*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfBackAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfBackAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallBack*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].overDuePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverdDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverDuePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].regularPerFormance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerformmance*100)/100+'</td>\n' +
+                                '</tr>';
+                            $("#kpi_target_achievement_amount_wise").append(tr);
+
+
+
+                            //for percentage on loan amount wise
+                            if(arrPerc.indexOf(data[i].product) < 0) {
+                                trPerc += '<tr class="kpi_target_achievement_loan_row">\n' +
+                                    '<td>'+data[i].product+'</td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '</tr>';
+                                arrPerc.push(data[i].product);
+                            }
+
+                            trPerc += '<tr class="kpi_target_achievement_loan_row">\n' +
+                                '<td>-</td>\n' +
+                                '<td class="text-right">'+data[i].dpdBucket+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntEachDpd*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfFlowAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfFlowAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfFlowAcPerc-data[i].amntOfFlowAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].flowPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfSaveAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfSaveAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfSaveAcPerc-data[i].amntOfSaveAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfBackAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfBackAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfBackAcPerc-data[i].amntOfBackAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOverDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOverDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOverDuePerc-data[i].amntOverDuePerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].overDuePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverdDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverDuePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntRegularPerc-data[i].amntRegularPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].regularPerFormance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerformmance*100)/100+'</td>\n' +
+
+                                '</tr>';
+                            $("#kpi_target_achievement_amount_wise_percentage").append(trPerc);
+                        }
+                    }
+                }).done(function(){
+
+                });
+            }
+
+        })
+
+        $("#tab-product_wise_summary_by_acc-samd").click(function () {
+
+            $('.paa_account_custom').remove();
+            $('.kpi_target_achievement_account_wise').remove();
+            $('.kpi_target_achievement_account_wise_percentage').remove();
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin= $("#globalUserPinForSummary").val();
+            var unit=$("#globalUnitForSummary").val();
+            var designation=$("#globalUserDesignationForSummary").val();
+            var userId=$("#globalUserIdForSummary").val();
+
+            if(unit == 'Card')
+            {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/dashboard/samd/distribution/kpi_vs_achiev/card/account",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit:unit,
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+                        console.log(json);
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        console.log(data);
+
+                        for(var i=0; i<data.length; i++) {
+
+                            var flowTarget = data[i].flowTarget;
+                            flowTarget = parseFloat(flowTarget);
+
+                            var saveTarget = data[i].saveTarget;
+                            saveTarget = parseFloat(saveTarget);
+
+                            var backTarget = data[i].backTarget;
+                            backTarget = parseFloat(backTarget);
+
+                            var regTarget = data[i].regTarget;
+                            regTarget = parseFloat(regTarget);
+
+                            var parTarget = data[i].parTarget;
+                            parTarget = parseFloat(parTarget);
+
+                            var nplTarget = data[i].nplTarget;
+                            nplTarget = parseFloat(nplTarget);
+
+                            var rawTarget = data[i].rawTarget;
+                            rawTarget = parseFloat(rawTarget);
+
+                            if(flowTarget <= 0 && saveTarget <= 0 && backTarget <= 0 && regTarget <= 0 && parTarget <= 0 && nplTarget <= 0 && rawTarget <= 0 ) {
+                                continue;
+                            }
+
+                            // NUMBER ONLY
+                            var tr = "";
+                            if(arr.indexOf(data[i].product) < 0) {
+                                tr += '<tr class="kpi_target_achievement_account_wise">\n' +
+                                    '                            <td class="text-right">'+data[i].cardsCategory+'</td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                        </tr>';
+                                arr.push(data[i].product);
+
+                            }
+
+
+
+                            var flowAch__ = data[i].flowAch;
+                            flowAch__ = parseFloat(flowAch__);
+                            var flowPerformace__ = 0;
+                            if( flowTarget > 0 && flowAch__ > 0 ) {
+                                flowPerformace__ = (((flowTarget-flowAch__)/flowTarget)+1)*100;
+                            }
+
+
+                            tr += '<tr class="kpi_target_achievement_account_wise">\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+data[i].ageCode+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].amntPerAgeCode*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(flowPerformace__*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].saveTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].backTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].regTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].parTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].nplTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].rawTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAmntPerDay*100)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].minTarget*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAch*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minShortFall*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAmntPerDay*100)/100+'</td>\n' +
+                                '                        </tr>';
+
+                            $('#kpi_target_achievement_account_wise').append(tr);
+                        }
+
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        for(var i=0; i<data.length; i++) {
+
+
+                            var flowTarget = data[i].flowTarget;
+                            flowTarget = parseFloat(flowTarget);
+
+                            var saveTarget = data[i].saveTarget;
+                            saveTarget = parseFloat(saveTarget);
+
+                            var backTarget = data[i].backTarget;
+                            backTarget = parseFloat(backTarget);
+
+                            var regTarget = data[i].regTarget;
+                            regTarget = parseFloat(regTarget);
+
+                            var parTarget = data[i].parTarget;
+                            parTarget = parseFloat(parTarget);
+
+                            var nplTarget = data[i].nplTarget;
+                            nplTarget = parseFloat(nplTarget);
+
+                            var rawTarget = data[i].rawTarget;
+                            rawTarget = parseFloat(rawTarget);
+
+                            if( flowTarget <= 0 && saveTarget <= 0 && backTarget <= 0 && regTarget <= 0 && parTarget <= 0 && nplTarget <= 0 && rawTarget <= 0 ) {
+                                continue;
+                            }
+
+
+
+                            // PERCENTAGE ONLY
+                            var tr = "";
+                            if(arr.indexOf(data[i].product) < 0) {
+                                tr += '<tr class="kpi_target_achievement_account_wise_percentage">\n' +
+                                    '                            <td class="text-right">'+data[i].cardsCategory+'</td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                            <td class="text-right"></td>\n' +
+                                    '                        </tr>';
+                                arr.push(data[i].product);
+
+                            }
+
+
+                            tr += '<tr class="kpi_target_achievement_account_wise_percentage">\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].ageCode*100)/100+'</td>\n' +
+                                '                            <td class="text-right"></td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].flowAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].flowTargetPerc - ((data[i].flowAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].flowAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].saveTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].saveAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].saveTargetPerc - ((data[i].saveAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].saveAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].backTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].backAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].backTargetPerc - ((data[i].backAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].backAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].regTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].regAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].regTargetPerc - ((data[i].regAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].regAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].parTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].parAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].parTargetPerc - ((data[i].parAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].parAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].nplTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].nplAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].nplTargetPerc - ((data[i].nplAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].nplAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].rawTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].rawAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].rawTargetPerc-((data[i].rawAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].rawAmntPerDay)/100+'</td>\n' +
+
+                                '                            <td class="text-right">'+Math.round(data[i].minTargetPerc*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].minAch / data[i].amntPerAgeCode)*100*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round((data[i].minTargetPerc - ((data[i].minAch / data[i].amntPerAgeCode)*100))*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeight*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minWeightedPerformance*100)/100+'</td>\n' +
+                                '                            <td class="text-right">'+Math.round(data[i].minAmntPerDay)/100+'</td>\n' +
+                                '                        </tr>';
+
+                            $('#kpi_target_achievement_account_wise_percentage').append(tr);
+                        }
+                    }
+                }).done(function(){
+
+                });
+            }else if(unit == 'Loan')
+            {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/samd/loan/dashboard/kpi-vs-achievement/account-wise",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit:"SAM",
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+                        var total = 0;
+                        var arr = new Array();
+                        var arrPerc = new Array();
+
+                        console.log(data);
+                        $(".kpi_target_achievement_loan_row").html('');
+                        for(var i = 0; i<data.length; i++){
+
+                            var tr = '';
+                            var trPerc = '';
+
+                            //for total on loan amount wise
+                            if(arr.indexOf(data[i].product) < 0) {
+                                tr += '<tr class="kpi_target_achievement_account_wise">\n' +
+                                    '<td>'+data[i].product+'</td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '</tr>';
+                                arr.push(data[i].product);
+                            }
+
+                            tr += '<tr class="kpi_target_achievement_account_wise">\n' +
+                                '<td>-</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].dpdBucket)+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntEachDpd*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfFlowAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfFlowAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallFlow*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].flowPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfSaveAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfSaveAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallSave*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfBackAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfBackAc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallBack*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallOverDue*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].overDuePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverdDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverDuePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].shortFallRegular*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].regularPerFormance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerformmance*100)/100+'</td>\n' +
+                                '</tr>';
+                            $("#kpi_target_achievement_account_wise").append(tr);
+
+
+
+                            //for percentage on loan amount wise
+                            if(arrPerc.indexOf(data[i].product) < 0) {
+                                trPerc += '<tr class="kpi_target_achievement_account_wise">\n' +
+                                    '<td>'+data[i].product+'</td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '<td class="text-right"></td>\n' +
+                                    '</tr>';
+                                arrPerc.push(data[i].product);
+                            }
+
+                            trPerc += '<tr class="kpi_target_achievement_account_wise_percentage">\n' +
+                                '<td>-</td>\n' +
+                                '<td class="text-right">'+data[i].dpdBucket+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntEachDpd*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfFlowAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfFlowAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfFlowAcPerc-data[i].amntOfFlowAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].flowPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightFlowPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfSaveAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfSaveAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfSaveAcPerc-data[i].amntOfSaveAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].savePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightSavePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOfBackAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOfBackAcPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOfBackAcPerc-data[i].amntOfBackAcPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].backPerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightBackPerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntOverDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntOverDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntOverDuePerc-data[i].amntOverDuePerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].overDuePerformance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverdDuePerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightOverDuePerformmance*100)/100+'</td>\n' +
+
+                                '<td class="text-right">'+Math.round(data[i].tarAmntRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].amntRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round((data[i].tarAmntRegularPerc-data[i].amntRegularPerc)*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].regularPerFormance*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerc*100)/100+'</td>\n' +
+                                '<td class="text-right">'+Math.round(data[i].weightRegularPerformmance*100)/100+'</td>\n' +
+
+                                '</tr>';
+                            $("#kpi_target_achievement_account_wise_percentage").append(trPerc);
+                        }
+                    }
+                }).done(function(){
+
+                });
+            }
+
+        })
+    </script>
+
+</div>
+</body>
+
+
+</html>

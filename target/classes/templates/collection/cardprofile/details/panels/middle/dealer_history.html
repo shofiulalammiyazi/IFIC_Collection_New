@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>History</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="dealer-history">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Dealer Allocation History</h3>
+
+        </div>
+        <div class="box-body" id="history" style="overflow: auto;min-height: 600px;">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sl.</th>
+                        <th>Dealer Name</th>
+                        <th>Supervisor Name</th>
+                        <th>Employee Id</th>
+                        <th>Crated Date</th>
+                        <th>OS</th>
+                        <th>Minimum due</th>
+                        <th>Dpd</th>
+                        <th>Age Code</th>
+                        <th>CL Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="history, state : ${dealerAllocationHistory}">
+                        <td class="text-center" th:text="${state.count}"></td>
+                        <td th:text="${history.dealer}"></td>
+                        <td th:text="${history?.teamleaderName}"></td>
+                        <td th:text="${history.teamleaderId} == null ? '' : ${history.teamleaderId}"></td>
+                        <td th:text="${history.createdAt} != null ? ${#dates.format(history.createdAt, 'dd-MMM-yyyy')} : ''"></td>
+                        <td th:text="${history?.outStanding == null } ?  ${history?.outStanding}"></td>
+                        <td th:text="${history?.minimumDue == null } ?  ${history?.minimumDue}"></td>
+                        <td th:text="${history?.dpdBucket == null } ?  ${history?.dpdBucket}"></td>
+                        <td th:text="${history?.ageCode == null } ?  ${history?.ageCode}"></td>
+                        <td th:text="${history?.clStatus == null } ? ${history?.clStatus}"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+
+        </script>
+    </div>
+
+
+</div>
+</body>
+</html>

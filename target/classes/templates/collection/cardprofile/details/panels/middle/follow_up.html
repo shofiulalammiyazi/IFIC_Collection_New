@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Follow Up</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="follow-up">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Follow up</h3>
+            <a class=" btn btn-sm pull-right" data-toggle="modal" data-target="#modal-follow-up" >
+                <i class="fa fa-plus-square"></i>
+                Add More
+            </a>
+        </div>
+        <div class="modal fade" id="modal-follow-up">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Follow Up</h4>
+                    </div>
+                    <form id="card_followUpForm" action="" method="post" class="form-horizontal" >
+                        <input type="hidden" th:value="${cardCustomerInfo.id}" name="customerBasicInfo.id"/>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="datepicker" class="col-sm-2 control-label">  Date</label>
+
+                                <div class="col-sm-10">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" name="dates" class="form-control pull-right datepicker" id="datepicker">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="time" class="col-sm-2 control-label">Time</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" name="times" class="form-control timepicker" id="time">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkbox" class="col-sm-2 control-label">Reason</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input class="ads_Checkbox " type="checkbox"  id="checkbox" value="Call">
+                                            Call
+                                        </label>
+                                        <label>
+                                            <input class="ads_Checkbox " type="checkbox" id="checkbox1" value="SMS">
+                                            SMS
+                                        </label>
+                                        <label>
+                                            <input class="ads_Checkbox " type="checkbox"id="checkbox2" value="Email" >
+                                            Email
+                                        </label> <label>
+                                            <input class="ads_Checkbox " type="checkbox" id="checkbox3" value="Letter">
+                                            Letter
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="save_card_follow_up()">Save</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="box-body" >
+            <div class="form-horizontal csi-view-form" id="follow-up">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <input type="hidden" name="refId" id="refId" th:value="${refId}"  />
+                <table name="reference_info" id="follow_up"
+                       class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Creator id</th>
+                        <th>Follow up Date</th>
+                        <th>Follow up Time</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="card_followup_tBody" >
+                        <tr th:each="followup :${cardCustomerInfo.cardFollowUpList}">
+                            <td th:text="${followup.createdBy}"></td>
+                            <td th:text="${followup.dates}"></td>
+                            <td th:text="${followup.times}"></td>
+                            <td >
+                                <ul style="display: inline; padding: 0px;" th:each="reason :${followup.reason}">
+                                    <li style="list-style: none" th:text="${reason}"></li>
+                                </ul>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

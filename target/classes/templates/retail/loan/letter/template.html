@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Letter </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <button class="btn btn-primary" onclick="generatePDF()">Download</button>
+                            <span style="font-size: 16px" class="pull-right"><span  class="label label-info">EDIT:</span> Double click on <b>Bold text</b> to edit</span>
+                        </div>
+
+                        <style>
+                            .row{
+                                margin: 0 auto;
+                            }
+                            .letter-body {
+                                max-width: 800px;
+                                margin: auto;
+                                padding: 35px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+                                font-size: 14px;
+                                line-height: 24px;
+                                font-family: 'Times New Roman', 'Times New Roman', Helvetica, Arial, sans-serif;
+                                color: #555;
+                            }
+                        </style>
+
+                        <div class="box-body">
+                            <div id="letter-body" class="letter-body">
+                                <div style="margin: 60px 40px; text-align: justify">
+                                    <div style="margin-top: 40px">
+                                        <div v-if="!editing"  @dblclick="editing = !editing"><span><strong>Ref : {{ref}}</strong></span></div>
+                                        <div v-else><span>Ref : </span><input style="width: 300px" v-focus   @keyup.enter="doneEditing"  type="text/number" name="ref" v-model="ref">
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: 20px;">
+                                        <div v-if="!editing"  @dblclick="editing = !editing"><span><strong>CUSTOMER ID: {{ customerID }}</strong></span></div>
+                                        <div v-else><span>CUSTOMER ID:  </span><input style="width: 300px"   @keyup.enter="doneEditing"  type="number" name="customerID" v-model="customerID">
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: 40px">
+                                        <p v-if="!editing" @dblclick="editing = !editing"><strong>{{currentDate | dateFormat}}</strong></p>
+                                        <input v-else @change="doneEditing"   @keyup.enter="doneEditing" type="date" name="currentDate" v-model="currentDate">
+                                    </div>
+
+                                    <div style="margin-bottom:20px; display: flex">
+                                        <div style="margin: 0 auto 30px;">
+                                            <span v-if="!editing" @dblclick="editing = !editing" style="text-decoration: underline"><strong>{{privacy}}</strong></span>
+                                            <input v-else style="width: 350px" type="text"   @keyup.enter="doneEditing" name="privacy" v-model="privacy">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{name}}</strong></span>
+                                        <input style="width: 200px;" v-else   @keyup.enter="doneEditing" type="text" name="name" v-model="name">
+                                    </div>
+
+                                    <div>
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{ designation }}</strong></span>
+                                        <input style="width: 200px;" v-else   @keyup.enter="doneEditing" type="text" name="designation" v-model="designation">
+                                    </div>
+
+                                    <div>
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{companyName }}</strong></span>
+                                        <input style="width: 200px;" v-else   @keyup.enter="doneEditing" type="text" name="companyName" v-model="companyName">
+                                    </div>
+
+                                    <div>
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{customerAddress}}</strong></span>
+                                        <input style="width: 400px" v-else   @keyup.enter="doneEditing" type="text" name="customerAddress" v-model="customerAddress">
+                                    </div>
+
+                                    <div style="margin-bottom: 40px">
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{ finalAge }}</strong></span>
+                                        <input style="width: 200px;" v-else   @keyup.enter="doneEditing" type="text" name="finalAge" v-model="finalAge">
+                                    </div>
+
+                                    <div style="margin-bottom: 40px">
+                                        <span v-if="!editing" @dblclick="editing = !editing" style="font-size: 16px"><strong>{{emailSubject}}</strong></span>
+                                        <input style="width: 500px" v-else   @keyup.enter="doneEditing" type="text" name="emailSubject" v-model="emailSubject">
+                                    </div>
+
+                                    <p>Dear Sir/Madam:</p>
+                                    <p style="margin-bottom: 30px">Thank you for using BRAC Bank Credit Card.</p>
+                                    <p style="margin-bottom: 20px;">Please be advised that repayment of BDT
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{amountBDT}}</strong></span>
+                                        <input v-else   @keyup.enter="doneEditing" type="text/number" name="amountBDT" v-model="amountBDT">
+                                        & USD <span v-if="!editing" @dblclick="editing = !editing"><strong>{{amountUSD}}</strong></span>
+                                        <input v-else   @keyup.enter="doneEditing" type="text/number" name="amountUSD" v-model="amountUSD">
+                                        of your above stated Credit Card has fallen into arrears on
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{genDate | dateFormat}}</strong></span>
+                                        <input v-else @change="doneEditing"   @keyup.enter="doneEditing" type="date" name="genDate" v-model="genDate">.
+                                    </p>
+
+                                    <p style="margin-bottom: 20px">As the amount is rather small, this may have escaped your attention.
+                                        Therefore, please arrange to regularize the account at your earliest by depositing above mentioned
+                                        minimum amount to avoid further late payment charges.
+                                    </p>
+
+                                    <p style="margin-bottom: 40px">Appreciate your co-operation in this regard.
+                                        Please disregard this letter if the minimum amount due is already paid.
+                                    </p>
+
+                                    <p style="margin-bottom: 60px">If you have any further queries, please feel free to contact us at
+                                        the below mentioned contact number or communicate physically at
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{agentAddress}}</strong></span>
+                                        <textarea style="width: 500px" v-else   @keyup.enter="doneEditing" name="agentAddress" v-model="agentAddress"></textarea> </p>
+                                    <p style="margin-bottom: 60px">Sincerely, <br>
+                                        Collection-Cards <br>
+                                        Retail Collections <br>
+                                        Risk Management Division <br>
+                                        Tel:
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{ agentPhone }}</strong></span>
+                                        <input v-else   @keyup.enter="doneEditing" type="number" name="agentPhone" v-model="agentPhone">
+                                    </p>
+                                    <p style="text-align: center">This is a computer generated letter and does not require any signature</p>
+                                </div>
+                            </div>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var customer = /*[[${customer}]]*/ [];
+                            var customerProfileLoan = /*[[${customerProfileLoan}]]*/ [];
+                            /*]]>*/
+                        </script>
+                        <script>
+                            let vm = new Vue({
+                                el: '#letter-body',
+                                data: {
+                                    ref: 'BBL/HO/CR/X/2019/06/0001',
+                                    customerID: '123456',
+                                    currentDate: "",
+                                    privacy: 'PRIVATE AND CONFIDENTIAL',
+                                    name: 'AZIZUL HAQUE',
+                                    designation: 'swe',
+                                    companyName: 'Newscred',
+                                    customerAddress: 'Rupsha Stand, Khulna,,Bagerhat,Khulna,Bangladesh',
+                                    emailSubject: 'Subject: Minimum amount due against your credit card #123456789',
+                                    amountBDT: '4,563.39',
+                                    amountUSD: '55',
+                                    genDate: "",
+                                    agentAddress: 'Sepal Platinum Tower, Holding # 247/248 (Level-6), Tejgaon I/A, Bir Uttam Mir Showkat Road, Dhaka-1208.',
+                                    agentPhone: '01755596028',
+                                    editing: false,
+                                    finalAge: 'xyz',
+                                },
+                                created:function(){
+                                    this.currentDate = this.getFormattedDate();
+                                    this.genDate = this.getFormattedDate();
+                                    this.customer = customer;
+                                    this.customerProfileLoan = JSON.parse(customerProfileLoan) != null ? JSON.parse(customerProfileLoan) : [];
+
+                                    this.initValues();
+                                },
+                                filters:{
+                                    dateFormat(value){
+                                        let monthNames =  ["January","February","March","April","May","June",
+                                            "July","August","September","October","November","December"];
+                                        let currentDateArray = value.toString().split('-');
+                                        let length = currentDateArray.length;
+                                        // 2020-12-30
+                                        if(length > 1){
+                                            let date = currentDateArray[2];
+                                            let monthName = monthNames[parseInt(currentDateArray[1]) - 1]
+                                            let year = currentDateArray[0];
+
+                                            return `${monthName} ${date}, ${year}`;
+                                        }else if(length === 1){
+                                            let date = value.getDate();
+                                            let month = value.getMonth();
+                                            let monthName = monthNames[month];
+                                            let year = value.getFullYear();
+                                            return `${monthName} ${date}, ${year}`;
+                                        }
+
+                                    },
+                                },
+                                directives: {
+                                    focus: {
+                                        // directive definition
+                                        inserted: function (el) {
+                                            el.focus()
+                                        }
+                                    }
+                                },
+                                methods:{
+                                    initValues(){
+                                        this.name=  this.customer.customerName;
+                                        this.accountNo = this.customer.accountNo;
+                                        this.customerAddress = this.customerProfileLoan.HOME_ADDRESS ? this.customerProfileLoan.HOME_ADDRESS : this.customerAddress;
+                                        this.emailSubject += this.customer.accountNo;
+
+                                    },
+                                    getFormattedDate(){
+                                        let newdate = new Date();
+                                        let date = newdate.getDate();
+                                        let month = newdate.getMonth() + 1;
+                                        let year = newdate.getFullYear();
+                                        return `${year}-${month}-${date}`;
+                                    },
+                                    doneEditing(){
+                                        this.editing = false;
+                                    },
+                                }
+                            })
+                        </script>
+                        <script>
+                            function generatePDF(){
+                                $("#letter-body").print();
+                                return (false);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

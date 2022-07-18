@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>PTP Status</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="account-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >PTP Status</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+                    <input class="gen-card-id" type="hidden"  name="cardId"  />
+                    <input type="hidden" name="refId" id="refId"   />
+                    <table name="reference_info" id="referenceinfo"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Broken,</th>
+                            <th>Kept,</th>
+                            <th>Cured</th>
+                        </tr>
+                        </thead>
+                        <tbody id="referenceinfo_tBody" >
+                        <tr >
+                            <td>Test</td>
+                            <td>Test</td>
+                            <td>Test</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Loan No :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="loanNo"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> SOL Id :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="solId"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Location :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="location"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Disbursement/Issue Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="disburesmentDate"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Expiry Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="expiryDate"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Disbursement Amount/Credit Limit :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="disbursementAmount"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Sanction Amount(Specially for SOD, Home Loan) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="sanctionAmount"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> First Inst. Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="firstInstDate"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Outstanding :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="outstanding"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Overdue/Min Due :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="overdue"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">EMI Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="emiAmount"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Asset Classification :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="assetClassification"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">EMI/Due Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="emi"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Branch Name :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="branchName"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Scheme Code :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="schemeCode"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Product Group :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="productGroup"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Product Type :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="productType"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Business Wing :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="businessWing"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">ATE/Age Code :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="ageCode"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">DPD :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="dpd"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">DPD Bucket :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="dpdBucket"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Live DPD :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="liveDpd"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Manual ATE :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="manualAte"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Total Paid Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="totalPaidAmount"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Interest Paid :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="interestPaid"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Principle Paid :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="principlePaid"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Last Payment Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="lastPaymentDate"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Last Paid Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="lastPaidAmount"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Link Account No :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="linkAccountNo"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Last Paid Amount of Link Account :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="lpaola"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Save Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="saveAmount"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Back Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="backAmount"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Interest Rate :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="interestRate"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Credit Define Sub Sector :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="creditDefineSubSector"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Credit Define Sector :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="creditDefineSector"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Central Bank Sector Code :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="centralBankSectorCode"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Bank Sector Code :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="bankSectorCode"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Economic Purpose Sector Code :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="economicPurposeSectorCode"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Penal Charge :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="penalCharge"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Mode of Repayment(From Excel) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="modeOfRepayment"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Reschedule and Restructure History :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="rescheduleHistory"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">NPL Release Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="nplRelease"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">PAR Release Amount :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="parRelease"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">First EMI Date :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="firstEmiDate"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">First Installment Due :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="firstInstallmentDue"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Credit File No. :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="creditFileNo"></label>-->
+                    <!--</div>-->
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

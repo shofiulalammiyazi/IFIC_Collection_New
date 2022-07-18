@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Instrument Information</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="cheque-management">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Instrument Information</h3>
+            <a class=" btn btn-xs btn-primary pull-right btn-create-cheque" data-toggle="modal" data-target="#modal-cheque-management" >
+                <i class="fa fa-plus-square"></i>
+            </a>
+        </div>
+
+        <div class="box-body" id="app-cheque-management">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Cheque No.</th>
+                            <th>Account No.</th>
+                            <th>Bank Name</th>
+                            <th>Branch Name</th>
+                            <th>Amount</th>
+                            <th style="min-width: 92px">Received Date</th>
+                            <th>File</th>
+                            <th style="min-width: 70px;">Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr v-for="data in allData">
+                            <td>{{data.chequeNo}}</td>
+                            <td>{{data.accountNo}}</td>
+                            <td>{{data.bankName}}</td>
+                            <td>{{data.branchName}}</td>
+                            <td class="text-right">{{numberFormatBdt(data.amount)}}</td>
+                            <td>{{formatDate(data.receiveDate)}}</td>
+                            <td :href="'/collection/dms/document/preview?id='+data.dmsFileId+'&type='+data.dmsFileType">{{formatDate(data.fileName)}}</td>
+                            <td>
+                                <a href="#modal-show-cheque-management" data-toggle="modal" class="btn btn-xs btn-primary btn-show-cheque">
+                                    <span class="fa fa-eye"></span>
+                                </a>
+                                <a href="#modal-cheque-management" data-toggle="modal" class="btn btn-xs btn-primary btn-edit-cheque">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal fade" id="modal-cheque-management"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Instrument Information</h3>
+                            </div>
+
+                            <form  id="cheque-management-form" action="" onsubmit="" method="post" class="form-horizontal" enctype="multipart/form-data">
+
+                                <div id="cheque-management-error" class="alt alert-warning hidden"></div>
+                                <input type="hidden" name="id" v-model="editData.id">
+                                <input type="hidden" name="customerId" v-model="customerId">
+                                <input type="hidden" name="_csrf" v-model="csrfToken" >
+
+                                <div class="form-group col-sm-12" style="margin-top: 20px">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Cheque No :</label>
+                                    <input type="text" name="chequeNo" id="chequeNo" class="col-sm-4 custom-form-control" v-model="editData.chequeNo" placeholder="Cheque No" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Account No :</label>
+                                    <input type="text" name="accountNo" id="accountNo" class="col-sm-4 custom-form-control" v-model="editData.accountNo" placeholder="Account No" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Account Name :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" placeholder="Account Name" v-model="editData.accountName" id="accountName" name="accountName" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Bank Name :</label>
+                                    <input type="text" class="col-sm-4 custom-form-control" placeholder="Bank Name" v-model="editData.bankName" id="bankName" name="bankName" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Branch Name :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" placeholder="Branch Name" v-model="editData.branchName" id="branchName" name="branchName" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Routing No :</label>
+                                    <input type="text" class="col-sm-4 custom-form-control" placeholder="Routing No" v-model="editData.routingNo" id="routingNo" name="routingNo" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Amount :</label>
+                                    <input type="text" class="col-sm-4 custom-form-control" placeholder="Amount" v-model="editData.amount" id="amount" name="amount" />
+                                    <label class="col-sm-2 custom-details-lebel-left ">Cheque Date :</label>
+                                    <!--<input  type="date" class="col-sm-4 custom-form-control" id="chequeDate" v-bind:value="formatDate1(editData.chequeDate)" name="chequeDate" />-->
+                                    <input  type="date" class="col-sm-4 custom-form-control" id="chequeDate" value="formatDate1(editData.chequeDate)" name="chequeDate" />
+
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Receive Date :</label>
+                                    <!--<input type="date" class="col-sm-4 custom-form-control" id="receiveDate" v-bind:value="formatDate1(editData.receiveDate)" name="receiveDate" />-->
+                                    <input type="date" class="col-sm-4 custom-form-control" id="receiveDate" value="formatDate1(editData.receiveDate)" name="receiveDate" />
+                                    <label class="col-sm-2 custom-details-lebel-left ">Received By :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" placeholder="Receive By" v-model="editData.receivedBy" id="receivedBy" name="receivedBy" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Present Status :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" placeholder="Present Status" v-model="editData.presentStatus" id="presentStatus" name="presentStatus" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Upload File :</label>
+                                    <input  type="file" class="col-sm-4 custom-form-control" name="file" placeholder="Upload"/>
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-show-cheque-management"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Cheque Management</h3>
+                            </div>
+
+                            <div class="form-group col-sm-12" style="margin-top: 20px">
+                                <label class="col-sm-2 custom-details-lebel-left ">Cheque No :</label>
+                                <span class="col-sm-4" >{{editData.chequeNo}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left">Account No :</label>
+                                <span class="col-sm-4" >{{editData.accountNo}}</span>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left ">Account Name :</label>
+                                <span class="col-sm-4">{{editData.accountName}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left">Bank Name :</label>
+                                <span class="col-sm-4 " >{{editData.bankName}}</span>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left ">Branch Name :</label>
+                                <span class="col-sm-4">{{editData.branchName}}</span>
+                               <label class="col-sm-2 custom-details-lebel-left">Routing No :</label>
+                                <span class="col-sm-4">{{editData.routingNo}}</span>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left">Amount :</label>
+                                <!--<span class="col-sm-4">{{numberconvertToBanglaNumber(editData.amount)}}</span>-->
+                                <span class="col-sm-4">{{numberFormatBdt(editData.amount)}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left ">Cheque Date :</label>
+                                <span type="date" class="col-sm-4">{{formatDate(editData.chequeDate)}}</span>
+
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left">Receive Date :</label>
+                                <span class="col-sm-4">{{formatDate(editData.receiveDate)}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left ">Received By :</label>
+                                <span class="col-sm-4" >{{editData.receivedBy}}</span>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left ">Present Status :</label>
+                                <span class="col-sm-4" >{{editData.presentStatus}}</span>
+                            </div>
+
+                            <div class="modal-footer text-center">
+                                <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var chequeManagementApp = new Vue({
+            el: "#app-cheque-management",
+            data: {
+                csrfToken: '',
+                customerId: '',
+                allData: [],
+                editData: {}
+            },
+            methods: {
+                formatDate: function (date) {
+                    return date ? formatDate_DD_MMM_YYYY(date) : ''
+                },
+                formatDate1: function (date) {
+                    let date1 = date ? new Date(date) : new Date()
+
+                    return date ? date1.getFullYear()
+                        +'-'+((date1.getMonth()+1) < 10 ? '0'+(date1.getMonth()+1) : (date1.getMonth()+1))
+                        +'-'+(date1.getDate() < 10 ? '0'+date1.getDate() : date1.getDate())
+                        : '';
+                },
+                numberFormatBdt: function (data) {
+                    return numberToBDTFormat(data)
+                }
+            }
+        })
+
+        $('#cheque-management-form').on('submit', function (e) {
+            e.preventDefault();
+
+            // var data = $(this).serialize();
+            var formdatalist = $('#cheque-management-form');
+            var data = new FormData(document.querySelector('#cheque-management-form'));
+
+
+
+
+            var chequeNo = formdatalist.find('input[name="chequeNo"]').val();
+            var accountNo = formdatalist.find('input[name="accountNo"]').val();
+            var accountName = formdatalist.find('input[name="accountName"]').val();
+            var bankName = formdatalist.find('input[name="bankName"]').val();
+            var branchName = formdatalist.find('input[name="branchName"]').val();
+            var routingNo = formdatalist.find('input[name="routingNo"]').val();
+            var amount = formdatalist.find('input[name="amount"]').val();
+            var chequeDate = formdatalist.find('input[name="chequeDate"]').val();
+            var receiveDate = formdatalist.find('input[name="receiveDate"]').val();
+            var receivedBy = formdatalist.find('input[name="receivedBy"]').val();
+            var presentStatus = formdatalist.find('input[name="presentStatus"]').val();
+
+            if (accountName == ''){
+                alert("Account name can not be empty!");
+                return;
+            }
+
+            // if (chequeNo == ''){
+            //     $('#cheque-management-error').text("Cheque No. can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+            //
+            // if (accountNo ==''){
+            //     $('#cheque-management-error').text("Account number must not be black.").removeClass('hidden')
+            //     return ;
+            // } else if(accountNo.length != 16){
+            //     $('#cheque-management-error').text("Account no must be 15 digits.").removeClass('hidden')
+            //     return ;
+            // }
+            //
+            // if (accountName == ''){
+            //     $('#cheque-management-error').text("Account name can not be empty!").removeClass('hidden');
+            //     return;
+            // }else if($.isNumeric(accountName)){
+            //     $('#cheque-management-error').text("Account name can not contain numeric value!");
+            //     return;
+            // }
+            //
+            // if (bankName == ''){
+            //     $('#cheque-management-error').text("Bank name can not be empty!").removeClass('hidden');
+            //     return;
+            // }else if($.isNumeric(bankName)){
+            //     $('#cheque-management-error').text("Bank name can not contain numeric value!");
+            //     return;
+            // }
+            //
+            // if (branchName == ''){
+            //     $('#cheque-management-error').text("Branch name can not be empty!").removeClass('hidden');
+            //     return;
+            // }else if($.isNumeric(branchName)){
+            //     $('#cheque-management-error').text("Branch name can not contain numeric value!");
+            //     return;
+            // }
+            //
+            // if (routingNo == ''){
+            //     $('#cheque-management-error').text("Routing No can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+            //
+            // if (amount == ''){
+            //     $('#cheque-management-error').text("Amount can not be empty!").removeClass('hidden');
+            //     return;
+            // }else if(!$.isNumeric(amount)){
+            //     $('#cheque-management-error').text("Amount must be Numeric value.").removeClass('hidden')
+            //     return ;
+            // }
+
+            // if (chequeDate == ''){
+            //     $('#cheque-management-error').text("Cheque date can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+
+            // if (receiveDate == ''){
+            //     $('#cheque-management-error').text("Receive date can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+
+            // if (receivedBy == ''){
+            //     $('#cheque-management-error').text("Receive By can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+            //
+            // if (presentStatus == ''){
+            //     $('#cheque-management-error').text("Present Status can not be empty!").removeClass('hidden');
+            //     return;
+            // }
+
+
+
+
+            $.ajax({
+                url: '/collection/loan/cheque-management/create',
+                type: 'POST',
+                data: data,
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function (response, xhr, status) {
+                    // var postResponse = JSON.parse(response)
+                    // if (postResponse.outcome = 'success'){
+                    //
+                    // }
+                    $('#modal-cheque-management').modal('toggle')
+                    loadAllData(chequeManagementApp.customerId)
+
+                }
+            })
+        })
+
+        $('#chequeManagement').on('click', function () {
+            chequeManagementApp.customerId = customerId
+            chequeManagementApp.csrfToken  = window.csrfToken
+
+            loadAllData(customerId)
+        })
+
+        $('.btn-create-cheque').on('click', function () {
+            chequeManagementApp.editData = {}
+        })
+
+        $('#app-cheque-management').delegate('.btn-edit-cheque, .btn-show-cheque', 'click', function () {
+            let index = $(this).is('.btn-edit-cheque') ? $(this).index('.btn-edit-cheque') : $(this).index('.btn-show-cheque')
+            chequeManagementApp.editData = chequeManagementApp.allData[index]
+        })
+
+        var loadAllData = (customerId) => {
+            $.ajax({
+                url: '/collection/loan/cheque-management/get-by-customer-id?customerId='+customerId,
+                success: function (response) {
+                    chequeManagementApp.allData = response
+                }
+            })
+        }
+    </script>
+</div>
+</body>
+</html>

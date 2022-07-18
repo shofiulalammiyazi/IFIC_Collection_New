@@ -1,0 +1,189 @@
+th, b {
+    white-space: nowrap;
+    font-size: 10px;
+}
+
+th, td {
+    padding: 4px;
+    vertical-align: top;
+    font-size: 10px;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+td table, td th, td td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.break-word {
+    word-break: break-all;
+}
+
+.wrap-word {
+    overflow-wrap: break-word;
+}
+
+.vue-multiselect-pane {
+    height: 11em;
+    overflow-y: scroll;
+}
+
+td, th {
+    page-break-inside: avoid;
+}
+.group-table{
+    border: none;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.group-table td, .group-table th{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+.group-table-title td, .group-table-title th{
+    border: none; !important;
+    text-align: left;
+}
+
+#content {
+    display: table;
+}
+
+#pageFooter {
+    display: table-footer-group;
+}
+
+#pageFooter:after {
+    counter-increment: page;
+    content: counter(page);
+}
+
+
+/*.group-title {*/
+    /*break-after: avoid;*/
+    /*page-break-after: avoid;*/
+/*}*/
+
+/*@media screen {*/
+    /*.page-number {*/
+        /*display: none*/
+    /*}*/
+/*}*/
+
+/*body {*/
+    /*counter-reset: page 1;*/
+/*}*/
+
+/*@page {*/
+    /*size: A4;*/
+    /*@bottom-right {*/
+        /*z-index: 100;*/
+        /*content: "Page " counter(page);*/
+        /*font-size: 9pt;*/
+        /*color: #3d3d3d;*/
+        /*font-family: "PT Sans Narrow", sans-serif;*/
+    /*}*/
+
+    /*@bottom-left {*/
+        /*z-index: 100;*/
+        /*content: "" !important;*/
+        /*font-size: 9pt;*/
+        /*color: #3d3d3d;*/
+        /*font-family: "PT Sans Narrow", sans-serif;*/
+    /*}*/
+
+    /*@bottom-center {*/
+        /*z-index: 100;*/
+        /*content: "" !important;*/
+        /*font-size: 9pt;*/
+        /*color: #3d3d3d;*/
+        /*font-family: "PT Sans Narrow", sans-serif;*/
+    /*}*/
+
+    /*@bottom-left-corner {*/
+        /*z-index: 100;*/
+        /*content: "" !important;*/
+        /*font-size: 9pt;*/
+        /*color: #3d3d3d;*/
+        /*font-family: "PT Sans Narrow", sans-serif;*/
+    /*}*/
+
+/*}*/
+
+/*@page :left {*/
+    /*@top-center{*/
+        /*content: counter(page);*/
+    /*}*/
+/*}*/
+
+/*@media print {*/
+    /*.input-area {*/
+        /*display: none;*/
+    /*}*/
+
+    /*.button-area {*/
+        /*display: none;*/
+    /*}*/
+
+    /*.main-footer {*/
+        /*display: none;*/
+    /*}*/
+
+    /*button, input, label {*/
+        /*display: none;*/
+    /*}*/
+
+    /*div[data-type="page-number"] > span:after {*/
+        /*content: " " counter(page);*/
+    /*}*/
+/*}*/
+/*@media screen {*/
+    /*footer.footer_content {*/
+        /*visibility: hidden;*/
+    /*}*/
+/*}*/
+/*@media print {*/
+    /*:root {*/
+        /*counter-reset: page_count;*/
+    /*}*/
+
+    /*.page_content__row {*/
+        /*counter-increment: page_count;*/
+    /*}*/
+
+    /*.page_content__print_break {*/
+        /*page-break-after: always;*/
+        /*break-after: page;*/
+    /*}*/
+
+    /*footer.footer_content {*/
+        /*visibility: visible;*/
+        /*opacity: 1;*/
+        /*filter: alpha(opacity=100);*/
+
+        /*position: fixed;*/
+        /*bottom: 0;*/
+    /*}*/
+
+    /*footer.footer_content::after {*/
+        /*content: "Page: " counter(page_count);*/
+    /*}*/
+/*}*/

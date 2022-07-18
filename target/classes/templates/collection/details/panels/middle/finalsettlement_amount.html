@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Final Settlement Details</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="finalsettlement-amount">
+    <div id="final-settlement-app" class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Final Settlement Details (Payoff Amount)</h3>
+        </div>
+        <div class="box-body" id="final_settlement">
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Principal :</label>
+                        <label  class="col-sm-3 custom-form-lebel">{{(loanAccInfo.disburseLoanAmount) | numberToBdt}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Interest :</label>
+                        <label  class="col-sm-3 custom-form-lebel">{{(loanAccInfo.interestIncome) | numberToBdt}}</label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Total Recovery :</label>
+                        <label v-if="!isEditing" class="col-sm-3 custom-form-lebel" id="payOffTotalPayment">{{getTotalRepayment() | numberToBdt}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Principle Recovery :</label>
+                        <label v-if="!isEditing" class="col-sm-3 custom-form-lebel" id="payOffPrincipleAmount">{{loanAccStatement.totalPrinciple | numberToBdt}}</label>
+
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Interest Recovery :</label>
+                        <label v-if="!isEditing" class="col-sm-3 custom-form-lebel" id="payOffInterestAmount">{{loanAccStatement.totalInterest | numberToBdt}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Penal Interest :</label>
+                        <label v-if="!isEditing" class="col-sm-3 custom-form-lebel" id="payOffPenalInterest">{{penalCharge | numberToBdt}}</label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Other Charges :</label>
+                        <label  class="col-sm-3 custom-form-lebel">{{loanAccInfo.otherCharge | numberToBdt}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Outstanding  :</label>
+                        <label  class="col-sm-3 custom-form-lebel" >{{getOutstanding() | numberToBdt}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Early Settlement Rate :</label>
+                        <label  class="col-sm-3 custom-form-lebel" >{{earlySattleRate}} %</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Vat on Early Settlement Rate :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="earlySettlementFee">{{vatEarleSattleRate}} %</label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Early Settlement Fee :</label>
+                        <label  class="col-sm-3 custom-form-lebel">
+                            {{ getEarlySattlementFee()| numberToBdt}}
+                        </label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Vat on Early Settlement Fee :</label>
+                        <label  class="col-sm-3 custom-form-lebel" >
+                            {{getVatOnEarlySattlementFee() | numberToBdt}}
+                        </label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Unapplied Interest :</label>
+                        <div class="col-sm-6">
+                            <input  type="number" class="form-control" v-model="unappliedAmt" name="unappliedAmt" value="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group row csi-view-form-group">
+                    <label class="col-sm-3 custom-details-lebel-left">Excise Duty :</label>
+                    <label class="col-sm-3 custom-form-lebel" id="exciseDuty">{{exciseDuty | numberToBdt}}</label>
+
+                    <label class="col-sm-3 custom-details-lebel-left">Final Settlement Amount :</label>
+                    <label class="col-sm-3 custom-form-lebel">{{getFinalSattlementAmt | numberToBdt}}</label>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    <script>
+        finalSattlementApp = new Vue({
+            el: '#final-settlement-app',
+            data: {
+                isEditing: false,
+                entity: {customerId: customerId},
+                exciseDuty: 0,
+                loanAccStatement: {},
+                interestRateHistory: {},
+                earlySattleRate: 0,
+                vatEarleSattleRate: 0,
+                disbursementAmt: 0,
+                interestIncome: 0,
+                loanAccInfo: {},
+                outstanding: 0,
+                unappliedAmt: '',
+                penalCharge: 0,
+
+            },
+
+            methods: {
+                editPayoff: function () {
+                    this.isEditing = !this.isEditing
+                },
+
+                getOutstanding: function(){
+                    var outstanding = (this.loanAccInfo.disburseLoanAmount+this.loanAccInfo.interestIncome+this.loanAccInfo.otherCharge)-(this.loanAccStatement.totalPrinciple + this.loanAccStatement.totalInterest);
+                    return outstanding;
+                },
+
+                getEarlySattlementFee: function(){
+                    var outstanding = (this.loanAccInfo.disburseLoanAmount+this.loanAccInfo.interestIncome+this.loanAccInfo.otherCharge)-(this.loanAccStatement.totalPrinciple + this.loanAccStatement.totalInterest);
+                    var sattlementFee = (outstanding*this.earlySattleRate)/100;
+                    return sattlementFee;
+                },
+                getVatOnEarlySattlementFee: function () {
+                    var vat = (this.getEarlySattlementFee()*this.vatEarleSattleRate)/100;
+                    return vat;
+                },
+
+                getTotalRepayment: function () {
+                    var totalRepayment = this.loanAccStatement.totalPrinciple + this.loanAccStatement.totalInterest;
+                    return totalRepayment;
+                },
+
+                // getTotal: function () {
+                //     return this.getTotalRepayment() + this.getEarlySattlementFee() + this.getVatOnEarlySattlementFee() + this.loanAccInfo.otherCharge;
+                // }
+                getTotal: function () {
+                    return this.getOutstanding() + this.getEarlySattlementFee() + this.getVatOnEarlySattlementFee() + this.loanAccInfo.otherCharge;
+                }
+
+            },
+            created: function () {
+                this.entity.payOffTotalPayment = 0;
+            },
+            computed: {
+                getFinalSattlementAmt: function () {
+                    let a = Number(this.getTotal());
+                    let b = Number(this.unappliedAmt);
+                    return a + b;
+                },
+            },
+            filters: {
+                numberToBdt: function (data) {
+                    return formatBdtInEnglish(data);
+                }
+            }
+        })
+
+        $(document).ready(function () {
+            finalSattlementApp.exciseDuty = profile_information.loanAccInfo.exciseDuty;
+
+            $('#tab-finalsettamount').click(function () {
+                var rateType = 'PRE_PEN_RATE';
+                $.ajax({
+                    url: '/loan/api/interest_rate_history?accNo='+accountNo+'&rateType='+rateType,
+                    success: function (response) {
+                        finalSattlementApp.earlySattleRate = response.udeValue;
+                        getVatOnEarlySattlementRate()
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+            function getVatOnEarlySattlementRate(){
+                var rateType = 'VAT_PRE_PNL';
+                $.ajax({
+                    url: '/loan/api/interest_rate_history?accNo='+accountNo+'&rateType='+rateType,
+                    success: function (response) {
+                        finalSattlementApp.vatEarleSattleRate = response.udeValue;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            }
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Interest Details And CL Info</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="interest-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Interest Details And CL Info</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form" id="interest_details">
+                <div class="csi-indi-form-box">
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Interest Income :</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.interestIncome}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Interest Suspense :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="interestSuspense">{{numberToBdt(loanAccDetails.interestSuspence)}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Accured Interest :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" >{{totalPrincipal+totalInterest}}</label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Other Charge :</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.otherCharge}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Total Repayment :</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{numberToBdt(loanAccStatement.totalPrinciple + loanAccStatement.totalInterest)}}</label>
+                    </div>
+
+                   <!-- <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Save Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="saveAmount">{{numberToBdt(saveAmount)}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Back Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="backAmount">{{numberToBdt(backAmount)}}</label>
+                    </div>-->
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Save Amount :</label>
+                         <label class="col-sm-3 custom-form-lebel " v-if="saveAmountEmi>0" id="saveAmount">{{((saveAmountEmi/100)*saveAmountFromApi)}}</label>
+                        <label class="col-sm-3 custom-form-lebel" v-if="saveAmountOverdue>0" id="saveAmount">{{((saveAmountOverdue/100)*saveAmountFromApi)}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Back Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel" v-if="backAmountEmi>0" id="backAmount">{{((backAmountEmi/100)*backAmountFromApi)}}</label>
+                        <label class="col-sm-3 custom-form-lebel " v-if="backAmountOverdue>0" id="backAmount">{{((backAmountOverdue/100)*backAmountFromApi)}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">NPL Release Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel"
+                           id="nplRelease">{{numberToBdt(nplReleaseAmount)}}</label>
+                    </div>
+
+                </div>
+            </form>
+
+            <script>
+                $("#tab-interestDetails").click(function (event) {
+                    interest_details.getInterestDetails(accountNo);
+                    interest_details.getInterestData();
+                });
+
+                var interest_details = new Vue({
+                    el: "#interest_details",
+                    data: {
+                        interest: {},
+                        interestPaid: 0,
+                        overDueInterest: 0,
+                        loanAccDetails: {},
+
+                        // loanAccStatement: [],
+
+                        principalCredit: 0,
+                        interestCredit: 0,
+
+                        totalPrincipal: 0,
+                        totalInterest: 0,
+
+                        interestIncome: 0,
+                        totalRepayment : 0,
+
+                        loanAccStatement: {},
+                        loanAccInfo: {},
+
+                        saveBackAmount :{},
+                        saveAmountFromApi:0,
+                        backAmountFromApi:0,
+
+                        saveAmountEmi:0,
+                        saveAmountOverdue:0,
+                        backAmountEmi:0,
+                        backAmountOverdue:0
+
+
+                    },
+                    filters:{
+                        fixedToDigit:function (value) {
+                            return parseFloat(value);//.toFixed(2);
+                        }
+                    },
+                    created: function (){
+                       // this.getInterestData();
+
+
+
+                    },
+                    methods:{
+                        getInterestDetails:function (accountNo) {
+                            this.loanAccDetails = profile_information.loanAccDetails;
+                            this.saveAmountFromApi = Number(this.loanAccDetails.emiAmount);
+                            this.backAmountFromApi = Number(this.loanAccDetails.overdue);
+
+
+                            var endDate = new Date().toLocaleDateString('en-GB', {
+                                day : 'numeric',
+                                month : 'short',
+                                year : 'numeric'
+                            }).split(' ').join('/');
+
+                            var  principalCredit = 0;
+                            var interestCredit = 0;
+                            var  totalPrincipal = 0;
+                            var totalInterest = 0;
+
+                            $.ajax({
+                                url: '/loan/api/loan-account-statement/history?accountNo='+accountNo+'&startDate='+'01/Jan/1971'+'&endDate='+endDate,  //testDate = logic will provide later
+                                success: function (response) {
+                                    console.log(response)
+
+                                    this. principalCredit= principalCredit;
+                                    this.interestCredit= interestCredit;
+                                    this.totalPrincipal= totalPrincipal;
+                                    this.totalInteres= totalInterest;
+                                },
+                                error: function (response) {
+                                    alert('Unsuccessful')
+                                }
+                            })
+                        },
+                        getInterestData() {
+                            let host = window.location.host;
+                            let url = 'https://' + host + '/collection/setup/interest/interest-data';
+                            this.$http.get(url,
+                                {
+                                    credentials: true,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.csrfToken,
+                                    }
+                                }
+                            ).then(res => {
+                                let data = res.body;
+                            if (data) {
+                                this.saveBackAmount = res.body;
+
+                                this.saveAmountEmi = this.saveBackAmount.saveAmountEmi==0||this.saveBackAmount.saveAmountEmi==''?0:this.saveBackAmount.saveAmountEmi;
+                                this.saveAmountOverdue = this.saveBackAmount.saveAmountOverdue==0 || this.saveBackAmount.saveAmountOverdue==0?0:this.saveBackAmount.saveAmountOverdue;
+                                this.backAmountEmi = this.saveBackAmount.backAmountEmi==0 || this.saveBackAmount.backAmountEmi==0?0:this.saveBackAmount.backAmountEmi;
+                                this.backAmountOverdue = this.saveBackAmount.backAmountOverdue==0 || this.saveBackAmount.backAmountOverdue==0?0:this.saveBackAmount.backAmountOverdue;
+                            }
+                        }).catch(err => {
+                                console.log(err);
+                        });
+                        },
+                        numberToBdt: function (data) {
+                            return numberToBDTFormat(data)
+                        }
+                    }
+                });
+            </script>
+
+        </div>
+    </div>
+
+</div>
+</body>
+
+
+</html>

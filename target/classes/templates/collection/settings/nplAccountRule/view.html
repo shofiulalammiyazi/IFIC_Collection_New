@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> NPL Account Rule</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <style>
+                            .form-horizontal .control-label {
+                                padding-top: 0px;
+                                margin-bottom: 0;
+                                text-align: right;
+                            }
+                        </style>
+                        <div class="box-header with-border">
+                            <h3 class="box-title">View</h3>
+                            <a th:href="@{}" class="btn btn-primary btn-sm" style="float: right;">Back To List</a>
+                        </div>
+
+                        <form class="form-horizontal">
+                            <div class="box-body">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <div class="col-xs-12">
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 th:if="${nplRule.id == null}" class="box-title">Create New NPL Account Rule</h3>
+                        <h3 th:if="${nplRule.id != null}" class="box-title">Update NPL Account Rule</h3>
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form  class="form-horizontal validate" method="post" th:action="@{/collection/npl_account_rule/create}" th:object="${nplRule}">
+                        <input type="hidden" th:field="*{id}"></input>
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-4 custom-form-lebel-right">Bucket </label>
+                                    <div class="col-sm-8">
+                                        <div th:each="bucket :${nplRule.dpdBucketList}">
+                                            <level  class="flat-red" name="bucketIdList" th:value="${bucket?.id}" readonly><label th:text="${bucket.bucketName}"></label></level>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="col-sm-4 custom-form-lebel-right">Product Type </label>
+                                    <div class="col-sm-8">
+                                        <div th:each="prod :${nplRule.productTypeList}">
+                                            <level  name="prodIdList" class="flat-red" th:value="${prod?.id}" ><label th:text="${prod.name}"></label></level>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right "> Min. Sanction Amount</label>
+                                <div class="col-sm-8">
+                                    <level type="text" name="minSanctionAmount" id="minSanctionAmount" class="form-control" th:text="${nplRule.minSanctionAmount}" placeholder="Min. Sanction Amount" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right "> Min. Disbursement Amount</label>
+                                <div class="col-sm-8">
+                                    <level type="text" name="maxDeviation" id="minDisbursAmount" class="form-control "  th:text="${nplRule.minDisbursAmount}" placeholder="Min. Disbursement Amount" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right "> Min. Outstanding Amount</label>
+                                <div class="col-sm-8">
+                                    <level type="text" name="minOutstanding" id="minOutstanding"  class="form-control "  th:text="${nplRule.minOutstanding}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right "> Min. ATE Amount</label>
+                                <div class="col-sm-8">
+                                    <level type="text" name="minATE" id="minATE" class="form-control " th:text="${nplRule.minATE}" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group" th:if="${nplRule.id != null}">
+                                <label  class="col-sm-4 custom-form-lebel-right">Status</label>
+                                <div class="col-sm-8" >
+                                    <fieldset id="group1" >
+                                        <level th:if="${nplRule.enabled == true}" th:text="Active"></level>
+                                        <level th:if="${nplRule.enabled == false}" th:text="Inactive"></level>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <a type="submit" class="btn btn-danger" href="/collection/npl_account_rule/list">Back</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

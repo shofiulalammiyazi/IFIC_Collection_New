@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Case Sub Type</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <!--<h3 th:if="${casefiledsubtype.id == null}" class="box-title">Create Courts</h3>-->
+                            <!--<h3 th:if="${casefiledsubtype.id}" class="box-title">Update Courts</h3>-->
+                        </div>
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/legal/setup/casefiledsubtype/create}"
+                              th:object="${caseFiledSubType}">
+                            <input type="hidden" th:field="*{id}"></input>
+                            <div class="box-body">
+
+                                <div th:if="${error}" class="form-group">
+                                    <label class="text-center text-danger" th:text="${error}">Error </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case Filed Type: </label>
+                                    <div class="col-sm-6">
+                                        <select th:field="*{caseFiledType}" class="form-control">
+                                            <option th:each="caseFiled : ${caseFiledList}" th:value="${caseFiled.id}"
+                                                    th:text="${caseFiled.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case sub type: </label>
+                                    <div class="col-sm-6">
+                                        <select th:field="*{name}" class="form-control">
+                                            <option value=""> Select a sub type</option>
+                                            <option th:value="${'High Court Division'}"
+                                                    th:text="${'High Court Division'}"></option>
+                                            <option th:value="${'Appellate Division'}"
+                                                    th:text="${'Appellate Division'}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Cronological
+                                        Sequence: </label>
+                                    <div class="col-sm-6">
+                                        <input type="number"  name="sequence" class="form-control input-sm required"
+                                               th:required="true"
+                                               th:field="*{sequence}" placeholder="Serial in case form dropdown"
+                                               min="1"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('sequence')}" th:errors="*{sequence}">Name
+                                        Error</label>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">Court Name: </label>-->
+                                <!--<div class="col-sm-6">-->
+                                <!--<input type="text"  name="name" class="form-control input-sm required"-->
+                                <!--th:required="true"-->
+                                <!--th:field="*{name}" placeholder="Name of court"/>-->
+                                <!--</div>-->
+                                <!--<label class="col-sm-10 text-right text-danger"-->
+                                <!--th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>-->
+                                <!--</div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" id="enabled"
+                                                   th:checked="${caseFiledSubType.enabled ==true}" th:value="true">
+                                            Active</input>
+                                            <input type="radio" name="enabled" id="enabled"
+                                                   th:checked="${caseFiledSubType.enabled ==false}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Save</button>
+                                <a type="submit" class="btn btn-danger btn-sm"
+                                   href="/legal/setup/casefiledsubtype/list">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

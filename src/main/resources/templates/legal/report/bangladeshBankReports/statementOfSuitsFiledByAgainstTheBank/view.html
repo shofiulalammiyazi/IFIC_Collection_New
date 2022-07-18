@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <link rel="stylesheet" th:href="@{/css/legal-report.css}"/>
+    <style media="print">
+        @page  {
+            size: A4 landscape; margin: 0.4in 0.4in 0.6in 0.39in;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-sm btn-primary" onclick="printElementIncludingStyles('printBody')">Print</a>
+                    <a class="btn btn-sm btn-primary" onclick="export2Word('printBody', document.title)">.Doc</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="printBody" class="box">
+                        <div class="row margin">
+                            <div class="col-xs-12">
+                                <div class="box-body">
+                                    <form class="form-horizontal" method="get"
+                                          th:action="@{/legal/report/bangladesh-bank-reports/statement-of-suits-filed-by-against-the-bank/report}">
+                                        <div class="row margin">
+                                            <div class="col-sm-2" style="margin-top: 10px">
+                                                Report Date:
+                                            </div>
+                                            <div class="col-sm-4" style="margin-top: 10px">
+                                                <input type="date" name="endDate"  class="form-control" required/>
+                                            </div>
+                                            <div class="col-sm-1 text-center">
+                                                <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                                    Report
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="4" style="font-size: 14px;">
+                                                Name of the Bank----United Commercial
+                                                <br>
+                                                Bank Limited
+                                            </td>
+                                            <td style="font-size: 14px; text-align: right">
+                                                DBI-22
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h6 style="text-align: center">
+                                                    STATEMENT OF SUITS FILED BY/AGAINST
+                                                    <br>
+                                                    THE BANK AS ON
+                                                    <span th:text="${reportDate}">৩১-১২-২০২০ </span>
+                                                </h6>
+                                                <h6><!--<div class="row margin">
+                                                    <div class="col-xs-12">
+                                                        <div class="box">
+                                                            <div class="box-body">
+                                                                <form class="form-horizontal" method="get"
+                                                                      th:action="@{/legal/report/bangladesh-bank-reports/statement-of-suits-filed-by-against-the-bank/report}">
+                                                                    <div class="row margin">
+                                                                        <div class="col-sm-2" style="margin-top: 10px">
+                                                                            Report Date:
+                                                                        </div>
+                                                                        <div class="col-sm-4" style="margin-top: 10px">
+                                                                            <input type="date" name="endDate"  class="form-control" required/>
+                                                                        </div>
+                                                                        <div class="col-sm-1 text-center">
+                                                                            <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                                                                Report
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                                </h6>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table th:if="${data}" style="font-size: 12pt">
+                                        <tbody>
+                                        <tr>
+                                            <td style="font-size: 13px;">
+                                                <b>A. Suits filed by the Bank :</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px;" colspan="6" class="text-right text-bold">Figure in Lac</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px;" colspan="6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="text-align: center; font-size: 13px;">Nature of suit</th>
+                                                        <th style="text-align: center; font-size: 13px;" colspan="2">No of suit</th>
+                                                        <th style="text-align: center; font-size: 13px;" colspan="2">
+                                                            Amount outstanding in the
+                                                            <br>
+                                                            Bank's books for which suit filed
+                                                        </th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style="text-align: center; font-size: 13px;">For upto <br> 5 years</th>
+                                                        <th style="text-align: center; font-size: 13px;">For more <br> than 5 years</th>
+                                                        <th style="text-align: center; font-size: 13px;">Pending upto <br> 5 years</th>
+                                                        <th style="text-align: center; font-size: 13px;">Pending for more than 5 <br> years
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Artha Rin Suit</td>
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalArtharinCountBeforeFiveYear)}"></td>
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalArtharinCountWithinFiveYear)}"></td>
+
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalArtharinCaseAmountBforeFiveYear)}"></td>
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalArtharinCaseAmountWithinFiveYear)}"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Total</td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px;">
+                                                <b>B. Suits filed against the Bank :</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 13px;" colspan="6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="text-align: center; font-size: 13px;">Nature of suit</th>
+                                                        <th>
+                                                            No. of suits
+                                                            <br>
+                                                            pending
+                                                        </th>
+                                                        <th style="text-align: center; font-size: 13px;">Amount of the claim
+                                                            <br>
+                                                            against the bank
+                                                        </th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Money Suit</td>
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalMoneySuitCount)}"></td>
+                                                        <td style="font-size: 13px;" class="text-center"
+                                                            th:text="${@numberUtils.formatBdtInEnglish(data.totalMoneySuitCaseAmount)}"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Total</td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                        <td style="font-size: 13px;"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

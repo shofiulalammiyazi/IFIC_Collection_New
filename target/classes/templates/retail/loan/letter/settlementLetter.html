@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Letter </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <style>
+                            .row {
+                                margin: 0 auto;
+                            }
+
+                            .letter-body {
+                                max-width: 800px;
+                                margin: auto;
+                                padding: 35px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+                                font-size: 14px;
+                                line-height: 24px;
+                                font-family: 'Times New Roman', 'Times New Roman', Helvetica, Arial, sans-serif;
+                                color: #555;
+                            }
+                        </style>
+
+                        <div class="box-body" id="template-body">
+                            <div>
+                                <button class="btn btn-primary" :disabled="editing" onclick="generatePDF()">
+                                    Download
+                                </button>
+                                <button class="btn btn-info" @click="updateLetter">
+                                    <span v-if="!editing">Edit</span>
+                                    <span v-else>Save</span>
+                                </button>
+                            </div>
+                            <div id="letter-body" class="letter-body">
+                                <div style="margin: 60px 40px; text-align: justify">
+
+                                    <div style="margin-bottom: 40px">
+                                        <p v-if="!editing" @dblclick="toggleEditMode"><strong>Date: {{currentDate
+                                            | dateFormat}}</strong></p>
+                                        <input v-else @change="toggleEditMode" @keyup.enter="toggleEditMode"
+                                               type="date" name="currentDate" v-model="currentDate">
+                                    </div>
+
+                                    <div>
+                                        <span v-if="!editing"
+                                              @dblclick="toggleEditMode"><strong>{{name}}</strong></span>
+                                        <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                               name="name" v-model="name">
+                                    </div>
+
+                                    <div style="margin-bottom: 30px; display: flex">
+                                        <div style="width: 45%; text-align: left">
+                                            <span v-if="!editing" @dblclick="toggleEditMode"><strong>{{customerAddress}}</strong></span>
+                                            <input style="width: 400px" v-else @keyup.enter="toggleEditMode"
+                                                   type="text" name="customerAddress" v-model="customerAddress">
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: 40px; display: flex">
+                                        <div style="width: 20%;"><p style="font-weight: bolder">SUBJECT:</p></div>
+                                        <div style="width: 5%"></div>
+                                        <div>
+                                            <span v-if="!editing" @dblclick="toggleEditMode"
+                                                  style="font-size: 16px">
+                                            <strong>{{emailSubject}}</strong>
+                                        </span>
+                                            <textarea style="width: 500px" v-else @keyup.enter="toggleEditMode"
+                                                      type="text" name="emailSubject" v-model="emailSubject"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <p>Dear Sir/Madam,</p>
+
+                                    <p>We refer to our series of discussion & meeting regarding settlement of the
+                                        captioned mortgage loan facility. In this connection, we like to appreciate
+                                        your positive intention of payment & also like to inform you that as discussed,
+                                        you are requested to pay an amount of Tk.
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{amountBDT}}</strong></span>
+                                        <input v-else @keyup.enter="doneEditing" type="text/number" name="amountBDT"
+                                               v-model="amountBDT">within
+                                        <span v-if="!editing" @dblclick="toggleEditMode"><strong>{{genDate | dateFormat}}</strong></span>
+                                        <input v-else @change="toggleEditMode" @keyup.enter="toggleEditMode"
+                                               type="date" name="genDate" v-model="genDate">
+                                        against your total outstanding of Tk.
+                                        <span v-if="!editing" @dblclick="editing = !editing"><strong>{{amountBDT}}</strong></span>
+                                        <input v-else @keyup.enter="doneEditing" type="text/number" name="amountBDT"
+                                               v-model="amountBDT">/-.
+                                    </p>
+
+                                    <p style="margin-bottom: 20px">Upon receipt of the said amount, we will send your
+                                        settlement proposal to LBFL &#39;s competent authority for its consideration.
+                                    </p>
+
+                                    <p style="margin-bottom: 40px">We, therefore, request you to pay the settlement
+                                        amount according to the proposal.
+                                    </p>
+
+                                    <p>
+                                        Please note that waiver of balance receivables after receiving your proposed
+                                        amount is subject to approval of the competent authority as said above.
+                                    </p>
+
+                                    <p style="margin-bottom: 20px">Thank You.</p>
+
+                                    <p style="margin-bottom: 60px">Sincerely Yours, </p>
+
+
+                                    <div>
+                                        <span v-if="!editing"
+                                              @dblclick="toggleEditMode"><strong>{{ agentName }}</strong></span>
+                                        <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                               name="agentName" v-model="agentName">
+                                    </div>
+                                    <div>
+                                        <span v-if="!editing"
+                                              @dblclick="toggleEditMode"><strong>{{ agentDept }}</strong></span>
+                                        <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                               name="agentDept" v-model="agentDept">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var customer = /*[[${customer}]]*/ [];
+                            var customerProfileLoan = /*[[${customerProfileLoan}]]*/ [];
+
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            let vm = new Vue({
+                                el: '#template-body',
+                                data: {
+                                    ref: 'BBL/HO/CR/X/2019/06/0001',
+                                    customerID: '123456',
+                                    currentDate: "",
+                                    coApplicantName: 'Jane Doe',
+                                    privacy: 'PRIVATE AND CONFIDENTIAL',
+                                    name: 'AZIZUL HAQUE',
+                                    designation: 'swe',
+                                    companyName: 'Newscred',
+                                    customerAddress: 'Rupsha Stand, Bagerhat, Khulna, Bangladesh',
+                                    emailSubject: 'A/C. NAME: AKRAMUL HASAN MASUM, AGREEMENT NO. LNML2010010046 ' +
+                                        'DATED 27.01.2010  BU ACC. NO. ',
+                                    amountBDT: '4,563.39',
+                                    amountUSD: '55',
+                                    genDate: "",
+                                    agentAddress: 'Sepal Platinum Tower, Holding # 247/248 (Level-6), Tejgaon I/A, ' +
+                                        'Bir Uttam Mir Showkat Road, Dhaka-1208.',
+                                    agentPhone: '01755596028',
+                                    editing: false,
+                                    finalAge: 'xyz',
+                                    agentName: 'A K M Rezaul Karim',
+                                    agentDept: 'VP & Head of Special Asset Management'
+                                },
+                                created: function () {
+                                    this.currentDate = this.getFormattedDate();
+                                    this.genDate = this.getFormattedDate();
+                                    this.customer = customer;
+                                    this.customerProfileLoan = JSON.parse(customerProfileLoan) != null ? JSON.parse(customerProfileLoan) : [];
+                                    this.initValues();
+                                },
+                                filters: {
+                                    dateFormat(value) {
+                                        let monthNames = ["January", "February", "March", "April", "May", "June",
+                                            "July", "August", "September", "October", "November", "December"];
+                                        let currentDateArray = value.toString().split('-');
+                                        let length = currentDateArray.length;
+                                        // 2020-12-30
+                                        if (length > 1) {
+                                            let date = currentDateArray[2];
+                                            let monthName = monthNames[parseInt(currentDateArray[1]) - 1]
+                                            let year = currentDateArray[0];
+
+                                            return `${monthName} ${date}, ${year}`;
+                                        } else if (length === 1) {
+                                            let date = value.getDate();
+                                            let month = value.getMonth();
+                                            let monthName = monthNames[month];
+                                            let year = value.getFullYear();
+                                            return `${monthName} ${date}, ${year}`;
+                                        }
+
+                                    },
+                                },
+                                directives: {
+                                    focus: {
+                                        // directive definition
+                                        inserted: function (el) {
+                                            el.focus()
+                                        }
+                                    }
+                                },
+                                methods: {
+                                    initValues(){
+                                        this.name=  this.customer.customerName;
+                                        this.accountNo = this.customer.accountNo;
+                                        this.customerAddress = this.customerProfileLoan.HOME_ADDRESS ? this.customerProfileLoan.HOME_ADDRESS ? this.customerAddress;
+                                        this.emailSubject += this.customer.accountNo;
+
+
+                                    },
+                                    getFormattedDate() {
+                                        let newdate = new Date();
+                                        let date = newdate.getDate();
+                                        let month = newdate.getMonth() + 1;
+                                        let year = newdate.getFullYear();
+                                        return `${year}-${month}-${date}`;
+                                    },
+                                    toggleEditMode() {
+                                        this.editing = !this.editing;
+                                    },
+                                    updateLetter() {
+                                        this.toggleEditMode();
+                                    }
+                                }
+                            })
+                        </script>
+                        <script>
+                            function generatePDF() {
+                                $("#letter-body").print();
+                                return (false);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

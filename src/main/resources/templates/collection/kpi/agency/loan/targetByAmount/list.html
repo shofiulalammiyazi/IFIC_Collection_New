@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Agency KPI Target Setup Amount- Loan</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Agency KPI Target Setup Amount- Loan List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/kpi/agency/loan/bytarget/create}"><span class="glyphicon glyphicon-plus"> </span> Add New Target Setup </a>
+                            <table th:if="${agencyList!=null}" style="display: block; overflow: auto" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Product Type</th>
+                                    <th>Location</th>
+                                    <th>Bucket</th>
+                                    <th>Zone</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="temp,status : ${agencyList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getProductTypeEntityList()}"><span class="label label-success" th:text="${dpd.getName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getLocationEntityList()}"><span class="label label-success" th:text="${dpd.getCity()}"></span></li>
+                                        </ul>
+                                    </td>
+
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getDpdBucketEntityList()}"><span class="label label-success" th:text="${dpd.getBucketName()}"></span></li>
+                                        </ul>
+                                    </td>
+
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getZoneEntityList()}"><span class="label label-success" th:text="${dpd.getName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" th:href="@{/collection/kpi/agency/loan/bytarget/edit(id=${temp.id})}"><i class="fa fa-edit"></i>Edit</a>
+                                        <a class="btn btn-xs btn-success" th:href="@{/collection/kpi/agency/loan/bytarget/view(id=${temp.id})}"><i class="fa fa-eye"></i>View</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

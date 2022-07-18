@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Case Details</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="casedetails">
+    <div class="box box-primary">
+        <div class="csi-view-form-full-area csi-view-indtable">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title" >Case Details Entry</h3>
+            </div>
+            <div class="box-body" >
+                <form class="form-horizontal csi-view-form">
+                    <div class="csi-indi-form-box">
+
+                        <form class="form-horizontal">
+                            <div class="box-body">
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Facility Call Up</label>
+                                    <div class="col-sm-2">
+                                        <select id="fcu" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group fcu_details">
+                                    <label class="col-sm-2 control-label">Letter</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Letter Reference">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Letter Date">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" placeholder="Letter Received By">
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">1st Legal Notice</label>
+                                    <div class="col-sm-2">
+                                        <select id="ln" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ln_details">
+                                    <label class="col-sm-2 control-label">Notice</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Notice Reference">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" date="Notice Date" placeholder="Notice Date">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select class="form-control">
+                                            <option>Source</option>
+                                            <option>Barrister Rauf Associated</option>
+                                            <option>Hasna and Co</option>
+                                            <option>James Pvt Ltd</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ln_details">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Received By">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Received Date" title="Received Date">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control">
+                                            <option>Status</option>
+                                            <option>Accept</option>
+                                            <option>Returned</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">2nd Legal Notice</label>
+                                    <div class="col-sm-2">
+                                        <select id="ln2" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ln_details2">
+                                    <label class="col-sm-2 control-label">Notice</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Notice Reference">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Notice Date" title="Notice Date">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select class="form-control">
+                                            <option>Source</option>
+                                            <option>Barrister Rauf Associated</option>
+                                            <option>Hasna and Co</option>
+                                            <option>James Pvt Ltd</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ln_details2">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Received By">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Received Date" title="Received Date">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select class="form-control">
+                                            <option>Choose Law Firm</option>
+                                            <option>Barrister Rauf Associated</option>
+                                            <option>Hasna and Co</option>
+                                            <option>James Pvt Ltd</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Case Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Case Date" title="Case Date">
+                                    </div>
+                                    <label class="col-sm-2 control-label">Law Firm</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control">
+                                            <option>Choose</option>
+                                            <option>Barrister Rauf Associated</option>
+                                            <option>Hasna and Co</option>
+                                            <option>James Pvt Ltd</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Case Type</label>
+                                    <div class="col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> NI Act
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Aurthorin
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Instrument</label>
+                                    <div class="col-sm-2">
+                                        <select id="inst" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group inst_details">
+                                    <label class="col-sm-2 control-label">CHQ No.</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="CHQ No.">
+                                    </div>
+                                    <div class="col-sm-2 control-label">
+                                        Promissory Note
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Promissory Note Details">
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Case RM</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control">
+                                            <option value="0">Choose</option>
+                                            <option value="1">Relation Manage I</option>
+                                            <option value="1">Relation Manage II</option>
+                                            <option value="1">Relation Manage III</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Case Dealer</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control">
+                                            <option value="0">Choose</option>
+                                            <option value="1">Dealer I</option>
+                                            <option value="1">Dealer II</option>
+                                            <option value="1">Dealer III</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Court Type</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control">
+                                            <option value="0">Choose</option>
+                                            <option value="1">Criminal</option>
+                                            <option value="1">Civil</option>
+                                            <option value="1">Special Judge</option>
+                                            <option value="1">Metropolitan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">News Publication</label>
+                                    <div class="col-sm-2">
+                                        <select id="news" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group news_details">
+                                    <label class="col-sm-2 control-label">Details</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="News Date">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="form-control">
+                                            <option value="0">Choose Newspaper</option>
+                                            <option value="1">Prothom Alo</option>
+                                            <option value="1">Jugantor</option>
+                                            <option value="1">Daily Star</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group news_details">
+                                    <label class="col-sm-2 control-label">Hearing Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="News Date">
+                                    </div>
+                                    <div class="col-sm-2 control-label">
+                                        <a href="javascript:;">Add More Date</a>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Warrant</label>
+                                    <div class="col-sm-2">
+                                        <select id="warrant" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group warrant_details">
+                                    <label class="col-sm-2 control-label">Warrant Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" placeholder="Warrant Date">
+                                    </div>
+                                    <label class="col-sm-3 control-label">Execution Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" placeholder="Warrant Date">
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Auction</label>
+                                    <div class="col-sm-2">
+                                        <select id="auction" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">&nbsp;</div>
+                                    <label class="col-sm-2 control-label">Auction Type</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control">
+                                            <option>Choose</option>
+                                            <option value="0">Mortgage</option>
+                                            <option value="1">Hypothecation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Course of Action</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Summon Return with AD" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Issue of Arrest Warrant" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Return of Arrest Warrant" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Transfer of Court" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Issue Frame" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Charge Frame" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Plaintiff Witness" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Defendant Witness" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Argument" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Judgement" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Decree in Favour of Bank" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Decree in Favour of the Plaintiff," />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="3" placeholder="Other Details (optional)"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-info pull-right">SAVE</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                        <!--
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Scheme Code:</label>
+                            <label class="col-sm-3 custom-form-lebel" id="schemecode" >L6845</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Product Unit:</label>
+                            <label class="col-sm-3 custom-form-lebel" id="productunit" >Card</label>
+                            <label class="col-sm-3 custom-details-lebel-left"> Disbursement Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"   id="disbursemntdate" >18-Feb-2020</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Outstanding Amount:</label>
+                            <label class="col-sm-3 custom-form-lebel" id="outstandingamount" >33300.00</label>
+                            <label class="col-sm-3 custom-details-lebel-left"> EMI Amount :</label>
+                            <label class="col-sm-3 custom-form-lebel"   id="emiamount" >2650.00</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">OverDue:</label>
+                            <label class="col-sm-3 custom-form-lebel" id="overdue" >5765.00</label>
+                            <label class="col-sm-3 custom-details-lebel-left"> Age Code :</label>
+                            <label class="col-sm-3 custom-form-lebel"   id="agecode" >X</label>
+                        </div>
+
+
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Last Sended Letter Type:</label>
+                            <label class="col-sm-3 custom-form-lebel" id="lastsendedlettertype" >Soft Reminder</label>
+                            <label class="col-sm-3 custom-details-lebel-left"> Remarks :</label>
+                            <label class="col-sm-3 custom-form-lebel"   id="remarks" >Done</label>
+                        </div>
+
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">SAM Received Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="samreceiveddate">10-Apr-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">First Letter Legal
+                                Notice Date :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="firsletterlegalnotice">05-Apr-2020</label>
+                        </div>
+
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Write Off Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"   id="passportNo">13-May-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">Write Off Amount :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="nid">38500.00</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">FILE DATE - NI ACT :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="filedate-niact" >23-Sep-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">CASE AMOUNT - [NI ACT] :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="caseamount-niact"></label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">FILE DATE - Aurthorin :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="filedate-aur" >29-Nov-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">CASE AMOUNT - [Aurthorin] :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="caseamount-aur">9600</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">FILE DATE - PENAL CODE :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="filedate_penalcode" >05-Mar-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">CASE AMOUNT - [PENAL CODE] :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="caseamount_penalcode">54251</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Next Asking Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="email" >19-Mar-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">Case Status :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="tin">Not active</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Case Dealing Person :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="email" >Hamid</label>
+                            <label class="col-sm-3 custom-details-lebel-left">Lawyer Name :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="tin">Safiq Haque</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Court Name :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="email" ></label>
+                            <label class="col-sm-3 custom-details-lebel-left">Present Outstanding :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="tin">18000.00</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Auction Notice Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="email" >12-Oct-2020</label>
+                            <label class="col-sm-3 custom-details-lebel-left">Newspaper Publication Date :</label>
+                            <label class="col-sm-3 custom-form-lebel" id="tin">25-Oct</label>
+                        </div>
+                        <div class="form-group row csi-view-form-group">
+                            <label class="col-sm-3 custom-details-lebel-left">Auction Date :</label>
+                            <label class="col-sm-3 custom-form-lebel"  id="email" >06-Sep-20020</label>
+                        </div>
+                        -->
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">-->
+    <link rel="stylesheet" href="/css/loader/circle-half-loader.css"/>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="vipListApp">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="print">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <!--<div class="box-title">{{reportTitle1}}</div>-->
+                            <span class="pull-right">
+                                    <button class="btn btn-sm btn-reddit" @click="exportVipListToExcel">
+                                        <b>Export to Excel</b>
+                                    </button>
+                                    <button class="btn btn-sm btn-reddit" @click="print">
+                                        <b>Print</b>
+                                    </button>
+                                </span>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" id="grid">
+
+                            <div class="table-responsive">
+                                <table id="vipListTable" class="table table-striped table-bordered table-condensed"
+                                       cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="15" style="text-align: center">{{reportTitle1}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">SL#</th>
+                                        <th colspan="2">ESAU</th>
+                                        <th colspan="2">Total No of Lawyer</th>
+                                        <th colspan="2">Judgement</th>
+                                        <th colspan="2">Argument</th>
+                                        <th>Witness</th>
+                                        <th></th>
+                                        <th>Charge</th>
+                                        <th></th>
+                                        <th>Others</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Rating</td>
+                                        <td>GP</td>
+                                        <td>Panel</td>
+                                        <td>Performing</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Course</td>
+                                        <td>GP</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <!--<div class="box-title">{{reportTitle1}}</div>-->
+                            <span class="pull-right">
+                                    <button class="btn btn-sm btn-reddit" @click="exportVipListToExcel">
+                                        <b>Export to Excel</b>
+                                    </button>
+                                    <button class="btn btn-sm btn-reddit" @click="print">
+                                        <b>Print</b>
+                                    </button>
+                                </span>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" id="grid">
+
+                            <div class="table-responsive">
+                                <table id="vipListTable" class="table table-striped table-bordered table-condensed"
+                                       cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="15" style="text-align: center">{{reportTitle1}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">SL#</th>
+                                        <th colspan="2">ESAU</th>
+                                        <th colspan="2">Total No of Lawyer</th>
+                                        <th colspan="2">Judgement</th>
+                                        <th colspan="2">Argument</th>
+                                        <th>Witness</th>
+                                        <th></th>
+                                        <th>Charge</th>
+                                        <th></th>
+                                        <th>Others</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Rating</td>
+                                        <td>GP</td>
+                                        <td>Panel</td>
+                                        <td>Performing</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Age(M)</td>
+                                        <td>GP</td>
+                                        <td>Course</td>
+                                        <td>GP</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var reportTitle1 = /*[[${reportTitle1}]]*/ [];
+        var vipStatusList = /*[[${vipStatusList}]]*/ [];
+        /*]]>*/
+    </script>
+    <script>
+
+        var vipListApp = new Vue({
+            el: "#vipListApp",
+            components: {
+                Multiselect: VueMultiselect.default,
+            },
+            data: {
+                reportTitle1: "",
+                vipStatus: "",
+                vipStatusList: [],
+                customerList: [],
+                isLoading: false
+            },
+            created: function () {
+                this.reportTitle1 = reportTitle1 ? reportTitle1 : "Report Title";
+                this.setVipStatus();
+            },
+            watch: {
+                vipStatus: function () {
+                    this.getVipCustomerList();
+                }
+            },
+            methods: {
+                setVipStatus: function () {
+                    this.vipStatusList = Array.isArray(vipStatusList) ? vipStatusList : [];
+                },
+                print: function () {
+                    printElementIncludingStyles('print');
+                },
+                exportVipListToExcel: function () {
+                    exportVipListToExcel(this.vipStatus);
+                },
+                goTo360Page: function (accountNo) {
+                    var host = window.location.host;
+                    var url = 'https://' + host + '/profile/loanprofile/search?account=' + accountNo;
+                    window.open(url);
+                },
+                getVipCustomerList: function () {
+                    if (this.isLoading) {
+                        swal("Please wait...");
+                        return;
+                    }
+
+                    this.isLoading = true;
+
+                    let vipStatus = this.vipStatus;
+
+                    if (vipStatus) {
+                        var host = window.location.host;
+                        var url = 'https://' + host + '/collection/report/retail/loan/vip-list/report?vipStatus=' + vipStatus;
+                        console.log("Vip report url = " + url)
+                        this.$http.get(url,
+                            {
+                                credentials: true,
+                                headers: {
+                                    'X-CSRF-TOKEN': window.csrfToken,
+                                }
+                            }).then(res => {
+                            let customers = res.body;
+                            if (Array.isArray(customers)) {
+                                this.customerList = customers;
+                                this.isLoading = false;
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            this.isLoading = false;
+                            swal("Something went wrong");
+                        })
+
+                    }
+                },
+            }
+        })
+    </script>
+    <script>
+        function exportVipListToExcel(status) {
+            // parse the HTML table element having an id=exportTable
+            var clientDbServer2DataSource = shield.DataSource.create({
+                data: "#vipListTable",
+                schema: {
+                    type: "table",
+                    fields: {
+                        Account_Number: {type: String},
+                        Customer_Name: {type: String},
+                        Company_Name: {type: String},
+                        Remarks: {type: String}
+                    }
+                }
+            });
+
+            // when parsing is done, export the data to Excel
+            clientDbServer2DataSource.read().then(function (data) {
+
+                new shield.exp.OOXMLWorkbook({
+                    author: "UCBL",
+                    worksheets: [
+                        {
+                            name: "UCBL " + status + " List",
+                            rows: [
+                                {
+                                    cells: [
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Account_Number"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Customer_Name"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Company_Name"
+                                        },
+                                        {
+                                            style: {
+                                                bold: true
+                                            },
+                                            type: String,
+                                            value: "Remarks"
+                                        },
+
+                                    ]
+                                }
+                            ].concat($.map(data, function (item) {
+
+                                return {
+                                    cells: [
+                                        {type: String, value: item.Account_Number},
+                                        {type: String, value: item.Customer_Name},
+                                        {type: String, value: item.Company_Name},
+                                        {type: String, value: item.Status},
+                                        {type: String, value: item.Remarks},
+                                    ]
+                                };
+                            }))
+                        }
+                    ]
+                }).saveAs({
+                    fileName: "UCBL " + status + " List"
+                });
+            });
+        }
+    </script>
+
+</div>
+</body>
+</html>

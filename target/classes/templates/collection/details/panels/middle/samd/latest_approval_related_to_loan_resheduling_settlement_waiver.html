@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Details of Head Office Approval</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="latest-related-to-loan-resheduling-settlement-waiver-tap">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Latest approval related to loan rescheduling/settlement/waiver</h3>
+            <div>
+                <a id="add-guarantor" class=" btn btn-sm pull-right" data-toggle="modal" data-target="#modal-latest-approval-related-to-loan" >
+                    <i class="fa fa-plus-square"></i>
+                    Add More
+                </a>
+            </div>
+        </div>
+        <div class="box-body" >
+
+            <div class="row">
+                <div class="modal fade" id="modal-latest-approval-related-to-loan"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" onclick="enableFormAndClearFormData()" aria-label="Close">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                                <h3 >Latest approval related to loan rescheduling/settlement/waiver</h3>
+                            </div>
+                            <form  id="latestApprovalRelatedToLoanSaveForm" action="" method="post" class="form-horizontal"  >
+
+                                <input type="hidden" id="latest-approval-related-to-loan-rescheduling-id" name="id"/>
+                                <input type="hidden" name="customerBasicInfo" value=""/>
+                                <!--<div class="alert alert-warning hidden" id="guaranto-error-messages"></div>-->
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Approval Reference</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" placeholder="Approval Reference" id="approvalReference" name="approvalReference"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left ">Date</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="latestApprovalDate" id="latestApprovalDate" class="form-control fu2-date"
+                                                   placeholder="dd-mm-yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Details</label>
+                                    <div class="col-sm-4">
+                                        <textarea type="text" class="form-control" placeholder="Details" id="details" name="details">
+                                        </textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-info" id="latest-approval-related-to-loan-rescheduling-save-btn" onclick="latestApprovalRelatedToLoanReschedulingSave()" >Save</button>
+                                    <button type="button" id="guarantor-cancel-btn"  class="btn btn-danger" onclick="enableFormAndClearFormData()" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-horizontal csi-view-form" id="guarantorInfo">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <input type="hidden" name="refId" id="refId" th:value="${guarId}"  />
+                <input name="_csrf" value="" type="hidden">
+                <input type="hidden" name="customerId" value="">
+                <div id="gurantor_info">
+                    <table name="guarantor_info" id="guarantorInfoTable"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Approval Reference </th>
+                            <th>Date</th>
+                            <th>Details</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="latest_approval_related_to_loan_rescheduling_tBody">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/sam/latest_approval_related_to_loan.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/customerprofileloan/guarantorinfo.js}"></script>-->
+</div>
+</body>
+
+
+</html>

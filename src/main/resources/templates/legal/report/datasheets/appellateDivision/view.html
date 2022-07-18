@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="customerWiseCourtCaseDetailsId">
+            <!--<div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Account Number</label>
+                                <div class="col-sm-3">
+                                    <input type="text" id="courtCaseAccountNumber" name="accountNumber">
+                                </div>
+                                <button id="searchCourtCaseDetailsId" type="button">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" id="reportTitle" th:text="${reportTitle}" style="font-weight: bold"></div>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="case-position-table" class="table table-striped table-bordered table-condensed">
+                                    <thead>
+                                        <th>SL</th>
+                                        <th>Branch code</th>
+                                        <th>LD</th>
+                                        <th>Branch Name</th>
+                                        <th>Case Name</th>
+                                        <th>Case No</th>
+                                        <th>Case Year</th>
+                                        <th>Date of filing</th>
+                                        <th>Account Name</th>
+                                        <th>Petitioner's Name</th>
+                                        <th>Opposite Party</th>
+                                        <th>Amount Involved</th>
+                                        <th>Legal Expense</th>
+                                        <th>BLA Name</th>
+                                        <th>Court Name</th>
+                                        <th>By whom filed By Bank/Against Bank</th>
+                                        <th>First order Date</th>
+                                        <th>Hearing Date</th>
+                                        <th>Course of action</th>
+                                        <th>Subject Matter of the case</th>
+                                        <th>Status</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="case : ${appellateDivisionList}">
+                                            <td th:text="${case.SL}"></td>
+                                            <td th:text="${case.branchCode}"></td>
+                                            <td th:text="${case.ld}"></td>
+                                            <td th:text="${case.branchName}"></td>
+                                            <td th:text="${case.caseName}"></td>
+                                            <td th:text="${case.caseNo}"></td>
+                                            <td th:text="${case.caseYear}"></td>
+                                            <td th:text="${case.dateOfFiling}"></td>
+                                            <td th:text="${case.accountName}"></td>
+                                            <td th:text="${case.petitionerName}"></td>
+                                            <td th:text="${case.oppositeParty}"></td>
+                                            <td th:text="${case.amountInvolved}"></td>
+                                            <td th:text="${case.legalExpense}"></td>
+                                            <td th:text="${case.bLAName}"></td>
+                                            <td th:text="${case.courtName}"></td>
+                                            <td th:text="${case.byWhomFiledByBankOrAgainstBank}"></td>
+                                            <td th:text="${case.firstOrderDate}"></td>
+                                            <td th:text="${case.hearingDate}"></td>
+                                            <td th:text="${case.courseOfAction}"></td>
+                                            <td th:text="${case.SubjectMatterOfTheCase}"></td>
+                                            <td th:text="${case.Status}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<script th:inline="javascript">
+            /*<![CDATA[*/
+            var reportTitle = /*[[${reportTitle}]]*/ [];
+            /*]]>*/
+        </script>
+
+        <script>
+
+            $(document).ready(function () {
+
+                customerWiseCourtCaseDetailsApp = new Vue({
+                    el: '#customerWiseCourtCaseDetailsId',
+                    data: {
+
+                        customerWiseCourtCaseData: {},
+                        customerWiseCourtCaseDataList: [],
+
+                    }
+                })
+
+
+                $('#searchCourtCaseDetailsId').on('click', function() {
+                    console.log('fired&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;');
+                    console.log($('#courtCaseAccountNumber').val());
+
+                    $.ajax({
+                        url: '/legal/report/managerial/customer-wise-court-case-details/find?accountNumber='+$('#courtCaseAccountNumber').val(),
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (response) {
+                            alert('Unsuccessfull')
+                        }
+                    })
+                })
+
+
+            });
+
+        </script>-->
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Interest Rate Change History</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="interest-rate-change-history">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-body">
+            <div class="row" >
+                <div class="modal fade in" id="modal-legal-action"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Interest Rate Change History</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-horizontal csi-view-form" id="inteRateHistoryId">
+                <div>
+                    <table class=" table table-striped table-bordered" type="datatable-responsive">
+                        <thead>
+                        <th>Interest Rate</th>
+                        <th>Changing Date</th>
+                        <th>Outstanding</th>
+                        <th>Overdue</th>
+                        <th>Status</th>
+                        </thead>
+                        <tbody>
+                        <tr v-for="rateChange in inteRateChangeHistoty">
+                            <td>{{rateChange.interestRate}}</td>
+                            <td>{{rateChange.changingHistory}}</td>
+                            <td>{{rateChange.outstanding}}</td>
+                            <td>{{rateChange.overdue}}</td>
+                            <td>{{rateChange.status}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <script>
+                var interestRateChangeHistotyApp = new Vue({
+                    el: '#inteRateHistoryId',
+                    data: {
+                        inteRateChangeHistoty:[]
+                    }
+                })
+
+
+                $(document).ready(function () {
+                    $('#tab-interest-rate-change-history').click(function () {
+                        $.ajax({
+                            url: '/customer-loan-profile/inte-rate-changing-history/find?accNo='+$('#loanNo').text(),
+                            success: function (response) {
+                                interestRateChangeHistotyApp.inteRateChangeHistoty = response;
+                            },
+                            error: function (response) {
+                                alert('Unsuccessful')
+                            }
+                        })
+                    })
+                })
+            </script>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</body>
+
+
+</html>

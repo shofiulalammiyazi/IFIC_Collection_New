@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Updated Additional Info</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="updated_additional_info">
+    <div id="update_Additional" class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Updated Additional Info</h3>
+
+        </div>
+        <div class="box-body">
+
+            <div class="form-control col-sm-6">
+                <label class="col-sm-6">Status :</label>
+                <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="status">{{entity.status}}</label>
+            </div>
+
+            </br>
+            </br>
+
+            <div class="box-footer">
+                <button v-if="!isEditing && (!entity.status || entity.status == 'CONFIRM' || entity.status == 'REJECT')" class="btn btn-info pull-right" @click="isEditing = true">Edit</button>
+                <!--<button v-if="isEditing" class="btn btn-primary pull-right" @click="save">Save</button>-->
+            </div>
+
+
+            <form class="form-horizontal csi-view-form">
+
+                <input type="hidden" name="customerId"/>
+
+                <div class="csi-indi-form-box">
+                    <div id="" action="" method="post" class="form-group row csi-view-form-group">
+
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Occupation :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="occupation">{{entity.occupation}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.occupation" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Organization Name :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="organizationName">{{entity.organizationName}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.organizationName" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Contact No :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="contactNo">{{entity.contactNo}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.contactNo" type="tel" maxlength="11" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Email Address :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="emailAddress">{{entity.emailAddress}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.emailAddress" type="text" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Spouse Mobile No :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="spouseMobileNo">{{entity.spouseMobileNo}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.spouseMobileNo" type="tel" maxlength="11" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Spouse occupation :</label>
+                            <label v-if="!isEditing" class="col-sm-6 custom-form-lebel" id="spouseOccupation">{{entity.spouseOccupation}}</label>
+                            <div class="col-sm-6">
+                                <input v-if="isEditing" v-model="entity.spouseOccupation" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-3">Home Address :</label>
+                            <label v-if="!isEditing" class="col-sm-9 custom-form-lebel" id="homeAddress">{{entity.homeAddress}}</label>
+                            <div class="col-sm-9">
+                                <input v-if="isEditing" v-model="entity.homeAddress" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-3">Office Address :</label>
+                            <label v-if="!isEditing" class="col-sm-9 custom-form-lebel" id="officeAddress">{{entity.officeAddress}}</label>
+                            <div class="col-sm-9">
+                                <input v-if="isEditing" v-model="entity.officeAddress" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-3">Permanent Address :</label>
+                            <label v-if="!isEditing" class="col-sm-9 custom-form-lebel" id="permanentAddress">{{entity.permanentAddress}}</label>
+                            <div class="col-sm-9">
+                                <input v-if="isEditing" v-model="entity.permanentAddress" type="text" class="form-control">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2">Remarks :</label>
+                            <label v-if="!isEditing" class="col-sm-10 custom-form-lebel" id="remarks">{{entity.remarks}}</label>
+                            <div class="col-sm-10">
+                                <textarea v-if="isEditing" v-model="entity.remarks" type="text" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="box-footer">
+                <!--<button v-if="!isEditing && (!entity.status || entity.status == 'CONFIRM' || entity.status == 'REJECT')" class="btn btn-info pull-right" @click="isEditing = true">Edit</button>-->
+                <button v-if="isEditing" class="btn btn-primary pull-right" @click="save">Save</button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        var update_Additional = new Vue({
+            el: "#update_Additional",
+            data: {
+                entity: {customerId: customerId},
+                isEditing: false,
+                // editPermission: true
+            },
+            computed: {
+            },
+            created: function () {
+                this.getData();
+
+                profile_information.customerAndBorrowerInfo = this;
+            },
+            filters: {
+                // getAbsoluteValue: function (value) {
+                //     return value < 0 ? value * -1 : value;
+                // },
+            },
+            methods: {
+
+                formatDate: function (date) {
+                    return date ? formatDate_DD_MMM_YYYY(date) : ''
+                },
+
+                enforcePhoneFormat() {
+                    let x = this.dealerMobileNo
+                        .replace(/\D/g, "")
+                        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+
+                    this.dealerMobileNo = !x[2]
+                        ? x[1]:"";
+                    // : "(" + x[0] + ") " + x[1] + (x[3] ? "-" + x[3] : "");
+                },
+
+                save: function () {
+                    let vm = this;
+                    let entity = JSON.stringify(vm.entity);
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    $.ajax({
+                        type: 'POST',
+                        contentType: "application/json",
+                        url: '/loan/api/customer-other-info/save',
+                        data: entity,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            if (typeof response.body !== 'string' && response.success) {
+                                vm.entity.id = response.id;
+                                vm.entity.status = response.status;
+                                vm.isEditing = false;
+                                swal("Saved Successfully");
+                            } else {
+                                swal("Something went wrong");
+                            }
+                        }
+                    })
+                },
+                getData: function () {
+                    var host = window.location.host;
+                    var url = 'https://' + host + '/loan/api/customer-other-info/view?customerId=' + customerId;
+                    this.$http.get(url,
+                        {
+                            credentials: true, headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }).then(res => {
+                        if (typeof res.body !== 'string') {
+                        this.entity = res.body ? res.body : {customerId: customerId};
+                    }
+                }).catch(err => {
+                        console.log(err);
+                })
+                },
+            }
+        })
+
+
+
+    </script>
+
+
+</div>
+</body>
+
+
+</html>

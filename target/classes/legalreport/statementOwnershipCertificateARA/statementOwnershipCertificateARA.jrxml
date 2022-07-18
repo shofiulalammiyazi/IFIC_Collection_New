@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ce8f3f1-1b27-4239-8e14-93e5ca70d750">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="d5cdf5de-06d8-4c92-afb0-e6929ad9a73f">
+		<parameter name="section" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select ROW_NUMBER() OVER(ORDER BY CLIENT_ID) AS RowNumber,
+BRANCH_NAME,CUSTOMER_ACC_NUM,BORROWER_NAME,cs.NAME,
+PROPERTY_DISPUTED,FORCED_SALE_VALUE,CASE_NUMBER,DATE_OF_FILING,SUIT_VALUE
+,DATE_OF_DETECTION,DATE_OF_DETECTION,REMARKS
+from LITIGATION_CASE_INFO lci
+left join COLLATERAL_SECURITY cs on cs.ID = lci.COLLATERAL_SECURITY_ID
+where SECTION=$P{section}]]>
+		</queryString>
+		<field name="ROWNUMBER" class="java.math.BigDecimal"/>
+		<field name="BRANCH_NAME" class="java.lang.String"/>
+		<field name="CUSTOMER_ACC_NUM" class="java.lang.String"/>
+		<field name="BORROWER_NAME" class="java.lang.String"/>
+		<field name="NAME" class="java.lang.String"/>
+		<field name="PROPERTY_DISPUTED" class="java.lang.String"/>
+		<field name="FORCED_SALE_VALUE" class="java.lang.Double"/>
+		<field name="CASE_NUMBER" class="java.lang.String"/>
+		<field name="DATE_OF_FILING" class="oracle.sql.TIMESTAMP"/>
+		<field name="SUIT_VALUE" class="java.lang.Double"/>
+		<field name="DATE_OF_DETECTION" class="oracle.sql.TIMESTAMP"/>
+		<field name="REMARKS" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="sectionType" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[select SECTION from LITIGATION_CASE_INFO 
+ where SECTION=$P{sectionType}]]>
+	</queryString>
+	<field name="SECTION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="390" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="219" height="20" uuid="4c74adf2-dd7b-4e4d-841d-83a58b0ddda1"/>
+				<text><![CDATA[Legal Wing, SAMD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="62" width="100" height="20" uuid="15b77aed-86ac-4a58-9fd6-c21491a8f898"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[(Figure in Lac)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="62" width="100" height="20" uuid="191af775-fb5c-4129-adbd-b709de183494"/>
+				<text><![CDATA[Section Type:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="219" height="20" uuid="98bc71d2-e14c-491a-b6ad-f32d600ef202"/>
+				<text><![CDATA[United Commercial Bank Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="42" width="551" height="20" uuid="9e4a8887-1dc6-471f-ae5b-4f64ab3bce66"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statement of Ownership Certificate under Section 33 of ARA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="219" height="20" uuid="245c1c51-a5be-438b-85b5-33106fe7a86c"/>
+				<text><![CDATA[Corporate Office]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="62" width="100" height="20" uuid="ec29f355-f87a-4020-8188-0f19ad8460a9"/>
+				<textFieldExpression><![CDATA[$P{sectionType}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="82" width="334" height="50" uuid="520eb538-dc3b-4fef-837e-9f44c93e85a3"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="4c27444e-6017-4c69-9cb5-38e9922ea4fb">
+						<datasetParameter name="section">
+							<datasetParameterExpression><![CDATA[$P{sectionType}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="22" uuid="6f589228-cacf-4630-a935-a86f8113b427">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="22" height="30" isPrintWhenDetailOverflows="true" uuid="852cb0de-f527-4308-bbd3-55872c7e743a"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[SL
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="22" height="20" isPrintWhenDetailOverflows="true" uuid="35260d46-927f-4c3c-b2dd-d77d1c16d420"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{ROWNUMBER}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="46" uuid="29b0d2f4-f24f-47d3-83b3-f18ecbbe403b">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="46" height="30" isPrintWhenDetailOverflows="true" uuid="a5c7c915-aab7-4bd6-831b-424c175d27ae"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Branch
+Name
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="46" height="20" isPrintWhenDetailOverflows="true" uuid="8ece5b60-825c-4c3b-ab56-5ab4f75055db"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{BRANCH_NAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="96e3f898-33a5-41fb-a134-1f135b11f069">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" isPrintWhenDetailOverflows="true" uuid="4d4ac984-84dc-48c6-b8b1-af3a5646315b"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Account No. /
+Account Name
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="50" height="20" isPrintWhenDetailOverflows="true" uuid="ed7b91ce-0b11-4d12-8af5-748ff55f5efa"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{CUSTOMER_ACC_NUM}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="47" uuid="e9fb9621-4dda-4476-bc72-e68fb14f8c09">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30" isPrintWhenDetailOverflows="true" uuid="f1018be0-afe5-4e5d-a47b-13aa533d2165"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Type of 
+Property
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="47" height="20" isPrintWhenDetailOverflows="true" uuid="a25b47df-47cf-454a-8f87-f01af4108034"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="47" uuid="4b515aee-4880-40db-aaca-f8ac32941bcd">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30" isPrintWhenDetailOverflows="true" uuid="e1fce582-a1e8-4801-ad24-ebe7203b584a"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Property
+Description
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="47" height="20" isPrintWhenDetailOverflows="true" uuid="ece5ee2f-b65c-4411-ab56-4fffeced7ee3"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{PROPERTY_DISPUTED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="47" uuid="da41c1c3-c63b-4009-abfe-04d7b6d23028">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30" isPrintWhenDetailOverflows="true" uuid="cccc3f34-fa1b-44e6-aa68-0ef82eba99a2"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Forced
+Sale Value
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="47" height="20" isPrintWhenDetailOverflows="true" uuid="393b8210-c59a-4f72-b919-8be76c76672d"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{FORCED_SALE_VALUE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="48" uuid="93e6e430-e326-43ed-942a-14746c485505">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="48" height="30" isPrintWhenDetailOverflows="true" uuid="ca088c2c-eb0f-4e59-ba17-f9215cbcf512"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Case
+Number
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="48" height="20" isPrintWhenDetailOverflows="true" uuid="2e1958f7-db0f-4b8e-9523-e44849e8cf08"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{CASE_NUMBER}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="45" uuid="01e33469-5a74-4f96-9ae5-5994d1996409">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="45" height="30" isPrintWhenDetailOverflows="true" uuid="196f6e0d-db3c-401b-8827-e1787bac5d61"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Filing
+Date
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="45" height="20" isPrintWhenDetailOverflows="true" uuid="d36b349e-089c-4220-8aec-dab5cb4e0a40"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[""+$F{DATE_OF_FILING}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="51" uuid="26808b22-535c-4403-9f73-36760ad9ebe9">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="51" height="30" isPrintWhenDetailOverflows="true" uuid="5dff3acb-3ee2-4ee8-ba8b-987377722856"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Suit
+Value
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="51" height="20" isPrintWhenDetailOverflows="true" uuid="205f11e0-6c8e-4432-a27e-d0c9cb66d248"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{SUIT_VALUE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="44" uuid="e68af222-cfbd-477b-aa15-a1e77818686a">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="44" height="30" isPrintWhenDetailOverflows="true" uuid="d085858d-3496-4a9b-9923-56ee8c399e1d"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Cert Obt
+Date
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="44" height="20" isPrintWhenDetailOverflows="true" uuid="d40c904a-712d-4865-bd77-d9293a2e3e95"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[""+$F{DATE_OF_DETECTION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="43" uuid="5d2c1826-ff66-4aab-a5c6-e2be50715e6b">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="43" height="30" isPrintWhenDetailOverflows="true" uuid="7b9157b0-cbc7-4b47-9f2c-50d411516896"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Reg
+Date
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="47" uuid="ee68adbd-eac2-484e-8e29-3854a3b5b25c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30" isPrintWhenDetailOverflows="true" uuid="011d4d95-e694-4d0d-83e5-51d28a7e16bb"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Mutation
+Date
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="39" uuid="5d129be3-f7f8-4612-be72-382f9a33849c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="39" height="30" isPrintWhenDetailOverflows="true" uuid="4c4e4055-686c-4e30-ab3c-94f2d05feb98"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Remarks
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="39" height="20" isPrintWhenDetailOverflows="true" uuid="e6bd2a03-05a4-47cf-9622-3e04bc36c0d1"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{REMARKS}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="453" y="-16" width="100" height="16" uuid="6579d0ee-b7b1-4444-b1b6-fd374c955676"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="433" y="0" width="122" height="36" uuid="2b7acf69-b0a6-45ff-a4d8-3683ee9abaa2"/>
+				<imageExpression><![CDATA["E:\\LMS Project\\Collection & Monitoring\\United Commercial Bank Limited\\src\\main\\resources\\static\\images\\ucbl_logo_x.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="0" width="80" height="20" uuid="ddeb21e7-d74c-40b2-8d34-0b23bfba1896"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="0" width="40" height="20" uuid="7d683866-803d-43cd-9fc7-521d5036f0ea"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

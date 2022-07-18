@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Reason For Delinquency List</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box">
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 class="box-title">Reason For Delinquency</h3>
+							</div>
+
+							<div class="box-body">
+								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/dnote_menu/create')}"
+								   th:href="@{/collection/dnote_menu/create}"><span class="glyphicon glyphicon-plus"> </span> Add Reason For Delinquency </a>
+								<table th:if="${dnoteMenuList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+									<thead>
+									<tr>
+										<th>Sl No.</th>
+										<th>Reason For Delinquency Name</th>
+										<th>Reason For Delinquency Code</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="dnoteMenu,status : ${dnoteMenuList}">
+										<td th:text="${status.count}"></td>
+										<td><span th:text="${dnoteMenu.name}"></span></td>
+										<td><span th:text="${dnoteMenu.code}"></span></td>
+										<td>
+											<span th:if="${dnoteMenu.enabled == true}" th:text="Active"></span>
+											<span th:if="${dnoteMenu.enabled == false}" th:text="Inactive"></td>
+										<td>
+											<a class="btn btn-xs btn-primary" th:if="${session.urlList.contains('/collection/dnote_menu/edit')}"
+											   th:href="@{/collection/dnote_menu/edit(id=${dnoteMenu.id})}"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-xs btn-success" th:if="${session.urlList.contains('/collection/dnote_menu/view')}"
+											   th:href="@{/collection/dnote_menu/view(id=${dnoteMenu.id})}"><i class="fa fa-eye"></i>View</a>
+											<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Mailing to Branch</title>
+    <style>
+        #show-emails>ul{
+            list-style: none;
+            margin-left: 0;
+            display: inline-block;
+            padding-inline-start: 0;
+            margin-top: 1rem;
+        }
+        #show-emails>ul>li{
+            padding: 5px 10px;
+            margin-bottom: 3px;
+        }
+        .remove{
+            padding: 0 .6rem;
+            cursor: pointer;
+            float: right
+        }
+        .email-error{
+            border: 1px solid #ff0000;
+            background: rgba(255, 0, 0, .08);
+            padding: .7rem;
+            border-radius: 3px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12" id="mailingToBranch">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Mailing to Branch</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-sm-7">
+                                <select class="form-control input-sm" v-model="branchCode">
+                                    <option value="">Select Branch</option>
+                                    <option v-for="branch in branches" :value="branch.branchCode">{{branch.branchName}}</option>
+                                </select>
+                                <table th:if="${accounts!=null}" class="table table-striped table-hover table-condensed table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" @click="checkedAll(accounts,$event)"/></th>
+                                        <th>Sl No.</th>
+                                        <th>Account No</th>
+                                        <th>Account Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(acc,index) in branchWiseAccounts">
+                                        <td><input type="checkbox" @click="checkedAccount(acc?.loanAccountBasicInfo?.accountNo,acc?.loanAccountBasicInfo?.accountName,$event)"/></td>
+                                        <td>{{index+1}}</td>
+                                        <td><span>{{acc?.loanAccountBasicInfo?.customer.accountNo}}</span></td>
+                                        <td><span >{{acc?.loanAccountBasicInfo?.customer.accountName}}</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="col-sm-12 row">
+                                    <input type="text" class="form-control input-sm" placeholder="to" v-model="to"/>
+                                </div>
+                                <div class="col-sm-12 row">
+                                    <input type="text" class="form-control input-sm" placeholder="cc" v-model="cc"/>
+                                </div>
+                                <div class="col-sm-12 row">
+                                    <input type="text" class="form-control input-sm" placeholder="Subject" v-model="subject"/>
+                                </div>
+                                <div class="col-sm-12 row">
+                                    <textarea class="form-control" style="height: 375px" v-model="mailBody"></textarea>
+                                </div>
+                                <button class="btn btn-primary btn-sm" @click="sendMail">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var mailingToBranch = new Vue({
+                        el:"#mailingToBranch",
+                        data:{
+                            to:'',
+                            cc:'',
+                            subject:'',
+                            mailBody:'Account No                                                          Account Name\n',
+                            accounts:[],
+                            branches:[],
+                            branchCode:''
+                        },
+                        computed: {
+                            branchWiseAccounts : function() {
+                                return this.accounts.filter(account => {
+                                    //console.log("com : "+JSON.stringify(account))
+                                    if(account.loanAccountBasicInfo.customer.branchCode == null){
+                                        return '';
+                                    }else return account.loanAccountBasicInfo.customer.branchCode.toLowerCase().includes(this.branchCode);
+                                });
+                            }
+                        },
+                        created: async function(){
+                            let accounts=[];
+                            let branches=[];
+                            await $.get('/mail/delinquent/acc/branch/delinquent/accounts').then(response=>{
+                                accounts=response;
+                            }).catch();
+                            this.accounts=accounts;
+
+                            await $.get('/mail/delinquent/acc/branch/branches').then(response=>{
+                                branches=response;
+                            }).catch();
+                            this.branches=branches;
+                        },
+                        methods:{
+                            checkedAccount : function(accNo,accName,$event){
+                                if($event.target.checked){
+                                    if(accName == null){accName=''}
+                                    this.mailBody += accNo +'                                                          '+accName +'\n'
+                                }else {
+
+                                }
+                            },
+                            checkedAll(accounts,$event){
+                                if($event.target.checked && (accounts != null && accounts.length != 0)){
+                                    this.mailBody='Account No                                                          Account Name\n';
+                                    for(let i=0; i<this.branchWiseAccounts.length; i++){
+                                        if(accounts[i].loanAccountBasicInfo.accountName == null){
+                                            accounts[i].loanAccountBasicInfo.accountName='';
+                                        }
+                                        this.mailBody += this.branchWiseAccounts[i].loanAccountBasicInfo.accountNo +'                                                          '+accounts[i].loanAccountBasicInfo.accountName +'\n'
+                                    }
+                                    $("input[type=checkbox]").prop('checked', true);
+                                }else if(!$event.target.checked){
+                                    this.mailBody='Account No                                                          Account Name\n';
+                                    $("input[type=checkbox]").prop('checked', false);
+                                }
+                            },
+                            sendMail(){
+                                console.log("to : "+this.to)
+                                if(this.to == null || this.to.length==0){
+                                    alert("Please specify at least one recipient.");
+                                    return false;
+                                }
+                                let host = window.location.host;
+                                this.$http.post("https://" + host + "/mail/delinquent/acc/branch/send",
+                                    {
+                                        recipient:this.to,
+                                        cc:this.cc,
+                                        subject:this.subject,
+                                        message:this.mailBody
+                                    },
+                                    {
+                                        credentials:true,
+                                        headers:{
+                                            "X-CSRF-TOKEN":window.csrfToken
+                                        }
+                                    }).then(function (data) {
+                                        console.log("send mail data : "+JSON.stringify(data));
+                                        if(data.body){
+                                            alert("Successfully mail sent !!");
+                                            this.to='';
+                                            this.cc='';
+                                        }else{
+                                            alert("Mail Send Failed !!");
+                                        }
+                                    }).catch(function (errorText) {
+                                        alert("Something is wrong. Try again please");
+                                        console.log("error text : "+JSON.stringify(errorText))
+                                    });
+                            },
+                        }
+                    });
+                </script>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

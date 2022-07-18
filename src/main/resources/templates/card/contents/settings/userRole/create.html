@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>User-Role-create</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="col-xs-12" id="app">
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Update</h3>
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form class="form-horizontal" method="post">
+
+                        <!-- <input type="hidden" name="id" ></input> -->
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" th:value="${uid}">User</label>
+                                <div class="col-sm-6">
+                                    <multiselect v-model="user" placeholder="Select User"
+                                                 label="username" track-by="userId" :options="userList"
+                                                 :multiple="false" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Roles</label>
+                                <div class="col-sm-6">
+                                    <multiselect v-model="user.roles" placeholder="Select Roles"
+                                                 label="name" track-by="roleId" :options="roleList"
+                                                 :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <button id="userSave" class="btn btn-info " @click="saveUser">Submit</button>
+                            <a th:href="@{/user/list}" class="btn btn-danger">Cancel</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var roleList = /*[[${roleList}]]*/ [];
+        var userRoleDtoList = /*[[${userRoleDtoList}]]*/ [];
+        var userList = /*[[${userList}]]*/ [];
+        var user = /*[[${user}]]*/ {};
+        /*]]>*/
+    </script>
+    <script>
+        var userRoleModification = new Vue({
+            el: '#app',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                roleList: [],
+                userList: [],
+                user: {}
+
+            },
+            created: function () {
+                this.roleList = Array.isArray(roleList) ? roleList : [];
+                this.userList = Array.isArray(userList) ? userList : [];
+                this.user = user ? user : {};
+            },
+
+            methods: {
+                saveUser: function (e) {
+                    e.preventDefault();
+                    var entity = JSON.stringify(this.user);
+                    var host = window.location.host;
+                    this.$http.post('https://' + host + '/user-role/authentication/rest/create', entity,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                                'Content-Type': "application/json"
+                            }
+                        }).then(res => {
+                        if (res.ok && res.bodyText === 'succeed') {
+                            swal("Successfully saved");
+                            this.goToList();
+
+                        } else {
+                            swal('Failed to save changes');
+                        }
+                    }).catch(err => {
+                        swal("Failed to save changes");
+                        console.log("Something went wrong. " + err);
+                    })
+
+                },
+                goToList: function () {
+                    console.log('returning url');
+                    window.location.href = '/user/list';
+                },
+            }
+        })
+
+    </script>
+</div>
+
+
+</body>
+</html>

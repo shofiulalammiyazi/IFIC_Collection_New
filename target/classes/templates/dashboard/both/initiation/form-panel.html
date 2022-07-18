@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Card</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<a  id="tab-profileInfo" href="#" class="list-group-item active" title="Profile Information">Performence</a>
+									<a  id="tab-personalInfo" href="#" class="list-group-item" title="Personal Information">Pending</a>
+									<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Payment Details(Amount Wise)</a>
+									<a  id="tab-referenceInfo" href="#" class="list-group-item" title="Reference Information">Payment Details(Account Wise)</a>
+									<a  id="tab-accountInfo" href="#" class="list-group-item" title="Account Information">PTP Status</a>
+									<a  id="tab-interestDetails" href="#" class="list-group-item" title="Interest Details">Overall Summary </a>
+									<a  id="tab-allocationDetails" href="#" class="list-group-item" title="Allocation Details">Daily Perofrmence Summary</a>
+									<a  id="tab-otherInfo" href="#" class="list-group-item" title="Other Information">Other Information</a>
+									<a  id="tab-otherBankInfo" href="#" class="list-group-item" title="Other Bank Information">Follow up</a>
+									<a  id="tab-letterInfo" href="#" class="list-group-item" title="Letter Information">Follow up Details Summary</a>
+									<a  id="tab-followUp" href="#" class="list-group-item" title="Follow up">Follow up</a>
+									<a  id="tab-diaryNotes" href="#" class="list-group-item" title="Diary Notes">Short Fall Detalis</a>
+									<a  id="tab-ptp" href="#" class="list-group-item" title="PTP">Account List & Search</a>
+
+									<a  id="tab-esau" href="#" class="list-group-item" title="Link Account Mini Statement">Performance & ESAU Trends</a>
+									<a  id="tab-liendetails" href="#" class="list-group-item" title="Lien Details">Product Wise Irregular, PAR, NPL</a>
+									<a  id="tab-bufferdetails" href="#" class="list-group-item" title="Buffer Details">Graphical View</a>
+
+									<!--<a  id="tab-finalsettamount" href="#" class="list-group-item" title="Final Settlement Amount">Final Settlement Amount</a>-->
+									<!--<a  id="tab-bucketmovement" href="#" class="list-group-item" title="Bucket Movement (based on bucket)">Bucket Movement (based on bucket)</a>-->
+									<!--<a  id="tab-bucketmovementmonthend" href="#" class="list-group-item" title="Bucket Movement- Month End">Bucket Movement- Month End</a>-->
+									<!--<a  id="tab-visitledger" href="#" class="list-group-item" title="Visit Ledger">Visit Ledger</a>-->
+									<!--<a  id="tab-history" href="#" class="list-group-item" title="History">History</a>-->
+									<!--<a  id="tab-vehiclerepossession" href="#" class="list-group-item" title="Vehicle Repossession">Vehicle Repossession</a>-->
+									<!--<a  id="tab-sendletteremail" href="#" class="list-group-item" title="Send Letter via Email">Send Letter via Email</a>-->
+									<!--<a  id="tab-getnextaccountbtn" href="#" class="list-group-item" title="Get Next Account Button">Get Next Account Button</a>-->
+									<!--<a  id="tab-accountescalation" href="#" class="list-group-item" title="Account Escalation">Account Escalation</a>-->
+								</div>
+							</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+
+							<!-- TAB CONTENT Details-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content active" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/profile_info :: profile-info"></div>
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/personal_info :: personal-info"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+									<div class="bhoechie-tab-content" >
+										<div th:replace="dashboard/loan/dealer/details/panels/middle/guarantorinfo/guarantor_info :: guarantor-info"></div>
+
+									</div>
+
+
+
+								</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/referenceinfo/reference_info :: reference-info"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/account_info :: account-info"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/interest_details :: interest-details"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/allocation_details :: allocation-details"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/other_info :: other-info"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/otherBank_info :: otherBank-info"></div>
+
+								</div>
+
+
+
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/letter_info :: letter-info"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/follow_up :: follow-up"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/diary_notes :: diary-notes"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/ptp :: ptp"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/linkaccount_ministatment :: linkaccount-ministatement"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/lien_details :: lien-details"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/buffer_details :: buffer-details"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/finalsettlement_amount :: finalsettlement-amount"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/bucket_movement :: bucket-movement"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/bucket_movementmonth :: bucket_movementmonth"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/visit_ledger :: visit-ledger"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/history :: history"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/vehicle_repossession :: vehicle-repossession"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/slve :: slve"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/getnextaccount :: getnextaccount"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/dealer/details/panels/middle/account_escalation :: account_escalation"></div>
+
+								</div>
+							</div>
+
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

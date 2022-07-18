@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Shortfall Details</title>
+
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="shortfall_details">
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Shortfall Details</h3>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="shortfall_details">
+            <div>
+                <table class="table table-condensed table-bordered custom_dt dataTable" id="shortfall_details_tbl">
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">Short Fall for Min Due</th>
+                        <th class="text-center">Short Fall for Back Amount</th>
+                        <th class="text-center">Short Fall for Save Amount</th>
+                        <th class="text-center">Per day short fall</th>
+                    </tr>
+                    </thead>
+                    <tbody id="shortfall_details_tbody">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $("#tab-shortfall-details").click(function () {
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin = $("#globalUserPinForSummary").val();
+            var unit = $("#globalUnitForSummary").val();
+            var designation = $("#globalUserDesignationForSummary").val();
+            var userId = $("#globalUserIdForSummary").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/collection/samd/loan/dashboard/shortfall-details",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                data: {
+                    userPin: userPin,
+                    unit: "SAM",
+                    designation: designation,
+                    userId: userId
+                },
+                success: function (data) {
+
+                    $("#shortfall_details_tbody").html("");
+                    var tr = '';
+
+                    tr = tr + '<tr >\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].minDueShortFall == null ? 0 : data[i].minDueShortFall) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].saveAmountShortFall == null ? 0 : data[i].saveAmountShortFall) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].backAmountShortFall == null ? 0 : data[i].backAmountShortFall) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].perDayShortFall == null ? 0 : data[i].perDayShortFall) + '</td>\n' +
+                        '</tr>';
+
+                    $("#shortfall_details_tbody").append(tr);
+                }
+            })
+        })
+    </script>
+</div>
+
+
+</div>
+</body>
+
+</html>

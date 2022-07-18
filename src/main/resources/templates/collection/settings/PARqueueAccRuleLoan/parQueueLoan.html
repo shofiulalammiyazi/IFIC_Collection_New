@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>PAR Queue Account Rule List-Loan</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">PAR Queue Account Rule List-Loan</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm"
+                               th:if="${session.urlList.contains('/collection/par_queue_acc_rule_loan/create')}"
+                               th:href="@{/collection/par_queue_acc_rule_loan/create}"><span
+                                    class="glyphicon glyphicon-plus"> </span> Add PAR Queue Account Rule-Loan</a>
+                            <table th:if="${parQueueList!=null}" id="example" name="datatable-responsive"
+                                   class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Bucket</th>
+                                    <th>Product Type</th>
+                                    <th>Min. DPD</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="rule,status : ${parQueueList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+                                        <span th:each="dpd: ${rule.dpdBucketEntityList}" th:text="${dpd.bucketName}"
+                                              class="btn btn-xs btn-success" style="margin-left: 5px">
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span th:each="prod: ${rule.productTypeList}" th:text="${prod.name}"
+                                              class="btn btn-xs btn-primary" style="margin-left: 5px"></label>&nbsp;
+                                        </span>
+                                    </td>
+                                    <td><span th:text="${rule.minDpd}"></span></td>
+                                    <td>
+                                        <span th:text="${rule.enabled ? 'Active' : 'Inactive'}"></span>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary"
+                                           th:if="${session.urlList.contains('/collection/par_queue_acc_rule_loan/edit')}"
+                                           th:href="@{/collection/par_queue_acc_rule_loan/edit(id=${rule.id})}"><i
+                                                class="fa fa-edit"></i>Edit</a>
+                                        <!--<a class="btn btn-xs" th:href="@{/collection/par_account_rule_loan/view(id=${rule.id})}"><i class="fa fa-edit"></i>View</a>-->
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

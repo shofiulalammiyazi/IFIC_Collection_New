@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Collateral Security List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Collateral Security List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
+                               th:if="${session.urlList.contains('/legal/setup/collateralsecurity/create')}"
+                               th:href="@{/legal/setup/collateralsecurity/create}"><span
+                                    class="glyphicon glyphicon-plus"> </span> Add New Collateral Security </a>
+                            <table th:if="${collateralSecurityList!=null}" id="example" type="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th style="width:7%">Sl No.</th>
+                                    <th>Type</th>
+                                    <th>Sequence</th>
+                                    <th>Land/Flat/House/Building</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="collateralSecurity, status : ${collateralSecurityList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td><span th:text="${collateralSecurity.name}"></span></td>
+                                    <td><span th:text="${collateralSecurity.sequence}"></span></td>
+                                    <td  th:text="${(collateralSecurity.hasProperty) ? 'Yes' : 'No'}"></td>
+                                    <td th:text="${(collateralSecurity.enabled) ? 'Active' : 'Inactive'}"></td>
+                                    <td style="text-align: center">
+                                        <a class="btn btn-primary btn-xs"
+                                           th:if="${session.urlList.contains('/legal/setup/collateralsecurity/edit')}"
+                                           th:href="@{/legal/setup/collateralsecurity/edit(id=${collateralSecurity.id})}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                        <a class="btn btn-success btn-xs disabled"
+                                           th:if="${session.urlList.contains('/legal/setup/collateralsecurity/view')}"
+                                           th:href="@{/legal/setup/collateralsecurity/view(id=${collateralSecurity.id})}">
+                                            <i class="fa fa-eye"></i>
+                                            View
+                                        </a>
+                                        <!--<a class="btn btn-xs btn-xs-dlt"-->
+                                           <!--th:href="@{/legal/setup/collateralsecurity/remove(id=${collateralSecurity.id})}">-->
+                                            <!--<i class="fa fa-trash"></i>-->
+                                            <!--Delete-->
+                                        <!--</a>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

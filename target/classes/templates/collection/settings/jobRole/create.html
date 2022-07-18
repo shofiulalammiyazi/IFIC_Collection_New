@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"/>
+	<title> Job Role</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="box box-primary">
+
+						<div class="box-header with-border" style="text-align: center;">
+							<h3 th:if="${jobRole.id == null}" class="box-title">Create New Job Role</h3>
+							<h3 th:if="${jobRole.id != null}" class="box-title">Update Job Role</h3>
+						</div>
+
+						<form class="form-horizontal validate" method="post" th:action="@{/collection/job_role/create}"
+							  th:object="${jobRole}">
+							<input type="hidden" th:field="*{id}"/>
+							<div class="box-body">
+
+								<p th:if="${error}" class="text-center text-danger" th:text="${error}">Error </p>
+								<p th:if="${message}" class="text-center text-success" th:text="${message}">Error </p>
+
+								<div class="form-group">
+									<label class="col-sm-4 custom-form-lebel-right required">Job Role Name</label>
+									<div class="col-sm-8">
+										<input type="text" name="name" class="form-control required" th:required="true"
+											   th:field="*{name}" placeholder="Job Role Name"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 custom-form-lebel-right required">Job Role Code</label>
+									<div class="col-sm-8">
+										<input type="text" name="code" class="form-control required" th:field="*{code}"
+											   placeholder="Job Role Code"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 custom-form-lebel-right">Description </label>
+									<div class="col-sm-8">
+                                        <textarea name="description" class="form-control" th:field="*{description}"
+												  placeholder="Description"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 custom-form-lebel-right required">Status</label>
+									<div class="col-sm-8">
+										<fieldset id="group1">
+											<input type="radio" name="enabled" id="enabled"
+												   th:checked="${jobRole.enabled ==true}" th:value="true">
+											Active</input>
+											<input type="radio" name="enabled" id="enabled"
+												   th:checked="${jobRole.enabled ==false}" th:value="false">
+											Inactive </input>
+										</fieldset>
+									</div>
+								</div>
+
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer text-center">
+								<button type="submit" class="btn btn-info btn-sm ">Submit</button>
+								<a type="submit" class="btn btn-danger btn-sm"
+								   href="/collection/job_role/list">Cancel</a>
+							</div>
+							<!-- /.box-footer -->
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

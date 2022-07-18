@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Allocation Distribution - Dealer Wise</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title">Allocation Distribution - Dealer Wise</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div id="app" class="box-body">
+                            <!--<a style="margin-bottom: 10px" class="btn btn-primary btn-xs"-->
+                               <!--th:href="@{/distribution/loan/create}"><span class="glyphicon glyphicon-plus"> </span>-->
+                                <!--Dealer Allocation </a><a style="margin-bottom: 10px; margin-left: 5px" class="btn btn-primary btn-xs"-->
+                                                         <!--th:href="@{/collection/loanagency/distribution/add}"><span-->
+                                <!--class="glyphicon glyphicon-plus"> </span> Agency Allocation </a>-->
+                            <!--<button style="margin-bottom: 10px; float: right;" class="btn btn-primary btn-xs"-->
+                                    <!--data-toggle="modal" data-target="#modal-default-agency"-->
+                                    <!--:disabled="!selectedList.length"><span class="glyphicon glyphicon-plus"> </span>-->
+                                <!--MA (Agency)-->
+                            <!--</button>-->
+                            <!--<button style="margin-bottom: 10px; margin-right: 5px; float: right;"-->
+                                    <!--class="btn btn-primary btn-xs" data-toggle="modal"-->
+                                    <!--data-target="#modal-default-dealer" :disabled="!selectedList.length"><span-->
+                                    <!--class="glyphicon glyphicon-plus"> </span> MA (Dealer)-->
+                            <!--</button>-->
+                            <!--<button @click="addManualAllocationSam"-->
+                                    <!--style="margin-bottom: 10px; margin-right: 5px; float: right;"-->
+                                    <!--class="btn btn-primary btn-xs" :disabled="!selectedList.length"><span-->
+                                    <!--class="glyphicon glyphicon-plus"> </span> MA (SAM)-->
+                            <!--</button>-->
+                            <!--<button @click="addManualAllocationWriteOff"-->
+                                    <!--style="margin-bottom: 10px; margin-right: 5px; float: right;"-->
+                                    <!--class="btn btn-primary btn-xs" :disabled="!selectedList.length"><span-->
+                                    <!--class="glyphicon glyphicon-plus"> </span> MA (Write Off)-->
+                            <!--</button>-->
+                            <!--<table id="allocated-account-list-tbl" name="datatable-responsive"-->
+                                   <!--class="table table-striped table-bordered table-condensed text-center" width="100%">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>Action</th>-->
+                                    <!--&lt;!&ndash;<th>Customer Id</th>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<th>Customer Name</th>&ndash;&gt;-->
+                                    <!--<th>Account No</th>-->
+                                    <!--&lt;!&ndash;<th>Outstanding Amount</th>&ndash;&gt;-->
+                                    <!--<th>Location</th>-->
+                                    <!--<th>Bucket</th>-->
+                                    <!--&lt;!&ndash;<th>Dealer Name</th>&ndash;&gt;-->
+                                    <!--<th>Dealer PIN</th>-->
+                                    <!--<th>Agency Name</th>-->
+                                    <!--<th>Monitoring Staus</th>-->
+                                    <!--&lt;!&ndash;<th style="display: none;"></th>&ndash;&gt;-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr v-for="loan, index in loanViewList">-->
+                                    <!--<td>-->
+                                        <!--<label class="mdl-checkbox mdl-js-checkbox">-->
+                                            <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
+                                                   <!--:value="loan.accountNo" type="checkbox"-->
+                                                   <!--class="mdl-checkbox__input" checked>-->
+                                        <!--</label>-->
+                                    <!--</td>-->
+                                    <!--&lt;!&ndash;<td><span>{{loan.customerId}}</span></td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td><div style="height: 16px; overflow: auto">{{loan.customerName}}</div></td>&ndash;&gt;-->
+                                    <!--<td><a :href="'/profile/loanprofile/search?account='+ loan.accountNo"-->
+                                           <!--target="_blank">{{loan.accountNo}}</a></td>-->
+                                    <!--&lt;!&ndash;<td><span>{{loan.outstandingAmount}}</span></td>&ndash;&gt;-->
+                                    <!--<td><span>{{loan.location}}</span></td>-->
+                                    <!--<td><span>{{loan.dpdBucket}}</span></td>-->
+                                    <!--&lt;!&ndash;<td style="display:block;height: 16px; overflow: auto"><span v-if="loan.delaerName">{{loan.delaerName}}</span></td>&ndash;&gt;-->
+                                    <!--<td style="display:block;height: 16px; overflow: auto">{{loan.delaerPin}}</td>-->
+                                    <!--<td><span v-if="loan.AgencyName">{{loan.AgencyName}}</span></td>-->
+                                    <!--<td><span>{{loan.monirotingStatus}}</span></td>-->
+                                    <!--&lt;!&ndash;<td v-show="loan.monirotingStatus != 'DUAL'"><span >-</span></td>&ndash;&gt;-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+
+
+                            <table id="allocation_list" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed text-center" width="100%">
+                                <thead>
+                                <tr>
+                                    <td>Dealer Name</td>
+                                    <td>Dealer Id</td>
+                                    <td>Bucket</td>
+                                    <td>No of Accounts</td>
+                                    <td>Total Outstanding</td>
+                                    <td>Total Over Due</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${accountDistributionInfoList} ">
+                                    <td class="text-left" th:text="${item.dealerName}"></td>
+                                    <td th:text="${item.dealerId}"></td>
+                                    <td th:text="${item.dpdBucket}"></td>
+                                    <td th:text="${item.totalAcc}"></td>
+                                    <td th:text="${item.totalOS}"></td>
+                                    <td th:text="${item.totalOD}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+                            <!--<div class="modal fade" id="modal-default-agency">-->
+                                <!--<div class="modal-dialog">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<div class="modal-header">-->
+                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                                <!--<span aria-hidden="true">&times;</span></button>-->
+                                            <!--<h4 class="modal-title">Manual Allocation (Agency)</h4>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-body">-->
+                                            <!--<div class="row form-group">-->
+                                                <!--<label class="col-sm-4 custom-form-lebel-right required">Agency</label>-->
+                                                <!--<div class="col-sm-8">-->
+                                                    <!--<select v-model="agencyId" id="agency_id"-->
+                                                            <!--class="form-control input-sm">-->
+                                                        <!--<option value="">Choose One</option>-->
+                                                        <!--<option th:each="dealer : ${agencyList}" th:value="${dealer.id}"-->
+                                                                <!--th:text="${dealer.getName()}">Loan-->
+                                                        <!--</option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="row form-group">-->
+                                                <!--<label class="col-sm-4 custom-form-lebel-right required">Dual/Single</label>-->
+                                                <!--<div class="col-sm-8">-->
+                                                    <!--<select v-model="dualType" class="form-control input-sm"-->
+                                                            <!--id="parentname1">-->
+                                                        <!--<option th:each="ptype : ${T(com.csinfotechbd.collection.distribution.loan.LoanDualEnum).values()}"-->
+                                                                <!--th:value="${ptype}" th:text="${ptype}"></option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-default pull-left"-->
+                                                    <!--data-dismiss="modal">Close-->
+                                            <!--</button>-->
+                                            <!--<a href="#" class="btn btn-success" @click="addManualAllocationAgency()"-->
+                                               <!--id="btn_ingresarr">Submit</a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+                            <!--</div>-->
+
+                            <!--<div class="modal fade" id="modal-default-dealer">-->
+                                <!--<div class="modal-dialog">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<div class="modal-header">-->
+                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                                <!--<span aria-hidden="true">&times;</span></button>-->
+                                            <!--<h4 class="modal-title">Manual Allocation (Dealer)</h4>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-body">-->
+                                            <!--<div class="row form-group">-->
+                                                <!--<label class="col-sm-4 custom-form-lebel-right required">Dealer</label>-->
+                                                <!--<div class="col-sm-8">-->
+                                                    <!--<select v-model="dealerId" id="dealer_id"-->
+                                                            <!--class="form-control input-sm">-->
+                                                        <!--<option value="">Choose One</option>-->
+                                                        <!--<option th:each="dealer : ${dealerList}" th:value="${dealer.id}"-->
+                                                                <!--th:text="${dealer.getDealer().getUser().getFirstName()}">-->
+                                                            <!--Loan-->
+                                                        <!--</option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-default pull-left"-->
+                                                    <!--data-dismiss="modal">Close-->
+                                            <!--</button>-->
+                                            <!--<a href="#" class="btn btn-success" @click="addManualAllocation()"-->
+                                               <!--id="btn_ingresar">Submit</a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+                            <!--</div>-->
+
+                            <!--<div class="modal fade" id="modal-error">-->
+                                <!--<div class="modal-dialog">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<div class="modal-header">-->
+                                            <!--&lt;!&ndash;<button data-target="#modal-error" data-dismiss="modal"&ndash;&gt;-->
+                                            <!--&lt;!&ndash;class="btn btn-sm btn-danger pull-right">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                            <!--<h4 class="modal-title text-center">Distribution Errors</h4>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-body">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="col-sm-8 col-sm-offset-2">-->
+                                                    <!--&lt;!&ndash;<table id="distErrorTbl" class="table table-striped table-hover" name="datatable-responsive">&ndash;&gt;-->
+                                                    <!--<table id="distriBu" name="datatable-responsive"-->
+                                                           <!--class="table table-striped table-bordered table-condensed text-center">-->
+                                                        <!--<thead>-->
+                                                        <!--<tr>-->
+                                                            <!--<th>Account Number</th>-->
+                                                            <!--<th>Error</th>-->
+                                                        <!--</tr>-->
+                                                        <!--</thead>-->
+                                                        <!--<tbody>-->
+                                                        <!--<tr v-for="(value, name) in errors">-->
+                                                            <!--<td>{{name}}</td>-->
+                                                            <!--<td class="text-danger wrap-word">{{value}}</td>-->
+                                                        <!--</tr>-->
+                                                        <!--</tbody>-->
+                                                    <!--</table>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-footer">-->
+                                            <!--<button type="button" class="btn btn-danger pull-right"-->
+                                                    <!--data-target="#modal-error" data-dismiss="modal">-->
+                                                <!--Close-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+                            <!--</div>-->
+
+                        </div>
+
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var loanviewlist =
+                            /*[[${loanviewlistJson}]]*/  ||
+                            "";
+                            var errors =
+                            /*[[${distributionErrors}]]*/  ||
+                            {
+                            }
+                            ;
+                            /*]]>*/
+
+                        </script>
+
+                        <script>
+                            var distributionApp = new Vue({
+                                el: "#app",
+                                data: {
+                                    loanViewList: [],
+                                    selectedList: [],
+                                    dealerId: "",
+                                    dualType: "SINGLE",
+                                    errors: {},
+                                    agencyId: "",
+                                },
+                                created: function () {
+                                    this.loanViewList = JSON.parse(loanviewlist);
+                                    this.errors = errors;
+                                },
+                                methods: {
+                                    addManualAllocation: function () {
+                                        var host = window.location.host;
+                                        this.$http.post('https://' + host + '/collection/distribution/api/loanupdate', {
+                                            id: this.dealerId,
+                                            list: this.selectedList,
+
+                                        }, {
+                                            credentials: true, headers: {
+                                                'X-CSRF-TOKEN': window.csrfToken,
+                                            }
+                                        }).then(res => {
+
+                                            if (res.body) {
+                                            alert("saved successfully");
+                                            document.location.reload();
+                                        }
+                                    }).catch(err => {
+                                            console.log(err);
+                                    })
+                                    },
+                                    addManualAllocationAgency: function () {
+
+                                        var host = window.location.host;
+                                        this.$http.post('https://' + host + '/collection/distribution/api/agencyloanupdate', {
+                                            id: this.agencyId,
+                                            list: this.selectedList,
+                                            dualorsingle: this.dualType,
+
+                                        }, {
+                                            credentials: true, headers: {
+                                                'X-CSRF-TOKEN': window.csrfToken,
+                                            }
+                                        }).then(res => {
+
+                                            if (res.body) {
+                                            alert("saved successfully");
+                                            document.location.reload();
+                                        }
+                                    }).catch(err => {
+                                            console.log(err);
+                                    })
+                                    },
+
+                                    addManualAllocationSam: function () {
+                                        let flag = confirm("Are you sure?");
+                                        var host = window.location.host;
+                                        if (flag) {
+                                            this.$http.post('https://' + host + '/collection/distribution/api/loansendtosam', {
+                                                id: this.agencyId,
+                                                list: this.selectedList,
+
+                                            }, {
+                                                credentials: true, headers: {
+                                                    'X-CSRF-TOKEN': window.csrfToken,
+                                                }
+                                            }).then(res => {
+
+                                                if (res.body) {
+                                                alert("saved successfully");
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                                console.log(err);
+                                        })
+                                        }
+                                        else
+                                            console.log("You Pressed: " + flag);
+
+                                    },
+
+                                    addManualAllocationWriteOff: function () {
+                                        alert("Are you sure?")
+                                        var host = window.location.host;
+                                        this.$http.post('https://' + host + '/collection/distribution/api/loansendtowriteOff', {
+                                            id: this.agencyId,
+                                            list: this.selectedList,
+
+                                        }, {
+                                            credentials: true, headers: {
+                                                'X-CSRF-TOKEN': window.csrfToken,
+                                            }
+                                        }).then(res => {
+
+                                            if (res.body) {
+                                            document.location.reload();
+                                        }
+                                    }).catch(err => {
+                                            console.log(err);
+                                    })
+                                    },
+                                }
+
+                            })
+
+                            $(document).ready(function () {
+                                if (errors && Object.keys(errors).length) {
+                                    $('#distErrorTbl').DataTable({
+                                        'bInfo': false,
+                                        'info': false,
+                                        ordering: false,
+                                        searching: false,
+                                        lengthChange: false
+                                    })
+                                    $('#modal-error').modal('show');
+                                }
+
+
+                            })
+
+                        </script>
+
+                        <script src="/js/datatable/dataTables.buttons.min.js"></script>
+                        <script src="/js/datatable/jszip.min.js"></script>
+                        <script src="/js/datatable/pdfmake.min.js"></script>
+                        <script src="/js/datatable/vfs_fonts.js"></script>
+                        <script src="/js/datatable/buttons.html5.min.js"></script>
+                        <script src="/js/datatable/buttons.print.min.js"></script>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#allocated-account-list-tbl').DataTable({
+                                    'bInfo': true,
+                                    ordering: true,
+                                    searching: true,
+                                    lengthChange: true,
+                                    dom: 'Bfrtip',
+                                    buttons: ['excel']
+                                })
+                            })
+
+                        </script>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#distriBu').DataTable({
+                                    'bInfo': true,
+                                    ordering: true,
+                                    searching: true,
+                                    lengthChange: true,
+                                    dom: 'Bfrtip',
+                                    buttons: ['excel']
+                                })
+                            })
+
+                        </script>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#allocation_list').DataTable({
+                                    'bInfo': true,
+                                    ordering: true,
+                                    searching: true,
+                                    lengthChange: true,
+                                    dom: 'Bfrtip',
+                                    buttons: ['excel']
+                                })
+                            })
+                        </script>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Card</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class="bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<a  id="tab-referenceInfo" th:if="${session.urlList.contains('tab-referenceInfo')}" href="#" class="list-group-item" title="Reference Information">Reference Information</a>
+									<a  id="tab-sectorDetail" th:if="${session.urlList.contains('tab-sectorDetail')}" href="#" class="list-group-item" title="Sectore Detail">Sector Detail</a>
+									<a  id="tab-interestDetails" th:if="${session.urlList.contains('tab-interestDetails')}" href="#" class="list-group-item" title="Interest Details">Interest Details</a>
+									<a  id="tab-letterInfo" th:if="${session.urlList.contains('tab-letterInfo')}" href="#" class="list-group-item" title="Letter Information">Letter Information</a>
+									<a  id="tab-gurantor" th:if="${session.urlList.contains('tab-gurantor')}" href="#" class="list-group-item" title="Gurantor Information">Gurantor Information</a>
+									<a  id="tab-liendetails" th:if="${session.urlList.contains('tab-liendetails')}" href="#" class="list-group-item" title="Lien Details">Lien Details</a>
+									<a  id="tab-finalsettamount" th:if="${session.urlList.contains('tab-finalsettamount')}" href="#" class="list-group-item" title="Final Settlement Amount">Final Settlement Amount</a>
+									<a  id="tab-bucketHistory" th:if="${session.urlList.contains('tab-bucketHistory')}" href="#" class="list-group-item" title="Bucket History">Bucket history</a>
+									<a  id="tab-pushPull" th:if="${session.urlList.contains('tab-pushPull')}" href="#" class="list-group-item" title="SMS Push-Pull Alert">SMS Push-Pull Alert</a>
+									<a  id="tab-visitledger" th:if="${session.urlList.contains('tab-visitledger')}" href="#" class="list-group-item" title="Visit Ledger">Visit Ledger</a>
+									<a  id="tab-history" th:if="${session.urlList.contains('tab-history')}" href="#" class="list-group-item" title="Activities History">Activities History</a>
+									<a  id="tab-dealer-history" th:if="${session.urlList.contains('tab-dealer-history')}" href="#" class="list-group-item" title="Dealer History">Dealer History</a>
+									<a  id="tab-vehiclerepossession" th:if="${session.urlList.contains('tab-vehiclerepossession')}" href="#" class="list-group-item" title="Vehicle Repossession">Vehicle Repossession</a>
+									<a  id="tab-sendletteremail" th:if="${session.urlList.contains('tab-sendletteremail')}" href="#" class="list-group-item" title="Send Letter via Email">Send Letter via Email</a>
+									<a  id="tab-accountescalation" th:if="${session.urlList.contains('tab-accountescalation')}" href="#" class="list-group-item" title="Account Escalation">Account Escalation</a>
+									<!--<a  id="tab-Sms-Push-Pull" th:if="${session.urlList.contains('id="tab-Sms-Push-Pull')}" href="#" class="list-group-item" title="SMS Details">SMS Details</a>-->
+									<a  id="tab-ptp-summary" th:if="${session.urlList.contains('tab-ptp-summary')}" href="#" class="list-group-item" title="PTP Summery">PTP Summery</a>
+									<a  id="chequeManagement" th:if="${session.urlList.contains('chequeManagement')}" href="#" class="list-group-item" title="Instrument information">Instrument information</a>
+									<!--<a  id="customerAndBorrowerInfo" th:if="${session.urlList.contains('customerAndBorrowerInfo')}" href="#" class="list-group-item" title="Updated Additional Info">Updated Additional Info</a>-->
+									<a  id="bucketMovementCalculator" th:if="${session.urlList.contains('bucketMovementCalculator')}" href="#" class="list-group-item" title="Bucket Movement Calculator">Bucket Movement Calculator</a>
+									<a  id="letterGeneratedInfo" th:if="${session.urlList.contains('letterGeneratedInfo')}" href="#" class="list-group-item" title="Letter Generated Information">Letter Generated Information</a>
+									<a  id="ptp" href="#" class="list-group-item" title="PTP" th:if="${#strings.startsWith(session.unit,'SAM')}">PTP</a>
+									<a  id="visite-report" href="#" class="list-group-item" title="Visit Report" th:if="${#strings.startsWith(session.unit,'SAM')}">Visit Report</a>
+									<a  id="written-off-management"  href="#" class="list-group-item" title="Written-Off Management" th:if="${#strings.startsWith(session.unit,'SAM')}">Written-Off Management</a>
+									<a  id="proposal-management"  href="#" class="list-group-item" title="Proposal Management" th:if="${#strings.startsWith(session.unit,'SAM')}">Proposal Management</a>
+									<a  id="proposal-management-rescheduling"  href="#" class="list-group-item" title="Proposal Management Rescheduling" th:if="${#strings.startsWith(session.unit,'SAM')}">Proposal Management Rescheduling</a>
+									<a  id="generation-classification-provisioning"  href="#" class="list-group-item" title="Generation of Classification And Provisioning" th:if="${#strings.startsWith(session.unit,'SAM')}">Generation of Classification And Provisioning</a>
+									<a  id="statement-detail" th:if="${session.urlList.contains('statement-detail')}" href="#" class="list-group-item" title="Account Statement" >Account Statement</a>
+									<a  id="delinquency-reason" th:if="${session.urlList.contains('delinquency-reason')}" href="#" class="list-group-item" title="Reason For Delinquency" >Reason For Delinquency</a>
+									<a  id="tab-legal-action" th:if="${session.urlList.contains('tab-legal-action')}" href="#" class="list-group-item" title="Legal Action" >Legal Action</a>
+									<a  id="tab-interest-rate-change-history" th:if="${session.urlList.contains('tab-interest-rate-change-history')}" href="#" class="list-group-item" title="Interest Rate Change History" >Interest Rate Change History</a>
+									<a  id="tab-customer-complain-request" th:if="${session.urlList.contains('tab-customer-complain-request')}" href="#" class="list-group-item" title="Customer Complain And Request" >Customer Complain And Request</a>
+									<a  id="tab-total-facility-limit" th:if="${session.urlList.contains('tab-total-facility-limit')}" href="#" class="list-group-item" title="Total Facility Limit" >Total Facility Limit</a>
+									<a  id="tab-allocationDetails" th:if="${session.urlList.contains('tab-allocationDetails')}" href="#" class="list-group-item" title="MO Information">MO Information</a>
+									<a  id="tab-updateAdditionalInfo" th:if="${session.urlList.contains('tab-updateAdditionalInfo')}" href="#" class="list-group-item" title="Customer And Borrower Information">Customer And Borrower Information</a>
+									<a  id="tab-additionalInfo" th:if="${session.urlList.contains('tab-additionalInfo')}" href="" class="list-group-item" title="Additional Information">Additional Information</a>
+									<a  id="tab-monitoring-and-follow-up" href="#" class="list-group-item" title="Monitoring And FollowUp" th:if="${#strings.startsWith(session.unit,'SAM')}">Monitoring And FollowUp</a>
+
+									<a  id="tab-details-of-the-account" href="#" class="list-group-item" title="Details Of The Account" th:if="${#strings.startsWith(session.unit,'SAM')}">Details Of The Account</a>
+									<a  id="tab-previous-approval-related-to-loan-rescheduling" href="#" class="list-group-item" title="Previous Approval Related to Loan Rescheduling" th:if="${#strings.startsWith(session.unit,'SAM')}">Previous Approval Related to Loan Rescheduling</a>
+
+
+
+									<!--<a  id="tab-branch-proposal-format" href="#" class="list-group-item" title="Branch Proposal Format" th:if="${#strings.startsWith(session.unit,'SAM')}">Branch Proposal Format</a>-->
+									<!--<a  id="tab-backgournd-of-borrower" href="#" class="list-group-item" title="Backgournd of the Borrower" th:if="${#strings.startsWith(session.unit,'SAM')}">Backgournd of the Borrower</a>-->
+									<a  id="tab-basic-information" href="#" class="list-group-item" title="Basic Information" th:if="${#strings.startsWith(session.unit,'SAM')}">Basic Information</a>
+									<a  id="tab-background-of-the-borrower" href="#" class="list-group-item" title="Background of the Borrower" th:if="${#strings.startsWith(session.unit,'SAM')}">Background of the Borrower</a>
+									<a  id="tab-details-of-head-office-approval" href="#" class="list-group-item" title="Details of Head office Approval" th:if="${#strings.startsWith(session.unit,'SAM')}">Details of Head Office Approval</a>
+									<a  id="tab-latest-approval-related-to-loan-rescheduling-settlement-waiver" href="#" class="list-group-item" title="Latest approval related to loan resheduling/settlement/waiver" th:if="${#strings.startsWith(session.unit,'SAM')}">Latest approval related to loan resheduling/settlement/waiver</a>
+									<a  id="tab-reason-for-classification" href="#" class="list-group-item" title="Reason for Classification" th:if="${#strings.startsWith(session.unit,'SAM')}">Reason for Classification</a>
+									<a  id="tab-borrower-present-proposition" href="#" class="list-group-item" title="Borrower's present proposition regarding adjustment of the loan liabilities" th:if="${#strings.startsWith(session.unit,'SAM')}">Borrower's present proposition regarding adjustment of the loan liabilities</a>
+									<a  id="tab-initiative-action-taken-after-delinquency" href="#" class="list-group-item" title="Initiative/Actions taken after delinquency" th:if="${#strings.startsWith(session.unit,'SAM')}">Initiative/Actions taken after delinquency</a>
+									<a  id="tab-future-recovery-plan" href="#" class="list-group-item" title="Future Recovery plan to settle the loan liability" th:if="${#strings.startsWith(session.unit,'SAM')}">Future Recovery plan to settle the loan liability</a>
+									<a  id="tab-justification" href="#" class="list-group-item" title="Justification for not being classified the loan" th:if="${#strings.startsWith(session.unit,'SAM')}">Justification for not being classified the loan</a>
+
+
+								</div>
+							</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+
+
+								<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-referenceInfo')}">
+									<div class="bhoechie-tab-content">
+										<div th:replace="collection/details/panels/middle/referenceinfo/reference_info :: reference-info"></div>
+
+									</div>
+								</div>
+
+								<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-sectorDetail')}">
+									<div class="bhoechie-tab-content">
+										<div th:replace="collection/details/panels/middle/sector_detail :: sector_detail"></div>
+
+									</div>
+								</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-interestDetails')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/interest_details :: interest-details"></div>
+
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-letterInfo')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/letter_info :: letter-info"></div>
+
+								</div>
+							</div>
+
+							<!--Gurantor into here-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-gurantor')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/guarantorinfo/guarantor_info :: guarantor-info"></div>
+
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-liendetails')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/lien_details :: lien-details"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-finalsettamount')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/finalsettlement_amount :: finalsettlement-amount"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-bucketHistory')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/bucket_history :: bucket-move"></div>
+
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-pushPull')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/sms_push-pull-alert :: sms-push-pull-alert"></div>
+
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-visitledger')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/visit_ledger :: visit-ledger"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-history')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/history :: history"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-dealer-history')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/dealer_history :: dealer-history"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-vehiclerepossession')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/vehicle_repossession :: vehicle-repossession"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-sendletteremail')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/send_letter_via_email :: send-letter-via-email"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-accountescalation')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/account_escalation :: account_escalation"></div>
+
+								</div>
+							</div>
+
+							<!--SMS push pull -->
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/sms_push_pull :: sms-push-pull"></div>
+
+								</div>
+							</div>-->
+
+							<!--PTP summary -->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-ptp-summary')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/ptp_summary :: ptp-summary"></div>
+
+								</div>
+							</div>
+
+
+							<!--Cheque Management-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('chequeManagement')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/cheque_management :: cheque-management"></div>
+
+								</div>
+							</div>
+
+							<!--Customer And Borrower Information-->
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="collection/details/panels/middle/updated_additional_info :: updated_additional_info"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+
+
+							<!--Bucket Movement Calculator-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('bucketMovementCalculator')}">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/bucket_movement_calculator :: bucket-movement-clculator"></div>
+								</div>
+							</div>
+
+
+							<!--Bucket Movement Calculator-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('letterGeneratedInfo')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/letter_geninfo :: letter-geninfo"></div>
+								</div>
+							</div>
+
+							<!--SAMD PTP-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/ptp :: ptp"></div>
+								</div>
+							</div>
+
+							<!--SAMD PTP-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/visit_report :: visit-report"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/written_off_management :: written-off-management"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/proposalManagement/main :: proposal-management"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/proposal_management_rescheduling :: proposal-management-rescheduling"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/generation_classification_provisioning :: generation-classification-provisioning"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('statement-detail')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/statement_details :: statement-detail"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('delinquency-reason')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/delinquencyReason :: delinquency-reason"></div>
+								</div>
+							</div>
+
+
+							<!--Legal new tab (legal action)-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-legal-action')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/legal_action :: legal-action"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-interest-rate-change-history')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/interest_rate_change_history :: interest-rate-change-history"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-customer-complain-request')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/customer_complain_and_request :: customer-complain-and-request"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-total-facility-limit')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/total_facility_limit :: total-facility-limit"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-allocationDetails')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/allocation_details :: allocation-details"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-updateAdditionalInfo')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/customer_and_borrower_info :: customer_and_borrower_info"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('tab-additionalInfo')}">
+								<div class="bhoechie-tab-content">
+									<div th:replace="collection/details/panels/middle/additionalInfo :: additional-info"></div>
+								</div>
+							</div>
+
+
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/monitoring_and_follow_tab :: monitoring-fololw-tap"></div>
+								</div>
+							</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/monitoring_and_follow_tab :: monitoring-fololw-tap"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/details-account/details-of-the-account:: details-of-the-account-tab"></div>
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/previous-approval-related-to-loan-rescheduling/loan-rescheduling:: loan-rescheduling-tab"></div>
+								</div>
+							</div>
+
+
+
+						<!--<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">-->
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="collection/details/panels/middle/branch_proposal_format :: branch-proposal-format"></div>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">-->
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="collection/details/panels/middle/background_of_borrower :: background-borrower"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/basic_info :: basic-info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/background_of_the_borrower :: background-of-the-borrower-tap"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/details_of_head_office_approval :: details-of-head-office-tap"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/latest_approval_related_to_loan_resheduling_settlement_waiver :: latest-related-to-loan-resheduling-settlement-waiver-tap"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/reason_for_classification :: reason-for-classification-tap"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/borrower_present_proposition :: borrower-present-proposition-tap"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/initiative_action_taken_after_delinquency :: initiative-action-taken-after-delinquency-tap"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/future_recovery_plan :: future-recovery-plan-tap"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="collection/details/panels/middle/samd/justification :: justification-tap"></div>
+
+								</div>
+							</div>
+
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

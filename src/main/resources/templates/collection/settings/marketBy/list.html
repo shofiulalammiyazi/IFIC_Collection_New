@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>MARKET BY List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <a  style="margin-bottom: 10px" class="btn btn-primary btn-xs pull-left"
+                                th:href="@{/collection/marketby/excel/upload-excel}"><span class="glyphicon glyphicon-plus"> </span>
+                                MARKET BY Excel Upload</a>
+                            <h3 class="box-title">Market By List</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="table-responsive">
+                                <table th:if="${marketByAll!=null}" id="example" name="datatable-responsive"
+                                       class="table table-striped table-bordered table-condensed" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:7%">Sl NO.</th>
+                                        <th>CONTRACT ID</th>
+                                        <th>MARKET BY</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="mark,status : ${marketByAll}">
+                                        <td th:text="${status.count}"></td>
+                                        <td><span th:text="${mark.contractId}"></span></td>
+                                        <td><span th:text="${mark.contractId}"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

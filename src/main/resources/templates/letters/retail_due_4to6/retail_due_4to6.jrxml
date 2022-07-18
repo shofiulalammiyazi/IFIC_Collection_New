@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4589cc6-19de-45c9-8f23-860e5ac765fb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="customerId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dispatchNumber" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="customerName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="customerAddress" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="accountNo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="overdueAmount" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="outstanding" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="installmentSize" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="scheduleDate" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cust.id
+from CUSTOMER_BASIC_INFO_ENTITY cust
+where cust.id = $P{customerId}]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="466" y="71" width="61" height="20" uuid="65c13eca-8aa8-4d60-9577-f1fbffdf0aba"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="413" y="24" width="114" height="24" uuid="97b9ee8a-89e9-439b-98cf-aa5fd877b2ab"/>
+			</rectangle>
+			<textField>
+				<reportElement x="17" y="112" width="300" height="20" uuid="52b786d3-f453-420f-9f8f-8a5db9144eca"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="430" y="71" width="35" height="20" uuid="e8ddbb22-e644-46ef-a6d0-43e891363133"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="132" width="468" height="38" uuid="e60439ce-b330-4889-b179-52ce99d57fb6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="27" width="100" height="20" uuid="4a58150b-af58-43ba-98c6-74e9f4ff4223"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[REMINDER]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="71" width="321" height="20" uuid="9e2fe5a0-ac94-4de0-ae0e-5ff2804c7d69"/>
+				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="195" width="502" height="20" uuid="9c55d7d6-dabf-4855-9c8a-75371a0717a8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Subject: Non-payment of installment(s) of Loan Account - " + ($P{accountNo})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="242" width="164" height="20" uuid="f41d664b-2f76-4c43-b116-9d4ffd733a04"/>
+				<text><![CDATA[Dear Sir/Madam,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="287" width="520" height="54" uuid="c5d73b20-a80c-45ad-b8bc-ef95340f0e7b"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["We are writing to inform you that our record shows that we have not yet received payment of " + $P{installmentSize} + " installments of your abovementioned loan account. Detail of your loan account as on " + new SimpleDateFormat("dd/MM/yyyy").format( new java.util.Date() ) +" is as follows:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="183" y="375" width="13" height="20" uuid="82915340-b4af-48f0-9539-37481320077a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="435" width="166" height="20" uuid="aa72b634-fd73-4b98-855b-1a6b539e518f"/>
+				<text><![CDATA[Schedule Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="415" width="13" height="20" uuid="d82c6fa4-34d8-41ef-a040-2ad046de20fc"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="375" width="166" height="20" uuid="6da5f80d-3ebb-44a7-93d0-c53a1544529d"/>
+				<text><![CDATA[Unpaid installment (s) Amount     ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="355" width="166" height="20" uuid="9b751df5-14bd-467d-8585-55e704b37c9f"/>
+				<text><![CDATA[Account Name                              ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="395" width="13" height="20" uuid="f8016019-8af3-472c-836d-ae19689555de"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="196" y="415" width="169" height="20" uuid="773ca0dc-2aa1-43cd-bd6d-08f70919d7c0"/>
+				<textFieldExpression><![CDATA[$P{installmentSize}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="415" width="166" height="20" uuid="80afea7e-1f12-41d7-91db-344bb9d2010d"/>
+				<text><![CDATA[Installment Size	]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="196" y="395" width="169" height="20" uuid="83dfc9ba-ae9a-4828-b3ca-8b1793a01d48"/>
+				<textFieldExpression><![CDATA[$P{outstanding}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="196" y="355" width="254" height="20" uuid="b2786a9d-86cc-4270-be60-2cd38b69cf9b"/>
+				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="395" width="166" height="20" uuid="bf4f44eb-7322-4c9c-a37b-528cf33ec3dd"/>
+				<text><![CDATA[Outstanding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="435" width="13" height="20" uuid="b567dcec-bc32-4582-a794-a07191eab38d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="355" width="13" height="20" uuid="e02a9f5a-efe4-48c3-8db6-76b3ce650742"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="196" y="375" width="169" height="20" uuid="0be5ed08-192b-4a0f-b283-8e1d3bb9861a"/>
+				<textFieldExpression><![CDATA[$P{overdueAmount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="478" width="520" height="51" uuid="8928e12a-aba2-45a2-9296-afe7ff190e2a"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[We believe that this may be an oversight on your part. So we request you to make immediate payment of the overdue installment(s) including penal charges to keep your account in good standing.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="547" width="520" height="48" uuid="55c98863-9fed-4fb4-896f-1d241ea8d355"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Please ignore this letter if you have already deposited the abovementioned amount. For any clarification, please feel free to contact with your nearest Branch or Call Center: 16419 or Mobile No: 01833147905.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="718" width="348" height="20" uuid="8172d66d-3cba-48c8-8470-635bef291a42"/>
+				<textElement textAlignment="Center">
+					<font isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[This is a system generated letter and does not require any signature]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="196" y="435" width="169" height="20" uuid="be6bccbd-4206-44f6-8674-d3aeaf30d968"/>
+				<textFieldExpression><![CDATA[$P{scheduleDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

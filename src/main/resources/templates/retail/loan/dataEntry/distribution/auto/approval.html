@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Auto Distribution Approval</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" id="entity-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Auto Distribution Approval</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="bg-info active">
+                                        <a href="#pending" data-toggle="tab" aria-expanded="false">
+                                            Pending
+                                        </a>
+                                    </li>
+                                    <li class="bg-info">
+                                        <a href="#unallocated" data-toggle="tab" aria-expanded="false">
+                                            Unallocated
+                                        </a>
+                                    </li>
+                                    <!--<li class="bg-info">-->
+                                    <!--<a href="#approval" data-toggle="tab" aria-expanded="true">-->
+                                    <!--Approved-->
+                                    <!--</a>-->
+                                    <!--</li>-->
+                                    <li class="pull-right">
+                                        <button @click="approve"
+                                                class="btn btn-sm bg-light-blue-gradient">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span>Approve</span>
+                                        </button>
+                                        <button class="btn btn-sm bg-red-gradient" data-toggle="modal"
+                                                data-target="#modal-default-dealer">
+                                            <span class="glyphicon glyphicon-remove"> </span>
+                                            <span>Unallocate</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" style="overflow-y: auto; max-height: 45em">
+                                    <div class="tab-pane active" id="pending">
+                                        <table name="datatable-responsive"
+                                               class="table table-striped table-bordered dt-responsive" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 100px">
+                                                    <input type="checkbox"
+                                                           @change="selectAll" v-if="pendingList.length"
+                                                           title="Select All" id="select-all">
+                                                    <label for="select-all"> Select All</label>
+                                                </th>
+                                                <th>Dealer PIN</th>
+                                                <th>Dealer Name</th>
+                                                <th>Team Leader</th>
+                                                <th>Supervisor</th>
+                                                <th>Manager</th>
+                                                <th>Location</th>
+                                                <th>Bucket</th>
+                                                <th>No. of Accounts</th>
+                                                <th>Outstanding Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="entity, index in pendingList">
+                                                <td style="width: 100px">
+                                                    <input v-model="selectedIds" :value="index"
+                                                           type="checkbox">
+                                                </td>
+                                                <td>{{entity.dealerDetails.dealerPin}}</td>
+                                                <td>{{entity.dealerDetails.dealerName}}</td>
+                                                <!--<td>{{entity.dealerDetails.teamLeaderPin}}</td>-->
+                                                <td>{{entity.dealerDetails.teamLeaderName}}</td>
+                                                <!--<td>{{entity.dealerDetails.supervisorPin}}</td>-->
+                                                <td>{{entity.dealerDetails.supervisorName}}</td>
+                                                <!--<td>{{entity.dealerDetails.managerPin}}</td>-->
+                                                <td>{{entity.dealerDetails.managerName}}</td>
+                                                <td>{{entity.location}}</td>
+                                                <td>{{entity.dpdBucket}}</td>
+                                                <td class="text-right">
+                                                    <span class="text-info text-bold"
+                                                          style="cursor: pointer"
+                                                          @click="showAccountList(index)">
+                                                        {{entity.accountList.length}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    {{entity.accountList.reduce((total,account) => total +
+                                                    account.outstanding, 0)}}
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="unallocated">
+                                        <div class="table-responsive">
+                                            <table id="unallocated-list-table"
+                                                   class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-right">SL</th>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Location</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Bucket</th>
+                                                    <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Allocate To Employee</th>
+                                                    <th class="text-center">Allocate To Agency</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr v-for="(account, index) in unallocatedList">
+                                                    <td class="text-right">{{index+1}}</td>
+                                                    <td class="text-center">
+                                                        <a :href="'/profile/loanprofile/search?account=' + account.accountNo">
+                                                            {{account.accountNo}}
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-left">{{account.location}}</td>
+                                                    <td class="text-left">{{account.productCode}}</td>
+                                                    <td class="text-center">{{account.dpdBucket}}</td>
+                                                    <td class="text-center">{{account.outstanding}}</td>
+                                                    <td class="text-left">
+                                                        <multiselect v-model="tempEmployees[index]"
+                                                                     @input="alocateToEmployee(tempEmployees[index], account)"
+                                                                     placeholder="select Employee"
+                                                                     label="pin" track-by="pin" :options="employeeList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <multiselect v-model="tempAgencies[index]"
+                                                                     @input="alocateToAgency(tempAgencies[index], account)"
+                                                                     placeholder="select Employee"
+                                                                     label="name" track-by="id" :options="agencyList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <!--<div class="tab-pane" id="approval">-->
+                                    <!--<table name="datatable-responsive"-->
+                                    <!--class="table table-striped table-bordered dt-responsive" width="100%">-->
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                    <!--<th>Sl No.</th>-->
+                                    <!--<th>Auto Distribution</th>-->
+                                    <!--<th>Status</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr v-for="entity, index in approvalList">-->
+                                    <!--<td>{{index + 1}}</td>-->
+                                    <!--<td>{{entity.name}}</td>-->
+                                    <!--<td class="text-success">Approved</td>-->
+                                    <!--</tr>-->
+
+                                    <!--</tbody>-->
+                                    <!--</table>-->
+                                    <!--</div>-->
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+
+                            <div class="modal fade" id="modal-default-dealer">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Remarks</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12">
+                                                    <textarea v-model="remark" class="form-control input-sm"
+                                                              placeholder="Remark"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger pull-left"
+                                                    data-dismiss="modal">Close
+                                            </button>
+                                            <a href="#" class="btn btn-danger" @click="unallocate"
+                                               :disabled="!remark">unallocate</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                            <div class="modal fade" id="modal-account-list">
+                                <div class="modal-dialog" style="height: 100%; width: 70%; padding-right: 20px;">
+                                    <div class="modal-content" style="max-height: 900px;">
+                                        <div class="modal-header" style="text-align: center;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">
+                                                {{'Allocation list for ' +
+                                                currentDealerToShow.dealerDetails.dealerName}}
+                                            </h4>
+                                        </div>
+                                        <div style="overflow: auto; max-height: 800px; padding: 20px; margin-bottom: 20px;">
+                                            <table id="allocation-list-table"
+                                                   class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-right">SL</th>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Location</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Bucket</th>
+                                                    <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr v-for="(account, index) in currentDealerToShow.accountList">
+                                                    <td class="text-right">{{index+1}}</td>
+                                                    <td class="text-center">{{account.accountNo}}</td>
+                                                    <td class="text-left">{{account.location}}</td>
+                                                    <td class="text-left">{{account.productCode}}</td>
+                                                    <td class="text-center">{{account.dpdBucket}}</td>
+                                                    <td class="text-center">{{account.outstanding}}</td>
+                                                    <td class="text-left">
+                                                        <button class="btn btn-xs btn-danger"
+                                                                @click="unallocateAccount(index)">
+                                                            Unallocate
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var distributionSummary = /*[[${distributionSummary}]]*/ [];
+                        var unallocatedList = /*[[${unallocatedList}]]*/ [];
+                        var employeeList = /*[[${employeeList}]]*/ [];
+                        var agencyList = /*[[${agencyList}]]*/ [];
+                        /*]]>*/
+
+                        var employeeModel = {
+                            dealerDetails: {},
+                            accountList: [],
+                            totalAccount: 0,
+                            totalOutstanding: 0.0
+                        };
+
+                    </script>
+
+                    <script>
+                        var entityApproval = new Vue({
+                            el: '#entity-approval',
+                            components: {
+                                Multiselect: VueMultiselect.default
+                            },
+                            data: {
+                                list: [],
+                                employeeList: [],
+                                agencyList: [],
+                                pendingList: [],
+                                unallocatedList: [],
+                                approvalList: [],
+                                allIds: [],
+                                selectedIds: [],
+                                remark: '',
+                                currentDealerToShow: {},
+                                tempEmployees: [],
+                                tempAgencies: [],
+                                // isUnallocatAll: false
+                            },
+                            created: function () {
+                                this.currentDealerToShow = typeof employeeModel !== 'undefined' ? $.extend(true, {}, employeeModel) : {dealerDetails: {}};
+                                this.list = Array.isArray(distributionSummary) ? distributionSummary : [];
+                                this.unallocatedList = Array.isArray(unallocatedList) ? unallocatedList : [];
+                                this.employeeList = Array.isArray(employeeList) != null ? employeeList : [];
+                                this.agencyList = Array.isArray(agencyList) != null ? agencyList : [];
+
+                                this.pendingList = this.list.filter(function (entity) {
+                                    return (!entity.enabled && !entity.remark) || (entity.modifiedBy && !entity.enabled && entity.remark);
+                                });
+                                //
+                                // this.unallocatedList = this.list.filter(function (entity) {
+                                //     return !entity.modifiedBy && !entity.enabled && entity.remark;
+                                // });
+
+                                this.approvalList = this.list.filter(function (entity) {
+                                    return entity.enabled && !entity.remark
+                                });
+
+                                this.allIds = this.pendingList.map(entity => {
+                                    return entity.entityId;
+                                });
+                            },
+                            methods: {
+                                approve: function () {
+                                    if (!this.selectedIds.length) {
+                                        swal("Please select employees");
+                                        return;
+                                    }
+                                    var host = window.location.host;
+                                    this.$http.get('https://' + host + '/entity/approve?ids=' + this.selectedIds, {
+                                        credentials: true, headers: {
+                                            'X-CSRF-TOKEN': window.csrfToken,
+                                        }
+                                    }).then(res => {
+                                        if (res.bodyText === 'success') {
+                                            swal({
+                                                title: "Auto Distribution Approval",
+                                                text: "Auto Distribution Successfully Approved",
+                                                type: "success"
+                                            }, function () {
+                                                window.location = "/entity/list/approval";
+                                            });
+                                        }
+                                    }).catch(err => {
+                                        swal("Something went wrong");
+                                        console.log(err);
+                                    })
+                                },
+                                unallocate: function () {
+                                    if (!this.selectedIds.length) {
+                                        swal("Please select employees");
+                                        return;
+                                    }
+                                    if (!this.remark) {
+                                        swal("Please write remark");
+                                        return;
+                                    }
+                                    var host = window.location.host;
+                                    this.$http.get('https://' + host + '/entity/Unallocat?ids=' + this.selectedIds + '&remark=' + this.remark, {
+                                        credentials: true, headers: {
+                                            'X-CSRF-TOKEN': window.csrfToken,
+                                        }
+                                    }).then(res => {
+
+                                        if (res.bodyText === 'success') {
+                                            swal({
+                                                title: "Auto Distribution Approval",
+                                                text: "unallocated Successful!",
+                                                type: "warning"
+                                            }, function () {
+                                                window.location = "/entity/list/approval";
+                                            });
+                                        }
+                                    }).catch(err => {
+                                        swal("Something went wrong");
+                                        console.log(err);
+                                    })
+                                },
+                                selectAll: function (e) {
+                                    if (e.target.checked) {
+                                        this.pendingList.forEach((element, index) => this.selectedIds.push(index));
+                                    } else {
+                                        this.selectedIds = [];
+                                    }
+                                },
+                                showAccountList: function (index) {
+                                    // $('#allocation-list-table').DataTable().destroy();
+                                    this.currentDealerToShow = this.list[index];
+                                    // setTimeout(this.initializeDataTable('allocation-list-table'), 100);
+                                    $('#modal-account-list').modal('show');
+                                },
+                                alocateToEmployee: function (employee, accountDetails) {
+                                    console.log('employee = ' + JSON.stringify(employee));
+                                    console.log('account = ' + JSON.stringify(accountDetails));
+                                    // let account = this.currentDealerToShow.accountList.splice(index, 1)[0];
+                                    // this.unallocatedList.push(account);
+                                },
+                                alocateToAgency: function (agency, accountDetails) {
+                                    console.log('employee = ' + JSON.stringify(tempEmployee));
+                                    console.log('account = ' + JSON.stringify(accountDetails));
+                                    // let account = this.currentDealerToShow.accountList.splice(index, 1)[0];
+                                    // this.unallocatedList.push(account);
+                                },
+                                unallocateAccount: function (index) {
+                                    let account = this.currentDealerToShow.accountList.splice(index, 1)[0];
+                                    this.unallocatedList.push(account);
+                                },
+                                initializeDataTable: function (tableId) {
+
+                                    // let table = $('#' + tableId).DataTable();
+                                    // if (table) table.destroy();
+                                    //
+                                    // $('#' + tableId).DataTable({
+                                    //     destroy: true,
+                                    //     // retrieve: true,
+                                    //     paging: true,
+                                    //     "bInfo": false,
+                                    //     "bLengthChange": false,
+                                    // });
+
+                                },
+
+                            }
+                        })
+
+
+                        $(document).ready(function () {
+                            // $('.table').DataTable({
+                            //     "bInfo": false,
+                            //     "bLengthChange": true,
+                            // });
+
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

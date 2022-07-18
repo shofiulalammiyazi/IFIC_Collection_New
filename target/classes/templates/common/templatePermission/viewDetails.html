@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Template Permission-View</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<div class="col-md-offset-3 col-md-6">
+			<!-- Horizontal Form -->
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">View Nature Of Proposal Details</h3>
+					<a th:href="@{/user-role/template/permission/view}" type="submit" class="btn btn-primary pull-right">Back </a>
+				</div>
+				<div></div>
+				<!-- /.box-header -->
+				<!-- form start -->
+				<form class="form-horizontal">
+					<div class="box-body">
+                        <table>
+                            <tr th:each="permission ,SI: ${permissionList}">
+                                <td th:text="${SI.count}"></td>
+                                <td style="width: 100%;">
+                                    <div class="form-group form-group-code" >
+                                        <div class="col-sm-8 custom-form-control br" >
+                                            <level th:text="${permission.pageInfoEntity.pageTitle}" ></level>
+                                        </div>
+                                    </div>
+                                </td>
+
+
+
+                            </tr>
+                        </table>
+
+					</div>
+				</form>
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+</body>
+</html>

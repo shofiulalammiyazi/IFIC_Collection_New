@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sc="http://www.w3.org/1999/xhtml">
+    <body>
+        <th:block th:fragment="sidebar-main" th:remove="tag">
+            <aside class="main-sidebar">
+                <style>
+                    ul li a {
+                        font-size: 13px;
+                    }
+
+                    .treeview-menu > li > a {
+                        font-size: 13px;
+                    }
+                </style>
+                <section class="sidebar">
+
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <!--Home-->
+                        <li class="tab">
+                            <a href="/">
+                                <i class="fa fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+
+                        <!-- Settings -->
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-cogs"></i>
+                                <span>Set Up</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-file-o"></i>
+                                        <span>Case Filed Type</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                        <a th:if="${session.urlList.contains('/legal/setup/casefiledtype/create')}"
+                                        th:href="@{/legal/setup/casefiledtype/create}">
+                                        <span style="padding-right: 10px">
+                                        <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                        Entry
+                                        </span>
+
+                                        </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/casefiledtype/list')}"
+                                               th:href="@{/legal/setup/casefiledtype/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-list-ul"></i>
+                                        <span>Case Filed Sub-Type</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                        <a th:if="${session.urlList.contains('/legal/setup/casefiledsubtype/create')}"
+                                        th:href="@{/legal/setup/casefiledsubtype/create}">
+                                        <span style="padding-right: 10px">
+                                        <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                        Entry
+                                        </span>
+
+                                        </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/casefiledsubtype/list')}"
+                                               th:href="@{/legal/setup/casefiledsubtype/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-legal"></i>
+                                        <span>Nature of Suit</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                        <a th:if="${session.urlList.contains('/legal/setup/caseType/create')}"
+                                        th:href="@{/legal/setup/caseType/create}">
+                                        <span style="padding-right: 10px">
+                                        <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                        Entry
+                                        </span>
+
+                                        </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/caseType/list')}"
+                                               th:href="@{/legal/setup/caseType/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-balance-scale"></i>
+                                        <span>Courts</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/courts/create')}"
+                                               th:href="@{/legal/setup/courts/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/courts/list')}"
+                                               th:href="@{/legal/setup/courts/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-graduation-cap"></i>
+                                        <span>Lawyer</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/lawyer/create')}"
+                                               th:href="@{/legal/setup/lawyer/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/lawyer/list')}"
+                                               th:href="@{/legal/setup/lawyer/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-thumb-tack"></i>
+                                        <span>Status</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/casestatus/create')}"
+                                               th:href="@{/legal/setup/casestatus/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/casestatus/list')}"
+                                               th:href="@{/legal/setup/casestatus/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-sitemap"></i>
+                                        <span>Course of Action</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/courseofaction/create')}"
+                                               th:href="@{/legal/setup/courseofaction/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/courseofaction/list')}"
+                                               th:href="@{/legal/setup/courseofaction/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-building"></i>
+                                        <span>Collateral Security</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/collateralsecurity/create')}"
+                                               th:href="@{/legal/setup/collateralsecurity/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/collateralsecurity/list')}"
+                                               th:href="@{/legal/setup/collateralsecurity/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-map"></i>
+                                        <span>Legal Expense</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                       <!-- <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/legalexpense/create')}"
+                                               th:href="@{/legal/setup/legalexpense/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/legalexpense/list')}"
+                                               th:href="@{/legal/setup/legalexpense/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>-->
+                                        <li>
+                                            <a
+                                               th:href="@{/legal/setup/legalexpense/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                               th:href="@{/legal/setup/legalexpense/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-map"></i>
+                                        <span>Zone</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/zone/create')}"
+                                               th:href="@{/legal/setup/zone/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/zone/list')}"
+                                               th:href="@{/legal/setup/zone/list}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    List
+                                                </span>
+
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-map"></i>
+                                        <span>Dispute settlement in alternative ways</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/alternativewayreport/create')}"
+                                               th:href="@{/legal/setup/alternativewayreport/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-map"></i>
+                                        <span>Cases filed in finance courts and other courts</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/legal/setup/artharincourtreport/create')}"
+                                               th:href="@{/legal/setup/artharincourtreport/create}">
+                                                <span style="padding-right: 10px">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                                <span>
+                                                    Entry
+                                                </span>
+
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-folder-open-o"></i>
+                                <span>File Follow Up</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a th:if="${session.urlList.contains('/legal/data-entry/litigation-file-follow-up/create')}"
+                                       th:href="@{/legal/data-entry/litigation-file-follow-up/create}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Entry
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:if="${session.urlList.contains('/legal/data-entry/litigation-file-follow-up/list')}"
+                                       th:href="@{/legal/data-entry/litigation-file-follow-up/list}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            List
+                                        </span>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-legal"></i>
+                                <span>Case/Suit</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a th:if="${session.urlList.contains('/legal/data-entry/litigation-case-info/create')}"
+                                       th:href="@{/legal/data-entry/litigation-case-info/create}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Entry
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:if="${session.urlList.contains('/legal/data-entry/litigation-case-info/list')}"
+                                       th:href="@{/legal/data-entry/litigation-case-info/list}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            List
+                                        </span>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!-- Data Sheets -->
+
+                        <li class="treeview" th:if="false">
+                            <a href="#">
+                                <i class="fa fa-list"></i>
+                                <span>Datasheets</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/account-wise-case/view')}"
+                                       th:href="@{'/legal/report/account-wise-case/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Account wise Case Report (ARA, ARA-EX, NI Act, Penal Code)
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/collection/report/legal/account-wise-case-report-under-supreme-court/view')}"
+                                       th:href="@{'/collection/report/legal/account-wise-case-report-under-supreme-court/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Account Wise Case Report Under The Supreme Court
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/case-portfolio-vintage-analysis/view')}"
+                                       th:href="@{'/legal/report/case-portfolio-vintage-analysis/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Case Portfolio Vintage Analysis
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/legal-bill-expense-summary/view')}"
+                                       th:href="@{'/legal/report/legal-bill-expense-summary/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Legal Bill, Expense Summary
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/account-wise-legal-bill-expense/view')}"
+                                       th:href="@{'/legal/report/account-wise-legal-bill-expense/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Account wise Legal Bill, Expense
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/money-suit-filed-against-the-bank/view')}"
+                                       th:href="@{'/legal/report/money-suit-filed-against-the-bank/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Money Suit Filed Against The Bank
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/arthorin-suit-arthorin-execution-case-monitoring/view')}"
+                                       th:href="@{'/legal/report/arthorin-suit-arthorin-execution-case-monitoring/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Arthorin Suit & Arthorin Execution Case Monitoring
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/case-monitoring-high-court-suit-without-writ-report/view')}"
+                                       th:href="@{'/legal/report/case-monitoring-high-court-suit-without-writ-report/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            High Court Suit (without Writ) Case Monitoring
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/file-follow-up-before-filling-suit/view')}"
+                                       th:href="@{'/legal/report/file-follow-up-before-filling-suit/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            File Follow up Before Filling Suit
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/writ-file-monitoring/view')}"
+                                       th:href="@{'/legal/report/writ-file-monitoring/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Writ File Monitoring
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/judgement-awarded-adjusted-account/view')}"
+                                       th:href="@{'/legal/report/judgement-awarded-adjusted-account/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Judgement Awarded/Adjusted Account Report
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/case-status-wise/view')}"
+                                       th:href="@{'/legal/report/case-status-wise/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Case Status wise Report
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/court-wise-case-report/view')}"
+                                       th:href="@{'/legal/report/court-wise-case-report/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Court wise Case Report
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/legal-course-of-action/view')}"
+                                       th:href="@{'/legal/report/legal-course-of-action/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Legal Course of Action Report
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/the-supreme-court-bangladesh-case/view')}"
+                                       th:href="@{'/legal/report/the-supreme-court-bangladesh-case/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Supreme Court of Bangladesh Case Report
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/ni-act-case-monitoring/view')}"
+                                       th:href="@{'/legal/report/ni-act-case-monitoring/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            NI ACT Case Monitoring
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/monthly-new-case-filing/view')}"
+                                       th:href="@{'/legal/report/monthly-new-case-filing/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Monthly New Case Filling (ARA, ARA-EX, NI Act, Others)
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/collection/report/legal/case-monitoring-pending-court-cases/view')}"
+                                       th:href="@{'/collection/report/legal/case-monitoring-pending-court-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Pending Court Cases Monitoring
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/customer-wise-court-case-details/view')}"
+                                       th:href="@{'/legal/report/managerial/customer-wise-court-case-details/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Customerwise court case details
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/statement-court-case/view')}"
+                                       th:href="@{'/legal/report/statement-court-case/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Statement of court case
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/appellate-division-report/view')}"
+                                       th:href="@{'/legal/report/appellate-division-report/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Case list of Appellate Division as on
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/summery/view')}"
+                                       th:href="@{'/legal/report/summery/view'}">
+                                        <span style="padding-right: 10px">
+                                            <i class="fa fa-angle-right"></i>
+                                        </span>
+                                        <span>
+                                            Summary
+                                        </span>
+
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+                        </li>
+
+                        <!-- Managerial Reports -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list"></i>
+                                <span>Reports</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <!--<li>-->
+                                    <!--<a class="tab"-->
+                                       <!--th:if="${session.urlList.contains('/legal/report/managerial/customer-wise-court-case-details/view')}"-->
+                                       <!--th:href="@{'/legal/report/managerial/customer-wise-court-case-details/view'}">-->
+                                        <!--<span style="padding-right: 10px">-->
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                        <!--</span>-->
+                                        <!--<span>-->
+                                            <!--Customer wise Court Case details-->
+                                        <!--</span>-->
+
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-court-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-court-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            1
+                                        </span>
+                                        <span>
+                                            Statement of Court Cases
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/customer-wise-court-case-details/view')}"
+                                       th:href="@{'/legal/report/managerial/customer-wise-court-case-details/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            2
+                                        </span>
+                                        <span>
+                                            Customer wise Court Case details
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-client-wise-case-details/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-client-wise-case-details/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            3
+                                        </span>
+                                        <span>
+                                            Statement of Client-wise Case details
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-monthly-new-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-monthly-new-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            4
+                                        </span>
+                                        <span>
+                                            Statement of Monthly New Cases
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-adjusted-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-adjusted-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            5
+                                        </span>
+                                        <span>
+                                            Statement of Adjusted Cases
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-judgement-disposal-decree/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-judgement-disposal-decree/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            6
+                                        </span>
+                                        <span>
+                                            Statement of Judgement/Disposal/Decree
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/branch-wise-legal-expenses/view')}"
+                                       th:href="@{'/legal/report/managerial/branch-wise-legal-expenses/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            7
+                                        </span>
+                                        <span>
+                                            Branch wise Legal Expenses
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/lawyer-wise-case-details/view')}"
+                                       th:href="@{'/legal/report/managerial/lawyer-wise-case-details/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            8
+                                        </span>
+                                        <span>
+                                            Lawyer wise Case details
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/zone-wise-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/zone-wise-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            9
+                                        </span>
+                                        <span>
+                                            Zone Wise Cases
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/cases-against-bank/view')}"
+                                       th:href="@{'/legal/report/managerial/cases-against-bank/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            10
+                                        </span>
+                                        <span>
+                                            Case Against Bank
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-ownership-certificate-under-section-33-of-ara/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-ownership-certificate-under-section-33-of-ara/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            11
+                                        </span>
+                                        <span>
+                                            Statement of Ownership Certificate under Section 33 of ARA
+                                        </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-high-court-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-high-court-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            12
+                                        </span>
+                                        <span>
+                                            Statement Of High Court Cases
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/statement-of-appellate-division-cases/view')}"
+                                       th:href="@{'/legal/report/managerial/statement-of-appellate-division-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            13
+                                        </span>
+                                        <span>
+                                            Statement of Appellate Division Cases
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/managerial/pending-court-cases-monitoring/view')}"
+                                       th:href="@{'/legal/report/managerial/pending-court-cases-monitoring/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            14
+                                        </span>
+                                        <span>
+                                            Pending Court Cases Monitoring
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/bangladesh-bank-reports/bikolpo-ard-report/view')}"
+                                       th:href="@{'/legal/report/bangladesh-bank-reports/bikolpo-ard-report/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            15
+                                        </span>
+                                        <span>
+                                            বিকল্প পদ্ধতিতে বিরোধ নিষ্পত্তি (ADR)
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/bangladesh-bank-reports/artharin-and-other-court/view')}"
+                                       th:href="@{'/legal/report/bangladesh-bank-reports/artharin-and-other-court/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            16
+                                        </span>
+                                        <span>
+                                            অর্থঋণ আদালত ও অন্যান্য আদালত
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/bangladesh-bank-reports/bank-bima-pending-cases/view')}"
+                                       th:href="@{'/legal/report/bangladesh-bank-reports/bank-bima-pending-cases/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            17
+                                        </span>
+                                        <span>
+                                            ব্যাংক, বীমা ও আর্থিক প্রতিষ্ঠানের মামলা
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/bangladesh-bank-reports/statement-of-suits-filed-by-against-the-bank/view')}"
+                                       th:href="@{'/legal/report/bangladesh-bank-reports/statement-of-suits-filed-by-against-the-bank/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            18
+                                        </span>
+                                        <span>
+                                            Statement Of Suits Filed By/against The Bank
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
+                                       th:if="${session.urlList.contains('/legal/report/bangladesh-bank-reports/cib-writ-petition/view')}"
+                                       th:href="@{'/legal/report/bangladesh-bank-reports/cib-writ-petition/view'}">
+                                        <span style="padding-right: 10px">
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                            19
+                                        </span>
+                                        <span>
+                                            সিআইবি সংশ্লিষ্ঠ রীট পিটিশন
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+
+                    </ul>
+                </section>
+            </aside>
+        </th:block>
+    </body>
+</html>

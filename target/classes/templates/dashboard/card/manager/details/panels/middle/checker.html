@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Checker</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="manager-checker">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-manager-account-escalation"><a data-toggle="tab" href="#manager-account-escalation-checker" title="Account Escalation">Account Escalation</a></li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+        <div role="tabpanel1" class="tab-pane top-buffer" id="manager-account-escalation-checker">
+            <div th:replace="dashboard/card/manager/details/panels/middle/checker/account_escalation :: card-manager-account-escalation"></div>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>

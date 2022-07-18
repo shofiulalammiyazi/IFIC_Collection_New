@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Product & DPD (KPI)</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="team_target">
+
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Team Target vs Achievement</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#kpi-amount" title="Amount Wise">Amount Wise</a>
+            </li>
+            <li id="product_wise_summary_by_acc_man">
+                <a data-toggle="tab" href="#kpi-account" title="Account Wise">Account Wise</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="kpi-amount">
+            <div>
+                <center><h5>Amount </h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="man_target_achievement_amount_wise">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <center><h5> Percentage(%)</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="man_target_achievement_amount_wise_percentage">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane top-buffer" id="kpi-account">
+            <div>
+                <center><h5>Account </h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="man_target_achievement_account_wise">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <center><h5> Percentage(%)</h5></center>
+                <table class="table table-condensed table-bordered" style="display:block; overflow:auto">
+                    <thead >
+                    <th>Product</th>
+                    <th>DPD</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center" colspan="6">Flow</th>
+                    <th class="text-center" colspan="6">Save</th>
+                    <th class="text-center" colspan="6">Back</th>
+                    <th class="text-center" colspan="6">OverDue</th>
+                    <th class="text-center" colspan="6">Regular</th>
+                    </thead>
+                    <tbody id="man_target_achievement_account_wise_percentage">
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                        <td class="text-center">Target</td>
+                        <td class="text-center">Ach</td>
+                        <td class="text-center">Shortfall</td>
+                        <td class="text-center">Performance</td>
+                        <td class="text-center">Weight</td>
+                        <td class="text-center">Weighted Performance</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

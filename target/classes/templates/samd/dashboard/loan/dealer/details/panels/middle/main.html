@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="panel-middle-collection">
+		<!-- General Information -->
+		<div th:replace="samd/dashboard/loan/dealer/initiation/generalViewForPreview :: frag-general-view-PreView"></div>
+		<!-- Input Form -->
+		<div th:replace="samd/dashboard/loan/dealer/initiation/form-panel :: layout-form-panel"></div>
+	</div>
+</body>
+</html>

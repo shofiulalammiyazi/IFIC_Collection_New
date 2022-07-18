@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Select Case Type</label>
+                                <div class="col-sm-4">
+                                    <select id="caseType" class="form-control" onchange="getReportData()">
+                                        <option value="">Select Case Type</option>
+                                        <option value="Artharin Suit">Artharin Suit</option>
+                                        <option value="Artharin Execution">Artharin Execution</option>
+                                        <option value="NI Act">NI Act</option>
+                                        <option value="Penal Code">Penal Code</option>
+                                    </select>
+                                </div>
+                                <div v-show="isLoading" class="col-sm-1">
+                                    <div class="circle-half-loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" id="reportTitle" th:text="${reportTitle}"></div>
+                        </div>
+                        <!-- /.box-header -->
+
+                        <!--Account wise Case Report Under ARA-EX-->
+
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-condensed report-table">
+                                    <thead>
+                                    <!--<tr>-->
+
+                                    <!--(ARA, ARA-EX, NI Act, Penal Code)-->
+
+
+                                    <!--Account wise Case Report Under ARA-EX     Artharin Suit-->
+                                    <!--Account wise Case Report Under ARA        Artharin Execution -->
+                                    <!--Account wise Case Report Under NI Act     NI Act-->
+                                    <!--Account wise Case Report Under Penal Code & Others-->
+                                    <!--<th colspan="10">Account wise Case Report</th>-->
+                                    <!--</tr>-->
+                                    <tr>
+                                        <th>SL#</th>
+                                        <th>Branch Code</th>
+                                        <th>Branch Name</th>
+                                        <th>Business Segment</th>
+                                        <th>Customer ID No (CIF)</th>
+                                        <th>Loan Account No</th>
+                                        <th>Loan Account Name</th>
+                                        <th>Plaintiff/ Petitioner's Name</th>
+                                        <th>Plaintiff/ Petitioner's Designation</th>
+                                        <th>Plaintiff/ Petitioner's Phone No</th>
+                                        <th>Defendant/ Accused Name</th>
+                                        <th>Defendant/ Accused Active Phone No</th>
+                                        <th>Filing Date (dd.mm.yy)</th>
+                                        <th>Case Number</th>
+                                        <th>Case Claim Amount (Fig. in BDT)</th>
+                                        <th>Name of the Court</th>
+                                        <th>Preious Date (dd.mm.yy)</th>
+                                        <th>Case Status of Previous Date</th>
+                                        <th>Next Date (dd.mm.yy)</th>
+                                        <th>Case Status of Next Date</th>
+                                        <th>Lawyer's Name</th>
+                                        <th>Lawyer's Active Phone No</th>
+                                        <th>Writ-Petition Status</th>
+                                        <th>Recovery in Y-2017 (Fig. in BDT)</th>
+                                        <th>Recovery in Y-2018 (Fig. in BDT)</th>
+                                        <th>Recovery in Y-2019 (Fig. in BDT)</th>
+                                        <th>Recovery in Y-2020 (Fig. in BDT)</th>
+                                        <th>Recovery in Y-2021 (Fig. in BDT)</th>
+                                        <th>Remarks (If any)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var reportTitle = /*[[${reportTitle}]]*/ [];
+        /*]]>*/
+    </script>
+
+    <script>
+
+        reportTitle = reportTitle ? reportTitle : "Account wise Case Report";
+
+        function getReportData() {
+
+            let param = $("#caseType").val();
+
+            console.log("Param - " + param);
+
+            if (param) {
+                $('.report-table').DataTable().ajax.url(getUrl()).load();
+                $('#reportTitle').html(getExportFileName());
+            }
+        }
+
+        function getUrl() {
+            return '/legal/report/account-wise-case/report?caseType=' + $("#caseType").val();
+        }
+
+        function getExportFileName() {
+            return reportTitle + ' (' + $("#caseType").val() + ')';
+        }
+
+
+        $(document).ready(function () {
+
+            $('#caseType').change(function () {
+                console.log(getUrl());
+                getReportData();
+            });
+
+            $('.report-table').DataTable({
+                ordering: false,
+                paging: true,
+                "info": false,
+                "processing": true,
+                "ajax": null,
+                "columns": [
+                    {"data": "serialNo"},
+                    {"data": "branchCode"},
+                    {"data": "branchName"},
+                    {"data": "businessSegment"},
+                    {"data": "customerCifNo"},
+                    {"data": "accountNo"},
+                    {"data": "nameOfAcc"},
+                    {"data": "plaintiffName"},
+                    {"data": "plaintiffDesignation"},
+                    {"data": "plaintiffPhone"},
+                    {"data": "accusedName"},
+                    {"data": "accusedMobile"},
+                    {"data": "filingDate"},
+                    {"data": "caseNumber"},
+                    {"data": "caseClaimAmount"},
+                    {"data": "court"},
+                    {"data": "previousDate"},
+                    {"data": "caseStatusOfPreviousDate"},
+                    {"data": "nextDate"},
+                    {"data": "caseStatusOfNextPreviousDate"},
+                    {"data": "lawyers"},
+                    {"data": "lawyersPhone"},
+                    {"data": "writPetitionStatus"},
+                    {"data": "totalRecoveryFiveYearsEarlier"},
+                    {"data": "totalRecoveryFourYearsEarlier"},
+                    {"data": "totalRecoveryThreeYearsEarlier"},
+                    {"data": "totalRecoveryTwoYearsEarlier"},
+                    {"data": "totalRecoveryCurrentYear"},
+                    {"data": "remarks"}
+                ],
+                // Set two decimal round values to the double value columns
+                columnDefs: [
+                    {
+                        render: function (data, type, row) {
+                            return data ? data.toFixed(2) : 0;
+                        },
+                        targets: [14, 23, 24, 25, 26, 27]
+                    },
+                    {
+                        render: function (data, type, row) {
+                            return data ? formatDate_DD_MMM_YYYY(data) : 0;
+                        },
+                        targets: [12, 16, 17, 18, 19]
+                    }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        text: 'CSV',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }, {
+                        extend: 'excel',
+                        text: 'Excel',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }, {
+                        extend: 'print',
+                        text: 'Print',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }
+
+                ]
+            });
+        });
+
+    </script>
+
+</div>
+
+</body>
+</html>

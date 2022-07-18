@@ -1,0 +1,322 @@
+<06!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Customer Complain</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="customer-complain">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Customer Complain</h3>
+            <a class=" btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#modal-customer-complain" >
+                <i class="fa fa-plus-square"></i>
+                Add More
+            </a>
+        </div>
+
+       <div class="box-body">
+           <div class="row">
+               <div class="modal fade in" id="modal-customer-complain"  data-backdrop="static" data-keyboard="false">
+                   <div class="modal-dialog" style="width: 60%">
+                       <div class="modal-content col-sm-12">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               </button>
+                               <h3 >Customer Complain</h3>
+                           </div>
+                           <form  id="customerComplainForm"  method="post" class="form-horizontal" enctype="multipart/form-data">
+                               <input type="hidden" name="id"/>
+                               <input type="hidden" name="_csrf"/>
+                               <input type="hidden" name="customerId"/>
+
+                               <div id="customer-complain-error" class="alert alert-warning hidden"></div>
+
+                               <div class="row top-buffer">
+                                   <label class="col-sm-2 custom-details-lebel-left ">Date</label>
+                                   <div class="col-sm-4">
+                                       <input type="date" name="custDate" id="custDate" class="form-control"></input>
+                                   </div>
+                                   <label class="col-sm-2 custom-details-lebel-left">Time</label>
+                                   <div class="col-sm-4">
+                                       <input type="time" name="custTime" id="custTime" class="form-control" placeholder="12.00 PM"></input>
+                                   </div>
+                               </div>
+                               <div class="row top-buffer">
+                                   <label class="col-sm-2 custom-details-lebel-left ">Request Through </label>
+                                   <div class="col-sm-4">
+                                       <select class="form-control" id="reqThough" name="reqThough" >
+                                           <option value="SMS">SMS</option>
+                                           <option value="Mail">Mail</option>
+                                           <option value="Over Phone">Over Phone</option>
+                                           <option value="Physically">Physically</option>
+                                           <option value="Via Branch">Via Branch</option>
+                                           <option value="Via Head Office">Via Head Office</option>
+                                       </select>
+                                   </div>
+                                   <label class="col-sm-2 custom-details-lebel-left">Attachment</label>
+                                   <div class="col-sm-4">
+                                       <input type="file" class="form-control" placeholder="Attachment" name="file"></input>
+                                   </div>
+                               </div>
+                               <div class="row top-buffer">
+                                   <label class="col-sm-2 custom-details-lebel-left ">Request Detail</label>
+                                   <div class="col-sm-10">
+                                       <input type="text" class="form-control" placeholder="Type here" id="reqDetails" name="reqDetails"></input>
+                                   </div>
+                               </div>
+                               <div class="row top-buffer">
+                                   <label class="col-sm-2 custom-details-lebel-left ">Mobile No</label>
+                                   <div class="col-sm-4">
+                                       <input type="number" onkeypress="return /[0-9]/i.test(event.key)" class="form-control" placeholder="Mobile No" id="mobileNo" name="mobileNo" maxlength="11"></input>
+                                   </div>
+                                   <label class="col-sm-2 custom-details-lebel-left ">Request Time</label>
+                                   <div class="col-sm-4">
+                                       <input type="time" class="form-control" placeholder="12.00 PM" id="reqTime" name="reqTime"></input>
+                                   </div>
+                               </div>
+
+                               <div class="modal-footer text-center">
+                                   <button type="submit" id="saveComplain" class="btn btn-info">Save</button>
+                                   <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                               </div>
+                           </form>
+
+                       </div>
+                   </div>
+               </div>
+               <!--new modal-->
+               <div class="modal fade in" id="modal-customer-file"  data-backdrop="static" data-keyboard="false">
+                   <div class="modal-dialog" style="width: 60%">
+                       <div class="modal-content col-sm-12">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               </button>
+                               <h4>Customer File</h4>
+                           </div>
+
+                           <div>
+                               <img id="imageId" src="">
+                           </div>
+
+                           <div class="modal-footer text-center">
+                               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+           <div class="row">
+               <div class="modal fade" id="modal-customer_complain-info-view"  data-backdrop="static" data-keyboard="false">
+                   <div class="modal-dialog" style="width: 60%">
+                       <div class="modal-content col-sm-12">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <!--<span aria-hidden="true">×</span>-->
+                               </button>
+                               <h3>Customer Complain</h3>
+                           </div>
+
+                           <div class="box-body">
+
+                               <div class="form-group row csi-view-form-group">
+                                   <label class="col-sm-3 custom-details-lebel-left ">Date :</label>
+                                   <label class="col-sm-3 custom-form-control" id="custcDate"></label>
+                                   <label class="col-sm-3 custom-details-lebel-left">Time :</label>
+                                   <label class="col-sm-3 custom-form-control" id="custcTime"></label>
+                               </div>
+                               <div class="form-group row csi-view-form-group">
+                                   <label class="col-sm-3 custom-details-lebel-left">Request Through :</label>
+                                   <label class="col-sm-3 custom-form-control" id="custComThrough"></label>
+                               </div>
+                               <div class="form-group row csi-view-form-group">
+                                   <label class="col-sm-3 custom-details-lebel-left">Request Detail :</label>
+                                   <label class="col-sm-9 custom-form-control" id="custComDetails"></label>
+                               </div>
+                               <div class="form-group row csi-view-form-group">
+                                   <label class="col-sm-3 custom-details-lebel-left">Mobile no :</label>
+                                   <label class="col-sm-3 custom-form-control"id="custcmobileNo" ></label>
+                                   <label class="col-sm-3 custom-details-lebel-left">Request Time :</label>
+                                   <label class="col-sm-3 custom-form-control"id="custcreyTime"></label>
+                               </div>
+                               <div class="modal-footer text-center">
+                                   <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+
+           <div class="form-horizontal csi-view-form" id="customerComplainInfo">
+               <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+               <input type="hidden" name="refId" id="guarId" th:value="${guarId}"  />
+               <input name="_csrf" value="" type="hidden">
+               <input type="hidden" name="customerId" value="">
+               <div id="customer_complain" style="overflow: auto; max-height: 400px;">
+                   <table  name="customerComplain_info" id="customerComplainTable"
+                           class=" table table-striped table-bordered">
+                       <thead>
+                       <tr>
+                           <th>Date</th>
+                           <th>Time</th>
+                           <th>Request Through</th>
+                           <th>Request Details</th>
+                           <th>Mobile no</th>
+                           <th>Request Time</th>
+                           <th>Attachment</th>
+                           <th>Status</th>
+                           <th>Action</th>
+                       </tr>
+                       </thead>
+                       <tbody id="complainTBody">
+
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+           <script>
+
+               function viewCustComplain(id) {
+                   $('#customerComplainInfo input[name="_csrf"]').val(csrfToken);
+
+                   var url = '/collection/customer-complain/findByCustomerId?id='+id;
+                   $.getJSON(url, function(data){
+                       formData = data;
+                       $('#custcDate').text(data.custDate);
+                       $('#custcTime').text(data.custTime);
+                       $('#custComThrough').text(data.reqThough);
+                       $('#custComDetails').text(data.reqDetails);
+                       $('#custcmobileNo').text(data.mobileNo);
+                       $('#custcreyTime').text(data.reqTime);
+                       /*$('#comDealername').text(data.dealerName);
+                       $('#comMobilenumber').text(data.mobileNumber);
+                       $('#comComplainDetails').text(data.complainDetails);*/
+
+                       $('#modal-customer_complain-info-view').modal('toggle');
+                   });
+               }
+
+               function editCustComplain(id){
+                   $('#customerComplainInfo input[name="_csrf"]').val(csrfToken);
+                   var url = '/collection/customer-complain/findByCustomerId?id='+id;
+                   $.getJSON(url, function(data){
+                       var formdatalist = $('#customerComplainForm');
+                       formdatalist.find('input[name="id"]').val(data.id);
+                       formdatalist.find('input[name="custDate"]').val(data.custDate);
+                       formdatalist.find('input[name="custTime"]').val(data.custTime);
+                       formdatalist.find('input[name="reqThough"]').val(data.reqThough);
+                       formdatalist.find('input[name="reqDetails"]').val(data.reqDetails);
+                       formdatalist.find('input[name="mobileNo"]').val(data.mobileNo);
+                       formdatalist.find('input[name="reqTime"]').val(data.reqTime);
+                       /*formdatalist.find('input[name="id"]').val(data.id);
+                       formdatalist.find('input[name="dealerName"]').val(data.dealerName);
+                       formdatalist.find('input[name="mobileNumber"]').val(data.mobileNumber);
+                       formdatalist.find('input[name="complainDetails"]').val(data.complainDetails);*/
+
+                       $('#modal-customer-complain').modal('toggle');
+                   });
+               }
+
+               $(document).ready(function () {
+                   // $('#customerComplainInfo input[name="_csrf"]').val(csrfToken);
+                   $('#customerComplainForm input[name="_csrf"]').val(csrfToken);
+                   $('#customerComplainForm input[name="customerId"]').val(customerId)
+
+                   function fetchData(customerId) {
+                       $('#complainTBody').html('')
+                       $.getJSON('/collection/customer-complain/list?customerId='+customerId, function (json) {
+                           fileData = json;
+                           var tr = [];
+                           for (var i = 0; i < json.length; i++){
+                               console.log(json[i])
+                               tr.push('<tr>' +
+                                           '<td>' + (json[i].custDate==null?"":json[i].custDate) + '</td>'+
+                                           '<td>' + (json[i].custDate == null?"": json[i].custDate) + '</td>'+
+                                           '<td>' + (json[i].reqThough ==null?"":json[i].reqThough) + '</td>'+
+                                           '<td>' + (json[i].reqDetails==null?"":json[i].reqDetails) + '</td>'+
+                                           '<td>' + (json[i].mobileNo==null?"":json[i].mobileNo) + '</td>'+
+                                           '<td>' + (json[i].reqTime==null?"":json[i].reqTime) + '</td>'+
+                                           '<td><a class="btn" href="/collection/dms/document/preview?id=' + json[i].dmsFileId + '&type='+json[i].dmsFileType +'" data-index = "'+i+'">' + (json[i].fileName == null ? '' : json[i].fileName) + '</a></td>' +
+                                           '<td>' + (json[i].status) + '</td>' +
+                                           '<td>' +
+                                           (json[i].status == 'PENDING' ? '': '<button onclick="editCustComplain(' + json[i].id + ')" class=\'custEdit btn btn-primary btn-xs\'>Edit</button>') +
+                                           ' <button onclick="viewCustComplain(' + json[i].id + ')" class=\'btn btn-success btn-xs\'>View</button>' +
+                                           '</td>' +
+                                       '</tr>');
+                           }
+                           $('#customerComplainTable').append($(tr.join('')));
+                           // $('#customerComplain_tBody').append($(tr.join('')));
+                       })
+                   }
+
+                   fetchData(customerId);
+
+                   var customerComplain = {};
+
+                   $('#customerComplainForm').on('submit', function (event) {
+                       event.preventDefault();
+                       var object = new FormData(this);
+                       var formdatalist = $('#customerComplainForm');
+
+
+
+                       var custDate = formdatalist.find('input[name="custDate"]').val();
+                       var custTime = formdatalist.find('input[name="custTime"]').val();
+                       var reqThough =  formdatalist.find('input[name="reqThough"]').val();
+                       var reqDetails =  formdatalist.find('input[name="reqDetails"]').val();
+                       var mobileNo =  formdatalist.find('input[name="mobileNo"]').val();
+                       var reqTime =  formdatalist.find('input[name="reqTime"]').val();
+
+
+                       if (custDate ==''){
+                           alert("Date must not be black.");
+                           return;
+                       }
+
+
+                       $.ajax({
+                           type: "POST",
+                           url: "/collection/customer-complain/create",
+                           data: object,
+                           enctype: 'multipart/form-data',
+                           contentType: false,
+                           processData: false,
+                           success: function (data) {
+                               swal("Success!", "Complain successfully Saved!", "success");
+                               $('custDate,custTime,reqThough,reqDetails,mobileNo,reqTime').val('');
+                               $('#modal-customer-complain').modal('toggle')
+                               $('#complainTBody').html("");
+                               fetchData(customerId);
+                           },
+                           error: function (error) {
+                               console.log(error);
+                           }
+                       });
+                   });
+
+
+                   $("#complainTBody").delegate("#file-event","click", function () {
+                       var host = window.location.host;
+                       $.ajax({
+                           url: 'https://'+host+'/collection/customer-complain/download-file'
+                       })
+
+                   });
+
+               });
+           </script>
+
+       </div>
+
+    </div>
+
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Customer Profile Search</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1 style="text-align:center">
+                <!--<span th:if="${location.id == null}">Create New Location</span>-->
+                <!--<span th:if="${location.id != null}">Update Location</span>-->
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content" id="app">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Customer Profile Search</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body box-primary">
+                            <div class="row" style="padding: 30px;background-color: whitesmoke; margin-left: 0px; margin-right: 0px">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div th:if="${accountNotFound}">
+                                        <div class="alert alert-danger" style="text-align: center">
+                                            Account Not Found
+                                        </div>
+                                    </div>
+                                    <form target="_blank" th:action="@{/profile/loanprofile/search}" method="get">
+                                        <input type="hidden" name="account" v-model="accountNo">
+                                        <label style="padding: 8px;" class="col-sm-3">Acc.
+                                            No./Card No. :</label>
+                                        <div class="input-group">
+                                            <input v-model="accountNo" type="text" name="q" class="form-control"
+                                                   placeholder="Enter 16 digit number">
+                                            <span class="input-group-btn">
+                                        <button :disabled="buttonDisableOrNot" type="submit" name="search" id="search-btn"
+                                                class="btn btn-success btn-flat">
+                                          <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    accountNo: "",
+                },
+                computed:{
+                    buttonDisableOrNot(){
+                        return this.accountNo.length != 16;
+                    }
+                }
+            })
+        </script>
+        <!-- /.content -->
+    </div>
+</div>
+</body>
+</html>

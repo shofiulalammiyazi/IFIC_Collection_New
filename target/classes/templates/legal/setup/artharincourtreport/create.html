@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title></title>
+    <link rel="stylesheet" href="/css/loader/spinner.css"/>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section id="lawyerApp" class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${artharinCourt.id == null}" class="box-title">Create Cases filed in finance courts and other courts</h3>
+                            <h3 th:if="${artharinCourt.id !=null}" class="box-title">Update Cases filed in finance courts and other courts</h3>
+
+                        </div>
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/legal/setup/artharincourtreport/create}" th:object="${artharinCourt}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="box-body">
+
+                                <!--  <div class="form-group">
+                                      <p th:if="${error}" class="text-center text-danger" id="errorMessage"
+                                         th:text="${error}">Error </p>
+                                      <p th:if="${message}" class="text-center text-success" id="successMessage"
+                                         th:text="${message}">
+                                          Message
+                                      </p>
+                                      <p v-if="errorMessage" class="text-center text-danger text-wrap">
+                                          Something went wrong. Please try reloading the page or login again
+                                      </p>
+                                  </div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Artharin Court</label>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                   <div class="col-sm-2">
+
+                                   </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="artharinNumberOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinNumberOne}" placeholder="Number One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinNumberOne')}" th:errors="*{artharinNumberOne}">Number One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="artharinClaimAmountOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinClaimAmountOne}" placeholder="Claim Amount One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinClaimAmountOne')}" th:errors="*{artharinClaimAmountOne}">Claim Amount One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="artharinNumberTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinNumberTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinNumberTwo')}" th:errors="*{artharinNumberTwo}">Number Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="artharinClaimAmountTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinClaimAmountTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinClaimAmountTwo')}" th:errors="*{artharinClaimAmountTwo}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Actual Realization</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="artharinActualRealization"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinActualRealization}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinActualRealization')}" th:errors="*{artharinActualRealization}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="6" name="artharinClaimAmountOfCollection"
+                                               class="form-control input-sm required"
+                                               th:field="*{artharinClaimAmountOfCollection}" placeholder="Case pending
+                                                As opposed to the amount claimed"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('artharinClaimAmountOfCollection')}" th:errors="*{artharinClaimAmountOfCollection}">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4">Bankruptcy</label>
+                                    <div class="col-sm-8"></div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyNumberOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyNumberOne}" placeholder="Number One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyNumberOne')}" th:errors="*{bankruptcyNumberOne}">Number One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyClaimAmountOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyClaimAmountOne}" placeholder="Claim Amount One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyClaimAmountOne')}" th:errors="*{bankruptcyClaimAmountOne}">Claim Amount One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyNumberTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyNumberTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyNumberTwo')}" th:errors="*{bankruptcyNumberTwo}">Number Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyClaimAmountTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyClaimAmountTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyClaimAmountTwo')}" th:errors="*{bankruptcyClaimAmountTwo}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Actual Realization</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyActualRealization"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyActualRealization}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyActualRealization')}" th:errors="*{bankruptcyActualRealization}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="bankruptcyClaimAmountOfCollection"
+                                               class="form-control input-sm required"
+                                               th:field="*{bankruptcyClaimAmountOfCollection}" placeholder="Case pending
+                                                As opposed to the amount claimed"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('bankruptcyClaimAmountOfCollection')}" th:errors="*{bankruptcyClaimAmountOfCollection}">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection Error</label>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-4">Others</label>
+                                    <div class="col-sm-8"></div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersNumberOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersNumberOne}" placeholder="Number One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersNumberOne')}" th:errors="*{othersNumberOne}">Number One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersClaimAmountOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersClaimAmountOne}" placeholder="Claim Amount One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersClaimAmountOne')}" th:errors="*{othersClaimAmountOne}">Claim Amount One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersNumberTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersNumberTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersNumberTwo')}" th:errors="*{othersNumberTwo}">Number Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersClaimAmountTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersClaimAmountTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersClaimAmountTwo')}" th:errors="*{othersClaimAmountTwo}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Actual Realization</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersActualRealization"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersActualRealization}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersActualRealization')}" th:errors="*{othersActualRealization}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="othersClaimAmountOfCollection"
+                                               class="form-control input-sm required"
+                                               th:field="*{othersClaimAmountOfCollection}" placeholder="Case pending
+                                                As opposed to the amount claimed"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('othersClaimAmountOfCollection')}" th:errors="*{othersClaimAmountOfCollection}">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4">Total</label>
+                                    <div class="col-sm-8"></div>
+                                </div>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalNumberOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalNumberOne}" placeholder="Number One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalNumberOne')}" th:errors="*{totalNumberOne}">Number One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount One</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalClaimAmountOne"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalClaimAmountOne}" placeholder="Claim Amount One"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalClaimAmountOne')}" th:errors="*{totalClaimAmountOne}">Claim Amount One Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Number Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalNumberTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalNumberTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalNumberTwo')}" th:errors="*{totalNumberTwo}">Number Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Claim Amount Two</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalClaimAmountTwo"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalClaimAmountTwo}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalClaimAmountTwo')}" th:errors="*{totalClaimAmountTwo}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Actual Realization</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalActualRealization"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalActualRealization}" placeholder="Number Two"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalActualRealization')}" th:errors="*{totalActualRealization}">Claim Amount Two Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right text-right">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" autocomplete="6" name="totalClaimAmountOfCollection"
+                                               class="form-control input-sm required"
+                                               th:field="*{totalClaimAmountOfCollection}" placeholder="Case pending
+                                                As opposed to the amount claimed"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('totalClaimAmountOfCollection')}" th:errors="*{totalClaimAmountOfCollection}">Case pending
+                                        As opposed to the amount claimed
+                                        Amount of collection Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Status</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="enabled">
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${artharinCourt.enabled ==true}" th:value="true"> Active</input>
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${artharinCourt.enabled ==false}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" th:if="${artharinCourt.id == null}" class="btn btn-info btn-sm" id="btnSave">Save</button>
+                                <button type="submit" th:if="${artharinCourt.id != null}" class="btn btn-info btn-sm" id="btnSave">Update</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            /*]]>*/
+
+            setWindowFocusLossNotification("Please save changes before leaving the page");
+
+        </script>
+
+        <script th:inline="javascript">
+            var legalExpense = new Vue({
+                el: '#lawyerApp',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+
+                },
+                mounted: function () {
+                    // let id = this.lawyer.division;
+                    // if (id) this.getDistricts(id);
+                    // id = this.lawyer.district;
+                    // if (id) this.getBranches(id);
+                }
+            });
+
+        </script>
+
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Follow Up</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="follow_info">
+
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title"> Follow Up</h3>
+
+        </div>
+        <div class="box-body">
+            <div th:replace="dashboard/shared/followup/follow-up-summary :: content"></div>
+        </div>
+
+        <!--<div class="box-body">-->
+            <!--<div th:replace="dashboard/shared/followup/datewise_followup :: datefollowup"></div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>
+</body>
+
+
+</html>

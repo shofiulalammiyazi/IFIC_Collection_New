@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Reference Information</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="reference-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Reference Information</h3>
+            <!--<a id="add-button" class=" btn btn-sm pull-right" data-toggle="modal" data-target="#modal-reference-info" >-->
+                <!--<i class="fa fa-plus-square"></i>-->
+                <!--Add More-->
+            <!--</a>-->
+        </div>
+
+        <div class="box-body">
+
+            <div class="row">
+
+                <table class="table table-condensed">
+                    <tbody>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-6">Reference Name :</label>
+                                <label class="col-sm-6 custom-form-lebel" >-</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-6">Relationship with Reference :</label>
+                                <label class="col-sm-6 custom-form-lebel">-</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-3">Office Address :</label>
+                                <label class="col-sm-9 custom-form-lebel" >-</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-6">Home Address :</label>
+                                <label class="col-sm-6 custom-form-lebel" >-</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-6">Permanent Address:</label>
+                                <label class="col-sm-6 custom-form-lebel"></label>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-6">Contact No :</label>
+                                <label class="col-sm-6 custom-form-lebel" ></label>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <!--<div class="modal fade" id="modal-reference-info"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                                <h3 >Reference Information</h3>
+                            </div>
+                            <div class="box-body">
+                            <form  id="referenceInfoSaveForm" action="" method="post" class="form-horizontal" onsubmit="referenceInfoSave(event);">
+
+                                &lt;!&ndash;<input type="hidden" th:value="${loanprofileview.id}" name="customerBasicInfo.id"/>&ndash;&gt;
+                                <input type="hidden" name="id" id="reference-Id"/>
+                                <input type="hidden" name="_csrf"/>
+                                <input type="hidden" name="customerId"/>?
+
+                                <div class="alert alert-warning hidden" id="error-messages"></div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left">Reference Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="name" id="referenceName" class="form-control" placeholder="Name"></input>
+                                    </div>
+
+                                    <label class="col-sm-2 custom-details-lebel-left">Relationship with Reference</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" placeholder="Relationship with Reference" id="relReference" name="relationReference"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left">Home Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Home Address" id="referenceHomeAddress" name="homeAddress"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left">Office Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Office Address" id="referenceOfficeAddress" name="officeAddress"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left">Permanent Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="Permanent Address" id="referencePermanentAddress" name="permanentAddress"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row top-buffer">
+                                    <label class="col-sm-2 custom-details-lebel-left">Contact No</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" placeholder="Mobile No" id="referencePhone" name="phoneNo"></input>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    &lt;!&ndash;<button id="cardRefModalSubmitBtn" class="btn btn-info" onclick="referenceInfoSave()">Save</button>&ndash;&gt;
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                           </div>
+
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+
+            <!--<div class="row">-->
+                <!--<div class="modal fade" id="modal-reference-info-view"  data-backdrop="static" data-keyboard="false">-->
+                    <!--<div class="modal-dialog" style="width: 60%">-->
+                        <!--<div class="modal-content col-sm-12">-->
+                            <!--<div class="modal-header">-->
+                                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                    <!--&lt;!&ndash;<span aria-hidden="true">×</span>&ndash;&gt;-->
+                                <!--</button>-->
+                                <!--<h3 >Reference Information</h3>-->
+                            <!--</div>-->
+
+                                <!--<div class="box-body">-->
+                                    <!--<div class="">-->
+                                        <!--&lt;!&ndash;<button id="cardRefModalSubmitBtn" class="btn btn-info" onclick="referenceInfoSave()">Save</button>&ndash;&gt;-->
+                                        <!--<div class="form-group row csi-view-form-group">-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Reference Name :</label>-->
+                                            <!--<label class="col-sm-3 custom-form-control" id="refeName">-</label>-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Relationship with Reference :</label>-->
+                                            <!--<label class="col-sm-3 custom-form-control" id="reletionReference">-</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group row csi-view-form-group">-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Home Address :</label>-->
+                                            <!--<label class="col-sm-9 custom-form-control"id="refeHomeAddress"></label>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group row csi-view-form-group">-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Office Address :</label>-->
+                                            <!--<label class="col-sm-9 custom-form-control" id="refeOfficeAddress"></label>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group row csi-view-form-group">-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>-->
+                                            <!--<label class="col-sm-9 custom-form-control" id="refePermanentAddress"></label>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group row csi-view-form-group">-->
+                                            <!--<label class="col-sm-3 custom-details-lebel-left">Contact No(Mobile) :</label>-->
+                                            <!--<label class="col-sm-3 custom-form-control" id="refePhone">-</label>-->
+                                        <!--</div>-->
+
+
+                                     <!--</div>-->
+                                <!--</div>-->
+                            <!--<div class="modal-footer text-center">-->
+                                <!--<button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <Div class="form-horizontal csi-view-form">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <input type="hidden" name="refId" id="refId" th:value="${refId}"  />
+                <input name="_csrf" value="" type="hidden">
+                <table name="reference_info" id="referenceInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Reference Name</th>
+                        <th>Reference Address</th>
+                        <th>Contact No</th>
+                        <th>Relationship with Reference</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="referenceinfo_tBody" >
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+
+<script type="text/javascript" th:src="@{/customerprofileloan/referenceinfo.js}"></script>
+</div>
+</body>
+
+
+</html>

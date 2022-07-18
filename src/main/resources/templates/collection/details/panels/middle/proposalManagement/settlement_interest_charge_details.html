@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Interest Charged/ Settlement/ Recovery Details</title>
+</head>
+<body>
+
+<div th:fragment="settlement-interest-charge-details">
+    <div class="csi-view-form-full-area csi-view-indtable" >
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Interest Charged/ Settlement/ Recovery Details</h3>
+            <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" data-toggle="modal" data-target="#modal-settlement-interest-charged-recovery-details" >
+                <i class="fa fa-plus-square"></i>
+                Add More
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-settlement-interest-charged-recovery-details"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <h3 >Interest Charged/ Settlement/ Recovery Details</h3>
+                            </div>
+
+                            <form id="settlement-interest-charged-recovery-details-form"  action="" method="post" class="form-horizontal" >
+                                <input name="_csrf" type="hidden">
+                                <input name="customerId" type="hidden">
+
+                                <div class="modal-body">
+                                    <div class="form-group col-sm-12">
+                                        <label class="col-sm-2 custom-details-lebel-left required">Year:</label>
+                                        <div class="col-sm-4">
+                                            <select id="settlement-year-select" class="form-control" name="year"></select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="settlement-hidden-params" class="hidden">
+                                        <div class="form-group col-sm-12">
+                                            <label class="col-sm-2 custom-details-lebel-left required">Interest Charged:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" value="0.00" name="interestCharged" class="form-control" required="required" placeholder="Interest Charged" />
+                                            </div>
+
+                                            <label class="col-sm-2 custom-details-lebel-left required">Interest Suspense:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" value="0.00" name="interestSuspense" class="form-control" required="required" placeholder="Interest Suspense" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="col-sm-2 custom-details-lebel-left required">Recovery:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" value="0.00" name="recovery" class="form-control" required="required" placeholder="Recovery" />
+                                            </div>
+
+                                            <label class="col-sm-2 custom-details-lebel-left required">Settlement Recovery:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" value="0.00" name="settlementRecovery" class="form-control" required="required" placeholder="Settlement Recovery">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div>
+                    <table type="datatable-responsive" id="settlement-charge-details-table"
+                           class="table table-striped table-bordered table-condensed" width="100%">
+                        <thead>
+                        <tr>
+                            <td colspan="2">Interest Charged/ Settlement/ Recovery Details: </td>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>a</td>
+                            <td>Interest Charged (for existing accounts mention in the list)</td>
+                        </tr>
+
+                        <tr>
+                            <td>b</td>
+                            <td>Interest Suspense (for existing accounts mention in the list)</td>
+                        </tr>
+
+                        <tr>
+                            <td>c</td>
+                            <td>Recovery (for existing accounts mention in the list)</td>
+                        </tr>
+
+                        <tr>
+                            <td>d</td>
+                            <td>Recovery (for existing accounts mention in the list)</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">Total Recovery Amount</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $('#settlement-interest-charged-recovery-details-form input[name="_csrf"]').val(csrfToken);
+                    $('#settlement-interest-charged-recovery-details-form input[name="customerId"]').val(customerId)
+
+                    $('#settlement-year-select').change(function () {
+                        let year = $(this).val()
+                        let elem = $('#settlement-hidden-params');
+                        if(!year){
+                            elem.addClass('hidden')
+                        }
+                        else {
+                            elem.removeClass('hidden')
+                        }
+                    })
+
+                    function settlementInterestChargeDetails() {
+                        $('.interest-year-data').remove()
+
+                        $.getJSON('/collection/samd/data-entry/settlement-interest-charge-details/get-by-customer-id?customerId='+customerId, function (json) {
+                            formData = json;
+                            let thead = "", totalAllYear = [0, 0, 0, 0], totalYears = 0, startYear, endYear;
+
+                            $.each(json, function(index, charge){
+                                if (index == 0) startYear = charge.year
+                                endYear = charge.year
+
+                                thead += "<th class='interest-year-data'>"+charge.year+"</th>"
+
+                                $('#settlement-charge-details-table tbody > tr:eq(0)').append("<td class='interest-year-data'>"+charge.interestCharged+"</td>")
+                                totalAllYear[0] += Number(charge.interestCharged)
+
+                                $('#settlement-charge-details-table tbody > tr:eq(1)').append("<td class='interest-year-data'>"+charge.interestSuspense+"</td>")
+                                totalAllYear[1] += Number(charge.interestSuspense)
+
+                                $('#settlement-charge-details-table tbody > tr:eq(2)').append("<td class='interest-year-data'>"+charge.recovery+"</td>")
+                                totalAllYear[2] += Number(charge.recovery)
+
+                                $('#settlement-charge-details-table tbody > tr:eq(3)').append("<td class='interest-year-data'>"+charge.settlementRecovery+"</td>")
+                                totalAllYear[3] += Number(charge.settlementRecovery)
+
+                                let totalYearWise = Number(charge.recovery) + Number(charge.settlementRecovery)
+                                $('#settlement-charge-details-table tbody > tr:eq(4)').append("<td class='interest-year-data'>"+totalYearWise+"</td>")
+                                totalYears += totalYearWise
+                            })
+
+                            let message = (startYear == endYear) ? startYear : startYear + " to " + endYear
+                            thead += message ? "<th class='interest-year-data'>Total ("+message+")</th>" : "<th class='interest-year-data'>Total</th>"
+
+                            $('#settlement-charge-details-table thead > tr').append(thead);
+
+                            $('#settlement-charge-details-table tbody > tr:eq(0)').append("<td class='interest-year-data'>"+totalAllYear[0]+"</td>")
+                            $('#settlement-charge-details-table tbody > tr:eq(1)').append("<td class='interest-year-data'>"+totalAllYear[1]+"</td>")
+                            $('#settlement-charge-details-table tbody > tr:eq(2)').append("<td class='interest-year-data'>"+totalAllYear[2]+"</td>")
+                            $('#settlement-charge-details-table tbody > tr:eq(3)').append("<td class='interest-year-data'>"+totalAllYear[3]+"</td>")
+                            $('#settlement-charge-details-table tbody > tr:eq(4)').append("<td class='interest-year-data'>"+totalYears+"</td>")
+                        })
+
+                    }
+
+                    $('#tab-settlement-interest-charge-details').on('click', function () {
+                        settlementInterestChargeDetails()
+
+                        let years = '<option value="">Select year</option>';
+                        let year = new Date().getFullYear();
+                        while (year > 1900){
+                            years += '<option value="'+year+'">'+year+'</option>'
+                            year -= 1;
+                        }
+
+                        $('#settlement-year-select').html(years)
+                    })
+
+                    $('#settlement-interest-charged-recovery-details-form').on('submit', function (e) {
+                        e.preventDefault();
+                        var data = new FormData(this);
+
+                        $.ajax({
+                            type:'POST',
+                            url: '/collection/samd/data-entry/settlement-interest-charge-details/create',
+                            data: data,
+                            processData: false,
+                            contentType: false,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            },
+                            success: function (response, xhr, status) {
+                                $('#modal-settlement-interest-charged-recovery-details').modal('toggle');
+                                $('#modal-settlement-interest-charged-recovery-details').find("input:not(:hidden)").val("");
+
+                                settlementInterestChargeDetails();
+                                swal("Saved Successfully");
+
+                            },
+                            error: function (response) {
+                                alert("Unsuccessful")
+                            }
+                        })
+                    })
+
+                })
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

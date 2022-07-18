@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Guarantor Information</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="account-escalation">
+    <div class="csi-view-form-full-area csi-view-indtable" id="account-escalation-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Account Escalation</h3>
+        </div>
+        <div class="box-body">
+
+            <div class="modal fade" id="modal-teamleader-escalation">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="teamlead-note-escalation-note-id" method="post" action="">
+                            <input type="hidden" :value="accountEscalation.id" name="escalationId"/>
+                            <input name="_csrf" value="" type="hidden">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Account Escalation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <label  class="col-sm-2 custom-form-lebel-right required">Note</label>
+                                    <div class="col-sm-10">
+                                        <textarea  name="note" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" >Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade" id="modal-teamleader-resolve-id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="teamlead-note-escalation-resolve-note-id" method="post" action="">
+                            <input type="hidden" :value="escalationId" name="id"/>
+                            <input type="hidden" value="TeamSolved" name="status"/>
+                            <input name="_csrf" value="" type="hidden">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Account Escalation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <label  class="col-sm-2 custom-form-lebel-right required">Note</label>
+                                    <div class="col-sm-10">
+                                        <textarea  name="note" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" >Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade" id="modal-teamleader-escalation-id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="teamlead-note-escalation-form-id" method="post" action="">
+                            <input type="hidden" :value="escalationId" name="id"/>
+                            <input type="hidden" value="Pending" name="status"/>
+                            <input name="_csrf" value="" type="hidden">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Account Escalation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <label  class="col-sm-2 custom-form-lebel-right required">Note</label>
+                                    <div class="col-sm-10">
+                                        <textarea  name="note" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" >Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+
+            <div class="modal fade" id="modal-teamleader-escalation-view-note">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Account Escalation Note</h4>
+                            </div>
+                            <div class="modal-body" v-for="note in accountEscalationNote">
+                                <div class="row form-group">
+                                    <label  class="col-sm-2 custom-form-lebel-right">From:  {{note.createdBy}}</label>
+                                    <div class="col-sm-10">
+                                        <textarea  name="note" :value="note.note" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+            <Div class="form-horizontal csi-view-form">
+                <table name="account escalation"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Account No</th>
+                        <th>From</th>
+                        <th>Date</th>
+                        <th>Bucket</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="account-escalation-table-body">
+                    <tr v-for="accountEscalation in accountEscalationList">
+                        <td><a :href="'/profile/loanprofile/search?account='+accountEscalation.accountNumber">{{accountEscalation.accountNumber}}</a></td>
+                        <td>{{accountEscalation.fromUserPin}}</td>
+                        <td>{{formatDate(accountEscalation.createdDate)}}</td>
+                        <td>{{accountEscalation.bucket}}</td>
+                        <td>{{accountEscalation.status}}</td>
+                        <td>
+                            <!--<button class="btn btn-success btn-xs" v-bind:data-id="guarantor.id" data-toggle="modal" data-target="#modal-guarantor-info-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>-->
+                            <button  @click="escalationResolve(accountEscalation.id)" data-toggle="modal" data-target="#modal-teamleader-resolve-id" id="teamleader-escalation-resolved-id" class="btn btn-success btn-xs"><i fa fa-eye></i>Resolved</button>
+                            <button :disabled="accountEscalation.status == 'Solved'" @click="escalateAccount(accountEscalation.id)" data-toggle="modal" data-target="#modal-teamleader-escalation-id" class="btn btn-danger btn-xs"><i fa fa-eye></i>Escalate</button>
+                            <!--<button  data-toggle="modal" data-target="#modal-teamleader-escalation" v-bind:data-id="accountEscalation.id" id="teamlead-escalation-note-id" class="btn btn-success btn-xs"><i fa fa-eye></i>Create Note</button>-->
+                            <button :disabled="accountEscalation.accountEscalationNotes == ''" data-toggle="modal" data-target="#modal-teamleader-escalation-view-note" v-bind:data-id="accountEscalation.id" id="teamlead-escalation-note-view-id" class="btn btn-success btn-xs"><i fa fa-eye></i>View Note</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+    <!--<script th:inline="javascript">-->
+        <!--/*<![CDATA[*/-->
+        <!--var accountEscalationList = /*[[${accountEscalationList}]]*/ [];-->
+        <!--console.log(accountEscalationList);-->
+        <!--/*]]>*/-->
+    <!--</script>-->
+    <script>
+
+        accountEscalationCheckerApp = new Vue({
+            el: '#account-escalation-checker-id',
+            data: {
+                accountEscalationList: [],
+                accountEscalation: {},
+
+                accountEscalationNote: [],
+
+                escalationId: ''
+            },
+            methods: {
+                formatDateInput: function (date) {
+                    let date1 = date ? new Date(date) : new Date()
+
+                    return date ? date1.getFullYear()
+                        +'-'+((date1.getMonth()+1) < 10 ? '0'+(date1.getMonth()+1) : (date1.getMonth()+1))
+                        +'-'+(date1.getDate() < 10 ? '0'+date1.getDate() : date1.getDate())
+                        : '';
+                },
+                formatDate: function (date) {
+                    return formatDate_DD_MMM_YYYY(date)
+                },
+                escalationResolve: function (id) {
+                    console.log(id)
+                    this.escalationId = id;
+                },
+                escalateAccount: function (id) {
+                    console.log(id)
+                    this.escalationId = id;
+                }
+            },
+
+        })
+
+        $(document).ready(function () {
+
+            $('#teamlead-note-escalation-note-id input[name="_csrf"]').val(csrfToken);
+
+
+            $('#tab-account-escalation').click(function () {
+                $.ajax({
+                    url: '/collection/account-escalation/list',
+                    success: function (response) {
+
+                        accountEscalationCheckerApp.accountEscalationList = response.escalationList;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+            })
+
+
+            $('#account-escalation-table-body').delegate('#teamlead-escalation-note-view-id','click', function () {
+                $.ajax({
+                    url: '/collection/account-escalation/find/account-escalation-note?accountEscalationId='+$(this).data('id'),
+                    success: function (response) {
+                        accountEscalationCheckerApp.accountEscalationNote = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+
+            $('#teamlead-note-escalation-resolve-note-id').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                console.log('fired -------------->');
+                console.log(data)
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/account-escalation/save/note',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-teamleader-resolve-id').modal('toggle');
+                        alert('Escalation Success.');
+                        window.location.href = '/';
+
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+
+            $('#teamlead-note-escalation-form-id').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                console.log('fired -------------->');
+                console.log(data)
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/account-escalation/scalate-from/team-leader',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-teamleader-escalation-id').modal('toggle');
+                        alert('Escalation Success.');
+                        window.location.href = '/';
+
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+
+
+            
+            
+
+        })
+
+    </script>
+</div>
+</body>
+</html>

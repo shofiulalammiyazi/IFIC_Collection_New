@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <link rel="stylesheet" href="/css/datatables-utils/buttons.dataTables.min.css">
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" >
+            <div class="row" >
+                <div class="col-xs-12" id="writ-file-app">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-horizontal padding-top-20">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 padding-top-6 text-right">Branch</label>
+                                                <div class="col-sm-8">
+                                                    <select name="branch_id" v-model="selectedBranch" class="form-control" style="border-radius: 5px">
+                                                        <option value="">Select a branch</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5 text-right">
+                                            <button type="button" class="btn btn-info" @click="searchData">Run Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="text-right margin-bottom" v-if="files.length">
+                        <button class="btn btn-primary btn-generate-pdf">
+                            <span>Export to PDF</span>
+                            <span class="glyphicon glyphicon-download-alt" ></span>
+                        </button>
+                        <button class="btn btn-primary btn-generate-excel">
+                            <span>Export to Excel</span>
+                            <span class="glyphicon glyphicon-download-alt" ></span>
+                        </button>
+                    </div>-->
+
+                    <div class="box box-info" id="pdf-box">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="report-data-values">
+                                <thead>
+                                    <tr>
+                                        <th>SL#</th>
+                                        <th>Branch Code</th>
+                                        <th>Branch Name</th>
+                                        <th>CIF</th>
+                                        <th>Account NO</th>
+                                        <th>Account Name</th>
+                                        <th>Defendant/ Accused Name</th>
+                                        <th>Defendant/ Accused Mobile#</th>
+                                        <th>Segment</th>
+                                        <th>Petitioner's Name</th>
+                                        <th>Writ Number</th>
+                                        <th>Date of filing</th>
+                                        <th>Nature of writ</th>
+                                        <th>Respondents Name/Opposite Party</th>
+                                        <th>Amount involved (if Artharin not filed)</th>
+                                        <th>Subject Matter of the writ ( Details)</th>
+                                        <th>First order date</th>
+                                        <th>By Whom filed By Bank/Against Bank</th>
+                                        <th>Lawyer's Name</th>
+                                        <th>Lawyer's Cell Number</th>
+                                        <th>Court's Name</th>
+                                        <th>Legal Expense</th>
+                                        <th>Artharin suit No. (if filed)</th>
+                                        <th>N.I Act case Number(if filed)</th>
+                                        <th>Other suit/case(if filed)</th>
+                                        <th>Against Bank (if any)</th>
+                                        <th>AR/Ex suit value (if any)</th>
+                                        <th>NI Act cheque value (if any)</th>
+                                        <th>Artharin suit stayed Y/N</th>
+                                        <th>N.I Act case stayed Y/N</th>
+                                        <th>Status</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="file in files">
+                                        <td>{{file.serial}}</td>
+                                        <td>{{file.branchCode}}</td>
+                                        <td>{{file.branchName}}</td>
+                                        <td>{{file.cif}}</td>
+                                        <td>{{file.accountNo}}</td>
+                                        <td>{{file.accountName}}</td>
+                                        <td>{{file.defendantName}}</td>
+                                        <td>{{file.defendantMobile}}</td>
+                                        <td>{{file.segment}}</td>
+                                        <td>{{file.petitionersName}}</td>
+                                        <td>{{file.writNumber}}</td>
+                                        <td>{{formatDate(file.dateOfFiling)}}</td>
+                                        <td>{{file.natureOfWrit}}</td>
+                                        <td>{{file.respondentsName}}</td>
+                                        <td>{{file.amountInvolved}}</td>
+                                        <td>{{file.subjectMatterOfWrit}}</td>
+                                        <td>{{file.firstOrderDate}}</td>
+                                        <td>{{file.byWhomFiled}}</td>
+                                        <td>{{file.lawyersName}}</td>
+                                        <td>{{file.lawyersCellNumber}}</td>
+                                        <td>{{file.courtsName}}</td>
+                                        <td>{{formatDecimal(file.legalExpense)}}</td>
+                                        <td>{{file.artharinSuitNo}}</td>
+                                        <td>{{file.niActCaseNo}}</td>
+                                        <td>{{file.otherSuitCase}}</td>
+                                        <td>{{file.againstBank}}</td>
+                                        <td>{{file.arExSuitValue}}</td>
+                                        <td>{{file.niActChequeValue}}</td>
+                                        <td>{{file.artharinSuitStayed}}</td>
+                                        <td>{{file.niActCaseStayed}}</td>
+                                        <td>{{file.status}}</td>
+                                        <td>{{file.remarks}}</td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{getCalculateData}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var table;
+                    function initTable() {
+                        table = $('#report-data-values').DataTable( {
+                            dom: 'Bfrtip',
+                            buttons: ['csv', 'excel', 'pdf']
+                        });
+                    }
+
+                    $(document).ready(function () {
+
+                        writFileMonitoringApp = new Vue({
+                            el: '#writ-file-app',
+                            data: {
+                                files: [],
+                                selectedBranch: '',
+                                totalExpense: 0
+                            },
+                            methods: {
+                                searchData: function () {
+                                    $.ajax({
+                                        url: '/legal/report/writ-file-monitoring/search?branch='+this.selectedBranch,
+                                        type: 'get',
+                                        contentType: 'application/json;charset=UTF-8',
+                                        success: function(response) {
+                                            if (table)
+                                                table.destroy()
+
+                                            writFileMonitoringApp.totalExpense = Number('0')
+                                            writFileMonitoringApp.files = response;
+                                        }
+                                    })
+                                },
+                                formatDate: function (data) {
+                                    if (data){
+                                        var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                                        var fullDate = new Date(data);
+                                        var date  = fullDate.getDate() < 10 ? '0' + fullDate.getDate() : fullDate.getDate();
+                                        var month = fullDate.getMonth();
+
+
+                                        return date + '-' + monthNames[month] + '-' + fullDate.getFullYear()
+                                    }
+                                },
+                                formatDecimal: function (data) {
+                                    if (Number(data)) {
+                                        return data.toFixed(2)
+                                    }
+                                    else
+                                        return '0.00'
+                                }
+                            },
+                            computed: {
+                                getCalculateData: function () {
+                                    var data = 0;
+                                    $.each(this.files, function () {
+                                        if (Number(data) != NaN){
+                                            data += Number(this.legalExpense)
+                                        }
+                                    })
+
+                                    return data.toFixed(2)
+                                }
+                            },
+                            updated: function () {
+
+                                initTable()
+                            }
+                        })
+
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

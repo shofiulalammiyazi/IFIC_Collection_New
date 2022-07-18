@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Latest/Updated Address</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="updated-address">
+
+    <style>
+        .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+            font-size: 13px;
+        }
+
+        .multiselect__tag {
+            font-size: 12px;
+        }
+
+        select {
+            -webkit-appearance: menulist;
+        }
+    </style>
+
+
+    <div class="csi-view-form-full-area csi-view-indtable" id="updated-address">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Latest/Updated Address</h3>
+            <a class=" btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#modal-updated-address" >
+                <i class="fa fa-plus-square"></i>
+                <span v-if="updatedAddress == ''">Add</span>
+                <span v-if="updatedAddress != ''">Edit</span>
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-updated-address"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Latest/Updated Address</h3>
+                            </div>
+                            <form id="updatedAddressForm" class="form-horizontal csi-view-form" method="post">
+                                <input name="_csrf" value="" type="hidden">
+                                <input name="customerBasicInfoEntity" type="hidden" value=""/>
+                                <input type="hidden" :value="updatedAddress.id" name="id"/>
+
+                                <div class="alert alert-warning hidden" id="monitoring-follow-up-error-messages"></div>
+
+                                <div class="col-sm-12">
+                                    <table
+                                            class=" table table-striped" id="updated-address-form-id">
+                                        <thead>
+                                        <tr>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>Borrower Business</td>
+                                            <td>Borrower Present</td>
+                                            <td>Borrower Permanent</td>
+                                            <td>Guarantor (1) Present</td>
+                                            <td>Guarantor (2) Present</td>
+                                            <td>Guarantor (3) Present</td>
+                                        </tr>
+                                        <tr>
+                                            <td>House Name with Flat No</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiHome" :value="updatedAddress.borrBusiHome"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresHome" :value="updatedAddress.borrPresHome"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerHome" :value="updatedAddress.borrPerHome"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenHome" :value="updatedAddress.guaranOnePresenHome"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenHome" :value="updatedAddress.guaranTwoPresenHome"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenHome" :value="updatedAddress.guaranThreePresenHome"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Holding / Plot No</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiPlot" :value="updatedAddress.borrBusiPlot"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresPlot" :value="updatedAddress.borrPresPlot"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerPlot" :value="updatedAddress.borrPerPlot"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenPlot" :value="updatedAddress.guaranOnePresenPlot"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenPlot" :value="updatedAddress.guaranTwoPresenPlot"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenPlot" :value="updatedAddress.guaranThreePresenPlot"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Village Name/ Road No</td>
+                                            <td><input class="form-control"  type="text" name="borrBusivill" :value="updatedAddress.borrBusivill"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresvill" :value="updatedAddress.borrPresvill"></td>
+                                            <td><input class="form-control"  type="text" name="borrPervill" :value="updatedAddress.borrPervill"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenvill" :value="updatedAddress.guaranOnePresenvill"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenvill" :value="updatedAddress.guaranTwoPresenvill"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenvill" :value="updatedAddress.guaranThreePresenvill"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Post Office</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiPO" :value="updatedAddress.borrBusiPO"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresPO" :value="updatedAddress.borrPresPO"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerPO" :value="updatedAddress.borrPerPO"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenPO" :value="updatedAddress.guaranOnePresenPO"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenPO" :value="updatedAddress.guaranTwoPresenPO"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenPO" :value="updatedAddress.guaranThreePresenPO"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Police Station</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiPS" :value="updatedAddress.borrBusiPS"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresPS" :value="updatedAddress.borrPresPS"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerPS" :value="updatedAddress.borrPerPS"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenPS" :value="updatedAddress.guaranOnePresenPS"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenPS" :value="updatedAddress.guaranTwoPresenPS"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenPS" :value="updatedAddress.guaranThreePresenPS"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>District</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiDis" :value="updatedAddress.borrBusiDis"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresDis" :value="updatedAddress.borrPresDis"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerDis" :value="updatedAddress.borrPerDis"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenDis" :value="updatedAddress.guaranOnePresenDis"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenDis" :value="updatedAddress.guaranTwoPresenDis"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenDis" :value="updatedAddress.guaranThreePresenDis"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile No</td>
+                                            <td><input class="form-control"  type="text" name="borrBusiMoNo" :value="updatedAddress.borrBusiMoNo"></td>
+                                            <td><input class="form-control"  type="text" name="borrPresMoNo" :value="updatedAddress.borrPresMoNo"></td>
+                                            <td><input class="form-control"  type="text" name="borrPerMoNo" :value="updatedAddress.borrPerMoNo"></td>
+                                            <td><input class="form-control"  type="text" name="guaranOnePresenMoNo" :value="updatedAddress.guaranOnePresenMoNo"></td>
+                                            <td><input class="form-control"  type="text" name="guaranTwoPresenMoNo" :value="updatedAddress.guaranTwoPresenMoNo"></td>
+                                            <td><input class="form-control"  type="text" name="guaranThreePresenMoNo" :value="updatedAddress.guaranThreePresenMoNo"></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <div class="modal-footer text-center">
+                                        <button type="submit" class="btn btn-info">Save</button>
+                                        <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<style>-->
+                    <!--table#updated-address-form-id > tbody > tr td {-->
+                        <!--padding: 0px;-->
+                    <!--}-->
+                <!--</style>-->
+            </div>
+
+            <div class="form-horizontal csi-view-form" >
+                <input name="_csrf" value="" type="hidden">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table
+                            class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Address</td>
+                                <td>Borrower Business</td>
+                                <td>Borrower Present</td>
+                                <td>Borrower Permanent</td>
+                                <td>Guarantor (1) Present</td>
+                                <td>Guarantor (2) Present</td>
+                                <td>Guarantor (3) Present</td>
+                            </tr>
+                            <tr>
+                                <td>House Name with Flat No</td>
+                                <td>{{updatedAddress.borrBusiHome}}</td>
+                                <td>{{updatedAddress.borrPresHome}}</td>
+                                <td>{{updatedAddress.borrPerHome}}</td>
+                                <td>{{updatedAddress.guaranOnePresenHome}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenHome}}</td>
+                                <td>{{updatedAddress.guaranThreePresenHome}}</td>
+                            </tr>
+                            <tr>
+                                <td>Holding / Plot No</td>
+                                <td>{{updatedAddress.borrBusiPlot}}</td>
+                                <td>{{updatedAddress.borrPresPlot}}</td>
+                                <td>{{updatedAddress.borrPerPlot}}</td>
+                                <td>{{updatedAddress.guaranOnePresenPlot}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenPlot}}</td>
+                                <td>{{updatedAddress.guaranThreePresenPlot}}</td>
+                            </tr>
+                            <tr>
+                                <td>Village Name/ Road No</td>
+                                <td>{{updatedAddress.borrBusivill}}</td>
+                                <td>{{updatedAddress.borrPresvill}}</td>
+                                <td>{{updatedAddress.borrPervill}}</td>
+                                <td>{{updatedAddress.guaranOnePresenvill}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenvill}}</td>
+                                <td>{{updatedAddress.guaranThreePresenvill}}</td>
+                            </tr>
+                            <tr>
+                                <td>Post Office</td>
+                                <td>{{updatedAddress.borrBusiPO}}</td>
+                                <td>{{updatedAddress.borrPresPO}}</td>
+                                <td>{{updatedAddress.borrPerPO}}</td>
+                                <td>{{updatedAddress.guaranOnePresenPO}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenPO}}</td>
+                                <td>{{updatedAddress.guaranThreePresenPO}}</td>
+                            </tr>
+                            <tr>
+                                <td>Police Station</td>
+                                <td>{{updatedAddress.borrBusiPS}}</td>
+                                <td>{{updatedAddress.borrPresPS}}</td>
+                                <td>{{updatedAddress.borrPerPS}}</td>
+                                <td>{{updatedAddress.guaranOnePresenPS}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenPS}}</td>
+                                <td>{{updatedAddress.guaranThreePresenPS}}</td>
+                            </tr>
+                            <tr>
+                                <td>District</td>
+                                <td>{{updatedAddress.borrBusiDis}}</td>
+                                <td>{{updatedAddress.borrPresDis}}</td>
+                                <td>{{updatedAddress.borrPerDis}}</td>
+                                <td>{{updatedAddress.guaranOnePresenDis}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenDis}}</td>
+                                <td>{{updatedAddress.guaranThreePresenDis}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile No</td>
+                                <td>{{updatedAddress.borrBusiMoNo}}</td>
+                                <td>{{updatedAddress.borrPresMoNo}}</td>
+                                <td>{{updatedAddress.borrPerMoNo}}</td>
+                                <td>{{updatedAddress.guaranOnePresenMoNo}}</td>
+                                <td>{{updatedAddress.guaranTwoPresenMoNo}}</td>
+                                <td>{{updatedAddress.guaranThreePresenMoNo}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+    <script>
+        var updatedAddressApp = new Vue({
+            el: '#updated-address',
+            data: {
+                updatedAddress: {}
+            }
+
+        })
+
+        $(document).ready(function () {
+            $('#updatedAddressForm input[name="_csrf"]').val(csrfToken);
+            $('#updatedAddressForm input[name="customerBasicInfoEntity"]').val(customerId);
+
+            // updatedAddress.customerId = customerId;
+
+
+            $('#updatedAddressForm').on('submit', function (event) {
+                event.preventDefault();
+                var updatedAddress = new FormData(this);
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/collection/samd/dataEntry/update-address/create",
+                    data: updatedAddress,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (data) {
+                        swal("Success!", "Successfully Saved!", "success");
+                        $('#modal-updated-address').modal('toggle');
+                        updatedAddressApp.updatedAddress = data;
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+            })
+
+
+
+            $('#tab-latest-updated-address').click(function () {
+                $.ajax({
+                    url: '/collection/samd/dataEntry/update-address/find?customerId='+customerId,
+                    success: function (response) {
+                        updatedAddressApp.updatedAddress = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+            })
+
+
+            // $('#updated-address-edit').click(function () {
+            //     $.ajax({
+            //         url: '/collection/samd/dataEntry/update-address/find-by?id='+customerId,
+            //         success: function (response) {
+            //             updatedAddressApp.updatedAddress = response;
+            //         },
+            //         error: function (response) {
+            //             alert('Unsuccessful');
+            //         }
+            //     })
+            // })
+
+
+        })
+
+    </script>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      layout:decorator="card/layouts/main/main-layout">
+
+
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Employee</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <style type="text/css">
+        input[type=checkbox] {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+    </style>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${entity.id == null}" class="box-title">Add New Employee</h3>
+                            <h3 th:if="${entity.id != null}" class="box-title">Update Employee</h3>
+                        </div>
+
+                        <form id="app" class="form-horizontal validate" method="post"
+                              th:action="@{/collection/employee/create}"  th:object="${entity}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{user.userId}"/>
+                            <input type="hidden" name="user.isAgency" value="0"/>
+                            <div class="box-body">
+                                <!--<p th:if="${errors != null}" th:each="error in ${errors}" th:text="${error}"></p>-->
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Employee Id</label>
+                                    <div class="col-sm-8">
+                                        <input v-bind:style="{ border: activeBorder }" @input="checkUsername"
+                                               type="text" class="form-control input-sm" pattern="[\w]{4,10}"
+                                               title="Employee Id must be 4 to 10 characters. Only alphabet and numbers allowed."
+                                               th:field="*{pin}" placeholder="PIN" th:required="true"
+                                               v-model="userPin"/>
+                                        <div v-if="showSpinner">
+                                            <ul class="fa-ul">
+                                                <li>
+                                                    <i class="fa-li fa fa-spinner fa-spin" style="font-size: 20px"></i>
+                                                    <span style="font-size: 12px;" class="label label-success">Checking availability...</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+
+                                        </div>
+
+                                        <div v-if="showText">
+                                            <p style="color: red">
+                                                <span class="label label-danger" style="font-size: 12px">
+                                                    Employee PIN already exist, Try different one...
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <span class="col-sm-10 text-danger" style="padding-left: 0px"
+                                              th:if="${#fields.hasErrors('pin')}"
+                                              th:errors="*{pin}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">First Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" pattern="[a-zA-Z .\\-]+"
+                                               th:field="*{user.firstName}" placeholder="First Name"
+                                               title="Please insert valid words"
+                                               required="required"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('user.firstName')}" th:errors="*{user.firstName}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Last Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" pattern="[a-zA-Z .\\-]+"
+                                               title="Please insert valid words"
+                                               th:field="*{user.lastName}" placeholder="Last Name" required="required"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.lastName}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Designation</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" class="form-control input-sm"
+                                                th:field="*{designation.id}" required>
+                                            <option value="">Select Designation</option>
+                                            <option class="form-control input-sm"
+                                                    th:each="designation: ${desList}" th:value="${designation.id}"
+                                                    th:selected="${designation.id == entity?.designation?.id}"
+                                                    th:text="${designation.name}"></option>
+                                        </select>
+                                    </div>
+                                    <!--<span class="col-sm-10 text-danger" style="padding-left: 320px"-->
+                                    <!--th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></span>-->
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${designationValidation}">Please select designation!</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Office Phone</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="" class="form-control input-sm" pattern="[\d]{11}"
+                                               th:field="*{officePhone}" placeholder="Office Phone"
+                                               title="Please insert 11 digit phone number"
+                                               required="required"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('officePhone') }" th:errors="*{officePhone}"></span>
+                                    <!--<span class="col-sm-10 text-danger" style="padding-left: 320px"-->
+                                    <!--th:if="${invalidOfficePhone}">Phone Number is not valid!</span>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">
+                                        Emergency Contact Person Phone
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="emergencyContactNo"
+                                               pattern="|[\d]{11}" title="Please insert 11 digits"
+                                               class="form-control input-sm"
+                                               th:field="*{emergencyContactNo}"
+                                               placeholder="Emergency Contact Person Phone" required="required" />
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('emergencyContactNo') }" th:errors="*{emergencyContactNo}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Unit </label>
+                                    <div class="col-sm-8 checkbox-group require"
+                                         th:with="valid = ${entity?.unit != null and !entity?.unit.isEmpty()}">
+                                        <th:block th:if="${unitList != null and !unitList.isEmpty()}"
+                                                  th:each="unitElement, index :${unitList}">
+                                            <input type="checkbox"   name="unit" th:field="*{unit}"
+                                                   th:value="${unitElement.name}"
+                                                   th:id="${'unit' + index.index}"
+                                                   th:checked="${valid and #strings.contains(entity.unit, unitElement.name)}"/>
+                                            <label th:for="${'unit' + index.index}"
+                                                   th:text="${unitElement.name}">Unit</label>
+                                        </th:block>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Department</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control"
+                                                th:field="*{department.id}" required>
+                                            <option value="">Select Department</option>
+                                            <option class="form-control input-sm required" th:required="true"
+                                                    th:each="department:${deptList}" th:value="${department.id}"
+                                                    th:selected="${department.id == entity?.department?.id}"
+                                                    th:text="${department.name}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${departmentValidation}">Please select department!</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Branch Name</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" class="form-control input-sm" th:field="*{branch.branchId}" required>
+                                            <option value="">Select Branch</option>
+                                            <option class="form-control input-sm"
+                                                    th:each="branch: ${branches}" th:value="${branch.branchId}"
+                                                    th:selected="${branch.branchId == entity?.branch?.branchId}"
+                                                    th:text="${branch.branchName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Office Email
+                                        Address</label>
+                                    <div class="col-sm-8">
+                                        <span style="color: red !important" th:if="${emailExist}">This Email already exists!</span>
+                                        <input type="text" name="email" class="form-control input-sm"
+                                               pattern="([a-zA-Z]+|[a-zA-Z]([a-zA-Z]*\.?[a-zA-Z]+)+)@ucb\.com\.bd"
+                                               title="Please insert valid email address with suffix 'ucb.com.bd'"
+                                               th:field="*{email}" placeholder="Office Email Address" required/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">NID</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="nid" class="form-control input-sm"
+                                               pattern="|[\d]{10}|[\d]{13}|[\d]{17}" title="Please insert valid NID"
+                                               th:field="*{nid}"
+                                               placeholder="NID"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('nid') }" th:errors="*{nid}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">E-TIN</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="eTin" class="form-control input-sm"
+                                               pattern="|[\d]{12}" title="Please insert valid eTIN"
+                                               th:field="*{eTin}"
+                                               placeholder="E-TIN"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('eTin') }" th:errors="*{eTin}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Location </label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control input-sm"
+                                                th:field="*{location.id}">
+                                            <option class="form-control input-sm"
+                                                    th:each="location:${locationList}" th:value="${location.id}"
+                                                    th:selected="${location.id == entity?.location?.id}"><span
+                                                    th:text="${location.city}"></span></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Home Phone</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="" class="form-control input-sm"
+                                               placeholder="Home Phone" pattern="|[\d]{11}"
+                                               title="Please insert 11 digit phone number"
+                                               th:field="*{homePhone}"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('homePhone') }" th:errors="*{homePhone}"></span>
+                                    <!--<span class="col-sm-10 text-danger" style="padding-left: 320px"-->
+                                    <!--th:if="${invalidHomePhone}">Phone Number is not valid!</span>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Job Nature </label>
+                                    <div class="col-sm-8">
+                                        <select name="contactAddress" class="form-control input-sm"
+                                                th:field="*{jobNature}">
+                                            <option class="form-control input-sm" value="">Select</option>
+                                            <option class="form-control input-sm"
+                                                    value="FTE-FULL TIME EMPLOYEE" id="optionFTE">FTE-FULL TIME EMPLOYEE
+                                            </option>
+                                            <option class="form-control input-sm"
+                                                    value="TPC-THIRD PARTY CONTRACTUAL" id="optionTPC">TPC-THIRD PARTY
+                                                CONTRACTUAL
+                                            </option>
+                                            <option class="form-control input-sm" value="CONTRACTUAL"
+                                                    id="optionC">CONTRACTUAL
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Job Role </label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control input-sm"
+                                                th:field="*{jobRole.id}">
+                                            <option class="form-control input-sm" th:each="role:${roleList}"
+                                                    th:value="${role.id}"
+                                                    th:selected="${role.id == entity?.jobRole?.id}"
+                                                    th:text="${role.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Joining Date</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="joiningDate" th:field="*{joiningDate}"
+                                                   pattern="[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" title="Enter a date in this format YYYY-MM-DD" class="form-control input-sm datepicker"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Gender</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" class="form-control input-sm" name="gender"
+                                                th:field="*{gender}">
+                                            <option class="form-control input-sm" value="">Select</option>
+                                            <option class="form-control input-sm" value="Male">Male</option>
+                                            <option class="form-control input-sm" value="Female">Female
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date of Birth</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input class="form-control input-sm datepicker" pattern="[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" title="Enter a date in this format YYYY-MM-DD" type="text" name="DOB"
+                                                   th:field="*{DOB}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Blood Group </label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="bloodGroup" class="form-control input-sm"
+                                                th:field="*{bloodGroup}">
+                                            <option class="form-control input-sm" value="">Select</option>
+                                            <option class="form-control input-sm" value="A+">A+</option>
+                                            <option class="form-control input-sm" value="A-">A-</option>
+                                            <option class="form-control input-sm" value="B+">B+</option>
+                                            <option class="form-control input-sm" value="B-">B-</option>
+                                            <option class="form-control input-sm" value="AB+">AB+</option>
+                                            <option class="form-control input-sm" value="AB-">AB-</option>
+                                            <option class="form-control input-sm" value=">O+">O+</option>
+                                            <option class="form-control input-sm" value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">
+                                        Emergency Contact Person Name
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="emergencyContactPerson"
+                                               pattern="[a-zA-Z .\-]*" title="Please insert valid name"
+                                               class="form-control input-sm"
+                                               th:field="*{emergencyContactPerson}"
+                                               placeholder="Emergency Contact Person Name"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('emergencyContactPerson') }" th:errors="*{emergencyContactPerson}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">
+                                        Emergency Contact Person Relation
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="emergencyContactRel"
+                                               pattern="[a-zA-Z ]*"
+                                               title="Please insert valid words"
+                                               class="form-control input-sm"
+                                               th:field="*{emergencyContactRel}"
+                                               placeholder="Emergency Contact Person Relation"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('emergencyContactRel') }" th:errors="*{emergencyContactRel}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Present Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="presentAddress" class="form-control input-sm"
+                                               th:field="*{presentAddress}"
+                                               placeholder="Present Address"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Permanent Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="permanentAddress"
+                                               class="form-control input-sm"
+                                               th:field="*{permanentAddress}" placeholder="Permanent Address"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Office Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="officeAddress" class="form-control input-sm"
+                                               th:field="*{officeAddress}"
+                                               placeholder="Office Address"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">
+                                        IP Address
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="ipAddress" class="form-control input-sm"
+                                               pattern="|(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])"
+                                               title="Please insert valid IP address"
+                                               th:field="*{ipAddress}" placeholder="IP No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('ipAddress') }" th:errors="*{ipAddress}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">IP Phone No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="ipPhoneNo" class="form-control input-sm"
+                                               pattern="|[\d]{4}|[\d]{6}"
+                                               title="Please insert 4 or 6 digit number"
+                                               th:field="*{ipPhoneNo}" placeholder="IP Phone No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('ipPhoneNo') }" th:errors="*{ipPhoneNo}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Mobile Limit</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" pattern="[0-9 .\-]*" title="add valid number" id="mobileLimit"
+                                               th:field="*{mobileLimit}"
+                                               onkeyup="javascript:checkNumber('mobileLimit');"
+                                               placeholder="Mobile Limit"/>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                <!--&lt;!&ndash;<input type="hidden" id="unitVal" th:value="${entity.unit}"/>&ndash;&gt;-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">Unit </label>-->
+                                <!--<div class="col-sm-8"-->
+                                <!--th:with="valid = ${entity?.unit != null and !entity?.unit.isEmpty()}">-->
+                                <!--<p class="hide" th:text="${valid}"></p>-->
+                                <!--<input type="checkbox" name="unit" id="unitLoan" value="Loan"-->
+                                <!--th:checked="${valid and #strings?.contains(entity?.unit,'Loan')}">-->
+                                <!--<label for="unitLoan">Loan</label>-->
+                                <!--<input type="checkbox" name="unit" id="unitCard" value="Card"-->
+                                <!--th:checked="${valid and #strings?.contains(entity?.unit,'Card')}">-->
+                                <!--<label for="unitCard">Card</label>-->
+                                <!--<input type="checkbox" name="unit" id="unitMIS" value="MIS"-->
+                                <!--th:checked="${valid and #strings?.contains(entity?.unit,'MIS')}">-->
+                                <!--<label for="unitMIS">MIS</label>-->
+                                <!--<input type="checkbox" name="unit" id="unitSAM" value="SAM"-->
+                                <!--th:checked="${valid and #strings?.contains(entity?.unit,'SAM')}">-->
+                                <!--<label for="unitSAM">SAM</label>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Division</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control input-sm"
+                                                th:field="*{division.divId}">
+                                            <option class="form-control input-sm" th:each="division:${divList}"
+                                                    th:value="${division.divId}"
+                                                    th:selected="${division.divId == entity?.division?.divId}">
+                                                <span th:text="${division.divName}"></span>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Current Status</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control input-sm"
+                                                th:field="*{employeeStatus.id}" required>
+                                            <option class="form-control input-sm"
+                                                    th:each="employeeStatus:${statusList}"
+                                                    th:value="${employeeStatus.id}"
+                                                    th:selected="${employeeStatus.id == entity?.employeeStatus?.id}"
+                                                    th:text="${employeeStatus.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Signature (Max Size 5 mb)</label>
+                                    <div class="col-sm-4">
+                                        <img v-show="signatureUploaded" id="signatureView" alt="Signature"
+                                             th:src="@{'data:image/jpeg;base64,' + ${entity.signature}}"
+                                             class="img-fluid"
+                                             onclick="document.getElementById('signatureInput').click()"/>
+                                        <input type="file" @change="preview('signature')" name="signatureInput"
+                                               id="signatureInput" accept="image/png, image/jpg"/>
+                                        <input type="text" class="hide" id="signatureField" th:field="*{signature}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Advice Letter </label>
+                                    <div class="col-sm-8"
+                                         th:with="valid = ${entity?.adviceLetter != null and !entity?.adviceLetter.isEmpty()}">
+                                        <input type="checkbox" name="adviceLetter" id="alPerformance"
+                                               th:value="Performance"
+                                               th:checked="${valid and #strings.contains(entity.adviceLetter,'Performance')}"/>
+                                        <label for="alPerformance">Performance</label>
+                                        <input type="checkbox" name="adviceLetter" id="alDisciplinary"
+                                               th:value="Disciplinary"
+                                               th:checked="${valid and #strings.contains(entity.adviceLetter,'Disciplinary')}"/>
+                                        <label for="alDisciplinary">Disciplinary</label>
+                                        <input type="checkbox" name="adviceLetter" id="alOthers" th:value="Others"
+                                               th:checked="${valid and #strings.contains(entity.adviceLetter,'Others')}"/>
+                                        <label for="alOthers">Others</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Advice Letter Date</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text"  class="form-control input-sm datepicker"
+                                                   name="adviceLetterDate" pattern="[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" title="Enter a date in this format YYYY-MM-DD"
+                                                   th:field="*{adviceLetterDate}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Domain ID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="domainId" class="form-control input-sm"
+                                               pattern="[a-zA-Z.]*" title="Please insert valid domain ID"
+                                               th:field="*{domainId}"
+                                               placeholder="Domain ID"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('domainId') }" th:errors="*{domainId}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Loan Account No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="loanAccountNo" class="form-control input-sm"
+                                               pattern="|[a-zA-Z0-9]{16}" title="Please insert valid account number"
+                                               th:field="*{loanAccountNo}"
+                                               placeholder="Loan Account No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('loanAccountNo') }" th:errors="*{loanAccountNo}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Credit Card No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="creditCardNo" class="form-control input-sm"
+                                               pattern="|[\d]{14,16}" title="Please insert 14 to 16 digits"
+                                               th:field="*{creditCardNo}"
+                                               placeholder="Credit Card No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('creditCardNo') }" th:errors="*{creditCardNo}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Client Id</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="clientId" class="form-control input-sm"
+                                               pattern="|[\d]{6}" title="Please insert 6 digits"
+                                               th:field="*{clientId}"
+                                               placeholder="Client Id"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('clientId') }" th:errors="*{clientId}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Account No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="accountNo" class="form-control input-sm"
+                                               pattern="|[a-zA-Z0-9]{16}" title="Please insert valid account number"
+                                               th:field="*{accountNo}" placeholder="Account No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('accountNo') }" th:errors="*{accountNo}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">CIF</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="cif" class="form-control input-sm"
+                                               pattern="|[0-9]{9}" title="Please insert valid CIF"
+                                               th:field="*{cif}" placeholder="CIF"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('cif') }" th:errors="*{cif}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Service Tag</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="serviceTag" class="form-control input-sm"
+                                               pattern="|.{4,32}" title="Please insert valid Service Tag"
+                                               th:field="*{serviceTag}" placeholder="Service Tag"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('serviceTag')}" th:errors="*{serviceTag}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Asset Tag</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="assetTag" class="form-control input-sm"
+                                               pattern="|[a-zA-Z0-9]{16}" title="Please insert valid 16  asset tag"
+                                               th:field="*{assetTag}" placeholder="Asset Tag"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('assetTag') }" th:errors="*{assetTag}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Father Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="fatherName" class="form-control input-sm"
+                                               pattern="[a-zA-Z .\\-]*" title="Please insert valid words"
+                                               th:field="*{fatherName}" placeholder="Father Name"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('fatherName') }" th:errors="*{fatherName}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Mother Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="motherName" class="form-control input-sm"
+                                               pattern="[a-zA-Z .\\-]*" title="Please insert valid words"
+                                               th:field="*{motherName}" placeholder="Mother Name"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('motherName')}" th:errors="*{motherName}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Spouse Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="spouseName" class="form-control input-sm"
+                                               pattern="[a-zA-Z .\\-]*" title="Please insert valid words"
+                                               th:field="*{spouseName}" placeholder="Spouse Name"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('spouseName') }" th:errors="*{spouseName}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Spouse Phone No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="spousePhone" class="form-control input-sm"
+                                               pattern="|[\d]{11}" title="Please insert 11 digit phone number"
+                                               th:field="*{spousePhone}" placeholder="Spouse Phone No"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('spousePhone') }" th:errors="*{spousePhone}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Last Education</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="lastEducation" class="form-control input-sm"
+                                               pattern="[a-zA-Z .\\-]*" title="Please insert valid words"  th:field="*{lastEducation}" placeholder="Last Education"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Domicile Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="domicileAddress" class="form-control input-sm"
+                                               th:field="*{domicileAddress}" placeholder="Domicile Address"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">PC Brand</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="pcBrand" class="form-control input-sm"
+                                               th:field="*{pcBrand}" placeholder="PC Brand"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">PC Model</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="pcModel" class="form-control input-sm"
+                                               th:field="*{pcModel}" placeholder="PC Model"/>
+                                    </div>
+                                </div>
+                                <th:block
+                                        th:with="trainings = ${(entity.trainingDetails == null or entity.trainingDetails.length < 1)? new String[1] : entity.trainingDetails}">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right">
+                                            Training Details
+                                        </label>
+                                        <th:block th:each="training,i : ${trainings}" th:if="${i.index < 1}">
+                                            <div class="col-sm-7">
+                                                <textarea name="trainingDetails" th:text="${training}"
+                                                          class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="button" class="btn btn-icon btn-xs btn-info"
+                                                        onclick="addMoreTrainingDetails()">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                    <span id="tr-span">
+                                        <div class="form-group" th:each="training,i : ${trainings}"
+                                             th:if="${i.index > 0}">
+                                            <label class="col-sm-4 custom-form-lebel-right"></label>
+                                            <div class="col-sm-7">
+                                                <textarea name="trainingDetails" th:text="${training}"
+                                                          class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="button" class="btn btn-icon btn-xs btn-danger"
+                                                        onclick="removeDiv(this)">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </th:block>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Host Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="hostName" class="form-control input-sm"
+                                               pattern="|[a-zA-Z]-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}" title="Please insert valid host name"
+                                               th:field="*{hostName}"
+                                               placeholder="Host Name"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('hostName') }" th:errors="*{hostName}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Personal Email
+                                        Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" name="email" class="form-control input-sm"  th:field="*{pemail}" title="Please insert valid email address"
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                               placeholder="Personal Email Address"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('pemail')}" th:errors="*{pemail}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Martial Status</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" class="form-control input-sm" name="maritalStatus"
+                                                th:field="*{maritalStatus}">
+                                            <option class="form-control input-sm" value="">Select</option>
+                                            <option class="form-control input-sm" value="Married">Married</option>
+                                            <option class="form-control input-sm" value="Single">Single</option>
+                                            <!--<option class="form-control input-sm" value="Divorced">Divorced</option>-->
+                                            <!--<option class="form-control input-sm" value="Widowed">Widowed</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Upload Photo (Max Size 5 mb)</label>
+                                    <div class="col-sm-3 col-md-2 center">
+                                        <img v-show="photoUploaded"
+                                             onclick="document.getElementById('photoInput').click()"
+                                             th:src="@{'data:image/jpeg;base64,'  + ${entity.photo}}"
+                                             id="photoView" alt="Photo" class="img-fluid"/>
+                                        <input type="file" name="photoInput" @change="preview('photo')"
+                                               id="photoInput" accept="image/png, image/jpg"/>
+                                        <input type="text" class="hide" th:field="*{photo}" id="photoField"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm "> Submit</button>
+
+                                <a class="btn btn-danger btn-sm"
+                                   href="/collection/employee/list">
+                                    Cancel
+                                </a>
+
+                                <!--<a th:if="${session.urlList.contains('/collection/employee-checker')}"-->
+                                <!--class="btn btn-danger btn-sm"-->
+                                <!--@click="decline">-->
+                                <!--Decline-->
+                                <!--</a>-->
+
+                                <!--<a th:if="${session.urlList.contains('/collection/employee-checker')}"-->
+                                <!--class="btn btn-success btn-sm"-->
+                                <!--@click="approve">-->
+                                <!--Approve-->
+                                <!--</a>-->
+
+                                <!--<a th:if="${session.urlList.contains('/collection/employee-checker')}"-->
+                                <!--class="btn btn-danger btn-sm"-->
+                                <!--href="/collection/employee/list">-->
+                                <!--Cancel-->
+                                <!--</a>-->
+
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                        <script th:inline="javascript">
+                            new Vue({
+                                el: '#app',
+                                data: {
+                                    userPin: '',
+                                    showSpinner: false,
+                                    showText: false,
+                                    activeBorder: '',
+                                    signatureUploaded: [[${entity.signature != null}]],
+                                    photoUploaded: [[${entity.photo != null}]],
+                                },
+                                created: function () {
+                                    let employee = [[${entity}]];
+                                    if (typeof employee !== "undefined" && Object.keys(employee).length) {
+                                        this.userPin = employee.pin;
+                                    }
+                                },
+                                methods: {
+                                    checkUsername: _.debounce(function (e) {
+                                        this.showSpinner = true;
+                                        this.showText = false;
+                                        this.roomNumber = e.target.value;
+                                        this.$http.get('/collection/employee/check?pin=' + e.target.value)
+                                            .then(res => {
+                                            this.sleep(500);
+                                        this.showSpinner = false;
+                                        if (!res.body) {
+                                            this.showText = false;
+                                            this.activeBorder = '';
+                                        } else {
+
+                                            this.showText = true;
+                                            this.activeBorder = '1px solid red';
+                                        }
+                                    }).catch(err => {
+                                            this.showSpinner = false;
+                                    })
+                                    }, 500),
+                                    sleep: function (milliseconds) {
+                                        var start = new Date().getTime();
+                                        for (var i = 0; i < 1e7; i++) {
+                                            if ((new Date().getTime() - start) > milliseconds) {
+                                                break;
+                                            }
+                                        }
+                                    },
+                                    preview: function (id) {
+                                        let fileInput = $('#' + id + 'Input')[0];
+                                        let fileview = $('#' + id + 'View')[0];
+                                        file = fileInput.files[0];
+                                        if (fileInput.files && file) {
+                                            let reader = new FileReader();
+                                            reader.onloadend = function () {
+                                                var b64 = reader.result;
+                                                fileview.src = b64;
+                                                $('#' + id + 'Field').val(b64.replace(/^data:.+;base64,/, ''));
+                                            };
+                                            reader.readAsDataURL(file);
+                                            if (id == 'photo') this.photoUploaded = true;
+                                            else this.signatureUploaded = true;
+                                        } else {
+                                            if (id == 'photo') this.photoUploaded = false;
+                                            else this.signatureUploaded = false;
+                                        }
+                                    },
+
+
+                                }
+                            })
+
+                            function addMoreTrainingDetails() {
+                                var data = "<div class=\"form-group\">\n" +
+                                    "                                    <label class=\"col-sm-4 custom-form-lebel-right\"></label>\n" +
+                                    "                                    <div class=\"col-sm-7\">\n" +
+                                    "                                        <textarea name=\"trainingDetails\" class=\"form-control input-sm\" ></textarea>\n" +
+                                    "                                    </div>\n" +
+                                    "                                    <div class=\"col-sm-1\">\n" +
+                                    "                                        <button type=\"button\" class=\"btn btn-icon btn-xs btn-danger\" onclick=\"removeTrainingDetailsField(this)\">" +
+                                    "                                           <i class='fa fa-remove'></i>" +
+                                    "                                         </button>\n" +
+                                    "                                    </div>\n" +
+                                    "                                </div>";
+                                $('#tr-span').append(data);
+                            }
+
+                            function removeTrainingDetailsField(div) {
+                                $(div).parents('.form-group').remove();
+                            }
+
+                            $('.datepicker').datepicker({
+                                format: 'yyyy-mm-dd',
+                                autoclose: true,
+                                forceParse: false
+                            })
+
+
+
+                        </script>
+
+                        <!--<script>-->
+                        <!--var input = document.getElementById('username');-->
+                        <!--</script>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

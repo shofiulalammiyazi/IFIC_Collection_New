@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Sector Detail</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="sector_detail">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Sector Detail</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form" id="sector_detail">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Credit Define Main Sector :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="creditDefine" th:text="${''}"></label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Bank Sector :</label>
+                        <label class="col-sm-3 custom-form-lebel"   id="bankSector">{{sectorDetail.sectorCode}}</label>
+
+                        <label class="col-sm-3 custom-details-lebel-left">Central Bank Sector :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="central">{{sectorDetail.sectCode}}</label>
+                    </div>
+
+                    <!--<div class="form-group row csi-view-form-group">
+
+                        &lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Sub Sector :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="subSector" th:text="${''}"></label>&ndash;&gt;
+                    </div>-->
+
+                    <div class="form-group row csi-view-form-group">
+                      <!--  <label class="col-sm-3 custom-details-lebel-left">Sector Code:</label>
+                        <label class="col-sm-9 custom-form-lebel"  id="sector" th:text="${''}"></label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Sector Name:</label>
+                        <label class="col-sm-9 custom-form-lebel"  id="sectorName">{{sectorDetail.sectDesc}}</label>
+                    </div>
+
+                </div>
+            </form>
+            <script th:inline="javascript">
+                $("#tab-sectorDetail").click(function (event) {
+                    sector_detail.getSectorDetails();
+                });
+            </script>
+            <script>
+                var sector_detail = new Vue({
+                    el:'#sector_detail',
+                    data:{
+                        sectorDetail:{},
+                    },
+                    methods:{
+                        getSectorDetails:function () {
+                           this.sectorDetail =  profile_information.loanAccDetails;
+                           console.log("Loaded data")
+                        }
+                    }
+                })
+            </script>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

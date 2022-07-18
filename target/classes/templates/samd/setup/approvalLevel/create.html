@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Approval Level</title>
+</head>
+<body>
+    <div layout:fragment="content" th:remove="tag">
+        <div class="content-wrapper" >
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div th:if="${response.outcome == 'failure'}" class="alert alert-warning">
+                            <div th:each="error : ${response.errors}" th:text="${error}"></div>
+                        </div>
+
+                        <div class="box box-primary">
+                            <div class="box-header with-border" style="text-align: center;">
+                                <h3 class="box-title">Create new Approval Level</h3>
+                            </div>
+
+                            <form method="post" th:action="@{/collection/samd/setup/approval-level/create}">
+                                <input type="hidden" name="id" th:value="${level.getId()}">
+
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Level Name</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="name" required="true" th:value="${level.getName()}" class="form-control input-sm required" placeholder="e.g. Management"/>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <br>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                        <div class="col-sm-6">
+                                            <fieldset id="group1">
+                                                <input type="radio" name="enabled" id="enabled"
+                                                       th:checked="${level.enabled ==true}" th:value="true">
+                                                Active </input>
+                                                <input type="radio" name="enabled" id="disabled"
+                                                       th:checked="${level.enabled ==false}" th:value="false">
+                                                Inactive </input>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="box-footer text-center">
+                                    <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                    <a th:href="@{/collection/samd/setup/approval-level/list}" class="btn btn-danger btn-sm">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

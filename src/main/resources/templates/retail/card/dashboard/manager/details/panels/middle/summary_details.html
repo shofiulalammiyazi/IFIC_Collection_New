@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="summary-info">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Summary Details</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#ass-amount" title="Personal Information">Team Queue and Status Summary(Amount Wise)</a>
+            </li>
+            <li id="tab-account">
+                <a data-toggle="tab" id="team_summary_details_account" href="#ass-account" title="Family Information">Team Queue and Status Summary(Account Wise)</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="ass-amount">
+            <div>
+                <center><h5>Team Queue and Status Summary(Amount Wise Total) </h5></center>
+                <form class="form-horizontal csi-view-form">
+                    <label>Team Queue and Status Summary(Amount Wise Total):</label>
+                    <table name="letter_info"
+                           class="table   table-bordered"
+                           style="display: block; overflow: auto;" id="outstanding_wise_total_amount">
+                        <thead >
+                        <tr>
+                            <th class="text-center">Product</th>
+                            <th class="text-center">DPD</th>
+                            <th class="text-center" colspan="6">Regular</th>
+                            <th class="text-center" colspan="6">Back</th>
+                            <th class="text-center" colspan="6">Save/Constant</th>
+                            <th class="text-center" colspan="6">Flow</th>
+                            <th class="text-center">Touched</th>
+                            <th class="text-center">Untouched</th>
+                            <th class="text-center" colspan="2">PAR Saved Amount</th>
+                            <th class="text-center" colspan="2">NPL Saved Amount</th>
+                        </tr>
+
+                        </thead>
+                        <thead >
+                        <tr>
+                            <td></td>
+                            <td></td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+
+                            <td>Target</td>
+
+                            <td>Release</td>
+                            <td>Remaining</td>
+
+
+                            <td>Release</td>
+                            <td>Remaining</td>
+
+                        </tr>
+                        </thead>
+                        <tbody class="tbl-row">
+                        </tbody>
+                    </table>
+
+                    <center><h5>Amount Wise Percentage</h5></center>
+
+                    <table name="letter_info"
+                           class="table   table-bordered"
+                           style="display: block; overflow: auto;" id="outstanding_wise_total_amount_percentage">
+                        <thead >
+                        <tr>
+                            <th class="text-center">Product</th>
+                            <th class="text-center">DPD</th>
+                            <th class="text-center" colspan="6">Regular</th>
+                            <th class="text-center" colspan="6">Back</th>
+                            <th class="text-center" colspan="6">Save/Constant</th>
+                            <th class="text-center" colspan="6">Flow</th>
+                            <th class="text-center">Touched</th>
+                            <th class="text-center">Untouched</th>
+                            <th class="text-center" colspan="2">PAR Saved Amount</th>
+                            <th class="text-center" colspan="2">NPL Saved Amount</th>
+                        </tr>
+
+                        </thead>
+                        <thead >
+                        <tr>
+                            <td></td>
+                            <td></td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+                            <td>amount</td>
+                            <td>Short Fall</td>
+                            <td>Performance</td>
+                            <td>Weight</td>
+                            <td>Weighted Performance</td>
+
+                            <td>Target</td>
+
+                            <td>Target</td>
+
+                            <td>Release</td>
+                            <td>Remaining</td>
+
+
+                            <td>Release</td>
+                            <td>Remaining</td>
+
+                        </tr>
+                        </thead>
+                        <tbody class="tbl-row">
+                        </tbody>
+                    </table>
+
+
+
+                </form>
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane top-buffer" id="ass-account">
+            <center><h5>Team Queue and Status Summary(Account Wise Total)</h5></center>
+            <form class="form-horizontal csi-view-form">
+                <table name="letter_info"
+                       class="table   table-bordered"
+                       style="display: block; overflow: auto;" id="outstanding_wise_total_account">
+                    <thead >
+                    <tr>
+                        <th class="text-center">Product</th>
+                        <th class="text-center">DPD</th>
+                        <th class="text-center" colspan="6">Regular</th>
+                        <th class="text-center" colspan="6">Back</th>
+                        <th class="text-center" colspan="6">Save/Constant</th>
+                        <th class="text-center" colspan="6">Flow</th>
+                        <th class="text-center">Touched</th>
+                        <th class="text-center">Untouched</th>
+                        <th class="text-center" colspan="2">PAR Saved Amount</th>
+                        <th class="text-center" colspan="2">NPL Saved Amount</th>
+                    </tr>
+
+                    </thead>
+                    <thead >
+                    <tr>
+                        <td></td>
+                        <td></td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+
+                        <td>Target</td>
+
+                        <td>Release</td>
+                        <td>Remaining</td>
+
+
+                        <td>Release</td>
+                        <td>Remaining</td>
+
+                    </tr>
+                    </thead>
+                    <tbody class="tbl-row">
+                    </tbody>
+                </table>
+                <center><h5>Account Wise Percentage</h5></center>
+                <table name="letter_info"
+                       class="table   table-bordered"
+                       style="display: block; overflow: auto;" id="outstanding_wise_total_account_per">
+                    <thead >
+                    <tr>
+                        <th class="text-center">Product</th>
+                        <th class="text-center">DPD</th>
+                        <th class="text-center" colspan="6">Regular</th>
+                        <th class="text-center" colspan="6">Back</th>
+                        <th class="text-center" colspan="6">Save/Constant</th>
+                        <th class="text-center" colspan="6">Flow</th>
+                        <th class="text-center">Touched</th>
+                        <th class="text-center">Untouched</th>
+                        <th class="text-center" colspan="2">PAR Saved Amount</th>
+                        <th class="text-center" colspan="2">NPL Saved Amount</th>
+                    </tr>
+
+                    </thead>
+                    <thead >
+                    <tr>
+                        <td></td>
+                        <td></td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+                        <td>amount</td>
+                        <td>Short Fall</td>
+                        <td>Performance</td>
+                        <td>Weight</td>
+                        <td>Weighted Performance</td>
+
+                        <td>Target</td>
+
+                        <td>Target</td>
+
+                        <td>Release</td>
+                        <td>Remaining</td>
+
+
+                        <td>Release</td>
+                        <td>Remaining</td>
+
+                    </tr>
+                    </thead>
+                    <tbody class="tbl-row">
+                    </tbody>
+                </table>
+                <!--<table class=" table   table-bordered">-->
+                <!--<thead >-->
+                <!--<tr>-->
+                <!--<th>Narration</th>-->
+                <!--<th class="text-center" colspan="2">Current Month</th>-->
+                <!--<th class="text-center" colspan="2">Last Date</th>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<th>-</th>-->
+                <!--<th class="text-center">Num of A/c</th>-->
+                <!--<th class="text-center">Amount</th>-->
+                <!--<th class="text-center">Num of A/c</th>-->
+                <!--<th class="text-center">Amount</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+
+
+                <!--<tbody class="tbl-row">-->
+                <!--<tr>-->
+                <!--<td >Total Paid</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td >SAVE</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Paid >= One EMI</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Paid but not SAVE</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>UNPAID</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>Paid in Link a/c- (Live-Today)</td>-->
+                <!--<td class="text-center">25</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--<td class="text-center">12</td>-->
+                <!--<td class="text-center">4242</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+
+                <!--</table>-->
+            </form>
+        </div>
+    </div>
+
+    <!--<div class="multi-line-broadcom-div">-->
+        <!--<ul id="info-tabs" class="nav nav-tabs">-->
+            <!--<li id="tab-amount" class="active">-->
+                <!--<a data-toggle="tab" href="#ss-amount" title="Personal Information">Team Queue and Status Summary</a>-->
+            <!--</li>-->
+            <!--<li id="tab-account">-->
+                <!--<a data-toggle="tab" href="#ss-account" title="Family Information">Payment Details</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <!--<div class="tab-content">-->
+        <!--<div role="tabpanel" class="tab-pane top-buffer active" id="ss-amount">-->
+            <!--<div>-->
+                <!--<center><h5>Team Queue and Status Summary</h5></center>-->
+                <!--<form class="form-horizontal csi-view-form">-->
+                    <!--<label>Outstanding Wise (Total Amount %):</label>-->
+                    <!--<table name="letter_info"-->
+                           <!--class=" table   table-bordered"-->
+                           <!--style="display: block; overflow: auto;">-->
+                        <!--<thead >-->
+                        <!--<tr>-->
+                            <!--<th class="text-center" colspan="2">Regular</th>-->
+                            <!--<th class="text-center" colspan="2">Back</th>-->
+                            <!--<th class="text-center" colspan="2">Save/Constant</th>-->
+                            <!--<th class="text-center" colspan="2">Flow</th>-->
+                            <!--<th class="text-center" colspan="2">Touched</th>-->
+                            <!--<th class="text-center" colspan="2">Untouched</th>-->
+                            <!--<th class="text-center" colspan="2">PAR Saved Amount</th>-->
+                            <!--<th class="text-center" colspan="2">NPL Saved Amount</th>-->
+                        <!--</tr>-->
+
+                        <!--</thead>-->
+                        <!--<thead >-->
+                        <!--<tr>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody class="tbl-row">-->
+
+                        <!--<tr >-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+
+                    <!--</table>-->
+
+                    <!--<label>Account Wise (Total Account %):</label>-->
+
+                    <!--<table name="letter_info"-->
+                           <!--class=" table   table-bordered"-->
+                           <!--style="display: block; overflow: auto;">-->
+                        <!--<thead >-->
+                        <!--<tr>-->
+                            <!--<th class="text-center" colspan="2">Regular</th>-->
+                            <!--<th class="text-center" colspan="2">Back</th>-->
+                            <!--<th class="text-center" colspan="2">Save/Constant</th>-->
+                            <!--<th class="text-center" colspan="2">Flow</th>-->
+                            <!--<th class="text-center" colspan="2">Touched</th>-->
+                            <!--<th class="text-center" colspan="2">Untouched</th>-->
+                            <!--<th class="text-center" colspan="2">PAR Saved Amount</th>-->
+                            <!--<th class="text-center" colspan="2">NPL Saved Amount</th>-->
+                        <!--</tr>-->
+
+                        <!--</thead>-->
+                        <!--<thead >-->
+                        <!--<tr>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                            <!--<td>Total Amount</td>-->
+                            <!--<td>Percentage</td>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody class="tbl-row">-->
+
+                        <!--<tr >-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                            <!--<td>2470000</td>-->
+                            <!--<td>52</td>-->
+                        <!--</tr>-->
+
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</form>-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div role="tabpanel" class="tab-pane top-buffer" id="ss-account">-->
+            <!--<center><h5>Payment Details</h5></center>-->
+            <!--<form class="form-horizontal csi-view-form">-->
+                <!--<table class=" table   table-bordered">-->
+                    <!--<thead >-->
+                    <!--<tr>-->
+                        <!--<th class="text-center">Narration</th>-->
+                        <!--<th class="text-center" colspan="2">Current Month</th>-->
+                        <!--<th class="text-center" colspan="2">Last Date</th>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<th>-</th>-->
+                        <!--<th class="text-center">Num of A/c</th>-->
+                        <!--<th class="text-center">Amount</th>-->
+                        <!--<th class="text-center">Num of A/c</th>-->
+                        <!--<th class="text-center">Amount</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+
+
+                    <!--<tbody class="tbl-row">-->
+                    <!--<tr>-->
+                        <!--<td >Total Paid</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td >SAVE</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Paid >= One EMI</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Paid but not SAVE</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>UNPAID</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Paid in Link a/c- (Live-Today)</td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+
+                <!--</table>-->
+            <!--</form>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+
+</div>
+</body>
+
+
+</html>

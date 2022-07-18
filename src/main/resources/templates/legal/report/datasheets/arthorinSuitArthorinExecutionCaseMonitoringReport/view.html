@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <link rel="stylesheet" href="/css/loader/circle-half-loader.css"/>
+    <link rel="stylesheet" href="/css/datatables-utils/buttons.dataTables.min.css">
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-xs-12" id="artharin-suit-app">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-horizontal padding-top-20">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 text-right">Branch</label>
+                                                <div class="col-sm-8">
+                                                    <select name="branch_id" v-model="selectedBranch" class="form-control" style="border-radius: 5px">
+                                                        <option value="">Select a branch</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5 text-right">
+                                            <button type="button" class="btn btn-info" @click="searchData">Run Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="text-right margin-bottom" v-if="arExSuitLists.length">
+                        <button class="btn btn-primary btn-generate-pdf">
+                            <span>Export to PDF</span>
+                            <span class="glyphicon glyphicon-download-alt" ></span>
+                        </button>
+                    </div>-->
+
+                    <div class="box box-info" id="pdf-box">
+                        <div class="box-body" id="grid">
+                            <div class="table-responsive">
+                                <table id="ar-ex-table" class="table table-striped table-bordered table-condensed"
+                                       cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr class="hidden">
+                                            <th>SL</th>
+                                            <th>Br_Cd</th>
+                                            <th>Branch_Name</th>
+                                            <th>LD_Number</th>
+                                            <th>Division</th>
+                                            <th>CIF_Number</th>
+                                            <th>Account_No</th>
+                                            <th>Account_Name</th>
+                                            <th>Defendant_Accused_Name</th>
+                                            <th>Defendant_Accused_Mobile</th>
+                                            <th>Business_Segment</th>
+                                            <th>Outstading</th>
+                                            <th>CL_Status</th>
+                                            <th>Artharin_Suit_Number</th>
+                                            <th>Artharin_Filing_Date</th>
+                                            <th>Artharin_Suit_Value</th>
+                                            <th>Execution_Case_Number</th>
+                                            <th>Execution_Filing_Date</th>
+                                            <th>Execution_Case_Value</th>
+                                            <th>Previous_date</th>
+                                            <th>Course_of_action</th>
+                                            <th>Next_date</th>
+                                            <th>Course_of_action</th>
+                                            <th>Courts_Name</th>
+                                            <th>Plaintiffs_Name</th>
+                                            <th>Plaintiffs_Cell_Number</th>
+                                            <th>Defendantss_Name</th>
+                                            <th>Defendantss_Cell_Numbere</th>
+                                            <th>Lawyers_Name</th>
+                                            <th>Lawyers_Cell_Number</th>
+                                            <th>NI_Act_case_Number</th>
+                                            <th>Writ_Number</th>
+                                            <th>Criminal_case</th>
+                                            <th>Other_case</th>
+                                            <th>Against_Bank</th>
+                                            <th>Written_off_status</th>
+                                            <th>Total_recovery_Amount</th>
+                                            <th>Legal_Expense</th>
+                                            <th >Under_Solenama</th>
+                                            <th>Collateral_security</th>
+                                            <th>Market_value</th>
+                                            <th>Forced_sale_value</th>
+                                            <th>Assessed_By</th>
+                                            <th>Status</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                        <tr>
+                                            <th>SL#</th>
+                                            <th>Br. Cd</th>
+                                            <th>Branch Name</th>
+                                            <th>LD Number</th>
+                                            <th>Division</th>
+                                            <th>CIF Number</th>
+                                            <th>Account No</th>
+                                            <th>Account Name</th>
+                                            <th>Defendant/ Accused Name</th>
+                                            <th>Defendant/ Accused Mobile#</th>
+                                            <th>Business Segment</th>
+                                            <th>Outstading</th>
+                                            <th>CL Status</th>
+                                            <th>Artharin Suit Number</th>
+                                            <th>Artharin Filing Date</th>
+                                            <th>Artharin Suit Value</th>
+                                            <th>Execution Case Number</th>
+                                            <th>Execution Filing Date</th>
+                                            <th>Execution Case Value</th>
+                                            <th>Previous date</th>
+                                            <th>Course of action</th>
+                                            <th>Next date</th>
+                                            <th>Course of action</th>
+                                            <th>Court's Name</th>
+                                            <th>Plaintiff's Name</th>
+                                            <th>Plaintiff's Cell Number</th>
+                                            <th>Defendants's Name</th>
+                                            <th>Defendants's Cell Numbere</th>
+                                            <th>Lawyer's Name</th>
+                                            <th>Lawyer's Cell Number</th>
+                                            <th>N.I Act case Number (if any)</th>
+                                            <th>Writ Number (if any)</th>
+                                            <th>Criminal case (if any)</th>
+                                            <th>Other case (if any)</th>
+                                            <th>Against Bank (if any)</th>
+                                            <th>Written off status</th>
+                                            <th>Total recovery Amount</th>
+                                            <th>Legal Expense</th>
+                                            <th >Under Solenama</th>
+                                            <th>Collateral security</th>
+                                            <th>Market value</th>
+                                            <th>Forced sale value</th>
+                                            <th>Assessed By</th>
+                                            <th>Status</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr v-for="data in arExSuitLists">
+                                            <td>{{data.serial}}</td>
+                                            <td>{{data.branchCode}}</td>
+                                            <td>{{data.branchName}}</td>
+                                            <td>{{data.ldNo}}</td>
+                                            <td>{{data.division}}</td>
+                                            <td>{{data.cifNumber}}</td>
+                                            <td>{{data.accountNo}}</td>
+                                            <td>{{data.accountName}}</td>
+                                            <td>{{data.defendantName}}</td>
+                                            <td>{{data.defendantMobile}}</td>
+                                            <td>{{data.businessSegment}}</td>
+                                            <td>{{data.outstanding}}</td>
+                                            <td>{{data.clStatus}}</td>
+                                            <td>{{data.artharinSuitNumber}}</td>
+                                            <td>{{data.artharinFilingDate}}</td>
+                                            <td>{{data.artharinSuitValue}}</td>
+                                            <td>{{data.executionCaseNumber}}</td>
+                                            <td>{{data.executionFilingDate}}</td>
+                                            <td>{{data.executionCaseValue}}</td>
+                                            <td>{{data.previousDate}}</td>
+                                            <td>{{data.courseOfAction}}</td>
+                                            <td>{{data.nextDate}}</td>
+                                            <td>{{data.courseOfAction}}</td>
+                                            <td>{{data.courtsName}}</td>
+                                            <td>{{data.plaintiffsName}}</td>
+                                            <td>{{data.plaintiffsCellNumber}}</td>
+                                            <td>{{data.defendantsName}}</td>
+                                            <td>{{data.defendantsCellNumber}}</td>
+                                            <td>{{data.lawyersName}}</td>
+                                            <td>{{data.lawyersCellNumber}}</td>
+                                            <td>{{data.niActCaseNumber}}</td>
+                                            <td>{{data.writNumber}}</td>
+                                            <td>{{data.criminalCase}}</td>
+                                            <td>{{data.otherCase}}</td>
+                                            <td>{{data.againstBank}}</td>
+                                            <td>{{data.writtenOffStatus}}</td>
+                                            <td>{{data.totalRecoveryAmount}}</td>
+                                            <td>{{data.legalExpense}}</td>
+                                            <td>{{data.underSolenama}}</td>
+                                            <td>{{data.collateralSecurity}}</td>
+                                            <td>{{data.marketValue}}</td>
+                                            <td>{{data.forcedCellValue}}</td>
+                                            <td>{{data.assessedBy}}</td>
+                                            <td>{{data.status}}</td>
+                                            <td>{{data.remarks}}</td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{formatDecimal(totalOutstanding)}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{formatDecimal(totalArtharinSuitValue)}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{formatDecimal(totalExecutionCaseValue)}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{formatDecimal(totalRecoveryAmount)}}</td>
+                                            <td>{{formatDecimal(totalLegalExpense)}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    arExApp = new Vue({
+                        el: '#artharin-suit-app',
+                        data: {
+                            arExSuitLists: [],
+                            selectedBranch: '',
+                            totalOutstanding: 0,
+                            totalArtharinSuitValue: 0,
+                            totalExecutionCaseValue: 0,
+                            totalRecoveryAmount: 0,
+                            totalLegalExpense: 0
+                        },
+                        methods: {
+                            searchData: function () {
+                                $.ajax({
+                                    url: '/legal/report/arthorin-suit-arthorin-execution-case-monitoring/search?branch='+this.selectedBranch,
+                                    type: 'get',
+                                    contentType: 'application/json;charset=UTF-8',
+                                    success: function(response) {
+                                        table.destroy();
+                                        arExApp.arExSuitLists = response;
+
+                                        arExApp.totalOutstanding = 0
+                                        arExApp.totalArtharinSuitValue = 0
+
+                                        arExApp.totalExecutionCaseValue = 0
+                                        arExApp.totalRecoveryAmount = 0
+                                        arExApp.totalLegalExpense = 0
+
+                                        arExApp.getCalculateData()
+                                    }
+                                })
+                            },
+                            formatDate: function (data) {
+                                if (data){
+                                    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                                    var fullDate = new Date(data);
+                                    var date  = fullDate.getDate() < 10 ? '0' + fullDate.getDate() : fullDate.getDate();
+                                    var month = fullDate.getMonth();
+
+
+                                    return date + '-' + monthNames[month] + '-' + fullDate.getFullYear()
+                                }
+                            },
+                            formatDecimal: function (data) {
+                                if (Number(data)) {
+                                    return data.toFixed(2)
+                                }
+                                else
+                                    return '0.00'
+                            },
+                            getCalculateData: function () {
+                                $.each(this.arExSuitLists, function () {
+                                    arExApp.totalOutstanding += Number(this.outstanding)
+                                    arExApp.totalArtharinSuitValue += Number(this.artharinSuitValue)
+
+                                    arExApp.totalExecutionCaseValue += Number(this.executionCaseValue)
+                                    arExApp.totalRecoveryAmount += Number(this.totalRecoveryAmount)
+                                    arExApp.totalLegalExpense += Number(this.executionCaseValue)
+                                })
+                            }
+                        },
+                        updated: function () {
+                            initTable();
+                        }
+                    })
+
+                    function initTable() {
+                        table = $('#ar-ex-table').DataTable( {
+                            dom: 'Bfrtip',
+                            buttons: ['csv', 'excel', 'pdf']
+                        });
+                    }
+
+                    $(document).ready(function () {
+                        initTable();
+                    })
+
+                    $('body').delegate('.btn-generate-pdf', 'click', () => {
+                        printElementIncludingStyles('pdf-box')
+                    })
+
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

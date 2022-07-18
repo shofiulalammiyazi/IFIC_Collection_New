@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"/>
+<title> Age & Classification Rule</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="box box-primary">
+
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 th:if="${rule?.id == null}" class="box-title">Create New Age & Classification Rule</h3>
+								<h3 th:if="${rule?.id != null}" class="box-title">Update Age & Classification Rule</h3>
+							</div>
+
+							<form class="form-horizontal validate" method="post" th:action="@{/collection/age_classification_rule/create}" th:object="${rule}">
+								<input type="hidden" th:field="*{id}"/>
+								<div class="box-body">
+
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required">Age Code </label>
+										<div class="col-sm-8" >
+											<select  class="form-control required" th:field="*{ageCode.id}"  required>
+												<option value="">Select</option>
+												<option th:each="age :${ageCodeList}" th:value="${age?.id}" th:selected="${rule?.ageCode?.id == age?.id}" ><span th:text="${age.name}"></span></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required">Product Type-Card</label>
+										<div class="col-sm-8" >
+											<select  class="form-control required" th:field="*{productTypeCardEntity.id}"  required>
+												<option value="">Select</option>
+												<option th:each="product :${productTypeCardList}" th:value="${product?.id}" th:selected="${rule?.productTypeCardEntity?.id == product?.id}" ><span th:text="${product.name}"></span></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 custom-form-lebel-right required" >Classification Status</label>
+										<div class="col-sm-8">
+											<input type="text" name="name" class="form-control required" th:required="true" th:field="*{classificationStatus}" placeholder="Classification Status" />
+										</div>
+									</div>
+
+									<div class="form-group" th:if="${rule.id != null}">
+										<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+										<div class="col-sm-8" >
+											<fieldset id="group1" >
+												<input type="radio" name="enabled" th:checked="${rule?.enabled == true} " th:value="true" > Active</input>
+												<input type="radio"  name="enabled" th:checked="${rule?.enabled == false}" th:value="false" required> Inactive </input>
+											</fieldset>
+										</div>
+									</div>
+
+									<div class="form-group" th:if="${rule?.id == null}" style="display: none">
+										<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+										<div class="col-sm-8" >
+											<fieldset id="group1">
+												<input type="radio" name="enabled" th:checked="${rule?.enabled==true} or ${rule?.id == null}" th:value="true"> Active</input>
+												<input type="radio"  name="enabled"  th:checked="${rule?.enabled==false} and ${rule?.id != null}" th:value="false"> Inactive </input>
+											</fieldset>
+										</div>
+									</div>
+
+								</div>
+								<div class="box-footer text-center">
+									<button type="submit" class="btn btn-info btn-sm ">Submit</button>
+									<a type="submit" class="btn btn-danger btn-sm" href="/collection/age_classification_rule/list">Cancel</a>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

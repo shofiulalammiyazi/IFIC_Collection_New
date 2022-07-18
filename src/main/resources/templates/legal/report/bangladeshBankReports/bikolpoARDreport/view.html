@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <link rel="stylesheet" th:href="@{/css/legal-report.css}"/>
+    <style media="print">
+        @page {
+            size: A4 landscape; margin: 0.4in 0.4in 0.6in 0.39in;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div th:if="${summary == null}" class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h4 class="text-center">
+                                বিকল্প পদ্ধতিতে বিরোধ নিষ্পত্তি (ADR) বিধান প্রয়োগের মাধ্যমে নিস্পত্তিকৃত মামলাসমূহ (প্রক্রিয়াধীন)
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal" method="get"
+                                  th:action="@{/legal/report/bangladesh-bank-reports/bikolpo-ard-report/report}">
+                                <div class="row margin">
+                                    <div class="col-sm-2">
+                                        Report Date:
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="endDate" min="2021-01-01" class="form-control" required/>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                            Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${summary}" class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <a class="btn btn-sm btn-primary"
+                                       onclick="printElementIncludingStyles('printBody')">Print</a>
+                                    <a class="btn btn-sm btn-primary"
+                                       onclick="export2Word('printBody', document.title)">Doc</a>
+                                </div>
+                            </div>
+                            <div class="row" id="printBody">
+                                <div class="col-sm-12">
+                                    <table style="width: 100%">
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h4 class="text-center">
+                                                    বিকল্প পদ্ধতিতে বিরোধ নিষ্পত্তি (ADR)
+                                                    বিধান প্রয়োগের মাধ্যমে নিস্পত্তিকৃত মামলাসমূহ (প্রক্রিয়াধীন)
+                                                    <span th:text="${reportDate}">৩১-১২-২০২০ </span>
+                                                    ইং পর্যন্ত
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="6" class="text-right text-bold">(লক্ষ টাকায়)</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">ক্রমিক নং</th>
+                                                        <th style="text-align: center" colspan="2">
+                                                            বিকল্প পদ্ধতিতে নিষ্পত্তির জন্য প্রক্রিয়াধীন/প্রেরিত মামলা
+                                                            <br/>
+                                                            (ক্রম পুঞ্জিভুত)
+                                                        </th>
+                                                        <th style="text-align: center" colspan="3">বিকল্প পদ্ধতিতে
+                                                            নিষ্পত্তিকৃত মামলা
+                                                        </th>
+                                                        <th style="text-align: center">মন্তব্য</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style="text-align: center">সংখ্যা</th>
+                                                        <th style="text-align: center">দাবীকৃত অর্থের পরিমান</th>
+                                                        <th style="text-align: center">সংখ্যা</th>
+                                                        <th style="text-align: center">দাবীকৃত অর্থের পরিমান</th>
+                                                        <th style="text-align: center">প্রকৃত আদায়</th>
+                                                        <th></th>
+
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="text-align: center" >১</td>
+                                                        <td style="text-align: center" th:text="${@numberUtils.convertToBanglaNumber(pendingCases)}">
+                                                        </td>
+                                                        <td style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(totalAmountOfPendingCases)}">
+
+                                                        </td>
+                                                        <td style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(adjustedCases)}">
+                                                        </td>
+                                                        <td style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(totalAmountOfAdjustedCases)}">
+                                                        </td>
+                                                        <td style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(totalRecoveryAfterCaseFromAdjustedCases)}">
+                                                        </td>
+                                                        <td style="text-align: center"></td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="6" class="text-bold wrap-word">
+                                                </br>
+                                                </br>
+                                                বিঃ দ্রঃ মোট
+                                                <span th:text="${@numberUtils.convertToBanglaNumber(pendingCases)}">৪১</span>
+                                                টি মামলা বিকল্প পদ্ধতিতে (ADR) নিষ্পত্তির জন্য প্রেরিত হয়েছে। এর মধ্যে
+                                                <span th:text="${@numberUtils.convertToBanglaNumber(adjustedCases)}">৩১</span>
+                                                টি বিকল্প পদ্ধতিতে নিষ্পত্তি হয়েছে এবং অবশিষ্ট
+                                                <span th:text="${@numberUtils.convertToBanglaNumber(pendingCases - adjustedCases)}"></span>
+                                                টি মামলা নিষ্পত্তি হয়নি, যা নিষ্পত্তির জন্য প্রক্রিয়াধীন আছে।
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2d7c066-3fa4-4860-b750-64ba5902dee2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="customerId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dispatchNumber" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="concernName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="organization" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="address" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="designation" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="customerName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="occupation" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="jobLocation" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="productType" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="outstanding" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="disbursementDate" class="java.sql.Timestamp">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="noOfInstallemt" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="clStatus" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="branchName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cust.id
+from CUSTOMER_BASIC_INFO_ENTITY cust
+
+where cust.id = $P{customerId}]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="762" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="459" y="57" width="61" height="20" uuid="adc7db59-c018-4605-93e8-f94ead673f4d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="131" width="492" height="33" uuid="3832432b-52b6-4c18-b99c-deafba1ff24a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="406" y="10" width="114" height="24" uuid="aba04a85-1155-4d37-8b14-18ce3101f5ee"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="424" y="57" width="35" height="20" uuid="b9006c1f-8524-4e84-9ddd-5f6cad5ffa5f"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="57" width="328" height="20" uuid="316421db-ac34-4eed-9c54-288250b28cb4"/>
+				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="111" width="293" height="20" uuid="87dd6238-4dec-4677-a716-331df5d5163d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{organization}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="422" y="15" width="80" height="15" uuid="ad2ebf9e-f826-403a-a332-9eda7379d7c6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assistance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="187" width="476" height="43" uuid="78b88fc8-3883-4e2a-8f5d-b47a34db8e64"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Request for co-operation for settlement of the Any Purpose Loan liability of " + $P{customerName} +" , "+ $P{occupation} + " , "+ $P{jobLocation} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="187" width="52" height="20" uuid="4e1e9fad-485a-43ae-a43d-5c7a0d440c66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="267" width="71" height="20" uuid="bc69e56e-7c05-4d5e-9f6b-4b6a22b53049"/>
+				<text><![CDATA[Dear Sir,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="291" width="528" height="119" uuid="b4a393a3-8033-4f15-a203-d07d39c3900b"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["With reference to the above subject we would like to inform you that " + "<b>" + $P{customerName} +"</b>"+ " , " +"<b>"+ $P{occupation} +"</b>"+ " ," + "<b>"+ $P{jobLocation} +"</b>"+ ", has been availing an " +"<b>"+$P{productType}+"</b>" + " Loan of BDT. "+"<b>"+ $P{outstanding} +"</b>"  +" Lac from our " +"<b>"+$P{branchName}+"</b>"+ " Branch. The loan was disbursed on " +"<b>"+ new SimpleDateFormat("dd/MM/yyyy").format( $P{disbursementDate} )+"</b>" + " and the monthly installments is BDT." + "<b>" + $P{noOfInstallemt} +"</b>"+ ". Presently the loan is running with <No of installment> installments overdue and classified as " +"<b>"+ $P{clStatus} +"</b>"+ ". We have tried in all possible ways for regularization of the Loan by communicating with the customer as well as guarantors over phone and physically, and also issuing several reminder letters, but all of our efforts so far has gone in vain."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="416" width="528" height="53" uuid="87aa13d5-100b-404c-83f0-65abd7ffe9ee"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["In view of the above, we are writing to you seeking your assistance for amicable settlement of the above mentioned Loan liability. If you could kind enough to take any possible steps at your end to recover the loan of " + "<b>"+ $P{customerName}+"</b>" + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="487" width="528" height="35" uuid="13cfbe33-44f3-4b34-b89a-42ae78e38e9b"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[We strongly believe that your co-operation regarding the above will help our bank to realize the overdue amount.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="546" width="100" height="20" uuid="942fa6a4-197c-41e7-b2cb-29a4a81ac8f9"/>
+				<text><![CDATA[Thanking You.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="599" width="100" height="20" uuid="5ab4461d-876a-421c-a410-cca0896caa2d"/>
+				<text><![CDATA[Yours faithfully,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="732" width="257" height="20" uuid="72c8774a-b458-40b7-bafc-d240c16a4cdb"/>
+				<text><![CDATA[Head of Credit Risk Management Division (Retail) ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="689" width="209" height="1" uuid="b70aa567-0f2e-4a2f-bb37-edbbbfc2ecff"/>
+			</line>
+			<textField>
+				<reportElement x="10" y="692" width="257" height="20" uuid="8a990395-4657-4938-8383-5d2b0463e1d3"/>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="91" width="293" height="20" uuid="27c98cd8-d5b1-4d15-a538-01bf8919f6e9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{concernName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="712" width="257" height="20" uuid="6717cf19-2659-4091-8432-2ec04d0e6c04"/>
+				<textFieldExpression><![CDATA[$P{designation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

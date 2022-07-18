@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Advanced Account Search </title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="content">
+    <link rel="stylesheet" href="/css/loader/dots-horizontal-loader.css">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Advanced Account Search </h3>
+
+        </div>
+        <div class="box-body">
+            <section class="content" id="app">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <form class="form-horizontal bg-gray-light" style="padding: 5px;">
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Account No.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.accountNo" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Account No" id="accountNo" name="accountNo"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">CIF No.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.cif" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="CIF No." id="cifNo" name="cifNo"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Customer Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.customerName" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Customer Name" id="customerName" name="customerName"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Mother's Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.motherName" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Mother's Name" id="loan_motherName" name="motherName"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Mobile No.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.mobile" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Mobile No." id="loan_mobileNo" name="mobileNo"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">NID</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.nationalId" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="NID" id="nid" name="nid"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+
+                                        <label class="col-sm-2 custom-form-lebel-right">DOB</label>
+                                        <div class="col-sm-2">
+
+                                            <input v-model="advanceSearchPayload.dateOfBirth" type="text"
+                                                   data-provide="datepicker"
+                                                   data-date-format="dd/M/yyyy"
+                                                   class="form-control input-sm"
+                                                   onchange="setPropertyValueFromInput(this)"
+                                                   placeholder="Date of Birth" name="dateOfBirth"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Email</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.email" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Email Address" id="email" name="email"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Passport No.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.passport" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Passport No."/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Organization</label>
+                                        <div class="col-sm-2">
+
+                                            <input v-model="advanceSearchPayload.organization" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Organization Name" id="orgName" name="orgName"/>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-form-lebel-right">Link Acc.</label>
+                                        <div class="col-sm-2">
+
+                                            <input v-model="advanceSearchPayload.linkAccount" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Link Acc."/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">TIN</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.tin" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="TIN"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" style="padding: 0px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">AutoDebit Acc</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.autoDebit" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="AutoDebit Acc"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Loan ID</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.loanId" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Loan ID" name="dealerId"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Cls Flag</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.clsFlag" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Cls Flag" name="dealerId"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Status</label>
+                                        <div class="col-sm-2" style="margin-top: 3px;">
+                                            <label>
+
+                                                <input v-model="advanceSearchPayload.active" name="removelines"
+                                                       type="radio"
+                                                       class="cheker" autocomplete="off" :value="'Y'" checked>
+                                                Active
+                                            </label>
+                                            <label>
+
+                                                <input v-model="advanceSearchPayload.active" name="removelines"
+                                                       type="radio"
+                                                       class="cheker" :value="'N'">
+                                                Inactive
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 col-sm-offset-5" style="margin-top: 20px;margin-right: -31px;">
+                                        <button @click.prevent="searchCustomers()"
+                                                class="btn btn-success btn-sm btn-block pull-right">Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"  v-show="filtered" >
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border" style="text-align: center;">
+                                <h1 class="box-title">
+                                    <span >
+                                        Customer Details
+                                    </span>
+                                </h1>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+
+                                <div v-show="!customers.length && filtered" class="alert alert-danger"
+                                     style="text-align: center">
+                                    No records yet
+                                </div>
+                                <div v-show="!customers.length && loading" class="text-center">
+                                    <div class="dots-horizontal-loader"></div>
+                                </div>
+                                <div style="overflow: auto;" v-show="customers.length">
+                                    <table name="datatable-responsive"
+                                           class="table table-striped table-bordered table-condensed"
+                                           cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th>CIF</th>
+                                            <th>Account Name</th>
+                                            <th>DOB</th>
+                                            <th>Mobile</th>
+                                            <th>Outstanding</th>
+                                            <th>Overdue</th>
+                                            <th>Link/Proxy Acc.</th>
+                                            <th>Mother name</th>
+                                            <th>Email</th>
+                                            <th>A/C Status</th>
+                                            <th>NID</th>
+                                            <th>Home Phone</th>
+                                            <th>Work Phone</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="customer in customers">
+                                            <td>
+                                                <!--<a :href="'/profile/loanprofile/search?account='+ customer.accountNo"-->
+                                                <!--target="_blank">{{customer.accountNo}}</a>-->
+                                            </td>
+                                            <td>{{customer.custNo}}</td>
+                                            <td>{{customer.acDesc}}</td>
+                                            <td>{{customer.dateOfBirth}}</td>
+                                            <td>{{customer.mobileNumber}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <!--<a :href="'/profile/loanprofile/search?account='+ customer.linkacct"-->
+                                                <!--target="_blank">{{customer.linkacct}}</a>-->
+                                            </td>
+                                            <td>{{customer.motherName}}</td>
+                                            <td>{{customer.eMail}}</td>
+                                            <td>-</td>
+                                            <td>{{customer.nationalId}}</td>
+                                            <td>{{customer.homePhone}}</td>
+                                            <td>{{customer.workPhone}}</td>
+                                        </tr>
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <script>
+                var searchApp = new Vue({
+                    el: '#app',
+                    data: {
+                        customers: [],
+                        advanceSearchPayload: {},
+                        filtered: false,
+                        loading: false,
+                    },
+                    methods: {
+                        searchCustomers() {
+                            let vm = this;
+                            let host = window.location.host;
+                            let params = JSON.stringify(this.advanceSearchPayload);
+                            let url = '/retail/loan/dashboard/advance-search?payload=' + encodeURIComponent(params);
+                            vm.loading = true;
+                            this.$http.get(url,
+                                {
+                                    credentials: true, headers: {
+                                        'X-CSRF-TOKEN': window.csrfToken,
+                                    }
+                                }).then(res => {
+                                vm.loading = false;
+                                if (Array.isArray(res.body)) {
+                                    this.filtered = true;
+                                    vm.customers = res.body;
+                                } else {
+                                    swal('Something went wrong');
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+
+
+                        },
+                    }
+                })
+
+                function setPropertyValueFromInput(source) {
+                    searchApp.advanceSearchPayload[source.name] = source.value;
+                }
+
+            </script>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row" id="legal-bill-expense-summary">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-horizontal padding-top-20">
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-4 padding-top-6 text-right">Month</label>
+                                                    <div class="col-sm-8">
+                                                        <input name="month" v-model="selectedMonth" type="month" class="form-control" style="border-radius: 5px">
+                                                    </div>
+                                                 </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-4 padding-top-6 text-right">Branch</label>
+                                                    <div class="col-sm-8">
+                                                        <multiselect v-model="selectedBranch" placeholder="Select Branch"
+                                                                     :show-labels="false" track-by="id" :options="branchList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-4 padding-top-6 text-right">Lawyer</label>
+                                                    <div class="col-sm-8">
+                                                        <multiselect v-model="selectedLawyer" placeholder="Select Lawyer"
+                                                                     :show-labels="false" track-by="id" :options="lawyerList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2 text-right">
+                                            <button type="button" class="btn btn-info" @click="searchData">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Branch & Lawyer wise of Legal Bill/Expense-->
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-condensed text-center"
+                                       cellspacing="0" width="100%" id="branch-lawar-wise-report">
+                                    <thead>
+                                    <tr><th colspan="17">Branch & Lawyer wise of Legal Bill/Expense</th></tr>
+                                    <tr>
+                                        <th>SL#</th>
+                                        <th>Branch Code</th>
+                                        <th>Branch Name</th>
+                                        <th>Lawyer ID</th>
+                                        <th>Lawyer Name</th>
+                                        <th>District Name</th>
+                                        <th>Court Name</th>
+                                        <th>Lawyer's Bill for Type of Case</th>
+                                        <th>Previous Month Lawyer's Bill Amt</th>
+                                        <th>Current Month Lawyer's Bill Amount</th>
+                                        <th>Total Lawyer's Bill Amount</th>
+                                        <th>Current Month Others Bill Amount</th>
+                                        <th>Total Others Bill Amount</th>
+                                        <th>Cumulative Legal Bill/Expense Amt</th>
+                                        <th>Current Month Legal Bill/Exp. Recovery</th>
+                                        <th>Previous Month Legal Bill/Exp. Recovery</th>
+                                        <th>Cumulative Legal Bill/Exp. Recovery</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="legalBill in branchLawyerWiseExpenseList">
+                                        <td>{{legalBill.serial}}</td>
+                                        <td>{{legalBill.branchCode}}</td>
+                                        <td>{{legalBill.branchName}}</td>
+                                        <td>{{legalBill.lawarId}}</td>
+                                        <td>{{legalBill.lawarName}}</td>
+                                        <td>{{legalBill.district}}</td>
+                                        <td>{{legalBill.courtName}}</td>
+                                        <td>{{legalBill.lawyerBillTypeCase}}</td>
+                                        <td>{{legalBill.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{legalBill.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{legalBill.totalLawyersBillAmount}}</td>
+                                        <td>{{legalBill.currentMonthOthersBillAmount}}</td>
+                                        <td>{{legalBill.totalOthersBillAmount}}</td>
+                                        <td>{{legalBill.cumulativeLegalBillAmount}}</td>
+                                        <td>{{legalBill.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{legalBill.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{legalBill.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+
+                            <!--Segment wise Legal Bill/Expense-->
+
+                            <div class="table-responsive" style="margin-top: 100px">
+                                <table class="table table-striped table-bordered table-condensed text-center"
+                                       cellspacing="0" width="100%" id="segment-wise-report">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="17">Segment wise Legal Bill/Expense</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Segment</th>
+                                        <th>Filling Year</th>
+                                        <th>Total W-Off Amt</th>
+                                        <th>Total W-Off Recovery</th>
+                                        <th>Total Recovery (beore filling)</th>
+                                        <th>Total Recovery (after filling)</th>
+                                        <th>Outstanding</th>
+                                        <th>Lawyer's Bill for Type of Case</th>
+                                        <th>Previous Month Lawyer's Bill Amt</th>
+                                        <th>Current Month Lawyer's Bill Amount</th>
+                                        <th>Total Lawyer's Bill Amount</th>
+                                        <th>Current Month Others Bill Amount</th>
+                                        <th>Total Others Bill Amount</th>
+                                        <th>Cumulative Legal Bill/Expense Amt</th>
+                                        <th>Current Month Legal Bill/Exp. Recovery</th>
+                                        <th>Previous Month Legal Bill/Exp. Recovery</th>
+                                        <th>Cumulative Legal Bill/Exp. Recovery</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(cbdSegment, i) in CBDSegmentBillList">
+                                        <td :class="i>0 ? 'hide' : ''" :rowspan="CBDSegmentBillList.length" style="vertical-align: middle">CBD</td>
+                                        <td>{{cbdSegment.dateOfFiling}}</td>
+                                        <td>{{cbdSegment.totalWOffAmt}}</td>
+                                        <td>{{cbdSegment.totalWOffRecovery}}</td>
+                                        <td>{{cbdSegment.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{cbdSegment.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{cbdSegment.outstanding}}</td>
+                                        <td>{{cbdSegment.lawyerBillTypeCase}}</td>
+                                        <td>{{cbdSegment.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{cbdSegment.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{cbdSegment.totalLawyersBillAmount}}</td>
+                                        <td>{{cbdSegment.currentMonthOthersBillAmount}}</td>
+                                        <td>{{cbdSegment.totalOthersBillAmount}}</td>
+                                        <td>{{cbdSegment.cumulativeLegalBillAmount}}</td>
+                                        <td>{{cbdSegment.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{cbdSegment.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{cbdSegment.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    <tr v-if="CBDSegmentBillList.length != 0">
+                                        <td colspan="2">CBD Total</td>
+                                        <td class="hidden"></td>
+                                        <td>{{CBDTotal.totalWOffAmt}}</td>
+                                        <td>{{CBDTotal.totalWOffRecovery}}</td>
+                                        <td>{{CBDTotal.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{CBDTotal.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{CBDTotal.outstanding}}</td>
+                                        <td>{{CBDTotal.lawyerBillTypeCase}}</td>
+                                        <td>{{CBDTotal.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{CBDTotal.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{CBDTotal.totalLawyersBillAmount}}</td>
+                                        <td>{{CBDTotal.currentMonthOthersBillAmount}}</td>
+                                        <td>{{CBDTotal.totalOthersBillAmount}}</td>
+                                        <td>{{CBDTotal.cumulativeLegalBillAmount}}</td>
+                                        <td>{{CBDTotal.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{CBDTotal.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{CBDTotal.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+
+                                    <tr v-for="(smeSegment,i) in SMESegmentBillList">
+                                        <td :class="i>0 ? 'hide' : ''" :rowspan="SMESegmentBillList.length" style="vertical-align: middle">SME</td>
+                                        <td>{{smeSegment.dateOfFiling}}</td>
+                                        <td>{{smeSegment.totalWOffAmt}}</td>
+                                        <td>{{smeSegment.totalWOffRecovery}}</td>
+                                        <td>{{smeSegment.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{smeSegment.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{smeSegment.outstanding}}</td>
+                                        <td>{{smeSegment.lawyerBillTypeCase}}</td>
+                                        <td>{{smeSegment.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{smeSegment.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{smeSegment.totalLawyersBillAmount}}</td>
+                                        <td>{{smeSegment.currentMonthOthersBillAmount}}</td>
+                                        <td>{{smeSegment.totalOthersBillAmount}}</td>
+                                        <td>{{smeSegment.cumulativeLegalBillAmount}}</td>
+                                        <td>{{smeSegment.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{smeSegment.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{smeSegment.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    <tr v-if="SMESegmentBillList.length != 0">
+                                        <td colspan="2">SME Total</td>
+                                        <td class="hidden"></td>
+                                        <td>{{SMETotal.totalWOffAmt}}</td>
+                                        <td>{{SMETotal.totalWOffRecovery}}</td>
+                                        <td>{{SMETotal.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{SMETotal.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{SMETotal.outstanding}}</td>
+                                        <td>{{SMETotal.lawyerBillTypeCase}}</td>
+                                        <td>{{SMETotal.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{SMETotal.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{SMETotal.totalLawyersBillAmount}}</td>
+                                        <td>{{SMETotal.currentMonthOthersBillAmount}}</td>
+                                        <td>{{SMETotal.totalOthersBillAmount}}</td>
+                                        <td>{{SMETotal.cumulativeLegalBillAmount}}</td>
+                                        <td>{{SMETotal.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{SMETotal.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{SMETotal.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+
+                                    <tr v-for="(rdbSegment, i) in RBDSegmentBillList">
+                                        <td :class="i>0 ? 'hide' : ''" :rowspan="RBDSegmentBillList.length" style="vertical-align: middle">RBD</td>
+                                        <td>{{rdbSegment.dateOfFiling}}</td>
+                                        <td>{{rdbSegment.totalWOffAmt}}</td>
+                                        <td>{{rdbSegment.totalWOffRecovery}}</td>
+                                        <td>{{rdbSegment.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{rdbSegment.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{rdbSegment.outstanding}}</td>
+                                        <td>{{rdbSegment.lawyerBillTypeCase}}</td>
+                                        <td>{{rdbSegment.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{rdbSegment.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{rdbSegment.totalLawyersBillAmount}}</td>
+                                        <td>{{rdbSegment.currentMonthOthersBillAmount}}</td>
+                                        <td>{{rdbSegment.totalOthersBillAmount}}</td>
+                                        <td>{{rdbSegment.cumulativeLegalBillAmount}}</td>
+                                        <td>{{rdbSegment.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{rdbSegment.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{rdbSegment.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    <tr v-if="RBDSegmentBillList.length !=0">
+                                        <td colspan="2">RBD Total</td>
+                                        <td class="hidden"></td>
+                                        <td>{{RBDTotal.totalWOffAmt}}</td>
+                                        <td>{{RBDTotal.totalWOffRecovery}}</td>
+                                        <td>{{RBDTotal.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{RBDTotal.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{RBDTotal.outstanding}}</td>
+                                        <td>{{RBDTotal.lawyerBillTypeCase}}</td>
+                                        <td>{{RBDTotal.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{RBDTotal.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{RBDTotal.totalLawyersBillAmount}}</td>
+                                        <td>{{RBDTotal.currentMonthOthersBillAmount}}</td>
+                                        <td>{{RBDTotal.totalOthersBillAmount}}</td>
+                                        <td>{{RBDTotal.cumulativeLegalBillAmount}}</td>
+                                        <td>{{RBDTotal.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{RBDTotal.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{RBDTotal.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    <tr v-for="(cardSegment,i) in CARDSegmentBillList">
+                                        <td :class="i>0 ? 'hide' : ''" :rowspan="CARDSegmentBillList.length" style="vertical-align: middle">CARD</td>
+                                        <td>{{cardSegment.dateOfFiling}}</td>
+                                        <td>{{cardSegment.totalWOffAmt}}</td>
+                                        <td>{{cardSegment.totalWOffRecovery}}</td>
+                                        <td>{{cardSegment.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{cardSegment.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{cardSegment.outstanding}}</td>
+                                        <td>{{cardSegment.lawyerBillTypeCase}}</td>
+                                        <td>{{cardSegment.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{cardSegment.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{cardSegment.totalLawyersBillAmount}}</td>
+                                        <td>{{cardSegment.currentMonthOthersBillAmount}}</td>
+                                        <td>{{cardSegment.totalOthersBillAmount}}</td>
+                                        <td>{{cardSegment.cumulativeLegalBillAmount}}</td>
+                                        <td>{{cardSegment.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{cardSegment.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{cardSegment.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    <tr v-if="CARDSegmentBillList.length != 0">
+                                        <td colspan="2">CARD Total</td>
+                                        <td class="hidden"></td>
+                                        <td>{{CARDTotal.totalWOffAmt}}</td>
+                                        <td>{{CARDTotal.totalWOffRecovery}}</td>
+                                        <td>{{CARDTotal.totalRecoveryBeoreFilling}}</td>
+                                        <td>{{CARDTotal.TotalRecoveryAfterFilling}}</td>
+                                        <td>{{CARDTotal.outstanding}}</td>
+                                        <td>{{CARDTotal.lawyerBillTypeCase}}</td>
+                                        <td>{{CARDTotal.previousMonthLawyersBillAmount}}</td>
+                                        <td>{{CARDTotal.currentMonthLawyersBillAmount}}</td>
+                                        <td>{{CARDTotal.totalLawyersBillAmount}}</td>
+                                        <td>{{CARDTotal.currentMonthOthersBillAmount}}</td>
+                                        <td>{{CARDTotal.totalOthersBillAmount}}</td>
+                                        <td>{{CARDTotal.cumulativeLegalBillAmount}}</td>
+                                        <td>{{CARDTotal.currentMonthLegalBillRecovery}}</td>
+                                        <td>{{CARDTotal.recoveryBeforeCaseFiling}}</td>
+                                        <td>{{CARDTotal.recoveryAfterCaseFiling}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        /*var CBDSegmentBill  = [[${CBDSegmentBill}]];
+        var SMESegmentBill    = [[${SMESegmentBill}]];
+        var RBDSegmentBill          = [[${RBDSegmentBill}]];
+        var CARDSegmentBill     = [[${CARDSegmentBill}]];*/
+
+
+        /*var branchAndLawarWiseExpense     = [[${branchAndLawarWiseExpense}]];
+
+        var CBDSegment     = [[${CBDSegment}]];
+        var SMESegment       = [[${SMESegment}]];
+        var RBDSegment     = [[${RBDSegment}]];
+        var CARDSegment     = [[${CARDSegment}]];
+
+        var CBDTotal    = [[${CBDTotal}]];
+        var SMETotal     = [[${SMETotal}]];
+        var RBDTotal     = [[${RBDTotal}]];
+        var CARDTotal     = [[${CARDTotal}]]*/;
+        var branchList     = [[${branchList}]];
+        var lawyerList     = [[${lawyerList}]];
+        console.log('branch: '+branchList);
+
+        /*]]>*/
+    </script>
+
+    <script>
+        legalBillExpenseapp = new Vue({
+            el: '#legal-bill-expense-summary',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                branchLawyerWiseExpenseList: [],
+
+                lawyerList: [],
+                branchList: [],
+
+                selectedBranch:'',
+                selectedLawyer:'',
+                selectedMonth: '',
+
+                CBDTotal: {},
+                SMETotal: {},
+                RBDTotal: {},
+                CARDTotal: {},
+
+                CBDSegmentBillList   : [],
+                CBDSegment  : {},
+
+                SMESegmentBillList : [],
+                SMESegment     : {},
+
+                RBDSegmentBillList    : [],
+                RBDSegment         : {},
+
+                CARDSegmentBillList     : [],
+                CARDSegment    : {},
+
+            },
+            created: function () {
+                this.lawyerList = Array.isArray(lawyerList) ? lawyerList: [];
+                this.branchList = Array.isArray(branchList) ? branchList: [];
+            },
+            methods: {
+                searchData: function () {
+                    console.log('button is clicked');
+                        $.ajax({
+                            url: '/legal/report/legal-bill-expense-summary/search?date='+this.selectedMonth+'&branchName='+this.selectedBranch+'&lawyerName='+this.selectedLawyer,
+                            type: 'get',
+                            contentType: 'application/json;charset=UTF-8',
+                            success: function(response) {
+                                legalBillExpenseapp.branchLawyerWiseExpenseList = response.branchLawyerWiseExpenseList;
+
+                                legalBillExpenseapp.CBDSegmentBillList = response.CBDSegmentBill;
+                                legalBillExpenseapp.SMESegmentBillList = response.SMESegmentBill;
+                                legalBillExpenseapp.RBDSegmentBillList = response.RBDSegmentBill;
+                                legalBillExpenseapp.CARDSegmentBillList = response.CARDSegmentBill;
+
+                                legalBillExpenseapp.CBDTotal = response.CBDTotal;
+                                legalBillExpenseapp.SMETotal = response.SMETotal;
+                                legalBillExpenseapp.RBDTotal = response.RBDTotal;
+                                legalBillExpenseapp.CARDTotal = response.CARDTotal;
+                            }
+                        })
+                }
+            }
+        })
+
+        var table;
+        function initTable(id) {
+            return $(id).DataTable( {
+                dom: 'Bfrtip',
+                buttons: ['csv', 'excel'],
+                ordering:false
+            });
+        }
+
+        $(document).ready(function () {
+            araExecutionTable2 = initTable("#branch-lawar-wise-report")
+            araExecutionTable = initTable("#segment-wise-report")
+        })
+
+        // $('body').delegate('.btn-generate-pdf', 'click', () => {
+        //     printElementIncludingStyles('pdf-box')
+        // })
+    </script>
+</div>
+</body>
+</html>

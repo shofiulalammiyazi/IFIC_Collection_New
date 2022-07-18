@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Team Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="teamperformance">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Team Performance</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Total Account for current month :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="sds"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Total Account for last date :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="keptPtp"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Total Account for today :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="cured"></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>RFD Details</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="rfd">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >RFD Details</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+
+                <table  name="letter_info"
+                        class=" table   table-bordered custom_dt">
+                    <thead >
+                    <tr>
+                        <th class="text-center">RFD Name </th>
+                        <th class="text-center">Total Accounts</th>
+                    </tr>
+                    </thead>
+                    <tbody id="rfd_list">
+                    <!--<tr th:each="data,status : ${rfd}">-->
+                    <!--<td class="text-center" th:text="${data.name}"></td>-->
+                    <!--<td class="text-center">2</td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+
+                <table  name="letter_info"
+                        class=" table   table-bordered custom_dt">
+                    <thead >
+                    <tr>
+                        <th class="text-center">Sub RFD Name </th>
+                        <th class="text-center">Total Accounts</th>
+                    </tr>
+                    </thead>
+                    <tbody id="sub_menu_list">
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

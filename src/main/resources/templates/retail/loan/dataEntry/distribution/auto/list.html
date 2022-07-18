@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Auto Distribution Approval</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" id="entity-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Auto Distribution Approval</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="bg-info active">
+                                        <a href="#pending" data-toggle="tab" aria-expanded="false">
+                                            Approval
+                                        </a>
+                                    </li>
+                                    <li class="bg-info">
+                                        <a href="#unallocated" data-toggle="tab" aria-expanded="false">
+                                            Unallocated
+                                        </a>
+                                    </li>
+                                    <!--<li class="bg-info">-->
+                                    <!--<a href="#approval" data-toggle="tab" aria-expanded="true">-->
+                                    <!--Approved-->
+                                    <!--</a>-->
+                                    <!--</li>-->
+                                    <li class="pull-right">
+                                        <button th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/-checker')}"
+                                                @click="approve"
+                                                class="btn btn-sm bg-light-blue-gradient">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span>Approve</span>
+                                        </button>
+                                        <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/redistribute')}"
+                                           href="/retail/loan/data-entry/distribution/auto/redistribute">
+                                            <button class="btn btn-sm bg-red-gradient">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Redistribute</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" style="overflow-y: auto; max-height: 45em">
+                                    <div class="tab-pane active" id="approval">
+                                        <div class="table-responsive">
+                                            <table id="unallocated-list-table"
+                                                   class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-right">SL</th>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Location</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Bucket</th>
+                                                    <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Dealer</th>
+                                                    <th class="text-center">Agency</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr v-for="(account, index) in list">
+                                                    <td class="text-right">{{index+1}}</td>
+                                                    <td class="text-center">
+                                                        <a :href="'/profile/loanprofile/search?account=' + account.accountNo">
+                                                            {{account.accountNo}}
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-left">{{account.location}}</td>
+                                                    <td class="text-left">{{account.productCode}}</td>
+                                                    <td class="text-center">{{account.dpdBucket}}</td>
+                                                    <td class="text-center">{{account.outstanding}}</td>
+                                                    <td class="text-left">
+                                                        <multiselect v-model="tempEmployees[index]"
+                                                                     @input="alocateToEmployee(index)"
+                                                                     placeholder="select Employee"
+                                                                     label="pin" track-by="pin" :options="employeeList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <multiselect v-model="tempAgencies[index]"
+                                                                     @input="alocateToAgency(index)"
+                                                                     placeholder="select Employee"
+                                                                     label="name" track-by="id" :options="agencyList"
+                                                                     :multiple="false" :taggable="true"></multiselect>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var list = /*[[${list}]]*/ [];
+                        var employeeList = /*[[${employeeList}]]*/ [];
+                        var agencyList = /*[[${agencyList}]]*/ [];
+                        /*]]>*/
+
+                        var employeeModel = {
+                            dealerDetails: {},
+                            accountList: [],
+                            totalAccount: 0,
+                            totalOutstanding: 0.0
+                        };
+
+                    </script>
+
+                    <script>
+                        var entityApproval = new Vue({
+                            el: '#entity-approval',
+                            components: {
+                                Multiselect: VueMultiselect.default
+                            },
+                            data: {
+                                list: [],
+                                employeeList: [],
+                                agencyList: [],
+                                tempEmployees: [],
+                                tempAgencies: [],
+                                // isUnallocatAll: false
+                            },
+                            created: function () {
+                                this.list = Array.isArray(list) ? list : [];
+                                this.employeeList = Array.isArray(employeeList) != null ? employeeList : [];
+                                this.agencyList = Array.isArray(agencyList) != null ? agencyList : [];
+                            },
+                            methods: {
+                                approve: function () {
+                                    if (!this.selectedIds.length) {
+                                        swal("Please select employees");
+                                        return;
+                                    }
+                                    var host = window.location.host;
+                                    this.$http.get('https://' + host + '/entity/approve?ids=' + this.selectedIds, {
+                                        credentials: true, headers: {
+                                            'X-CSRF-TOKEN': window.csrfToken,
+                                        }
+                                    }).then(res => {
+                                        if (res.bodyText === 'success') {
+                                            swal({
+                                                title: "Auto Distribution Approval",
+                                                text: "Auto Distribution Successfully Approved",
+                                                type: "success"
+                                            }, function () {
+                                                window.location = "/entity/list/approval";
+                                            });
+                                        }
+                                    }).catch(err => {
+                                        swal("Something went wrong");
+                                        console.log(err);
+                                    })
+                                },
+                                selectAll: function (e) {
+                                    if (e.target.checked) {
+                                        this.list.forEach((element, index) => this.selectedIds.push(index));
+                                    } else {
+                                        this.selectedIds = [];
+                                    }
+                                },
+                                showAccountList: function (index) {
+                                    // $('#allocation-list-table').DataTable().destroy();
+                                    this.currentDealerToShow = this.list[index];
+                                    // setTimeout(this.initializeDataTable('allocation-list-table'), 100);
+                                    $('#modal-account-list').modal('show');
+                                },
+                                alocateToEmployee: function (index) {
+                                    let account = this.list[index];
+                                    let dealer = this.tempEmployees[index];
+                                    account.dealerPin = dealer.pin;
+                                    account.dealerName = dealer.firstName + ' ' + dealer.lastName;
+                                },
+                                alocateToAgency: function (index) {
+                                    let account = this.list[index];
+                                    let agency = this.agencyList[index];
+                                    account.agencyId = agency.id;
+                                },
+                                initializeDataTable: function (tableId) {
+                                    let table = $('#' + tableId).DataTable();
+                                    if (typeof table != 'undefined' && table) table.destroy();
+
+                                    $('#' + tableId).DataTable({
+                                        destroy: true,
+                                        // retrieve: true,
+                                        paging: true,
+                                        "bInfo": false,
+                                        "bLengthChange": false,
+                                    });
+
+                                },
+
+                            }
+                        })
+
+
+                        $(document).ready(function () {
+                            // $('.table').DataTable({
+                            //     "bInfo": false,
+                            //     "bLengthChange": true,
+                            // });
+
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

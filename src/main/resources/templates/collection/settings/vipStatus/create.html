@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title> CustomerType</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:text="${((entity.id != null) ? 'Update' : 'Create') + ' Customer Type'}" class="box-title">
+                                Form
+                            </h3>
+                        </div>
+
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/collection/settings/vip-status/create}" th:object="${entity}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="box-body">
+                                <div class="form-group text-center">
+                                    <label th:if="${error}" class="text-danger" th:text="${error}">Error</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Customer Type</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="divType" class="form-control required"
+                                               th:field="*{name}" placeholder="Customer Type"/>
+                                    </div>
+                                    <label class="col-sm-push-4 col-sm-8 text-danger"
+                                           th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Type Error</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" id="enabled"
+                                                   th:checked="${entity.enabled}" th:value="true">
+                                            Active </input>
+                                            <input type="radio" name="enabled" id="disabled"
+                                                   th:checked="${!entity.enabled}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/settings/vip-status/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

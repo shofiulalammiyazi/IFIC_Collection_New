@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Lawyer</title>
+    <link rel="stylesheet" href="/css/loader/spinner.css"/>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section id="lawyerApp" class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${lawyer.id == null}" class="box-title">Create Lawyer</h3>
+                            <h3 th:if="${lawyer.id}" class="box-title">Update Lawyer</h3>
+                            <button class="btn btn-sm btn-danger pull-right" @click="reset">Reset</button>
+                        </div>
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/legal/setup/lawyer/create}" th:object="${lawyer}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <p th:if="${error}" class="text-center text-danger" id="errorMessage"
+                                       th:text="${error}">Error </p>
+                                    <p th:if="${message}" class="text-center text-success" id="successMessage"
+                                       th:text="${message}">
+                                        Message
+                                    </p>
+                                    <p v-if="errorMessage" class="text-center text-danger text-wrap">
+                                        Something went wrong. Please try reloading the page or login again
+                                    </p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Lawyer's Id: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="5" name="lawyerId"
+                                               class="form-control input-sm required"
+                                               th:required="true"
+                                               th:field="*{lawyerId}" placeholder="Id of lawyer"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('lawyerId')}" th:errors="*{lawyerId}">
+                                        Name Error
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Name: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="6" name="name"
+                                               class="form-control input-sm required"
+                                               th:required="true"
+                                               th:field="*{name}" placeholder="Name of lawyer"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>
+                                </div>
+
+                                <!--Changes made for lawyer table-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">Division </label>-->
+                                <!--<div class="col-sm-6">-->
+                                <!--<select class="form-control required" th:field="*{division}"-->
+                                <!--v-model="lawyer.division" required>-->
+                                <!--<option value=""  :value=null>Select Division</option>-->
+                                <!--<option v-for="division in divisions" value="" :value="division.divId">-->
+                                <!--<span>{{division.divName}}</span>-->
+                                <!--</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">District </label>-->
+                                <!--<div class="col-sm-6">-->
+                                <!--<select class="form-control required" th:field="*{district}"-->
+                                <!--v-model="lawyer.district" required>-->
+                                <!--<option value=""  :value=null>Select District</option>-->
+                                <!--<option v-for="district in districts" value="" :value="district.id">-->
+                                <!--<span>{{district.name}}</span>-->
+                                <!--</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--<div v-show="districtLoading" class="col-sm-1">-->
+                                <!--<div class="wrap-spinner-loading">-->
+                                <!--<div class="spinner-loading spinner-loading-1"></div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">Branch </label>-->
+                                <!--<div class="col-sm-6">-->
+                                <!--<select class="form-control required" th:field="*{branch.branchId}"-->
+                                <!--v-model="lawyer.branch.branchId">-->
+                                <!--<option value="" :value=null>Select Branch</option>-->
+                                <!--<option v-for="branch in branches" value="" :value="branch.branchId">-->
+                                <!--<span>{{branch.branchName}}</span>-->
+                                <!--</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--<div v-show="branchLoading" class="col-sm-1">-->
+                                <!--<div class="wrap-spinner-loading">-->
+                                <!--<div class="spinner-loading spinner-loading-1"></div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Branch</label>
+                                    <div class="col-sm-6">
+                                        <input type="hidden" th:field="*{branchIds}" v-model="getSelectedBranchIds"/>
+                                        <multiselect v-model="selectedBranch" placeholder="Search Branch"
+                                                     label="branchName" track-by="branchId" :options="branches"
+                                                     :multiple="true" :taggable="true" :close-on-select="false"
+                                                     th:required="true"></multiselect>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <span class="btn btn-sm btn-info" @click="selectAllBranch">All</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Phone: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="7" class="form-control input-sm "
+                                               name="phoneNo" id="phone"
+                                               th:field="*{phoneNo}" placeholder="Phone number"
+                                               oninput="validatePhone(this.value, '#phValidMsg')">
+                                        <label id="phValidMsg" class="text-danger"></label>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('phoneNo')}"
+                                           th:errors="*{phoneNo}">Phone Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Mobile: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="8" class="form-control input-sm"
+                                               name="mobileNo" id="mobile"
+                                               th:field="*{mobileNo}" placeholder="Mobile number"
+                                               oninput="validateMobileNo(this.value, '#moValidMsg')">
+                                        <label id="moValidMsg" class="text-danger"></label>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('mobileNo')}"
+                                           th:errors="*{mobileNo}"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Email: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="9" name="email" class="form-control input-sm"
+                                               th:field="*{email}"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Present Address: </label>
+                                    <div class="col-sm-6">
+                                        <textarea type="text" autocomplete="10" name="presentAddress"
+                                                  class="form-control input-sm"
+                                                  th:field="*{presentAddress}"></textarea>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('presentAddress')}" th:errors="*{presentAddress}">
+                                        Name Error
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Chamber Address: </label>
+                                    <div class="col-sm-6">
+                                        <textarea type="text" autocomplete="11" name="chamberAddress"
+                                                  class="form-control input-sm"
+                                                  th:field="*{chamberAddress}"></textarea>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('chamberAddress')}" th:errors="*{chamberAddress}">
+                                        Chamber address Error
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">
+                                        Court Jurisdiction:
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" autocomplete="12" name="courtJurisdiction"
+                                               class="form-control input-sm"
+                                               th:field="*{courtJurisdiction}"/>
+                                    </div>
+                                    <label class="col-sm-10 text-right text-danger"
+                                           th:if="${#fields.hasErrors('courtJurisdiction')}"
+                                           th:errors="*{courtJurisdiction}"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="enabled">
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${lawyer.enabled ==true}" th:value="true"> Active</input>
+                                            <input type="radio" name="enabled"
+                                                   th:checked="${lawyer.enabled ==false}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm" id="btnSave">Save</button>
+                                <a type="submit" class="btn btn-danger btn-sm"
+                                   href="/legal/setup/lawyer/list">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var branches = /*[[${branches}]]*/ [];
+            var selectedBranch = /*[[${lawyer.branch}]]*/ [];
+            /*]]>*/
+
+            setWindowFocusLossNotification("Please save changes before leaving the page");
+
+        </script>
+
+        <script th:inline="javascript">
+            var lawyerApp = new Vue({
+                el: '#lawyerApp',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    districtLoading: false,
+                    branchLoading: false,
+                    divisions: /*[[${divisionList}]]*/,
+                    districts: [],
+                    branches: [],
+                    selectedBranch: [],
+                    lawyer: /*[[${lawyer}]]*/,
+                    errorMessage: false
+                },
+                created: function(){
+                    this.branches = Array.isArray(branches) ? branches : [];
+                    this.selectedBranch = Array.isArray(selectedBranch) ? selectedBranch : [];
+                },
+                computed: {
+                    // divisionId: function () {
+                    //     return this.lawyer.division;
+                    // },
+                    // districtId: function () {
+                    //     return this.lawyer.district;
+                    // },
+                    getSelectedBranchIds: function () {
+                        return this.selectedBranch.map(value => value.branchId);
+                    }
+                },
+                watch: {
+                    // divisionId: function () {
+                    //     this.getDistricts(this.lawyer.division);
+                    // },
+                    // districtId: function () {
+                    //     this.getBranches(this.lawyer.district);
+                    // },
+                },
+                methods: {
+                    selectAllBranch: function () {
+                        this.selectedBranch = $.extend(true, {}, this.branches);
+                    },
+                    reset: function () {
+                        clearFormFieldValuesFocused('lawyerApp');
+                        this.selectedBranch = [];
+                    },
+                    // getDistricts: function (divisionId) {
+                    //     if (!divisionId) return;
+                    //     let vm = this;
+                    //     vm.districtLoading = true;
+                    //     let host = window.location.host;
+                    //     let url = '/collection/district/listbydivision?divisionId=' + divisionId;
+                    //     vm.$http.get(url)
+                    //         .then(res => {
+                    //         if(res.ok)
+                    //         {
+                    //             let contentType = res.headers.get("Content-Type");
+                    //             if (contentType.includes("text/html")) {
+                    //                 vm.errorMessage = true;
+                    //                 return;
+                    //             }
+                    //             vm.districts = res.body;
+                    //             vm.districtLoading = false;
+                    //         }
+                    //         }).catch(err => {
+                    //             console.log(err);
+                    //         })
+                    // },
+                    // getBranches: function (districtId) {
+                    //     if (!districtId) return;
+                    //     let vm = this;
+                    //     vm.branchLoading = true;
+                    //     let host = window.location.host;
+                    //     let url = '/branch/listbydistrict?districtId=' + districtId;
+                    //     vm.$http.get(url)
+                    //         .then(res => {
+                    //             if(res.ok){
+                    //                 let contentType = res.headers.get("Content-Type");
+                    //                 if (contentType.includes("text/html")) {
+                    //                     vm.errorMessage = true;
+                    //                     return;
+                    //                 }
+                    //                 vm.branches = res.body;
+                    //                 vm.branchLoading = false;
+                    //             }
+                    //         }).catch(err => {
+                    //             console.log(err);
+                    //         })
+                    // }
+                },
+                mounted: function () {
+                    // let id = this.lawyer.division;
+                    // if (id) this.getDistricts(id);
+                    // id = this.lawyer.district;
+                    // if (id) this.getBranches(id);
+                }
+            });
+
+        </script>
+
+        <script>
+            function validateMobileNo(mobileNo, elementId) {
+                if (!mobileNo) {
+                    $(elementId).html("");
+                    $("#btnSave").attr("disabled", false);
+                } else {
+                    var pattern = /^((\+|00)?88)?[- ]?0[- ]?(1[3-9]\d{2}[- ]?\d{6})(-\d)?$/;
+                    let valid = mobileNo.match(pattern);
+                    $(elementId).html(valid ? "" : "Not a valid mobile number yet");
+                    $("#btnSave").attr("disabled", !valid);
+                }
+            }
+
+            function validatePhone(phoneno, elementId) {
+                if (!phoneno) {
+                    $(elementId).html("");
+                    $("#btnSave").attr("disabled", false);
+                } else {
+                    var pattern = /^((\+|00)?88)?0(\d{8,10})(-\d)?$/;
+                    let valid = phoneno.match(pattern);
+                    $(elementId).html(valid ? "" : "Not a valid mobile number yet. Only digits and '+' allowed. Hyphen '-' is allowed only to add an extra number at the end. For example, +880XXXXXXXXXX-X");
+                    $("#btnSave").attr("disabled", !valid);
+                }
+            }
+        </script>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

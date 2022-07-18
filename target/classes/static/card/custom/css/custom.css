@@ -1,0 +1,1012 @@
+/*body {
+	font-family: 'Lato', sans-serif;
+}*/
+
+.required:after{
+	content: " *";
+	color: #e32;
+	display: inline;
+	font-size: 15px;
+}
+
+.custom-details-lebel-left {
+	padding-left: 0;
+	padding-right: 7px;
+	/*font-weight: normal;*/
+}
+.custom-details-lebel-left {
+	color: #434a54 !important;
+	text-align: right;
+}
+.top-buffer {
+	margin-top: 5px;
+}
+div.top-buffer > .input-group-date {
+	float: left !important;
+}
+
+.comment-right-margin{
+	margin-right: 20px !important;
+}
+.view-details-header{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:first-child>.btn-group:not(:first-child)>.btn, .input-group-btn:first-child>.btn:not(:first-child), .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group>.btn, .input-group-btn:last-child>.dropdown-toggle {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn-group:not(:last-child)>.btn, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.crg-grade-status{
+	border: 4px double;
+	height: 42px;
+	margin: 25px;
+}
+
+.crg-grade-status>h2{
+	text-align: center;
+}
+
+.tab-button-circle{
+	border-radius: 100px !important;
+	height: 45px;
+	width: 45px;
+	display: inline-grid;
+	margin-top: 15px;
+}
+
+a.tab-button-circle>p{
+	font-size: 32px;
+}
+
+nav-sidebar{
+	background-color:#434a54;
+}
+
+nav-manu-header{
+	background: #08201d;
+	padding: 3px 15px 3px 15px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+
+/* .................Design by Riaz Sagar Start........................ */
+.csi-layout-form-panel-sp .bhoechie-tab-menu {
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 15px 15px 35px 15px;
+	/*background: #4682b4;*/
+	/*background: #90b4d2;*/
+	background: rgb(189, 206, 212);
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .list-group {
+	width: 100%;
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 {
+	/* text-align: center; */
+}
+/*.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a {*/
+	/*display: inline-block;*/
+	/*background: transparent;*/
+	/*color: #07314a;*/
+	/*border: 0;*/
+	/*border-radius: 4px;*/
+	/*font-weight: 400;*/
+	/*padding: .6rem .7rem;*/
+/*}*/
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a {
+	display: inline-block;
+	background: transparent;
+	color: #07314a;
+	font-weight: 400;
+	padding: .4rem .4rem;
+	margin-bottom: 4px;
+	border: none;
+	radius:4px;
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a p {
+	margin: 0;
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a abbr {
+	margin: 0;
+	cursor: pointer;
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a:hover {
+	color: #07314a;
+}
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a.active,
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a:focus {
+	color: #fff;
+	background: rgb(189, 206, 212);
+	border: 0;
+	border-bottom-color: transparent;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+	border-radius: 4px;
+}
+
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab {
+
+}
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab .bhoechie-tab-content {
+	padding-left: 0;
+}
+
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a.active,
+.csi-layout-form-panel-sp .bhoechie-tab-menu .csi-list-group1 a:focus {
+	/*color: #fff;
+	background: #4682b4;*/
+	color: #FFF;
+	background: rgba(232, 58, 15, 0.72);
+	border: 0;
+	border-bottom-color: transparent;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+	border-radius: 4px;
+}
+
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab .nav-tabs {
+	background: #cedcea;
+	margin-top: -35px;
+	padding: 10px;
+	-webkit-box-shadow: -1px 1px 11px 5px rgba(11,68,102,0.2);
+	box-shadow: -1px 1px 11px 5px rgba(11,68,102,0.2);
+	padding-bottom: 2rem;
+}
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab .nav-tabs li a {
+	background: transparent;
+	color: #4682b4;
+	color: #135c87;
+	border: 0;
+	border-radius: 4px;
+	padding: 1rem 2rem;
+	/*padding: .8rem .8rem;*/
+}
+
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab .nav-tabs li.active a {
+	background: rgba(232, 58, 15, 0.72);
+	color: #cedcea;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.csi-layout-form-panel-sp .csi-preview-bhoechie-tab .csi-nav-tabs-last {
+	margin-top: 0;
+	background: #fff;
+	margin-left: 15px;
+	margin-right: 15px;
+	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+	border-bottom: 0;
+}
+
+.csi-layout-form-panel-sp .content {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+}
+.csi-layout-form-panel-sp .csi-box-body {
+	padding-top: 0;
+}
+.sidebar-left-scroll,
+.content-midle-scroll,
+.sidebar-right-scroll {
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-top: 10px;
+}
+
+.sidebar-left-scroll .theiaStickySidebar .csi-preview-box,
+.sidebar-right-scroll .theiaStickySidebar .csi-preview-box {
+	min-height: 650px;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+.csi-preview-content {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 0;
+	padding-top: 45px;
+}
+
+
+.details-top {
+	padding: 5px 10px;
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+.details-top .logo {
+	/*margin-top: 5px;*/
+	display: block;
+}
+.csi-topbar-heading {
+	text-align: center;
+}
+.csi-topbar-heading .view-details-header {
+	font-size: 21px;
+	color: #cedcea;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-bottom: 0;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.csi-topbar-menu-area {
+	display: flex;
+	float: left;
+	width: 47%;/* mim */
+}
+.csi-topbar-menu-area .csi-topbar-heading {
+	flex: 1;
+}
+.csi-topbar-menu-area .csi-topbar-heading,
+.csi-topbar-menu-area .csi-topbar-menu-right {
+	float: left;
+}
+.csi-topbar-menu-area .csi-topbar-heading {
+	width: 70%;
+}
+.csi-topbar-menu-area .csi-topbar-menu-right {
+	width: 30%;
+}
+
+
+.csi-topbar-menu-area .csi-topbar-menu-right ul li a {
+	color: #cedcea;
+	text-transform: uppercase;
+	margin-top: 1rem;
+	display: inline-block;
+}
+
+.csi-main-header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	/*background: #4682b4;*/
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	/*padding: .5rem 1rem;*/
+}
+
+.loandetail-footer-sp {
+	margin: 10px;
+	background: #cedcea;
+	text-align: center;
+	padding: 10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	-moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+.loandetail-footer-sp a,
+.loandetail-footer-sp i {
+	color: #4682b4;
+	font-weight: 700;
+}
+
+.csi-preview-form .box-title {
+	margin: 2rem 0 1.2rem;
+}
+
+
+.csi-preview-form {
+
+}
+.csi-preview-form .table-bordered>thead>tr>th,
+.csi-preview-form .table-bordered>thead>tr>td {
+	border-bottom-width: 2px;
+	border: 1px solid #ddd !important;
+	border-bottom: 2px solid #fff !important;
+	background: #ddd;
+	padding: 10px;
+}
+
+.csi-preview-form .csi-form-sp {
+	margin-bottom: 2rem;
+	display: block;
+	overflow: hidden;
+}
+
+.csi-preview-form .viewHideSancP,
+.csi-preview-form .viewHideSancOther {
+	background: #fff;
+	/* margin-top: 2rem; */
+}
+
+
+.box.box-solid.box-primary>.box-header {
+	color: #fff;
+	background: #cedcea;
+	background-color: #cedcea;
+}
+
+
+.csi-preview-box {
+	padding: 10px;
+}
+
+.sidebar-left-scroll,
+.sidebar-right-scroll {
+
+}
+.sidebar-right-scroll {
+
+}
+
+.csi-preview-form {
+
+}
+.csi-preview-form .csi-form-group {
+	display: flex;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 0;
+}
+.csi-preview-form .csi-form-group .control-label,
+.csi-preview-form .csi-form-group .form-control {
+	flex:1;
+}
+.csi-preview-form .csi-form-group .control-label-sp {
+	font-weight: 400;
+	color: #555;
+}
+.csi-preview-form .csi-form-group .control-label {
+	padding-right: 10px;
+	text-align: left;
+}
+.csi-preview-form .csi-form-group .form-control {
+	background: transparent;
+	border: none;
+}
+.content-midle-scroll .details-view-only .remove-border-top,
+.content-midle-scroll .generalView-div {
+	background: #cedcea;
+	border-radius: 0;
+	border-top: 0;
+}
+.content-midle-scroll #layout-general {
+	/* border-top: 0; */
+}
+
+/*.content {*/
+	/*padding: 0;*/
+	/*padding-left: 15px;*/
+	/*padding-right: 15px;*/
+/*}*/
+.loandetail-footer-sp {
+	margin: 0;
+}
+
+.tab-content .box-header {
+	background: transparent;
+}
+
+.csi-box-body-none {
+	padding: 0;
+}
+
+/* ..................Design by Riaz Sagar End....................... */
+
+.loandetail-area-sp .loancaseentry-sp .loan-init-details-sp-inner {
+
+	/*background: #cedcea;*/
+	/* background: red; */
+	overflow: hidden;
+	padding: 20px 10px;
+	/*margin-bottom: 30px;*/
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+
+}
+
+.csi-topbar-menu-area .csi-topbar-menu-left ul .btn {
+	padding: .6rem 1.5rem;
+	background: #1d6b99;
+	font-weight: 700;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left ul .btn-edit {
+	background: #dd4b39 ;
+}
+
+.custom-form-lebel {
+	font-size: 14px !important;
+	color: #434a54 !important;
+}
+.custom-form-lebel {
+	font-size: 12px;
+	font-weight: normal;
+	color: #3C8DBC;
+	padding-right: 7px;
+}
+.custom-details-lebel-right {
+	text-align: right;
+	padding-left: 0;
+	padding-right: 7px;
+	color: #434a54;
+}
+
+
+/******************** error div ***********************  */
+.error {
+	color:red;
+
+}
+
+#creditAssement-modal .modal-content {
+	top: 14rem;
+}
+.modal-backdrop.in {
+	display:none;
+}
+
+
+.csi-topbar-menu .csi-topbar-menu-left ul li a {
+	/*color: #cedcea;*/
+	/*text-transform: uppercase;*/
+	/*font-weight: 700;*/
+	/*margin-top: 3px;*/
+	display: inline-block;
+}
+.csi-topbar-menu .csi-topbar-menu-left ul li a:hover {
+	/*background:transparent;*/
+}
+
+/****************************************/
+.custom-tabs > li > a {
+	line-height: 0.428571;
+	border-radius: 20px 0px 25px 0;
+}
+/* Tab Design */
+.csi-nav-tabs-main {
+	background: #4682b4;
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-top: -15px;
+	padding: 15px;
+	padding-bottom: 50px;
+	border-radius: 6px 6px 0 0;
+}
+
+
+.csi-nav-tabs-main li a {
+	color: #cedcea;
+	/* margin-top: 5px; */
+	margin-bottom: 5px;
+}
+.nav-tabs li a abbr[title],
+.nav-tabs li a acronym[title] {
+	text-decoration: none !important;
+}
+.loandetail-area-sp .loancaseentry-sp .custom-form-sub-header a {
+	padding: 18px 13px;
+}
+.csi-nav-tabs-main li.active a,
+.csi-nav-tabs-main li.active a:focus,
+.csi-nav-tabs-main li.active a:hover
+{
+	color: #4682b4;
+	background-color: #cedcea;
+	border: 0;
+	border-bottom-color: transparent;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+}
+
+
+.nav-tabs-thead {
+	background: #cedcea;
+	margin: 0;
+	margin-top: -48px;
+	padding: 10px 15px;
+	padding-bottom: 50px
+}
+
+.nav-tabs-thead li a {
+	color: #4682b4;
+	/* margin-top: 5px; */
+	margin-bottom: 5px;
+}
+.nav-tabs-thead li.active a,
+.nav-tabs-thead li.active a:focus,
+.nav-tabs-thead li.active a:hover,
+.csi-nav-tabs-secondary li.active a,
+.csi-nav-tabs-secondary li.active a:focus,
+.csi-nav-tabs-secondary li.active a:hover
+{
+	color: #ffffff !important;
+	background: #4682b4 !important;
+	border: 0;
+	border-bottom-color: transparent !important;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+}
+
+.csi-nav-tabs-secondary {
+	background: #fff !important;
+	padding: 10px !important;
+	margin: 0 15px !important;
+	margin-top: -8px !important;
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.1);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.1);
+	box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+.csi-nav-tabs-secondary li a {
+	color: #4682b4 !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+	padding: 13px 10px !important;
+}
+/* Tab Design End*/
+
+.loandetail-area-sp .tab-pane .box-header .box-title {
+	font-size: 17px;
+	color: #4682b4;
+}
+
+.box-header-sp {
+	margin-top: 5px !important;
+}
+
+.loandetail-footer-sp {
+	margin: 10px;
+	background: #cedcea;
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 0;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	-moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+.loandetail-footer-sp a,
+.loandetail-footer-sp i {
+	color: #4682b4;
+	font-weight: 700;
+}
+
+.csi-loan-caseentry-box {
+	/* background: red; */
+	/* padding: 0 10px; */
+	padding-left: 15px;
+}
+.box-header .custom-form-header {
+	margin-top: 50px;
+	padding-left: 15px;
+}
+#losPreview {
+	margin-top: -35px;
+	margin-bottom: 15px;
+}
+.csi-loan-caseentry-box .custom-form-control {
+	width: 15.5%;
+}
+
+/* .................2nd Time Design by Riaz Sagar Start........................ */
+.loancaseentry-sp {
+	padding-left: 0;
+	padding-right: 0;
+	/* background: red; */
+	overflow: hidden;
+}
+
+.theiaStickySidebar.loancaseentry-sp {
+	background: transparent ;
+	padding: 0;
+}
+
+.loandetail-area-sp .loan-details-left-side-sp .loan-details-left-side-sp-inner,
+.loandetail-area-sp .loan-details-right-side-sp .document-sp-main {
+	background: #ffffff;
+	padding: 15px 10px !important;
+	min-height: 630px;
+}
+
+
+.loancaseentry-sp #all-loan-info {
+	/* background: green; */
+	/* box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    padding: 15px; */
+}
+
+.loancaseentry-sp .csi-loan-details-group {
+	/* background: red ;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14); */
+	/* padding: 15px; */
+	display: block;
+}
+
+
+
+
+
+.loandetail-area-sp .box.box-solid.box-primary > .box-header {
+	background: #4682b4;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	border-radius: 6px 6px 0 0;
+	-webkit-transition: all .3s ease-in-out 0s;
+	-moz-transition: all .3s ease-in-out 0s;
+	-o-transition: all .3s ease-in-out 0s;
+	transition: all .3s ease-in-out 0s;
+}
+
+.loandetail-area-sp .box-header .box-title {
+	/*color: #ffffff;*/
+}
+
+.loandetail-area-sp .collapsed-box .box-header .box-title {
+	color: #4682b4;
+}
+
+
+.loandetail-area-sp .box.direct-chat-primary.collapsed-box > .box-header {
+	background: #cedcea;
+	border-radius: 4px;
+}
+
+.loan-init-details-sp, .document-sp-main,
+.loan-details-left-side-sp-inner {
+	/*box-shadow: -1 1px 4px 0 rgba(0, 0, 0, 0.14);*/
+	background: #fff;
+	/* padding: 15px; */
+}
+.loan-init-details-sp .docTableHeading {
+	background-color: #fff;
+	color: #4682b4;
+}
+.loan-details-right-side-sp .docTableHeading {
+	background-color: #cedcea;
+	margin-top: 5px;
+	color: #4682b4;
+	border-radius: 4px;
+}
+
+.details-top {
+	padding: 5px 10px;
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+.details-top .logo {
+	/*margin-top: 5px;*/
+	display: block;
+}
+.csi-topbar-heading h3 {
+	font-size: 21px;
+	color: #cedcea;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-bottom: 0;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.csi-topbar-menu-area .csi-topbar-menu-left ul .btn {
+	padding: .6rem 1.5rem;
+	background: #1d6b99;
+	font-weight: 700;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left ul .btn-edit {
+	background: #dd4b39 ;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left ul li {
+	padding-right: 1px;
+	padding-left: 1px;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left a i {
+	color: #cedcea;
+	display: none;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left a:hover {
+	position: relative;
+}
+.csi-topbar-menu-area .csi-topbar-menu-left a:hover i {
+	position: absolute;
+	opacity: 0;
+	transition: all .5s linear ;
+	background: #4682b4;
+	padding: 2px 10px;
+	border-radius: 4px;
+	top: 45px;
+	right: 0;
+	opacity: 1;
+	display: block;
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.2);
+	box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+.csi-topbar-menu-area .csi-topbar-menu-right {
+	margin-right: 8px;
+}
+.csi-topbar-menu-area .csi-topbar-menu-right ul li a {
+	color: #cedcea;
+	text-transform: uppercase;
+	font-weight: 400;
+	margin-top: 3px;
+	display: inline-block;
+}
+
+
+/* Tab Design */
+.csi-nav-tabs-main {
+	background: #4682b4;
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-top: -15px;
+	padding: 15px;
+	padding-bottom: 50px;
+	border-radius: 6px 6px 0 0;
+}
+
+
+.csi-nav-tabs-main li a {
+	color: #cedcea;
+	/* margin-top: 5px; */
+	margin-bottom: 5px;
+}
+.nav-tabs li a abbr[title],
+.nav-tabs li a acronym[title] {
+	text-decoration: none !important;
+}
+.loandetail-area-sp .loancaseentry-sp .custom-form-sub-header a {
+	padding: 18px 13px;
+}
+.csi-nav-tabs-main li.active a,
+.csi-nav-tabs-main li.active a:focus,
+.csi-nav-tabs-main li.active a:hover
+{
+	color: #4682b4;
+	background-color: #cedcea;
+	border: 0;
+	border-bottom-color: transparent;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+}
+
+
+.nav-tabs-thead {
+	background: #cedcea;
+	margin: 0;
+	margin-top: -48px;
+	padding: 10px 15px;
+	padding-bottom: 50px
+}
+
+.nav-tabs-thead li a {
+	color: #4682b4;
+	/* margin-top: 5px; */
+	margin-bottom: 5px;
+}
+/*.nav-tabs-thead li.active a,
+.nav-tabs-thead li.active a:focus,
+.nav-tabs-thead li.active a:hover,
+.csi-nav-tabs-secondary li.active a,
+.csi-nav-tabs-secondary li.active a:focus,
+.csi-nav-tabs-secondary li.active a:hover
+{
+	color: #ffffff;
+	background: #4682b4 !important;
+	border: 0;
+	border-bottom-color: transparent;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+	outline: 0;
+}
+
+.csi-nav-tabs-secondary {
+	background: #fff;
+	padding: 10px;
+	margin: 0 15px;
+	margin-top: -48px;
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,.1);
+	-moz-box-shadow: 0 4px 10px rgba(0,0,0,.1);
+	box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+.csi-nav-tabs-secondary li a {
+	color: #4682b4;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 13px 10px !important;
+}*/
+/* Tab Design End*/
+
+.loandetail-area-sp .tab-pane .box-header .box-title {
+	font-size: 17px;
+	color: #4682b4;
+}
+
+.box-header-sp {
+	margin-top: 5px !important;
+}
+
+.loandetail-footer-sp {
+	margin: 10px;
+	background: #cedcea;
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 0;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	-moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+.loandetail-footer-sp a,
+.loandetail-footer-sp i {
+	color: #4682b4;
+	font-weight: 700;
+}
+
+.csi-loan-caseentry-box {
+	/* background: red; */
+	/* padding: 0 10px; */
+	padding-left: 15px;
+}
+.box-header .custom-form-header {
+	margin-top: 50px;
+	padding-left: 15px;
+}
+#losPreview {
+	margin-top: -35px;
+	margin-bottom: 15px;
+}
+.csi-loan-caseentry-box .custom-form-control {
+	width: 15.5%;
+}
+
+
+/* Collection Monitoring */
+.csi-loandetail-area-new {
+
+}
+
+.csi-loandetail-area-new .loancaseentry-sp .box.box-solid.box-primary > .box-header {
+	background: #cedcea;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	border-radius: 0;
+	-webkit-transition: all .3s ease-in-out 0s;
+	-moz-transition: all .3s ease-in-out 0s;
+	-o-transition: all .3s ease-in-out 0s;
+	transition: all .3s ease-in-out 0s;
+	color: #fff;
+}
+
+.csi-loandetail-area-new .loancaseentry-sp {
+	background: #fff;
+	padding: 15px 15px;
+}
+
+.csi-loandetail-area-new .loancaseentry-sp .loan-init-details-sp {
+	margin: 5px;
+}
+
+.csi-loandetail-area-new .loancaseentry-sp .box-header .box-title {
+	color: #4682b4;
+}
+
+.csi-loandetail-area-new .loancaseentry-sp .box.box-solid.box-primary.collapsed-box .box-header {
+	background: #4682b4;
+}
+
+.csi-loandetail-area-new .loancaseentry-sp .collapsed-box .box-header .box-title {
+	color: #ffffff;
+}
+/* Collection Monitoring End*/
+
+.logo img {
+	max-height: 45px;
+}
+.csi-box-sp {
+	overflow: hidden;
+}
+
+.document-sp .table tbody td .csi-btn-verify {
+	color: #fff;
+	background-color: #4682b4 !important;
+	border-color: #1b6d85 !important;
+	padding: 11px 15px !important;
+	margin: 10px 10px 0 0 !important;
+}
+
+
+/* here for Loan Search calendar work started */
+.ui-datepicker-calendar {
+	/* width: 30%;
+    background-color: #f7f7f7; */
+	/* display: none !important; */
+}
+.ui-datepicker-header{
+	/* width: 37%;
+    background-color: #f7f7f7;
+    text-align: center; */
+}
+.ui-icon-circle-triangle-e {
+	float: right;
+}
+.ui-icon-circle-triangle-w {
+	float: left;
+}
+.ui-icon-circle-triangle-e:hover,
+.ui-icon-circle-triangle-w:hover {
+	cursor: pointer;
+}
+.ui-datepicker-title {
+	text-align: center;
+	font-weight: 700;
+}
+#ui-datepicker-div {
+	/* position: absolute;
+    top: 100%;
+    left: 0; */
+	z-index: 99999;
+	/* float: left; */
+	/* display: none; */
+	max-width: 280px;
+	list-style: none;
+	background-color: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	color: #333333;
+	font-size: 13px;
+	line-height: 1.428571429;
+	padding: 10px;
+	z-index: 9999999 !important;
+}
+#ui-datepicker-div tr td a {
+	color: #333;
+	padding: 5px;
+	border-radius: 6px;
+}
+
+#ui-datepicker-div tr td a:hover {
+	background: rgba(0,0,0,0.2);
+}
+#ui-datepicker-div tr td {
+	padding: 5px;
+}
+/* here for Loan Search calendar work End */
+
+.csi-layout-form-panel-sp {
+	min-height: 1000px;
+}
+
+img,
+iframe {
+	max-width: 100% !important;
+}
+
+#idiv iframe#iframe {
+	min-height: 200px !important;
+	height: 100% !important;
+	border: 5px solid #cedcea;
+}
+
+.sidebar-right-scroll .table-bordered>thead>tr>th,
+.sidebar-right-scroll .table-bordered>tbody>tr>th,
+.sidebar-right-scroll .table-bordered>tfoot>tr>th,
+.sidebar-right-scroll .table-bordered>thead>tr>td,
+.sidebar-right-scroll .table-bordered>tbody>tr>td,
+.sidebar-right-scroll .table-bordered>tfoot>tr>td {
+	border: 1px solid #cedcea;
+}
+.csi-view-form-group label {
+	/*line-height: 17px;*/
+	/*font-size: 13px;*/
+}
+
+/* ..................2nd Time Design by Riaz Sagar End....................... */

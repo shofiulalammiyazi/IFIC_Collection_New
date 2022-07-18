@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Probable NPL account rule-Card</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Probable NPL account rule-Card List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/npl_queue_acc_rule_card/create}"><span class="glyphicon glyphicon-plus"> </span> Add NPL Queue Account Rule</a>
+                            <table th:if="${nplQueueList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Product Type</th>
+                                    <th>Bucket</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="rule,status : ${nplQueueList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+													<span th:each="prod: ${rule.productTypeList}">
+														<label th:text="${prod.name}+','"></label>
+													</span>
+                                    </td>
+                                    <td>
+													<span th:each="dpd: ${rule.ageCodeList}">
+														<label th:text="${dpd.name}+','"></label>
+													</span>
+                                    </td>
+
+                                    <td>
+                                        <span th:if="${rule.enabled == true}" th:text="Active"></span>
+                                        <span th:if="${rule.enabled == false}" th:text="Inactive"></span>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" th:href="@{/collection/npl_queue_acc_rule_card/edit(id=${rule.id})}"><i class="fa fa-edit"></i>Edit</a>
+                                        <!--<a class="btn btn-xs" th:href="@{/collection/npl_queue_acc_rule/view(id=${rule.id})}"><i class="fa fa-edit"></i>View</a>-->
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

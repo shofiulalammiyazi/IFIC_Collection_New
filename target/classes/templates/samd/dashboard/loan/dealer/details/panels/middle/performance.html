@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Performance</title>
+
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="performance">
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Performance</h3>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="performance">
+            <div>
+                <table class="table table-condensed table-bordered custom_dt dataTable" id="performance_tbl">
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="text-center" rowspan="2">Performance Achievement</th>
+                        <th class="text-center" rowspan="2">Last month rating</th>
+                        <th class="text-center" colspan="2">Remaining PAR</th>
+                        <th class="text-center" colspan="2">Remaining NPL</th>
+                        <th class="text-center" colspan="2">Remaining PAR Que</th>
+                        <th class="text-center" colspan="2">Remaining NPL Que</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Account</th>
+                        <th class="text-center">OS-Outstanding</th>
+                        <th class="text-center">Account</th>
+                        <th class="text-center">OS-Outstanding</th>
+                        <th class="text-center">Account</th>
+                        <th class="text-center">OS-Outstanding</th>
+                        <th class="text-center">Account</th>
+                        <th class="text-center">OS-Outstanding</th>
+                    </tr>
+                    </thead>
+                    <tbody id="performance_tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#tab-shortfall-details").click(function () {
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin = $("#globalUserPinForSummary").val();
+            var unit = $("#globalUnitForSummary").val();
+            var designation = $("#globalUserDesignationForSummary").val();
+            var userId = $("#globalUserIdForSummary").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/collection/samd/loan/dashboard/performance",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                data: {
+                    userPin: userPin,
+                    unit: "SAM",
+                    designation: designation,
+                    userId: userId
+                },
+                success: function (data) {
+
+                    $("#performance_tbody").html("");
+                    var tr = '';
+
+                    tr = tr + '<tr >\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].performanceAchievement == null ? 0 : data[i].performanceAchievement) + '</td>\n' +
+                        '<td class="text-left">' + data[i].lastMonthRating + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingParAccount == null ? 0 : data[i].remainingParAccount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingParAmount == null ? 0 : data[i].remainingParAmount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingNplAccount == null ? 0 : data[i].remainingNplAccount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingNplAmount == null ? 0 : data[i].remainingNplAmount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingParQueAccount == null ? 0 : data[i].remainingParQueAccount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingParQueAmount == null ? 0 : data[i].remainingParQueAmount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingNplQueAccount == null ? 0 : data[i].remainingNplQueAccount) + '</td>\n' +
+                        '<td class="text-right">' + formatBdtInEnglish(data[i].remainingNplQueAmount == null ? 0 : data[i].remainingNplQueAmount) + '</td>\n' +
+                        '</tr>';
+
+                    $("#performance_tbody").append(tr);
+                }
+            })
+        })
+    </script>
+</div>
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>File Follow Up</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="filefollowup">
+    <style>
+        .opacity-loading {
+            width: auto;
+            height: auto;
+            border-radius: 100%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .opacity-loading-1 span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background-color: #3498db;
+            margin: 0px 5px;
+            opacity: 0;
+        }
+
+        .opacity-loading span:nth-child(1) {
+            animation: opacitychange 1s ease-in-out infinite;
+        }
+
+        .opacity-loading span:nth-child(2) {
+            animation: opacitychange 1s ease-in-out 0.33s infinite;
+        }
+
+        .opacity-loading span:nth-child(3) {
+            animation: opacitychange 1s ease-in-out 0.66s infinite;
+        }
+
+        @keyframes opacitychange {
+            0%, 100% {
+                opacity: 0;
+            }
+
+            60% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <div id="fileFollowUpApp" class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <!--<h3 class="box-title">File Follow Up </h3>-->
+            <!--onclick="fileFollowData()"-->
+            <div v-show="!newFileFollowUp.id" class="text-center" style="margin-top: 50px">
+                <button id="addfilefollowup" class=" btn btn-md btn-primary center"
+                        data-toggle="modal" data-target="#modal-filefollowup">
+                    <i class="fa fa-plus-square"></i>
+                    <span>Create File Follow Up</span>
+                </button>
+            </div>
+
+            <a v-show="fileFollowUps.length > 0" id="filefollowuphistory" @click="showTable=!showTable"
+               class=" btn btn-xs btn-primary pull-right">
+                {{(showTable)?'Hide Previous Changes':'View Previous Changes'}}
+            </a>
+        </div>
+
+        <div class="modal fade" id="modal-filefollowup">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="text-align: center">File Follow Up</h4>
+                    </div>
+                    <form id="loan_file_follow_up_Form" action="" method="post" class="form-horizontal">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">LD No.: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.ldNo"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="hide" v-model="newFileFollowUp.branchCode"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Date of File transfer to SAMD (Legal wing):
+                                </label>
+                                <div class="col-sm-4">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text"
+                                               v-model="newFileFollowUp.fileTransferToSAMD"
+                                               name="fileTransferToSAMD"
+                                               class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Branch name: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.branchName" placeholder="Enter branch name"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Account name: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.accountName" placeholder="Enter account name"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Borrower name: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.borrowerName" placeholder="Enter borrower name"/>
+                                    <input type="hidden" class="hide"
+                                           v-model="newFileFollowUp.customerMobileNumber"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Customer CIF Number: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.customerCifNumber"
+                                           placeholder="Enter Customer CIF Number"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Customer Account Number: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.customerAccountNumber"
+                                           placeholder="Enter Customer Account Number" disabled/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Business Segment: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control input-sm"
+                                           v-model="newFileFollowUp.businessSegment"
+                                           placeholder="Enter Business Segment"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Legal Notice Served For Artharin Suit
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="lnsfas"
+                                            v-model="newFileFollowUp.legalNoticeServedForArtharinSuit"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.legalNoticeServedForArtharinSuit,
+                                                'dateOfLegalNoticeServedForArtharinSuit'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-5"
+                                     v-show="newFileFollowUp.legalNoticeServedForArtharinSuit"
+                                     id="dateOfLegalNoticeServedForArtharinSuit">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text"
+                                                   v-model="newFileFollowUp.dateOfLegalNoticeServedForArtharinSuit"
+                                                   name="dateOfLegalNoticeServedForArtharinSuit"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Legal notice served for u/s 138 of N.I Act
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="lnsfnia"
+                                            v-model="newFileFollowUp.legalNoticeServedForUS138OfNIAct"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.legalNoticeServedForUS138OfNIAct,
+                                                'dateOfLegalNoticeServedForUS138OfNIAct'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-5"
+                                     v-show="newFileFollowUp.legalNoticeServedForUS138OfNIAct"
+                                     id="dateOfLegalNoticeServedForUS138OfNIAct">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text"
+                                                   v-model="newFileFollowUp.dateOfLegalNoticeServedForUS138OfNIAct"
+                                                   name="dateOfLegalNoticeServedForUS138OfNIAct"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction Notice Published
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="anp"
+                                            v-model="newFileFollowUp.auctionNoticePublished"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.auctionNoticePublished,
+                                                'dateOfAuctionNoticePublished'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5" id="dateOfAuctionNoticePublished"
+                                     v-show="newFileFollowUp.auctionNoticePublished">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text"
+                                                   v-model="newFileFollowUp.dateOfAuctionNoticePublished"
+                                                   name="dateOfAuctionNoticePublished"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction held on
+                                </label>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <label class="col-sm-3 custom-form-lebel-right">
+                                            Date:
+                                        </label>
+                                        <div class="col-sm-7 date margin-bottom">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text"
+                                                       v-model="newFileFollowUp.dateOfAuctionHeldOn"
+                                                       name="dateOfAuctionHeldOn"
+                                                       class="form-control pull-right ffu-date"
+                                                       placeholder="dd-mm-yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 custom-form-lebel-right">
+                                            Newspaper:
+                                        </label>
+                                        <div class="col-sm-7">
+                                                <textarea type="text"
+                                                          v-model="newFileFollowUp.newspaperNameForActionHeldOn"
+                                                          class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Bidders participated
+                                </label>
+                                <div class="col-sm-7">
+                                    <select id="bpi"
+
+                                            v-model="newFileFollowUp.biddersParticipated"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.biddersParticipated,
+                                                'numberOfParticipants', 'highestBidAmount', 'loanOutstanding',
+                                                'forceSaleValue', 'marketValue', 'numberOfScheduledLand', 'totalLandArea',
+                                                'biddersParticipation'
+                                            )"
+                                            class="form-control margin-bottom">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+
+                                    <fieldset id="biddersParticipatedInfo"
+                                              v-show="newFileFollowUp.biddersParticipated">
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Number of participant:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.numberOfParticipants"
+                                                       class="form-control"
+                                                       placeholder="Number of participant"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Highest bid amount:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.highestBidAmount"
+                                                       class="form-control"
+                                                       placeholder="Highest bid amount"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Loan outstanding amount:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.loanOutstanding"
+                                                       class="form-control"
+                                                       placeholder="Loan outstanding amount"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Force Sale Value:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.forceSaleValue"
+                                                       class="form-control"
+                                                       placeholder="Force Sale Value"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Market Value:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.marketValue"
+                                                       class="form-control"
+                                                       placeholder="Market Value"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Total number scheduled land:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="number" v-model="newFileFollowUp.numberOfScheduledLand"
+                                                       class="form-control"
+                                                       placeholder="Total number scheduled land"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Total land area:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                    <textarea v-model="newFileFollowUp.totalLandArea"
+                                                              class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Bidder's participation (for the scheduled):
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" v-model="newFileFollowUp.biddersParticipation"
+                                                       class="form-control"
+                                                       placeholder="Bidder's participation"/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction accepted by the Management
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="aabtm"
+                                            v-model="newFileFollowUp.auctionAcceptedByManagement"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.auctionAcceptedByManagement,
+                                                'dateOfAuctionAcceptedByManagement'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5" id="dateOfAuctionAcceptedByManagement"
+                                     v-show="newFileFollowUp.auctionAcceptedByManagement">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="dateOfAuctionAcceptedByManagement"
+                                                   v-model="newFileFollowUp.dateOfAuctionAcceptedByManagement"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Property sold through auction
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="psta"
+                                            v-model="newFileFollowUp.propertySoldThroughAuction"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.propertySoldThroughAuction,
+                                                'dateOfPropertySoldThroughAuction'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5" id="dateOfPropertySoldThroughAuction"
+                                     v-show="newFileFollowUp.propertySoldThroughAuction">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="dateOfPropertySoldThroughAuction"
+                                                   v-model="newFileFollowUp.dateOfPropertySoldThroughAuction"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Account adjusted before filing Artharin suit:
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="aabfas"
+                                            v-model="newFileFollowUp.accountAdjustedBeforeFilingArtharinSuit"
+                                            @change="clearFieldsWithFlag(
+                                                newFileFollowUp.accountAdjustedBeforeFilingArtharinSuit,
+                                                'dateOfAccountAdjustedBeforeFilingArtharinSuit'
+                                            )"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5" id="dateOfAccountAdjustedBeforeFilingArtharinSuit"
+                                     v-show="newFileFollowUp.accountAdjustedBeforeFilingArtharinSuit">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="dateOfAccountAdjustedBeforeFilingArtharinSuit"
+                                                   v-model="newFileFollowUp.dateOfAccountAdjustedBeforeFilingArtharinSuit"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Amount after partial adjustment through auction
+                                </label>
+                                <div class="col-sm-3">
+                                    <input type="number"
+                                           v-model="newFileFollowUp.amountAfterPartialAdjustmentThroughAuction"
+                                           class="form-control"
+                                           placeholder="Partial adjustment amount"/>
+                                </div>
+                                <div class="col-sm-4" id="dateOfPartialAdjustmentThroughAuction"
+                                     v-show="newFileFollowUp.amountAfterPartialAdjustmentThroughAuction">
+                                    <label class="col-sm-2 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-10 date">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="dateOfPartialAdjustmentThroughAuction"
+                                                   v-model="newFileFollowUp.dateOfPartialAdjustmentThroughAuction"
+                                                   class="form-control pull-right ffu-date" placeholder="dd-mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Account rescheduled
+                                </label>
+                                <div class="col-sm-2">
+                                    <select id="ar"
+                                            v-model="newFileFollowUp.accountRescheduled"
+                                            class="form-control">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Remarks
+                                </label>
+                                <div class="col-sm-7">
+                                    <textarea id="remarks" v-model="newFileFollowUp.remarks" class="form-control">
+                                    </textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Status</label>
+                                <div class="col-sm-7">
+                                    <fieldset id="group1">
+                                        <input type="radio" v-model="newFileFollowUp.enabled" :value="true"
+                                               id="enabled"/>
+                                        <label for="enabled">Active</label>
+                                        <input type="radio" v-model="newFileFollowUp.enabled" :value="false"
+                                               id="disabled"/>
+                                        <label for="disabled">Inactive</label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="loan_filefollowupform_btn"
+                                data-dismiss="modal" onclick="closeFormModal()">
+                            Close
+                        </button>
+                        <button type="submit" id="loan_filefollowup_save_btn" class="btn btn-primary"
+                                @click="saveFileFollowUp">
+                            Save
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-filefollowupview">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="text-align: center">File Follow Up</h4>
+                    </div>
+                    <form id="loan_file_follow_up_view" action="" method="post" class="form-horizontal">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">LD No.: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">
+                                        {{viewFileFollowUp.ldNo}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Date of File transfer to SAMD (Legal wing):
+                                </label>
+                                <div class="col-sm-4">
+                                    <label class="form-control pull-right" id="viewfileTransferToSAMD">
+                                        {{viewFileFollowUp.fileTransferToSAMD}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Branch name: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">
+                                        {{viewFileFollowUp.branchName}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Account name: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">{{viewFileFollowUp.accountName}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Borrower name: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">{{viewFileFollowUp.borrowerName}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Customer CIF Number: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">{{viewFileFollowUp.customerCifNumber}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Customer Account Number: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">{{viewFileFollowUp.customerAccountNumber}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Business Segment: </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">{{viewFileFollowUp.businessSegment}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Legal Notice Served For Artharin Suit
+                                </label>
+                                <div class="col-sm-2">
+                                    <label id="viewlnsfas" class="form-control">
+                                        {{(viewFileFollowUp.legalNoticeServedForArtharinSuit)?'Yes':'No'}}
+                                    </label>
+                                </div>
+
+                                <div class="col-sm-5"
+                                     v-show="viewFileFollowUp.legalNoticeServedForArtharinSuit"
+                                     id="viewdateOfLegalNoticeServedForArtharinSuit">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <label class="form-control pull-right">
+                                            {{viewFileFollowUp.dateOfLegalNoticeServedForArtharinSuit}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Legal notice served for u/s 138 of N.I Act
+                                </label>
+                                <div class="col-sm-2">
+                                    <label id="viewlnsfnia" class="form-control">
+                                        {{(viewFileFollowUp.legalNoticeServedForUS138OfNIAct)?'Yes':'No'}}
+                                    </label>
+                                </div>
+
+                                <div class="col-sm-5"
+                                     v-show="viewFileFollowUp.legalNoticeServedForUS138OfNIAct"
+                                     id="viewdateOfLegalNoticeServedForUS138OfNIAct">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <label class="form-control pull-right">
+                                            {{viewFileFollowUp.dateOfLegalNoticeServedForUS138OfNIAct}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction Notice Published
+                                </label>
+                                <div class="col-sm-2">
+                                    <label id="viewanp" class="form-control">
+                                        {{(viewFileFollowUp.auctionNoticePublished)?'Yes':'No'}}
+                                    </label>
+                                </div>
+                                <div class="col-sm-5" id="viewdateOfAuctionNoticePublished"
+                                     v-show="viewFileFollowUp.auctionNoticePublished">
+                                    <label class="col-sm-4 custom-form-lebel-right">Date:</label>
+                                    <div class="col-sm-8 date">
+                                        <label class="form-control pull-right">
+                                            {{viewFileFollowUp.dateOfAuctionNoticePublished}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction held on
+                                </label>
+                                <div class="col-sm-7">
+                                    <div class="row">
+                                        <label class="col-sm-4 custom-form-lebel-right">
+                                            Date:
+                                        </label>
+                                        <div class="col-sm-7 date margin-bottom">
+                                            <label class="form-control pull-right">
+                                                {{viewFileFollowUp.dateOfAuctionHeldOn}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 custom-form-lebel-right">
+                                            Newspaper:
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <label class="form-control">
+                                                {{viewFileFollowUp.newspaperNameForActionHeldOn}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Bidders participated
+                                </label>
+                                <div class="col-sm-7">
+                                    <label id="viewbpi" class="form-control">
+                                        {{(viewFileFollowUp.biddersParticipated)?'Yes':'No'}}
+                                    </label>
+
+                                    <fieldset id="viewbiddersParticipatedInfo"
+                                              v-show="viewFileFollowUp.biddersParticipated">
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Number of participant:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.numberOfParticipants}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Highest bid amount:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.highestBidAmount}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Loan outstanding amount:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.loanOutstanding}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Force Sale Value:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.forceSaleValue}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Market Value:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.marketValue}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Total number scheduled land:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.numberOfScheduledLand}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Total land area:
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control wrap">
+                                                    {{viewFileFollowUp.totalLandArea}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-6">
+                                                Bidder's participation (for the scheduled):
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <label class="form-control">
+                                                    {{viewFileFollowUp.biddersParticipation}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Auction accepted by the Management
+                                </label>
+                                <div class="col-sm-2">
+
+                                    <label id="viewaabtm" class="form-control">
+                                        {{(viewFileFollowUp.auctionAcceptedByManagement)?'Yes':'No'}}
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Property sold through auction
+                                </label>
+                                <div class="col-sm-2">
+
+                                    <label id="viewpsta" class="form-control">
+                                        {{(viewFileFollowUp.propertySoldThroughAuction)?'Yes':'No'}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Account adjusted before filing Artharin suit:
+                                </label>
+                                <div class="col-sm-2">
+
+                                    <label id="viewaabfas" class="form-control">
+                                        {{(viewFileFollowUp.accountAdjustedBeforeFilingArtharinSuit)?'Yes':'No'}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Amount after partial adjustment through auction
+                                </label>
+                                <div class="col-sm-7">
+                                    <label class="form-control">
+                                        {{viewFileFollowUp.amountAfterPartialAdjustmentThroughAuction}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Account rescheduled
+                                </label>
+                                <div class="col-sm-2">
+                                    <label id="viewar" class="form-control">
+                                        {{(viewFileFollowUp.accountRescheduled)?'Yes':'No'}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">
+                                    Account rescheduled
+                                </label>
+                                <div class="col-sm-7">
+                                    <textarea id="viewremarks" class="form-control no-border" readonly>
+                                        {{viewFileFollowUp.remarks}}
+                                    </textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-5 custom-form-lebel-right">Status</label>
+                                <div class="col-sm-7">
+                                    <label class="custom-form-lebel">
+                                        {{(viewFileFollowUp.enabled)?'Active':'Inactive'}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="loan_filefollowup_btn" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="form-horizontal csi-view-form" v-if="newFileFollowUp.id">
+                <div class="row text-center">
+                    <h4 class="text-capitalize margin-bottom">
+                        Latest File Follow Up
+                    </h4>
+                </div>
+                <div class="table-responsive">
+                    <table name="filefollowup_info" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>File transferred to SAMD (Legal wing)</th>
+                            <th>Branch Name</th>
+                            <th>Account's Name</th>
+                            <th>Customer's CIF Number</th>
+                            <th>Customer's A/c Number</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="newFileFollowUpTbody">
+                        <tr>
+                            <td>{{ temp.fileTransferToSAMD }}</td>
+                            <td>{{ temp.branchName }}</td>
+                            <td>{{ temp.accountName }}</td>
+                            <td>{{ temp.customerCifNumber }}</td>
+                            <td>{{ temp.customerAccountNumber }}</td>
+                            <td class="text-center">
+                                <button v-if="temp.lastModifiedEntry"
+                                        @click="editFileFollowUp"
+                                        class="btn btn-primary btn-xs">
+                                    <i class="fa fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button @click="viewElement(-1)" class="btn btn-success btn-xs">
+                                    <i class="fa fa-eye"></i>
+                                    View
+                                </button>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-horizontal csi-view-form" id="filefollowup" v-show="showTable">
+                <div class="row text-center">
+                    <h4 class="text-capitalize margin-bottom">
+                        Previous File Follow Ups
+                    </h4>
+                </div>
+                <div class="table-responsive">
+                    <table name="filefollowup_info" id="filefollowupinfo"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Sl No.</th>
+                            <th>File transferred to SAMD (Legal wing)</th>
+                            <th>Branch Name</th>
+                            <th>Account's Name</th>
+                            <th>Customer's CIF Number</th>
+                            <th>Customer's A/c Number</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="filefollowuptBody">
+                        <tr v-for="fileFollowUp, index in fileFollowUps">
+                            <th scope="row">{{index + 1}}</th>
+                            <td>{{ fileFollowUp.fileTransferToSAMD }}</td>
+                            <td>{{ fileFollowUp.branchName }}</td>
+                            <td>{{ fileFollowUp.accountName }}</td>
+                            <td>{{ fileFollowUp.customerCifNumber }}</td>
+                            <td>{{ fileFollowUp.customerAccountNumber }}</td>
+                            <td style="text-align: center">
+                                <button @click="viewElement(index)" class="btn btn-success btn-xs">
+                                    <i class="fa fa-eye"></i>
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--pagination-->
+                <div class="row text-center" aria-label="Pagination" v-if="totalPages > 0">
+                    <ul class="pagination justify-content-center font-weight-medium" style="cursor: pointer">
+                        <li class="page-item" v-bind:disabled="pageIndex < 1">
+                            <a class="page-link svg-icon"
+                               @click="goToPage(0)"
+                               aria-label="First" style="user-focus-pointer: hand"
+                               title="First Page" rel="tooltip">
+                                &lt;&lt;
+                            </a>
+                        </li>
+                        <li class="page-item" v-bind:disabled="pageIndex < 1">
+                            <a class="page-link svg-icon"
+                               @click="goToPage(pageIndex-1)"
+                               aria-label="Previous"
+                               title="Previous Page" rel="tooltip">
+                                &lt;
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            v-for="i in getPageNumbers"
+                            v-bind:class="{ active: i == pageIndex }">
+                            <a class="page-link"
+                               @click="goToPage(i)"
+                               v-bind:title="'Page '+ (i+1)"
+                               rel="tooltip">{{i+1}}</a>
+                        </li>
+                        <li class="page-item" v-if="totalPages > 5 && (totalPages-pageIndex) > 3 ">
+                            <a class="page-link svg-icon">
+                                ...
+                            </a>
+                        </li>
+                        <li class="page-item" v-if="totalPages > 5 && (totalPages-pageIndex) > 3 ">
+                            <a class="page-link svg-icon" @click="goToPage(totalPages - 1)"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                {{totalPages}}
+                            </a>
+                        </li>
+                        <li class="page-item" v-bind:disabled="totalPages == (pageIndex + 1)">
+                            <a class="page-link svg-icon" @click="goToPage(pageIndex + 1)"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                &gt;
+                            </a>
+                        </li>
+                        <li class="page-item" v-bind:disabled="totalPages == (pageIndex + 1)">
+                            <a class="page-link" @click="goToPage(totalPages - 1)"
+                               aria-label="Last"
+                               title="Last Page" rel="tooltip">
+                                &gt;&gt;
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--./pagination-->
+                <!--Loader-->
+                <div class="row" v-show="loading">
+                    <div class="col-md-2 col-md-offset-5">
+                        <div class="opacity-loading opacity-loading-1">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var fileFollowUpApp = new Vue({
+            el: '#fileFollowUpApp',
+            data: {
+                accountNumber: accountNo, //accountNo is defined in the page header section
+                fileFollowUps: [],
+                newFileFollowUp: {},
+                temp: {}, // To keep the last modified file follow up unchanged untill save
+                viewFileFollowUp: {},
+                showTable: false,
+                loading: false,
+                pageIndex: 0,
+                totalPages: 0,
+                totalElements: 0
+            },
+            computed: {
+                getPageNumbers: function () {
+                    let page = this.pageIndex;
+                    let totalIndex = this.totalPages - 1;
+                    // To maintain maximum 5 pages visible and the active page at the middle
+                    let start = page < 2 ? 0 : totalIndex - page < 2 && totalIndex >= 4 ? totalIndex - 4 : page - 2;
+                    let stop = totalIndex - page < 2 ? totalIndex : page < 3 && totalIndex >= 4 ? 4 : page + 2;
+                    let visiblePageCount = 1 + stop - start;
+                    return new Array(visiblePageCount).fill(start).map((n, i) => n + i);
+                },
+
+            },
+            methods: {
+                saveFileFollowUp: function (e) {
+                    e.preventDefault();
+                    var entity = JSON.stringify(this.newFileFollowUp);
+                    var host = window.location.host;
+                    this.$http.post('https://' + host + '/legal/data-entry/litigation-file-follow-up/rest/create', entity,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }).then(res => {
+                        if (res.ok && res.body.success) {
+                            alert("Successfully saved");
+                            this.getValuesFromResponseBody(res.body);
+                            $('#modal-filefollowup').modal('hide');
+                        } else {
+                            alert("Failed to save changes");
+                        }
+                    }).catch(err => {
+                        console.log("Something went wrong. " + err);
+                    })
+                },
+                getValuesFromResponseBody: function (data) {
+                    let fileFollowUp = data.lastEntry;
+                    if (fileFollowUp) this.newFileFollowUp = fileFollowUp;
+                    this.temp = $.extend(true, {}, fileFollowUp);
+                    this.fileFollowUps = data.list;
+                    this.pageIndex = data.pageIndex;
+                    this.totalPages = data.totalPages;
+                    this.totalElements = data.totalElements;
+                },
+                editFileFollowUp: function () {
+                    this.newFileFollowUp = $.extend(true, {}, this.temp);
+                    $('#modal-filefollowup').modal('show');
+                },
+                viewElement: function (index) {
+                    this.viewFileFollowUp = (index < 0) ? this.temp : this.fileFollowUps[index];
+                    $('#modal-filefollowupview').modal('show');
+                },
+                clearFieldsWithFlag: function (flag, ...fields) {
+                    let model = this.newFileFollowUp;
+                    if (!flag) fields.forEach(field => model[field] = null);
+                },
+                goToPage: function (pageIndex) {
+                    if (pageIndex < 0 || pageIndex >= this.totalPages) return;
+                    let vm = this;
+                    vm.loading = true;
+                    let host = window.location.host;
+                    let url = '/legal/data-entry/litigation-file-follow-up/rest/history' + '?customerAccountNumber=' + this.accountNumber + '&page=' + pageIndex;
+                    vm.$http.get(url)
+                        .then(res => {
+                            if (res.ok) {
+                                vm.getValuesFromResponseBody(res.body);
+                                vm.loading = false;
+                            }
+                        }).catch(err => {
+                        console.log(err)
+                    })
+                }
+            }
+        });
+
+        $('.ffu-date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            container: '#modal-filefollowup',
+            forceParse: false
+        }).on('changeDate', function (ev) {
+            let inputField = ev.target;
+            fileFollowUpApp.newFileFollowUp[inputField.name] = inputField.value;
+        })
+
+        // Fetch initial data (Last modified file follow up and history)
+        $("#tab-litigation").click(function (event) {
+            fileFollowData();
+        });
+
+        function fileFollowData() {
+            let accountNumber = accountNo; // accountNo declared in page header section
+            $.ajax({
+                url: "/legal/data-entry/litigation-file-follow-up/rest/list?accountNumber=" + accountNumber,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    fileFollowUpApp.newFileFollowUp = data.lastEntry;
+                    fileFollowUpApp.temp = $.extend(true, {}, data.lastEntry);
+                    fileFollowUpApp.newFileFollowUp.customerAccountNumber = accountNumber;
+                    fileFollowUpApp.fileFollowUps = data.list;
+                    fileFollowUpApp.pageIndex = data.pageIndex;
+                    fileFollowUpApp.totalPages = data.totalPages;
+                    fileFollowUpApp.totalElements = data.totalElements;
+                },
+                error: function (data) {
+                    console.log(JSON.stringify(data));
+                }
+            });
+        }
+
+
+    </script>
+</div>
+</body>
+
+</html>

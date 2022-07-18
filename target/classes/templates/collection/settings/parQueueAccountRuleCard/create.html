@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>PAR Queue Account Rule-Card</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="col-xs-12" id="app">
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">PAR Queue Account Rule-Card</h3>
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form class="form-horizontal" method="post">
+
+                        <!-- <input type="hidden" name="id" ></input> -->
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Min Age Code</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control input-sm" v-model="parQueueAccRuleCard.minAgeCode"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Age Code</label>
+                                <div class="col-sm-6">
+                                    <multiselect v-model="parQueueAccRuleCard.ageCodeEntities" placeholder="Select Age Code"
+                                                 label="name" track-by="id" :options="ageCodeList"
+                                                 :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Product Type</label>
+                                <div class="col-sm-6">
+                                    <multiselect v-model="parQueueAccRuleCard.productTypeList" placeholder="Select Product"
+                                                 label="name" track-by="id" :options="productTypeList"
+                                                 :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <button id="userSave" class="btn btn-info " @click="save">Submit</button>
+                            <a th:href="@{/user/list}" class="btn btn-danger">Cancel</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var ageCodes = /*[[${ageCodes}]]*/ [];
+        var productTypes = /*[[${productTypes}]]*/ [];
+        /*]]>*/
+    </script>
+    <script>
+        var parQue = new Vue({
+            el: '#app',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                parQueueAccRuleCard:{
+
+                },
+                ageCodeList: [],
+                productTypeList: []
+            },
+            created: function () {
+                this.ageCodeList = Array.isArray(ageCodes) ? ageCodes : [];
+                this.productTypeList = Array.isArray(productTypes) ? productTypes : [];
+            },
+
+            methods: {
+                save: function (e) {
+                    e.preventDefault();
+                    var entity = JSON.stringify(this.parQueueAccRuleCard);
+                    var host = window.location.host;
+                    this.$http.post('https://' + host + '/par/queue/acc/card/save', entity,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                                'Content-Type': "application/json"
+                            }
+                        }).then(res => {
+                        if (res.ok && res.bodyText === 'succeed') {
+                            swal("Successfully saved");
+                            this.goToList();
+
+                        } else {
+                            swal('Failed to save changes');
+                        }
+                    }).catch(err => {
+                        swal("Failed to save changes");
+                        console.log("Something went wrong. " + err);
+                    })
+
+                },
+                goToList: function () {
+                    console.log('returning url');
+                    window.location.href = '/user/list';
+                },
+            }
+        })
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Region Management</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row" id="businessRegion">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <h3 class="box-title ">Business Region Management List</h3>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <a class="btn btn-primary btn-sm margin-bottom" href="/collection/samd/businessRegion/create">
+                            <span class="fa fa-plus"></span>
+                            <span>Add New Business Region</span>
+                        </a>
+
+                        <div class="table-responsive">
+                            <table id="busRegion" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Location</th>
+                                    <th>Region Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="data, index : ${allData}">
+                                    <td th:text="${index.count}"></td>
+                                    <td><span class="margin-r-5 label label-success" th:each="loc : ${data.locations}" th:text="${loc.city}"></span></td>
+                                    <td th:text="${data.regionName}"></td>
+                                    <td><a th:href="@{/collection/samd/businessRegion/edit(id=${data.id})}">Edit <span class="fa fa-edit"></span></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#busRegion').DataTable();
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

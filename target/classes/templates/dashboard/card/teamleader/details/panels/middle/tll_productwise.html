@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Product Wise Irregular</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="product">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Product & DPD</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <table class=" table table-bordered ">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="12" th:text="${#dates.format(loginTime, 'dd-MMM-yyyy')}">Date</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" class="text-center">Product Group</th>
+                            <th class="text-center" colspan="2">Portfolio</th>
+                            <th class="text-center" colspan="3">Irregular</th>
+                            <th class="text-center" colspan="3">PAR</th>
+                            <th class="text-center" colspan="3">NPL</th>
+
+                        </tr>
+                        <tr>
+                            <th class="text-center">AC</th>
+                            <th class="text-center">OS</th>
+                            <th class="text-center">AC</th>
+                            <th class="text-center">AMT</th>
+                            <th class="text-center">%</th>
+                            <th class="text-center">AC</th>
+                            <th class="text-center">AMT</th>
+                            <th class="text-center">%</th>
+                            <th class="text-center">AC</th>
+                            <th class="text-center">AMT</th>
+                            <th class="text-center">%</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbl-row">
+                        <tr th:each="product,index : ${productList}">
+                            <td class="text-center text-bold" th:text="${product.getName()}"></td>
+                            <td class="text-center">1400</td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-center">1600</td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-center">1900</td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-center">2323</td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                            <td class="text-right" th:text="${@numberUtils.formatBdtInEnglish(3200)}"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Credit Card</th>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

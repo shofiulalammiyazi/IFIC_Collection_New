@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Dunning Letter Generation Exception Rules- Card</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="col-xs-12">
+        <style>
+            .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                font-size: 13px;
+            }
+            .multiselect__tag{
+                font-size: 12px;
+            }
+
+        </style>
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border" style="text-align: center">
+                        <h3 th:if="${dlgerc.id == null}" class="box-title">Create Dunning Letter Generation Exception Rules- Card</h3>
+                        <h3 th:if="${dlgerc.id != null}" class="box-title">Update Dunning Letter Generation Exception Rules- Card</h3>
+                        <!--<h3 th:if="${mlsetup.id != null}" class="box-title">Update Manual Letter Setup</h3>-->
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/settings/dlgexceptionrulescard/create}" th:object="${dlgerc}">
+                        <input type="hidden" th:field="*{id}"></input>
+                        <input type="hidden" th:field="*{ageCodeIds}" v-model="getSelectedAgeCodeId"></input>
+                        <input type="hidden" th:field="*{customerIdIds}" v-model="getSelectedCustomerIdId"></input>
+                        <input type="hidden" th:field="*{productTypeIds}" v-model="getSelectedProductTypeId"></input>
+                        <!--<input type="hidden" th:field="*{designationIds}" v-model="getSelectedDesignationId"></input>-->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Outstanding(minimum)</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="outstanding" class="form-control required" th:required="true" th:field="*{outstanding}" placeholder="Outstanding(minimum)" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Min. Due(minimum)</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="minDue" class="form-control required" th:required="true" th:field="*{minDue}" placeholder="Min. Due(minimum)" />
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Product Group :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="letterType" class="form-control required" placeholder="Product Group" />
+                                </div>
+                            </div>-->
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Product Type</label>
+                                <div class="col-sm-8">
+                                    <multiselect  v-model="selectedProductType" placeholder="Search a Product Type" label="name" track-by="id"  :options="productTypeOption" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Age Code</label>
+                                <div class="col-sm-8">
+                                    <multiselect  v-model="selectedAgeCode" placeholder="Search a Age code" label="name" track-by="id"  :options="ageCodeOption" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Customer Id :</label>
+                                <div class="col-sm-8">
+                                    <multiselect  v-model="selectedCustomerId" placeholder="Search a Customer Id" label="id" track-by="id"  :options="customerIdOption" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Customer Id :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="letterType" class="form-control required" placeholder="Customer Id" />
+                                </div>
+                            </div>-->
+
+                            <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">SAM :</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="group1">
+                                            <input  type="radio" name="sam" id="sam" th:checked="${dlgerc.sam == true}" th:value="true"> Yes</input>
+                                            <input type="radio"  name="sam" id="sam" th:checked="${dlgerc.sam == false}" th:value="false"> No </input>
+                                        </fieldset>
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Write Off :</label>
+                                <div class="col-sm-8">
+                                    <fieldset id="group1">
+                                        <input  type="radio" name="writeOff" id="writeOff" th:checked="${dlgerc.writeOff == true}" th:value="true"> Yes</input>
+                                        <input type="radio"  name="writeOff" id="writeOff" th:checked="${dlgerc.writeOff == false}" th:value="false"> No </input>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">VVIP :</label>
+                                <div class="col-sm-8">
+                                    <fieldset id="group1">
+                                        <input  type="radio" name="vvip" id="vvip" th:checked="${dlgerc.vvip == true}" th:value="true"> Yes</input>
+                                        <input type="radio"  name="vvip" id="vvip" th:checked="${dlgerc.vvip == false}" th:value="false"> No </input>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+
+                            <!--<div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">STATUS.CD[excel column] :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="letterType" class="form-control required" placeholder="STATUS.CD[excel column]" />
+                                </div>
+                            </div>-->
+
+                            <!--Status Cd-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label required" >
+                                    Status Cd
+                                </label>
+                                <div class="col-sm-4" th:if="${dlgerc.statusCd}!= null">
+                                    <input type="text" name="statusCd" class="form-control required" th:required="true" th:value="${dlgerc.statusCd[0]}" placeholder="Status Cd" />
+                                </div>
+                                <div class="col-sm-4" th:if="${dlgerc.statusCd}== null">
+                                    <input type="text" name="statusCd" class="form-control required" th:required="true"  placeholder="Status Cd" />
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-icon btn-xs btn-info" onclick="addStatusCd()">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
+                                </div>
+                                <!--<label class="col-sm-3 control-label" >
+                                    AND after any character
+                                </label>-->
+                            </div>
+
+                            <!-- MORE StatusCd DIV -->
+                            <span id="statusCd_span">
+                                    <div class="form-group" th:each="d1,i : ${dlgerc.statusCd}" th:if="${i.index > 0}">
+                                        <label class="col-sm-4 control-label"></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="statusCd" class="form-control required" th:required="true" th:value="${d1}" placeholder="Status Cd" />
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="button" class="btn btn-icon btn-xs btn-danger" onclick="removeDiv(this)">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </span>
+
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Dealer Name :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="letterType" class="form-control required" placeholder="Dealer Name" />
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Plastic CD (PLASTIC.CD) :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="letterType" class="form-control required" placeholder="Plastic CD (PLASTIC.CD)" />
+                                </div>
+                            </div>-->
+
+
+                            <!--Plastic Cd-->
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label required" >
+                                    Plastic Cd
+                                </label>
+                                <div class="col-sm-4" th:if="${dlgerc.plasticCd}!= null">
+                                    <input type="text" name="plasticCd" class="form-control required" th:required="true" th:value="${dlgerc.plasticCd[0]}" placeholder="Plastic Cd" />
+                                </div>
+                                <div class="col-sm-4" th:if="${dlgerc.plasticCd}== null">
+                                    <input type="text" name="plasticCd" class="form-control required" th:required="true"  placeholder="Plastic Cd" />
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-icon btn-xs btn-info" onclick="addPlasticCd()">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
+                                </div>
+                                <!--<label class="col-sm-3 control-label" >
+                                    AND after any character
+                                </label>-->
+                            </div>
+
+                            <!-- MORE StatusCd DIV -->
+                            <span id="plasticCd_span">
+                                    <div class="form-group" th:each="d1,i : ${dlgerc.plasticCd}" th:if="${i.index > 0}">
+                                        <label class="col-sm-4 control-label"></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="plasticCd" class="form-control required" th:required="true" th:value="${d1}" placeholder="Status Cd" />
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="button" class="btn btn-icon btn-xs btn-danger" onclick="removeDiv(this)">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </span>
+
+
+                            <div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Secured Card :</label>
+                                <div class="col-sm-8">
+                                    <fieldset id="group1">
+                                        <input  type="radio" name="securedCard" id="securedCard" th:checked="${dlgerc.securedCard == true}" th:value="true"> Yes</input>
+                                        <input type="radio"  name="securedCard" id="securedCard" th:checked="${dlgerc.securedCard == false}" th:value="false"> No </input>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+                                <label  class="col-sm-4 custom-form-lebel-right required">Designation</label>
+                                <div class="col-sm-8">
+                                    <multiselect  v-model="selectedDesignation" placeholder="Search a designation" label="name" track-by="id"  :options="designationOption" :multiple="true" :taggable="true"></multiselect>
+                                </div>
+                            </div>-->
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <!--<button type="submit" class="btn btn-info ">Submit</button>-->
+                            <button type="submit" th:if="${dlgerc.id != null}" class="btn btn-info btn">Update</button>
+                            <button type="submit" th:if="${dlgerc.id == null}" class="btn btn-info">Add</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var ageCodeList = /*[[${ageCodeList}]]*/ || [];
+                        var selectedAgeCodeList = /*[[${selectedAgeCodeList}]]*/ || [];
+                        var customerIdList = /*[[${customerIdList}]]*/ || [];
+                        var selectedCustomerIdList = /*[[${selectedCustomerIdList}]]*/ || [];
+                        var productTypeList = /*[[${productTypeList}]]*/ || [];
+                        var selectedProductTypeList = /*[[${selectedProductTypeList}]]*/ || [];
+                        /*]]>*/
+                    </script>
+                    <script>
+                        new Vue({
+                            el: '#app',
+                            components:{
+                                Multiselect: VueMultiselect.default
+                            },
+                            data:{
+                                ageCodeOption:[],
+                                selectedAgeCode:[],
+                                customerIdOption:[],
+                                selectedCustomerId:[],
+                                productTypeOption:[],
+                                selectedProductType:[],
+
+
+                            },
+                            created: function () {
+                                this.ageCodeOption = JSON.parse(ageCodeList) ? JSON.parse(ageCodeList) : [];
+                                this.selectedAgeCode = JSON.parse(selectedAgeCodeList) ? JSON.parse(selectedAgeCodeList) : [];
+                                this.customerIdOption = JSON.parse(customerIdList) ? JSON.parse(customerIdList) : [];
+                                this.selectedCustomerId = JSON.parse(selectedCustomerIdList) ? JSON.parse(selectedCustomerIdList) : [];
+                                this.productTypeOption = JSON.parse(productTypeList) ? JSON.parse(productTypeList) : [];
+                                this.selectedProductType = JSON.parse(selectedProductTypeList) ? JSON.parse(selectedProductTypeList) : [];
+                            },
+                            computed:{
+                                getSelectedAgeCodeId: function () {
+                                    return this.selectedAgeCode.map(ageCode => { return ageCode.id});
+                                },
+                                getSelectedCustomerIdId: function () {
+                                    return this.selectedCustomerId.map(customerId => { return customerId.id});
+                                },
+                                getSelectedProductTypeId: function () {
+                                    return this.selectedProductType.map(productType => { return productType.id});
+                                },
+                            },
+                        })
+                    </script>
+
+                    <script type="text/javascript">
+                        function addStatusCd() {
+                            var data = "<div class=\"form-group\">\n" +
+                                "                                    <label class=\"col-sm-4 custom-form-lebel-right\"></label>\n" +
+                                "                                    <div class=\"col-sm-4\">\n" +
+                                "                                        <input type=\"text\" name=\"statusCd\" class=\"form-control required\" th:required=\"true\" th:field=\"*{statusCd}\" placeholder=\"Status Cd\" />\n" +
+                                "                                    </div>\n" +
+                                "                                    <div class=\"col-sm-1\">\n" +
+                                "                                        <button type=\"button\" class=\"btn btn-icon btn-xs btn-danger\" onclick=\"removeDiv(this)\">" +
+                                "                                           <i class='fa fa-remove'></i>" +
+                                "                                         </button>\n" +
+                                "                                    </div>\n" +
+                                "                                </div>";
+
+
+                            $('#statusCd_span').append(data);
+                        }
+
+                        function addPlasticCd() {
+                            var data = "<div class=\"form-group\">\n" +
+                                "                                    <label class=\"col-sm-4 custom-form-lebel-right\"></label>\n" +
+                                "                                    <div class=\"col-sm-4\">\n" +
+                                "                                        <input type=\"text\" name=\"plasticCd\" class=\"form-control required\" th:required=\"true\" th:field=\"*{plasticCd}\" placeholder=\"Plastic Cd\" />\n" +
+                                "                                    </div>\n" +
+                                "                                    <div class=\"col-sm-1\">\n" +
+                                "                                        <button type=\"button\" class=\"btn btn-icon btn-xs btn-danger\" onclick=\"removeDiv(this)\">" +
+                                "                                           <i class='fa fa-remove'></i>" +
+                                "                                         </button>\n" +
+                                "                                    </div>\n" +
+                                "                                </div>";
+
+
+                            $('#plasticCd_span').append(data);
+                        }
+
+
+                        function removeDiv(div) {
+                            $(div).parents('.form-group').remove();
+                        }
+
+                    </script>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

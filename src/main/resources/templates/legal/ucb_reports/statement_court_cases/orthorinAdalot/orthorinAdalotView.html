@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <style>
+        b {
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 2px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+
+            <div class="col-xs-12">
+                <div id="printBody" class="box">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="6">
+                                            <h4 style="text-align: center">ব্যাংকের নাম: ইউনাইটেড কমার্শিয়াল ব্যাংক লিঃ</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <h4 style="text-align: center">অর্থঋণ আদালত ও অনন্যা আদালতে দায়েরকৃত মামলা সংক্রান্ত ৩১ শে ডিসেম্বর, ২০২০ ষান্মাসিক বিবরণী।  </h4>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="7">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <th colspan="9" style="text-align: right">(লক্ষ টাকায়)</th>
+
+                                                <tr>
+                                                    <th style="text-align: center">ক্রমিক নং</th>
+                                                    <th style="text-align: center">আদালতের নাম</th>
+                                                    <th style="text-align: center" colspan="2">দায়েরকৃত মামলা (ক্রম পুঞ্জীভূত)</th>
+                                                    <th style="text-align: center" colspan="3">নিষ্পত্তিকৃত মামলা (ক্রম পুঞ্জীভূত)</th>
+                                                    <th style="text-align: center" colspan="3">বিচারাধীন  মামলা</th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th style="text-align: center">সংখ্যা</th>
+                                                    <th style="text-align: center">দাবীকৃত অর্থের পরিমান</th>
+                                                    <th style="text-align: center">সংখ্যা</th>
+                                                    <th style="text-align: center">দাবীকৃত অর্থের পরিমান</th>
+                                                    <th style="text-align: center">প্রকৃত আদায় </th>
+                                                    <th style="text-align: center">সংখ্যা</th>
+                                                    <th style="text-align: center">দাবীকৃত অর্থের পরিমান</th>
+                                                    <th style="text-align: center">পবিচারাধীন মামলার দাবীকৃত অর্থের বিপরীতে আদায়ের পরিমান </th>
+
+                                                </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td style="text-align: center">১</td>
+                                                    <td style="text-align: center">২</td>
+                                                    <td style="text-align: center">৩</td>
+                                                    <td style="text-align: center">৪</td>
+                                                    <td style="text-align: center">৫</td>
+                                                    <td style="text-align: center">৬</td>
+                                                    <td style="text-align: center">৭</td>
+                                                    <td style="text-align: center">৮</td>
+                                                    <td style="text-align: center">৯</td>
+                                                    <td style="text-align: center">১০</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center">১।</td>
+                                                    <td style="text-align: center">অর্থঋণ আদালত</td>
+                                                    <td style="text-align: center">৩</td>
+                                                    <td style="text-align: center">৪</td>
+                                                    <td style="text-align: center">৫</td>
+                                                    <td style="text-align: center">৬</td>
+                                                    <td style="text-align: center">৭</td>
+                                                    <td style="text-align: center">৮</td>
+                                                    <td style="text-align: center">৯</td>
+                                                    <td style="text-align: center">১০</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center">২।</td>
+                                                    <td style="text-align: center">দেউলিয়া আদালত </td>
+                                                    <td style="text-align: center">৩</td>
+                                                    <td style="text-align: center">৪</td>
+                                                    <td style="text-align: center">৫</td>
+                                                    <td style="text-align: center">৬</td>
+                                                    <td style="text-align: center">৭</td>
+                                                    <td style="text-align: center">৮</td>
+                                                    <td style="text-align: center">৯</td>
+                                                    <td style="text-align: center">১০</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center">৩।</td>
+                                                    <td style="text-align: center">পিডিআর এক্ট </td>
+                                                    <td style="text-align: center">৩</td>
+                                                    <td style="text-align: center">৪</td>
+                                                    <td style="text-align: center">৫</td>
+                                                    <td style="text-align: center">৬</td>
+                                                    <td style="text-align: center">৭</td>
+                                                    <td style="text-align: center">৮</td>
+                                                    <td style="text-align: center">৯</td>
+                                                    <td style="text-align: center">১০</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center">৪।</td>
+                                                    <td style="text-align: center">অন্যান </td>
+                                                    <td style="text-align: center">৩</td>
+                                                    <td style="text-align: center">৪</td>
+                                                    <td style="text-align: center">৫</td>
+                                                    <td style="text-align: center">৬</td>
+                                                    <td style="text-align: center">৭</td>
+                                                    <td style="text-align: center">৮</td>
+                                                    <td style="text-align: center">৯</td>
+                                                    <td style="text-align: center">১০</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center"></td>
+                                                    <td style="text-align: center">মোট</td>
+                                                    <td style="text-align: center">232</td>
+                                                    <td style="text-align: center">3232</td>
+                                                    <td style="text-align: center">323</td>
+                                                    <td style="text-align: center">2323</td>
+                                                    <td style="text-align: center">2323</td>
+                                                    <td style="text-align: center">2323</td>
+                                                    <td style="text-align: center">23</td>
+                                                    <td style="text-align: center">2323</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

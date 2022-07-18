@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Distribution Exception Loan</title>
+</head>
+<body>
+<div  layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <style>
+                        .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                            font-size: 13px;
+                        }
+                        .multiselect__tag{
+                            font-size: 12px;
+                        }
+                        select {
+                            -webkit-appearance: menulist;
+                        }
+
+                    </style>
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${postpeople.id == null}" class="box-title">Create Distribution Exception Loan</h3>
+                            <h3 th:if="${postpeople.id != null}" class="box-title">Update Distribution Exception Loan</h3>
+                        </div>
+
+                        <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/distribution/loan/exception/create}" th:object="${postpeople}">
+                            <input type="hidden" th:field="*{id}"></input>
+                            <input type="hidden" th:field="*{productIds}" v-model="getSelectedProductList"></input>
+                            <input type="hidden" th:field="*{dealerIds}" v-model="getSelectedDealerList"></input>
+
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" >
+                                        Sam Ignore
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <ul style="padding: 0px">
+                                            <li style="display: inline" th:each="sam: ${samValues}">
+                                                <input type="radio"
+                                                       th:field="*{samIgnore}"
+                                                       th:value="${sam}"/>
+                                                <label th:required="true"
+                                                       th:for="${#ids.prev('samIgnore')}"
+                                                       th:text="${sam}"></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" >
+                                        WriteOff Ignore
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <ul style="padding: 0px;">
+                                            <li style="display: inline" th:each="writeOff: ${writeOffValues}">
+                                                <input type="radio"
+                                                       th:field="*{writeOffIgnore}"
+                                                       th:value="${writeOff}" />
+                                                <label
+                                                        th:for="${#ids.prev('writeOffIgnore')}"
+                                                        th:text="${writeOff}"></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<label class="col-sm-2 control-label required" >-->
+                                        <!--Interim-->
+                                    <!--</label>-->
+                                    <!--<div class="col-sm-4">-->
+                                        <!--<ul style="padding: 0px;">-->
+                                            <!--<li style="display: inline" th:each="vvip: ${interimvalues}">-->
+                                                <!--<input type="radio"-->
+                                                       <!--th:field="*{interim}"-->
+                                                       <!--th:value="${vvip}" />-->
+                                                <!--<label-->
+                                                        <!--th:for="${#ids.prev('interim')}"-->
+                                                        <!--th:text="${vvip}"></label>-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Product</label>
+                                    <div class="col-sm-4">
+                                        <multiselect  v-model="selectedProductGroupList" placeholder="Search a product" label="name" track-by="id"  :options="productGroupOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Dealer</label>
+                                    <div class="col-sm-4">
+                                        <multiselect  v-model="selectedDealerList" placeholder="Search a Dealer" label="pin" track-by="id"  :options="dealerOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Product And Bucket</label>
+                                    <div class="col-sm-6">
+                                        <i @click.prevent="addRow()" style="float: right; color: green; cursor: pointer" class="fa fa-plus" aria-hidden="true"></i>
+                                        <table class="table table-condensed" id="table">
+                                            <tr th:id=" 'row-'+${stat.index}" th:each="pdBuckets, stat : *{productGroupDpdBuckets}">
+                                                <td>
+
+                                                    <label>Product</label>
+                                                    <select  th:field="*{productGroupDpdBuckets[__${stat.index}__].productGroup}" class="form-control input-sm" th:id="${'productGroup-'+stat.index}">
+
+                                                        <option value="">None</option>
+                                                        <option th:each="product: ${productOptionsAnd}" th:value="${product.getCode()}" th:text="${product.getName()}"></option>
+                                                    </select>
+
+                                                </td>
+
+                                                <td>
+
+                                                    <label>Bucket</label>
+                                                    <select  th:field="*{productGroupDpdBuckets[__${stat.index}__].dpdBucket}" class="form-control input-sm" th:id="${'dpdBucket-'+stat.index}">
+
+                                                        <option value="">None</option>
+                                                        <option th:each="dpd: ${dpdBucketOptions}" th:value="${dpd.getBucketName()}" th:text="${dpd.getBucketName()}"></option>
+                                                    </select>
+
+                                                </td>
+                                                <td style="width: 14px;"><i th:onclick="'javascript:deleteRow(\'' + ${stat.index} + '\')'" style="color: red; margin-top: 32px; cursor: pointer;" class="fa fa-times"  aria-hidden="true"></i></td>
+                                            </tr>
+
+                                            <tr v-for="(row, index) in rows">
+
+                                                <td>
+                                                    <label>Product</label>
+                                                    <select v-model="row.productGroup"  class="form-control input-sm" :id="'productGroup.id-'+row.id" :name="'productGroupDpdBuckets['+row.id+'].productGroup'">
+                                                        <option value="">None</option>
+                                                        <option th:each="product: ${productOptionsAnd}" th:value="${product.getName()}" th:text="${product.getName()}"></option>
+                                                    </select>
+                                                </td>
+
+                                                <td>
+                                                    <label>Bucket</label>
+                                                    <select v-model="row.dpdBucket"  class="form-control input-sm" :id="'dpdBucket.id-'+row.id" :name="'productGroupDpdBuckets['+row.id+'].dpdBucket'">
+                                                        <option value="">None</option>
+                                                        <option th:each="dpd: ${dpdBucketOptions}" th:value="${dpd.getBucketName()}" th:text="${dpd.getBucketName()}"></option>
+                                                    </select>
+                                                </td>
+                                                <td style="width: 14px;"><i @click.prevent="removeRow(row)" style="color: red; margin-top: 32px; cursor: pointer;" class="fa fa-times"  aria-hidden="true"></i></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <!--<button type="submit" class="btn btn-info ">Submit</button>-->
+                                <button type="submit" th:if="${postpeople.id != null}" class="btn btn-info">Update</button>
+                                <button type="submit" th:if="${postpeople.id == null}" class="btn btn-info">Add</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var productOptios = /*[[${productOptions}]]*/ [];
+                            var selectProducts = /*[[${selectedProductOptions}]]*/ [];
+
+                            var selectDpdBuckets = /*[[${selectedDpdBucketOptions}]]*/ [];
+                            var dpdBucketOptios = /*[[${dpdBucketOptions}]]*/ [];
+
+                            var selectDealers = /*[[${selectedDealer}]]*/ [];
+                            var dealerOptios = /*[[${dealerOptons}]]*/ [];
+
+                            var selectAndProducts = /*[[${selectedProductOptionsAnd}]]*/ [];
+                            var productAndOptios = /*[[${productOptionsAnd}]]*/ [];
+
+                            var length = /*[[${length}]]*/ [];
+
+
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            function deleteRow(index) {
+                                console.log(index);
+                                $('#table #row-'+index).remove();
+                            }
+
+                            new Vue({
+                                el: '#app',
+                                components: {
+                                    Multiselect: VueMultiselect.default
+                                },
+                                data:{
+                                    rows:[],
+
+                                    selectedProductGroupList:[],
+                                    productGroupOption:[],
+
+                                    selectedProductAnd:[],
+                                    productAndOption:[],
+
+                                    selectedDpdBucket:[],
+                                    dpdBucketOptions:[],
+
+                                    selectedDealerList:[],
+                                    dealerOption:[],
+
+                                    current:0,
+                                },
+                                created:function () {
+                                    this.selectedProductGroupList = JSON.parse(selectProducts) ? JSON.parse(selectProducts):[];
+                                    this.productGroupOption = JSON.parse(productOptios) ? JSON.parse(productOptios):[];
+
+                                    this.selectedDealerList = JSON.parse(selectDealers) ? JSON.parse(selectDealers):[];
+                                    this.dealerOption = JSON.parse(dealerOptios) ? JSON.parse(dealerOptios):[];
+
+                                    this.current = length?length:0;
+                                },
+                                computed:{
+                                    getSelectedProductList : function () {
+                                        return this.selectedProductGroupList.map(item => {return item.id});
+                                    },
+
+                                    getSelectedDpdBucketList : function () {
+                                        return this.selectedDpdBucket.map(item => {return item.id});
+                                    },
+
+                                    getSelectedDealerList : function () {
+                                        return this.selectedDealerList.map(item => {return item.id});
+                                    },
+
+
+                                },
+                                methods:{
+                                    addRow : function () {
+                                        this.rows.splice(this.current+1, 0, {id: this.current+1, productGroup: "", dpdBucket:""});
+                                        this.current++;
+                                    },
+
+                                    removeRow : function(row){
+                                        var index = this.rows.indexOf(row);
+                                        this.rows.splice(index, 1);
+                                    },
+                                }
+                            })
+
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+
+</html>

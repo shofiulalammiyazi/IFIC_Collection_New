@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Branch Proposal Format</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="branch-proposal-format">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-detailsOfAcc"><a data-toggle="tab" href="#detailsOfAcc" title="Visitor Details">Details of the Account</a></li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel1" class="tab-pane top-buffer" id="detailsOfAcc">
+            <div th:replace="collection/details/panels/middle/samd/branchProposalFormat/details_account :: details_of_account"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Latest Liability position as per loan listing</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="latest-liability-position-loan-listing">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border pu csi-view-box-header">
+            <h3 class="box-title">Latest Liability position as per loan listing</h3>
+            <div class="pull-right">
+                <a class=" btn btn-xs btn-primary  btn-add-customer-request" data-toggle="modal"
+                   data-target="#modal-reschedule-guideline">
+                    <i class="fa fa-eye"></i>
+                    Reschedule Guideline
+                </a>
+
+                <div class="text-right" style="margin-top: 5px;">
+                    <a class="btn btn-xs btn-primary  btn-add-customer-request" data-toggle="modal"
+                       data-target="#modal-latest-liability-position-loan-listing">
+                        <i class="fa fa-plus-square"></i>
+                        Add More
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-latest-liability-position-loan-listing" data-backdrop="static"
+                     data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <h3>Latest Liability position as per loan listing</h3>
+                            </div>
+
+                            <form id="latest-liability-position-loan-listing-form" action="" method="post"
+                                  class="form-horizontal">
+                                <input name="_csrf" type="hidden">
+                                <input name="customerBasicInfo" type="hidden">
+                                <input type="hidden" name="id" id="liabilityId"/>
+
+                                <div class="alert alert-warning hidden"
+                                     id="latest-liability-position-error-messages"></div>
+
+                                <div class="modal-body">
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Nature of A/C:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="natureOfAccount2" name="natureOfAccount"
+                                                   class="form-control" placeholder="Nature of A/C"
+                                            ></input>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-details-lebel-left">A/C Number:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="liabilityAccountNo2" name="accountNo"
+                                                   class="form-control" placeholder="Account No."
+                                                   ></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Sanction on date:</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" id="sanctionOnDate2" name="sanctionOnDate"
+                                                   class="form-control" placeholder="Sanction on date"></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">Validity:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="validity2" name="validity" class="form-control"
+                                                   placeholder="Validity" ></input>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Limit:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="limit2" name="limit" class="form-control"
+                                                   placeholder="Limit" ></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">Rate of Int:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="rateOfInt2" name="rateOfInt" class="form-control"
+                                                   placeholder="Rate of Int" ></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Outstanding:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="outstandingLiability2" name="outstanding"
+                                                   class="form-control" placeholder="Outstanding"
+                                                   ></input>
+                                        </div>
+
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <h4>Interest</h4>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Suspense As on:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="suspenseAsOn2" name="suspenseAsOn"
+                                                   class="form-control" placeholder="Suspense As on"
+                                            ></input>
+                                        </div>
+                                        <label class="col-sm-2 custom-details-lebel-left">Unapplied As on:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="unappliedAsOn2" name="unappliedAsOn"
+                                                   class="form-control" placeholder="Unapplied As on"
+                                                   ></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <h4>Overdue</h4>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Amount:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="amount2" name="amount" class="form-control"
+                                                   placeholder="Amount" ></input>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-details-lebel-left">Month:</label>
+                                        <div class="col-sm-4">
+                                            <input type="date" id="month2" name="month" class="form-control"
+                                                   placeholder="Month"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Market Value:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="marketValue2" name="marketValue" class="form-control"
+                                                   placeholder="Market Value" ></input>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-details-lebel-left">Forced Sales Value:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" id="forcedSalesValue2" name="forcedSalesValue" class="form-control"
+                                                   placeholder="Forced Sales Value" ></input>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-details-lebel-left">CL Status:</label>
+                                        <div class="col-sm-4">
+                                            <select id="liability-position-loan-listing-clstatus" name="cLStatus"
+                                                    class="form-control">
+                                                <option value="0">Select CL Status</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table type="datatable-responsive" id="liability-position-loan-listing"
+                           class="table table-striped table-bordered table-condensed" width="100%">
+                        <thead>
+                        <tr>
+                            <td rowspan="2">SL</td>
+                            <td rowspan="2">Nature of A/C</td>
+                            <td rowspan="2">A/C Number</td>
+                            <td rowspan="2">Sanction on date</td>
+                            <td rowspan="2">Validity</td>
+                            <td rowspan="2">Limit</td>
+                            <td rowspan="2">Rate of Int</td>
+                            <td rowspan="2">Outstanding</td>
+                            <td colspan="2" style="text-align: center">Interest</td>
+                            <td colspan="2" style="text-align: center">Overdue</td>
+                            <td rowspan="2">MV</td>
+                            <td rowspan="2">FSV</td>
+                            <td rowspan="2">CL Status</td>
+                            <td rowspan="2">Action</td>
+                        </tr>
+                        <tr>
+                            <td>Suspense As on</td>
+                            <td>Unapplied As on</td>
+                            <td>AMT</td>
+                            <td>Month</td>
+                        </tr>
+                        </thead>
+                        <tbody id="liability-position-loan-listing-body">
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td id="liabilityOutStanding"></td>
+                                <td></td>
+                                <td></td>
+                                <td id="overAmt"></td>
+                                <td></td>
+                                <td id="mkVal"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#latest-liability-position-loan-listing-form input[name="_csrf"]').val(csrfToken);
+            $('#latest-liability-position-loan-listing-form input[name="customerBasicInfo"]').val(customerId)
+
+            function liabilityPositionLoanlist() {
+                $.getJSON('/collection/samd/data-entry/proposal-management-rescheduling/latest-liability-position-loan-listing/list?customerId=' + customerId, function (json) {
+                    liabilityPositionLoan = json;
+                    console.log(formData);
+
+                    var tr = [];
+                    var n = 1;
+
+                    var totalOutstanding = 0;
+                    var overdueAmt = 0;
+                    var marketVal = 0;
+
+                    for (var i = 0; i < json.length; i++) {
+
+                        totalOutstanding += json[i].outstanding;
+                        overdueAmt += json[i].amount;
+                        marketVal += json[i].marketValue;
+
+
+                        tr.push('<tr>');
+                        tr.push('<td>' + n + '</td>');
+                        tr.push('<td>' + (json[i].natureOfAccount == null ? '' : json[i].natureOfAccount) + '</td>');
+                        tr.push('<td>' + (json[i].accountNo == null ? '' : json[i].accountNo) + '</td>');
+                        tr.push('<td>' + (formatDate(json[i].sanctionOnDate) == null ? '' : formatDate(json[i].sanctionOnDate)) + '</td>');
+                        tr.push('<td>' + (json[i].validity == null ? '' : json[i].validity) + '</td>');
+                        tr.push('<td>' + (json[i].limit == null ? '' : json[i].limit) + '</td>');
+                        tr.push('<td>' + (json[i].rateOfInt == null ? '' : json[i].rateOfInt) + '</td>');
+                        tr.push('<td>' + (json[i].outstanding == null ? '' : json[i].outstanding) + '</td>');
+                        tr.push('<td>' + (json[i].suspenseAsOn == null ? '' : json[i].suspenseAsOn) + '</td>');
+                        tr.push('<td>' + (json[i].unappliedAsOn == null ? '' : json[i].unappliedAsOn) + '</td>');
+                        tr.push('<td>' + (json[i].amount == null ? '' : json[i].amount) + '</td>');
+                        tr.push('<td>' + (formatDate(json[i].month) == null ? '' : formatDate(json[i].month)) + '</td>');
+                        tr.push('<td>' + (json[i].marketValue == null ? '' : json[i].marketValue) + '</td>');
+                        tr.push('<td>' + (json[i].forcedSalesValue == null ? '' : json[i].forcedSalesValue) + '</td>');
+                        tr.push('<td>' + (json[i].clstatus == null ? '' : json[i].clstatus.name) + '</td>');
+                        tr.push('<td><a class="btn btn-primary btn-xs" id="liabilityEdit" data-toggle="modal" data-target="#modal-latest-liability-position-loan-listing" data-id = "' + json[i].id + '" <i class="fa fa-edit"></i>Edit</a></td>');
+                        tr.push('</tr>')
+                        n++;
+                    }
+
+                    $('#liability-position-loan-listing').append($(tr.join('')));
+
+                    console.log(totalOutstanding);
+                    $('#liabilityOutStanding').text(totalOutstanding);
+                    $('#overAmt').text(overdueAmt);
+                    $('#mkVal').text(marketVal);
+
+                })
+
+            }
+
+            liabilityPositionLoanlist();
+
+
+
+            function getLatestLiabilityPositionLoanListing() {
+                $.ajax({
+                    url: '/collection/samd/data-entry/proposal-management-rescheduling/latest-liability-position-loan-listing/cl-status',
+                    success: function (response) {
+                        let options = "";
+                        $.each(response, function (index, data) {
+                            options += "<option value='" + data.id + "'>" + data.name + "</option>";
+                        })
+                        $('#liability-position-loan-listing-clstatus').append(options);
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful");
+                    }
+                })
+            }
+
+            getLatestLiabilityPositionLoanListing();
+
+
+            $('#latest-liability-position-loan-listing-form').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                var formdatalist = $('#latest-liability-position-loan-listing-form');
+
+                var natureOfAccount = formdatalist.find('input[name="natureOfAccount"]').val();
+                var accountNo = formdatalist.find('input[name="accountNo"]').val();
+                var sanctionOnDate = formdatalist.find('input[name="sanctionOnDate"]').val();
+                var validity = formdatalist.find('input[name="validity"]').val();
+                var limit = formdatalist.find('input[name="limit"]').val();
+                var rateOfInt = formdatalist.find('input[name="rateOfInt"]').val();
+                var outstanding = formdatalist.find('input[name="outstanding"]').val();
+                var suspenseAsOn = formdatalist.find('input[name="suspenseAsOn"]').val();
+                var unappliedAsOn = formdatalist.find('input[name="unappliedAsOn"]').val();
+                var amount = formdatalist.find('input[name="amount"]').val();
+                var month = formdatalist.find('input[name="month"]').val();
+                var marketValue = formdatalist.find('input[name="marketValue"]').val();
+                var forcedSalesValue = formdatalist.find('input[name="forcedSalesValue"]').val();
+
+                if (natureOfAccount == '') {
+                    $('#latest-liability-position-error-messages').text("Nature of Account can not be null.").removeClass('hidden')
+                    return;
+                } else if ($.isNumeric(natureOfAccount)) {
+                    $('#latest-liability-position-error-messages').text("Nature of Account can not contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                if (accountNo == '') {
+                    $('#latest-liability-position-error-messages').text("Account number can not be null.").removeClass('hidden')
+                    return;
+                } else if (!$.isNumeric(accountNo)) {
+                    $('#latest-liability-position-error-messages').text("Account number must contains numeric value.").removeClass('hidden');
+                    return;
+                } else if (accountNo.length != 15) {
+                    $('#latest-liability-position-error-messages').text("Account number must contains 15 numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                if (sanctionOnDate == '') {
+                    $('#latest-liability-position-error-messages').text("Sanction date can not be blank.").removeClass('hidden')
+                    return;
+                }
+
+
+                if (validity == '') {
+                    $('#latest-liability-position-error-messages').text("Validity can not be blank.").removeClass('hidden')
+                    return;
+                }
+
+                if (limit == '') {
+                    $('#latest-liability-position-error-messages').text("Limit can not be blank.").removeClass('hidden')
+                    return;
+                } else if (!$.isNumeric(limit)) {
+                    $('#latest-liability-position-error-messages').text("Limit must contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                if (rateOfInt == '') {
+                    $('#latest-liability-position-error-messages').text("Rate of Int: can not be blank.").removeClass('hidden')
+                    return;
+                } else if (!$.isNumeric(rateOfInt)) {
+                    $('#latest-liability-position-error-messages').text("Rate of Int: must contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+                if (outstanding == '') {
+                    $('#latest-liability-position-error-messages').text("Outstanding can not be blank.").removeClass('hidden')
+                    return;
+                } else if (!$.isNumeric(outstanding)) {
+                    $('#latest-liability-position-error-messages').text("Outstanding must contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                if (suspenseAsOn == '') {
+                    $('#latest-liability-position-error-messages').text("Suspense as on can not be blank.").removeClass('hidden')
+                    return;
+                } else if ($.isNumeric(suspenseAsOn)) {
+                    $('#latest-liability-position-error-messages').text("Suspense as on must not contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                if (unappliedAsOn == '') {
+                    $('#latest-liability-position-error-messages').text("Unapplied as on can not be blank.").removeClass('hidden')
+                    return;
+                } else if ($.isNumeric(unappliedAsOn)) {
+                    $('#latest-liability-position-error-messages').text("Unapplied as on must not contains numeric value.").removeClass('hidden');
+                    return;
+                }
+
+
+                // if (amount == '') {
+                //     $('#latest-liability-position-error-messages').text("AMT can not be blank.").removeClass('hidden')
+                //     return;
+                // } else if ($.isNumeric(amount)) {
+                //     $('#latest-liability-position-error-messages').text("AMT must contains numeric value.").removeClass('hidden');
+                //     return;
+                // }
+
+                if (month == '') {
+                    $('#latest-liability-position-error-messages').text("Month can not be blank.").removeClass('hidden')
+                    return;
+                }
+
+
+                // if (marketValue == '') {
+                //     $('#latest-liability-position-error-messages').text("Market Value can not be blank.").removeClass('hidden')
+                //     return;
+                // } else if ($.isNumeric(marketValue)) {
+                //     $('#latest-liability-position-error-messages').text("Market Value. must contains numeric value.").removeClass('hidden');
+                //     return;
+                // }
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/collection/samd/data-entry/proposal-management-rescheduling/latest-liability-position-loan-listing/save',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-latest-liability-position-loan-listing').modal('toggle');
+                        $('#latest-liability-position-loan-listing-form').find("input:not(:hidden)").val("");
+                        $('#liability-position-loan-listing-body').html("");
+                        liabilityPositionLoanlist();
+
+                        swal("Saved Successfully");
+
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+
+            $("tbody").delegate("#liabilityEdit", "click", function () {
+                $.ajax({
+                    url: '/collection/samd/data-entry/proposal-management-rescheduling/latest-liability-position-loan-listing/edit?id=' + $(this).data('id'),
+                    success: function (response) {
+                        liabilityObject = response;
+                        $('#liabilityId').val(liabilityObject.id);
+                        $('#natureOfAccount2').val(liabilityObject.natureOfAccount);
+                        $('#liabilityAccountNo2').val(liabilityObject.accountNo);
+                        $('#sanctionOnDate2').val(formatDateInput(liabilityObject.sanctionOnDate));
+                        $('#validity2').val(liabilityObject.validity);
+                        $('#limit2').val(liabilityObject.limit);
+                        $('#rateOfInt2').val(liabilityObject.rateOfInt);
+                        $('#outstandingLiability2').val(liabilityObject.outstanding);
+                        $('#suspenseAsOn2').val(liabilityObject.suspenseAsOn);
+                        $('#unappliedAsOn2').val(liabilityObject.unappliedAsOn);
+                        $('#amount2').val(liabilityObject.amount);
+                        $('#month2').val(formatDateInput(liabilityObject.month));
+                        $('#marketValue2').val(liabilityObject.marketValue);
+                        $('#forcedSalesValue2').val(liabilityObject.forcedSalesValue);
+                        $('#clstatus').val(liabilityObject.clStatus);
+                        $('#liability-position-loan-listing-clstatus').val(liabilityObject.clstatus.id);
+
+                    },
+                    error: function (response) {
+
+                    }
+                })
+            })
+
+            function formatDateInput(date) {
+                let date1 = date ? new Date(date) : new Date()
+
+                return date ? date1.getFullYear()
+                    + '-' + ((date1.getMonth() + 1) < 10 ? '0' + (date1.getMonth() + 1) : (date1.getMonth() + 1))
+                    + '-' + (date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate())
+                    : '';
+            }
+
+            function formatDate(date) {
+                return formatDate_DD_MMM_YYYY(date)
+            }
+
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

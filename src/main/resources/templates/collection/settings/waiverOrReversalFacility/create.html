@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title> Waiver/Reversal Facility </title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="box box-primary">
+
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 th:if="${waiver.id == null}" class="box-title">Create New Waiver/Reversal Facility</h3>
+								<h3 th:if="${waiver.id != null}" class="box-title">Update Waiver/Reversal Facility</h3>
+							</div>
+
+							<form  class="form-horizontal validate" method="post" th:action="@{/collection/waiver_reversal_facility/create}" th:object="${waiver}">
+								<input type="hidden" th:field="*{id}"></input>
+								<div class="box-body">
+
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right required">
+											Account No
+											&nbsp;<span class="text-danger">*</span>
+										</label>
+										<div class="col-sm-8">
+											<input type="text" name="accNo" id="accNo" onkeyup="javascript:checkAccount('accNo')" maxlength="16" class="form-control required" th:required="true" th:field="*{accNo}" placeholder="Account No" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right required"> Amount
+											&nbsp;<span class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<input type="text" name="amount" id="amount" onkeyup="javascript:checkNumber2('amount');" class="form-control required" th:required="true" th:field="*{amount}" placeholder="Amount" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right required"> Type
+											&nbsp;<span class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<select class="form-control" th:required="true" th:field="*{type}">
+												<option value="" >Select</option>
+												<option value="Waiver"  th:selected="${waiver.type == 'Waiver'}">Waiver</option>
+												<option value="Reversal" th:selected="${waiver.type == 'Reversal'}">Reversal</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right required"> Execution Date
+											&nbsp;<span class="text-danger">*</span></label>
+										<div class="col-sm-8">
+											<input type="date" name="effectiveDate" id="effectiveDate" class="form-control required" th:required="true" th:field="*{effectiveDate}"/>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label  class="col-sm-4 custom-form-lebel-right"> Note</label>
+										<div class="col-sm-8">
+											<textarea class="form-control" name="note" id="note" th:field="*{note}" placeholder="Note (Optional)"></textarea>
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label  class="col-sm-4 control-label-right">Status:</label>
+										<div class="col-sm-8">
+											<fieldset id="group1">
+												<input  type="radio" name="enabled" id="enabled" th:checked="${waiver.enabled == true}" th:value="true"> Active</input>
+												<input type="radio"  name="enabled" id="enabled" th:checked="${waiver.enabled == false}" th:value="false"> Inactive </input>
+
+											</fieldset>
+										</div>
+									</div>
+
+
+									<!--<div class="form-group" th:if="${waiver.id != null}">
+                                        <label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                        <div class="col-sm-8" >
+                                            <fieldset id="group1" th:required="true">
+                                                <input type="radio" name="enabled" th:checked="${waiver?.enabled == true} " th:value="true" > Active</input>
+                                                <input type="radio"  name="enabled" th:checked="${waiver?.enabled == false}" th:value="false" required> Inactive </input>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" th:if="${waiver?.id == null}" style="display: none">
+                                        <label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                        <div class="col-sm-8" >
+                                            <fieldset id="group1">
+                                                <input type="radio" name="enabled" th:checked="${waiver?.enabled==true} or ${waiver?.id == null}" th:value="true"> Active</input>
+                                                <input type="radio"  name="enabled"  th:checked="${waiver?.enabled==false} and ${waiver?.id != null}" th:value="false"> Inactive </input>
+                                            </fieldset>
+                                        </div>
+                                    </div>-->
+
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer text-center">
+									<button type="submit" class="btn btn-info btn-sm">Submit</button>
+									<a type="submit" class="btn btn-danger btn-sm" href="/collection/waiver_reversal_facility/list">Cancel</a>
+								</div>
+								<!-- /.box-footer -->
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

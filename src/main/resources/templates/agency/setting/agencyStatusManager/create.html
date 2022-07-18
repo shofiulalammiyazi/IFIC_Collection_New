@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Agency Status Manager</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${agencyStatusManagerEntity.id == null}" class="box-title">Create New Status</h3>
+                            <h3 th:if="${agencyStatusManagerEntity.id != null}" class="box-title">Update Status</h3>
+                        </div>
+
+                        <form  class="form-horizontal validate" method="post" th:action="@{/collection/agency/agency-status-manager/create}" th:object="${agencyStatusManagerEntity}">
+                            <input type="hidden" th:field="*{id}" required></input>
+                            <input type="hidden" th:field="*{agencyEntity.id}" required></input>
+                            <input type="hidden" th:field="*{userId}" required></input>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >PIN </label>
+                                    <div class="col-sm-8">
+                                        <span  class="form-control input-sm"  th:text="*{agencyEntity.pin}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Name </label>
+                                    <div class="col-sm-8">
+                                        <span  class="form-control input-sm" th:text="*{agencyEntity.name}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">Status </label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control input-sm" name="agencyStatusEntity">
+                                            <option>Select Status</option>
+                                            <option th:each="status :${agencyStatusList}" th:value="${status.id}" th:text="${status.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<label  class="col-sm-4 custom-form-lebel-right">Remarks </label>-->
+                                    <!--<div class="col-sm-8">-->
+                                        <!--<textarea class="form-control input-sm" th:field="*{remarks}"></textarea>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="form-group">-->
+                                    <!--<label class="col-sm-4 custom-form-lebel-right">Start Date </label>-->
+                                    <!--<div class="col-sm-8">-->
+                                        <!--&lt;!&ndash;<input type="date" name="startDate" class="form-control input-sm" th:field="*{startDate}" placeholder="Start Date" ></input>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label class="col-sm-4 custom-form-lebel-right">End Date </label>-->
+                                    <!--<div class="col-sm-8">-->
+                                        <!--&lt;!&ndash;<input type="date" name="endDate" class="form-control input-sm" th:field="*{endDate}" placeholder="End Date" ></input>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/agency/agency-status-manager/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

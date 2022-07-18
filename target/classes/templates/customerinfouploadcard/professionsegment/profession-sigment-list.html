@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Customer's Profession Segment List(Card)</title>
+
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title"> Customer's Profession Segment List(Card)</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div id="ref" class="box-body">
+                            <a  style="margin-bottom: 10px" class="btn btn-primary btn-xs"
+                               th:href="@{/collection/card/profession-segment/create}"><span class="glyphicon glyphicon-plus"> </span>
+                                Customer's Profession  Segment Upload (Card)</a>
+
+                            <table id="profession-segment-tbl" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed text-center" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Contract Id</th>
+                                    <th>Profession Segment</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="profession,status : ${professionSegment}">
+                                    <td   th:text="${status.index+1 }"></td>
+                                    <td   th:text="${profession.contractId}"></td>
+                                    <td   th:text="${profession.professionSegment}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <script src="/js/datatable/dataTables.buttons.min.js"></script>
+                        <script src="/js/datatable/jszip.min.js"></script>
+                        <script src="/js/datatable/pdfmake.min.js"></script>
+                        <script src="/js/datatable/vfs_fonts.js"></script>
+                        <script src="/js/datatable/buttons.html5.min.js"></script>
+                        <script src="/js/datatable/buttons.print.min.js"></script>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#profession-segment-tbl').DataTable({
+                                    'bInfo': true,
+                                    ordering: true,
+                                    searching: true,
+                                    lengthChange: true,
+                                    dom: 'Bfrtip',
+                                    buttons: ['excel']
+                                })
+
+                            })
+                        </script>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+</body>
+</html>

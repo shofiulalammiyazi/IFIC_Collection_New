@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Audit Trail List</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Audit Trail List</h3>
+                        </div>
+
+                        <div class="box-body table-responsive">
+                            <!--<a style="margin-bottom: 5px; float: right" class="btn btn-danger " data-toggle="modal" data-target="#modal-audittrail-report"> ><span class="glyphicon glyphicon-book"> </span> Generate Report</a>-->
+                            <!--<a style="margin-bottom: 10px; margin-right: 5px; float: right;" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-audittrail-report"><span class="glyphicon glyphicon-plus"> </span> MA (Dealer)</a>-->
+                            <table th:if="${auditTrailList!=null}" class="table table-condensed table-bordered table-striped" id="audit" name="datatable-responsive" width="100%">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1%">SL. No</th>
+                                    <th style="width: 2%">Field Name</th>
+                                    <th style="width: 42%">Previous Value</th>
+                                    <th style="width: 42%">Current Value</th>
+                                    <th style="width: 3%">Last Modified (Date-Time)</th>
+                                    <th style="width: 4%">Last Modified by (User ID)</th>
+                                    <th style="width: 3%">IP Address of Last Accessing Device</th>
+                                    <th style="width: 3%">MAC Address of Last Accessing Device</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="audit,status:${auditTrailList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td th:text="${audit.moduleName}"></td>
+                                    <td style="text-align: center">
+                                        <div style="height: 200px; width: 300px; overflow: auto">
+                                            <span th:text="${audit.previousData}"></span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <div style="height: 200px; width: 300px; overflow: auto">
+
+                                            <span th:text="${audit.presentData}"></span>
+                                        </div>
+                                    </td>
+                                    <td ><span th:text="${#dates.format(audit.createdDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
+
+                                    <td ><span th:text="${audit.username}"></span> <span>-</span> <span th:text="${audit.name}"></span></td>
+                                    <td th:text="${audit.requestIP}"></td>
+                                    <td></td>
+                                    <td style="text-align: center">
+                                        <a class="btn btn-success btn-xs" th:href="@{/audittrail/view(id=${audit.id})}"><i class="fa fa-edit"></i>View</a>
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+
+                                <!--<tr th:each="audit,status:${auditTrailList}">-->
+                                <!--<td th:text="${status.count}"></td>-->
+                                <!--<td th:text="${audit.moduleName}"></td>-->
+                                <!--<td><span th:text="${'-'}"></span></td>-->
+                                <!--<td><span th:text="${'-'}"></span></td>-->
+                                <!--<td ><span th:text="${#dates.format(audit.createdDate, 'dd-MMM-yyyy')}"></span></td>-->
+                                <!--<td><span th:text="${audit.username}"></span> <span>-</span> <span th:text="${audit.name}"></span></td>-->
+                                <!--<td th:text="${audit.requestIP}"></td>-->
+                                <!--<td></td>-->
+                                <!--<td style="text-align: center">-->
+                                <!--<a class="btn btn-xs" th:href="@{/audittrail/view(id=${audit.id})}"><i class="fa fa-edit"></i>View</a>-->
+                                <!--&lt;!&ndash; <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> &ndash;&gt;-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+
+
+                            <div class="modal fade" id="modal-audittrail-report">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Generate Report</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <label  class="col-sm-4 custom-form-lebel-right required">Start Date</label>
+                                                <div class="col-sm-8">
+                                                    <!--<select v-model="dealerId" id="dealer_id" class="form-control input-sm">
+                                                        <option value="">Choose One</option>
+                                                        <option th:each="dealer : ${dealerList}" th:value="${dealer.id}" th:text="${dealer.getDealer().getUser().getFirstName()}">Loan</option>
+                                                    </select>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                            <a href="#" class="btn btn-success" id="btn_ingresar">Submit</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <nav aria-label="Page navigation" class="paging">
+                    <ul class="pagination pull-right" th:if="${totalPages > 1}">
+                        <li class="page-item" th:classappend="${currentPage > 1? '' : 'disabled'}">
+                            <a class="page-link" th:href="@{'/audittrail/list/' + ${currentPage - 1}}"
+                               tabindex="-1">Previous</a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == 1 ? 'active' : ''}">
+                            <a class="page-link" th:href="@{'/audittrail/list/1'}" th:text="1"></a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == 2? 'active' : ''}">
+                            <a class="page-link" th:href="@{'/audittrail/list/2'}" th:text="2"></a>
+                        </li>
+
+                        <li class="page-item disabled" th:if="${currentPage>4}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+
+                        <th:block th:each="item : ${#numbers.sequence(3, totalPages - 2)}">
+                            <li class="page-item" th:if="${item < currentPage+2 }" th:classappend="${(currentPage - 1 ) > item ? 'hidden' : currentPage == item ? 'active' : ''}"> <!--th:if="${item.pageItemType.name() == 'PAGE'}" th:classappend="${item != currentPage? 'active' : ''}"-->
+                                <a class="page-link" th:href="@{'/audittrail/list/' + ${item}}"
+                                   th:text="${item}"></a>
+                            </li>
+
+                        </th:block>
+
+                        <li class="page-item disabled" th:if="${currentPage < totalPages - 3}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == (totalPages - 1)? 'active' : ''}">
+                            <a class="page-link" th:href="@{'/audittrail/list/' + ${totalPages - 1}}" th:text="${totalPages - 1}"></a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == totalPages? 'active' : ''}">
+                            <a class="page-link" th:href="@{'/audittrail/list/' + ${totalPages}}" th:text="${totalPages}"></a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${totalPages>currentPage? '' : 'disabled'}">
+                            <a class="page-link" th:href="@{'/audittrail/list/' + ${currentPage + 1}}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </section>
+        <!--        <span>Total Items: [[${totalItems}]]</span>
+                <a th:if="${currentPage > 1}" th:href="@{'/audittrail/list/1'}">First</a>
+                <span th:unless="${currentPage > 1}">First</span>
+
+                <a th:if="${currentPage > 1}" th:href="@{'/audittrail/list/'+${currentPage - 1}}">Previous</a>
+                <span th:unless="${currentPage > 1}">Previous</span>
+
+                &lt;!&ndash;<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                <a th:if="${currentPage != i}" th:href="/@{'/audittrail/list/'${i}}">[[${i}]]</a>
+                <span th:unless="${currentPage != i}">[[${i}]]</span>&nbsp;</span>&ndash;&gt;
+
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}" th:href="@{'/audittrail/list/' + ${i}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span>
+                    &nbsp;
+                </span>
+
+                <a th:if="${currentPage < totalPages}" th:href="@{'/audittrail/list/'+${currentPage + 1}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+
+                <a th:if="${currentPage < totalPages}" th:href="@{'/audittrail/list/'+${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>-->
+
+    </div>
+
+    <script>
+
+        /* $('#audit').DataTable( {
+             dom: 'Rlfrtip',
+             "aaSorting": []
+         } );*/
+    </script>
+
+</div>
+</body>
+</html>

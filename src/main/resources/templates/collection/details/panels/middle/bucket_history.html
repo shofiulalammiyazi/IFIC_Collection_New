@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="bucket-move">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Bucket History</h3>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#bamount" title="Personal Information">Bucket Movement</a>
+            </li>
+           <!-- <li id="tab-account">
+                <a data-toggle="tab" href="#
+                " title="Family Information">Month-End Bucket Movement</a>
+            </li>-->
+        </ul>
+    </div>
+
+<div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="bamount">
+            <div id="bucket_movement">
+                <!--<center><h5>Bucket Movement</h5></center>-->
+                <div style="height:400px; overflow:auto;">
+                    <table name="letter_info" class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <!--<th>Transaction Date</th>-->
+                            <!--<th>Outstanding</th>-->
+                            <th>ATE</th>
+                            <th>DPD</th>
+                            <!--<th>DPD Bucket</th>-->
+                            <!--<th>Repayment/Collection Amount</th>-->
+                            <!--<th>Overdue</th>-->
+                            <th>Asset CL</th>
+                            <th>Asset CL (Cal)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr v-for="bucket in bucket_movement_details">
+                            <!--<td>{{bucket.transactionDate}}</td>-->
+                            <!--<td>{{bucket.outstanding | getAbsoluteValue}}</td>-->
+                            <td>{{bucket.ate}}</td>
+                            <td>{{bucket.dpd}}</td>
+                            <!--<td>{{bucket.dpdBucket}}</td>-->
+                            <!--<td>{{bucket.repayAmount}}</td>-->
+                            <!--<td>{{bucket.overDue}}</td>-->
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 50px">
+                    <h3 class="">Bucket Summary</h3>
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-light">
+                            <th scope="col">Bucket Name</th>
+                            <th scope="col">Total</th>
+                        </thead>
+                        <tbody>
+                        <tr v-for="item in summaryDetails">
+                            <td>{{item.name}}</td>
+                            <td>{{item.val}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <script th:inline="javascript">
+                $("#tab-bucketHistory").click(function (event) {
+                    //event.preventDefault();
+                    bucket_movement.getBucketMovementHistory();
+                });
+            </script>
+            <script>
+                var bucket_movement = new Vue({
+                    el: '#bucket_movement',
+                    data: {
+                        bucket_movement_details: [],
+                        bucket_movement_monthend_details: [],
+                        summary: new Map(),
+                        summaryDetails:[],
+                    },
+                    filters: {
+                        getAbsoluteValue: function (value) {
+                            return value < 0 ? value * -1 : value;
+                        }
+                    },
+                    methods: {
+                        async getBucketMovementHistory(e) {
+                            this.bucket_movement_details = profile_information.bucket_movement_details;
+                            this.bucket_movement_monthend_details = profile_information.bucket_movement_monthend_details;
+                            var items = [];
+
+                            for (var i = 0; i < this.bucket_movement_details.length; i++) {
+                                if (this.bucket_movement_details[i].dpd != 0) {
+                                    var host = window.location.host;
+                                    var url = 'https://' + host + '/collection/loan/profile/api/dpdbucket?dpd=' + this.bucket_movement_details[i].dpd;
+                                    await this.$http.get(url,
+                                        {
+                                            credentials: true, headers: {
+                                                'X-CSRF-TOKEN': window.csrfToken,
+                                            }
+                                        }).then(res => {
+                                        console.log(res);
+                                        if (res.body) {
+                                            console.log("bucket  " + res.body.bucketName);
+                                            this.bucket_movement_details[i].dpdBucket = res.body.bucketName;
+                                            if(!this.summary.has(res.body.bucketName)){
+                                                this.summary.set(res.body.bucketName,{val:1});
+                                                items.push(res.body.bucketName);
+                                            }
+                                            else
+                                                this.summary.get(res.body.bucketName).val++;
+                                        }
+                                    }).catch(err => {
+                                        console.log(err);
+                                    })
+                                }else {
+                                    this.bucket_movement_details[i].dpdBucket = "Regular";
+                                    if(!this.summary.has("Regular")){
+                                        this.summary.set("Regular",{val:1});
+                                        items.push("Regular");
+                                    }
+                                    else
+                                        this.summary.get("Regular").val++;
+                                }
+                            }
+
+
+                            for(var i=0;i<items.length;i++){
+                                this.summaryDetails.push({name: items[i], val: this.summary.get(items[i]).val})
+                            }
+                        }
+
+                    }
+                })
+            </script>
+        </div>
+
+        <!--<div role="tabpanel" class="tab-pane top-buffer" id="caccount">
+            <div id="credit_feedback">
+                &lt;!&ndash;<center><h5>Credit Feedback</h5></center>&ndash;&gt;
+                <div style="height:400px; overflow:auto;">
+                    <table name="letter_info"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            &lt;!&ndash;<th>Transaction Date</th>&ndash;&gt;
+                            &lt;!&ndash;<th>Outstanding</th>&ndash;&gt;
+                            <th>ATE</th>
+                            <th>DPD</th>
+                            &lt;!&ndash;<th>DPD Bucket</th>&ndash;&gt;
+                            &lt;!&ndash;<th>Repayment/Collection Amount</th>&ndash;&gt;
+                            &lt;!&ndash;<th>Overdue</th>&ndash;&gt;
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="credit in creditFeedBack">
+                            &lt;!&ndash;<td>{{credit.transactionDate}}</td>&ndash;&gt;
+                            &lt;!&ndash;<td>{{credit.outstanding | getAbsoluteValue}}</td>&ndash;&gt;
+                            <td>{{credit.ate}}</td>
+                            <td>{{credit.dpd}}</td>
+                            &lt;!&ndash;<td>{{credit.dpdBucket}}</td>&ndash;&gt;
+                            &lt;!&ndash;<td>{{credit.repayAmount}}</td>&ndash;&gt;
+                            &lt;!&ndash;<td>{{credit.overDue}}</td>&ndash;&gt;
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <script th:inline="javascript">
+                $("#tab-account").click(function (event) {
+                    credit_FeedBack.getCreditFeedBack();
+                });
+            </script>
+            <script>
+                var credit_FeedBack = new Vue({
+                    el:'#credit_feedback',
+                    data:{
+                        creditFeedBack:{}
+                    },
+                    methods:{
+                        getCreditFeedBack:function () {
+                            this.creditFeedBack = bucket_movement.bucket_movement_monthend_details;
+                        }
+                    }
+                    ,filters:{
+                        getAbsoluteValue:function(value){
+                            return value < 0 ? value * -1: value;
+                        }
+                    },
+                })
+            </script>
+        </div>-->
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

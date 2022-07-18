@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Agency KPI Commission Rate- Loan</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${agency.id == null}" class="box-title">Create Agency KPI Commission Rate- Loan</h3>
+                            <h3 th:if="${agency.id != null}" class="box-title">Update Agency KPI Commission Rate- Loan</h3>
+                        </div>
+
+                        <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/kpi/agency/loan/bycommision/create}" th:object="${agency}">
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{locationIds}" v-model="getSelectedLocationList">
+                            <input type="hidden" th:field="*{zoneIds}" v-model="getSelectedZoneList">
+                            <input type="hidden" th:field="*{dpdBucketIds}" v-model="getSelectedDpdBucketList">
+                            <input type="hidden" th:field="*{productTypeEntityIds}" v-model="getSelectedProductTypes">
+                            <input type="hidden" th:field="*{clStatusIds}" v-model="getSelectedClStatusList">
+
+                            <div class="box-body">
+
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Bucket</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedDpdBucketList" placeholder="Search Bucket" label="bucketName" track-by="id"  :options="dpdBucketOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Location</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedLocationList" placeholder="Search Location" label="city" track-by="id"  :options="locationOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Zone</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedZoneList" placeholder="Search Zone" label="name" track-by="id"  :options="zoneOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Product</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedProductList" placeholder="Search Product" label="name" track-by="id"  :options="productList" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">CL Status</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedClStatusList" placeholder="Search CL Status" label="name" track-by="id"  :options="clStatusList" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Commission Rate</label>
+                                    <div class="col-sm-2">
+                                        <input v-validate="'decimal:2|between:1,100'" th:field="*{commisionRate}" type="text" name="overDue" class="form-control required input-sm" th:required="true"/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <span><i class="fa fa-percent" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="error" v-if="errors.has('commisionRate')">{{errors.first('commisionRate') | capitalize}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label required">Status:</label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <input  type="radio" name="enabled" id="enabled" th:checked="${agency.enabled == true}" th:value="true"> Active</input>
+                                            <input type="radio"  name="enabled" id="enabled" th:checked="${agency.enabled == false}" th:value="false"> Inactive </input>
+
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <!--<button type="submit" class="btn btn-info ">Submit</button>-->
+                                <button type="submit" th:if="${agency.id != null}" class="btn btn-info btn-sm">Update</button>
+                                <button type="submit" th:if="${agency.id == null}" class="btn btn-info btn-sm">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/kpi/agency/loan/bycommision/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var selectedProductTypes = /*[[${selectedProuductTypeList}]]*/ [];
+                            var productOptions = /*[[${productTypeList}]]*/ [];
+
+                            var selectLocation = /*[[${selectedLocationList}]]*/ [];
+                            var locationOptions = /*[[${locationList}]]*/ [];
+
+                            var selectZone = /*[[${selectedZoneList}]]*/ [];
+                            var zoneOptions = /*[[${zoneList}]]*/ [];
+
+                            var selectDpdBuckets = /*[[${selectedDpdBucketList}]]*/ [];
+                            var dpdBucketOptions = /*[[${dpdBucketList}]]*/ [];
+
+
+                            var productList = /*[[${productList}]]*/ [];
+                            var selectedProductList = /*[[${selectedProductList}]]*/ [];
+
+                            var clStatusList = /*[[${clStatusList}]]*/ [];
+                            var selectedClStatusList = /*[[${selectedClStatusList}]]*/ [];
+
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            function deleteRow(index) {
+                                console.log(index);
+                                $('#table #row-'+index).remove();
+                            }
+
+                            Vue.use(VeeValidate);
+                            new Vue({
+                                el: '#app',
+                                components: {
+                                    Multiselect: VueMultiselect.default
+                                },
+                                data:{
+                                    selectedProductTypeList:[],
+                                    productTypeOption:[],
+
+                                    selectedLocationList:[],
+                                    locationOption:[],
+
+                                    selectedZoneList:[],
+                                    zoneOption:[],
+
+                                    selectedDpdBucketList:[],
+                                    dpdBucketOption:[],
+
+                                    productList:[],
+                                    selectedProductList:[],
+
+                                    clStatusList:[],
+                                    selectedClStatusList:[]
+                                },
+                                created:function () {
+                                    this.selectedProductTypeList = JSON.parse(selectedProductTypes) ? JSON.parse(selectedProductTypes):[];
+                                    this.productTypeOption = JSON.parse(productOptions) ? JSON.parse(productOptions):[];
+
+                                    this.selectedLocationList = JSON.parse(selectLocation) ? JSON.parse(selectLocation):[];
+                                    this.locationOption = JSON.parse(locationOptions) ? JSON.parse(locationOptions):[];
+
+                                    this.selectedZoneList = JSON.parse(selectZone) ? JSON.parse(selectZone):[];
+                                    this.zoneOption = JSON.parse(zoneOptions) ? JSON.parse(zoneOptions):[];
+
+                                    this.selectedDpdBucketList = JSON.parse(selectDpdBuckets) ? JSON.parse(selectDpdBuckets):[];
+                                    this.dpdBucketOption = JSON.parse(dpdBucketOptions) ? JSON.parse(dpdBucketOptions):[];
+
+                                    this.selectedProductList = JSON.parse(selectedProductList) ? JSON.parse(selectedProductList):[];
+                                    this.productList = JSON.parse(productList) ? JSON.parse(productList):[];
+
+                                    this.selectedClStatusList = JSON.parse(selectedClStatusList) ? JSON.parse(selectedClStatusList):[];
+                                    this.clStatusList = JSON.parse(clStatusList) ? JSON.parse(clStatusList):[];
+
+                                    this.current = length?length:0;
+                                },
+                                computed:{
+                                    getSelectedProductList : function () {
+                                        return this.selectedProductTypeList.map(item => {return item.id});
+                                    },
+
+                                    getSelectedDpdBucketList : function () {
+                                        return this.selectedDpdBucketList.map(item => {return item.id});
+                                    },
+
+                                    getSelectedLocationList : function () {
+                                        return this.selectedLocationList.map(item => {return item.id});
+                                    },
+
+                                    getSelectedZoneList : function () {
+                                        return this.selectedZoneList.map(item => {return item.id});
+                                    },
+
+                                    getSelectedProductTypes : function () {
+                                        return this.selectedProductList.map(item => {return item.id});
+                                    },
+
+
+                                    getSelectedClStatusList : function () {
+                                        return this.selectedClStatusList.map(item => {return item.id});
+                                    },
+
+
+
+
+                                },
+                                filters: {
+                                    capitalize: function (value) {
+                                        console.log(value);
+                                        if (!value) return ''
+                                        value = value.toString()
+                                        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+                                    }
+                                }
+                            })
+
+                        </script>
+
+                        <style>
+                            .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                                font-size: 13px;
+                            }
+                            .multiselect__tag{
+                                font-size: 12px;
+                            }
+                            select {
+                                -webkit-appearance: menulist;
+                            }
+
+                        </style>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+
+</html>

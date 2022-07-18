@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>WELCOME TO COLLECTION MODULE</title>
+
+    <script th:inline="javascript">
+        // Global variables
+        /*<![CDATA[*/
+        var dealerList = /*[[${dealerDetail}]]*/ [];
+        var teamLeadDetail = /*[[${teamLeadDetail}]]*/ [];
+        var supervisorDetail = /*[[${supervisorDetail}]]*/ [];
+
+        /*]]>*/
+    </script>
+</head>
+
+<body>
+    <div class="content-wrapper" layout:fragment="content">
+        <section class="content-custom" >
+            <div class="col-md-12 content-midle-scroll">
+                <div th:replace="dashboard/loan/manager/details/panels/middle/main :: panel-middle-collection"></div>
+            </div>
+            <!--<div class="col-md-4 sidebar-right-scroll">
+                <div th:replace="dashboard/loan/manager/details/panels/right/main :: panel-right-collection"></div>
+            </div>-->
+        </section>
+
+    </div>
+    <script type="text/javascript" th:src="@{/js/user_panel.js}"></script>
+</body>
+
+</html>

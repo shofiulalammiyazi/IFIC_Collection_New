@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Allocated Account List (Card)</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title">Allocated Account List (Card)</h3>
+                        </div>
+                        <div style="text-align: center">
+                            <button class="btn btn-info btn-xs" id="mo_data_calculate">MO Data Calculate</button>
+                            <button class="btn btn-success btn-xs" id="btn_kpi_cal_card">KPI Calculate</button>
+                        </div>
+                        <div class="box-body" id="app">
+                            <!--<a style="margin-bottom: 10px" class="btn btn-primary btn-xs" th:href="@{/distribution/card/create}"><span class="glyphicon glyphicon-plus"> </span> Dealer Allocation </a>-->
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-xs" th:href="@{/collection/cardagency/distribution/add}"><span class="glyphicon glyphicon-plus"> </span> Agency Allocation </a>
+                            <a style="margin-bottom: 10px; float: right;" class="btn btn-primary btn-xs openmodalee" data-toggle="modal" data-target="#modal-default-agency"><span class="glyphicon glyphicon-plus"> </span> MA (Agency)</a>
+                            <a style="margin-bottom: 10px; margin-right: 5px; float: right;" class="btn btn-primary btn-xs openmodale" data-toggle="modal" data-target="#modal-default-dealer"><span class="glyphicon glyphicon-plus"> </span> MA (Dealer)</a>
+                            <a style="margin-bottom: 10px; margin-right: 5px; float: right;" @click="addManualAllocationSam" class="btn btn-primary btn-xs "><span class="glyphicon glyphicon-plus"> </span> MA (SAM)</a>
+                            <a style="margin-bottom: 10px; margin-right: 5px; float: right;" @click="addManualAllocationWriteOff" class="btn btn-primary btn-xs "><span class="glyphicon glyphicon-plus"> </span> MA (Write Off)</a>
+                            <table th:if="${cardlist!=null}" class="table table-condensed table-hover table-striped table-bordered" id="example" name="datatable-responsive"  width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Customer Id</th>
+                                    <th>Customer Name</th>
+                                    <th>Card No</th>
+                                    <th>Outstanding Amount</th>
+                                    <th>Location</th>
+                                    <th>Age Code</th>
+                                    <th style="width: 100px;">Dealer Name</th>
+                                    <th>Agency Name</th>
+                                    <th>Monitoring Status</th>
+                                    <th style="display: none;"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="card, index in cardViewList">
+                                    <td>
+                                        <label class = "mdl-checkbox mdl-js-checkbox">
+                                            <input v-model="selectedList" :id="'card' + card.index" :value="card.accountNo" type = "checkbox"
+                                                   class = "mdl-checkbox__input" checked>
+                                        </label>
+                                    </td>
+                                    <td>{{card.customerId}}</td>
+                                    <td>{{card.customerName}}</td>
+                                    <td><a :href="'/profile/loanprofile/search?account='+ card.accountNo" target="_blank">{{card.accountNo}}</a></td>
+                                    <td>{{card.outstandingAmount}}</td>
+                                    <td>{{card.location}}</td>
+                                    <td>{{card.ageCode}}</td>
+                                    <td style="width:150px;display: block;height: 20px; overflow: auto"><span v-if="card.delaerName">{{card.delaerName}}</span></td>
+                                    <td><span v-if="card.AgencyName">{{card.AgencyName}}</span></td>
+                                    <td v-show="card.monirotingStatus == 'DUAL'"><span>{{card.monirotingStatus}}</span></td>
+                                    <td v-show="card.monirotingStatus != 'DUAL'"><span >SINGLE</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="modal fade" id="modal-default-agency">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Manual Allocation (Agency)</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <label  class="col-sm-4 custom-form-lebel-right required">Agency</label>
+                                                <div class="col-sm-8">
+                                                    <select v-model="agencyId" id="agency_id" class="form-control input-sm">
+                                                        <option value="">Choose One</option>
+                                                        <option th:each="dealer : ${agencyList}" th:value="${dealer.id}" th:text="${dealer.getName()}">Loan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <label  class="col-sm-4 custom-form-lebel-right required">Dual/Single</label>
+                                                <div class="col-sm-8">
+                                                    <select v-model="dualType" class="form-control input-sm" id="parentname1">
+                                                        <!--<option th:each="ptype : ${T(com.csinfotechbd.collection.distribution.loan.LoanDualEnum).values()}" th:value="${ptype}" th:text="${ptype}"></option>-->
+                                                        <option value="SINGLE">SINGLE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                            <a href="#" class="btn btn-success" @click="addManualAllocationAgency()" id="btn_ingresarr">Submit</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                            <div class="modal fade" id="modal-default-dealer">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Manual Allocation (Dealer)</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <label  class="col-sm-4 custom-form-lebel-right required">Dealer</label>
+                                                <div class="col-sm-8">
+                                                    <select v-model="dealerId" id="dealer_id" class="form-control input-sm">
+                                                        <option value="">Choose One</option>
+                                                        <option th:each="dealer : ${dealerList}" th:value="${dealer.id}" th:text="${dealer.getDealer().getUser().getFirstName()}">Loan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                            <a href="#" class="btn btn-success" @click="addManualAllocation()" id="btn_ingresar">Submit</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var cardviewlist = /*[[${cardviewlistJson}]]*/  || "";
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            new Vue({
+                                el:"#app",
+                                data:{
+                                    cardViewList:[],
+                                    selectedList:[],
+                                    dealerId:"",
+                                    agencyId:"",
+                                    dualType:"SINGLE"
+                                },
+                                created:function () {
+                                    this.cardViewList = JSON.parse(cardviewlist);
+                                },
+                                methods:{
+                                    addManualAllocation: function () {
+                                        var host = window.location.host;
+                                        this.$http.post('https://'+host+'/collection/distribution/api/cardupdate', {
+                                            id:this.dealerId,
+                                            list: this.selectedList,
+
+                                        }, {credentials : true, headers:{
+                                                'X-CSRF-TOKEN' : window.csrfToken,
+                                            }}).then(res => {
+                                            console.log(res);
+                                            if(res.body){
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                            console.log(err);
+                                        })
+                                    },
+                                    addManualAllocationAgency: function () {
+                                        var host = window.location.host;
+                                        this.$http.post('https://'+host+'/collection/distribution/api/agencycardupdate', {
+                                            id:this.agencyId,
+                                            list: this.selectedList,
+                                            dualorsingle: this.dualType,
+                                        }, {credentials : true, headers:{
+                                                'X-CSRF-TOKEN' : window.csrfToken,
+                                            }}).then(res => {
+                                            console.log(res);
+                                            if(res.body){
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                            console.log(err);
+                                        })
+                                    },
+
+                                    addManualAllocationSam: function () {
+                                        var host = window.location.host;
+                                        this.$http.post('https://'+host+'/collection/distribution/api/cardsendtosam', {
+                                            id:this.agencyId,
+                                            list: this.selectedList,
+                                            dualorsingle: this.dualType,
+                                        }, {credentials : true, headers:{
+                                                'X-CSRF-TOKEN' : window.csrfToken,
+                                            }}).then(res => {
+                                            console.log(res);
+                                            if(res.body){
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                            console.log(err);
+                                        })
+                                    },
+
+                                    addManualAllocationWriteOff: function () {
+                                        var host = window.location.host;
+                                        this.$http.post('https://'+host+'/collection/distribution/api/cardsendtowriteOff', {
+                                            id:this.agencyId,
+                                            list: this.selectedList,
+                                            dualorsingle: this.dualType,
+                                        }, {credentials : true, headers:{
+                                                'X-CSRF-TOKEN' : window.csrfToken,
+                                            }}).then(res => {
+                                            console.log(res);
+                                            if(res.body){
+                                                document.location.reload();
+                                            }
+                                        }).catch(err => {
+                                            console.log(err);
+                                        })
+                                    },
+                                }
+
+                            })
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

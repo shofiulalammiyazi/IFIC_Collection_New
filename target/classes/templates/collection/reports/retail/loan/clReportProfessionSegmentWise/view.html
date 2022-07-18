@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <script src="/js/common.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="proposalSegment">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Select product </label>
+                                <div class="col-sm-4">
+
+                                    <multiselect v-model="selectProduct" placeholder="Select product"
+                                                 label="name" track-by="id" :options="productList"
+                                                 :multiple="false" :taggable="true"
+                                                 :close-on-select="false">
+                                    </multiselect>
+
+                                </div>
+                                <div class="box-footer">
+                                    <button class="btn btn-sm btn-info pull-right" @click="getProductSegmnetData()">
+                                        Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="print" class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" id="reportTitle" th:text="${reportTitle}"></div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table  class="table table-striped table-bordered table-condensed text-center report-table"
+                                       cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="10" id="product">Product Name: {{selectProduct.name}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">Segment</th>
+                                        <th colspan="2">Total Exposure</th>
+                                        <th colspan="3">CL</th>
+                                        <th colspan="3">PAR</th>
+                                    </tr>
+                                    <tr>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>%</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>%</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<template v-for="p in dataList">-->
+                                            <!--<tr>-->
+                                                <!--<td class="text-center" :colspan="p.getProductList.length + 1">{{p.prdName}}</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-for="data in p.getProductList">-->
+                                                <!--<td>{{data.segment}}</td>-->
+                                                <!--<td>{{data.total_EXPOSURE_OS}}</td>-->
+                                                <!--<td>{{data.total_EXPOSURE_AC}}</td>-->
+                                                <!--<td>{{data.cl_OS}}</td>-->
+                                                <!--<td>{{data.cl_ACC}}</td>-->
+                                                <!--<td>{{parseFloat(data.cl_PERC).toFixed(2)}}</td>-->
+                                                <!--<td>{{data.cl_OS}}</td>-->
+                                                <!--<td>{{data.cl_ACC}}</td>-->
+                                                <!--<td>{{parseFloat(data.cl_PERC).toFixed(2)}}</td>-->
+                                            <!--</tr>-->
+                                        <!--</template>-->
+                                        <tr v-for="data in dataList">
+                                            <td>{{data.segment}}</td>
+                                            <td>{{data.totalOs}}</td>
+                                            <td>{{data.totalAcc}}</td>
+                                            <td>{{data.clOsTotal}}</td>
+                                            <td>{{data.clAccTotal}}</td>
+                                            <td>{{twoDecimalFormat(data.clPercent)}}</td>
+                                            <td>{{data.parOsTotal}}</td>
+                                            <td>{{data.parAccTotal}}</td>
+                                            <td>{{twoDecimalFormat(data.parPercent)}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var reportTitle = /*[[${reportTitle}]]*/ [];
+        var productList = /*[[${productList}]]*/ [];
+        /*]]>*/
+    </script>
+
+    <script>
+
+        proposalSegment = new Vue({
+            el:'#proposalSegment',
+            components: {
+                Multiselect: VueMultiselect.default,
+            },
+            data: {
+                selectProduct:'',
+                dataList:[],
+                productList:[],
+                reportName : reportTitle
+            },
+
+            created: function(){
+                this.productList = productList;
+            },
+
+            methods: {
+
+                // getProduct(){
+                //     return this.selectProduct.map(item => {
+                //         return item.name;
+                // });
+                // },
+
+                getProduct(){
+                    return this.selectProduct.name;
+                },
+
+                 getProductSegmnetData:function () {
+
+                     this.productList = Array.isArray(productList) ? productList : [];
+                     console.log('prprp'+JSON.stringify(this.productList));
+
+
+                     $.ajax({
+                         url: '/collection/report/retail/loan/profession-segment-wise-cl/get?productGroup='+this.selectProduct.name,
+                         type: 'get',
+                         contentType: 'application/json;charset=UTF-8',
+                         success: function(response){
+                             console.log("dsadds "+JSON.stringify(response));
+                             proposalSegment.dataList = response;
+                             proposalSegment.reportTitle = response;
+
+                         }
+                     })
+                 },
+                
+                twoDecimalFormat: function (value) {
+                    return parseFloat(value).toFixed(2);
+                }
+            }
+        });
+    </script>
+
+</div>
+</body>
+</html>

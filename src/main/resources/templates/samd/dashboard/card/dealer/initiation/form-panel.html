@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Card</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+
+									<a  id="tab-bufferdetails" href="#" class="list-group-item" title="Buffer Details">Account Details</a>
+									<a  id="tab-dass" href="#" class="list-group-item" title="Buffer Details">Queue and Status Summary</a>
+									<a  href="#" id="tab-follow-up" class="list-group-item" title="Follow Up">Follow Up</a>
+									<a  id="tab-payment-detail" href="#" class="list-group-item" title="Payment Details">Payment Details</a>
+									<a  id="tab-esau" href="#" class="list-group-item" title="Performance">Performance</a>
+									<a  id="tab-search" href="#" class="list-group-item" title="Work Management">Work Management</a>
+									<a  id="tab-product-wise-summary" href="#" class="list-group-item" title="KPI Target vs Achievement">KPI Target vs Achievement</a>
+									<a  id="tab-manager_target_by_amt" href="#" class="list-group-item" title="Manager Target vs Achievement">Manager Target vs Achievement</a>
+									<a  id="tab-as" href="#" class="list-group-item" title="Buffer Details">Advanced Search</a>
+									<a  id="tab-ptp-status-summary" href="#" class="list-group-item" title="PTP Status Summary">PTP Status Summary</a>
+
+								</div>
+							</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+
+							<!-- TAB CONTENT Details-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/personal_info :: personal-info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_queuestatussummary :: distri_info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_followup :: dc_followup"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_paymentdetails :: dc_paymentdetails"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_performance :: dc_performance"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_workmanagement :: dc_workmanagement"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/dc_agecode :: dc_agecode"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/targetVsachiv :: tl_targetdetails"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/shared/common/search_adv :: search_test"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/dealer/details/panels/middle/ptp_status_summery :: ptp_status_summery_fragement"></div>
+								</div>
+							</div>
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

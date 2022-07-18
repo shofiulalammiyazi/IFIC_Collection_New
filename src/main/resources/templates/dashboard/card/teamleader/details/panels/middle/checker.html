@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Checker</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="card-team-checker">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-reference-information-checker" class="active">
+                <a data-toggle="tab" href="#reference-information-checker" title="Reference Information">Reference Information</a>
+            </li>
+            <li id="tab-Guarantor-information-checker">
+                <a class="list-group-item" data-toggle="tab" href="#Guarantor-information-checker" title="Guarantor Information">Guarantor Information</a>
+            </li>
+            <li id="tab-customer-borrower-information-checker">
+                <a class="list-group-item" data-toggle="tab" href="#Customer-borrower-information-checker" title="Customer and Borrower Information">Customer and Borrower Information</a>
+            </li>
+            <li id="tab-customer-complain-checker">
+                <a class="list-group-item" data-toggle="tab" href="#Customer-complain-checker" title="Customer complain">Customer complain</a>
+            </li>
+            <li id="tab-customer-request-checker">
+                <a class="list-group-item" data-toggle="tab" href="#Customer-request-checker" title="Customer Request">Customer Request</a>
+            </li>
+            <li id="tab-visit-ledger-checker">
+                <a class="list-group-item" data-toggle="tab" href="#visit-ledger-checker-teamleader" title="Visit Ledger">Visit Ledger</a>
+            </li>
+            <li id="tab-account-escalation">
+                <a class="list-group-item" data-toggle="tab" href="#teamleader-account-escalation-checker" title="Account Escalation">Account Escalation</a>
+            </li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+        <div role="tabpanel1" class="tab-pane top-buffer active" id="reference-information-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker :: reference-info-checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="Guarantor-information-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/guarantor_info_checker :: guarantor-info-checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="Customer-borrower-information-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/customer_borrower_info_checker :: customer_borrower_info_checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="Customer-complain-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/customer_complain_checker :: customer_complain_checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="Customer-request-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/customer_request_checker :: customer_request_checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="visit-ledger-checker-teamleader">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/visit_ledger :: teamleader-visit-ledger-checker"></div>
+        </div>
+        <div role="tabpanel1" class="tab-pane top-buffer" id="teamleader-account-escalation-checker">
+            <div th:replace="dashboard/card/teamleader/details/panels/middle/checker/account_escalation :: card-team-account-escalation"></div>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>

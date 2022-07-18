@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>People Allocation Logic List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<style>
+			th{
+				text-align: center;
+			}
+			ol, ul {
+				padding: 0px;
+			}
+		</style>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-header with-border" style="text-align: center;">
+							<a  style="margin-bottom: 5px;" class="col-sm-2 btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/allocationlogic/create')}" th:href="@{/collection/allocationlogic/create}"><span class="glyphicon glyphicon-plus"> </span> Add Allocation Logic </a>
+							<h3 class="box-title">People Alocation Logic List</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<!--<a  style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:href="@{/collection/allocationlogic/create}"><span class="glyphicon glyphicon-plus"> </span> Add Allocation Logic </a>-->
+							<div class="form-group">
+
+								<label  class="col-sm-1 ">Supervisor</label>
+								<div class="col-sm-2">
+									<select class="form-control select2 " id="allocation-supervisor">
+										<option value="">Choose One</option>
+										<option th:each="supervisor : ${teamleaderList}" th:value="${supervisor?.id}" th:text="${supervisor?.getPin()}+ ' - ' +${supervisor?.getUser()?.getFirstName()}">Loan</option>
+									</select>
+								</div>
+								<label  class="col-sm-1  " style="margin-left: 27px">Manager</label>
+								<div class="col-sm-2">
+									<select class="form-control select2 " id="allocation-manager">
+										<option value="">Choose One</option>
+										<option th:each="manager : ${supervisorList}" th:value="${manager?.id}" th:text="${manager?.getPin()}+ ' - ' +${manager?.getUser()?.getFirstName()}">Loan</option>
+									</select>
+								</div>
+								<label  class="col-sm-1  " style="margin-left: 43px">Sr.Manager</label>
+								<div class="col-sm-2">
+									<select class="form-control select2 " id="allocation-srmanager">
+										<option value="">Choose One</option>
+										<option th:each="srManager : ${managerList}" th:value="${srManager?.id}" th:text="${srManager?.getPin()}+ ' - ' +${srManager?.getUser()?.getFirstName()}">Loan</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-info pull-right " onclick="updateDelarAccordingAll()" style="margin-right: 117px; margin-top: -4px;">Save</button>
+							</div>
+							<table style="display: block;overflow-x: auto;white-space: nowrap;" th:if="${allocationlist!=null}" id="example" name="datatable-responsive" class="table table-striped table-bordered table-hover table-condensed" width="100%">
+								<thead>
+								<tr>
+									<!--<th>Sl No.</th>-->
+									<th style="text-align: left"><input  id="select_all_allocation_checkbox" type="checkbox"></input>Select All</th>
+									<th>Unit</th>
+									<th>Dealer Location</th>
+									<th>Dealer PIN</th>
+									<th>Dealer Name</th>
+									<th>Agency Name</th>
+									<th>Agency PIN</th>
+									<th>Supervisor PIN</th>
+									<th>Supervisor Name</th>
+									<th>Manager PIN</th>
+									<th>Manager Name</th>
+									<th>Sr.Manager PIN</th>
+									<th>Sr.Manager Name</th>
+									<th>Age Code</th>
+									<th>Product Card</th>
+									<th>Bucket</th>
+									<th>Product Loan</th>
+									<th>Branch</th>
+									<th>Distribution Type</th>
+									<th>Sector</th>
+									<th>Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="allocation,status : ${allocationlist}">
+									<!--<td th:text="${status.count}"></td>-->
+									<td style="display: none" ><input type="hidden" class="allocation-id" th:value="${allocation.id}"></input></td>
+									<td ><input class="checkbox allocation-checkbox" type="checkbox"></input></td>
+									<td><span th:text="${allocation.getUnit()}"></span></td>
+									<td><span th:text="${allocation.getDealer()?.getLocation()?.getCity()}"></span></td>
+									<td><span th:text="${allocation.getDealer()?.getPin()}"></span></td>
+									<td><span th:text="${allocation.getDealer()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getAgency()?.getName()}"></span></td>
+									<td><span th:text="${allocation.getAgency()?.getPin()}"></span></td>
+									<td><span th:text="${allocation.getTeamlead()?.getPin()}"></span></td>
+									<td><span th:text="${allocation.getTeamlead()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getSupervisor()?.getPin()}"></span></td>
+									<td><span th:text="${allocation.getSupervisor()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getManager()?.getPin()}"></span></td>
+									<td><span th:text="${allocation.getManager()?.getUser()?.getFirstName()}"></span></td>
+
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="ageCode : ${allocation?.getAgeCodeEntity()}"><span class="label label-success" th:text="${ageCode.getName()}"></span></li>
+										</ul>
+									</td>
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="productType : ${allocation.getProductTypeEntity()}"><span class="label label-success" th:text="${productType.getCode()}"></span></li>
+										</ul>
+									</td>
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="dpd : ${allocation?.getDpdBucketEntity()}"><span class="label label-success" th:text="${dpd.getBucketName()}"></span></li>
+										</ul>
+									</td>
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="productGroup : ${allocation.getProductTypeEntityLoan()}"><span class="label label-success" th:text="${productGroup.getCode()}"></span></li>
+										</ul>
+									</td>
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="branch : ${allocation.branches}"><span class="label label-success" th:text="${branch.branchName}"></span></li>
+										</ul>
+									</td>
+
+									<td><span th:text="${allocation?.getDistributionType()}"></span></td>
+
+									<td>
+										<ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+											<li style="display:inline" th:each="sector : ${allocation.getSectorEntity()}"><span class="label label-success" th:text="${sector.getName()}"></span></li>
+										</ul>
+									</td>
+									<td style="text-align: center">
+										<a class="btn btn-primary btn-xs" th:if="${session.urlList.contains('/collection/allocationlogic/edit')}" th:href="@{/collection/allocationlogic/edit(id=${allocation.id})}"><i class="fa fa-edit"></i>Edit</a>
+										<a class="btn btn-info btn-xs" th:if="${session.urlList.contains('/collection/allocationlogic/view')}" th:href="@{/collection/allocationlogic/view(id=${allocation.id})}"><i class="fa fa-edit"></i>View</a>
+										<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script>
+                $("#select_all_allocation_checkbox").click(function(){
+                    $(".allocation-checkbox").prop('checked', $(this).prop('checked'));
+
+                });
+
+                function updateDelarAccordingAll() {
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+
+                    var allocationLogicDtos=[];
+                    $(".allocation-checkbox").each(function (i) {
+                        var allocation = {};
+                        if($(".allocation-checkbox").eq(i).is(":checked")){
+                            allocation.id = $(".allocation-id").eq(i).val();
+                            allocation.supervisorId = $("#allocation-supervisor").val();
+                            allocation.managerId = $("#allocation-manager").val();
+                            allocation.srManagerId = $("#allocation-srmanager").val();
+
+
+                            allocationLogicDtos.push(allocation);
+                        }
+
+                    });
+
+                    console.log(JSON.stringify(allocationLogicDtos))
+                    var wrapperDto = {
+                        "allocationLogicDtos":allocationLogicDtos
+                    }
+
+                    if( $("#allocation-supervisor").val()!=''&&$("#allocation-manager").val()!=''&&$("#allocation-srmanager").val()&&allocationLogicDtos.length>0){
+                        $.ajax({
+                            type:"post",
+                            contentType : 'application/json',
+                            dataType : 'json',
+                            url:"/allocation-logic/update",
+                            beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
+                            },
+                            data:JSON.stringify(wrapperDto),
+                            success:function (data) {
+
+                                alert(data.message);
+                                window.location.reload();
+
+
+                            }
+                        });
+                    }else{
+
+                        alert("please select all select option And check at least one ");
+                    }
+
+                }
+
+			</script>
+		</section>
+	</div>
+</div>
+</body>
+</html>

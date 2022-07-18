@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1"></meta>
+        <title>Work Management</title>
+    </head>
+    <body>
+    <div id="layout-cibReport" th:fragment="work-management">
+        <div class="csi-view-form-full-area csi-view-indtable">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title" >Work Management</h3>
+            </div>
+            <div class="box-body">
+                <form class="form-horizontal csi-view-form">
+                    <table name="letter_info"
+                           class=" table   table-bordered custom_dt custom_dt">
+                        <thead >
+                        <tr>
+                            <th>Date </th>
+                            <th>Login Time</th>
+                            <th>Logout Time</th>
+                            <th>Late Login Reason</th>
+                            <th>Early Logout Reason</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbl-row">
+                        <tr th:each="late,status:${lateReason}">
+                            <td th:text="${#dates.format(late.createdDate, 'dd-MMM-yyyy')}"></td>
+                            <td th:text="${#dates.format(late.createdDate, 'hh:mm a')}"></td>
+                            <td th:text="${#dates.format(late.modifiedDate, 'hh:mm a')}"></td>
+                            <td th:text="${late?.lateReasonEntity?.reasonTitle}"></td>
+                            <td th:text="${late?.logoutReason}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

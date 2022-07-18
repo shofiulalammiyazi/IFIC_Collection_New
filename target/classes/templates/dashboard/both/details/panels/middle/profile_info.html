@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Performance</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="profile-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Performance</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <!--<input class="customer-parent-id" type="hidden" name="customerParentId" id="customerParentId" th:value="${customerParentId}" />
+                <input class="gen-card-id" type="hidden" id="cardId" name="cardId" th:value="${cdi}" />
+                <input class="customer-id" type="hidden" id="personalCustomerId" name="customerId"  th:value="${personalInfo?.customerId}" />
+                <input class="martial-Status" type="hidden" id="martialStatus" name="martialStatus"  th:value="${personalInfo?.martialStatus}" />-->
+                <div class="csi-indi-form-box" style="border: none">
+
+                    <table class="table table-condensed table-bordered" >
+                        <thead>
+                            <th>Performance Achievement</th>
+                            <th>Last month rating</th>
+                            <th>Remaining PAR</th>
+                            <th>Remaining NPL</th>
+                            <th>Remaining PAR Que</th>
+                            <th>Remaining NPL Que</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test</td>
+                                <td>Test</td>
+                                <td>Test</td>
+                                <td>Test</td>
+                                <td>Test</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--<img src="https://www.w3schools.com/images/w3schools_green.jpg" class="img-thumbnail" alt="What">-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required">Customer Name :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left required"> Occupation :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="occupation"></label>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Designation :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"  id="designation"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Department :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="depertment"></label>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Nature of business :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"   id="natureOfBusiness"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Date of Birth :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="dateOfBirth" ></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Gender :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel"  id="gender"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Customer Type :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="customerType"></label>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Company Name :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="companyName"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Company Catagory:</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="companyCatagory"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Home Address :</label>-->
+                        <!--<label class="col-sm-9 custom-form-lebel" id="homeAddress"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Office Address :</label>-->
+                        <!--<label class="col-sm-9 custom-form-lebel" id="officeAddress"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>-->
+                        <!--<label class="col-sm-9 custom-form-lebel" id="permanentAddress"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Contact No(Home) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoHome"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Contact No(Office) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoOffice"> </label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Contact No(Mobile) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoMobile"></label>-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Contact No(Other) :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoOther"></label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group row csi-view-form-group">-->
+                        <!--<label class="col-sm-3 custom-details-lebel-left">Co Applicant Name :</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName"></label>-->
+                    <!--</div>-->
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

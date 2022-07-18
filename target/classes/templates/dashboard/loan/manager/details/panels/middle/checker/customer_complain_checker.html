@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Complain</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="customer_complain_checker">
+
+    <div class="csi-view-form-full-area csi-view-indtable" id="customerComplain-info-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Customer Complain</h3>
+
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade" id="modal-customer-complain-view-checker"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Customer Complain</h3>
+                            </div>
+
+                            <div class="box-body">
+
+                                <!--<button id="cardRefModalSubmitBtn" class="btn btn-info" onclick="guarantorInfoSave()">Save</button>-->
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left ">Date :</label>
+                                    <label  class="col-sm-3 custom-form-control" id="custcDate">{{custComplain.custDate}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Time :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custcTime">{{custComplain.custTime}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Through :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custComThrough">{{custComplain.reqThough}}</label>
+
+                                    <label class="col-sm-3 custom-details-lebel-left">Attachment :</label>
+                                    <a class="btn col-sm-3"
+                                       :href="'/collection/dms/document/preview?id='+custComplain.dmsfileId+'&type='+custComplain.dmsFileType"
+                                       data-index = "0" style="text-align: left; padding-top: 0px" target="_blank">{{custComplain.fileName}}</a>
+                                    <!--<label class="col-sm-8 custom-form-control"id="comFile" >
+
+                                    </label>-->
+                                </div>
+
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Detail :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custComDetails">{{custComplain.reqDetails}}</label>
+                                </div>
+
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Mobile No :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custcmobileNo">{{custComplain.mobileNo}}</label>
+
+                                    <label class="col-sm-3 custom-details-lebel-left">Request Time :</label>
+                                    <label class="col-sm-3 custom-form-control" id="custcreyTime">{{custComplain.reqTime}}</label>
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal fade" id="modal-customer-complain-assign"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Assign Customer Complain</h3>
+                            </div>
+
+                            <div class="box-body">
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-4">
+                                            <label class="">Designation</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="form-control select2" id="designation" style="width: 80%">
+                                                <option value="">Select a designation</option>
+                                                <option v-for="desig in designationList" :value="desig.id">{{desig.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-4">
+                                            <label class="">Employee</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="form-control select2" id="employee" style="width: 80%">
+                                                <option value="">Select a employee</option>
+                                                <option v-for="emp in employeeList" :value="emp.pin">{{emp.firstName}} {{emp.lastName}}</option>
+                                            </select>
+                                            <input type="hidden" id="employee_pin">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-2">
+                                            <label class="">Note</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <textarea name="assignee_note" id="assignee-note" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="complain_id">
+                                <div class="modal-footer text-center">
+                                    <button type="button" id="assign" class="btn btn-success" data-dismiss="modal">Assign</button>
+                                    <button type="button" id="ModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form" style="overflow-x: scroll">
+                <!--<input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />-->
+                <!--<input type="hidden" name="refId" id="refId" th:value="${refId}"  />-->
+                <!--<input name="_csrf" value="" type="hidden">-->
+                <table name="customer_req_info" id="custRequestInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Account No</th>
+                        <th>Account Name</th>
+                        <th>Assignee Pin</th>
+                        <th>Assignee</th>
+                        <th>Assignee Note</th>
+                        <th>Complain Submitted Date</th>
+                        <th>Outstanding</th>
+                        <th>Overdue</th>
+                        <th>Bucket</th>
+                        <th>CL Status</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="custcomplain in customerComplainEntities">
+                        <td>{{custcomplain.accountNo}}</td>
+                        <td>{{custcomplain.accountName}}</td>
+                        <td v-text="custcomplain.assigneePin == '-'?'Not Assigned' : custcomplain.assigneePin"></td>
+                        <td v-text="custcomplain.assignee == '-'?'Not Assigned' : custcomplain.assignee"></td>
+                        <td>{{custcomplain.assigneeNote}}</td>
+                        <td>{{custcomplain.custDate}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{custcomplain.clStatus}}</td>
+                        <td>{{custcomplain.status}}</td>
+                        <td><button class="btn btn-success btn-xs view-customerComplain-entity" id="view-customerComplain-entity" v-bind:data-id="custcomplain.id" data-toggle="modal" data-target="#modal-customer-complain-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>
+                            <button v-bind:data-id="custcomplain.id" v-if="custcomplain.status == 'PENDING'" id="view-customerComplain-approve" class="view-customerComplain-approve btn btn-success btn-xs"><i fa fa-eye></i>Resolved</button>
+                            <button v-bind:data-id="custcomplain.id " v-if="custcomplain.status == 'PENDING'" id="view-customerComplain-reject" class="view-customerComplain-reject btn btn-danger btn-xs"><i fa fa-eye></i>Reject</button>
+                            <button v-bind:data-id="custcomplain.id" id="assign-customerComplain" v-if="custcomplain.assignee == '-' && custcomplain.status == 'PENDING'"
+                                    class="view-customerComplain-assign btn btn-success btn-xs" data-toggle="modal" data-target="#modal-customer-complain-assign"><i fa fa-eye></i>Assign</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var customerComplainEntities = /*[[${customerComplainEntities}]]*/ [];
+        var designationList = /*[[${designationList}]]*/ [];
+        /*]]>*/
+    </script>
+    <script>
+
+        customerComplainChecker = new Vue({
+            el: '#customerComplain-info-checker-id',
+            data: {
+                customerComplainEntities: [],
+                custComplain: {},
+                employeeList: [],
+                designationList: [],
+            },
+            created: function () {
+                this.customerComplainEntities = Array.isArray(customerComplainEntities) ? customerComplainEntities : [];
+                this.designationList = Array.isArray(designationList) ? designationList : [];
+            }
+        })
+
+        $(document).ready(function () {
+
+            $(".view-customerComplain-assign").on("click",function () {
+                $("#complain_id").val($(this).data('id'));
+            });
+
+            $("#employee").on("change",function () {
+                $("#employee_pin").val($(this).val());
+            });
+            $('#employee').select2({
+                dropdownParent: $('#modal-customer-complain-assign .modal-content')
+            });
+
+
+            $("#assign").on("click",function () {
+                var id = $("#complain_id").val();
+                var pin = $("#employee_pin").val();
+                var note = $("#assignee-note").val();
+                $.ajax({
+                    url: '/collection/customer-complain/assignCustomerComplain?id='+id+'&pin='+pin+'&note='+note,
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            });
+
+            $("#designation").on("change",function () {
+                var desigId = $(this).val();
+                customerComplainChecker.employeeList = [];
+                $.ajax({
+                    url: '/collection/employee/findByDesignation?id='+desigId,
+                    success: function (response) {
+                        customerComplainChecker.employeeList = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            });
+
+            $('#designation').select2({
+                dropdownParent: $('#modal-customer-complain-assign .modal-content')
+            });
+
+            $('.view-customerComplain-entity').click(function () {
+
+                $.ajax({
+                    url: '/collection/customer-complain/findByCustomerId?id='+$(this).data('id'),
+                    success: function (response) {
+                        console.log(response)
+                        customerComplainChecker.custComplain = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-customerComplain-approve').click(function () {
+                $.ajax({
+                    url: '/collection/customer-complain/approveCustomerComplain?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-customerComplain-reject').click(function () {
+                $.ajax({
+                    url: '/collection/customer-complain/rejectCustomerComplain?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+            $('#custRequestInfoTable').DataTable( {
+                dom: 'Rlfrtip',
+                "aaSorting": []
+            } );
+        });
+
+    </script>
+
+</div>
+</body>
+</html>

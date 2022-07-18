@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Case Status </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <style>
+                            .form-horizontal .control-label {
+                                padding-top: 0px;
+                                margin-bottom: 0;
+                                text-align: right;
+                            }
+                        </style>
+                        <div class="box-header with-border">
+                            <h3 class="box-title">View Case Status Details</h3>
+                            <a th:href="@{/legal/setup/casestatus/list}" class="btn btn-primary btn-sm"
+                               style="float: right;">Back To List</a>
+                        </div>
+
+                        <form class="form-horizontal">
+                            <div class="box-body" style="font-size: 16px;">
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Name</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${caseStatus.name}"></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">Status</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:if="${caseStatus.enabled == true}" th:text="Active"></level>
+                                        <level th:if="${caseStatus.enabled == false}" th:text="Inactive"></level>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

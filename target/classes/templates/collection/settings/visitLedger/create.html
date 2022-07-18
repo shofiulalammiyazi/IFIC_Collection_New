@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://schemas.xmlsoap.org/wsdl/"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Visit Ledger</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${visitLedger.id == null}" class="box-title">Create New Visit Ledger</h3>
+                            <h3 th:if="${visitLedger.id != null}" class="box-title">Update Visit Ledger</h3>
+                        </div>
+
+                        <style>
+                            .autocomplete-input{
+                                height: 36px;
+                                border: 1px solid #f1f1f1;
+                                font-size: 13px;
+                                background-color: white;
+                                border-radius: 0px;
+                                border-color: #d2d6de;
+                                background-size: 19px;
+                            }
+
+                            .autocomplete-result-list{
+                                max-height: 200px;
+                            }
+
+                            .vdp-datepicker input{
+                                width: 100%;
+                                padding: 7px;
+                                border: 1px solid #f1f1f1;
+                                border-color: #d2d6de;
+                            }
+                        </style>
+                        <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/visitledger/create}" th:object="${visitLedger}">
+                            <input type="hidden" th:field="*{id}"></input>
+                            <input type="hidden" th:field="*{accountCardNumber}" v-model="accountNumber">
+                            <input type="hidden" th:field="*{productUnit}" v-model="cardOrLoan">
+                            <input type="hidden" th:field="*{memberIds}" v-model="getSelectedEmployee">
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Visit Date</label>
+                                    <div class="col-sm-8">
+                                        <vuejs-datepicker  v-model="date"
+                                                           :disabled-dates="disabledDates" name="visitDate">
+                                        </vuejs-datepicker>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Visit Time</label>
+                                    <div class="col-sm-8">
+                                        <input type="time" name="visitTime" th:field="*{visitTime}" class="form-control required" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Account Type</label>
+                                    <div class="col-sm-8">
+                                        <label>
+                                            <input  v-model="cardOrLoan" name="removelines" type="radio" class ="cheker" autocomplete="off" v-bind:value="'Loan'" checked>
+                                            Loan
+                                        </label>
+                                        <label>
+                                            <input v-model="cardOrLoan" name="removelines" type="radio" class ="cheker" v-bind:value="'Card'">
+                                            Card
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" id="accNumberDiv" th:style="${visitLedger.id!=null}?'visibility:visible':'visibility:hidden'">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Account Number</label>
+                                    <div class="col-sm-8">
+                                        <label class="col-sm-4 custom-form-lebel-right " th:text="${visitLedger.accountCardNumber}"></label>
+                                        <span title="Change" style="cursor: pointer" onclick="showAccountSelect()"><i class="fa fa-edit"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:style="${visitLedger.id==null}?'visibility:visible':'visibility:hidden'" id="accountSelect">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Account Number</label>
+                                    <div class="col-sm-8">
+                                        <autocomplete
+                                                @submit="submitValue"
+                                                :search="search"
+                                                placeholder="Search for a account"
+                                                aria-label="Search for a account"
+                                        ></autocomplete>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Visitors</label>
+                                    <div class="col-sm-8">
+                                        <multiselect v-model="selectedEmployeeList" placeholder="Search an Employee" :custom-label="customLabel" track-by="id"  :options="employeeList" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Location</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="city" class="form-control required" th:required="true" th:field="*{location}" placeholder="Location" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required" >Remark</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="city" class="form-control required" th:required="true" th:field="*{remark}" placeholder="Remark" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/visitledger/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+
+                        <script th:inline="javascript" type="text/javascript">
+
+                            var employeeList = /*[[${employeeList}]]*/ [];
+                            var selectedEmployeeList = /*[[${selectedEmployeeList}]]*/ [];
+
+
+                            Vue.use(Autocomplete);
+
+                            var example = new Vue({
+                                el:'#app',
+
+                                data:{
+                                    accountList:[],
+                                    accountNumber:'',
+                                    employeeList:[],
+                                    selectedEmployeeList:[],
+                                    userList:[],
+
+                                    cardOrLoan:'Loan',
+                                    date:new Date(),
+                                    disabledDates: {
+                                        to: new Date(Date.now() - 8640000)
+                                    },
+                                },
+                                components: {
+                                    Autocomplete,
+                                    vuejsDatepicker,
+                                    Multiselect: VueMultiselect.default,
+                                },
+                                created:function(){
+                                    this.employeeList = JSON.parse(employeeList)!= null ? JSON.parse(employeeList) : [];
+                                    this.selectedEmployeeList = JSON.parse(selectedEmployeeList) != null ? JSON.parse(selectedEmployeeList):[];
+
+                                    this.accountNumber = accountNo;
+                                    if(this.accountNumber != '')
+                                        this.search(this.accountNumber)
+
+                                },
+                                computed:{
+                                    getSelectedEmployee:function () {
+                                        return this.selectedEmployeeList.map(item => {return item.id});
+                                    },
+
+                                },
+                                methods:{
+                                    submitValue: function(result){
+                                        this.accountNumber = result;
+                                    },
+                                    customLabel(emp){
+                                        return  emp.user.firstName;
+
+                                    },
+
+
+
+
+                                    async search(input) {
+                                var host = window.location.host;
+
+
+                                if(this.cardOrLoan == 'Loan'){
+                                    await this.$http.get('https://'+host+'/collection/visitledger/api/loanlist/'+ input)
+                                        .then(res => {
+                                        this.accountList = res.body;
+
+                                })
+                                .catch(err => {
+
+                                        console.log(err);
+                                });
+                                }else{
+                                    await this.$http.get('https://'+host+'/collection/visitledger/api/cardlist/'+ input)
+                                        .then(res => {
+                                        this.accountList = res.body;
+                                })
+                                .catch(err => {
+                                        console.log(err);
+                                });
+                                }
+
+                                if (input.length < 1) { return [] }
+                                return this.accountList.filter(account => {
+                                    return account.toLowerCase()
+                                        .startsWith(input.toLowerCase())
+                                })
+                            },
+
+                            }
+                            })
+
+
+                            function showAccountSelect() {
+                                console.log($("#accountSelect"));
+                                $("#accountSelect").css('visibility', 'visible');
+                                $("#accNumberDiv").hide();
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

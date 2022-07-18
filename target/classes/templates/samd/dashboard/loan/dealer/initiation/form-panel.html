@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Card</title>
+</head>
+<body>
+<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+    <div class="box-body csi-box-body">
+        <section class="content ">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Details View -->
+                    <div class=" bhoechie-tab-menu">
+                        <div class="list-group csi-list-group1">
+
+                            <a id="tab-pd" href="#" class="list-group-item active" title="Account Details">
+                                Account Details
+                            </a>
+                            <a id="tab-dass-samd" href="#" class="list-group-item"
+                               title="Distribution and Status Summary">
+                                Distribution and Status Summary
+                            </a>
+                            <a id="tab-performance" href="#" class="list-group-item " title="Performance">
+                                Performance
+                            </a>
+                            <a id="tab-product-wise-summary-samd" href="#" class="list-group-item"
+                               title="KPI and Status Summary">
+                                KPI Target Vs Achievement
+                            </a>
+
+                            <a href="#" id="tab-follow-up-samd" class="list-group-item" title="Follow Up">
+                                Follow Up
+                            </a>
+                            <a id="tab-datewise-follow-up-samd" href="#" class="list-group-item"
+                               title="Datewise Follow Up">
+                                Datewise Follow Up
+                            </a>
+                            <a id="tab-payment-detail-samd" href="#" class="list-group-item" title="Payment Details">
+                                Payment Details
+                            </a>
+
+                            <a id="tab-esau-samd" href="#" class="list-group-item" title="Performance & ESAU Trend">
+                                Performance & ESAU Trend
+                            </a>
+                            <a id="tab-wm" href="#" class="list-group-item" title="Work Management">Work Management</a>
+                            <a id="tab-search" href="#" class="list-group-item" title="Advance Search">
+                                Advance Search
+                            </a>
+                            <a id="tab-ptp-status-summary-samd" href="#" class="list-group-item"
+                               title="PTP Status Summary">
+                                PTP Status Summary
+                            </a>
+                            <a id="tab-shortfall-details" href="#" class="list-group-item" title="Shortfall Details">
+                                Shortfall Details
+                            </a>
+                        </div>
+                    </div>
+                    <!--/ Details View -->
+                    <!-- /TAB HEAD -->
+
+                    <!-- TAB CONTENT Details-->
+
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content active">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/personal_info :: personal-info"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content ">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/distribution_and_status_summary :: distri_info"></div>
+                        </div>
+                    </div>
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content ">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/performance :: performance"></div>
+                        </div>
+                    </div>
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/kpi_and_status_summary :: info"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/follow_up :: follow_info"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/datewise_followup :: datefollow_info"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/payment_details  :: info"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/perfprmance_esau  :: tll_performanceesau"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/workmanager  :: dc_workmanagement"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                           <!-- <div th:replace="samd/dashboard/loan/shared/advance_search  :: content"></div>-->
+                            <div th:replace="samd/dashboard/loan/shared/advanced_search  :: content"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/shared/ptp/ptp-status-summery :: content"></div>
+                        </div>
+                    </div>
+
+                    <div class="bhoechie-tab csi-preview-bhoechie-tab">
+                        <div class="bhoechie-tab-content">
+                            <div th:replace="samd/dashboard/loan/dealer/details/panels/middle/shortfall_details  :: shortfall_details"></div>
+                        </div>
+                    </div>
+                    <!-- /TAB CONTENT Details-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+
+</body>
+</html>

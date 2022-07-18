@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>General Info-View</title>
+</head>
+<body>
+<div id="layout-generalPreview" th:fragment="frag-general-view-PreView">
+    <!--<form style="padding: 6px;" th:action="@{/profile/loanprofile/search}" method="get">-->
+        <!--<input type="hidden" name="account" v-model="accountNo">-->
+        <!--<label style="padding: 5px;" class="col-sm-3 custom-details-lebel-left">Acc. No./Card No. :</label>-->
+        <!--<div class="input-group">-->
+            <!--<input v-model="accountNo" type="text" name="q" class="form-control input-sm" placeholder="Enter 16 digit number">-->
+            <!--<span class="input-group-btn">-->
+                    <!--<button :disabled="buttonDisableOrNot" type="submit" name="search" id="search-btn" class="btn btn-success btn-sm btn-flat">-->
+                      <!--<i class="fa fa-search"></i>-->
+                    <!--</button>-->
+                <!--</span>-->
+        <!--</div>-->
+    <!--</form>-->
+    <!--<div class="loandetail-area-sp box box-primary">-->
+        <!--<form method="post" id="generalInfoFormViw">-->
+            <!--<div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">-->
+                <!--<div class="loan-init-details-sp-inner">-->
+
+                    <!--&lt;!&ndash;<div class="form-group row csi-view-form-group">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Account No. :</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:text="${loanprofileview?.accountNo}"></label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="form-group row csi-view-form-group">&ndash;&gt;-->
+                       <!--&lt;!&ndash;&lt;!&ndash; <label class="col-sm-3 custom-form-lebel" id="accountNo"></label>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">SAM Flag :</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:if="${distributionInfo?.getSamAccount()?.equals('0')}">No</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:if="${distributionInfo?.getSamAccount()?.equals('1')}">Yes</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Write off :</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:if="${distributionInfo?.getWriteOffAccount()?.equals('0')}">No</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:if="${distributionInfo?.getWriteOffAccount()?.equals('1')}">Yes</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<div class="form-group row csi-view-form-group">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Agency Name : </label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:text="${distributionInfoAgency?.getAgencyName()}"></label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-details-lebel-left">Collector Name :</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:text="${distributionInfo?.getDealerName()}"></label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="form-group row csi-view-form-group">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-4 custom-details-lebel-left">Reschedule or Restructure-status :</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label class="col-sm-8 custom-form-lebel"></label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</form>-->
+    <!--</div>-->
+</div>
+</body>
+</html>

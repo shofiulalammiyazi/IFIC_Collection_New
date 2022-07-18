@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Asset Classification List-Loan</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Asset Classification List-Loan</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm"
+                               th:if="${session.urlList.contains('/collection/asset_classification_loan/create')}"
+                               th:href="@{/collection/asset_classification_loan/create}"><span
+                                    class="glyphicon glyphicon-plus"> </span> Add Asset Classification-Loan</a>
+                            <div class="table-responsive">
+                                <table th:if="${assetList!=null}" id="example"
+                                       name="datatable-responsive"
+                                       class="table table-condensed table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Sl No.</th>
+                                        <th>Type</th>
+                                        <th>Bucket</th>
+                                        <th>Product Type</th>
+                                        <th>Min. Sanction Amount</th>
+                                        <th>Min. Disbursement Amount</th>
+                                        <th>Min. Outstanding Amount</th>
+                                        <!--<th>Min. ATE</th>-->
+                                        <th style="text-align: center">Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="rule,status : ${assetList}">
+                                        <td th:text="${status.count}"></td>
+                                        <td><span th:text="${rule.type.name}"></span></td>
+                                        <td class="text-center">
+                                            <ul style="list-style: none">
+                                                <li th:each="dpd : ${rule.bucketList}" th:text="${dpd.bucketName}"></li>
+                                            </ul>
+                                        </td>
+                                        <td class="text-left">
+                                            <ul style="list-style: none">
+                                                <li th:each="prod : ${rule.productTypeList}"
+                                                    th:text="${prod.name}"></li>
+                                            </ul>
+                                        </td>
+                                        <td><span th:text="${rule.minSanctionAmount}"></span></td>
+                                        <td><span th:text="${rule.minDisburseAmount}"></span></td>
+                                        <td><span th:text="${rule.minOutstandingAmount}"></span></td>
+                                        <!--<td><span th:text="${rule.minATE}"></span></td>-->
+                                        <td>
+                                            <span th:text="${(rule.enabled)?'Active':'Inactive'}"></span>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary"
+                                               th:if="${session.urlList.contains('/collection/asset_classification_loan/edit')}"
+                                               th:href="@{/collection/asset_classification_loan/edit(id=${rule.id})}"><i
+                                                    class="fa fa-edit"></i>Edit</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

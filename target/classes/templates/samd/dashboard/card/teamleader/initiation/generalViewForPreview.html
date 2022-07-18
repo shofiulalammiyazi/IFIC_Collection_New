@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Info</title>
+</head>
+<body>
+<div id="layout-generalPreview" th:fragment="frag-general-view-PreView">
+    <script type="text/javascript" th:src="@{/collection/dashboard/AccountWiseDistributionSummary.js}"></script>
+    <script type="text/javascript" th:src="@{/collection/dashboard/dashboardTeamLeadCombined.js}"></script>
+    <div class="loandetail-area-sp box box-primary">
+        <form method="post" id="generalInfoFormViw">
+            <div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">
+                <div class="loan-init-details-sp-inner">
+
+                    <input id="globalUserPinForSummary" type="hidden" th:value="${employee?.pin}"/>
+                    <input id="globalUserIdForSummary" type="hidden" th:value="${employee?.id}"/>
+                    <input id="globalUserDesignationForSummary" type="hidden" th:value="${employee?.designation?.name}"/>
+
+                    <div class="row csi-view-form-group" th:if="${#strings.contains(employee.unit,'Card')} and ${#strings.contains(employee.unit,'Loan')} != true" >
+
+                        <input id="globalUnitForSummary" type="hidden" th:value="Card"/>
+                    </div>
+
+                    <div class="row csi-view-form-group" th:if="${#strings.contains(employee.unit,'Card')} != true and ${#strings.contains(employee.unit,'Loan')}" >
+
+                        <input id="globalUnitForSummary" type="hidden" th:value="Loan"/>
+                    </div>
+
+                    <div class="row csi-view-form-group" th:if="${#strings.contains(employee.unit,'Card')} and ${#strings.contains(employee.unit,'Loan')}">
+                        <a th:href="@{/(viewCardDash=false)}" target="_blank" th:if="${viewCardDash == true}"><button type="button" class="btn btn-primary">View Loan Dashboard</button></a>
+                        <a th:href="@{/(viewCardDash=true)}" target="_blank" th:if="${viewCardDash == false} or ${viewCardDash == null}"><button type="button" class="btn btn-primary">View Card Dashboard</button></a>
+
+                        <input id="globalUnitForSummary" type="hidden" th:if="${viewCardDash == false} or ${viewCardDash == null}" th:value="Loan"/>
+                        <input id="globalUnitForSummary" type="hidden" th:if="${viewCardDash == true}" th:value="Card"/>
+                    </div>
+
+                    <div class="row csi-view-form-group">
+                        <a th:href="@{/teamleader/to/dealer/dashboard(id=${employee?.pin})}" target="_blank"><button type="button" class="btn btn-primary btn-sm">Dealer Dashboard</button></a>
+                    </div>
+
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel">Employee PIN :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${employee?.pin}+'-'+${employee?.user.firstName}+' '+${employee?.user.lastName}"></label>
+
+                        <label class="col-sm-3 custom-details-lebel">Designation :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${employee?.getDesignation()?.getName()}"></label>
+                    </div>
+
+                    <br>
+                    <label>Managerial View</label>
+                    <br>
+                    <div class="row csi-view-form-group">
+                       <!-- <label class="col-sm-3 custom-form-lebel" id="accountNo"></label>-->
+                        <label class="col-sm-3 custom-details-lebel">No of Employee:</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>-->
+                        <label class="col-sm-3 custom-form-lebel"></label>
+                        <label class="col-sm-3 custom-details-lebel">No of Accounts:</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getUser()?.getFirstName()}"></label>-->
+                        <label class="col-sm-3 custom-form-lebel"></label>
+                    </div>
+
+                   <!-- <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel">Sum of Total Outstanding: </label>
+                        &lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>&ndash;&gt;
+                        <label class="col-sm-3 custom-form-lebel"></label>
+                        <label class="col-sm-3 custom-details-lebel">Monitoring Bucket :</label>
+                        &lt;!&ndash;<label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getUser()?.getFirstName()}"></label>&ndash;&gt;
+                        <label class="col-sm-3 custom-form-lebel"></label>
+                    </div>-->
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3">Supervisor PIN :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:each="data,status: ${teamleadcard}" > <span th:text="${status.count}+'.'+${data.supervisor.pin}"></span></label>
+                        <label class="col-sm-3">Supervisor Name :</label>
+                        <label class="col-sm-2 custom-form-lebel" th:each="data,status: ${teamleadcard}" > <span th:text="${status.count}+'.'+ ${data.supervisor.user.firstName}"></span></label>
+                    </div>
+
+                    <!--<div class="row csi-view-form-group">-->
+                        <!--<label class="col-sm-3">Login Time :</label>-->
+                        <!--<label class="col-sm-9 custom-form-lebel" th:text="${#dates.format(loginTime, 'dd-MMM-yyyy hh:mm')}"></label>-->
+
+                        <!--<label class="col-sm-3">Login Status :</label>-->
+                        <!--<label class="col-sm-4 custom-form-lebel">Regular</label>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

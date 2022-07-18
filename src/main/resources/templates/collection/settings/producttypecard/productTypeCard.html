@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"/>
+	<title>Product Type List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box">
+						<div class="box-header with-border" style="text-align: center;">
+							<h3 class="box-title">Card Product Type List</h3>
+						</div>
+
+						<div class="box-body">
+							<a style="margin-bottom: 5px" class="btn btn-primary btn-xs" th:href="@{/collection/product-type-card/create}"><span class="glyphicon glyphicon-plus"> </span> Add Card Product Type </a>
+							<table th:if="${prTypeList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+								<thead>
+								<tr>
+									<th>Sl No.</th>
+									<th>Scheme Code</th>
+									<th >Product Type </th>
+									<th >Product  Group</th>
+									<th >Status</th>
+									<th >Actions</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="prType,status : ${prTypeList}">
+									<td th:text="${status.count}"></td>
+									<td><span th:text="${prType?.code}"></span></td>
+									<td><span th:text="${prType?.name}"></span></td>
+									<td><span th:text="${prType?.getProductGroupEntity()?.getName()}"></span></td>
+									<td>
+										<span th:if="${prType?.enabled == true}" th:text="Active"></span>
+										<span th:if="${prType?.enabled == false}" th:text="Inactive"></span>
+									<td>
+										<a class="btn btn-xs btn-primary" th:href="@{/collection/product-type-card/edit(id=${prType.id})}"><i class="fa fa-edit"></i>Edit</a>
+										<a class="btn btn-xs btn-success" th:href="@{/collection/product-type-card/view(id=${prType.id})}"><i class="fa fa-eye"></i>View</a>
+										<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

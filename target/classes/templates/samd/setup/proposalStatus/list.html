@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Proposal Status List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Proposal Status List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
+                               th:href="@{/collection/samd/setup/proposal-status/save}"><span
+                                    class="glyphicon glyphicon-plus"> </span> Add New Proposal Status </a>
+
+                            <table id="example" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="proposalStatus ,index: ${proposalList}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td th:text="${proposalStatus.name}"></td>
+                                    <td th:text="${proposalStatus.status}"></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-xs"
+                                           th:href="@{/collection/samd/setup/proposal-status/edit(id=${proposalStatus.id})}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                        <!--<a class="btn btn-success btn-xs disabled">-->
+                                            <!--<i class="fa fa-eye"></i>-->
+                                            <!--View-->
+                                        <!--</a>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Link Account Mini Statement</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="linkaccount-ministatement">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Link Account Mini Statement</h3>
+
+        </div>
+        <div class="box-body" id="mini_statement">
+           <div class="row" style="padding: 10px; margin-left: -8px;">
+               <div class="col-sm-2 " style="padding: 2px;"><label class="custom-form-lebel-right">Account Number</label></div>
+
+                   <div class="col-sm-6">
+                       <div>
+                          <select v-model="searchForThisAccount" class="form-control input-sm">
+                              <option v-for="acc in accountNumberOption">{{acc}}</option>
+                          </select>
+                       </div>
+                   </div>
+
+               <!--<div class="col-sm-2"><button class="btn btn-primary" @click="getMiniStateMent">Search</button></div>-->
+           </div>
+
+            <div class="row" style="padding: 10px; margin-left: -8px;">
+               <div class="col-sm-2 " style="padding: 2px;"><label class="custom-form-lebel-right">Date :</label></div>
+
+                   <div class="col-sm-6">
+                       <div class="input-group">
+                           <div class="input-group-addon">
+                               <i class="fa fa-calendar"></i>
+                           </div>
+                           <input v-model="date" type="date" class="form-control input-sm"/>
+                       </div>
+                   </div>
+
+               <div class="col-sm-2"><button class="btn btn-primary" @click="getMiniStateMent">Search</button></div>
+           </div>
+            <form class="form-horizontal csi-view-form" v-show="showOrNot">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account No</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="takeOver">{{mini_statement.accountNumber}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Available Balance</label>
+                        <label class="col-sm-3 custom-form-lebel" id="bankName">{{mini_statement.availableBalance}}</label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Effective Available Balance</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="accountNo">{{mini_statement.effectiveAvailableBalance}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Sum Of Credit Amount</label>
+                        <label class="col-sm-3 custom-form-lebel" id="sanctionAmount">{{mini_statement.sumOfCreditAmount}}</label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">No of Overdue</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="accountNo">{{mini_statement.effectiveAvailableBalance}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Overdue Amount</label>
+                        <label class="col-sm-3 custom-form-lebel" id="sanctionAmount">{{mini_statement.sumOfCreditAmount}}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script th:inline="javascript">
+            $("#tab-linkministatement").click(function (event) {
+                mini_statement_details.getMiniStateMentForTheLinkAccount();
+            });
+        </script>
+
+        <script>
+        var mini_statement_details = new Vue({
+                el:"#mini_statement",
+                data:{
+                    date:"",
+                    mini_statement:"",
+                    showOrNot:false,
+                    accountNumberOption:[],
+                    searchForThisAccount:"",
+                    count:0,
+                },
+                computed:{
+                    getDateFormat(){
+                       var dateArray = this.date.split('-');
+                       var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                       ];
+
+                       return dateArray[2] +"/"+monthNames[dateArray[1] - 1]+"/"+dateArray[0];
+                    }
+                },
+                methods:{
+                    getMiniStateMentForTheLinkAccount:function(){
+                        var linkAccountNo = profile_information.loanAccDetails.sattlementLoanAc;
+
+                        if(this.count == 0){
+                            this.accountNumberOption.push(accountNo);
+
+                            if(linkAccountNo && linkAccountNo.length > 15){
+                                this.accountNumberOption.push(linkAccountNo);
+                                this.searchForThisAccount = linkAccountNo;
+                            }else{
+                                this.searchForThisAccount = accountNo;
+                            }
+                        }
+
+                        this.count++;
+
+
+                        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                        var tempDate = new Date();
+                        var tranDate = tempDate.getDate() + "/" + monthNames[tempDate.getMonth()] + "/" + tempDate.getFullYear();
+                        var month = tempDate.getMonth()+1;
+                        var day = tempDate.getDate();
+                        if(month  < 10)  month = "0"+(month);
+                        if(day < 10)  day = "0"+day;
+                        var setDateValue = tempDate.getFullYear() + "-" + month + "-" + day;
+                        this.date = setDateValue;
+
+                        if(linkAccountNo && linkAccountNo.length > 15){
+                            var host = window.location.host;
+                            var url = 'https://'+host+'/api/soap/getMiniStatement?loanAccountNumber='+linkAccountNo+'&tranDate='+tranDate;
+
+                            this.$http.get(url,
+                                {credentials : true, headers:{
+                                        'X-CSRF-TOKEN' : window.csrfToken,
+                                    }}).then(res => {
+                                console.log(res);
+                                if(res.body){
+                                    this.showOrNot = true;
+                                    this.mini_statement = res.body;
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        }else{
+                            var host = window.location.host;
+                            var url = 'https://'+host+'/api/soap/getMiniStatement?loanAccountNumber='+accountNo+'&tranDate='+tranDate;
+
+                            this.$http.get(url,
+                                {credentials : true, headers:{
+                                        'X-CSRF-TOKEN' : window.csrfToken,
+                                    }}).then(res => {
+                                console.log(res);
+                                if(res.body){
+                                    this.showOrNot = true;
+                                    this.mini_statement = res.body;
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        }
+
+                    },
+                    getMiniStateMent:function () {
+                        var host = window.location.host;
+                        var date = this.getDateFormat;
+                        var searchAccount = this.searchForThisAccount;
+                        var url = 'https://'+host+'/api/soap/getMiniStatement?loanAccountNumber='+searchAccount+'&tranDate='+date;
+
+                        this.$http.get(url,
+                            {credentials : true, headers:{
+                                    'X-CSRF-TOKEN' : window.csrfToken,
+                                }}).then(res => {
+                            console.log(res);
+                            if(res.body){
+                                this.showOrNot = true;
+                                this.mini_statement = res.body;
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+            })
+        </script>
+    </div>
+</div>
+</body>
+
+
+</html>

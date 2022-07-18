@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="panel-middle-collection">
+
+    <style type="text/css">
+        .customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .customers td, .customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /*.customers tr:hover {background-color: #ddd;}*/
+
+        .customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <div id="app">
+        <div th:replace="collection/details/panels/middle/profile_info.html :: profile-info"></div>
+        <div th:replace="collection/details/panels/middle/personal_info.html :: personal-info"></div>
+        <div th:replace="collection/details/panels/middle/account_info :: account-info"></div>
+
+    </div>
+
+    <script th:inline="javascript">
+
+
+
+        var ptpList = JSON.parse([[${ptps}]]);
+        var followUpList = JSON.parse([[${folllowups}]]);
+        var dailyNoteUpList = JSON.parse([[${dailyNotes}]]);
+        var dairyNoteList = JSON.parse([[${dairyNotes}]]);
+        var hotNoteList = JSON.parse([[${hotNotes}]]);
+        var contactList = JSON.parse([[${contacts}]]);
+        var list = JSON.parse([[${reasonDelis}]]);
+        var distributionInfo1 = [[${distributionInfo1}]];
+        var dayDiff = [[${dayDiff}]];
+        // var visitsLedger = JSON.parse([[${visitsLedger}]]);
+        var parAmount = [[${parAmount}]];
+        var nplAmount = [[${nplAmount}]];
+        var asset = [[${asset}]];
+        var nplList = [[${nplList}]];
+        var parList = [[${parList}]];
+
+        var visitsLedger = [[${visitsLedger}]];
+
+
+        var professionSegment = [[${professionSegment}]];
+        var deferredAccount = [[${deferredAccount}]];
+
+        // console.log("  -------------"+JSON.stringify(visitsLedger))
+
+        // Todo: Adjusted previous code without testing. Need to debug all the functions in this script
+
+        let profile_information = new Vue({
+            el: "#app",
+            data: {
+                accountNo: "",
+                customerInfo: {},
+                loanAccInfo: {},
+                loanAccDetails: {},
+                loanAccStatement: {},
+                loanAccSchedule: {},
+                loanInterestRate: {},
+                branchInfo: {},
+                casaAccInfo: {},
+                accountDistributionInfo: {},
+                history: [],
+                product: {},
+                dpdBucket: {},
+                dpd: 0,
+                saveAmount: 0,
+                backAmount: 0,
+                nplReleaseAmount: 0,
+                parReleaseAmount: 0,
+                firstInstallmentDate: "",
+                livePayment: 0,
+                dayDiff: 0,
+                paymentAfterAllocation: 0,
+                otherApplicants: [],
+                assetList: [],
+                assetCal: {},
+                tempAssetList: {},
+
+                bucket_movement_details: [],
+                bucket_movement_monthend_details: [],
+
+                nplList: [],
+                parList: [],
+                monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                customerAndBorrowerInfo: {},
+                additionalInfo:{},
+                showHomeAddress:false,
+                showOfficeAddress:false,
+                showPermanentAddress:false,
+                showContactNo:false,
+
+                sectorCode: {},
+                previousAccountEntity: {},
+
+                totalFacilityLimit: {},
+
+                rmCodeList: [],
+
+                totalFacilityAmt:0,
+                loanListing: {},
+
+                rmName: '',
+                rmContactNo: '',
+
+                accountEscalationList: [],
+                hoteNoteList: [],
+                customerId: customerId,
+                customerComplainList: [],
+                professionSegment:professionSegment,
+                deferredAccount:deferredAccount,
+
+                fid: '',
+
+                scheduleDueDate : '',
+                amountSattled: 0.0,
+                emiAmount: 0.0,
+
+                firstRepayDueDate: '',
+                customerIdGlobal: ''
+            },
+            created: function () {
+
+                this.setAccountNumber();
+                this.setAccountDistributionInfo();
+                this.setInitialValues();
+                // this.getCustomerProfileViewModel(this.accountNo);
+                this.getAccountInfo(this.accountNo);
+                this.getAccountDetails(this.accountNo);
+                this.getAccountStatement(this.accountNo);
+                this.getInterestRate(this.accountNo);
+                this.getAccountSchedule(this.accountNo);
+                this.getOtherApplicants(this.accountNo);
+                this.getLoanListing(this.accountNo);
+
+
+                this.getProductDetails(this.loanAccInfo.schemeCode);
+                this.getLivePaymentInfo();
+                this.getPaymentAfterAllocation();
+                this.getDpdBucketDetails();
+                this.setHotNotesAndDairyNotes();
+                this.dpd = this.getDpdValue();
+                this.setHotNotesAndDairyNotes();
+                this.getSectorCode();
+                this.getPreviousAccount();
+
+                this.getAccountEscalatoin(this.accountNo);
+                this.getHoteNote(this.customerId);
+                this.getCustomerComplain(this.customerId);
+
+                // this.getFID();
+
+
+                // setTimeout(function () {$('#modal-dashboard-loan').show()}, 1000);
+            },
+            computed: {
+                buttonDisableOrNot() {
+                    return this.accountNo.length !== 16;
+                },
+                getManualAte() {
+                    this.accountInformation.overdueOrMinDue = this.parseFloatValue(this.accountInformation.overdueOrMinDue);
+                    this.accountInformation.emiAmount = this.parseFloatValue(this.accountInformation.emiAmount);
+                    return (this.accountInformation.emiAmount < 1) ? 0 : this.accountInformation.overdueOrMinDue / this.accountInformation.emiAmount;
+                },
+                getCoApplicantNames() {
+                    return this.otherApplicants.map(item => {return item.customerName;}).join(",");
+                },
+            },
+            methods: {
+
+                getLatestAdditionalInfo: function (data) {
+                    this.additionalInfo = data;
+                },
+                setAccountNumber() {
+                    this.accountNo = accountNo ? accountNo : "";
+                },
+                setAccountDistributionInfo() {
+                    let distributionInfo = [[${distributionInfo1}]];
+                    this.accountDistributionInfo = distributionInfo ? distributionInfo : {};
+                },
+                setInitialValues() {
+                    let dayDiff = [[${dayDiff}]];
+                    let parAmount = JSON.parse([[${parAmount}]]);
+                    let nplAmount = JSON.parse([[${nplAmount}]]);
+                    let asset = JSON.parse([[${asset}]]);
+                    let nplList = JSON.parse([[${nplList}]]);
+                    let parList = JSON.parse([[${parList}]]);
+
+                    this.assetList = asset ? asset : [];
+                    this.parReleaseAmount = parAmount ? parAmount : 0;
+                    this.nplReleaseAmount = nplAmount ? nplAmount : 0;
+                    this.nplList = nplList ? nplList : [];
+                    this.parList = parList ? parList : [];
+                    this.dayDiff = dayDiff ? dayDiff : 0;
+
+                },
+
+                getAccountEscalatoin(accountNo){
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/collection/account-escalation/find?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.accountEscalationList = res.body;
+                            if(this.accountEscalationList.length != 0)
+                                $("#three-sixty-icon").append('<img src="/images/escalation.jpeg" title="Account Escalated" style="height: 30px; width: 30px;margin-left: 8px;">');
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+
+                },
+                getHoteNote(customerId){
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/customerloanprofile/hotnote/find/hotenote?customerId=' + customerId;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.hoteNoteList = res.body;
+                            if(this.hoteNoteList.length != 0)
+                                $("#three-sixty-icon").append('<img src="/images/star.png" style="height: 30px; width: 30px; margin-left: 8px;" title="Hot Note">');
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+                getCustomerComplain(customerId){
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/collection/customer-complain/get-list?customerId=' + customerId;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.customerComplainList = res.body;
+                            if(this.customerComplainList.length != 0)
+                                $("#three-sixty-icon").append('<img src="/images/customerComplain.jpeg" title="Customer Complain" style="height: 30px; width: 30px; margin-left: 8px;">');
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+                getAccountInfo(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-info?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanAccInfo = res.body;
+                            update_additionalInfo.loanAccInfo = res.body;
+                            bucketMovementCalculator.loanStatus = res.body.accountStatus;
+                            interest_details.interestIncome = res.body.interestIncome;
+                            finalSattlementApp.loanAccInfo = res.body;
+                            interest_details.loanAccInfo = res.body;
+                            let customerNo = data.customerId;
+                            this.customerIdGlobal = data.customerId;
+                            // totalFacilityLimitApp.getTotalFacilityLimit(data.customerId)
+                            if (customerNo) this.getFacilityLimit(customerNo);
+                            if (customerNo) this.getCustomerInfo(customerNo);
+                            let branchCode = data.branchCode;
+                            if (branchCode){
+                                this.getBranchInfo(branchCode);
+                                this.getCasaAccInfo(branchCode, accountNo);
+                            }
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+                getLoanListing(accountNo) {
+                    let host = window.location.host;
+                    let cif = '';
+                    let rmCode = '';
+                    let url = 'https://' + host + '/loan/api/find-loan-listing?accNo=' + accountNo+'&cif='+cif+'&rmCode='+rmCode;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanListing = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+                ,
+
+                test() {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/test';
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getAccountDetails(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-details?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanAccDetails = res.body;
+
+                            update_additionalInfo.loanAccDetails = res.body;
+                            bucketMovementCalculator.emi = res.body.emiAmount;
+                            bucketMovementCalculator.od = res.body.overdue;
+                            // proposalDetailsApp.facilityNature = res.body.proddes;
+                            var da = res.body.scheduleNextDate.split(".");
+                            var snd = da[1]+"/"+da[0]+"/"+da[2];
+                            bucketMovementCalculator.emiDate = snd;//res.body.scheduleNextDate;
+                            // proposalDetailsApp.facilityNature = res.body.proddes;
+
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getAccountStatement(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/loan-account-statement/latest?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanAccStatement = res.body;
+                            update_additionalInfo.loanAccStatement = res.body;
+                            finalSattlementApp.loanAccStatement = res.body;
+                            interest_details.loanAccStatement = res.body;
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getBranchInfo(branchCode) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/branch-info?branchCode=' + branchCode;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.branchInfo = res.body;
+                            update_additionalInfo.branchInfo = res.body;
+                            ptp.customerLocationAutoSelect = res.body.branchName;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getInterestRate(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/interest-rate?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanInterestRate = res.body;
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getAccountSchedule(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-schedule?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data && typeof  data !== 'string') {
+                            this.loanAccSchedule = data;
+                            finalSattlementApp.penalCharge = data.penalCharge;
+
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getCustomerInfo(customerNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/customer-info?customerNo=' + customerNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string')
+                        {
+                            this.customerInfo = res.body;
+                            update_additionalInfo.customerInfo = res.body;
+                            visitLedgerApp.allAddress.push(this.customerInfo.correspondenceAddress);
+                            visitLedgerApp.allAddress.push(this.customerInfo.permanentAddress);
+                            totalFacilityLimitApp.loanCustomerName = this.customerInfo.customerName;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getFacilityLimit(customerNo){
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/facility-limit/list?customerNo=' + customerNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string')
+                        {
+                            totalFacilityLimitApp.totalFacilityLimit = res.body;
+                            this.customerInfo = res.body;
+                            var facilityAmt = 0;
+                            for (var i = 0; i<res.body.length; i++){
+                                facilityAmt += res.body[i].loanLimit;
+                            }
+                            this.totalFacilityAmt = facilityAmt;
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+
+                }
+                ,
+                getCasaAccInfo(branchCode, accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/casa-account-info?accountNo=' + accountNo + '&branchCode=' + branchCode;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string')
+                            this.totalFacilityLimit = res.body;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getOtherApplicants(accountNo) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/other-applicants?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string')
+                            this.otherApplicants = res.body;
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getLivePaymentInfo() {
+                    this.livePayment = 0;
+                    // let linkAccountNo = this.accountInformation.linkAccountNo;
+                    // let host = window.location.host;
+                    // let date = new Date();
+                    // let startDate = date.getDate() +'/' +monthNames[date.getMonth()] +'/'+date.getFullYear();
+                    // let url = 'https://'+host+'/api/soap/getAccountStatement?accountNo='+linkAccountNo+ '&startDate='+startDate+'&endDate='+startDate;
+                    //
+                    // this.$http.get(url,
+                    //     {credentials : true, headers:{
+                    //             'X-CSRF-TOKEN' : window.csrfToken,
+                    //         }}).then(res => {
+                    //     console.log(res);
+                    //     if(res.body){
+                    //         let account = res.body.responseDetails;
+                    //         let deposit = 0;
+                    //         for(let i=0; i<account.length; i++){
+                    //             deposit += this.parseFloatValue(account[i].deposit);
+                    //         }
+                    //         this.livePayment = deposit;
+                    //     }
+                    // }).catch(err => {
+                    //     console.log(err);
+                    // })
+                },
+                getPaymentAfterAllocation() {
+                    this.paymentAfterAllocation = 0;
+                    // let host = window.location.host;
+                    // let date = new Date();
+                    // let startDate = '01' +'/' +monthNames[date.getMonth()] +'/'+date.getFullYear();
+                    // let endDate = date.getDate() +'/' +monthNames[date.getMonth()] +'/'+date.getFullYear();
+                    // let url = 'https://'+host+'/api/soap/getAccountStatement?accountNo='+linkAccountNo+ '&startDate='+startDate+'&endDate='+endDate;
+                    //
+                    // this.$http.get(url,
+                    //     {credentials : true, headers:{
+                    //             'X-CSRF-TOKEN' : window.csrfToken,
+                    //         }}).then(res => {
+                    //     console.log(res);
+                    //     if(res.body){
+                    //         let account = res.body.responseDetails;
+                    //         let deposit = 0;
+                    //         for(let i=0; i<account.length; i++){
+                    //             deposit += this.parseFloatValue(account[i].deposit);
+                    //         }
+                    //         this.paymentAfterAllocation = deposit;
+                    //     }
+                    // }).catch(err => {
+                    //     console.log(err);
+                    // })
+                },
+                getProductDetails(schemeCode) {
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/collection/loan/profile/api/productdetails?schemecode=' + schemeCode;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string') {
+                            this.product = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+                getDpdBucketDetails() {
+                    let dpd = this.getDpd;
+                    // if(dpd != 0){
+                    //     let host = window.location.host;
+                    //     let url = 'https://'+host+'/collection/loan/profile/api/dpdbucket?dpd='+dpd;
+                    //     this.$http.get(url,
+                    //         {credentials : true, headers:{
+                    //                 'X-CSRF-TOKEN' : window.csrfToken,
+                    //             }}).then(res => {
+                    //         console.log(res);
+                    //         if(res.body){
+                    //             this.dpdBucket = res.body;
+                    //             if(this.dpdBucket.bucketName == 'Interim'){
+                    //                 if(distributionInfo1 != null){
+                    //                     let date = new Date();
+                    //                     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                    //                     let statusDate = new Date(distributionInfo1.statusDate);
+                    //
+                    //                     if (statusDate < firstDay){
+                    //                         this.dpdBucket.bucketName = "X";
+                    //                     }
+                    //                 }
+                    //             }
+                    //
+                    //             let outStanding = this.accountInformation.outstanding < 0 ? this.accountInformation.outstanding * -1 : this.accountInformation.outstanding;
+                    //             let disbursMent = this.accountInformation.disbursementAmountOrCreditLimit == '' ? 10000000000000 : this.accountInformation.disbursementAmountOrCreditLimit;
+                    //             let sanctionAmount = this.accountInformation.sanctionAmount;
+                    //             let ate = this.accountInformation.ateOrAgeCode;
+                    //             let productCode = this.accountInformation.schemeCode;
+                    //             let dpdBucekt = this.dpdBucket.bucketName;
+                    //             let assetCalculation = {};
+                    //
+                    //             for(let i=0; i<this.assetList.length; i++){
+                    //                 let a = this.assetList[i];
+                    //
+                    //                 if(ate > a.minATE && sanctionAmount > a.minSanctionAmount && outStanding > a.minOutstandingAmount && disbursMent > a.minDisburseAmount){
+                    //                     let dpdBucketCheck = false;
+                    //                     let prouctTypeCheck = false;
+                    //
+                    //                     for(let j=0; j<a.bucketList.length; j++){
+                    //                         if(dpdBucekt == a.bucketList[j].bucketName){
+                    //                             dpdBucketCheck = true;
+                    //                             break;
+                    //                         }
+                    //                     }
+                    //
+                    //                     for(let k=0; k<a.productTypeList.length; k++){
+                    //                         if(productCode == a.productTypeList[k].code){
+                    //                             prouctTypeCheck = true;
+                    //                             break;
+                    //                         }
+                    //                     }
+                    //
+                    //                     if(dpdBucketCheck && prouctTypeCheck) this.tempAssetList = a;
+                    //
+                    //                 }
+                    //             }
+                    //             this.assetCal = this.tempAssetList;
+                    //         }
+                    //     }).catch(err => {
+                    //         console.log(err);
+                    //     })
+                    // }else {
+                    //     this.dpdBucket.bucketName = 0;
+                    //     let outStanding = this.accountInformation.outstanding < 0 ? this.accountInformation.outstanding * -1 : this.accountInformation.outstanding;
+                    //     let disbursMent = this.accountInformation.disbursementAmountOrCreditLimit == '' ? 10000000000000 : this.accountInformation.disbursementAmountOrCreditLimit;
+                    //     let sanctionAmount = this.accountInformation.sanctionAmount;
+                    //     let ate = this.accountInformation.ateOrAgeCode;
+                    //     let productCode = this.accountInformation.schemeCode;
+                    //     let dpdBucekt = this.dpdBucket.bucketName;
+                    //     let assetCalculation = "";
+                    //
+                    //     for(let i=0; i<this.assetList.length; i++){
+                    //         let a = this.assetList[i];
+                    //         if(ate > a.minATE && sanctionAmount > a.minSanctionAmount && outStanding > a.minOutstandingAmount && disbursMent > a.minDisburseAmount){
+                    //             let dpdBucketCheck = false;
+                    //             let prouctTypeCheck = false;
+                    //
+                    //             for(let j=0; j<a.bucketList.length; j++){
+                    //                 if(dpdBucekt == a.bucketList[j].bucketName){
+                    //                     dpdBucketCheck = true;
+                    //                     break;
+                    //                 }
+                    //             }
+                    //
+                    //             for(let k=0; k<a.productTypeList.length; k++){
+                    //                 if(productCode == a.productTypeList[k].code){
+                    //                     prouctTypeCheck = true;
+                    //                     break;
+                    //                 }
+                    //             }
+                    //
+                    //             if(dpdBucketCheck && prouctTypeCheck) this.tempAssetList = a;
+                    //
+                    //         }
+                    //     }
+                    //     this.assetCal = this.tempAssetList;
+                    // }
+
+
+                },
+                getDpdBucketMovementHistory() {
+                    // let host = window.location.host;
+                    // let url = 'https://' + host + '/api/soap/getBucketMovementHistory?accountNo=' + accountNo;
+                    //
+                    // this.$http.get(url,
+                    //     {
+                    //         credentials: true, headers: {
+                    //             'X-CSRF-TOKEN': window.csrfToken,
+                    //         }
+                    //     }).then(res => {
+                    //     console.log(res);
+                    //     if (typeof res.body !== 'string) {
+                    //         this.bucket_movement_details = res.body.history;
+                    //         let yearMap = new Map();
+                    //         for (let i = 0; i < this.bucket_movement_details.length; i++) {
+                    //             this.bucket_movement_details[i].dpd = this.getDpdValue(this.bucket_movement_details[i].overDue, this.bucket_movement_details[i].ate, this.accountInformation.emiAmount);
+                    //
+                    //             if (this.bucket_movement_details[i].dpd != 0) {
+                    //                 let host = window.location.host;
+                    //                 let url = 'https://' + host + '/collection/loan/profile/api/dpdbucket?dpd=' + this.bucket_movement_details[i].dpd;
+                    //                 this.$http.get(url,
+                    //                     {
+                    //                         credentials: true, headers: {
+                    //                             'X-CSRF-TOKEN': window.csrfToken,
+                    //                         }
+                    //                     }).then(res => {
+                    //                     console.log(res);
+                    //                     if (typeof res.body !== 'string) {
+                    //                         this.bucket_movement_details[i].dpdBucket = res.body.bucketName;
+                    //                         //this.setBucketName(i,res.body.bucketName);
+                    //                     }
+                    //                 }).catch(err => {
+                    //                     console.log(err);
+                    //                 })
+                    //             } else this.bucket_movement_details[i].dpdBucket = 0;
+                    //
+                    //             let year = this.bucket_movement_details[i].transactionDate.split('-')[2];
+                    //             if (yearMap.has(year)) {
+                    //                 yearMap.get(year).push(this.bucket_movement_details[i]);
+                    //             } else {
+                    //                 let a = new Array();
+                    //                 a.push(this.bucket_movement_details[i]);
+                    //                 yearMap.set(year, a);
+                    //             }
+                    //         }
+                    //
+                    //         let monthMap = new Map();
+                    //         let distinctValueOfEveryMonthOfEveryYearWithLastElement = new Array();
+                    //         for (const [key, value] of yearMap.entries()) {
+                    //             let reversedArray = value;
+                    //             for (let i = 0; i < reversedArray.length; i++) {
+                    //                 let month = reversedArray[i].transactionDate.split('-')[1];
+                    //                 if (!monthMap.has(month)) {
+                    //                     monthMap.set(month, reversedArray[i])
+                    //                 }
+                    //             }
+                    //             for (const [key, value] of monthMap.entries()) {
+                    //                 distinctValueOfEveryMonthOfEveryYearWithLastElement.push(value);
+                    //             }
+                    //             monthMap = new Map();
+                    //         }
+                    //         this.bucket_movement_monthend_details = distinctValueOfEveryMonthOfEveryYearWithLastElement;
+                    //         let date = new Date();
+                    //         let startDate = this.bucket_movement_monthend_details[0].transactionDate;
+                    //         let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    //         let lastDate = (parseInt(lastDay.getMonth()) + parseInt(1)) + '/' + lastDay.getDate() + '/' + lastDay.getFullYear();
+                    //         let split = startDate.split('-');
+                    //         let startDateString = split[1] + '/' + split[0] + '/' + split[2];
+                    //
+                    //         let date1 = new Date(startDateString);
+                    //         let date2 = new Date(lastDate);
+                    //         let diffTime = Math.abs(date2 - date1);
+                    //         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    //
+                    //         if (distributionInfo1 == null) {
+                    //             // if(this.bucket_movement_monthend_details[0].dpdBucket == "X"){
+                    //             //     this.saveAmount = ((( this.parseFloatValue(this.bucket_movement_monthend_details[0].dpd) +(this.parseFloatValue(diffDays) + 1 - 29.50)) * this.parseFloatValue(this.accountInformation.emiAmount)) / 30).toFixed(2);
+                    //             //     this.backAmount = 0;
+                    //             // }else{
+                    //             //     let highestDpdRange = (this.parseFloatValue(this.bucket_movement_monthend_details[0].dpdBucket) + 29.50);
+                    //             //     this.saveAmount = ((( this.parseFloatValue(this.bucket_movement_monthend_details[0].dpd) +(this.parseFloatValue(diffDays) + 1 - highestDpdRange)) * this.parseFloatValue(this.accountInformation.emiAmount)) / 30).toFixed(2);
+                    //             //
+                    //             //     let highestDpdRange =  (this.parseFloatValue(this.bucket_movement_monthend_details[0].dpdBucket) - .50);
+                    //             //     this.backAmount = ((( this.parseFloatValue(this.bucket_movement_monthend_details[0].dpd) +(this.parseFloatValue(diffDays) + 1 - highestDpdRange)) * this.parseFloatValue(this.accountInformation.emiAmount)) / 30).toFixed(2);
+                    //             // }
+                    //             // if(this.saveAmount < 0) this.saveAmount = 0;
+                    //             //
+                    //             // let date = new Date();
+                    //             // let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                    //             // let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    //             // let diffTime = Math.abs(lastDay - firstDay);
+                    //             // let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    //             //
+                    //             // let MO_DPD = this.bucket_movement_monthend_details[0].dpd;
+                    //             // let MONTH_END_DPD = 0;
+                    //             // let EMI_PAR_DAY = 0;
+                    //             // let PAR_AMOUNT = 0;
+                    //             // ******************
+                    //             // for(let i=0; i<this.parList.length; i++){
+                    //             //     if(this.parList[i].minDpd <= MO_DPD && MO_DPD <= this.parList[i].maxDpd){
+                    //             //         MONTH_END_DPD = this.parseFloatValue(MO_DPD) + this.parseFloatValue(diffDays);
+                    //             //         EMI_PAR_DAY = this.parseFloatValue(this.accountInformation.emiAmount) / 30;
+                    //             //         PAR_AMOUNT = this.parseFloatValue(EMI_PAR_DAY) * (this.parseFloatValue(MONTH_END_DPD) - 29.50)
+                    //             // 	}
+                    //             // ******************
+                    //             // }
+                    //             // MONTH_END_DPD = this.parseFloatValue(MO_DPD) + this.parseFloatValue(diffDays);
+                    //             // EMI_PAR_DAY = this.parseFloatValue(this.accountInformation.emiAmount) / 30;
+                    //             // PAR_AMOUNT = this.parseFloatValue(EMI_PAR_DAY) * (this.parseFloatValue(MONTH_END_DPD) - 29.50)
+                    //             // this.parReleaseAmount = PAR_AMOUNT;
+                    //
+                    //
+                    //             // let MO_DPD = this.bucket_movement_monthend_details[0].dpd;
+                    //             // let MONTH_END_DPD = 0;
+                    //             // let EMI_PAR_DAY = 0;
+                    //             // let NPL_AMOUNT = 0;
+                    //             //
+                    //             // *******************
+                    //             // for(let i=0; i<this.nplList.length; i++){
+                    //             //     MONTH_END_DPD = this.parseFloatValue(MO_DPD) + this.parseFloatValue(diffDays);
+                    //             //     EMI_PAR_DAY = this.parseFloatValue(this.accountInformation.emiAmount) / 30;
+                    //             //     NPL_AMOUNT = this.parseFloatValue(EMI_PAR_DAY) * (this.parseFloatValue(MONTH_END_DPD) - 89.50);
+                    //             // }******************
+                    //             // MONTH_END_DPD = this.parseFloatValue(MO_DPD) + this.parseFloatValue(diffDays);
+                    //             // EMI_PAR_DAY = this.parseFloatValue(this.accountInformation.emiAmount) / 30;
+                    //             // NPL_AMOUNT = this.parseFloatValue(EMI_PAR_DAY) * (this.parseFloatValue(MONTH_END_DPD) - 89.50);
+                    //             // this.nplReleaseAmount = NPL_AMOUNT;
+                    //
+                    //         }
+                    //     }
+                    // }).catch(err => {
+                    //     console.log(err);
+                    // })
+                },
+                parseFloatValue(value) {
+                    if (typeof value === "number") {
+                        return value;
+                    } else if (typeof value === "string") {
+                        return parseFloat(value);
+                    } else {
+                        return 0;
+                    }
+                },
+                getAccountRescheduledHistory() {
+                    // let host = window.location.host;
+                    // let url = 'https://'+host+'/api/soap/getRescheduleHistory?accountNo='+accountNo;
+                    //
+                    // this.$http.get(url,
+                    //     {credentials : true, headers:{
+                    //             'X-CSRF-TOKEN' : window.csrfToken,
+                    //         }}).then(res => {
+                    //     console.log(res);
+                    //     if(res.body){
+                    //         let reamor_details = res.body.responseDetails;
+                    //         reamor_details.reverse();
+                    //         if(reamor_details.length > 0){
+                    //             this.firstInstallmentDate = reamor_details[0].flowstartdate;
+                    //         }
+                    //     }
+                    // }).catch(err => {
+                    //     console.log(err);
+                    // })
+                },
+                getDpdValue: function (overdue, ate, emi) {
+                    let DPD = 0;
+                    if (overdue > 0 && ate <= 0 && emi > 0) {
+                        DPD = (this.parseFloatValue(overdue) / this.parseFloatValue(emi) * 30 - 1);
+                        if (DPD <= 0) DPD = 0.01;
+                    }
+                    else {
+                        DPD = 0;
+                        if (overdue > 0) DPD = (this.parseFloatValue(ate) * 30);
+                    }
+                    return DPD;
+                },
+                setBucketName: function (index, name) {
+                    if (this.bucket_movement_details.length)
+                        this.bucket_movement_details[index].dpdBucket = name;
+                },
+                setHotNotesAndDairyNotes: function () {
+                    let arrWithoutHoteNote = new Array();
+                    let arrWithHoteNote = new Array();
+
+                    for (let i = 0; i < hotNoteList.length; i++) {
+                        hotNoteList[i].check = "H";
+                        arrWithHoteNote.push(hotNoteList[i]);
+                    }
+                    for (let i = 0; i < followUpList.length; i++) {
+                        followUpList[i].check = "F";
+                        arrWithoutHoteNote.push(followUpList[i]);
+                    }
+                    for (let i = 0; i < dairyNoteList.length; i++) {
+                        dairyNoteList[i].check = "DR";
+                        arrWithoutHoteNote.push(dairyNoteList[i]);
+                    }
+                    for (let i = 0; i < dailyNoteUpList.length; i++) {
+                        dailyNoteUpList[i].check = "DL";
+                        arrWithoutHoteNote.push(dailyNoteUpList[i]);
+                    }
+                    for (let i = 0; i < ptpList.length; i++) {
+                        ptpList[i].check = "P";
+                        arrWithoutHoteNote.push(ptpList[i]);
+                    }
+                    for (let i = 0; i < contactList.length; i++) {
+                        contactList[i].check = "CA";
+                        arrWithoutHoteNote.push(contactList[i]);
+                    }
+                    for (let i = 0; i < list.length; i++) {
+                        list[i].check = "RD";
+                        arrWithoutHoteNote.push(list[i]);
+                    }
+                    for (let i = 0; i < visitsLedger.length; i++) {
+                        visitsLedger[i].check = "VL";
+                        // console.log(visitsLedger[i].firstName) ;
+                        arrWithoutHoteNote.push(visitsLedger[i]);
+                    }
+
+                    arrWithoutHoteNote.sort(function (a, b) {
+                        return new Date(b.createdDate) - new Date(a.createdDate);
+                    })
+                    for (let i = 0; i < arrWithoutHoteNote.length; i++)
+                        arrWithHoteNote.push(arrWithoutHoteNote[i]);
+                    this.history = arrWithHoteNote;
+                    // console.log('history-------------'+history)
+                    if (distributionInfo1 != null) {
+                        let dpd = this.parseFloatValue(distributionInfo1.dpd);
+                        let daydiff = this.parseFloatValue(dayDiff);
+                        let emi = this.parseFloatValue(distributionInfo1.emiAmount);
+                        if (distributionInfo1.dpdBucket.toUpperCase() == "X") {
+                            let saveAmt = (((dpd + daydiff - 29) * emi) / 30);
+                            this.backAmount = 0;
+                        } else {
+                            var highestDpdRange = (this.parseFloatValue(distributionInfo1.dpdBucket) + 29);
+                            this.saveAmount = (((this.parseFloatValue(distributionInfo1.dpd) + (this.parseFloatValue(dayDiff) - highestDpdRange)) * this.parseFloatValue(distributionInfo1.emiAmount)) / 30);
+                            this.saveAmount = this.parseFloatValue(this.saveAmount);
+
+                            var highestDpdRange = (this.parseFloatValue(distributionInfo1.dpdBucket) - 1);
+                            this.backAmount = (((this.parseFloatValue(distributionInfo1.dpd) + (this.parseFloatValue(dayDiff) - highestDpdRange)) * this.parseFloatValue(distributionInfo1.emiAmount)) / 30);
+                            this.backAmount = this.parseFloatValue(this.backAmount);
+                        }
+                        if (this.saveAmount < 0) this.saveAmount = 0;
+                    }
+                },
+                numberToBdt: function (value) {
+                    return formatBdtInEnglish(value);
+                },
+                formatDate: function (date) {
+                    return formatDate_DD_MM_YYYY(date)
+                },
+
+
+                getSectorCode: function () {
+
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/collection/loan/settings/sector-code/find?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string') {
+                            this.sectorCode = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+                getPreviousAccount: function () {
+
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/collection/loan/settings/previous-account/find?accountNo=' + accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        if (typeof res.body !== 'string') {
+                            this.previousAccountEntity = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                },
+
+
+                // getFID: function () {
+                //
+                //     this.getAccountDetailForFID();
+                //     this.getLoanAccScheduleForFID();
+                //
+                //     var fristPaymentDate = new Date(this.firstRepayDueDate);
+                //     var scheduleDate = new Date(this.scheduleDueDate);
+                //     console.log(fristPaymentDate)
+                //     console.log(scheduleDate)
+                //
+                //
+                //     if(scheduleDate != null){
+                //
+                //
+                //         var diffTime = scheduleDate.getTime() - fristPaymentDate.getTime();
+                //         console.log(diffTime)
+                //
+                //
+                //         console.log(this.amountSattled +'    sattled amt')
+                //         console.log(this.emiAmount +'    emil')
+                //
+                //
+                //
+                //
+                //         // var diffDays = Math.ceil(diffTime/(1000 * 60 * 60 * 24));
+                //
+                //
+                //
+                //
+                //         // var  fristScheduleDate = new Date(stringToDate(scheduleDate,"dd/MM/yyyy","/"));
+                //
+                //         // let dateDifference = parseInt((diffTime / (1000 * 60 * 60 * 24)), 10);
+                //         // console.log(dateDifference)
+                //         if ((this.amountSattled < this.emiAmount) && ( diffTime <= 0)){
+                //             return 'Yes';
+                //
+                //         }
+                //     }
+                //
+                //     return 'No';
+                // },
+
+                getDateFormat(input){
+                    var datePart = input.match(/\d+/g),
+                        year = datePart[0].substring(0,4),
+                        month = datePart[1], day = datePart[2];
+                    return day+'/'+month+'/'+year;
+                },
+
+                getAccountDetailForFID(){
+
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-details?accountNo=' + this.accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data) {
+                            this.loanAccDetails = res.body;
+
+                            this.firstRepayDueDate = res.body.firstRepayDueDate;
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+
+                },
+                getLoanAccScheduleForFID(){
+
+                    let host = window.location.host;
+                    let url = 'https://' + host + '/loan/api/account-schedule-first?accountNo=' + this.accountNo;
+                    this.$http.get(url,
+                        {
+                            credentials: true,
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                            }
+                        }
+                    ).then(res => {
+                        let data = res.body;
+                        if (data && typeof  data !== 'string') {
+
+                            this.scheduleDueDate = data.scheduleDueDate;
+                            this.amountSattled = data.amountSattled;
+                            this.emiAmount = data.emiAmount;
+
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+
+                },
+
+                stringToDate: function(_date,_format,_delimiter){
+
+                    var formatLowerCase=_format.toLowerCase();
+                    var formatItems=formatLowerCase.split(_delimiter);
+                    var dateItems=_date.split(_delimiter);
+                    var monthIndex=formatItems.indexOf("mm");
+                    var dayIndex=formatItems.indexOf("dd");
+                    var yearIndex=formatItems.indexOf("yyyy");
+                    var month=parseInt(dateItems[monthIndex]);
+                    month-=1;
+                    var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+                    return formatedDate;
+
+                }
+
+
+
+            },
+            filters: {
+                dateFormat: function (value) {
+                    if(value ==undefined || value == null || value ==''){return ''}
+                    if (!value) return '';
+                    let date = new Date(value);
+                    let day = date.getDate();
+                    if (day < 10) day = '0' + day;
+                    return day + '-' + profile_information.monthNames[date.getMonth()] + '-' + date.getFullYear();
+                },
+                formatDate: function (value) {
+                    return formatDate_DD_MM_YYYY(value);
+                },
+                getAbsoluteValue: function (value) {
+                    return value < 0 ? value * -1 : value;
+                },
+                valueWithTwoPrecesion: function (value) {
+                    return (typeof value === "number") ? value : 0;
+                },
+                getEmiDueDay: function (value) {
+                    if (!value) return '';
+                    let day = new Date(value).getDate();
+                    if (day < 10) day = '0' + day;
+                    return day + ' (M)';
+                },
+                formatCurrency(value) {
+                    return formatBdCurrency(value);
+                },
+                getDateFormatFromNumeric: function (value) {
+                    if (!value) return "";
+                    let split = value.split(' ');
+                    value = split[0];
+                    return value.substr(8, 2) + '-' + profile_information.monthNames[parseInt(value.substr(5, 2)) - 1] + '-' + value.substr(0, 4);
+                }
+            }
+        });
+
+
+        $(document).ready(function () {
+            $('#rmCodeId').click(function () {
+                $.ajax({
+                    url: '/loan/api/find-rm-listing?rmCode='+$("#rmCodeId").text(),
+                    success: function (response) {
+                        $('#rm-information-table').DataTable().destroy();
+                        profile_information.rmCodeList = response;
+                        getDataTable();
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+
+                $.ajax({
+                    url: '/loan/api/customer-info?customerNo='+$("#rmCodeId").text(),
+                    success: function (response) {
+                        profile_information.rmName = response.customerName;
+                        update_additionalInfo.rmName = response.customerName;
+                        profile_information.rmContactNo = response.mobileNumber;
+                        update_additionalInfo.rmContactNo = response.mobileNumber;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+            })
+
+
+            function getDataTable() {
+                $('#rm-information-table').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: ['excel']
+                });
+
+            }
+        })
+
+
+        // function getCustomerInfoForVisitLedger(body) {
+        //     $('#visit-ledger-home-address').val().text(body.homeAddress);
+        //     $('#visit-ledger-office-address').val().text(body.officeAddress);
+        //     $('#visit-ledger-permanent-address').val().text(body.permanentAddress);
+        //GE
+        // }
+    </script>
+
+    <div th:replace="collection/initiation/form-panel :: layout-form-panel"></div>
+
+</div>
+</body>
+</html>

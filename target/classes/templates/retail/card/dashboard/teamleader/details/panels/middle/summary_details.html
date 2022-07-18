@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Team Queue and Status Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="summary_details">
+    <div class="box-header with-border">
+        <h3 class="box-title" >Team Queue and Status Summary</h3>
+    </div>
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#amount_wise" title="Amount Wise Details">Amount Wise</a>
+            </li>
+            <li id="tab-account">
+                <a data-toggle="tab" id="loanAccWiseDisributiontSummaryTab" href="#account_wise" title="Account Wise Details">Account Wise</a>
+            </li>
+            <li id="tab-payment-dealer-wise">
+                <a data-toggle="tab" href="#dealer-wise-summary-view" title="Dealer Wise Summary">Dealer Wise Summary</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="amount_wise">
+            <div th:replace="dashboard/loan/shared/queue_status_summary/amount_wise  :: amount_wise_fragement"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane top-buffer" id="account_wise">
+            <div th:replace="dashboard/loan/shared/queue_status_summary/account_wise  :: account_wise_fragement"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane top-buffer" id="dealer-wise-summary-view">
+            <!--<div class="form-group">-->
+                <!--<label>Select Dealer(s): </label>-->
+                <!--<div>-->
+                    <!--<multiselect v-model="selectedDealerList" placeholder="Choose one or more Dealer"-->
+                                 <!--:custom-label="nameWithPin" track-by="dealerPin" :options="dealerList"-->
+                                 <!--:multiple="true" :taggable="true"></multiselect>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div th:replace="dashboard/loan/shared/designation_wise_data_multiselect/teamlead_dealer_wise  :: teamlead_dealer_wise"></div>
+
+            <table class="table table-condensed table-bordered" style="overflow: auto;width: 100%">
+                <thead >
+                <th class="text-center">Dealer Pin</th>
+                <th class="text-center">Product</th>
+                <th class="text-center">DPD</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Touched</th>
+                <th class="text-center">Untouched</th>
+                <th class="text-center">Pending</th>
+                <th class="text-center" colspan="4">PAR</th>
+                <th class="text-center" colspan="4">NPL</th>
+                </thead>
+                <tbody id="dass_amount_data" class="tbl-row">
+                <tr>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center" id="distribution_status_summary_total_total"></td>
+                    <td class="text-center" id="touched_total"></td>
+                    <td class="text-center" id="un_touched_total"></td>
+                    <td class="text-center" id="pending_total"></td>
+                    <td class="text-center text-bold">Release</td>
+                    <td class="text-center text-bold">Remaining</td>
+                    <td class="text-center text-bold">Queue</td>
+                    <td class="text-center text-bold"title="Queue Next Date">Queue ND</td>
+                    <td class="text-center text-bold">Release</td>
+                    <td class="text-center text-bold">Remaining</td>
+                    <td class="text-center text-bold">Queue</td>
+                    <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+                </tr>
+                <tr v-for="amount in filterDealerWiseFollowupSummary">
+                    <td>{{amount.dealerPin}}</td>
+                    <td>{{amount.product}}</td>
+                    <td>{{amount.dpd}}</td>
+                    <td>{{amount.totalAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.touchedAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.unTouchedAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.pendingAmount | valueWithTwoPrecesion }}</td>
+
+                    <td>{{amount.parReleaseAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.parRemainingAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.parQueueAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.parQueuendAmount | valueWithTwoPrecesion }}</td>
+
+                    <td>{{amount.nplReleaseAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.nplRemainingAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.nplQueueAmount | valueWithTwoPrecesion }}</td>
+                    <td>{{amount.nplQueuendAmount | valueWithTwoPrecesion }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var dealerList = /*[[${dealerDetail}]]*/ [];
+            /*]]>*/
+        </script>
+        <script>
+            var summary_details = new Vue({
+                el:'#dealer-wise-summary-view',
+                data:{
+                    summaryList:[],
+                    dealerList: [],
+                    selectedDealerList: [],
+                },
+                filters:{
+                    valueWithTwoPrecesion(value){
+                        return value.toFixed(2);
+                    }
+                },
+                computed:{
+                    selectedDealerName(){
+                        return this.selectedDealerList.map(dealer => dealer.dealerPin);
+                    },
+                    filterDealerWiseFollowupSummary(){
+                        return this.summaryList.filter(item => {
+                            return this.selectedDealerName.includes(item.dealerPin)
+                        })
+                    },
+                },
+                components:{
+                    Multiselect: VueMultiselect.default
+                },
+                created(){
+                    this.dealerList = dealerList;
+                },
+                methods:{
+                    nameWithPin({ dealerPin, dealerName}){
+                        return `${dealerPin} - ${dealerName}`;
+                    },
+                    getDataFromJQuery(data){
+                        this.summaryList = data;
+                    },
+
+                }
+            })
+        </script>
+    </div>
+</div>
+</body>
+</html>

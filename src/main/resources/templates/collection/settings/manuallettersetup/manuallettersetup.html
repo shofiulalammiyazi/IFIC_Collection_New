@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Manual Letter Setup List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Manual Letter Setup List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/settings/manuallettersetup/create')}"
+                               th:href="@{/collection/settings/manuallettersetup/create}"><span class="glyphicon glyphicon-plus"> </span> Add Manual Letter Setup </a>
+                            <table th:if="${mlettersetuplist!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Account Type</th>
+                                    <th>Letter Type</th>
+                                    <th>Designation</th>
+                                    <th>Ref. No Prefix</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="mls,status : ${mlettersetuplist}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+                                        <span th:if="${mls.accountType == true}" th:text="Loan"></span>
+                                        <span th:if="${mls.accountType == false}" th:text="Card"></span>
+                                    </td>
+                                    <td><span th:text="${mls.letterType}"></span></td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                            <li style="display:inline" th:each="designation : ${mls?.getDesignation()}"><span class="label label-success" th:text="${designation.getName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td><span th:text="${mls.refNoPrefix}"></span></td>
+                                    <td>
+                                        <span th:if="${mls.enabled == true}" th:text="Active"></span>
+                                        <span th:if="${mls.enabled == false}" th:text="Inactive"></span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" th:if="${session.urlList.contains('/collection/settings/manuallettersetup/edit')}"
+                                           th:href="@{/collection/settings/manuallettersetup/edit(id=${mls.id})}"><i class="fa fa-edit"></i>Edit</a>
+                                        <a class="btn btn-xs btn-success" th:if="${session.urlList.contains('/collection/settings/manuallettersetup/view')}"
+                                           th:href="@{/collection/settings/manuallettersetup/view(id=${mls.id})}"><i class="fa fa-eye"></i>View</a>
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

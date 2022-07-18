@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Agency Details</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="agency-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Agency Details</h3>
+
+        </div>
+        <div class="box-body">
+            <form class="form-horizontal csi-view-form">
+                <table class="table table-bordered custom_dt" id="tab_agency_details">
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">Product</th>
+                        <th class="text-center">DPD</th>
+                        <th class="text-center">Agency Name</th>
+                        <th class="text-center">Total Account</th>
+                        <th class="text-center">Total Outstanding</th>
+                        <th class="text-center">Total PTP</th>
+                        <th class="text-center">Total FollowUp</th>
+                    </tr>
+                    </thead>
+                    <tbody id="agency_details">
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Queue and Status Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="distri_info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Queue and Status Summary</h3>
+    </div>
+    <br/>
+    <br/>
+
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-amount" class="active">
+                <a data-toggle="tab" href="#dass-amount" title="Personal Information" id="loanAmountWiseDistSummaryTab">Amount Wise</a>
+            </li>
+            <li id="tab-account">
+                <a data-toggle="tab" href="#dass-account" title="Family Information" id="loanAccWiseDistSummaryTab">Account Wise</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="dass-amount">
+            <center><h5>Amount Wise Summary</h5></center>
+            <table class="table table-condensed table-bordered custom_dt" style="overflow: auto;width: 100%">
+                <thead >
+                    <tr>
+                        <th class="text-center">Age</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Touched</th>
+                        <th class="text-center">Untouched</th>
+                        <th class="text-center">Pending</th>
+                        <th class="text-center" colspan="3">PAR</th>
+                        <th class="text-center" colspan="3">NPL</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center" id="card_amount_total_total"></td>
+                        <td class="text-center" id="card_amount_touched_total"></td>
+                        <td class="text-center" id="card_amount_un_touched_total"></td>
+                        <td class="text-center" id="card_amount_pending_total"></td>
+                        <td class="text-center text-bold">Release</td>
+                        <td class="text-center text-bold">Remaining</td>
+                        <td class="text-center text-bold">Queue</td>
+                        <td class="text-center text-bold">Release</td>
+                        <td class="text-center text-bold">Remaining</td>
+                        <td class="text-center text-bold">Queue</td>
+                    </tr>
+                </thead>
+                <tbody id="dass_amount_data" class="tbl-row">
+                </tbody>
+            </table>
+            <br/>
+        </div>
+
+        <div role="tabpanel" class="tab-pane top-buffer" id="dass-account">
+            <center><h5>Account Wise Summary </h5></center>
+            <table class="table table-condensed table-bordered" style="overflow: auto;width: 100%">
+                <thead >
+                    <tr>
+                        <th class="text-center">Age Code</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Touched</th>
+                        <th class="text-center">Untouched</th>
+                        <th class="text-center">Pending</th>
+                        <th class="text-center" colspan="4">PAR</th>
+                        <th class="text-center" colspan="4">NPL</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center" id="card_acc_total_total"></td>
+                        <td class="text-center" id="card_acc_touched_total"></td>
+                        <td class="text-center" id="card_acc_un_touched_total"></td>
+                        <td class="text-center" id="card_acc_pending_total"></td>
+                        <td class="text-center text-bold">Release</td>
+                        <td class="text-center text-bold">Remaining</td>
+                        <td class="text-center text-bold">Queue</td>
+                        <td class="text-center text-bold">Release</td>
+                        <td class="text-center text-bold">Remaining</td>
+                        <td class="text-center text-bold">Queue</td>
+                    </tr>
+                </thead>
+                <tbody id="dass_account_data" class="tbl-row">
+                </tbody>
+            </table>
+            <br/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

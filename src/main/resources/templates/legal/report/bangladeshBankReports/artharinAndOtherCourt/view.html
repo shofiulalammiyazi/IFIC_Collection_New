@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <link rel="stylesheet" th:href="@{/css/legal-report.css}"/>
+    <style media="print">
+        @page  {
+            size: A4 landscape; margin: 0.4in 0.4in 0.6in 0.39in;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div th:if="${summary == null}" class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h4 class="text-center">
+                                অর্থঋণ আদালত ও অন্যান্য আদালতে দায়েরকৃত মামলা
+                                সংক্রান্ত ষান্মাসিক বিবরণী।
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal" method="get"
+                                  th:action="@{/legal/report/bangladesh-bank-reports/artharin-and-other-court/report}">
+                                <div class="row margin">
+                                    <div class="col-sm-2 text-right">
+                                        Report Date
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="endDate" min="1900-01-01" class="form-control" required/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                            Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${summary}" class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <a class="btn btn-sm btn-primary" onclick="printElementIncludingStyles('printBody')">Print</a>
+                                    <a class="btn btn-sm btn-primary" onclick="export2Word('printBody', document.title)">Doc</a>
+                                </div>
+                            </div>
+                            <div id="printBody" class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h4 style="text-align: center">ব্যাংকের নাম: ইউনাইটেড কমার্শিয়াল ব্যাংক
+                                                    লিঃ</h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h4 style="text-align: center">
+                                                    অর্থঋণ আদালত ও অন্যান্য আদালতে দায়েরকৃত মামলা সংক্রান্ত
+                                                    <span th:text="${reportDate}"> ৩১ শে ডিসেম্বর, ২০২০ </span>
+                                                    ইং ষান্মাসিক বিবরণী।
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-right text-bold">(লক্ষ টাকায়)</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="1" rowspan="2" style="text-align: center; vertical-align: top;">ক্রমিক <br> নং</th>
+                                                        <th colspan="2" rowspan="2" style="text-align: center; vertical-align: top;">আদালতের নাম</th>
+                                                        <th colspan="4" style="text-align: center">
+                                                            দায়েরকৃত মামলা (ক্রম
+                                                            <br>
+                                                            পুঞ্জীভূত)
+                                                        </th>
+                                                        <th colspan="6" style="text-align: center">
+                                                            নিষ্পত্তিকৃত মামলা (ক্রম পুঞ্জীভূত)
+                                                        </th>
+                                                        <th colspan="7" style="text-align: center">বিচারাধীন মামলা</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="2" style="text-align: center">সংখ্যা</th>
+                                                        <th colspan="2" style="text-align: center">
+                                                            দাবীকৃত অর্থের
+                                                            <br>
+                                                            পরিমান
+                                                        </th>
+                                                        <th colspan="2" style="text-align: center">সংখ্যা</th>
+                                                        <th colspan="2" style="text-align: center">
+                                                            দাবীকৃত অর্থের
+                                                            <br>
+                                                            পরিমান
+                                                        </th>
+                                                        <th colspan="2" style="text-align: center">প্রকৃত আদায়</th>
+                                                        <th colspan="2" style="text-align: center">সংখ্যা</th>
+                                                        <th colspan="2" style="text-align: center">
+                                                            দাবীকৃত অর্থের
+                                                            <br>
+                                                            পরিমান
+                                                        </th>
+                                                        <th colspan="3" style="text-align: center">
+                                                            বিচারাধীন মামলার
+                                                            <br>
+                                                            দাবীকৃত অর্থের বিপরীতে
+                                                            <br>
+                                                            আদায়ের পরিমান
+                                                        </th>
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td colspan="1" style="text-align: center">১</td>
+                                                        <td colspan="2" style="text-align: center">২</td>
+                                                        <td colspan="2" style="text-align: center">৩</td>
+                                                        <td colspan="2" style="text-align: center">৪</td>
+                                                        <td colspan="2" style="text-align: center">৫</td>
+                                                        <td colspan="2" style="text-align: center">৬</td>
+                                                        <td colspan="2" style="text-align: center">৭</td>
+                                                        <td colspan="2" style="text-align: center">৮</td>
+                                                        <td colspan="2" style="text-align: center">৯</td>
+                                                        <td colspan="3" style="text-align: center">১০</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="1" style="text-align: center">১।</td>
+                                                        <td colspan="2" style="text-align: center">অর্থঋণ আদালত</td>
+                                                        <!--<td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalCases + numberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalCaseAmount + claimAmountOne)}">
+                                                            ৪
+                                                        </td>-->
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalPendingCount + numberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalPendingAmount + claimAmountOne)}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalAdjustedCount + numberTwo)}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalAdjustedAmount + claimAmountTwo)}">
+                                                            ৬
+                                                        </td>
+                                                        <!--<td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalAdjustedRecoveryAmount + actualRealization)}">
+                                                            ৭
+                                                        </td>-->
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(actualRealization)}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.ArtharinAdalat.totalPendingCount)-(summary.ArtharinAdalat.totalAdjustedCount))}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.ArtharinAdalat.totalPendingAmount + claimAmountOne)-(summary.ArtharinAdalat.totalAdjustedAmount + claimAmountTwo))}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.ArtharinAdalat.totalPendingRecoveryAmount + claimAmountOfCollection)}">
+                                                            ১০
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="1" style="text-align: center">২।</td>
+                                                        <td colspan="2" style="text-align: center">দেউলিয়া আদালত</td>
+
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalPendingCount + bankruptcyNumberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalPendingAmount + bankruptcyClaimAmountOne)}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalAdjustedCount + bankruptcyNumberTwo)}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalAdjustedAmount + bankruptcyClaimAmountTwo)}">
+                                                            ৬
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalAdjustedRecoveryAmount + bankruptcyActualRealization)}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.BankruptcyCourt.totalPendingCount + bankruptcyNumberOne)-(summary.BankruptcyCourt.totalAdjustedCount + bankruptcyNumberTwo))}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.BankruptcyCourt.totalPendingAmount + bankruptcyClaimAmountOne)-(summary.BankruptcyCourt.totalAdjustedAmount + bankruptcyClaimAmountTwo))}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" style="text-align: center" th:text="${@numberUtils.convertToBanglaNumber(summary.BankruptcyCourt.totalPendingRecoveryAmount + bankruptcyClaimAmountOfCollection)}">  </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="1" style="text-align: center">৩।</td>
+                                                        <td colspan="2" style="text-align: center">পিডিআর এক্ট</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="2" style="text-align: center">-</td>
+                                                        <td colspan="3" style="text-align: center">-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="1" style="text-align: center">৪।</td>
+                                                        <td colspan="2" style="text-align: center">অন্যান্য</td>
+                                                       <!-- <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalCases + othersNumberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalCaseAmount + othersClaimAmountOne)}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalAdjustedCount + othersNumberTwo)}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalAdjustedAmount + othersClaimAmountTwo)}">
+                                                            ৬
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalAdjustedRecoveryAmount + othersActualRealization)}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalPendingCount)}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalPendingAmount)}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Others.totalPendingRecoveryAmount + othersClaimAmountOfCollection)}">
+                                                            ১০
+                                                        </td>-->
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber( othersNumberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber( othersClaimAmountOne)}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber( othersNumberTwo)}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber( othersClaimAmountTwo)}">
+                                                            ৬
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber( othersActualRealization)}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((othersNumberOne)-(othersNumberTwo))}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((othersClaimAmountOne)-(othersClaimAmountTwo))}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" style="text-align: center"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(othersClaimAmountOfCollection)}">
+                                                            ১০
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="1" class="text-center text-bold break-word"></td>
+                                                        <td colspan="2" class="text-center text-bold break-word" >মোট</td>
+                                                       <!-- <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.Total.totalCases) + totalNumberOne)}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalCaseAmount + totalClaimAmountOne)}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalAdjustedCount + totalNumberTwo)}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalAdjustedAmount + totalClaimAmountTwo)}">
+                                                            ৬
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalAdjustedRecoveryAmount + totalActualRealization)}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalPendingCount)}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalPendingAmount)}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(summary.Total.totalPendingRecoveryAmount + totalClaimAmountOfCollection)}">
+                                                            ১০
+                                                        </td>-->
+
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.ArtharinAdalat.totalPendingCount + numberOne)+(summary.BankruptcyCourt.totalPendingCount + bankruptcyNumberOne) +(othersNumberOne))}">
+                                                            ৩
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((othersClaimAmountOne)+(summary.BankruptcyCourt.totalPendingAmount + bankruptcyClaimAmountOne)+(summary.ArtharinAdalat.totalPendingAmount + claimAmountOne))}">
+                                                            ৪
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((summary.ArtharinAdalat.totalAdjustedCount + numberTwo)+(summary.BankruptcyCourt.totalAdjustedCount + bankruptcyNumberTwo)+(othersNumberTwo))}">
+                                                            ৫
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((othersClaimAmountTwo)+(summary.BankruptcyCourt.totalAdjustedAmount + bankruptcyClaimAmountTwo)+(summary.ArtharinAdalat.totalAdjustedAmount + claimAmountTwo))}">
+                                                            ৬
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((actualRealization)+(summary.BankruptcyCourt.totalAdjustedRecoveryAmount + bankruptcyActualRealization)+(othersActualRealization))}">
+                                                            ৭
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(((othersNumberOne)-(othersNumberTwo))+((summary.BankruptcyCourt.totalPendingCount + bankruptcyNumberOne)-(summary.BankruptcyCourt.totalAdjustedCount + bankruptcyNumberTwo)+((summary.ArtharinAdalat.totalPendingCount)-(summary.ArtharinAdalat.totalAdjustedCount))))}">
+                                                            ৮
+                                                        </td>
+                                                        <td colspan="2" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber(((summary.ArtharinAdalat.totalPendingAmount + claimAmountOne)-(summary.ArtharinAdalat.totalAdjustedAmount + claimAmountTwo)+((summary.BankruptcyCourt.totalPendingAmount + bankruptcyClaimAmountOne)-(summary.BankruptcyCourt.totalAdjustedAmount + bankruptcyClaimAmountTwo)+((othersClaimAmountOne)-(othersClaimAmountTwo)))))}">
+                                                            ৯
+                                                        </td>
+                                                        <td colspan="3" class="text-center text-bold break-word"
+                                                            th:text="${@numberUtils.convertToBanglaNumber((othersClaimAmountOfCollection)+(summary.BankruptcyCourt.totalPendingRecoveryAmount + bankruptcyClaimAmountOfCollection)+(summary.ArtharinAdalat.totalPendingRecoveryAmount + claimAmountOfCollection))}">
+                                                            ১০
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

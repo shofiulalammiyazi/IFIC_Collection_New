@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>General Info-View</title>
+</head>
+<body>
+<div id="layout-generalPreview" th:fragment="frag-general-view-PreView1">
+    <div class="loandetail-area-sp box box-primary">
+        <div class="box-header with-border">
+            <label class="box-title">Profile Information</label>
+        </div>
+        <form method="post" id="generalInfoFormViw">
+            <div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">
+                <div class="loan-init-details-sp-inner">
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="accountName" >{{customerInfo.acDesc}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Customer Name :</label>
+                        <label class="col-sm-3 custom-form-lebel">{{customerInfo.acDesc}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Date of Birth :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dateOfBirth" >{{customerInfo.dateOfBirth |dateFormat}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Gender :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="gender">{{customerInfo.gender}}</label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Organization Name:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="org1" th:text="${'-'}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Work Address :</label>
+                        <label class="col-sm-9 custom-form-lebel" id="workAddress">-</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Communication Address :</label>
+                        <label class="col-sm-9 custom-form-lebel" id="comAddress">{{customerInfo.cifAddress}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>
+                        <label class="col-sm-9 custom-form-lebel" id="permanentAddress">{{customerInfo.permanentAddress}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Mobile :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Nature of Business :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="businessNature">{{loanAccDetails.sectorCode}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Phone 1 :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoHome">-</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Phone 2 :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoOffice">-</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Applicant Designation :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="applicantDesignation" th:text="${'-'}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Organization Type :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="orgType" th:text="${'-'}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Occuption :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="occuption">-</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Co Applicant Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="coama" th:text="${'-'}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Co-App Contact No :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="coApplicantName" th:text="${'-'}"></label>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

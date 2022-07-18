@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Case Type List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Nature of Suit List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <!--<a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"-->
+                               <!--th:href="@{/legal/setup/caseType/create}"><span-->
+                                    <!--class="glyphicon glyphicon-plus"> </span> Add Case Type </a>-->
+                            <table th:if="${caseTypeWrapperList!=null}" id="example" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th style="width:7%">Sl No.</th>
+                                    <th>Case Filed Type</th>
+                                    <th>Case Filed Sub Type</th>
+                                    <th style="text-align: right;width:30%">Case Type Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="caseTypeWrapper,status : ${caseTypeWrapperList}">
+                                    <td><span th:text="${status.count}"></span></td>
+                                    <td><span th:text="${caseTypeWrapper.caseFiledType.name}">100</span></td>
+                                    <td>
+                                        <div th:each="caseType: ${caseTypeWrapper.caseFiledType.caseTypeList}">
+                                            <span th:text="${caseType.caseFiledSubType!=null?caseType.caseFiledSubType.name:''}"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div th:each="caseType: ${caseTypeWrapper.caseFiledType.caseTypeList}"
+                                             style="text-align: right;">
+                                            <span th:text="${caseType.sequence != null ? caseType.sequence + ') ' : ''}"></span>
+                                            <span th:text="${caseType.name}"></span>
+                                            <!--<a th:href="@{/legal/setup/caseType/edit/(id=${caseType.id})}"-->
+                                               <!--style="margin-left: 2%;cursor: pointer"><span><i class="fa fa-edit"></i></span></a>-->
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <div th:each="caseType,stat: ${caseTypeWrapper.caseFiledType.caseTypeList}"
+                                             style="text-align: right;">
+                                            <!--<span  th:text="${caseType.name}" th:if="${caseType.caseFiledSubType!=null}"></span>-->
+                                            <!--<a th:if="${caseType.caseFiledSubType!=null}" th:style="${#lists.size(caseTypeWrapper.caseFiledType.caseTypeList)>0?enabled:'pointer-events:none'}" th:href="@{/legal/setup/caseType/edit-all/(id=${caseTypeWrapper.caseFiledType.id},cid=${caseType.id})}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>-->
+                                            <!--<span th:if="${stat.count} == ${#lists.size(caseTypeWrapper.caseFiledType.caseTypeList)}">Edit</span>-->
+
+                                            <span th:if="${caseType.caseFiledSubType==null }">
+                                                    <a th:if="${ stat.count == #lists.size(caseTypeWrapper.caseFiledType.caseTypeList)}"
+                                                        th:style="${#lists.size(caseTypeWrapper.caseFiledType.caseTypeList)>0?enabled:'pointer-events:none'}"
+                                                        th:href="@{/legal/setup/caseType/edit-all/(id=${caseTypeWrapper.caseFiledType.id},cid=${caseType.id})}">
+                                                        Edit
+                                                    </a>
+                                            </span>
+
+                                            <!--<span th:if="${caseType.caseFiledSubType!=null }">-->
+                                                <!--<a th:style="${#lists.size(caseTypeWrapper.caseFiledType.caseTypeList)>0?enabled:'pointer-events:none'}"-->
+                                                   <!--th:href="@{/legal/setup/caseType/edit-all/(id=${caseTypeWrapper.caseFiledType.id},cid=${caseType.id})}">-->
+                                                <!--Edit-->
+                                                <!--</a>-->
+                                            <!--</span>-->
+                                        </div>
+                                    </td>
+                                    <!--<td>-->
+                                    <!--&lt;!&ndash;<div th:each="caseType: ${caseTypeWrapper.caseFiledType.caseTypeList}">&ndash;&gt;-->
+                                    <!--<a th:style="${#lists.size(caseTypeWrapper.caseFiledType.caseTypeList)>0?enabled:'pointer-events:none'}" th:href="@{/legal/setup/caseType/edit-all/(id=${caseTypeWrapper.caseFiledType.id},cid=${caseTypeWrapper.caseFiledType.caseType.id)}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</td>-->
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <input type="hidden" th:value="${saved}" id="savedstatus">
+    </div>
+    <script>
+
+        var savedStatus = $("#savedstatus").val();
+        console.log(savedStatus);
+        if (savedStatus.length > 0) {
+            alert(savedStatus);
+        }
+
+    </script>
+</div>
+
+</body>
+</html>

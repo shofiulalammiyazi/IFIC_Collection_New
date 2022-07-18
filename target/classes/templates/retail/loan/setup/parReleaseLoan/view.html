@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Par Release-Loan</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <style>
+                            .form-horizontal .control-label {
+                                padding-top: 0px;
+                                margin-bottom: 0;
+                                text-align: right;
+                            }
+                        </style>
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Par Release-Loan List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/retail/loan/setup/par-release-loan/create')}" th:href="@{/retail/loan/setup/par-release-loan/create}"><span class="glyphicon glyphicon-plus"> </span> Add Par Release Loan Rule</a>
+                            <table id="parReleaseLoan" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Bucket</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="par,status : ${parLoanList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-success" style="margin-right: 5px" th:each="dpd :${par.dpdBucketList}" th:text="${dpd.bucketName}"></button>
+                                    </td>
+                                    <td>
+                                        <span th:if="${par.enabled == true}">Active</span>
+                                        <span th:if="${par.enabled == false}">Inactive</span>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a class="btn btn-primary btn-xs"
+                                           th:if="${session.urlList.contains('/retail/loan/setup/par-release-loan/edit')}"
+                                           th:href="@{/retail/loan/setup/par-release-loan/edit(id=${par.id})}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#parReleaseLoan').dataTable({
+                responsive: true
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

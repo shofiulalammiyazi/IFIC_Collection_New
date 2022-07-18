@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Visitor Details</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="report-one">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div id="reportOne">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title">Visitor Details</h3>
+                <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" data-toggle="modal" data-target="#modal-report-one" >
+                    <i class="fa fa-plus-square"></i>
+                    <span v-if="reportOne == ''">Add More</span>
+                    <span v-else>Edit</span>
+                </a>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="modal fade in" id="modal-report-one"  data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog" style="width: 60%">
+                            <div class="modal-content col-sm-12">
+                                <div class="modal-header">
+                                    <h3 >Visitor Details</h3>
+                                </div>
+
+                                <form  id="report-one-form" class="form-horizontal" >
+                                    <input name="_csrf" v-model="csrfToken" type="hidden">
+
+                                    <input id="id" name="id" v-model="reportOne.id" type="hidden">
+                                    <input name="customerId" v-model="customerId" type="hidden">
+                                    <input type="hidden" name="officerMakingVisitIds" v-model="getSelectedOfficer"/>
+                                    <input type="hidden" name="representativeBranchIds" v-model="getSelectedRepresentative"/>
+
+                                    <div class="modal-body">
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Visit Date:</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" name="visitDate" :value="formatDateInput(reportOne.visitDate)"  class="form-control" placeholder="Visit date"></input>
+                                            </div>
+                                            <label class="col-sm-2 custom-details-lebel-left">Branch Name:</label>
+                                            <div class="col-sm-4">
+                                                <!--<input type="text" name="branchName" :value="reportOne.branchName" class="form-control" placeholder="Branch Name"></input>-->
+                                                <select :value="reportOne.branchName" name="branchName">
+                                                    <option>Select Branch</option>
+                                                    <option v-for="branch in branchList" :value="branch.branchName">{{branch.branchName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Purpose of visit:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="purposeOfVisit" :value="reportOne.purposeOfVisit"  class="form-control" placeholder="Purpose of visit"></input>
+                                            </div>
+
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Officer(s) Making the Visit:</label>
+                                            <div class="col-sm-4">
+                                                <multiselect v-model="selectedOfficer" placeholder="Officers Making the Visit"
+                                                             label="pin" track-by="id" :options="employeeList"
+                                                             :multiple="true" :taggable="true"></multiselect>
+                                            </div>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Representative from Branch :</label>
+                                            <div class="col-sm-4">
+                                                <multiselect v-model="selectedRepresentative" placeholder="Representative from Branch"
+                                                             label="pin" track-by="id" :options="employeeList"
+                                                             :multiple="true" :taggable="true"></multiselect>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer text-center">
+                                        <button type="submit" class="btn btn-info">Save</button>
+                                        <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal csi-view-form">
+                    <div style="overflow: auto; max-height: 400px;">
+                        <table type="datatable-responsive"
+                               class="table table-striped table-bordered table-condensed" width="100%">
+                            <thead>
+
+
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width: 200px">Visit date</td>
+                                <td style="width: 5px">:</td>
+                                <td colspan="6">{{formatDate(reportOne.visitDate)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Branch Name</td>
+                                <td style="width: 5px">:</td>
+                                <td colspan="6">{{reportOne.branchName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Purpose of visit</td>
+                                <td style="width: 5px">:</td>
+                                <td colspan="6">{{reportOne.purposeOfVisit}}</td>
+                            </tr>
+                            <tr>
+                                <td>Officer(s) Making the Visit</td>
+                                <td style="width: 5px">:</td>
+                                <td>
+                                    <table class="table-striped">
+                                        <tbody>
+                                            <tr v-for="data in reportOne.officerMakingVisit">
+                                                <td>Name</td>
+                                                <td style="padding-left: 5px"> : </td>
+                                                <td style="padding-left: 5px">{{data.user.firstName}}</td>
+                                                <td style="padding-left: 30px">Designation</td>
+                                                <td style="padding-left: 5px"> : </td>
+                                                <td style="padding-left: 5px">{{data.designation.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Representative(s) from Branch</td>
+                                <td style="width: 5px">:</td>
+                                <td>
+                                    <table class="table-striped">
+                                        <tbody>
+                                            <tr v-for="data in reportOne.representativeBranch">
+                                                <td>Name</td>
+                                                <td style="padding-left: 5px"> : </td>
+                                                <td style="padding-left: 5px">{{data.user.firstName}}</td>
+                                                <td style="padding-left: 30px">Designation</td>
+                                                <td style="padding-left: 5px"> : </td>
+                                                <td style="padding-left: 5px">{{data.designation.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!--<tr>-->
+                                <!--<td rowspan="2">Officer(s) Making the Visit</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td style="width: 80px">Name</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="nameOne" style="width: 212px">{{reportOne.officerMakingVisit && reportOne.officerMakingVisit[0] ? reportOne.officerMakingVisit[0].user.firstName : ''}}</td>-->
+                                <!--<td style="width: 80px">Name</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="nameTwo" style="width: 212px">{{reportOne.officerMakingVisit && reportOne.officerMakingVisit[1]? reportOne.officerMakingVisit[1].user.firstName : ''}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td style="width: 80px">Designation</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="designationOne" style="width: 212px">{{reportOne.officerMakingVisit && reportOne.officerMakingVisit[0]? reportOne.officerMakingVisit[0].designation.name : ''}}</td>-->
+                                <!--<td style="width: 80px">Designation</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="designationTwo" style="width: 212px">{{reportOne.officerMakingVisit && reportOne.officerMakingVisit[1]? reportOne.officerMakingVisit[1].designation.name : ''}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td rowspan="2">Representative(s) from Branch</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td style="width: 80px">Name</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="nameThree" style="width: 212px">{{reportOne.representativeBranch && reportOne.representativeBranch[0] ? reportOne.representativeBranch[0].user.firstName : ''}}</td>-->
+                                <!--<td style="width: 80px">Name</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="nameFour" style="width: 212px">{{reportOne.representativeBranch && reportOne.representativeBranch[1] ? reportOne.representativeBranch[1].user.firstName : ''}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td style="width: 80px">Designation</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="designationThree" style="width: 212px">{{reportOne.representativeBranch && reportOne.representativeBranch[0]? reportOne.representativeBranch[0].designation.name : ''}}</td>-->
+                                <!--<td style="width: 80px">Designation</td>-->
+                                <!--<td style="width: 5px">:</td>-->
+                                <!--<td id="designationFour" style="width: 212px">{{reportOne.representativeBranch && reportOne.representativeBranch[1]? reportOne.representativeBranch[1].designation.name : ''}}</td>-->
+                            <!--</tr>-->
+                            </tbody>
+                            <!--<tbody>-->
+                                <!--<tr>-->
+                                    <!--<td>Visit date</td>-->
+                                    <!--<td>03.Jun.2021</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Branch Name</td>-->
+                                    <!--<td>Dhaka</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Officer(s) Making the Visit</td>-->
+                                    <!--<td>-->
+                                        <!--<table style="border: solid 1px black; width: 100%">-->
+                                            <!--<tbody>-->
+                                                <!--<tr>-->
+                                                    <!--<td>Name</td>-->
+                                                    <!--<td>Satu</td>-->
+                                                    <!--<td>Name</td>-->
+                                                    <!--<td>Satu</td>-->
+                                                <!--</tr>-->
+                                                <!--<tr>-->
+                                                    <!--<td>Name</td>-->
+                                                    <!--<td>Shaon</td>-->
+                                                    <!--<td>Name</td>-->
+                                                    <!--<td>Shaon</td>-->
+                                                <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</tbody>-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            reportOneApp = new Vue({
+                el: '#reportOne',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    status: '',
+                    solvedStatus: '',
+                    note: '',
+                    customerId: '',
+                    csrfToken: csrfToken,
+
+                    employeeList: [],
+                    selectedOfficer: [],
+                    selectedRepresentative:[],
+
+                    reportOne: {},
+
+                    branchList: [],
+
+                },
+                created: function () {
+                    this.customerId = customerId;
+                },
+                computed: {
+                    getSelectedOfficer: function () {
+                        return this.selectedOfficer ? this.selectedOfficer.map(item => {
+                            return item.id;
+                        }): [];
+                    },
+                    getSelectedRepresentative: function () {
+                        return this.selectedRepresentative ? this.selectedRepresentative.map(item => {
+                            return item.id;
+                        }): [];
+                    }
+                },
+
+                methods: {
+                    formatDateInput: function (date) {
+                        let date1 = date ? new Date(date) : new Date()
+
+                        return date ? date1.getFullYear()
+                            +'-'+((date1.getMonth()+1) < 10 ? '0'+(date1.getMonth()+1) : (date1.getMonth()+1))
+                            +'-'+(date1.getDate() < 10 ? '0'+date1.getDate() : date1.getDate())
+                            : '';
+                    },
+                    formatDate: function (date) {
+                        return formatDate_DD_MMM_YYYY(date)
+                    }
+                }
+            })
+
+            function loadRequestsData(){
+                $.ajax({
+                    url: '/collection/samd/dataEntry/visitReport/reportOne/get-employee-list',
+                    success: function (response) {
+                        reportOneApp.employeeList = response
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful");
+                    }
+                })
+            }
+            loadRequestsData();
+
+
+            function getBranchList() {
+                $.ajax({
+                    url: '/collection/samd/dataEntry/visitReport/reportOne/branch-list',
+                    success: function (response) {
+                        reportOneApp.branchList = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+            }
+
+            getBranchList();
+
+
+            function getReportOneData(){
+                $.ajax({
+                    url: '/collection/samd/dataEntry/visitReport/reportOne/get-report?customerId='+customerId,
+                    success: function (response) {
+                        reportOneApp.reportOne = response;
+                        reportOneApp.selectedOfficer = response.officerMakingVisit;
+                        reportOneApp.selectedRepresentative = response.representativeBranch;
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful");
+                    }
+                })
+            }
+            getReportOneData();
+
+            $('#report-one-form').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                 console.log('report one submit');
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/samd/dataEntry/visitReport/reportOne/save',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-report-one').modal('toggle');
+                        $('#modal-report-one').find("input:not([type=hidden]), multiselect").val("");
+                        getReportOneData();
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Follow up</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="other-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Follow up</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Security Scheme Code (DPD/FD- security Type :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="SecuritySchemeCode"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Types of Security (Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="typesOfSec"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Face Value :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="faceValue"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Present Value of Security :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="presentValSecurity"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Lien Amount :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="lienAmount"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Property Size (Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="propertySize"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Developer Name (Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="developerName"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Developer Catagory(Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="developerCataogry"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Property Age(Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="propertyAge"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Property Price :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="propertyPrice"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Flat Price(Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="flatPrice"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Registration Type  :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="regType"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Land Value(Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="landValue"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">TPA Expiry Date :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="tpaExpiryDate"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Security Value :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="securityValue"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Security Account :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="securityAccount"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">DBR :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dbr"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Type of Vehicle :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="typeVehicle"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Vehicle Model :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="vehicleModel"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">CC Title :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="ccTitle"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Applicant and Co Applicant Income :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="applicantCoAppIncome"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">FDR Link Account No. :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="fdrLinkAcc"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">FDR Link Account Maturity Date :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="fdrLinkMaturityDate"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Length of Service :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="lengthService"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Length of Practise :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="lengthPractise"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Organization Type :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="orgType"></label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left">Date of joining :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dateJoining"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Purpose for the Facility :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="purposeFacility"></label>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

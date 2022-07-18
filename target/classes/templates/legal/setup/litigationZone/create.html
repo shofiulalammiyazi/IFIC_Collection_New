@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Zone</title>
+</head>
+
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary" id="zone-app">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${zone?.id == null}" class="box-title">Create New Zone</h3>
+                            <h3 th:if="${zone?.id != null}" class="box-title">Update Zone</h3>
+                            <button class="btn btn-sm btn-danger pull-right" @click="reset">Reset</button>
+                        </div>
+
+                        <form class="form-horizontal validate" method="post"  th:action="@{/legal/setup/zone/save}"
+                              th:object="${zone}">
+                            <input type="hidden" th:field="*{id}">
+                            <input name="branchIds" class="hidden" :value="getBranches">
+                            <input name="districtIds" class="hidden" :value="getDistricts">
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label required">Zone Name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" autocomplete="13" name="name" class="form-control required" th:required="true"
+                                               th:field="*{name}" placeholder="Zone Name"/>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">
+                                    <label class="col-sm-3 control-label required">Zone Location </label>
+                                    <div class="col-sm-7" >
+                                        <select  class="form-control required" th:field="*{location.id}"  required>
+                                            <option value="">Select</option>
+                                            <option th:each="loc :${locList}" th:value="${loc?.id}" th:selected="${zone?.location?.id == loc?.id}" ><span th:text="${loc.city}"></span></option>
+                                        </select>
+                                    </div>
+                                </div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Branches</label>
+                                    <div class="col-sm-7">
+                                        <multiselect v-model="selectedBranch" placeholder="Search Branch"
+                                                     label="branchName" track-by="branchId" :options="branches"
+                                                     :multiple="true" :taggable="true" :close-on-select="false"
+                                                     th:required="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Districts</label>
+                                    <div class="col-sm-7">
+                                        <multiselect v-model="selectedDistrict" placeholder="Search District"
+                                                     label="name" track-by="id" :options="districts"
+                                                     :multiple="true" :taggable="true" :close-on-select="false"
+                                                     th:required="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" th:if="${zone.id != null}">
+                                    <label class="col-sm-3 control-label required">Status</label>
+                                    <div class="col-sm-7">
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" th:checked="${zone?.enabled == true} "
+                                                   th:value="true"> Active</input>
+                                            <input type="radio" name="enabled" th:checked="${zone?.enabled == false}"
+                                                   th:value="false" required> Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm">Save</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/legal/setup/zone/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var branches = /*[[${branches}]]*/ [];
+                        var districts = /*[[${districts}]]*/ [];
+                        var selectedBranch = /*[[${zone.branches}]]*/ [];
+                        var selectedDistrict = /*[[${zone.districts}]]*/ [];
+                        /*]]>*/
+
+                        setWindowFocusLossNotification("Please save changes before leaving the page");
+
+                    </script>
+
+                    <script>
+                        zoneApp = new Vue({
+                            el: '#zone-app',
+                            components: {
+                                Multiselect: VueMultiselect.default
+                            },
+                            data: {
+                                branches: branches,
+                                districts: districts,
+                                selectedBranch: selectedBranch,
+                                selectedDistrict: selectedDistrict,
+                            },
+                            computed: {
+                                getBranches: function () {
+                                    return this.selectedBranch.map(function (data) {
+                                        return data.branchId;
+                                    });
+                                },
+                                getDistricts: function () {
+                                    return this.selectedDistrict.map(function (data) {
+                                        return data.id;
+                                    });
+                                }
+                            },
+                            methods: {
+                                reset: function () {
+                                    clearFormFieldValuesFocused('zone-app');
+                                    this.selectedBranch = [];
+                                }
+                            }
+                        })
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

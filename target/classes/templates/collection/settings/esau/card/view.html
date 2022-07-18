@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title> ESAU Rating- Card</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<style>
+							.form-horizontal .control-label {
+								padding-top: 0px;
+								margin-bottom: 0;
+								text-align: right;
+							}
+						</style>
+						<div class="box-header with-border">
+							<h3 class="box-title">View ESAU Rating List- Card</h3>
+							<a th:href="@{/collection/card/esau/list}" class="btn btn-primary btn-sm" style="float: right;">Back To List</a>
+						</div>
+
+						<form  class="form-horizontal validate" method="post" th:action="@{/collection/card/esau/create}" th:object="${esauLoan}">
+							<div class="box-body">
+								<div class="form-group">
+									<label  class="col-sm-4 control-label ">Age Code : </label>
+									<div class="col-sm-8">
+										<div class="checkbox" th:each="age : ${esauLoan.ageCodeEntities}">
+											<label name="bucketIdList" class="flat-red "  th:value="${age.id}"><p th:text="${age.name}"></p></label>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" >Month Count</label>
+									<div class="col-sm-8">
+										<label name="countMonth" type="text" id="countMonth" th:text="${esauLoan.countMonth}" ></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Final Avg. Upper Limit </label>
+									<div class="col-sm-8">
+										<label name="finalAvgUpperLimit" type="text" id="finalAvgUpperLimit" th:text="${esauLoan.finalAvgUpperLimit}" ></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-4 control-label required">Final Avg. Lower Limit</label>
+									<div class="col-sm-8">
+										<label name="finalAvgLowerLimit" type="text" id="finalAvgLowerLimit" th:text="${esauLoan.finalAvgLowerLimit}" ></label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label  class="col-sm-4 control-label required">Rating Name</label>
+									<div class="col-sm-8">
+										<label name="ratingName" type="text" id="ratingName" th:text="${esauLoan.ratingName}" ></label>
+									</div>
+								</div>
+
+								<div class="form-group" th:if="${esauLoan.id != null}">
+									<label  class="col-sm-4 control-label required">Status</label>
+									<div class="col-sm-8" >
+										<fieldset id="group1" >
+											<input type="radio" name="enabled" th:checked="${esauLoan?.enabled == true} " th:value="true" > Active</input>
+											<input type="radio"  name="enabled" th:checked="${esauLoan?.enabled == false}" th:value="false" required> Inactive </input>
+										</fieldset>
+									</div>
+								</div>
+
+								<div class="form-group" th:if="${esauLoan?.id == null}" style="display: none">
+									<label  class="col-sm-4 control-label required">Status</label>
+									<div class="col-sm-8" >
+										<fieldset id="group1">
+											<input type="radio" name="enabled" th:checked="${esauLoan?.enabled==true} or ${esauLoan?.id == null}" th:value="true"> Active</input>
+											<input type="radio"  name="enabled"  th:checked="${esauLoan?.enabled==false} and ${esauLoan?.id != null}" th:value="false"> Inactive </input>
+										</fieldset>
+									</div>
+								</div>
+
+							</div>
+							<!-- /.box-body -->
+							<!--<div class="box-footer text-center">
+								<a type="submit" class="btn btn-danger btn-sm" href="/collection/card/esau/list">Cancel</a>
+							</div>-->
+							<!-- /.box-footer -->
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

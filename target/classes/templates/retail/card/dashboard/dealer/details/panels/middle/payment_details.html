@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Payment Status</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="info">
+
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Payment Status</h3>
+    </div>
+
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Payment Details</h3>
+        </div>
+        <div class="box-body" >
+            <div th:replace="dashboard/shared/payment/payment-summary :: content"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+
+</html>

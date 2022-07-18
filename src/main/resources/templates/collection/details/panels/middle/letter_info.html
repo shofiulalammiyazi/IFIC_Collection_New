@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Letter Information</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="letter-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Letter Information</h3>
+            <!--<form th:enctype="${'multipart/form-data'}">
+                <div class="box-body form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3">Attachment</label>
+                        <div class="col-sm-9"><input type="file" accept=".xls,.xlsx" name="file" class="form-control"></div>
+                    </div>
+                </div>
+
+                <div class="box-footer text-center">
+                    <a class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+            </form>-->
+            <a class=" btn btn-xs btn-primary pull-right btn-create-cheque" data-toggle="modal" data-target="#modal-letter-information" >
+                <i class="fa fa-plus-square"></i>
+            </a>
+
+        </div>
+        <div class="box-body" id="letter_information" >
+                <!--<button data-toggle="modal" data-target="#modal-default-dealer" class="btn btn-xs btn-primary"  style="float: right; margin-bottom: 5px;">Upload Excel</button>-->
+                <table name="letter_info"
+                       class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Last Letter Type </th>
+                        <th>Letter Ref. No</th>
+                        <th>Letter Send Date</th>
+                        <th>Letter Return Date</th>
+                        <th>Return Reason</th>
+                        <th>Receiver By</th>
+                        <th>File</th>
+                        <th style="min-width: 70px;">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  v-for="data in allData">
+                        <td>{{data.lastLetterType}}</td>
+                        <td>{{data.letterRefNo}}</td>
+                        <td>{{data.letterSendDate}}</td>
+                        <td>{{data.letterReturnDate}}</td>
+                        <td>{{data.returnReason}}</td>
+                        <td>{{data.receivedBy}}</td>
+                        <td>
+                            <a :href="'/collection/dms/document/preview?id=' +data.dmsFileId + '&type='+ data.dmsFileType" style="cursor: pointer"><i fa fa-eye></i>{{data.fileName}}</a>
+                        </td>
+                        <td>
+                            <a href="#modal-show-letter-information" data-toggle="modal" class="btn btn-xs btn-primary btn-show-cheque">
+                                <span class="fa fa-eye"></span>
+                            </a>
+                            <a href="#modal-letter-information" data-toggle="modal" class="btn btn-xs btn-primary btn-edit-cheque">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+           <div class="row">
+                <div class="modal fade" id="modal-letter-information"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Letter Information</h3>
+                            </div>
+
+                            <form  id="letter-information-form" action="" onsubmit="" method="post" class="form-horizontal" enctype="multipart/form-data">
+
+                                <div id="cheque-management-error" class="alt alert-warning hidden"></div>
+                                <input type="hidden" name="id" v-model="editData.id">
+                                <input type="hidden" name="customerId" v-model="customerId">
+                                <input type="hidden" name="_csrf" v-model="csrfToken" >
+
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left ">Last Letter Type</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" placeholder="Last Letter Type" :value="editData.lastLetterType" id="lastLetterType" name="lastLetterType" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Letter Ref No</label>
+                                    <input type="text" class="col-sm-4 custom-form-control" placeholder="Letter Ref No" :value="editData.letterRefNo" id="letterRefNo" name="letterRefNo" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Letter Return Date :</label>
+                                    <input type="date" class="col-sm-4 custom-form-control" id="receiveDate" :value="formatDate1(editData.letterReturnDate)" name="letterReturnDate" />
+                                    <label class="col-sm-2 custom-details-lebel-left ">Received By :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control"  :value="editData.receivedBy" id="receivedBy" name="receivedBy" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Letter Send Date :</label>
+                                    <input type="date" class="col-sm-4 custom-form-control" id="letterSendDate" :value="formatDate1(editData.letterSendDate)" name="letterSendDate" />
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left">Return Reason :</label>
+                                    <input  type="text" class="col-sm-4 custom-form-control" :value="editData.returnReason" id="returnReason" name="returnReason" />
+                                    <label class="col-sm-2 custom-details-lebel-left">Upload Letter :</label>
+                                    <input  type="file" class="col-sm-4 custom-form-control" name="file"  placeholder="Upload"/>
+                                </div>
+
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-show-letter-information"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3 >Letter Information</h3>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left ">Last Letter Type</label>
+                                <span class="col-sm-4">{{editData.lastLetterType}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left">Letter Ref No</label>
+                                <span class="col-sm-4">{{editData.letterRefNo}}</span>
+
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left">Letter Return Date :</label>
+                                <span class="col-sm-4">{{formatDate(editData.letterReturnDate)}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left ">Received By :</label>
+                                <span class="col-sm-4">{{editData.receivedBy}}</span>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 custom-details-lebel-left">Letter Send Date :</label>
+                                <span class="col-sm-4">{{formatDate(editData.letterSendDate)}}</span>
+                                <label class="col-sm-2 custom-details-lebel-left">Return Reason :</label>
+                                <span class="col-sm-4">{{formatDate(editData.returnReason)}}</span>
+                            </div>
+
+
+                            <div class="modal-footer text-center">
+                                <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            var letter_information = new Vue({
+                el:'#letter_information',
+                data:{
+                    letterInformationDetails:[],
+                    file:{},
+                    csrfToken: '',
+                    customerId: '',
+                    allData: [],
+                    editData: {}
+                },
+                methods:{
+                    handleFileUpload: function(){
+                        this.file = this.$refs.file.files[0];
+                    },
+                    formatDate: function (date) {
+                        return date ? formatDate_DD_MMM_YYYY(date) : ''
+                    },
+
+                    formatDate: function (date) {
+                        return date ? formatDate_DD_MMM_YYYY(date) : ''
+                    },
+                    formatDate1: function (date) {
+                        let date1 = date ? new Date(date) : new Date()
+
+                        return date ? date1.getFullYear()
+                            +'-'+((date1.getMonth()+1) < 10 ? '0'+(date1.getMonth()+1) : (date1.getMonth()+1))
+                            +'-'+(date1.getDate() < 10 ? '0'+date1.getDate() : date1.getDate())
+                            : '';
+                    },
+                    numberFormatBdt: function (data) {
+                        return numberToBDTFormat(data)
+                    }
+                }
+            })
+
+
+            letter_information.csrfToken  = window.csrfToken;
+            letter_information.customerId = customerId;
+
+
+            $('#letter-information-form').on('submit', function (e) {
+                e.preventDefault();
+
+                var formdatalist = $('#letter-information-form');
+                var data = new FormData(document.querySelector('#letter-information-form'));
+
+                $.ajax({
+                    url: '/collection/loan/letter-informations/create',
+                    type: 'POST',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response, xhr, status) {
+                        $('#modal-letter-information').modal('toggle');
+                        loadAllData(customerId);
+                    }
+                })
+
+            })
+
+            $('.btn-create-cheque').on('click', function () {
+                letter_information.editData = {}
+            })
+
+            $('#letter_information').delegate('.btn-edit-cheque, .btn-show-cheque', 'click', function () {
+                let index = $(this).is('.btn-edit-cheque') ? $(this).index('.btn-edit-cheque') : $(this).index('.btn-show-cheque')
+                letter_information.editData = letter_information.allData[index]
+                console.log("======================"+letter_information.editData.letterReturnDate);
+            })
+
+
+            function loadAllData (){
+                $.ajax({
+                    url: '/collection/loan/letter-informations/get-by-customer-id?customerId='+customerId,
+                    success: function (response) {
+                        letter_information.allData = response
+
+
+                    }
+                })
+            }
+            loadAllData(letter_information.customerId)
+
+        </script>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

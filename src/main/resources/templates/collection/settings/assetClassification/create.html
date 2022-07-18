@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"/>
+<title> Asset Classification List-Loan</title>
+	<style>
+		input[type="checkbox"] {
+			margin-right: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="box box-primary">
+
+							<div class="box-header with-border" style="text-align: center">
+								<h3 th:text="${((asset.id == null)?'Create':'Update') + ' Asset Classification List-Loan'}" class="box-title">Form</h3>
+							</div>
+
+							<form  class="form-horizontal validate" method="post" th:action="@{/collection/asset_classification_loan/create}" th:object="${asset}">
+								<input type="hidden" th:field="*{id}"/>
+								<div class="box-body">
+
+									<!--<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right required">Asset Classification Name </label>
+											<div class="col-sm-8">
+												<input type="text" name="name" id="name" class="form-control required" th:required="true" th:field="*{name}" placeholder="Asset Classification Name" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right required">Asset Classification Code </label>
+											<div class="col-sm-8">
+												<input type="text" name="code" id="code" class="form-control required" th:required="true" th:field="*{code}" placeholder="Asset Classification Code" />
+											</div>
+										</div>
+									</div>-->
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right required">Type </label>
+											<div class="col-sm-8">
+                                                <select th:field="*{type}" class="form-control required" required>
+                                                    <option value="">Select</option>
+                                                    <option th:each="clsssType : ${assetClasstypes}" th:value="${clsssType.id}" th:text="${clsssType.type}">
+                                                    </option>
+                                                </select>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right required">Bucket </label>
+											<div class="col-sm-8">
+												<div th:each="bucket :${dpdBucketList}">
+													<input type="checkbox"  class="flat-red" name="bucketIdList" th:value="${bucket?.id}" th:checked="${#lists.contains(allowedBucketIdList, bucket.id)}" ><label th:text="${bucket.bucketName}"></label></input>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right">Product Type </label>
+											<div class="col-sm-8">
+												<div th:each="prod :${prodTypeList}">
+													<input type="checkbox" name="prodIdList" class="flat-red" th:value="${prod?.id}" th:checked="${#lists.contains(allowedProdIdList, prod.id)}" /><label th:text="${prod.name}"></label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right">Min. Sanction Amount </label>
+											<div class="col-sm-8">
+												<input type="text" name="minSanctionAmount" id="minSanctionAmount" onkeyup="javascript:checkNumber2('minSanctionAmount');" class="form-control" th:field="*{minSanctionAmount}" placeholder="Min. Sanction Amount" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right">Min. Disbursement Amount </label>
+											<div class="col-sm-8">
+												<input type="text" name="minDisburseAmount" id="minDisburseAmount" onkeyup="javascript:checkNumber2('minDisburseAmount');" class="form-control" th:field="*{minDisburseAmount}" placeholder="Min. Disbursement Amount" />
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<label class="col-sm-4 custom-form-lebel-right">Min. Outstanding Amount </label>
+											<div class="col-sm-8">
+												<input type="text" name="minOutstandingAmount" id="minOutstandingAmount" onkeyup="javascript:checkNumber2('minOutstandingAmount');" class="form-control" th:field="*{minOutstandingAmount}" placeholder="Min. Outstanding Amount" />
+											</div>
+										</div>
+									</div>
+									<!--<div class="form-group">-->
+										<!--<div class="col-md-12">-->
+											<!--<label class="col-sm-4 custom-form-lebel-right required">Min. ATE </label>-->
+											<!--<div class="col-sm-8">-->
+												<!--<input type="text" name="minATE" id="minATE" onkeyup="javascript:checkNumber2('minATE');" class="form-control required" th:required="true" th:field="*{minATE}" placeholder="Min. ATE" />-->
+											<!--</div>-->
+										<!--</div>-->
+									<!--</div>-->
+
+									<div class="form-group" th:if="${asset.id != null}">
+										<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+										<div class="col-sm-8" >
+											<fieldset id="group1" >
+												<input type="radio" name="enabled" th:checked="${asset?.enabled == true} " th:value="true" > Active</input>
+												<input type="radio"  name="enabled" th:checked="${asset?.enabled == false}" th:value="false" required> Inactive </input>
+											</fieldset>
+										</div>
+									</div>
+
+									<div class="form-group" th:if="${asset?.id == null}" style="display: none">
+										<label  class="col-sm-4 custom-form-lebel-right required">Status</label>
+										<div class="col-sm-8" >
+											<fieldset id="group2">
+												<input type="radio" name="enabled" th:checked="${asset?.enabled==true} or ${asset?.id == null}" th:value="true"> Active</input>
+												<input type="radio"  name="enabled"  th:checked="${asset?.enabled==false} and ${asset?.id != null}" th:value="false"> Inactive </input>
+											</fieldset>
+										</div>
+									</div>
+
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer text-center">
+									<button type="submit" class="btn btn-info btn-sm ">Submit</button>
+									<a type="submit" class="btn btn-danger btn-sm" href="/collection/asset_classification_loan/list">Cancel</a>
+								</div>
+								<!-- /.box-footer -->
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

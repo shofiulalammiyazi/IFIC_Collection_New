@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Discussion held regarding the borrower</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="discussion-held-regarding-borrower">
+    <div class="csi-view-form-full-area csi-view-indtable" id="discussion-regarding-borrower">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Discussion Held Regarding the Borrower</h3>
+            <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" data-toggle="modal" data-target="#modal-discussion-regarding-borrower" >
+                <i class="fa fa-plus-square"></i>
+                <span v-if="discussionRegardingBorrower == null">Add More</span>
+                <span v-else>Edit</span>
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-discussion-regarding-borrower"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <h3 >Discussion Held Regarding the Borrower</h3>
+                            </div>
+
+                            <form  id="discussion-regarding-borrower-form" action="" method="post" class="form-horizontal" >
+                                <input type="hidden" name="id" :value="discussionRegardingBorrower.id"/>
+                                <input name="_csrf" type="hidden">
+                                <input name="customerId" type="hidden">
+                                <div class="modal-body">
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Details of Discussion:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" :value="discussionRegardingBorrower.detailsDiscussion" name="detailsDiscussion"  class="form-control" placeholder="Details of Discussion"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Monitoring Person:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" :value="discussionRegardingBorrower.monitoringPerson" name="monitoringPerson" class="form-control" placeholder="Monitoring Person"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-2 custom-details-lebel-left">Next Course Of Action:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" :value="discussionRegardingBorrower.nextCourseOfAction" name="nextCourseOfAction"  class="form-control" placeholder="Next Course Of Action"></input>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table type="datatable-responsive"
+                           class="table table-striped table-bordered table-condensed" width="100%">
+                        <thead>
+                        <th style="text-align: center">Details of the discussion</th>
+                        <th style="text-align: center">Monitoring person</th>
+                        <th style="text-align: center">Next course of action</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center" id="detailsDiscussion">{{discussionRegardingBorrower.detailsDiscussion}}</td>
+                            <td style="text-align: center" id="monitoringPerson">{{discussionRegardingBorrower.monitoringPerson}}</td>
+                            <td style="text-align: center" id="nextCourseOfAction">{{discussionRegardingBorrower.nextCourseOfAction}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $('#discussion-regarding-borrower-form input[name="_csrf"]').val(csrfToken);
+            $('#discussion-regarding-borrower-form input[name="customerId"]').val(customerId)
+
+
+            discussionRegardingBorrowerApp = new Vue({
+                el: '#discussion-regarding-borrower',
+                data:{
+                    discussionRegardingBorrower: {}
+                }
+            })
+
+
+            $('#discussion-regarding-borrower-form').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData($('#discussion-regarding-borrower-form')[0]);
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/samd/data-entry/visit-report/discussion-regarding-borrower/save',
+                    data: Object.fromEntries(data),
+                    // processData: false,
+                    // contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-discussion-regarding-borrower').modal('toggle');
+                        $('#modal-discussion-regarding-borrower').find("input:not(:hidden)").val("");
+                        $('#liability-discussion-body').html("");
+                        discussionRegardingBorrowerData();
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+
+
+            function discussionRegardingBorrowerData() {
+                $.ajax({
+                    url: '/collection/samd/data-entry/visit-report/discussion-regarding-borrower/find?customerId='+customerId,
+                    success: function (response) {
+                        discussionRegardingBorrowerApp.discussionRegardingBorrower = response;
+                    },
+                    error: function (response) {
+
+                    }
+                })
+            }
+            discussionRegardingBorrowerData();
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

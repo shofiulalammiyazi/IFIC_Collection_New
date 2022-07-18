@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <style>
+        b {
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 2px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div  class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row" style="height: 11em;">
+                                <div class="form-group">
+                                    <div class="col-sm-2 offset-2"><label  class="control-label">End Date:</label></div>
+                                    <div class="col-sm-6">
+                                    <!--<select class="form-control col-sm-3" name="lawyerName">-->
+
+                                            <!--<option th:each="lawyer:${lawyerList}"-->
+                                                    <!--th:text="${lawyer?.name}"-->
+                                                    <!--th:value="${lawyer?.name}">-->
+                                            <!--</option>-->
+
+                                    <!--</select>-->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-sm btn-primary pull-right margin" >
+                                        Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="row">
+                    <div class="col-sm-12 margin">
+                        <button v-show="!isPrintState" @click="data=[]" class="btn btn-sm btn-danger">
+                            Regenerate
+                        </button>
+                        <button v-show="!isPrintState" @click="print" class="btn btn-sm btn-primary">
+                            Print
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div id="printBody" class="box">
+                        <div class="box-body">
+                            <!--<div class="row">-->
+                                <div class="col-sm-12">
+                                    <table>
+                                        <thead>
+                                        <!--Column width control with empty <th>-->
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td style="text-align: center" colspan="6">
+                                                <b>ইউনাইটেড  কমার্শিয়াল ব্যাংক লিঃ </b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center" colspan="6">
+                                                <b>কর্পোরেট কার্যালয় </b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center" colspan="6">
+                                                <b>ঢাকা</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  colspan="4">
+                                                বিষয়ঃ ব্যাংক , বীমা ও আর্থিক প্রতিষ্ঠানের মামলা  সংক্রান্ত   তথ্য প্রদান প্রসঙ্গে ।
+                                            </td>
+                                            <td  colspan="2">
+                                                তারিখ :৩১-১২-২০২০ পর্যন্ত ।
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  colspan="6" style="text-align: right">
+                                                কোটি টাকা
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th style="text-align: center">ক্রমিক  নং</th>
+                                            <th style="text-align: center">বীমা /আর্থিক প্রতিষ্ঠান </th>
+                                            <th style="text-align: center" colspan="2">রীট  মামলা </th>
+                                            <th style="text-align: center" colspan="2">অর্থঋণ  মামলা </th>
+                                            <th style="text-align: center" colspan="2">সার্টিফিকেটে  মামলা </th>
+                                            <th style="text-align: center" colspan="2">দেউলিয়া মামলা</th>
+                                            <th style="text-align: center" colspan="2">অন্যান্য  মামলা</th>
+                                            <th style="text-align: center" colspan="2">সর্বমোট </th>
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                            <th style="text-align: center">সংখ্যা </th>
+                                            <th style="text-align: center">জড়িত অর্থ </th>
+                                        </tr>
+                                        </thead>
+                                         <tbody>
+                                         <tr>
+                                             <td style="text-align: center" >১</td>
+                                             <td style="text-align: center">ইউনাইটেড  কমার্শিয়াল ব্যাংক লিঃ</td>
+                                             <td style="text-align: center" >১৮ </td>
+                                             <td style="text-align: center" >৮৮.৬৩</td>
+                                             <td style="text-align: center" >৪,৪৯৭</td>
+                                             <td style="text-align: center" >২,১০৬.৩৮</td>
+                                             <td style="text-align: center" >-</td>
+                                             <td style="text-align: center" >-</td>
+                                             <td style="text-align: center" >৩ </td>
+                                             <td style="text-align: center" >২.১৭</td>
+                                             <td style="text-align: center" >-</td>
+                                             <td style="text-align: center" >-</td>
+                                             <td style="text-align: center" >৪৫১৮ </td>
+                                             <td style="text-align: center" >২,১৯৭.১৮</td>
+                                         </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

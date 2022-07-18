@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <style>
+        b {
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 2px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="report-app">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-2 offset-2"><label  class="control-label">Case Type:</label></div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control col-sm-3" id="caseTypeId" name="zoneName" v-model="caseTypeId">
+                                            <option th:each="caseId :${caseTypeList}"
+                                                    th:text="${caseId?.name}"
+                                                    th:value="${caseId?.id}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-2 offset-2"><label  class="control-label">Appeal filed by</label></div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control col-sm-3" name="zoneName" v-model="filedBy">
+                                            <option>By Bank</option>
+                                            <option>Against Bank</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-2 offset-2"><label  class="control-label">From Date</label></div>
+                                    <div class="col-sm-2">
+                                        <input type="date" class="form-control input-sm" v-model="fromDt"/>
+                                    </div>
+                                    <div class="col-sm-2 offset-2"><label  class="control-label">To Date</label></div>
+                                    <div class="col-sm-2">
+                                        <input type="date" class="form-control input-sm" v-model="toDt"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-sm btn-primary pull-right margin" @click="getReport">
+                                        Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 margin">
+                        <button v-show="!isPrintState" @click="data=[]" class="btn btn-sm btn-danger">
+                            Regenerate
+                        </button>
+                        <button v-show="!isPrintState" @click="print" class="btn btn-sm btn-primary">
+                            Print
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div id="printBody" class="box">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <thead>
+                                        <!--Column width control with empty <th>-->
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="5">
+                                                <b>United Commercial Bank Limited</b>
+                                            </td>
+                                            <td rowspan="3">
+                                                <img alt="Logo" class="img-fluid pull-right"
+                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHoAAAA8CAYAAACpWK6VAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDIzREE1MTBGMEQ4MTFFNEFDMjBGRDY0QzgxQzIzNzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDIzREE1MTFGMEQ4MTFFNEFDMjBGRDY0QzgxQzIzNzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEMjNEQTUwRUYwRDgxMUU0QUMyMEZENjRDODFDMjM3NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEMjNEQTUwRkYwRDgxMUU0QUMyMEZENjRDODFDMjM3NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pny7c6oAABUNSURBVHja7FwLnFPl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">
+                                                <!--<img src="/images/ucbl_logo_x.png" class="pull-right">-->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <b>Legal Wing, SAMD</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <b>Corporate Office</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <h6 class="text-center" th:text="${reportTitle}"></h6>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <b>From Date :</b>
+                                            </td>
+                                            <td id="fromDateText"></td>
+                                            <td>
+                                                <b>To Date :</b>
+                                            </td>
+                                            <td id="toDateText"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>Case Type :</b>
+                                            </td>
+                                            <td><span  id="caseTypeNameTxt"></span></td>
+                                            <td>
+                                               <b>Appeal filed by :</b>
+                                            </td>
+                                            <td>{{filedBy}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <th colspan="9" style="text-align: right">Figure in Lac</th>
+                                                    <tr>
+                                                        <th>SL</th>
+                                                        <th>Branch Name</th>
+                                                        <th>Account No/Account Name</th>
+                                                        <th>Petitioner's Name</th>
+                                                        <th>Subject Matter</th>
+                                                        <th>First Order Date</th>
+                                                        <th>Case Number</th>
+                                                        <th>Filing Date</th>
+                                                        <th>Suit/Cheque Outstanding Value</th>
+                                                        <th>Lawyer Name</br>
+                                                            Mobile No
+                                                        </th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr v-for="(app,index) in data">
+                                                        <td>{{index+1}}</td>
+                                                        <td>{{app.branchName}}</td>
+                                                        <td>{{app.accountNo}}</td>
+                                                        <td>{{app.petitionerName}}</td>
+                                                        <td>{{app.subject}}</td>
+                                                        <td>{{app.firstOrderDate}}</td>
+                                                        <td>{{app.caseNumber}}</td>
+                                                        <td>{{app.dateOfFiling}}</td>
+                                                        <td>{{app.suitValue}}</td>
+                                                        <td>{{app.lawyerName+'\n'+app.lawyerMobNo}}</td>
+                                                        <td>{{app.status}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td style="font-weight: bold">{{'Total = '+totalSuitValue.toFixed(2)}}</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var appellateDivision = new Vue({
+                el:"#report-app",
+                data:{
+                    data:[],
+                    caseTypeId:'',
+                    filedBy:'',
+                    fromDt:'',
+                    toDt:'',
+                    totalSuitValue:0,
+                    isPrintState:false
+                },
+                filters:{
+
+                },
+                methods:{
+                    getReport: function (e) {
+                        e.preventDefault();
+                        let vm = this;
+                        vm.loading = true;
+
+                        let fromDt=new Date(vm.fromDt).getFullYear();
+                        let toDt=new Date(vm.toDt).getFullYear();
+
+                        console.log("from : "+fromDt+" to : "+toDt)
+
+                        let host = window.location.host;
+                        let url = 'https://' + host + '/legal/report/managerial/statementOfAppellateDivisionCases/report?' +
+                            'caseTypeId=' + vm.caseTypeId+'&filedBy='+vm.filedBy+'&fromDt='+fromDt+'&toDt='+toDt;
+
+                        vm.$http.get(url)
+                            .then(res => {
+                                if (res.ok) {
+                                    if (!Array.isArray(res.body)) {
+                                        notifyError();
+                                        return;
+                                    }
+                                    $("#caseTypeNameTxt").html($( "#caseTypeId option:selected").text());
+                                    $("#fromDateText").html(fromDt);
+                                    $("#toDateText").html(toDt);
+                                    vm.data = res.body;
+                                    vm.loading = false;
+                                    for(let i=0; i<vm.data.length; i++){
+                                        this.totalSuitValue += parseFloat(vm.data[i].suitValue ? vm.data[i].suitValue : 0);
+                                    }
+                                }
+                            }).catch(err => {
+                             })
+                    },
+                    print: function () {
+
+                        let vm = this;
+
+                        setTimeout(function () {
+                            vm.isPrintState = true;
+                        }, 1000);
+
+                        setTimeout(function () {
+                            printElementIncludingStyles('printBody');
+                            // window.print();
+                        }, 1000);
+                        setTimeout(function () {
+                            vm.isPrintState = false;
+                        }, 1000);
+
+                    },
+                }
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>

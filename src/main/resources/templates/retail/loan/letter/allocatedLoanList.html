@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Allocated Account List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title">Generate Letter</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div id="app" class="box-body">
+                            <div class="form-group" style="margin: 0 0 20px 15px">
+                                <label class="col-sm-2 custom-form-lebel-right required right-side">Letter Type </label>
+                                <div class="col-sm-6">
+                                    <select name="letterType" v-model="letterType" id="letterType"
+                                            class="form-control required" required>
+                                        <option class="form-control required" value="" selected>Select a Letter Type
+                                        </option>
+                                        <option class="form-control required" value="callUp" id="callUp">Call Up
+                                        </option>
+                                        <option class="form-control required" value="declined"
+                                                id="declined">Declined
+                                        </option>
+                                        <option class="form-control required" value="outstanding"
+                                                id="outstanding">Outstanding
+                                        </option>
+                                        <option class="form-control required" value="settlement"
+                                                id="settlement">Settlement
+                                        </option>
+                                        <option class="form-control required" value="settlementLetter"
+                                                id="settlementLetter">Settlement Letter
+                                        </option>
+                                        <option class="form-control required" value="reschedule"
+                                                id="reschedule">Reschedule
+                                        </option>
+                                        <option class="form-control required" value="reminder"
+                                                id="reminder">Reminder
+                                        </option>
+                                        <option class="form-control required" value="replyReschedule"
+                                                id="replyReschedule">Reply Reschedule
+                                        </option>
+                                        <option class="form-control required" value="recoveryAssistance"
+                                                id="recoveryAssistance">Recovery Assistance
+                                        </option>
+                                    </select>
+                                </div>
+                                <button @click="previewLetter" class="btn btn-primary"
+                                        style="padding: 5px; display: block;">Generate
+                                </button>
+                            </div>
+                            <span v-if="LettergenErr" class="text-danger">
+                                <b>Fix the errors:</b> <br>
+                                <ul>
+                                    <li v-for="msg in LettergenErrMsg"><b>{{ msg }}</b></li>
+                                </ul>
+                            </span>
+
+                            <table id="example" name="datatable-responsive" class="table table-striped table-bordered table-condensed" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Checkbox</th>
+                                            <th>Account No</th>
+                                            <th>Customer Id</th>
+                                            <th>Customer Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                <tr v-for="loan, index in loanViewList">
+                                    <td>
+                                        <label class="mdl-checkbox mdl-js-checkbox">
+                                            <input v-model="selectedList" :id="'loan' + loan.index"
+                                                   :value="loan.accountNo" type="checkbox"
+                                                   class="mdl-checkbox__input" checked>
+                                        </label>
+                                    </td>
+
+                                    <td><a :href="'/profile/loanprofile/search?account='+ loan.accountNo"
+                                           target="_blank">{{loan.accountNo}}</a>
+                                    </td>
+                                    <td><span>{{loan.customerId}}</span></td>
+                                    <td>
+                                        <div style="height: 16px; overflow: auto">{{loan.customerName}}</div>
+                                    </td>
+                                    <td v-if="selectedList.includes(loan.accountNo) && generated">
+                                        <button class="btn btn-primary">
+                                            <a style="color: white"
+                                               :href="`generate?account=${loan.accountNo}&letterType=${letterType}`"
+                                               target="_blank">preview</a>
+                                        </button>
+                                    </td>
+                                    <td v-else></td>
+                                </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var loanviewlist = /*[[${loanviewlistJson}]]*/   [];
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            new Vue({
+                                el: "#app",
+                                data: {
+                                    loanViewList: [],
+                                    selectedList: [],
+                                    dealerId: "",
+                                    dualType: "SINGLE",
+                                    agencyId: "",
+                                    LettergenErr: false,
+                                    generated: false,
+                                    LettergenErrMsg: [],
+                                    selectedAccount: '',
+                                    letterType: '',
+
+                                },
+                                created: function () {
+                                    this.loanViewList = JSON.parse(loanviewlist);
+                                },
+                                methods: {
+                                    previewLetter() {
+                                        this.LettergenErrMsg = [];
+                                        if (!this.letterType.length) {
+                                            this.LettergenErrMsg.push('Select Letter Type');
+                                        }
+                                        if (!this.selectedList.length) {
+                                            this.LettergenErrMsg.push('Select at least one account');
+                                        }
+                                        this.LettergenErr = this.LettergenErrMsg.length;
+                                        this.generated = !this.LettergenErr;
+                                    }
+                                }
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</div>
+</body>
+</html>

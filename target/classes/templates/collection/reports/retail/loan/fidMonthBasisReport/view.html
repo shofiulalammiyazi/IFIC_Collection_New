@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="box-body">
+
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-sm-9 col-sm-offset-3" style="margin-bottom: 40px">
+                            <form class="form-horizontal" method="get"
+                                  th:action="@{/collection/report/retail/loan/month-basis-fid/report}">
+                                <div class="row margin">
+                                    <div class="col-sm-2 text-right">
+                                        Report Date
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="date" name="endDate" class="form-control" required/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-sm btn-primary pull-right " @click="getReport">
+                                            Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-condensed text-center"
+                                       cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="10">Retail-FID for the month</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Total no. of accounts (<span th:text="${#dates.format(reportDate, 'dd-MMM-yyyy')}"></span>):</td>
+                                            <td th:text="${data.totalCount}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. of Reported FID:</td>
+                                            <td th:text="${data.reportFidCount}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Present Outstanding of FID accounts:</td>
+                                            <td th:text="${data.fidSum}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Salaried in FID accounts:</td>
+                                            <td th:text="${data.salaried}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Businessman in FID accounts:</td>
+                                            <td th:text="${data.businessman}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Landlord in FID accounts:</td>
+                                            <td th:text="${data.landlord}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                                <!--Credit Card-FID for the month-->
+                                <div class="table-responsive" style="margin-top: 50px">
+                                    <table class="table table-striped table-bordered table-condensed text-center"
+                                           cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="10">Credit Card-FID for the month</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Total no. of accounts (Month Name):</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. of Reported FID:</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Present Outstanding of FID accounts:</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Salaried in FID accounts:</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Businessman in FID accounts:</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Landlord in FID accounts:</td>
+                                            <td>0</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

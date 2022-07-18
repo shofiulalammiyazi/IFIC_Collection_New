@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Add Asset Main Classification- Loan</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title"
+                                th:Text="${((mainclassification.id == null)?'Create':'Update') + ' Asset Main Classification - Loan'}">
+                                Form</h3>
+                        </div>
+
+                        <form class="form-horizontal validate" method="post"
+                              th:action="@{/collection/mainclassification/create}" th:object="${mainclassification}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="box-body">
+                                <div class="form-group text-center">
+                                    <label th:if="${error}" class="text-danger" th:text="${error}">Error</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name" required/>
+                                    </div>
+                                    <label class="col-sm-push-4 col-sm-8 text-danger"
+                                           th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Code</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" th:field="*{code}" placeholder="Code"/>
+                                    </div>
+                                    <label class="col-sm-push-4 col-sm-8 text-danger"
+                                           th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Code Error</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label-right required">Status:</label>
+                                    <div class="col-sm-8">
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" id="enabled"
+                                                   th:checked="${mainclassification.enabled}" th:value="true">
+                                            Active</input>
+                                            <input type="radio" name="enabled" id="disabled"
+                                                   th:checked="${!mainclassification.enabled}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm"
+                                   href="/collection/mainclassification/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

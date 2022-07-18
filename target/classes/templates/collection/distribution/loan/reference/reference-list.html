@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Customer's Reference (Loan)</title>
+
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title"> Customer's Reference List</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div id="ref" class="box-body">
+                            <a th:if="${status eq 'pending' && session.urlList.contains('/collection/loan/settings/reference-info/create')}"  style="margin-bottom: 10px" class="btn btn-primary btn-xs"
+                               th:href="@{/collection/loan/settings/reference-info/create}"><span class="glyphicon glyphicon-plus"> </span>
+                                Reference Info Up (Loan) </a>
+                            <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="bg-info " th:classappend="${status eq 'pending'} ? active : ''" ><a th:href="@{/collection/loan/settings/reference-info/list}"
+                                                              aria-expanded="false">Pending</a></li>
+                                <li class="bg-info" th:classappend="${status eq 'reject'} ? active : ''"><a th:href="@{/collection/loan/settings/reference-info/reject-list}" aria-expanded="false">Rejected</a>
+                                </li>
+                                <li class="bg-info" th:classappend="${status eq 'approved'} ? active : ''"><a th:href="@{/collection/loan/settings/reference-info/approved-list}"  aria-expanded="true">Approved</a>
+                                </li>
+                                <li class="pull-right">
+                                    <button th:if="${status eq 'pending'}"  onclick="approvedReferenceInfo()"
+                                            class="btn btn-sm bg-light-blue-gradient">
+                                        <span class="glyphicon glyphicon-ok"> </span>
+                                        <span>Approve</span>
+                                    </button>
+                                    <button th:if="${status eq 'pending'}"  class="btn btn-sm bg-red-gradient" onclick="rejectReferenceInfo()">
+                                        <span class="glyphicon glyphicon-remove"> </span>
+                                        <span>Reject</span>
+                                    </button>
+                                </li>
+                            </ul>
+                            </div>
+                            <table id="reference-info-list-tbl" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed text-center" width="100%">
+                                <thead>
+                                <tr>
+                                    <th th:if="${status eq 'pending'}"  style="text-align: left"><input  id="select_all_reference_checkbox" type="checkbox"></input>Select All</th>
+                                    <th>Loan A/C No</th>
+                                    <th>Ref. Account No</th>
+                                    <th>Name</th>
+                                    <th>Occupation</th>
+                                    <th>Company Name</th>
+                                    <th>Designation</th>
+                                    <th>Relation Of Reference</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="referenceInfo,status : ${referenceInfoList}">
+                                    <td style="display: none" class="ref-id" th:text="${referenceInfo.id}"></td>
+                                    <td style="display: none" class="ref-created-date" th:text="${#dates.format(referenceInfo.createdDate, 'yyyy-MM-dd')}"></td>
+                                    <td style="display: none" class="ref-created-by" th:text="${referenceInfo.createdBy}"></td>
+                                    <td th:if="${referenceInfo.status == T(com.csinfotechbd.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}eq ${user})"></td>
+                                    <td  th:if="${referenceInfo.status == T(com.csinfotechbd.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}ne ${user})" style="text-align: left"><input class="checkbox reference-checkbox" type="checkbox"></input></td>
+                                    <td class="ref-loan-account-no" th:text="${referenceInfo.loanAccountNo}"></td>
+                                    <td class="ref-account-no"  th:text="${referenceInfo.accountNo}"></td>
+                                    <td class="ref-name"  th:text="${referenceInfo.name}"></td>
+                                    <td class="ref-occupation"  th:text="${referenceInfo.occupation}"></td>
+                                    <td class="ref-company-name" th:text="${referenceInfo.companyName}"></td>
+                                    <td class="ref-designation"  th:text="${referenceInfo.designation}"></td>
+                                    <td class="ref-relation"  th:text="${referenceInfo.relationReference}"></td>
+                                    <td  th:text="${referenceInfo.status}"></td>
+                                    <td style="display: none" class="ref-home-address" th:text="${referenceInfo.homeAddress}"></td>
+                                    <td style="display: none" class="ref-office-addres" th:text="${referenceInfo.officeAddress}"></td>
+                                    <td style="display: none" class="ref-permanent-address" th:text="${referenceInfo.permanentAddress}"></td>
+                                    <td style="display: none" class="ref-phone-no" th:text="${referenceInfo.phoneNo}"></td>
+                                    <td style="display: none" class="ref-dealer-pin" th:text="${referenceInfo.dealerPin}"></td>
+                                    <td style="display: none" class="ref-facility" th:text="${referenceInfo.facilityWithUcbl}"></td>
+                                    <td style="display: none" class="ref-dob" th:text="${referenceInfo.dob}"></td>
+                                    <td style="display: none" class="ref-nid-passport" th:text="${referenceInfo.nidOrPassport}"></td>
+                                    <td style="display: none" class="ref-customer-id" th:text="${referenceInfo.customerId}"></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="modal-error">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <!--<button data-target="#modal-error" data-dismiss="modal"-->
+                                            <!--class="btn btn-sm btn-danger pull-right">-->
+                                            <!--<span aria-hidden="true">&times;</span>-->
+                                            <!--</button>-->
+                                            <h4 class="modal-title text-center">Distribution Errors</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-sm-offset-2">
+                                                    <table id="distErrorTbl" class="table table-striped table-hover">
+                                                        <thead class="bg-primary text-center">
+                                                        <tr>
+                                                            <th>Account Number</th>
+                                                            <th>Error</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-for="(value, name) in errors">
+                                                            <td>{{name}}</td>
+                                                            <td class="text-danger wrap-word">{{value}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger pull-right"
+                                                    data-target="#modal-error" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                        </div>
+
+
+                        <script src="/js/datatable/dataTables.buttons.min.js"></script>
+                        <script src="/js/datatable/jszip.min.js"></script>
+                        <script src="/js/datatable/pdfmake.min.js"></script>
+                        <script src="/js/datatable/vfs_fonts.js"></script>
+                        <script src="/js/datatable/buttons.html5.min.js"></script>
+                        <script src="/js/datatable/buttons.print.min.js"></script>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#reference-info-list-tbl').DataTable({
+                                    'bInfo': true,
+                                    ordering: true,
+                                    searching: true,
+                                    lengthChange: true,
+                                    dom: 'Bfrtip',
+                                    buttons: ['excel']
+                                })
+
+                            })
+
+                            $("#select_all_reference_checkbox").click(function(){
+                                $(".reference-checkbox").prop('checked', $(this).prop('checked'));
+
+                            });
+
+
+
+
+                            function approvedReferenceInfo() {
+                                var token = $("meta[name='_csrf']").attr("content");
+                                var header = $("meta[name='_csrf_header']").attr("content");
+
+                                var referenceInfoEntityList=[];
+                                $(".reference-checkbox").each(function (i) {
+                                    var refInfo = {};
+                                    if($(".reference-checkbox").eq(i).is(":checked")){
+                                        refInfo.id = $(".ref-id").eq(i).text();
+                                        refInfo.createdDate = $(".ref-created-date").eq(i).text();
+                                        refInfo.createdBy = $(".ref-created-by").eq(i).text();
+                                        refInfo.accountNo = $(".ref-account-no").eq(i).text();
+                                        refInfo.name = $(".ref-name").eq(i).text();
+                                        refInfo.occupation = $(".ref-occupation").eq(i).text();
+                                        refInfo.designation = $(".ref-designation").eq(i).text();
+                                        refInfo.companyName = $(".ref-company-name").eq(i).text();
+                                        refInfo.relationReference = $(".ref-relation").eq(i).text();
+                                        refInfo.homeAddress = $(".ref-home-address").eq(i).text();
+                                        refInfo.officeAddress = $(".ref-office-addres").eq(i).text();
+                                        refInfo.permanentAddress = $(".ref-permanent-address").eq(i).text();
+                                        refInfo.phoneNo = $(".ref-phone-no").eq(i).text();
+                                        refInfo.dealerPin = $(".ref-dealer-pin").eq(i).text();
+                                        refInfo.facilityWithUcbl = $(".ref-facility").eq(i).text();
+                                        refInfo.dob = $(".ref-dob").eq(i).text();
+                                        refInfo.nidOrPassport = $(".ref-nid-passport").eq(i).text();
+                                        refInfo.customerId = $(".ref-customer-id").eq(i).text();
+                                        refInfo.loanAccountNo = $(".ref-loan-account-no").eq(i).text();
+                                        referenceInfoEntityList.push(refInfo);
+                                    }
+
+                                });
+
+                                console.log(JSON.stringify(referenceInfoEntityList))
+                                var wrapperDto = {
+                                    "referenceInfoEntityList":referenceInfoEntityList
+                                }
+
+                                if(referenceInfoEntityList.length>0){
+                                    $.ajax({
+                                        type:"post",
+                                        contentType : 'application/json',
+                                        dataType : 'json',
+                                        url:"/collection/loan/settings/reference-info/approved",
+                                        beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
+                                        },
+                                        data:JSON.stringify(wrapperDto),
+                                        success:function (data) {
+                                            if(data){
+                                                alert(" Successfully approved !!");
+                                                window.location.reload();
+                                            }else {
+                                                alert("Something wrong. Plz try again !!");
+                                            }
+
+                                        }
+                                    });
+                                }else{
+
+                                    alert("please select at least one ");
+                                }
+
+                            }
+                            function rejectReferenceInfo() {
+                                var token = $("meta[name='_csrf']").attr("content");
+                                var header = $("meta[name='_csrf_header']").attr("content");
+
+                                var referenceInfoEntityList=[];
+                                $(".reference-checkbox").each(function (i) {
+                                    var refInfo = {};
+                                    if($(".reference-checkbox").eq(i).is(":checked")){
+                                        refInfo.id = $(".ref-id").eq(i).text();
+                                        refInfo.createdDate = $(".ref-created-date").eq(i).text();
+                                        refInfo.createdBy = $(".ref-created-by").eq(i).text();
+                                        refInfo.accountNo = $(".ref-account-no").eq(i).text();
+                                        refInfo.name = $(".ref-name").eq(i).text();
+                                        refInfo.occupation = $(".ref-occupation").eq(i).text();
+                                        refInfo.designation = $(".ref-designation").eq(i).text();
+                                        refInfo.companyName = $(".ref-company-name").eq(i).text();
+                                        refInfo.relationReference = $(".ref-relation").eq(i).text();
+                                        refInfo.homeAddress = $(".ref-home-address").eq(i).text();
+                                        refInfo.officeAddress = $(".ref-office-addres").eq(i).text();
+                                        refInfo.permanentAddress = $(".ref-permanent-address").eq(i).text();
+                                        refInfo.phoneNo = $(".ref-phone-no").eq(i).text();
+                                        refInfo.dealerPin = $(".ref-dealer-pin").eq(i).text();
+                                        refInfo.facilityWithUcbl = $(".ref-facility").eq(i).text();
+                                        refInfo.dob = $(".ref-dob").eq(i).text();
+                                        refInfo.nidOrPassport = $(".ref-nid-passport").eq(i).text();
+                                        refInfo.customerId = $(".ref-customer-id").eq(i).text();
+                                        refInfo.loanAccountNo = $(".ref-loan-account-no").eq(i).text();
+                                        referenceInfoEntityList.push(refInfo);
+                                    }
+
+                                });
+
+                                console.log(JSON.stringify(referenceInfoEntityList))
+                                var wrapperDto = {
+                                    "referenceInfoEntityList":referenceInfoEntityList
+                                }
+
+                                if(referenceInfoEntityList.length>0){
+                                    $.ajax({
+                                        type:"post",
+                                        contentType : 'application/json',
+                                        dataType : 'json',
+                                        url:"/collection/loan/settings/reference-info/reject",
+                                        beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
+                                        },
+                                        data:JSON.stringify(wrapperDto),
+                                        success:function (data) {
+                                            if(data){
+                                                alert("Successfully Rejected !!");
+                                                window.location.reload();
+                                            }else {
+                                                alert("Something wrong. Plz try again !!");
+                                            }
+
+                                        }
+                                    });
+                                }else{
+
+                                    alert("please select at least one ");
+                                }
+
+                            }
+                        </script>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+</body>
+</html>

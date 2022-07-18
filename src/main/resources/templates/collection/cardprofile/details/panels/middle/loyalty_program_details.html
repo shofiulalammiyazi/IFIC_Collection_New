@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Loyalty Program Details </title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="loyalty-program-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+
+        <div id="loyality_program_details">
+
+            <div class="box-body">
+                <div class="form-horizontal csi-view-form table-responsive" id="referenceInfo">
+                    <table style=" overflow: auto;max-height: 600px;" name="reference_info"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Mr Contract</th>
+                            <th>Mr Account</th>
+                            <th>Reward Point</th>
+                        </tr>
+                        </thead>
+                        <tbody id="referenceinfo_tBody" >
+                        <tr v-for="loayl in loyality_details">
+                            <td>{{loayl.mrContract}}</td>
+                            <td>{{loayl.mrAccount}}</td>
+                            <td>{{loayl.rewardPoint}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var loyalityProgram = /*[[${loyalityProgram}]]*/ [];
+
+            /*]]>*/
+        </script>
+        <script>
+            var loyalityProgramDetails = new Vue({
+                el:"#loyality_program_details",
+                data:{
+                    loyality_details:loyalityProgram,
+                    showOrNot:false,
+                    loyality_details_single:{},
+                },
+            })
+        </script>
+
+    </div>
+</div>
+</body>
+
+
+</html>

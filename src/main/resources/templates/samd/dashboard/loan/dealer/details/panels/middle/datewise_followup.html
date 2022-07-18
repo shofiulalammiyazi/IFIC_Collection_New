@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Datewise Follow Up</title>
+
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="datefollow_info">
+
+    <div class="box-header with-border">
+        <h3 class="box-title" >Date Wise Follow Up</h3>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active" id="date-wise">
+            <div>
+                <table class="table table-condensed table-bordered custom_dt dataTable" id="date_wise_follow_up_table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">Created At</th>
+                        <th class="text-center">Account</th>
+                        <th class="text-center">Outstanding</th>
+                        <th class="text-center">Reason</th>
+                        <th class="text-center">Follow Up date</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="team_datewise_followUp_tbody">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $("#tab-datewise-follow-up-samd").click(function () {
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin = $("#globalUserPinForSummary").val();
+            var unit = $("#globalUnitForSummary").val();
+            var designation = $("#globalUserDesignationForSummary").val();
+            var userId = $("#globalUserIdForSummary").val();
+
+            if (unit == 'Loan') {
+                $.ajax({
+                    type: "GET",
+                    url: "/collection/samd/loan/dashboard/date-wise-follow-up",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: {
+                        userPin: userPin,
+                        unit: "SAM",
+                        designation: designation,
+                        userId: userId
+                    },
+                    success: function (json) {
+
+                        var data = JSON.stringify(json.loanFollowup);
+                        data = JSON.parse(data);
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        $("#team_datewise_followUp_tbody").html("");
+                        for (var i = 0; i < data.length; i++) {
+                            var tr = '';
+
+                            var reason = '';
+                            let reasonList = data[i].followUpReason;
+                            for (var k = 0; k < data[i].followUpReason.length; k++) {
+                                if (reasonList[k].toLowerCase() === 'call' || reasonList[k].toLowerCase() === 'phone')
+                                    reason += '<span class="btn btn-xs bg-light-blue" title="Call" style="margin: 0px 2px"><i class="fa fa-phone"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'email')
+                                    reason += '<span class="btn btn-xs bg-orange"  title="Email" style="margin: 0px 2px"><i class="fa fa-envelope"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'sms')
+                                    reason += '<span class="btn btn-xs bg-olive"  title="SMS" style="margin: 0px 2px"><i class="fa fa-comments"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'visit')
+                                    reason += '<span class="btn btn-xs bg-purple"  title="Visit" style="margin: 0px 2px"><i class="fa fa-user"></i></span>';
+                            }
+
+                            tr = tr + '<tr >\n' +
+                                '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].createdDate) + '</td>\n' +
+                                '<td class="text-center"><a href="/profile/loanprofile/search?account=' + data[i].accNo + '" target="_blank">' + data[i].accNo + '</a></td>\n' +
+                                '<td class="text-right">' + formatBdtInEnglish(data[i].outstanding == null ? 0 : data[i].outstanding) + '</td>\n' +
+                                '<td class="text-left">' + reason + '</td>\n' +
+                                '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].followUpDate) + '</td>\n' +
+                                '</tr>'
+
+                            $("#team_datewise_followUp_tbody").append(tr);
+                            // $("#team_accountwise_followUp_tbody").append(trr);
+                        }
+                    }
+                })
+
+            } else if (unit == 'Card') {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/collection/dashboard/team/followup/loan",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: {
+                        userPin: userPin,
+                        unit: unit,
+                        designation: designation,
+                        userId: userId
+                    },
+                    success: function (json) {
+
+                        var data = JSON.stringify(json.cardFollowup);
+                        data = JSON.parse(data);
+                        console.log(data);
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        $("#team_datewise_followUp_tbody").html("");
+                        for (var i = 0; i < data.length; i++) {
+                            var tr = '';
+
+                            var reason = '';
+                            let reasonList = data[i].followUpReason;
+                            for (var k = 0; k < data[i].followUpReason.length; k++) {
+                                if (reasonList[k].toLowerCase() === 'call' || reasonList[k].toLowerCase() === 'phone')
+                                    reason += '<span class="btn btn-xs bg-light-blue" title="Call" style="margin: 0px 2px"><i class="fa fa-phone"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'email')
+                                    reason += '<span class="btn btn-xs bg-orange"  title="Email" style="margin: 0px 2px"><i class="fa fa-envelope"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'sms')
+                                    reason += '<span class="btn btn-xs bg-olive"  title="SMS" style="margin: 0px 2px"><i class="fa fa-comments"></i></span>';
+                                else if (reasonList[k].toLowerCase() === 'visit')
+                                    reason += '<span class="btn btn-xs bg-purple"  title="Visit" style="margin: 0px 2px"><i class="fas fa-people-arrows"></i></span>';
+                            }
+
+                            tr = tr + '<tr >\n' +
+                                '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].createdDate) + '</td>\n' +
+                                '<td class="text-center"><a href="/profile/loanprofile/search?account=' + data[i].accNo + '" target="_blank">' + data[i].accNo + '</a></td>\n' +
+                                '<td class="text-right">' + formatBdtInEnglish(data[i].outstanding) + '</td>\n' +
+                                '<td class="text-left">' + reason + '</td>\n' +
+                                '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].followUpDate) + '</td>\n' +
+                                '</tr>'
+
+                            $("#team_datewise_followUp_tbody").append(tr);
+                            // $("#team_accountwise_followUp_tbody").append(tr);
+                        }
+                    }
+                })
+
+
+            }
+
+        })
+    </script>
+</div>
+
+
+</div>
+</body>
+
+</html>

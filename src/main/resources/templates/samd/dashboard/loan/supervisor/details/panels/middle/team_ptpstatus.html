@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Team PTP Status</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="team-ptpstatus">
+    <div class="box-header with-border">
+        <h3 class="box-title" >Team PTP Details</h3>
+    </div>
+
+    <br/>
+    <br/>
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-team-lead-ptp" class="active">
+                <a data-toggle="tab" href="#sam-team-lead-ptp-summary-loan" title="Team Leader PTP Details">Team PTP Details</a>
+            </li>
+            <li id="tab-dealer-wise-ptp">
+                <a data-toggle="tab" href="#sam-dealer-wise-ptp-summary-loan" title="Dealer Wise PTP Details">Team Lead & Dealer Wise</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane top-buffer active"  id="sam-team-lead-ptp-summary-loan">
+            <center><h5>Team PTP Details</h5></center>
+            <div>
+                <div th:replace="samd/dashboard/shared/ptp/ptp-status-summery :: content"></div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane top-buffer" id="sam-dealer-wise-ptp-summary-loan">
+            <div th:replace="samd/dashboard/shared/ptp/dealer-wise-team-ptp-summary :: supervisor-ptp-summary"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

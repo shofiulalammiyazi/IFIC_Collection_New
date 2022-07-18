@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Role Approval</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" id="role-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Role Approval</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="bg-info active"><a href="#pending" data-toggle="tab"
+                                                                  aria-expanded="false">Pending</a></li>
+                                    <li class="bg-info"><a href="#rejection" data-toggle="tab" aria-expanded="false">Rejected</a>
+                                    </li>
+                                    <li class="bg-info"><a href="#approval" data-toggle="tab" aria-expanded="true">Approved</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <button @click="approve"
+                                                class="btn btn-sm bg-light-blue-gradient">
+                                            <span class="glyphicon glyphicon-ok"> </span>
+                                            <span>Approve</span>
+                                        </button>
+                                        <button class="btn btn-sm bg-red-gradient" data-toggle="modal"
+                                                data-target="#modal-default-dealer">
+                                            <span class="glyphicon glyphicon-remove"> </span>
+                                            <span>Reject</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="pending">
+                                        <table name="datatable-responsive"
+                                               class="table table-striped table-bordered dt-responsive" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 100px">
+                                                    <input type="checkbox"
+                                                           @change="selectAll" v-if="pendingList.length"
+                                                           title="Select All" id="select-all">
+                                                    <label for="select-all"> Select All</label>
+                                                </th>
+                                                <th>Role</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="role, index in pendingList">
+                                                <td style="width: 100px">
+                                                    <input v-if="!authenticatedUser.includes(role.createdBy) && !authenticatedUser.includes(role.modifiedBy)"
+                                                           v-model="selectedRoleIds" :value="role.roleId"
+                                                           type="checkbox">
+                                                </td>
+                                                <td>{{role.name}}</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="rejection">
+                                        <table name="datatable-responsive"
+                                               class="table table-striped table-bordered dt-responsive" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Sl No.</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="role, index in rejectionList">
+                                                <td>{{index + 1}}</td>
+                                                <td>{{role.name}}</td>
+                                                <td class="text-danger">Rejected</td>
+                                                <td>{{role.remark}}</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="approval">
+                                        <table name="datatable-responsive"
+                                               class="table table-striped table-bordered dt-responsive" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Sl No.</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="role, index in approvalList">
+                                                <td>{{index + 1}}</td>
+                                                <td>{{role.name}}</td>
+                                                <td class="text-success">Approved</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+
+                            <div class="modal fade" id="modal-default-dealer">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Remarks</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <div class="col-sm-12">
+                                                    <textarea v-model="remark" class="form-control input-sm"
+                                                              placeholder="Remark"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger pull-left"
+                                                    data-dismiss="modal">Close
+                                            </button>
+                                            <a href="#" class="btn btn-danger" @click="reject"
+                                               :disabled="!remark">Reject</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                        var list = [[${list}]];
+                        var authenticatedUser = [[${@userService.getSessionUsername()}]];
+                    </script>
+
+                    <script>
+                        var roleApproval = new Vue({
+                            el: '#role-approval',
+                            data: {
+                                list: [],
+                                pendingList: [],
+                                rejectionList: [],
+                                approvalList: [],
+                                allRoleIds: [],
+                                selectedRoleIds: [],
+                                remark: '',
+                                authenticatedUser: ''
+                                // isRejectAll: false
+                            },
+                            created: function () {
+
+                                if (typeof authenticatedUser !== 'undefined' && authenticatedUser)
+                                    this.authenticatedUser = authenticatedUser;
+                                else
+                                    window.location.href = '/';
+
+                                this.list = list != null ? list : [];
+
+                                this.pendingList = this.list.filter(function (role) {
+                                    return (!role.enabled && !role.remark) || (role.modifiedBy && !role.enabled && role.remark);
+                                });
+
+                                this.rejectionList = this.list.filter(function (role) {
+                                    return !role.modifiedBy && !role.enabled && role.remark;
+                                });
+
+                                this.approvalList = this.list.filter(function (role) {
+                                    return role.enabled && !role.remark
+                                });
+
+                                this.allRoleIds = this.pendingList.map(role => {
+                                    return role.roleId;
+                                });
+                            },
+                            methods: {
+                                approve: function () {
+                                    if (!this.selectedRoleIds.length) {
+                                        swal("Please select roles");
+                                        return;
+                                    }
+                                    var host = window.location.host;
+                                    this.$http.get('https://' + host + '/role/approve?ids=' + this.selectedRoleIds, {
+                                        credentials: true, headers: {
+                                            'X-CSRF-TOKEN': window.csrfToken,
+                                        }
+                                    }).then(res => {
+                                        if (res.bodyText === 'success') {
+                                            swal({
+                                                title: "Role Approval",
+                                                text: "Successfully Approved",
+                                                type: "success"
+                                            }, function () {
+                                                window.location = "/role/list/approval";
+                                            });
+                                        }
+                                    }).catch(err => {
+                                        swal("Something went wrong");
+                                        console.log(err);
+                                    })
+                                },
+                                reject: function () {
+                                    if (!this.selectedRoleIds.length) {
+                                        swal("Please select roles");
+                                        return;
+                                    }
+                                    if (!this.remark) {
+                                        swal("Please write remark");
+                                        return;
+                                    }
+                                    var host = window.location.host;
+                                    this.$http.get('https://' + host + '/role/reject?ids=' + this.selectedRoleIds + '&remark=' + this.remark, {
+                                        credentials: true, headers: {
+                                            'X-CSRF-TOKEN': window.csrfToken,
+                                        }
+                                    }).then(res => {
+
+                                        if (res.bodyText === 'success') {
+                                            swal({
+                                                title: "Role Approval",
+                                                text: "Rejection Successful!",
+                                                type: "warning"
+                                            }, function () {
+                                                window.location = "/role/list/approval";
+                                            });
+                                        }
+                                    }).catch(err => {
+                                        swal("Something went wrong");
+                                        console.log(err);
+                                    })
+                                },
+                                selectAll: function (e) {
+                                    let authenticatedUser = this.authenticatedUser;
+                                    if (e.target.checked) {
+                                        this.pendingList.forEach(role => {
+                                            if (!authenticatedUser.includes(role.createdBy) && !authenticatedUser.includes(role.modifiedBy))
+                                                this.selectedRoleIds.push(role.roleId)
+                                        });
+                                    } else {
+                                        this.selectedRoleIds = [];
+                                    }
+                                },
+
+                            }
+                        })
+
+                        $(document).ready(function () {
+                            $('.table').DataTable({
+                                "bInfo": false,
+                                "bLengthChange": false,
+                            });
+
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

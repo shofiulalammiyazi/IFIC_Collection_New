@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1"/>
+        <title>Activities History</title>
+    </head>
+<body>
+<div id="layout-cibReport" th:fragment="history">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Activities History </h3>
+        </div>
+
+        <div class="row" style="margin:20px 0px 20px 0px">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                From Date: <input type="date" id="startDate" name="startDate"/>
+                To Date: <input type="date" id="endDate" name="endDate"/>
+                <button type="button" id="searchButton" onclick="test()">Search</button>
+            </div>
+        </div>
+
+
+        <div class="box-body" >
+            <div class="form-horizontal csi-view-form" id = "tab-History">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <table id="history" class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Action Taken</th>
+                        <th>Creator</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody id="activity_history_tBody" >
+                    <tr v-for="history in history_details">
+                        <td v-if="history.check == 'P'" style="text-align: center;"><span class="label label-success">PTP</span></td>
+                        <td v-if="history.check == 'P'">{{history.username}}-{{history.pin}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'P'">
+                            <span style="font-weight: bold;">PTP Amount:</span> {{history.card_amount}},
+                            <span style="font-weight: bold;">PTP Time:</span> {{history.card_ptp_time}},
+                            <span style="font-weight: bold;">PTP Date:</span> {{history.card_ptp_date}},
+                            <span style="font-weight: bold;">Contact Details:</span> {{history.card_contact_details}},
+                            <span style="font-weight: bold;">Contact Location:</span> {{history.card_contact_location}},
+                            <span style="font-weight: bold;">Promisor:</span> {{history.card_promisor_details}},
+                            <span style="font-weight: bold;">PTP Status:</span> {{history.card_ptp_status}},
+                            <span style="font-weight: bold;">PTP Remarks:</span> {{history.card_remarks}},
+                            <span style="font-weight: bold;">Created Date:</span> {{history.createdDate}}
+                        </td>
+
+                        <td v-if="history.check == 'H'" style="text-align: center;"><span class="label label-danger">HOT NOTE</span></td>
+                        <td v-if="history.check == 'H'">{{history.username}}-{{history.creatorPin}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'H'">
+                            <span style="font-weight: bold;">Hot Note:</span> {{history.hotNote}}
+                        </td>
+
+                        <td v-if="history.check == 'F'" style="text-align: center;"><span class="label label-primary">FOLLOW UP</span></td>
+                        <td v-if="history.check == 'F'">{{history.username}}-{{history.pin}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'F'">
+                            <span style="font-weight: bold">Reason</span>{{history.followUpReason}},
+                            <span style="font-weight: bold">Followup Date</span>{{history.followUpDate | dateFormat}},
+                        </td>
+                        <td v-if="history.check == 'VL'" style="text-align: center;"><span class="label label-primary">VISIT LEDGER</span></td>
+                        <td v-if="history.check == 'VL'">{{history.firstName}}-{{history.username}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'VL'">
+                            <span style="font-weight: bold">Visit Time</span>{{history.visitTime}},
+                            <span style="font-weight: bold">Location</span>{{history.location }},
+                            <span style="font-weight: bold">Remarks</span>{{history.remark}}
+                        </td>
+
+                        <td v-if="history.check == 'DR'" style="text-align: center;"><span class="label label-info">DIARY NOTE</span></td>
+                        <td v-if="history.check == 'DR'">{{history.username}}-{{history.pin}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'DR'">
+                            <span style="font-weight: bold;">Menu:</span> {{history.loan_menu}},
+                            <span style="font-weight: bold;">Submenu 1:</span> {{history.loan_submenu_one}},
+                            <span style="font-weight: bold;">Submenu 2:</span> {{history.loan_submenu_two}},
+                            <span style="font-weight: bold;">Submenu 3:</span> {{history.loan_submenu_three}},
+                            <span style="font-weight: bold;">Time:</span> {{history.loan_time}},
+                            <span style="font-weight: bold;">Date:</span> {{history.loan_date}},
+                            <span style="font-weight: bold;">Shot Note:</span> {{history.loan_short_note}},
+                        </td>
+
+                        <td v-if="history.check == 'DL'" style="text-align: center;"><span class="label label-warning">NOTE DETAIL</span></td>
+                        <td v-if="history.check == 'DL'">{{history.createdBy}}-{{history.pin}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'DL'">
+                            <span style="font-weight: bold;">Note:</span> {{history.note}},
+                            <span style="font-weight: bold;">PIN:</span> {{history.pin}},
+                        </td>
+
+                        <td v-if="history.check == 'CA'" style="text-align: center;"><span class="label label-default">CONSIDERATION  AS  ATTEMPT</span></td>
+                        <td v-if="history.check == 'CA'">{{history.createdBy}}-{{history.createdBy}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'CA'">
+                            <span style="font-weight: bold;">Attempt:</span> {{history.attempt}},
+                            <span style="font-weight: bold;">Contact:</span> {{history.contact}},
+                            <span style="font-weight: bold;">Category:</span> {{history.category}}
+                        </td>
+
+                        <td v-if="history.check == 'RD'" style="text-align: center;"><span class="label label-info">REASON FOR DELINQUENCY</span></td>
+                        <td v-if="history.check == 'RD'">{{history.dealerName}}-{{history.createdBy}} / {{history.createdDate | dateFormat}}</td>
+                        <td v-if="history.check == 'RD'">
+                            <span style="font-weight: bold;">Reason:</span> {{history.reasonDeline}}
+                        </td>
+
+                        <!--<td style="text-align: center;"><span class="label label-warning">Visit Ledger print</span></td>
+                        <td><span>-</span></td>
+
+                        <td style="text-align: center;"><span class="label label-warning">Created by :</span></td>
+                        <td><span>-</span></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <script th:inline="javascript">
+                $("#tab-History").click(function (event) {
+                    history_detail.getHistoryDetails();
+                });
+                let arr = profileInformation.history;
+            </script>
+            <script>
+                var history_detail = new Vue({
+                    el:'#history',
+                    data:{
+                        history_details :[],
+                        history_details_date_wise :[],
+                    },
+                    filters:{
+                        dateFormat:function (value) {
+                            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                            ];
+                            if (value != '') {
+                                var date = new Date(value);
+                                var day = date.getDate();
+                                if (day < 10) day = '0' + day;
+                                var hours = date.getHours();
+                                var minutes = date.getMinutes();
+                                var newFormat = hours >= 12 ? "PM" : "AM";
+                                hours = hours % 12;
+                                hours = hours ? hours : 12;
+                                minutes = minutes < 10 ? '0' + minutes : minutes;
+                                return day + '-' + monthNames[date.getMonth()] + '-' + date.getFullYear().toString() + ' / ' + hours + ':' + minutes + ' ' + newFormat;
+                            } else {
+                                return "";
+                            }
+                        }
+                    },
+                    methods:{
+                        getHistoryDetails:function () {
+                            this.history_details = profileInformation.history;
+                        }
+                    }
+                })
+
+                function test(){
+                    var startDate = $("#startDate").val();//formatDate_DD_MMM_YYYY($("#startDate").val());
+                    var endDate = $("#endDate").val();//formatDate_DD_MMM_YYYY($("#endDate").val());
+                    if(startDate != "" && endDate != ""){
+                        history_detail.history_details_date_wise = [];
+                        for(var i = 0; i<arr.length; i++){
+                            if(new Date(startDate).setHours(0,0,0,0) <= new Date(arr[i].createdDate).setHours(0,0,0,0)
+                                && new Date(endDate).setHours(0,0,0,0) >= new Date(arr[i].createdDate).setHours(0,0,0,0)){
+                                history_detail.history_details_date_wise.push(arr[i]);
+                            }
+                        }
+                        history_detail.history_details = history_detail.history_details_date_wise;
+
+                        console.log(history_detail.history_details)
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

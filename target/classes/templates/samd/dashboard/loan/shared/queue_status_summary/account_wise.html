@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Amount Wise</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="account_wise_fragement">
+    <div  id="account_wise_queue_status_summary">
+        <center><h5>Total</h5></center>
+        <table class="table table-condensed table-bordered" style="overflow: auto;width: 100%">
+            <thead class="thead-light">
+            <th class="text-center">Product</th>
+            <th class="text-center">DPD</th>
+            <th class="text-center">Total</th>
+            <th class="text-center">Touched</th>
+            <th class="text-center">Untouched</th>
+            <th class="text-center">Pending</th>
+            <th class="text-center" colspan="4">PAR</th>
+            <th class="text-center" colspan="4">NPL</th>
+            </thead>
+            <tbody id="dass_account_data" class="tbl-row">
+            <tr>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center" id="account_wise_total_total"></td>
+                <td class="text-center" id="account_wise_touched_total"></td>
+                <td class="text-center" id="account_wise_un_touched_total"></td>
+                <td class="text-center" id="account_wise_pending_total"></td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+            </tr>
+            <tr v-for="account in accountWiseList">
+                <td>{{account.product}}</td>
+                <td>{{account.dpd}}</td>
+                <td>{{account.totalAccount}}</td>
+                <td>{{account.touchedAccount}}</td>
+                <td>{{account.unTouchedAccount}}</td>
+                <td>{{account.pendingAccount}}</td>
+
+                <td>{{account.parReleaseAccount}}</td>
+                <td>{{account.parRemainingAccount}}</td>
+                <td>{{account.parQueueAccount}}</td>
+                <td>{{account.parQueuendAccount}}</td>
+
+                <td>{{account.nplReleaseAccount}}</td>
+                <td>{{account.nplRemainingAccount}}</td>
+                <td>{{account.nplQueueAccount}}</td>
+                <td>{{account.nplQueuendAccount}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br/>
+    </div>
+    <script th:inline="javascript">
+        $("#loanAccWiseDistSummaryTabSamd").click(function () {
+
+            $('.dass_account_custom').remove();
+            $('.dass_account_per_custom').remove();
+            $('.dass_amount_per_custom').remove();
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var userPin= $("#globalUserPinForSummary").val();
+            var unit=$("#globalUnitForSummary").val();
+            var designation=$("#globalUserDesignationForSummary").val();
+            var userId=$("#globalUserIdForSummary").val();
+
+            if(unit=='Card') {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/dashboard/samd/distribution/accountWise/card",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit:unit,
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+
+                        var total = 0;
+                        var arr = new Array();
+
+                        var ageCodeMap = new Map();
+
+
+                        for(var j=0; j<data.length; j++){
+                            if(!ageCodeMap.has(data[j].productAndDpd)){
+                                ageCodeMap.set(data[j].productAndDpd, data[j]);
+                            }else{
+                                var newVar = ageCodeMap.get(data[j].productAndDpd);
+
+                                newVar.numberPerDpd += data[j].numberPerDpd;
+                                newVar.touchedNumber += data[j].touchedNumber;
+                                newVar.unTouchedNumber += data[j].unTouchedNumber;
+                                newVar.totalPending += data[j].totalPending;
+                                newVar.totalParRel += data[j].totalParRel;
+                                newVar.totalParRelRem += data[j].totalParRelRem;
+                                newVar.totalParQ += data[j].totalParQ;
+                                newVar.totalNplRel += data[j].totalNplRel;
+                                newVar.totalNplRem += data[j].totalNplRem;
+                                newVar.totalNplQ += data[j].totalNplQ;
+                            }
+                        }
+
+
+                        for(const [key, value] of ageCodeMap.entries()) {
+                            var data = value;
+                            var tr = '';
+                            tr += '<tr class="dass_account_custom">\n' +
+                                '                        <td class="text-right">'+data.productAndDpd+'</td>\n' +
+                                '                        <td class="text-right">'+data.numberPerDpd+'</td>\n' +
+                                '                        <td class="text-right">'+data.touchedNumber+'</td>\n' +
+                                '                        <td class="text-right">'+data.unTouchedNumber+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalPending+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParRel+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParRelRem+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParQ+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                        <td class="text-right">'+data.totalNplRel+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalNplRem+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalNplQ+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                    </tr>';
+
+                            $('#dass_account_data').append(tr);
+                            tr = '';
+                            tr += '<tr class="dass_account_custom">\n' +
+                                '                        <td>-</td>\n' +
+                                '                        <td class="text-right">'+data[i].productAndDpd+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].totalPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].touchedPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].unTouchedPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].pendingPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].parRelPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].parRelRemPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].parQPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].nplRelPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].nplRemPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data[i].nplQPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                    </tr>';
+
+                            $('#dass_account_per_data').append(tr);
+
+                        }
+
+                        // for(var i=0; i<data.length; i++) {
+                        //
+                        //
+                        //     var tr = '';
+                        //     if(arr.indexOf(data[i].pg) < 0) {
+                        //
+                        //         total += data[i].totalNumber;
+                        //         tr += '<tr class="dass_account_custom">\n' +
+                        //             '                        <td>'+data[i].pg+'</td>\n' +
+                        //             '                        <td class="text-right">-</td>\n' +
+                        //             '                        <td class="text-right">'+data[i].totalNumber+'</td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                    </tr>';
+                        //         arr.push(data[i].pg);
+                        //
+                        //         // continue;
+                        //     }
+                        //
+                        //
+                        //
+                        //
+                        //     tr += '<tr class="dass_account_custom">\n' +
+                        //         '                        <td>-</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].productAndDpd+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].numberPerDpd+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].touchedNumber+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].unTouchedNumber+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalPending+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalParRel+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalParRelRem+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalParQ+'</td>\n' +
+                        //         '                        <td class="text-right"></td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalNplRel+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalNplRem+'</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].totalNplQ+'</td>\n' +
+                        //         '                        <td class="text-right"></td>\n' +
+                        //         '                    </tr>';
+                        //
+                        //     $('#dass_account_data').append(tr);
+                        // }
+                        //
+                        //
+                        //
+                        //
+                        // // PERCENTAGE
+                        // var arr = new Array();
+                        // for(var i=0; i<data.length; i++) {
+                        //
+                        //     var tr = '';
+                        //     if(arr.indexOf(data[i].pg) < 0) {
+                        //         var per = (data[i].totalNumber/total)*100;
+                        //
+                        //         tr += '<tr class="dass_amount_per_custom">\n' +
+                        //             '                        <td>'+data[i].pg+'</td>\n' +
+                        //             '                        <td class="text-right" colspan="2"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                        <td class="text-right"></td>\n' +
+                        //             '                    </tr>';
+                        //         arr.push(data[i].pg);
+                        //
+                        //         // continue;
+                        //     }
+                        //
+                        //     tr += '<tr class="dass_account_custom">\n' +
+                        //         '                        <td>-</td>\n' +
+                        //         '                        <td class="text-right">'+data[i].productAndDpd+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].totalPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].touchedPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].unTouchedPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].pendingPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].parRelPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].parRelRemPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].parQPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right"></td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].nplRelPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].nplRemPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right">'+Math.round(data[i].nplQPerc*100)/100+'</td>\n' +
+                        //         '                        <td class="text-right"></td>\n' +
+                        //         '                    </tr>';
+                        //
+                        //     $('#dass_account_per_data').append(tr);
+                        // }
+
+                    }
+                }).done(function(){
+
+                });
+            }
+            else if(unit=='Loan') {
+                $.ajax({
+                    type:"GET",
+                    url:"/collection/samd/loan/dashboard/distribution/accountWise",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data:{
+                        userPin:userPin,
+                        unit:"SAM",
+                        designation:designation,
+                        userId:userId
+                    },
+                    success:function (json) {
+
+                        var data = JSON.stringify(json);
+                        data = JSON.parse(data);
+
+
+                        var total = 0;
+                        var arr = new Array();
+                        var ageCodeMap = new Map();
+
+
+                        for(var j=0; j<data.length; j++){
+                            if(!ageCodeMap.has(data[j].productAndDpd)){
+                                ageCodeMap.set(data[j].productAndDpd, data[j]);
+                            }else{
+                                var newVar = ageCodeMap.get(data[j].productAndDpd);
+
+                                newVar.numberPerDpd += data[j].numberPerDpd;
+                                newVar.touchedNumber += data[j].touchedNumber;
+                                newVar.unTouchedNumber += data[j].unTouchedNumber;
+                                newVar.totalPending += data[j].totalPending;
+                                newVar.totalParRel += data[j].totalParRel;
+                                newVar.totalParRelRem += data[j].totalParRelRem;
+                                newVar.totalParQ += data[j].totalParQ;
+                                newVar.totalNplRel += data[j].totalNplRel;
+                                newVar.totalNplRem += data[j].totalNplRem;
+                                newVar.totalNplQ += data[j].totalNplQ;
+                            }
+                        }
+
+                        for(const [key, value] of ageCodeMap.entries()) {
+                            var data = value;
+                            var tr = '';
+                            tr += '<tr class="dass_account_custom">\n' +
+                                '                        <td class="text-right">'+data.productAndDpd+'</td>\n' +
+                                '                        <td class="text-right">'+data.numberPerDpd+'</td>\n' +
+                                '                        <td class="text-right">'+data.touchedNumber+'</td>\n' +
+                                '                        <td class="text-right">'+data.unTouchedNumber+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalPending+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParRel+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParRelRem+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalParQ+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                        <td class="text-right">'+data.totalNplRel+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalNplRem+'</td>\n' +
+                                '                        <td class="text-right">'+data.totalNplQ+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                    </tr>';
+
+                            $('#dass_account_data').append(tr);
+                            tr = '';
+                            tr += '<tr class="dass_account_custom">\n' +
+                                '                        <td class="text-right">'+data.productAndDpd+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.totalPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.touchedPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.unTouchedPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.pendingPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.parRelPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.parRelRemPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.parQPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.nplRelPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.nplRemPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right">'+Math.round(data.nplQPerc*100)/100+'</td>\n' +
+                                '                        <td class="text-right"></td>\n' +
+                                '                    </tr>';
+
+                            $('#dass_account_per_data').append(tr);
+
+                        }
+                    }
+                }).done(function(){
+
+                });
+            }
+        });
+    </script>
+    <script>
+        var account_wise_queue_status_summary = new Vue({
+            el:'#account_wise_queue_status_summary',
+            data:{
+                accountWiseList:[],
+            },
+            methods:{
+                getAccountWiseData(){
+                    /*let userPin= $("#globalUserPinForSummary").val();
+                    let unit=$("#globalUnitForSummary").val();
+                    let designation=$("#globalUserDesignationForSummary").val();
+                    let userId=$("#globalUserIdForSummary").val();
+
+                    var host = window.location.host;
+                    var url = window.location.protocol + "//" + host + "/collection/dashboard/samd/distribution/accountWise?userPin=" + userPin + "&unit=" + unit + "&designation=" + designation + "&userId=" + userId;
+                    this.$http.get(url,
+                        {credentials : true, headers:{
+                                'X-CSRF-TOKEN' : window.csrfToken,
+                            }}).then(res => {
+                        console.log(res);
+                        if(res.body){
+                            this.accountWiseList = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })*/
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</body>
+
+
+</html>
+

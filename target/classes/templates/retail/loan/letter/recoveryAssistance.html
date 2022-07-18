@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Letter </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <style>
+                            .row {
+                                margin: 0 auto;
+                            }
+
+                            .letter-body {
+                                max-width: 800px;
+                                margin: auto;
+                                padding: 35px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+                                font-size: 14px;
+                                line-height: 24px;
+                                font-family: 'Times New Roman', 'Times New Roman', Helvetica, Arial, sans-serif;
+                                color: #555;
+                            }
+                        </style>
+
+                        <div class="box-body" id="template-body">
+                            <div>
+                                <button class="btn btn-primary" :disabled="editing" onclick="generatePDF()">
+                                    Download
+                                </button>
+                                <button class="btn btn-info" @click="updateLetter">
+                                    <span v-if="!editing">Edit</span>
+                                    <span v-else>Save</span>
+                                </button>
+                            </div>
+                            <div id="letter-body" class="letter-body">
+                                <div style="margin: 60px 40px; text-align: justify">
+                                    <div style="margin-top: 40px">
+                                        <div v-if="!editing" @dblclick="toggleEditMode">
+                                            <span>Ref. No. : {{ ref }}</span>
+                                        </div>
+                                        <div v-else>
+                                            <span>Ref : </span>
+                                            <input style="width: 300px" v-focus @keyup.enter="toggleEditMode"
+                                                   type="text/number" name="ref" v-model="ref">
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: 40px">
+                                        <p v-if="!editing" @dblclick="toggleEditMode">{{ currentDate | dateFormat }}</p>
+                                        <input v-else @change="toggleEditMode" @keyup.enter="toggleEditMode"
+                                               type="date" name="currentDate" v-model="currentDate">
+                                    </div>
+
+                                    <div style="font-weight: bold">
+                                        <div>
+                                            <span v-if="!editing" @dblclick="toggleEditMode">{{ name }}</span>
+                                            <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                                   name="name" v-model="name">
+                                        </div>
+
+                                        <div>
+                                            <span v-if="!editing"
+                                                  @dblclick="toggleEditMode">{{ designation }}</span>
+                                            <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                                   name="designation" v-model="designation">
+                                        </div>
+
+                                        <div>
+                                            <span v-if="!editing" @dblclick="toggleEditMode">{{ companyName }}</span>
+                                            <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                                   name="companyName" v-model="companyName">
+                                        </div>
+
+                                        <div style="margin-bottom: 30px; display: flex">
+                                            <div style="width: 40%; text-align: left">
+                                                <span v-if="!editing" @dblclick="toggleEditMode">{{ customerAddress }}</span>
+                                                <input style="width: 400px" v-else @keyup.enter="toggleEditMode"
+                                                       type="text" name="customerAddress" v-model="customerAddress">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-bottom: 25px; display: flex; font-weight: bold">
+                                        <div style="width: 10%; ">
+                                            <p style="font-weight: bold" >Subject:</p>
+                                        </div>
+                                        <div>
+                                            <span v-if="!editing" @dblclick="toggleEditMode" style="font-size: 16px">
+                                                {{ emailSubject }}
+                                            </span>
+                                            <textarea style="width: 500px" v-else @keyup.enter="toggleEditMode"
+                                                      type="text/number" name="emailSubject" v-model="emailSubject">
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <p>Dear Sir/Madam,</p>
+                                    <p style="margin-bottom: 30px">Please accept compliments from LankaBangla Finance Limited.</p>
+
+                                    <p>We would like to bring to your kind notice that one of your staffs of your
+                                        organization availed a Mortgage loan from LankaBangla Finance Ltd. His details
+                                        are as follows:
+                                    </p>
+
+                                    <div style="font-weight: bold; margin-bottom: 20px">
+                                        <div style="display: flex;">
+                                            <div style="width: 40%">
+                                                <span>Name</span>
+                                            </div>
+                                            <div>
+                                                <span v-if="!editing">: {{ name }}</span>
+                                                <input v-else type="text" name="name" v-model="name" @keyup.enter="toggleEditMode">
+                                            </div>
+                                        </div>
+                                        <div style="display: flex">
+                                            <div style="width: 40%">
+                                                <span>Designation</span>
+                                            </div>
+                                            <div>
+                                                <span v-if="!editing">: {{ designation }}</span>
+                                                <input v-else type="text" name="designation" v-model="designation" @keyup.enter="toggleEditMode">
+                                            </div>
+                                        </div>
+                                        <div style="display: flex">
+                                            <div style="width: 40%">
+                                                <span>Name of Organization</span>
+                                            </div>
+                                            <div>
+                                                <span v-if="!editing">: {{ companyName }}</span>
+                                                <input v-else type="text" name="companyName" v-model="companyName" @keyup.enter="toggleEditMode">
+                                            </div>
+                                        </div>
+                                        <div style="display: flex">
+                                            <div style="width: 40%">
+                                                <span>Finance Amount</span>
+                                            </div>
+                                            <div>
+                                                <span v-if="!editing">: {{ financeAmount }}</span>
+                                                <input v-else type="text" name="financeAmount" v-model="financeAmount" @keyup.enter="toggleEditMode">
+                                            </div>
+                                        </div>
+                                        <div style="display: flex">
+                                            <div style="width: 40%">
+                                                <span>Outstanding Balance On</span>
+                                                <span v-if="!editing" @dblclick="toggleEditMode">{{currentDate | dateFormat }}</span>
+                                                <input v-else @change="toggleEditMode" @keyup.enter="toggleEditMode"
+                                                       type="date" name="currentDate" v-model="currentDate">
+                                            </div>
+                                            <div>
+                                                <span v-if="!editing">: {{ outstandingBalance }}</span>
+                                                <input v-else type="text" name="outstandingBalance" v-model="outstandingBalance" @keyup.enter="toggleEditMode">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p>We apprehend that {{ name }} may avoid the matter keeping unsolved.
+                                            We have been regularly reminding about his obligation but he has not shown
+                                            any willingness to settle this. We observe that his attitude towards this
+                                            issue is totally reluctant & non cooperative.
+                                        </p>
+                                        <p>
+                                            In view of the above, we seek your kind help on the subject matter so that
+                                            {{ name }} cannot avoid the obligation of settlement of the said
+                                            finance.
+                                        </p>
+
+                                        <p>Copy of documents attached for your ready reference.</p>
+                                   </div>
+
+
+
+
+                                    <p style="margin-bottom: 20px">Thank you for your kind cooperation.</p>
+
+                                    <p style="margin-bottom: 60px">Yours faithfully, </p>
+
+
+                                    <div>
+                                        <span v-if="!editing"
+                                              @dblclick="toggleEditMode"><strong>{{ agentName }}</strong></span>
+                                        <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                               name="agentName" v-model="agentName">
+                                    </div>
+                                    <div>
+                                        <span v-if="!editing"
+                                              @dblclick="toggleEditMode"><strong>{{ agentDept }}</strong></span>
+                                        <input style="width: 200px;" v-else @keyup.enter="toggleEditMode" type="text"
+                                               name="agentDept" v-model="agentDept">
+                                    </div>
+                                    <p>Annexure: <br>
+                                        <span>1. Sanction Letter</span>
+                                    </p>
+                                    <div v-if="ccList">
+                                        <p>CC to:</p>
+                                        <ol>
+                                            <li v-for="ccl in ccList">
+                                                <b>{{ ccl.name }}</b> <br>
+                                                <span style="width: 40%">{{ ccl.address }}</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var customer = /*[[${customer}]]*/ [];
+                            var customerProfileLoan = /*[[${customerProfileLoan}]]*/ [];
+
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            let vm = new Vue({
+                                el: '#template-body',
+                                data: {
+                                    ref: 'BBL/HO/CR/X/2019/06/0001',
+                                    customerID: '123456',
+                                    currentDate: "",
+                                    coApplicantName: 'Jane Doe',
+                                    agreementNo: 'LNML 092015080102',
+                                    privacy: 'PRIVATE AND CONFIDENTIAL',
+                                    name: 'AZIZUL HAQUE',
+                                    designation: 'swe',
+                                    companyName: 'Newscred',
+                                    customerAddress: 'Rupsha Stand,Bagerhat,Khulna,Bangladesh',
+                                    emailSubject: 'Request for assistance in recovery',
+                                    amountBDT: '4,563.39',
+                                    amountUSD: '55',
+                                    genDate: "",
+                                    agentAddress: 'Sepal Platinum Tower, Holding # 247/248 (Level-6), Tejgaon I/A, ' +
+                                        'Bir Uttam Mir Showkat Road, Dhaka-1208.',
+                                    agentPhone: '01755596028',
+                                    editing: false,
+                                    finalAge: 'xyz',
+                                    agentName: 'A K M Rezaul Karim',
+                                    agentDept: 'VP & Head of Special Asset Management',
+                                    ccList: [
+                                        {
+                                            name: 'Mr. Md. Wasim Uddin',
+                                            address: 'Grand Arean Sukhbari 65 ' +
+                                                'Shah Shaheb Lane Narinda, Dhaka'
+                                        },
+                                        {
+                                            name: 'Sayed Ahsanur Reza',
+                                            address: '                 Executive Vice president & Head\n' +
+                                                '               BGMEA Complex (1st floor)\n' +
+                                                '              23/1, panthopath link Road, Karwan bazar. \n' +
+                                                '               Dhaka-1215,\n'
+                                        }
+                                    ]
+                                },
+                                created: function () {
+                                    this.currentDate = this.getFormattedDate();
+                                    this.genDate = this.getFormattedDate();
+                                    this.customer = customer;
+                                    this.customerProfileLoan = JSON.parse(customerProfileLoan) != null ? JSON.parse(customerProfileLoan) : [];
+                                    this.initValues();
+                                },
+                                filters: {
+                                    dateFormat(value) {
+                                        let monthNames = ["January", "February", "March", "April", "May", "June",
+                                            "July", "August", "September", "October", "November", "December"];
+                                        let currentDateArray = value.toString().split('-');
+                                        let length = currentDateArray.length;
+                                        // 2020-12-30
+                                        if (length > 1) {
+                                            let date = currentDateArray[2];
+                                            let monthName = monthNames[parseInt(currentDateArray[1]) - 1]
+                                            let year = currentDateArray[0];
+
+                                            return `${monthName} ${date}, ${year}`;
+                                        } else if (length === 1) {
+                                            let date = value.getDate();
+                                            let month = value.getMonth();
+                                            let monthName = monthNames[month];
+                                            let year = value.getFullYear();
+                                            return `${monthName} ${date}, ${year}`;
+                                        }
+
+                                    },
+                                },
+                                directives: {
+                                    focus: {
+                                        // directive definition
+                                        inserted: function (el) {
+                                            el.focus()
+                                        }
+                                    }
+                                },
+                                methods: {
+                                    initValues(){
+                                        this.name=  this.customer.customerName;
+                                        this.accountNo = this.customer.accountNo;
+                                        this.customerAddress = this.customerProfileLoan.HOME_ADDRESS ? this.customerProfileLoan.HOME_ADDRESS : this.customerAddress;
+                                        this.designation = this.customerProfileLoan.OCCUPATION ? this.customerProfileLoan.OCCUPATION : this.designation;
+                                        this.companyName = this.customerProfileLoan.COMPANY_NAME ? this.customerProfileLoan.COMPANY_NAME : this.companyName;
+
+
+                                    },
+                                    getFormattedDate() {
+                                        let newDate = new Date();
+                                        let date = newDate.getDate();
+                                        let month = newDate.getMonth() + 1;
+                                        let year = newDate.getFullYear();
+                                        return `${year}-${month}-${date}`;
+                                    },
+                                    toggleEditMode() {
+                                        this.editing = !this.editing;
+                                    },
+                                    updateLetter() {
+                                        this.toggleEditMode();
+                                    }
+                                }
+                            })
+                        </script>
+                        <script>
+                            function generatePDF() {
+                                $("#letter-body").print();
+                                return (false);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

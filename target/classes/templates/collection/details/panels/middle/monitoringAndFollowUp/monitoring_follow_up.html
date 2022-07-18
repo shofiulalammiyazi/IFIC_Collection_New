@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Monitoring And Follow-Up</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="monitorin-and-follow-up">
+
+    <style>
+        .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+            font-size: 13px;
+        }
+
+        .multiselect__tag {
+            font-size: 12px;
+        }
+
+        select {
+            -webkit-appearance: menulist;
+        }
+    </style>
+
+
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Monitoring And Follow-Up</h3>
+            <a id="add-monitoring-follow-up-button" class=" btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#modal-monitoring-and-follow-up" >
+                <i class="fa fa-plus-square"></i>
+                Add More
+            </a>
+        </div>
+
+        <div class="box-body" id="Monitoring-And-Follow-Up">
+            <div class="row">
+                <div class="modal fade" id="modal-monitoring-and-follow-up"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 90%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                                <h3 >Monitoring And Follow-Up</h3>
+                            </div>
+                            <div class="box-body">
+                            <form id="monitoringFollowUpForm" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                <input name="_csrf" value="" type="hidden">
+                                <input name="customerBasicInfo" :value="customerId" type="hidden"/>
+                                <input type="hidden" id="monitoringFollowUpId"  name="id" :value="monitoringFollowUp.id"/>
+                                <input type="hidden"  name="whetherTheLoanTeTdRcRsId" v-model="getSelectedWhetherTheLoanTeTdRcRsId"/>
+                                <input type="hidden"  name="sourceOfRecoveryToolsId" v-model="getSelectedSourceOfRecoveryTools"/>
+                                <input type="hidden"  name="borrowerStayingId" v-model="getSelectedBorrowerStayingId"/>
+                                <input type="hidden"  name="borrowerBusinessStatusId" v-model="getSelectedBorrowerBusinessStatusId"/>
+                                <input type="hidden"  name="interestedFurtherLoanId" v-model="getSelectedInterestedFurtherLoanId"/>
+                                <input type="hidden"  name="sourceOfRecoveryId" v-model="getSelectedSourceOfRecovery"/>
+                                <input type="hidden"  name="borrowerPresentStatusId" v-model="getSelectedBorrowerPresentStatusId"/>
+                                <input type="hidden"  name="logicInTermsId" v-model="getSelectedLogicInTermsId"/>
+                                <input type="hidden"  name="borrowerAndGuarantorAvailabilityId" v-model="getSelectedBorrowerAndGuarantorAvailability"/>
+                                <input type="hidden"  name="possibilityProbabilityUnclassifiedId" v-model="getSelectedPossibilityProbabilityUnclassifiedId"/>
+                                <input type="hidden"  name="borrowerGuarantorCapabilityRepayId" v-model="getSelectedBorrowerGuarantorCapabilityRepayId"/>
+                                <input type="hidden"  name="possibilityProbabilityClassifiedId" v-model="getSelectedPossibilityProbabilityClassifiedId"/>
+                                <input type="hidden"  name="wayForwardReduceFromNPLId" v-model="getSelectedWayForwardReduceFromNPLId"/>
+                                <input type="hidden"  name="loanLiabilityRecoverabilityId" v-model="getSelectedLoanLiabilityRecoverabilityId"/>
+                                <input type="hidden"  name="capableInfluenceCustomerBankDueId" v-model="getSelectedCapableInfluenceCustomerBankDueId"/>
+                                <input type="hidden"  name="bbAuditTypeId" v-model="getSelectedBbAuditTypeId"/>
+                                <input type="hidden"  name="bbCommentsForClassificationId" v-model="getSelectedBbCommentsForClassificationId"/>
+                                <input type="hidden"  name="categoryDelinquencyIds" v-model="getSelectedCategoryForDelinquencyIds"/>
+
+                                <div class="alert alert-warning hidden" id="monitoring-follow-up-error-messages"></div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower's Nature :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control"  type="text" :value="monitoringFollowUp.borrowerNature" name="borrowerNature" placeholder="Borrower's Nature">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Whether the Loan is TE/TD/R/C/RS ? :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedWhetherTheLoanTeTdRcRs" placeholder="select one"
+                                                         label="name" track-by="id" :options="whetherTheLoanTeTdRcRs"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Source of Recovery Tools :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedSourceOfRecoveryTool" placeholder="select one"
+                                                         label="name" track-by="id" :options="sourceOfRecoveryTools"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower Staying at :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBorrowerStaying" placeholder="select one"
+                                                         label="name" track-by="id" :options="borrowerStayingList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">No of TE/TD/ R/C/RS :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control"  type="text" :value="monitoringFollowUp.noTeTdRCRs" name="noTeTdRCRs" placeholder="No of TE/TD/ R/C/RS">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Projected Recovery of Current Year :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" :value="formatDateInput(monitoringFollowUp.proReCurrentYear)"  type="date" name="proReCurrentYear" placeholder="Projected Recovery of Current Year">
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower's Business Status :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBorrowerBusinessStatus" placeholder="select one"
+                                                         label="name" track-by="id" :options="borrowerBusinessStatusList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Are You Interested Further TE/TD/R/C/RS ? :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedInterestedFurtherLoan" placeholder="select one"
+                                                         label="name" track-by="id" :options="interestedFurtherLoanList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Source of Recovery :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedSourceOfRecovery" placeholder="select one"
+                                                         label="name" track-by="id" :options="sourceOfRecoveryList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower's Present Status :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBorrowerPresentStatus" placeholder="select one"
+                                                         label="name" track-by="id" :options="borrowerPresentStatusList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">If Not Interested, Please Select Your Logic in Terms of: Prospect of Recovery :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedLogicInTerms" placeholder="select one"
+                                                         label="name" track-by="id" :options="logicInTermsList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Previous Month Cash Recovery Amount :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control"  type="number" :value="monitoringFollowUp.previousMonthCashRecoveryAmount" name="previousMonthCashRecoveryAmount" placeholder="Previous Month Cash Recovery Amount">
+                                        </div>
+                                    </div>
+
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower & Guarantor's Availability :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBorrowerAndGuarantorAvailability" placeholder="select one"
+                                                         label="name" track-by="id" :options="borrowerAndGuarantorAvailabilityList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Possibility/Probability to Hit in NPL (applicable for unclassified or to be unclassified a/cs only) :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedPossibilityProbabilityUnclassified" placeholder="select one"
+                                                         label="name" track-by="id" :options="possibilityProbabilityUnclassifiedList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Previous Month Cash Recovery Date :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control"  type="date" :value="formatDateInput(monitoringFollowUp.prevMonthCashRecoDate)" name="PrevMonthCashRecoDate" placeholder="Previous Month Cash Recovery Date">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower & Guarantor's Capability to Repay: :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBorrowerGuarantorCapabilityRepay" placeholder="select one"
+                                                         label="name" track-by="id" :options="borrowerGuarantorCapabilityRepayList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Possibility/Probability to Release from NPL (applicable for classified or to be classified a/cs only) :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedPossibilityProbabilityClassified" placeholder="select one"
+                                                         label="name" track-by="id" :options="possibilityProbabilityClassifiedList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Current Month Cash Recovery Amount :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control"  type="number" :value="monitoringFollowUp.currentMonthCashRecoveryAmount" name="CurrentMonthCashRecoveryAmount" placeholder="Current Month Cash Recovery Amount">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Auction Notice Published Year (latest) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" id="yearpeacker2" class="form-control" :value="formatDateInput(monitoringFollowUp.auctionNoticePublishedYearLatest)" name="auctionNoticePublishedYearLatest">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Way Forward to reduce from NPL :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectWayForwardReduceFromNPL" placeholder="select one"
+                                                         label="name" track-by="id" :options="wayForwardReduceFromNPLList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Current Month Cash Recovery  Date :</label>
+                                        <div class="col-sm-3">
+                                            <input type="date" class="form-control" :value="formatDateInput(monitoringFollowUp.currentMonthCashRecoveryDate)" name="currentMonthCashRecoveryDate">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Is it Possible to arrange a prospective buyer for Auction Sale? :</label>
+                                        <div class="col-sm-3">
+                                            <select name="PossibleArrangeProspectiveBuyerAuctionSale" :value="monitoringFollowUp.possibleArrangeProspectiveBuyerAuctionSale" class="form-control">
+                                                <option>Select One</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Loan Liability Recoverability :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedLoanLiabilityRecoverability" placeholder="select one"
+                                                         label="name" track-by="id" :options="loanLiabilityRecoverabilityList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Cumulative Cash Recovery Amount :</label>
+                                        <div class="col-sm-3">
+                                            <input type="number" class="form-control" name="cumulativeCashRecoveryAmount" :value="monitoringFollowUp.cumulativeCashRecoveryAmount">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <label class="col-sm-1 custom-details-lebel-left">Category for Delinquency :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedCategoryForDelinquency" placeholder="select one"
+                                                         label="name" track-by="id" :options="categoryForDelinquencyList"
+                                                         :multiple="true" :taggable="true"></multiselect>
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Who is capable to influence Customer for making payment/settlement of bank?s due :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedCapableInfluenceCustomerBankDue" placeholder="select one"
+                                                         label="name" track-by="id" :options="capableInfluenceCustomerBankDueList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Reasons for Delinquency (Borrower?s Point of View) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="reasonsDelinBorroView" :value="monitoringFollowUp.reasonsDelinBorroView">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">BB Audit Type:</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBbAuditType" placeholder="select one"
+                                                         label="name" track-by="id" :options="bbAuditTypeList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Reasons for Delinquency (Banker?s Point of View):</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="reasonsDelinqBankerView" :value="monitoringFollowUp.reasonsDelinqBankerView">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">BB Comments for Classification :</label>
+                                        <div class="col-sm-3">
+                                            <multiselect v-model="selectedBbCommentsForClassification" placeholder="select one"
+                                                         label="name" track-by="id" :options="bbCommentsForClassificationList"
+                                                         :multiple="false" :taggable="true"></multiselect>
+                                        </div>
+
+                                    </div>
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Background of the Borrower/ Business :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.backgroundBorrowerBusiness" name="backgroundBorrowerBusiness">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Initiative/ Actions Taken After Delinquency :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.initiativeActionsTakenAfterDelinquency" name="initiativeActionsTakenAfterDelinquency">
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Reason for Classification (Borrower?s Point of View) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.reasonClassificationBorrowerPointView" name="reasonClassificationBorrowerPointView">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Distance from Branch to Borrower?s Office (Kilometres) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.distanceBranchBorrowerOfficeKilometres" name="distanceBranchBorrowerOfficeKilometres">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Borrower?s Present Proposition Regarding Adjustment of Loan Liabilities:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.borrPrePropoRegaAdjLoanLiabilities" name="borrPrePropoRegaAdjLoanLiabilities">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Reason for Classification (Banker?s Point of View) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.reasonClassificationBankerPointView" name="reasonClassificationBankerPointView">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Distance from Branch to Borrower?s Residence (Kilometres):</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.distanceBranchBorrowerResidenceKilometres" name="distanceBranchBorrowerResidenceKilometres">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Future Recovery Plan to Settle the Loan Liability :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.futureRecoveryPlanSettleLoanLiability" name="futureRecoveryPlanSettleLoanLiability">
+                                        </div>
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Justification for not Being Classified:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.justificationBeingClassified" name="justificationBeingClassified">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Distance from Branch to 3rd party Guarantor (Kilometres) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.distanceBranch3rdpartyGuarantorKilometres" name="distanceBranch3rdpartyGuarantorKilometres">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Distance from Branch to Borrower?s Business :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.distanceBranchBorrowerBusiness" name="distanceBranchBorrowerBusiness">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Distance from Branch to 3rd Party Guarantor?s Residence (Kilometres) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" :value="monitoringFollowUp.distanceBranch3rdPartyGuarantorResidenceKilometres" name="distanceBranch3rdPartyGuarantorResidenceKilometres">
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+
+
+                                        <label class="col-sm-1 custom-details-lebel-left">Remarks/ Comments:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="remarks" :value="monitoringFollowUp.remarks">
+                                        </div>
+                                        <label class="col-sm-1 custom-details-lebel-left">Attachment: (Relevant docs) :</label>
+                                        <div class="col-sm-3">
+                                            <input type="file" class="form-control" name="file">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer text-center">
+                                        <button type="submit" id="vehicle-repossession-save-button" class="btn btn-info">Save</button>
+                                        <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="modal fade" id="modal-monitoring-follow-up-view"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Monitoring And Follow-Up</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="modal-footer text-center">
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left ">Borrower's Nature :</label>
+                                        <label  class="col-sm-3 custom-form-control">{{monitoringFollowUp.borrowerNature}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Whether the Loan is TE/TD/R/C/RS? :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.whetherTheLoanTeTdRcRs ==null) ? '' : monitoringFollowUp.whetherTheLoanTeTdRcRs.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Source of Recovery Tools :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.sourceOfRecoveryTools == null) ? '' :monitoringFollowUp.sourceOfRecoveryTools.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower Staying at :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.borrowerStaying == null) ? '' : monitoringFollowUp.borrowerStaying.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">No of TE/TD/ R/C/RS :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.noTeTdRCRs}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Projected Recovery of Current Year :</label>
+                                        <label class="col-sm-3 custom-form-control">{{formatDate(monitoringFollowUp.proReCurrentYear)}}</label>
+                                   </div>
+
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower's Business Status :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.borrowerBusinessStatus == null) ? '' : monitoringFollowUp.borrowerBusinessStatus.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Are You Interested Further TE/TD/R/C/RS? :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.interestedFurtherLoan == null) ? '' : monitoringFollowUp.interestedFurtherLoan.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Source of Recovery :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.sourceOfRecovery == null) ? '' :monitoringFollowUp.sourceOfRecovery.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower's Present Status :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.borrowerPresentStatus == null) ? '' :monitoringFollowUp.borrowerPresentStatus.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">If Not Interested, Please Select Your Logic in Terms of: Prospect of Recovery :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.logicInTerms == null) ? '' : monitoringFollowUp.logicInTerms.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Previous Month Cash Recovery Amount :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.previousMonthCashRecoveryAmount}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower & Guarantor's Availability :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.borrowerAndGuarantorAvailability == null) ? '' :monitoringFollowUp.borrowerAndGuarantorAvailability.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Possibility/Probability to Hit in NPL (applicable for unclassified or to be unclassified a/cs only) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.possibilityProbabilityUnclassified == null) ? '' :monitoringFollowUp.possibilityProbabilityUnclassified.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Previous Month Cash Recovery Date :</label>
+                                        <label class="col-sm-3 custom-form-control">{{formatDate(monitoringFollowUp.prevMonthCashRecoDate)}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower & Guarantor's Capability to Repay :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.borrowerGuarantorCapabilityRepay == null) ? '' : monitoringFollowUp.borrowerGuarantorCapabilityRepay.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Possibility/Probability to Release from NPL (applicable for classified or to be classified a/cs only) :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.possibilityProbabilityClassified ==null) ? '' : monitoringFollowUp.possibilityProbabilityClassified.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Current Month Cash Recovery Amount :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.CurrentMonthCashRecoveryAmount}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Auction Notice Published Year (latest) :</label>
+                                        <label class="col-sm-3 custom-form-control">{{formatDate(monitoringFollowUp.auctionNoticePublishedYearLatest)}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Way Forward to reduce from NPL :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.wayForwardReduceFromNPL == null) ? '' :monitoringFollowUp.wayForwardReduceFromNPL.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Current Month Cash Recovery  Date :</label>
+                                        <label class="col-sm-3 custom-form-control">{{formatDate(monitoringFollowUp.currentMonthCashRecoveryDate)}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Is it Possible to arrange a prospective buyer for Auction Sale? :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.PossibleArrangeProspectiveBuyerAuctionSale}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Loan Liability Recoverability :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.loanLiabilityRecoverability == null) ? '' :monitoringFollowUp.loanLiabilityRecoverability.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Cumulative Cash Recovery Amount  :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.cumulativeCashRecoveryAmount}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Category for Delinquency :</label>
+                                        <div class="col-sm-3">
+                                        <label v-for="cateDelin in monitoringFollowUp.categoryDelinquencyList" class="col-sm-12 custom-form-control" >{{cateDelin.name}}</label>
+                                        </div>
+                                        <label class="col-sm-3 custom-details-lebel-left">Who is capable to influence Customer for making payment/settlement of bank?s due  :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{(monitoringFollowUp.capableInfluenceCustomerBankDue == null) ? '' :monitoringFollowUp.capableInfluenceCustomerBankDue.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Remarks/ Comments :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.remarks}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Reasons for Delinquency (Borrower?s Point of View) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.reasonsDelinBorroView}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">BB Audit Type :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.bbAuditType == null) ? '' :monitoringFollowUp.bbAuditType.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Reasons for Delinquency (Banker?s Point of View) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.reasonsDelinqBankerView}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">BB Comments for Classification :</label>
+                                        <label class="col-sm-3 custom-form-control">{{(monitoringFollowUp.bbCommentsForClassification == null) ? '' :monitoringFollowUp.bbCommentsForClassification.name}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Background of the Borrower/ Business    :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.backgroundBorrowerBusiness}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Initiative/ Actions Taken After Delinquency :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.initiativeActionsTakenAfterDelinquency}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Reason for Classification (Borrower?s Point of View) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.reasonClassificationBorrowerPointView}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Distance from Branch to Borrower?s Office (Kilometres) :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.distanceBranchBorrowerOfficeKilometres}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Borrower?s Present Proposition Regarding Adjustment of Loan Liabilities :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.borrPrePropoRegaAdjLoanLiabilities}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Reason for Classification (Banker?s Point of View) :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.reasonClassificationBankerPointView}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Distance from Branch to Borrower?s Residence (Kilometres) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.distanceBranchBorrowerResidenceKilometres}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Future Recovery Plan to Settle the Loan Liability :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.futureRecoveryPlanSettleLoanLiability}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Justification for not Being Classified :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.justificationBeingClassified}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Distance from Branch to 3rd party Guarantor (Kilometres) :</label>
+                                        <label class="col-sm-3 custom-form-control">{{monitoringFollowUp.distanceBranch3rdpartyGuarantorKilometres}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Distance from Branch to Borrower?s Business :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.distanceBranchBorrowerBusiness}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Distance from Branch to 3rd Party Guarantor?s Residence (Kilometres) :</label>
+                                        <label class="col-sm-3 custom-form-control" >{{monitoringFollowUp.distanceBranch3rdPartyGuarantorResidenceKilometres}}</label>
+                                    </div>
+                                    <!--<div class="form-group row csi-view-form-group">-->
+                                    <!--<label class="col-sm-3 custom-details-lebel-left">CL Status :</label>-->
+                                    <!--<label class="col-sm-3 custom-form-control">{{vehicleRepossession.clstatus.id}}</label>-->
+                                    <!--</div>-->
+
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form" >
+                <input name="_csrf" value="" type="hidden">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table 
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Borrower Nature</th>
+                            <th>No of TE/TD/ R/C/RS</th>
+                            <th>Projected Recovery of Current Year</th>
+                            <th>Attachment</th>
+                            <th style="min-width: 100px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="monitoring in monitoringFollowUpList">
+                                <td>{{monitoring.borrowerNature}}</td>
+                                <td>{{monitoring.noTeTdRCRs}}</td>
+                                <td>{{formatDate(monitoring.proReCurrentYear)}}</td>
+                                <td>
+                                    <a :href="'/collection/dms/document/preview?id=' + monitoring.dmsFileId + '&type=' + monitoring.dmsFileType" style="cursor: pointer" >{{monitoring.fileName}}</a>
+                                </td>
+                                <td>
+                                    <button type="button" @click="viewMonitoringFollowUp(monitoring.monitoringId)"  data-toggle="modal" data-target="#modal-monitoring-follow-up-view" style="margin-right: 3px" class="btn btn-primary btn-xs"><i fa fa-eye></i>View</button>
+                                    <button type="button" @click="editMonitoringFollowUp(monitoring.monitoringId)"   data-toggle="modal" data-target="#modal-monitoring-and-follow-up" class="btn btn-primary btn-xs">Edit</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+
+
+            $(document).ready(function () {
+                $('#monitoringFollowUpForm input[name="_csrf"]').val(csrfToken);
+                $('#monitoringFollowUpForm input[name="customerId"]').val(customerId);
+
+
+                function clearForm(){
+                    $('#monitoringFollowUpId').val('');
+                    $('#monitoringFollowUpForm input:not(":hidden")').val("");
+                    $('#monitoringFollowUpForm select').val("");
+                    monitoringFollowUpApp.selectedWhetherTheLoanTeTdRcRs = {};
+                    monitoringFollowUpApp.selectedSourceOfRecoveryTool = {};
+                    monitoringFollowUpApp.selectedBorrowerStaying = {};
+                    monitoringFollowUpApp.selectedBorrowerBusinessStatus = {};
+                    monitoringFollowUpApp.selectedInterestedFurtherLoan = {};
+                    monitoringFollowUpApp.selectedSourceOfRecovery = {};
+                    monitoringFollowUpApp.selectedBorrowerPresentStatus = {};
+                    monitoringFollowUpApp.selectedLogicInTerms = {};
+                    monitoringFollowUpApp.selectedBorrowerAndGuarantorAvailability = {};
+                    monitoringFollowUpApp.selectedPossibilityProbabilityUnclassified = {};
+                    monitoringFollowUpApp.selectedBorrowerGuarantorCapabilityRepay = {};
+                    monitoringFollowUpApp.selectedPossibilityProbabilityClassified = {};
+                    monitoringFollowUpApp.selectedLoanLiabilityRecoverability = {};
+                    monitoringFollowUpApp.selectedCategoryForDelinquency = [];
+                    monitoringFollowUpApp.selectedCapableInfluenceCustomerBankDue = {};
+                    monitoringFollowUpApp.selectedBbAuditType = {};
+                    monitoringFollowUpApp.selectedBbCommentsForClassification = {};
+                }
+                
+                
+                
+                $('#add-monitoring-follow-up-button').click(function () {
+                    clearForm();
+                })
+
+
+
+
+
+                monitoringFollowUpApp = new Vue({
+                    el: '#Monitoring-And-Follow-Up',
+                    components: {
+                        Multiselect: VueMultiselect.default
+                    },
+                    data: {
+
+                        customerId: customerId,
+
+                        monitoringFollowUpList: [],
+                        monitoringFollowUp: {},
+
+
+                        whetherTheLoanTeTdRcRs: [],
+                        selectedWhetherTheLoanTeTdRcRs: {},
+
+                        sourceOfRecoveryTools: [],
+                        selectedSourceOfRecoveryTool: {},
+
+                        borrowerStayingList: [],
+                        selectedBorrowerStaying: {},
+
+                        borrowerBusinessStatusList: [],
+                        selectedBorrowerBusinessStatus: {},
+
+                        interestedFurtherLoanList: [],
+                        selectedInterestedFurtherLoan: {},
+
+                        sourceOfRecoveryList: [],
+                        selectedSourceOfRecovery: {},
+
+                        borrowerPresentStatusList: [],
+                        selectedBorrowerPresentStatus: {},
+
+                        logicInTermsList: [],
+                        selectedLogicInTerms: {},
+
+                        borrowerAndGuarantorAvailabilityList: [],
+                        selectedBorrowerAndGuarantorAvailability: {},
+
+                        possibilityProbabilityUnclassifiedList: [],
+                        selectedPossibilityProbabilityUnclassified: {},
+
+                        borrowerGuarantorCapabilityRepayList: [],
+                        selectedBorrowerGuarantorCapabilityRepay: {},
+
+                        possibilityProbabilityClassifiedList: [],
+                        selectedPossibilityProbabilityClassified: {},
+
+                        wayForwardReduceFromNPLList: [],
+                        selectWayForwardReduceFromNPL: {},
+
+                        loanLiabilityRecoverabilityList: [],
+                        selectedLoanLiabilityRecoverability: {},
+
+                        categoryForDelinquencyList: [],
+                        selectedCategoryForDelinquency: [],
+
+                        capableInfluenceCustomerBankDueList: [],
+                        selectedCapableInfluenceCustomerBankDue: {},
+
+                        bbAuditTypeList: [],
+                        selectedBbAuditType: {},
+
+                        bbCommentsForClassificationList: [],
+                        selectedBbCommentsForClassification: {}
+                    },
+                    computed:{
+                        getSelectedCategoryForDelinquencyIds: function () {
+                            return this.selectedCategoryForDelinquency.map(item => {
+                                return item.id;
+                            });
+                        },
+                        getSelectedWhetherTheLoanTeTdRcRsId: function () {
+                            return this.selectedWhetherTheLoanTeTdRcRs.id;
+                        },
+                        getSelectedSourceOfRecoveryTools: function () {
+                            return this.selectedSourceOfRecoveryTool.id;
+                        },
+                        getSelectedBorrowerStayingId: function () {
+                            return this.selectedBorrowerStaying.id;
+                        },
+                        getSelectedBorrowerBusinessStatusId: function () {
+                            return this.selectedBorrowerBusinessStatus.id;
+                        },
+                        getSelectedInterestedFurtherLoanId: function () {
+                            return this.selectedInterestedFurtherLoan.id;
+                        },
+                        getSelectedSourceOfRecovery: function () {
+                            return this.selectedSourceOfRecovery.id;
+                        },
+                        getSelectedBorrowerPresentStatusId: function () {
+                            return this.selectedBorrowerPresentStatus.id;
+                        },
+                        getSelectedLogicInTermsId: function () {
+                            return this.selectedLogicInTerms.id;
+                        },
+                        getSelectedBorrowerAndGuarantorAvailability: function () {
+                            return this.selectedBorrowerAndGuarantorAvailability.id;
+                        },
+                        getSelectedPossibilityProbabilityUnclassifiedId: function () {
+                            return this.selectedPossibilityProbabilityUnclassified.id;
+                        },
+                        getSelectedBorrowerGuarantorCapabilityRepayId: function () {
+                            return this.selectedBorrowerGuarantorCapabilityRepay.id;
+                        },
+                        getSelectedPossibilityProbabilityClassifiedId: function () {
+                            return this.selectedPossibilityProbabilityClassified.id;
+                        },
+                        getSelectedWayForwardReduceFromNPLId: function () {
+                            return this.selectWayForwardReduceFromNPL.id;
+                        },
+                        getSelectedLoanLiabilityRecoverabilityId: function () {
+                            return this.selectedLoanLiabilityRecoverability.id;
+                        },
+                        getSelectedCapableInfluenceCustomerBankDueId: function () {
+                            return this.selectedCapableInfluenceCustomerBankDue.id;
+                        },
+                        getSelectedBbAuditTypeId: function () {
+                            return this.selectedBbAuditType.id;
+                        },
+                        getSelectedBbCommentsForClassificationId: function () {
+                            return this.selectedBbCommentsForClassification.id;
+                        }
+                    },
+                    methods: {
+                        formatDateInput: function (date) {
+                            let date1 = date ? new Date(date) : new Date()
+
+                            return date ? date1.getFullYear()
+                                +'-'+((date1.getMonth()+1) < 10 ? '0'+(date1.getMonth()+1) : (date1.getMonth()+1))
+                                +'-'+(date1.getDate() < 10 ? '0'+date1.getDate() : date1.getDate())
+                                : '';
+                        },
+                        formatDate: function (date) {
+                            return formatDate_DD_MMM_YYYY(date)
+                        },
+
+                        viewMonitoringFollowUp: function (id) {
+                            var host = window.location.host;
+                            var url = 'https://'+host+'/collection/samd/dataEntry/monitoring-follow-up/find?id='+id;
+
+                            this.$http.get(url,
+                                {credentials : true, headers:{
+                                        'X-CSRF-TOKEN' : window.csrfToken,
+                                    }}).then(res => {
+                                if(res.body){
+
+                                    this.monitoringFollowUp = res.body;
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        },
+
+                        editMonitoringFollowUp: function (id) {
+                            var host = window.location.host;
+                            var url = 'https://'+host+'/collection/samd/dataEntry/monitoring-follow-up/find?id='+id;
+
+                            this.$http.get(url,
+                                {credentials : true, headers:{
+                                        'X-CSRF-TOKEN' : window.csrfToken,
+                                    }}).then(res => {
+                                if(res.body){
+
+                                    this.monitoringFollowUp = res.body;
+                                    this.selectedWhetherTheLoanTeTdRcRs = (res.body.whetherTheLoanTeTdRcRs == null) ? '' : res.body.whetherTheLoanTeTdRcRs;
+                                    this.selectedSourceOfRecoveryTool = (res.body.sourceOfRecoveryTools == null) ? '' : res.body.sourceOfRecoveryTools;
+                                    this.selectedBorrowerStaying = (res.body.borrowerStaying == null) ? '' : res.body.borrowerStaying;
+                                    this.selectedBorrowerBusinessStatus = (res.body.borrowerBusinessStatus == null) ? '' : res.body.borrowerBusinessStatus;
+                                    this.selectedInterestedFurtherLoan = (res.body.interestedFurtherLoan == null) ? '' : res.body.interestedFurtherLoan;
+                                    this.selectedSourceOfRecovery = (res.body.sourceOfRecovery == null) ? '' : res.body.sourceOfRecovery;
+                                    this.selectedBorrowerPresentStatus = (res.body.borrowerPresentStatus == null) ? '' : res.body.borrowerPresentStatus;
+                                    this.selectedLogicInTerms = (res.body.logicInTerms == null) ? '' : res.body.logicInTerms;
+                                    this.selectedBorrowerAndGuarantorAvailability = (res.body.borrowerAndGuarantorAvailability == null) ? '' : res.body.borrowerAndGuarantorAvailability;
+                                    this.selectedPossibilityProbabilityUnclassified = (res.body.possibilityProbabilityUnclassified == null) ? '' : res.body.possibilityProbabilityUnclassified;
+                                    this.selectedBorrowerGuarantorCapabilityRepay = (res.body.borrowerGuarantorCapabilityRepay == null) ? '' : res.body.borrowerGuarantorCapabilityRepay;
+                                    this.selectedPossibilityProbabilityClassified = (res.body.possibilityProbabilityClassified == null) ? '' : res.body.possibilityProbabilityClassified;
+                                    this.selectWayForwardReduceFromNPL = (res.body.wayForwardReduceFromNPL == null) ? '' : res.body.wayForwardReduceFromNPL;
+                                    this.selectedLoanLiabilityRecoverability = (res.body.loanLiabilityRecoverability == null) ? '' : res.body.loanLiabilityRecoverability;
+                                    this.selectedCapableInfluenceCustomerBankDue = (res.body.capableInfluenceCustomerBankDue == null) ? '' : res.body.capableInfluenceCustomerBankDue;
+                                    this.selectedBbAuditType = (res.body.bbAuditType == null) ? '' : res.body.bbAuditType;
+                                    this.selectedBbCommentsForClassification = (res.body.bbCommentsForClassification == null) ? '' : res.body.bbCommentsForClassification;
+                                    this.selectedCategoryForDelinquency = (res.body.categoryDelinquencyList.length == 0) ? [] : res.body.categoryDelinquencyList;
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        }
+                    }
+                })
+
+
+
+                function fatchData(){
+                    $.ajax({
+                        url: '/collection/samd/dataEntry/monitoring-follow-up/list?customerId='+customerId,
+                        success: function (response) {
+                            monitoringFollowUpApp.monitoringFollowUpList = response;
+                        },
+                        error: function (response) {
+
+                        }
+                    })
+                }
+
+                fatchData();
+
+
+
+               $('#tab-monitoring-and-follow-up').click(function () {
+                   console.log('fired');
+                   $.ajax({
+                       url: '/collection/samd/dataEntry/monitoring-follow-up/all-value',
+                       success: function (response) {
+                           monitoringFollowUpApp.whetherTheLoanTeTdRcRs = response.whetherTheLoanTeTdRcRs;
+                           monitoringFollowUpApp.sourceOfRecoveryTools = response.sourceOfRecoveryTools;
+                           monitoringFollowUpApp.borrowerStayingList = response.borrowerStayingList;
+                           monitoringFollowUpApp.borrowerBusinessStatusList = response.borrowerBusinessStatusList;
+                           monitoringFollowUpApp.interestedFurtherLoanList = response.interestedFurtherLoanList;
+                           monitoringFollowUpApp.sourceOfRecoveryList = response.sourceOfRecoveryList;
+                           monitoringFollowUpApp.borrowerPresentStatusList = response.borrowerPresentStatusList;
+                           monitoringFollowUpApp.logicInTermsList = response.logicInTermsList;
+                           monitoringFollowUpApp.borrowerAndGuarantorAvailabilityList = response.borrowerAndGuarantorAvailabilityList;
+                           monitoringFollowUpApp.possibilityProbabilityUnclassifiedList = response.possibilityProbabilityUnclassifiedList;
+                           monitoringFollowUpApp.borrowerGuarantorCapabilityRepayList = response.borrowerGuarantorCapabilityRepayList;
+                           monitoringFollowUpApp.possibilityProbabilityClassifiedList = response.possibilityProbabilityClassifiedList;
+                           monitoringFollowUpApp.wayForwardReduceFromNPLList = response.wayForwardReduceFromNPLList;
+                           monitoringFollowUpApp.loanLiabilityRecoverabilityList = response.loanLiabilityRecoverabilityList;
+                           monitoringFollowUpApp.categoryForDelinquencyList = response.categoryForDelinquencyList;
+                           monitoringFollowUpApp.capableInfluenceCustomerBankDueList = response.capableInfluenceCustomerBankDueList;
+                           monitoringFollowUpApp.bbAuditTypeList = response.bbAuditTypeList;
+                           monitoringFollowUpApp.bbCommentsForClassificationList = response.bbCommentsForClassificationList;
+                       },
+                       error: function (response) {
+                           alert('Unsuccessful');
+                       }
+                   })
+               })
+
+                
+
+                $('#monitoringFollowUpForm').on('submit', function (event) {
+                    event.preventDefault();
+                    var object = new FormData(this);
+                    // $('#vehicle-repossession-save-button').attr('disabled', true);
+                    var formdatalist = $('#monitoringFollowUpForm');
+
+                    // var vehicleType = formdatalist.find('input[name="vehicleType"]').val();
+                    
+
+
+                    /*if (vehicleType == '') {
+                        $('#vehicle-error-messages').text("Vehicle type can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleModel == '') {
+                        $('#vehicle-error-messages').text("Vehicle Model can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleRegistrationNo == '') {
+                        $('#vehicle-error-messages').text("Vehicle registration No. can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleChassisNo == '') {
+                        $('#vehicle-error-messages').text("Vehicle chassis No. can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleEngineNo == '') {
+                        $('#vehicle-error-messages').text("Vehicle engine No. can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (yearManufacturing == '') {
+                        $('#vehicle-error-messages').text("Year of manufacturing can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleCC == '') {
+                        $('#vehicle-error-messages').text("Vehicle CC can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (presentStatus == '') {
+                        $('#vehicle-error-messages').text("Present can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (agencyHandOverDate == '') {
+                        $('#vehicle-error-messages').text("Agency hand over date can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (repossessionDate == '') {
+                        $('#vehicle-error-messages').text("Vehicle repossession date can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (clStatusRepossessionDate == '') {
+                        $('#vehicle-error-messages').text("Cl status repossession date can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (vehicleReleaseDate == '') {
+                        $('#vehicle-error-messages').text("Vehicle release date can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (samHandoverDate == '') {
+                        $('#vehicle-error-messages').text("SAM handover date can not be empty.").removeClass('hidden')
+                        return;
+                    }
+
+                    if (auctionDate == '') {
+                        $('#vehicle-error-messages').text("Auction can not be empty.").removeClass('hidden')
+                        return;
+                    }*/
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/collection/samd/dataEntry/monitoring-follow-up/create",
+                        data: object,
+                        enctype: 'multipart/form-data',
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            swal("Success!", "Successfully Saved!", "success");
+                            async: false;
+                            // $('#monitoringFollowUpForm')[0].reset();
+                            $('#modal-monitoring-and-follow-up').modal('toggle');
+                            clearForm();
+                            fatchData();
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+
+
+                $("#yearpeacker2").datepicker({
+                    format: "yyyy",
+                    viewMode: "years",
+                    minViewMode: "years",
+                    autoclose:true //to close picker once year is selected
+                });
+
+
+
+            });
+
+        </script>
+
+    </div>
+</div>
+</body>
+
+
+</html>

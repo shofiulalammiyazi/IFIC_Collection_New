@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Branch-Create</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div class="col-xs-12">
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <!-- .box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 th:text="${(branch.branchId != null) ? 'Update Branch' : 'Create New Branch'}"
+                            class="box-title">Form</h3>
+                    </div>
+                    <!-- Horizontal Form -->
+                    <form class="form-horizontal validate" method="post" th:action="@{/branch/create}"
+                          th:object="${branch}">
+                        <input type="hidden" th:field="*{branchId}"/>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">District </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control required" th:field="*{district.id}">
+                                        <option value="">Select District</option>
+                                        <option th:each="district : ${disList}" th:text="${district.name}"
+                                                th:value="${district.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">Branch Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="branchName" class="form-control required"
+                                           th:field="*{branchName}" placeholder="Branch Name" required/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">Branch Code</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="branchCode" class="form-control"
+                                           th:field="*{branchCode}" placeholder="Branch Code" required/>
+                                </div>
+                                <label class="col-sm-push-4 col-sm-8 text-danger"
+                                       th:if="${#fields.hasErrors('branchCode')}" th:errors="*{branchCode}">Branch Code Error</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">Branch Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="address" class="form-control required"
+                                           th:field="*{address}" placeholder="Branch Address"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">Routing No</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control required"
+                                           th:field="*{routingNo}" placeholder="Routing No"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right">Contact Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="contactPerson" class="form-control"
+                                           th:field="*{contactPerson}" placeholder="Contact Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right">Contact Number </label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="primaryPhoneNo" class="form-control"
+                                           th:field="*{primaryPhoneNo}" placeholder="Contact Number"/>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right">Secondary Phone No.</label>-->
+                                <!--<div class="col-sm-8">-->
+                                    <!--<input type="text" name="secondayPhoneNo" class="form-control"-->
+                                           <!--th:field="*{secondayPhoneNo}" placeholder="Secondary Phone No."/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right">Contact Email Address</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" th:field="*{email}"
+                                           placeholder="Contact Email Address"/>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right">Designation</label>-->
+                                <!--<div class="col-sm-8">-->
+                                    <!--<input type="text" name="designation" class="form-control" th:field="*{designation}"-->
+                                           <!--placeholder="Designation"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-4 custom-form-lebel-right required">Status</label>
+                                <div class="col-sm-8">
+                                    <fieldset id="group1">
+                                        <input type="radio" name="enabled" id="enabled" th:field="*{enabled}"
+                                               th:value="true"> Active</input>
+                                        <input type="radio" name="enabled" id="disabled" th:field="*{enabled}"
+                                               th:value="false"> Inactive </input>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <button type="submit" class="btn btn-info ">Submit</button>
+                            <a type="submit" class="btn btn-danger" href="/branch/list">Cancel</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

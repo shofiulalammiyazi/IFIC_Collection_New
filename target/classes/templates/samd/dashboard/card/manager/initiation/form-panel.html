@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Manager/Admin Dashboard- Card/title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Team Details</a>
+
+									<a  id="team_summary_details" href="#" class="list-group-item" title="Guarantor Information">Summary Details</a>
+									<a id="tab-follow-up" href="#" class="list-group-item" title="Guarantor Information">Team Follow Up</a>
+									<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Team PTP Status</a>
+									<!--<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Payment Details</a>-->
+									<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Monitoring Team Summary</a>
+									<a  id="tab_agency_detail" href="#" class="list-group-item" title="Interest Details">Monitoring Agency Summary </a>
+									<a  id="tab-allocationDetails" href="#" class="list-group-item" title="Allocation Details">Manager Target Details</a>
+									<!--<a  id="tab_agency_detail" href="#" class="list-group-item" title="Letter Information">Agency Details</a>-->
+									<a  id="tab-otherBankInfo" href="#" class="list-group-item" title="Other Bank Information">Work Management</a>
+									<a  id="tab-otherBankInfo" href="#" class="list-group-item" title="Other Bank Information">Secured Card Details</a>
+									<a  id="tab-otherBankInfo" href="#" class="list-group-item" title="Other Bank Information">Other Accounts Details</a>
+									<a  id="tab-otherBankInfo" href="#" class="list-group-item" title="Other Bank Information">Auto Debit Account Balance</a>
+									<!--<a  id="tab-letterInfo" href="#" class="list-group-item" title="Letter Information">Daily Activity Details</a>-->
+									<a  id="tab-letterInfo" href="#" class="list-group-item" title="Letter Information">RFD Details</a>
+									<a  id="tab_resource_details" href="#" class="list-group-item" title="Letter Information">Resource Details</a>
+									<!--<a  id="tab-otherInfo" href="#" class="list-group-item" title="Other Information">Team Queue and Status Summary</a>-->
+									<a  id="tab-otherInfo" href="#" class="list-group-item" title="Other Information">Live Status Report</a>
+									<a  id="tab-ptp" href="#" class="list-group-item" title="PTP">Month wise Allocation Summary</a>
+									<!--<a  id="tab-followUp" href="#" class="list-group-item" title="Follow up">Month wise Performance & Rating Summary</a>-->
+									<!--<a  id="tab-linkministatement" href="#" class="list-group-item" title="Link Account Mini Statement">Product Wise Irregular, PAR, NPL</a>-->
+									<a  id="tab-ptp" href="#" class="list-group-item" title="PTP">Age Code Wise</a>
+									<!--<a  id="tab-linkministatement" href="#" class="list-group-item" title="Link Account Mini Statement">Graph</a>-->
+									<a  id="tab-linkministatement" href="#" class="list-group-item" title="Link Account Mini Statement">Advanced Account Search </a>
+									<a  id="tab-linkministatement" href="#" class="list-group-item" title="Daily Activity & Status Details">Daily Activity & Status Details</a>
+								</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+							</div>
+
+							<!-- TAB CONTENT Details-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/team_details :: team-info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/summary_details :: summary-info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/team_followup :: team-followupdetails"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/ptp_status :: ptpstatus"></div>
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/payment_details :: team-paymentdetail"></div>-->
+								<!--</div>-->
+							<!--</div>-->
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_teamsummary :: team-summary"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_agencysummary :: agencysummary"></div>
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_targetdetails :: targetdetails"></div>
+
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/agency_detail :: agency-details"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_workmanagement :: workmanagement"></div>
+
+								</div>
+
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/secured_card :: securedcard"></div>
+
+								</div>
+
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/other_ac :: othercard"></div>
+
+								</div>
+
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/auto_debit :: autodebit-accountbalance"></div>
+
+								</div>
+
+							</div>
+
+
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/mc_dailyactivitydetails :: dailyactivitydetails"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/shared/common/rfd :: rfd"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/resource_details :: resourcedetails"></div>
+
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/mc_teamstatussummary :: teamstatussummary"></div>-->
+
+								<!--</div>-->
+
+
+
+							<!--</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_livestatusreport :: livestatusreport"></div>
+
+								</div>
+
+
+
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/mc_monthwiseallocationsummery :: monthwiseallocationsummery"></div>
+
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/mc_monthwiseperformancesummery :: monthwiseperformancesummery"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/mc_productwiseirrparnpl :: productwiseirrparnpl"></div>-->
+								<!--</div>-->
+							<!--</div>-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/age_code :: agecodewise"></div>
+
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/card/manager/details/panels/middle/graph :: graph-text"></div>-->
+
+								<!--</div>-->
+							<!--</div>-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/shared/common/search_adv :: search_test"></div>
+
+								</div>
+							</div>
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/card/manager/details/panels/middle/dailyactivity_details :: dailyactivitydetails"></div>
+
+								</div>
+							</div>
+
+
+
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

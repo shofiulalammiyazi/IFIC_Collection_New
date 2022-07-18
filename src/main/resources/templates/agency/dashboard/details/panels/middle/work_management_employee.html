@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Work Management Of Employee</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="work-management-employee">
+    <div class="box-header with-border csi-view-box-header">
+        <h3 class="box-title">Work Management Of Employee</h3>
+    </div>
+    <div class="box-body" id="work-management-employee-id">
+        <table class="table table-bordered custom_dt custom_dt">
+            <thead class="thead-light">
+            <tr>
+                <th class="text-center">Dealer Pin</th>
+                <th class="text-center">Dealer Name</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Last Login Time</th>
+                <th class="text-center">Last Logout Time</th>
+                <th class="text-center">Late Login Reason</th>
+                <th class="text-center">Early Logout Reason</th>
+            </tr>
+            </thead>
+            <tbody class="tbl-row">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        workManagementEmployeeApp = new Vue({
+            el: '#work-management-employee-id',
+            data: {
+                employeeLoginAndLogoutInfo: []
+            }
+        })
+
+        $(document).ready(function () {
+            console.log('fired')
+            $('#tab-work-management-employee').click(function () {
+                $.ajax({
+                    url: '/collection/latereasonexplain/find/by-teamleader',
+                    success: function (response) {
+                        workManagementEmployeeApp.employeeLoginAndLogoutInfo = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+        })
+    </script>
+</div>
+</body>
+</html>

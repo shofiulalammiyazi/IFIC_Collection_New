@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Team Queue and Status Summary</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="team-statusqueue">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Team Queue and Status Summary</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+
+                <label >Outstanding Wise : Total Amount & %</label>
+                <table class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Age Code </th>
+                        <th>Regular</th>
+                        <th>Back</th>
+                        <th>Save/Constant</th>
+                        <th>Flow</th>
+                        <th>Touched</th>
+                        <th>Untouched</th>
+                        <th>PAR saved Amount</th>
+                        <th>NPL Saved Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>2</td>
+                        <td>yes</td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>good</td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>4300</td>
+                        <td>1200</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <label>Outstanding Wise : Total Account & %</label>
+                <table class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Age Code </th>
+                        <th>Regular</th>
+                        <th>Back</th>
+                        <th>Save/Constant</th>
+                        <th>Flow</th>
+                        <th>Touched</th>
+                        <th>Untouched</th>
+                        <th>PAR saved Amount</th>
+                        <th>NPL Saved Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>3</td>
+                        <td>yes</td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>good</td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>9300</td>
+                        <td>1200</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

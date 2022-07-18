@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>CIB Report</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="personal-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Personal Information</h3>
+
+        </div>
+        <div class="box-body" >
+            <form class="form-horizontal csi-view-form">
+                <!--<input class="customer-parent-id" type="hidden" name="customerParentId" id="customerParentId" th:value="${customerParentId}" />
+                <input class="gen-card-id" type="hidden" id="cardId" name="cardId" th:value="${cdi}" />
+                <input class="customer-id" type="hidden" id="personalCustomerId" name="customerId"  th:value="${personalInfo?.customerId}" />
+                <input class="martial-Status" type="hidden" id="martialStatus" name="martialStatus"  th:value="${personalInfo?.martialStatus}" />-->
+                <div class="csi-indi-form-box">
+                    <!--<img src="https://www.w3schools.com/images/w3schools_green.jpg" class="img-thumbnail" alt="What">-->
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left required">Father Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="fatherName" >{{personalInformation.fatherName}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left required"> Mother Name :</label>
+                        <label class="col-sm-3 custom-form-lebel"   id="motherName">{{personalInformation.motherName}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Spouse Name :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="spouseName">{{personalInformation.spouseName}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Spouse Occuption :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="spouseOccuption">{{personalInformation.spouseOccupation}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Passport No. :</label>
+                        <label class="col-sm-3 custom-form-lebel"   id="passportNo">{{personalInformation.passport}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">NID. :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="nid" >{{personalInformation.nid}}</label>
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="email">{{personalInformation.emailAddress1}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">TIN :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="tin">{{personalInformation.tin}}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

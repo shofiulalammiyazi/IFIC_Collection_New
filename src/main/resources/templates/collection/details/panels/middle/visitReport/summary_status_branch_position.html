@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Summary status of the branch position</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="summary-status-branch-position">
+    <div class="csi-view-form-full-area csi-view-indtable" id="summary-status-branch-position">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Summary status of the branch position</h3>
+            <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" data-toggle="modal" data-target="#modal-summary-branch-position" >
+                <i class="fa fa-plus-square"></i>
+                <span v-if="summaryStatusBranchPosition == ''">Add More</span>
+                <span v-else>Edit</span>
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-summary-branch-position"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 70%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <h3 >Summary status of the branch position</h3>
+                            </div>
+
+                            <form  id="Summary-branch-position-form" action="" method="post" class="form-horizontal" >
+                                <input type="hidden" name="id" :value="summaryStatusBranchPosition.id"/>
+                                <input name="_csrf" value="" type="hidden">
+                                <input name="customerId" value="" type="hidden">
+                                <div class="modal-body">
+                                    <div class="box-body">
+                                        <div class="row top-buffer">
+                                            <h4 >Profit</h4>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-1 custom-details-lebel-left"> Target:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="profitTarget" v-model="profitTargetInput"  class="form-control" placeholder="Profit target"></input>
+                                            </div>
+                                            <label class="col-sm-1 custom-details-lebel-left">Achieved:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" name="profitAchieved" v-model="profitAchievedInput"  class="form-control" placeholder="Profit achieved"></input>
+                                            </div>
+                                            <label class="col-sm-1 custom-details-lebel-left ">Gap:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" name="profitGap"  :value="profitGap"  class="form-control" placeholder="Profit Gap"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row top-buffer">
+                                            <h4 >Recovery</h4>
+                                        </div>
+                                        <div class="row top-buffer">
+
+                                            <label class="col-sm-1 custom-details-lebel-left ">Possibility:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" name="recoveryPossibility" v-model="recoveryPossibilityInput"   class="form-control" placeholder="Recovery possibility"></input>
+                                            </div>
+                                            <label class="col-sm-1 custom-details-lebel-left ">Achieved:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" name="recoveryAchieved" v-model="recoveryAchievedInput"   class="form-control" placeholder="Profit achieved"></input>
+                                            </div>
+                                            <label class="col-sm-1 custom-details-lebel-left ">Gap:</label>
+                                            <div class="col-sm-3">
+                                                <input type="number" name="recoveryGap" :value="recoveryGap"  class="form-control" placeholder="Recovery gap"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row top-buffer">
+                                            <h4>Expected impact of recovery</h4>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Interest Suspense:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" name="interestSuspense" :value="summaryStatusBranchPosition.interestSuspense"  class="form-control" placeholder="Interest suspense"></input>
+                                            </div>
+                                            <label class="col-sm-2 custom-details-lebel-left">Interest Income:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" name="interestIncome" :value="summaryStatusBranchPosition.interestIncome"  class="form-control" placeholder="Interest Income"></input>
+                                            </div>
+                                        </div>
+
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Provision Release:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" name="provisionRelease" :value="summaryStatusBranchPosition.provisionRelease"  class="form-control" placeholder="Provision Release"></input>
+                                            </div>
+                                            <label class="col-sm-2 custom-details-lebel-left">NPL Release:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" name="nplRelease" :value="summaryStatusBranchPosition.nplRelease"  class="form-control" placeholder="NPL Release"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer text-center">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div style="overflow: auto; max-height: 400px;">
+                    <table type="datatable-responsive"
+                           class="table table-striped table-bordered table-condensed" width="100%">
+                        <thead>
+                        <th colspan="7" style="text-align: center">Summary status of the branch position</th>
+                        <tr>
+                            <th colspan="3" style="text-align: center">Profit</th>
+                            <th colspan="4" style="text-align: center">Expected impact of recovery</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center">Target</td>
+                            <td style="text-align: center">Achieved</td>
+                            <td style="text-align: center">Gap</td>
+                            <td style="text-align: center" rowspan="2">Interest suspense</td>
+                            <td style="text-align: center" rowspan="2">Interest Income</td>
+                            <td style="text-align: center" rowspan="2">Provision release</td>
+                            <td style="text-align: center" rowspan="2">NPL release</td>
+                        </tr>
+                        <tr>
+                            <td id="profitTerget">{{summaryStatusBranchPosition.profitTarget}}</td>
+                            <td id="profitAchieved">{{summaryStatusBranchPosition.profitAchieved}}</td>
+                            <td id="profitGap">{{summaryStatusBranchPosition.profitGap}}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: center" colspan="3">Recovery</td>
+                            <td style="text-align: center" rowspan="3" id="interest-suspense">{{summaryStatusBranchPosition.interestSuspense}}</td>
+                            <td style="text-align: center" rowspan="3" id="interest-income">{{summaryStatusBranchPosition.interestIncome}}</td>
+                            <td style="text-align: center" rowspan="3" id="provisionRelease">{{summaryStatusBranchPosition.provisionRelease}}</td>
+                            <td style="text-align: center" rowspan="3" id="npl-Release">{{summaryStatusBranchPosition.nplRelease}}</td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: center">Possibility</td>
+                            <td style="text-align: center">Achieved</td>
+                            <td style="text-align: center">Gap</td>
+                        </tr>
+                        <tr>
+                            <td id="recoveryPossibility">{{summaryStatusBranchPosition.recoveryPossibility}}</td>
+                            <td id="recoveryAchieved">{{summaryStatusBranchPosition.recoveryAchieved}}</td>
+                            <td id="recoveryGap">{{summaryStatusBranchPosition.recoveryGap}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+            $('#Summary-branch-position-form input[name="_csrf"]').val(csrfToken);
+            $('#Summary-branch-position-form input[name="customerId"]').val(customerId)
+
+
+            summaryStatusBranchPositionapp = new Vue({
+                el: '#summary-status-branch-position',
+                data: {
+                    summaryStatusBranchPosition : {},
+                    profitTargetInput: '',
+                    profitAchievedInput: '',
+                    recoveryPossibilityInput: '',
+                    recoveryAchievedInput: '',
+                },
+                computed:{
+                    profitGap: function () {
+                        if (this.profitTargetInput != '' && this.profitAchievedInput != '') {
+                            return this.profitTargetInput - this.profitAchievedInput;
+                        }
+                        return '';
+                    },
+                    recoveryGap: function () {
+                        if (this.recoveryPossibilityInput != '' && this.recoveryAchievedInput != '') {
+                            return this.recoveryPossibilityInput - this.recoveryAchievedInput;
+                        }
+                        return '';
+                    }
+                },
+                methods:{
+
+                }
+            })
+
+
+            function loadSummaryStatusBranchPosition(){
+                $.ajax({
+                    url: '/collection/samd/dataEntry/visitReport/summaryStatusBranchPosition/find?customerId='+customerId,
+                    success: function (response) {
+                        summaryStatusBranchPositionapp.summaryStatusBranchPosition = response;
+                        summaryStatusBranchPositionapp.profitTargetInput = response.profitTarget;
+                        summaryStatusBranchPositionapp.profitAchievedInput = response.profitAchieved;
+
+                        console.log('profit acheieved..........................')
+                        console.log(response.profitAchieved)
+
+                        summaryStatusBranchPositionapp.recoveryPossibilityInput = response.recoveryPossibility;
+                        summaryStatusBranchPositionapp.recoveryAchievedInput = response.recoveryAchieved;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful');
+                    }
+                })
+            }
+            loadSummaryStatusBranchPosition();
+
+            $('#Summary-branch-position-form').on('submit', function (e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                $.ajax({
+                    type:'POST',
+                    url: '/collection/samd/dataEntry/visitReport/summaryStatusBranchPosition/save',
+                    data: data,
+                    processData: false,
+                     contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (response, xhr, status) {
+                        $('#modal-summary-branch-position').modal('toggle');
+                        $('#modal-summary-branch-position').find("input:not([type=hidden]), multiselect").val("");
+                        loadSummaryStatusBranchPosition();
+
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            })
+        })
+    </script>
+</div>
+</body>
+
+
+</html>

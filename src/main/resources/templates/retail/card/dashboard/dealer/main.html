@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="retail/shared/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>WELCOME TO COLLECTION MODULE</title>
+    <script type="text/javascript" th:src="@{/js/user_panel.js}"></script>
+</head>
+
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div th:replace="retail/card/dashboard/dealer/details/panels/middle/main :: panel-middle-collection"></div>
+        </section>
+    </div>
+</div>
+</body>
+
+</html>

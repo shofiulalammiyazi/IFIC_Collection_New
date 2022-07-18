@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"/>
+	<title>Location List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box">
+						<div class="box-header with-border" style="text-align: center;">
+							<h3 class="box-title">Location List</h3>
+						</div>
+
+						<div class="box-body">
+							<a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/location/create')}"
+							   th:href="@{/collection/location/create}"><span class="glyphicon glyphicon-plus"> </span> Add Location </a>
+							<table th:if="${locList!=null}" id="example" name="datatable-responsive" class="table table-striped table-bordered table-condensed" width="100%">
+								<thead>
+								<tr>
+									<th style="width:7%">Sl No.</th>
+									<th>SOL ID</th>
+									<th>Location Name</th>
+									<th>Contact Number</th>
+									<th>Contact Address</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="location,status : ${locList}">
+									<td th:text="${status.count}"></td>
+									<td><span th:text="${location.SOLID}"></span></td>
+									<td><span th:text="${location.city}"></span></td>
+									<td><span th:text="${location.contactNo}"></span></td>
+									<td><span th:text="${location.contactAddress}"></span></td>
+									<td>
+										<span th:text="${location.enabled ? 'Active' : 'Inactive'}"></span>
+									</td>
+									<td style="text-align: center">
+										<a class="btn btn-primary btn-xs" th:if="${session.urlList.contains('/collection/location/edit')}" th:href="@{/collection/location/edit(id=${location.id})}"><i class="fa fa-edit"></i>Edit</a>
+										<a class="btn btn-success btn-xs" th:if="${session.urlList.contains('/collection/location/view')}" th:href="@{/collection/location/view(id=${location.id})}"><i class="fa fa-eye"></i>View</a>
+										<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1"/>
+        <title>Send Letter via Email</title>
+    </head>
+<body>
+<div id="layout-cibReport" th:fragment="send-letter-via-email">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Send Letter via Email</h3>
+        </div>
+        <div class="box-body" id="letter-history" >
+            <div class="table-responsive table-striped">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Letter Type</th>
+                            <th>Email</th>
+                            <th>CC</th>
+                            <th>Sent At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="(history, index) in histories">
+                            <td>{{history.letterType}}</td>
+                            <td>{{history.emailTo}}</td>
+                            <td>{{history.emailCC}}</td>
+                            <td>{{history.createdDate | dateFormat}}</td>
+                            <td>
+                                <button class="btn btn-success" @click="previewLetter(index)">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="letter-preview-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div v-html="letter"></div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var customerId = /*[[${customerId}]]*/ '';
+            /*]]>*/
+
+            $('#tab-Send-Letter-via-Email').on('click', function () {
+                letterHistoryApp.getData();
+            })
+        </script>
+
+
+        <script>
+
+            letterHistoryApp = new Vue({
+                el: '#letter-history',
+                data: {
+                    histories: [],
+                    letter: ''
+                },
+                methods: {
+                    getData() {
+                        $.ajax({
+                            url: '/collection/letter-via-email/histories/by-customer-id?customerId='+ customerId,
+                            success: function (response) {
+                                letterHistoryApp.histories = response || [];
+                            }
+                        })
+                    },
+                    previewLetter: function (index) {
+                        this.letter = this.histories[index].emailBody;
+                        $('#letter-preview-modal').modal("toggle");
+                    }
+                },
+                filters: {
+                    dateFormat: function (value) {
+                        var date = new Date(value);
+                        var day = date.getDate();
+                        if (day < 10) day = '0' + day;
+                        return date.getFullYear().toString() + '-' + date.getMonth() + '-' + day;
+                    }
+                }
+            })
+        </script>
+
+    </div>
+    </div>
+</div>
+</body>
+</html>

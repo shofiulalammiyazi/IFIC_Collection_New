@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content" id="customerWiseCourtCaseDetailsId">
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
+                    <!--<div class="box">-->
+                        <!--<div class="box-body">-->
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-3 control-label">Account Number</label>-->
+                                <!--<div class="col-sm-3">-->
+                                    <!--<input type="text" id="courtCaseAccountNumber" name="accountNumber">-->
+                                <!--</div>-->
+                                <!--<button id="searchCourtCaseDetailsId" type="button">Search</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" id="reportTitle" th:text="${reportTitle}" style="font-weight: bold"></div>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="case-position-table" class="table table-striped table-bordered table-condensed">
+                                    <thead>
+                                    <th>SL</th>
+                                    <th>Branch Name</th>
+                                    <th>Nos.of A.R.S</th>
+                                    <th>Artha Rin Related Suit Value</th>
+                                    <th>Nos. of Ex. case</th>
+                                    <th>Exe. Case Related Suit Value</th>
+                                    <th>Total Number of Artharin/Execution Suit</th>
+                                    <th>Total Suit Value</th>
+                                    <th>Nos. of N.I Act.</th>
+                                    <th>Cheque Amount</th>
+                                    <th>Nos of Money suits against Bank</th>
+                                    <th>Amount (Against Bank)</th>
+                                    <th>Number of Writ petition</th>
+                                    <th>Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="summary : ${summaryList}">
+                                            <td th:text="${summary.SL}"></td>
+                                            <td th:text="${summary.branchName}"></td>
+                                            <td th:text="${summary.nosOfARS}"></td>
+                                            <td th:text="${summary.arthaRinRelatedSuitValue}"></td>
+                                            <td th:text="${summary.nosOfExCase}"></td>
+                                            <td th:text="${summary.exeCaseRelatedSuitValue}"></td>
+                                            <td th:text="${summary.totalNumberArtharin}"></td>
+                                            <td th:text="${summary.totalSuitValue}"></td>
+                                            <td th:text="${summary.nosOfNIAct}"></td>
+                                            <td th:text="${summary.chequeAmount}"></td>
+                                            <td th:text="${summary.nosMoneySuitsAgainstBank}"></td>
+                                            <td th:text="${summary.amountAgainstBank}"></td>
+                                            <td th:text="${summary.numberWritPetition}"></td>
+                                            <td th:text="${summary.amount}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<script th:inline="javascript">
+            /*<![CDATA[*/
+            var reportTitle = /*[[${reportTitle}]]*/ [];
+            /*]]>*/
+        </script>
+
+        <script>
+
+            $(document).ready(function () {
+
+                customerWiseCourtCaseDetailsApp = new Vue({
+                    el: '#customerWiseCourtCaseDetailsId',
+                    data: {
+
+                        customerWiseCourtCaseData: {},
+                        customerWiseCourtCaseDataList: [],
+
+                    }
+                })
+
+
+                $('#searchCourtCaseDetailsId').on('click', function() {
+                    console.log('fired&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;');
+                    console.log($('#courtCaseAccountNumber').val());
+
+                    $.ajax({
+                        url: '/legal/report/managerial/customer-wise-court-case-details/find?accountNumber='+$('#courtCaseAccountNumber').val(),
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (response) {
+                            alert('Unsuccessfull')
+                        }
+                    })
+                })
+
+
+            });
+
+        </script>-->
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Business Region Management</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${businessRegion.id == null}" class="box-title">Create Business Region</h3>
+                            <h3 th:if="${businessRegion.id != null}" class="box-title">Update Business Region</h3>
+                        </div>
+
+                        <form class="form-horizontal validate" method="post" th:action="@{/businessRegion/create}" th:object="${businessRegion}">
+                            <div class="box-body">
+                                <input type="hidden" th:field="*{id}">
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required">Location Name</label>
+                                    <div class="col-sm-8">
+                                        <select id="location_id" class="form-control input-sm select2" th:field="*{location}" th:required="true">
+                                            <option th:value=null>Choose Location</option>
+                                            <option th:each="location : ${locationList}" th:value="${location.id}" th:text="${location.city}">Choose One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-4 custom-form-lebel-right required"> Region Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control required" th:field="*{name}" th:required="true"  placeholder="Region Name" />
+                                    </div>
+                                </div>
+
+                                <div th:if="${validationError}!=null"><span class="text-danger" th:text="${validationError}"></span></div>
+
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                <a type="submit" class="btn btn-danger btn-sm" href="/businessRegion/list/">Cancel</a>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

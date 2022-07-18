@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Performance</title>
+</head>
+<body>
+<div class="row" th:fragment="content">
+    <div style="overflow: auto;" id="dealer-wise-follow-up-summary-app">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th class="text-center" rowspan="2">Dealer ID</th>
+                <th class="text-center" rowspan="2">Dealer Name</th>
+                <th class="text-center" colspan="2">Phone</th>
+                <th class="text-center" colspan="2">SMS</th>
+                <th class="text-center" colspan="2">Visit</th>
+                <th class="text-center" colspan="2">Email</th>
+                <th class="text-center" colspan="2">Contacted</th>
+                <th class="text-center" colspan="2">Not Contacted</th>
+            </tr>
+            <tr>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+                <td class="text-center">Account</td>
+                <td class="text-center">Amount</td>
+            </tr>
+            </thead>
+            <tbody class="tbl-row">
+            <tr v-for="followup in dealerWiseFollowUpSummary">
+                <td class="text-right">{{followup.dealerPin}}</td>
+                <td class="text-left">{{followup.dealerName}}</td>
+                <td class="text-right">{{followup.callCount}}</td>
+                <td class="text-right">{{followup.callSum | formatBdtInEnglish}}</td>
+                <td class="text-right">{{followup.smsCount}}</td>
+                <td class="text-right">{{followup.smsSum | formatBdtInEnglish}}</td>
+                <td class="text-right">{{followup.visitCount}}</td>
+                <td class="text-right">{{followup.visitSum | formatBdtInEnglish}}</td>
+                <td class="text-right">{{followup.emailCount}}</td>
+                <td class="text-right">{{followup.emailSum | formatBdtInEnglish}}</td>
+                <td class="text-right">{{followup.contactedCount}}</td>
+                <td class="text-right">{{followup.contactedSum | formatBdtInEnglish}}</td>
+                <td class="text-right">{{followup.notContactedCount}}</td>
+                <td class="text-right">{{followup.notContactedSum | formatBdtInEnglish}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var followUpDetails = new Vue({
+            el: '#dealer-wise-follow-up-summary-app',
+            data: {
+                followUpSummary: [],
+                dealerWiseFollowUpSummary: [],
+            },
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            created() {
+            },
+            filters: {
+                formatBdtInEnglish: function (value) {
+                    return formatBdtInEnglish(value);
+                },
+            },
+            methods: {
+                nameWithPin({dealerPin, dealerName}) {
+                    return `${dealerPin} - ${dealerName}`;
+                },
+                getDealerWiseFollowUpSummary() {
+                    let dealerPinList = followUpTeamSelectionApp.selectedDealerName;
+                    if (!dealerPinList.length) return;
+                    let dealerPins = dealerPinList.join(',');
+                    let url = 'https://' + window.location.host + '/retail/loan/dashboard/dealer-wise-follow-up-summary?dealerPins=' + dealerPins;
+                    this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})
+                        .then(res => {
+                            if (Array.isArray(res.body)) {
+                                this.dealerWiseFollowUpSummary = res.body;
+                            } else {
+                                swal("Something went wrong");
+                            }
+                        }).catch(err => {
+                        console.log(err);
+                    })
+                },
+            }
+        })
+    </script>
+</div>
+</body>
+</html>

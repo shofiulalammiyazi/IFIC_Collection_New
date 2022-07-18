@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Additional Info</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="additional-info-checker">
+    <div class="csi-view-form-full-area csi-view-indtable" id="additional-info-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Additional Information</h3>
+
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade" id="modal-additional-info-view-checker"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Additional Information</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="">
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left ">Occupation :</label>
+                                        <label  class="col-sm-3 custom-form-control" id="addiOccupation">{{additional.occupation}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Organaization Name :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiOrgName">{{additional.orgName}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Contact No :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiContact">{{additional.contactNo}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiEmail">{{additional.email}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Spouse Mobile No :</label>
+                                        <label class="col-sm-3 custom-form-control"id="addiSpousembl" >{{additional.spouseMblNo}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Spouse occupation :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiSpouseOccu">{{additional.spouseOccupation}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Home Address :</label>
+                                        <label class="col-sm-3 custom-form-control"id="addiHomeAddress">{{additional.homeAddress}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Office Address :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiOfficeAddress">{{additional.officeAddress}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiPermanentAddress">{{additional.permanentAddress}}</label>
+                                    </div>
+
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Remarks :</label>
+                                        <label class="col-sm-3 custom-form-control" id="addiRemarks">{{additional.remarks}}</label>
+                                    </div>
+
+                                    <div class="modal-footer text-center">
+                                        <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Div class="form-horizontal csi-view-form">
+                <!--<input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />-->
+                <!--<input type="hidden" name="refId" id="refId" th:value="${refId}"  />-->
+                <!--<input name="_csrf" value="" type="hidden">-->
+                <table name="additional_info" id="addiInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Occupation</th>
+                        <th>Organaization Name</th>
+                        <th>Contact No</th>
+                        <th>Home Address</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="additional in additionalInfos">
+                        <td>{{additional.occupation}}</td>
+                        <td>{{additional.orgName}}</td>
+                        <td>{{additional.contactNo}}</td>
+                        <td>{{additional.homeAddress}}</td>
+                        <td>{{additional.status}}</td>
+                        <td><button class="btn btn-success btn-xs view-addiInfo-entity" id="view-addiInfo-entity" v-bind:data-id="additional.id" data-toggle="modal" data-target="#modal-additional-info-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>
+                            <button v-bind:data-id="additional.id" id="view-addiInfo-approve" class="view-addiInfo-approve btn btn-success btn-xs"><i fa fa-eye></i>Approve</button>
+                            <button v-bind:data-id="additional.id" id="view-addiInfo-reject" class="view-addiInfo-reject btn btn-danger btn-xs"><i fa fa-eye></i>Reject</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var additionalInfos = /*[[${additionalInfos}]]*/ [];
+        console.log(additionalInfos);
+        /*]]>*/
+    </script>
+    <script>
+
+        additionalInfoChecker = new Vue({
+            el: '#additional-info-checker-id',
+            data: {
+                additionalInfos: [],
+                additional: {}
+            },
+            created: function () {
+                this.additionalInfos = Array.isArray(additionalInfos) ? additionalInfos : [];
+            }
+        })
+
+        $(document).ready(function () {
+
+            $('.view-addiInfo-entity').click(function () {
+
+                $.ajax({
+                    url: '/collection/additionalInfo/edit?id='+$(this).data('id'),
+                    success: function (response) {
+                        additionalInfoChecker.additional = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+
+
+            $('.view-addiInfo-approve').click(function () {
+                $.ajax({
+                    url: '/collection/additionalInfo/approve?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('.view-addiInfo-reject').click(function () {
+                $.ajax({
+                    url: '/collection/additionalInfo/reject?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+        })
+
+    </script>
+</div>
+</body>
+</html>

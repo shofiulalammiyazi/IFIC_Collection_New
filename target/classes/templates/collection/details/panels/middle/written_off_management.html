@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Written-Off Management</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="written-off-management">
+    <div class="csi-view-form-full-area csi-view-indtable" id="writtenOffManagement">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Written-Off Management</h3>
+            <a class=" btn btn-xs btn-primary pull-right"  data-toggle="modal"
+               data-target="#modal-written-off-management">
+                <i class="fa fa-plus-square"></i>
+                <span v-if="writtenOfManagement.id == null" id="written-off-management-add">Add</span>
+                <span v-if="writtenOfManagement.id != null" @click="edit" id="written-off-management-edit">Edit</span>
+            </a>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade in" id="modal-written-off-management" data-backdrop="static"
+                     data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                </button>
+                                <h3>Written-Off Management</h3>
+                            </div>
+                            <form id="written-off-management-form" method="post" class="form-horizontal">
+                                <input type="hidden" name="id" :value="writtenOfManagement.id"/>
+                                <input name="_csrf" value="" type="hidden">
+                                <input name="customerId" value="" type="hidden">
+                                <input type="hidden" name="clStatusIds" :value="getSelectedClStatusIds">
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">W-Off Date :</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" :value="formatDateInput(writtenOfManagement.woffDate)"
+                                               name="wOffDate" class="form-control" placeholder="W-Off Date"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">W-Off Interest Suspense
+                                        Amount :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" :value="writtenOfManagement.woffInterestSuspenseAmount"
+                                               name="wOffInterestSuspenseAmount" class="form-control"
+                                               placeholder="W-Off Interest Suspense Amount"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">W-Off Provision Amount
+                                        :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" :value="writtenOfManagement.woffProvisionAmount"
+                                               name="wOffProvisionAmount" class="form-control"
+                                               placeholder="W-Off Provision Amount"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">Previous Month W-Off
+                                        Recovery Amount :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" :value="writtenOfManagement.previousMonthWOffRecoveryAmount"
+                                               name="previousMonthWOffRecoveryAmount" class="form-control"
+                                               placeholder="Previous Month W-Off Recovery Amount"></input>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">Previous Month W-Off
+                                        Recovery Date :</label>
+                                    <div class="col-sm-4">
+                                        <input type="date"
+                                               :value="formatDateInput(writtenOfManagement.previousMonthWOffRecoveryDate)"
+                                               name="previousMonthWOffRecoveryDate" class="form-control"
+                                               placeholder="Previous Month W-Off Recovery Date"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">Current Month W-Off
+                                        Recovery Amount :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" :value="writtenOfManagement.currentMonthWOffRecoveryAmount"
+                                               name="currentMonthWOffRecoveryAmount" class="form-control"
+                                               placeholder="Current Month W-Off Recovery Amount"></input>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">Current Month W-Off
+                                        Recovery Date :</label>
+                                    <div class="col-sm-4">
+                                        <input type="date"
+                                               :value="formatDateInput(writtenOfManagement.currentMonthWOffRecoveryDate)"
+                                               name="currentMonthWOffRecoveryDate" class="form-control"
+                                               placeholder="Current Month W-Off Recovery Date"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">Previous Month Total
+                                        W-Off Recovery Amount :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text"
+                                               :value="writtenOfManagement.previousMonthTotalWOffRecoveryAmount"
+                                               name="previousMonthTotalWOffRecoveryAmount" class="form-control"
+                                               placeholder="Previous Month Total W-Off Recovery Amount"></input>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">Last Month Remaining
+                                        W-Off Outstanding :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text"
+                                               :value="writtenOfManagement.lastMonthRemainingWOffOutstanding"
+                                               name="lastMonthRemainingWOffOutstanding" class="form-control"
+                                               placeholder="Last Month Remaining W-Off Outstanding"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">W-Off Waiver Amount for
+                                        Settlement :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" :value="writtenOfManagement.woffWaiverAmountSettlement"
+                                               name="wOffWaiverAmountSettlement" class="form-control"
+                                               placeholder="W-Off Waiver Amount for Settlement"></input>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-details-lebel-left required">W-Off Waiver Date for
+                                        Settlement :</label>
+                                    <div class="col-sm-4">
+                                        <input type="date"
+                                               :value="formatDateInput(writtenOfManagement.woffWaiverDateSettlement)"
+                                               name="wOffWaiverDateSettlement" class="form-control"
+                                               placeholder="W-Off Waiver Date for Settlement"></input>
+                                    </div>
+                                    <label class="col-sm-2 custom-details-lebel-left required">Previous Month Total
+                                        W-Off Waived Amount :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text"
+                                               :value="writtenOfManagement.previousMonthTotalWOffWaivedAmount"
+                                               name="previousMonthTotalWOffWaivedAmount" class="form-control"
+                                               placeholder="Previous Month Total W-Off Waived Amount"></input>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 custom-form-lebel-right required">CL Status:</label>
+                                    <div class="col-sm-4">
+                                        <multiselect v-model="selectedClStatus" placeholder="select CL Status"
+                                                     label="name" track-by="id" :options="requests"
+                                                     :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                    <label class="col-sm-2 custom-form-lebel-right required">W-Off Account Status :</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="wOffAccountStatus" :value="writtenOfManagement.woffAccountStatus">
+                                            <option>Select a Status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Closed through Partial Waiver">Closed through Partial
+                                                Waiver
+                                            </option>
+                                            <option value="Closed through Recovery">Closed through Recovery</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="submit" id="saveComplain" class="btn btn-info">Save</button>
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-horizontal csi-view-form">
+                <div>
+                    <table class=" table table-striped table-bordered" type="datatable-responsive">
+                        <tbody>
+
+                        <div class="box-body">
+                            <div class="modal-footer text-center">
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left ">W-Off Date :</label>
+                                    <label class="col-sm-3 custom-form-control">{{formatDate(writtenOfManagement.woffDate)}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Current Month W-Off Recovery
+                                        Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.currentMonthWOffRecoveryAmount}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">W-Off Waiver Amount for Settlement
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.woffWaiverAmountSettlement}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">W-Off_ Interest Suspense Amount
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.woffInterestSuspenseAmount}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Current Month W-Off Recovery Date
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{formatDate(writtenOfManagement.currentMonthWOffRecoveryDate)}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">W-Off Waiver Date for Settlement
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{formatDate(writtenOfManagement.woffWaiverDateSettlement)}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">W-Off_ Provision Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.woffProvisionAmount}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Up to Previous Month Total W-Off
+                                        Recovery Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.previousMonthTotalWOffRecoveryAmount}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Up to Previous Month Total W-Off
+                                        Waived Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.previousMonthTotalWOffWaivedAmount}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Total W-Off Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.totalWOffAmount}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Cumulative W-Off Recovery
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.cumulativeWOffRecovery}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Cumulative W-Off Waived Amount
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.cumulativeWOffWaivedAmount}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Previous Month W-Off Recovery
+                                        Amount :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.previousMonthWOffRecoveryAmount}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">Last Month Remaining W-Off
+                                        Outstanding :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.lastMonthRemainingWOffOutstanding}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">CL Status :</label>
+                                    <div class="col-sm-3">
+                                        <label v-for="clStatus in writtenOfManagement.clStatus"
+                                               class=" custom-form-control">{{clStatus.name}}</label>
+                                    </div>
+                                    <label class="col-sm-3 custom-details-lebel-left">Previous Month W-Off Recovery Date
+                                        :</label>
+                                    <label class="col-sm-3 custom-form-control">{{formatDate(writtenOfManagement.previousMonthWOffRecoveryDate)}}</label>
+                                </div>
+                                <div class="form-group row csi-view-form-group">
+                                    <label class="col-sm-3 custom-details-lebel-left">Current Month Remaining W-Off
+                                        Outstanding :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.currentMonthRemainingWOffOutstanding}}</label>
+                                    <label class="col-sm-3 custom-details-lebel-left">W-Off Account Status :</label>
+                                    <label class="col-sm-3 custom-form-control">{{writtenOfManagement.woffAccountStatus}}</label>
+                                </div>
+                                <!--<div class="form-group row csi-view-form-group">-->
+                                <!--<label class="col-sm-3 custom-details-lebel-left">CL Status :</label>-->
+                                <!--<label class="col-sm-3 custom-form-control">{{vehicleRepossession.clstatus.id}}</label>-->
+                                <!--</div>-->
+
+                            </div>
+                        </div>
+
+
+                        <!--<tr>-->
+                        <!--<td>W-Off Date</td>-->
+                        <!--<td>{{formatDate(writtenOfManagement.woffDate)}}</td>-->
+                        <!--<td>Current Month W-Off Recovery Amount</td>-->
+                        <!--<td>{{writtenOfManagement.currentMonthWOffRecoveryAmount}}</td>-->
+                        <!--<td>W-Off Waiver Amount for Settlement</td>-->
+                        <!--<td>{{writtenOfManagement.woffWaiverAmountSettlement}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>W-Off_ Interest Suspense Amount</td>-->
+                        <!--<td>{{writtenOfManagement.woffInterestSuspenseAmount}}</td>-->
+                        <!--<td>Current Month W-Off Recovery Date</td>-->
+                        <!--<td>{{formatDate(writtenOfManagement.currentMonthWOffRecoveryDate)}}</td>-->
+                        <!--<td>W-Off Waiver Date for Settlement</td>-->
+                        <!--<td>{{formatDate(writtenOfManagement.woffWaiverDateSettlement)}}</td>-->
+                        <!--</tr>-->
+
+                        <!--<tr>-->
+                        <!--<td>W-Off_ Provision Amount</td>-->
+                        <!--<td>{{writtenOfManagement.woffProvisionAmount}}</td>-->
+                        <!--<td>Up to Previous Month Total W-Off Recovery Amount</td>-->
+                        <!--<td>{{writtenOfManagement.previousMonthTotalWOffRecoveryAmount}}</td>-->
+                        <!--<td>Up to Previous Month Total W-Off Waived Amount</td>-->
+                        <!--<td>{{writtenOfManagement.previousMonthTotalWOffWaivedAmount}}</td>-->
+                        <!--</tr>-->
+
+                        <!--<tr>-->
+                        <!--<td>Total W-Off Amount</td>-->
+                        <!--<td>{{writtenOfManagement.totalWOffAmount}}</td>-->
+                        <!--<td>Cumulative W-Off Recovery</td>-->
+                        <!--<td>{{writtenOfManagement.cumulativeWOffRecovery}}</td>-->
+                        <!--<td>Cumulative W-Off Waived Amount</td>-->
+                        <!--<td>{{writtenOfManagement.cumulativeWOffWaivedAmount}}</td>-->
+                        <!--</tr>-->
+
+                        <!--<tr>-->
+                        <!--<td>Previous Month W-Off Recovery Amount</td>-->
+                        <!--<td>{{writtenOfManagement.previousMonthWOffRecoveryAmount}}</td>-->
+                        <!--<td>Last Month Remaining W-Off Outstanding</td>-->
+                        <!--<td>{{writtenOfManagement.lastMonthRemainingWOffOutstanding}}</td>-->
+                        <!--<td>CL Status </td>-->
+                        <!--<td>-->
+                        <!--<span v-for="clStatus in writtenOfManagement.clStatus">{{clStatus.name}}</span>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>Previous Month W-Off Recovery Date</td>-->
+                        <!--<td>{{formatDate(writtenOfManagement.previousMonthWOffRecoveryDate)}}</td>-->
+                        <!--<td>Current Month Remaining W-Off Outstanding</td>-->
+                        <!--<td>{{writtenOfManagement.currentMonthRemainingWOffOutstanding}}</td>-->
+                        <!--<td>W-Off Account Status</td>-->
+                        <!--<td>{{writtenOfManagement.woffAccountStatus}}</td>-->
+                        <!--</tr>-->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#written-off-management-form input[name="_csrf"]').val(csrfToken);
+            $('#written-off-management-form input[name="customerId"]').val(customerId)
+
+
+            writtenOffManagementApp = new Vue({
+                el: '#writtenOffManagement',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    requests: [],
+                    selectedClStatus: [],
+
+                    writtenOfManagement: {}
+                },
+                computed: {
+                    getSelectedClStatusIds: function () {
+                        return this.selectedClStatus.map(item => {
+                            return item.id;
+                        });
+                    }
+                },
+                methods: {
+                    formatDateInput: function (date) {
+                        let date1 = date ? new Date(date) : new Date()
+
+                        return date ? date1.getFullYear()
+                            + '-' + ((date1.getMonth() + 1) < 10 ? '0' + (date1.getMonth() + 1) : (date1.getMonth() + 1))
+                            + '-' + (date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate())
+                            : '';
+                    },
+                    formatDate: function (date) {
+                        return formatDate_DD_MMM_YYYY(date)
+                    },
+                    edit: function () {
+                        $.ajax({
+                            url: '/collection/samd/setup/written-off-management/edit?customerId=' + customerId,
+                            success: function (response) {
+                                console.log('fired button');
+                                writtenOffManagementApp.writtenOfManagement = response.writtenOffManagement;
+                                    writtenOffManagementApp.selectedClStatus = response.clStatus == null ? null : response.clStatus;
+                                    console.log('cl status for written off management');
+                                    console.log(response.clStatus);
+                            },
+                            error: function (response) {
+                                alert("Unsuccessful")
+                            }
+                        })
+                    }
+                }
+
+            })
+
+
+            function getWrittenOffManagement() {
+                $.ajax({
+                    url: '/collection/samd/setup/written-off-management/find?customerId=' + customerId,
+                    success: function (response) {
+                        writtenOffManagementApp.writtenOfManagement = response;
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            }
+
+            getWrittenOffManagement();
+
+            function getCLStatusList() {
+                $.ajax({
+                    url: '/collection/samd/setup/written-off-management/cl-status/list',
+                    success: function (response) {
+                        writtenOffManagementApp.requests = response;
+                    },
+                    error: function (response) {
+                        alert("Unsuccessful")
+                    }
+                })
+            }
+
+            getCLStatusList();
+
+            /*function fetchData() {
+                $.getJSON('/collection/customer-complain/list?customerId='+customerId, function (json) {
+                    fileData = json;
+                    var tr = [];
+                    for (var i = 0; i < json.length; i++){
+                        tr.push('<tr>');
+                        tr.push('<td>' + json[i].dealerName + '</td>');
+                        tr.push('<td>' + json[i].mobileNumber + '</td>');
+                        tr.push('<td>' + json[i].complainDetails + '</td>');
+                        tr.push('<td><button id="file-event" data-index = "'+i+'" data-toggle="modal" data-target="#modal-customer-file">' + json[i].fileName + '</button></td>');
+                        tr.push('<td>' + json[i].createdBy + '</td>');
+                        tr.push('</tr>')
+                    }
+                    $('#customerComplainTable').append($(tr.join('')));
+                })
+            }
+
+            fetchData();*/
+
+
+            $('#written-off-management-form').on('submit', function (event) {
+                event.preventDefault();
+                var object = new FormData(this);
+                var formdatalist = $('#written-off-management-form');
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/collection/samd/setup/written-off-management/save",
+                    data: object,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': window.csrfToken,
+                    },
+                    success: function (data) {
+                        swal("Success!", "Complain successfully Saved!", "success");
+                        $("#written-off-management-form")[0].reset();
+                        $('#modal-written-off-management').modal('toggle');
+                        getWrittenOffManagement();
+                        // $('#complainTBody').html("");
+                        // fetchData();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+
+</div>
+
+</body>
+
+
+</html>

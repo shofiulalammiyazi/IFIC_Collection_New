@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Bucket Movement</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="bucket-movement">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Bucket Movement</h3>
+
+        </div>
+        <div class="box-body" id="bucket_movement">
+            <form class="form-horizontal csi-view-form">
+                <table name="letter_info"
+                       class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Transaction Date</th>
+                        <th>Outstanding</th>
+                        <th>Ate</th>
+                        <th>DPD</th>
+                        <th>Bucket</th>
+                        <th>Repayment Amount</th>
+                        <th>OverDue</th>
+                        <th>Asset Classification Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="bucket in bucket_movement_details">
+                        <td>{{profile_information.loanAccStatement.trndate}}</td>
+                        <td>{{profile_information.loanAccStatement.totalOutstanding}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <script th:inline="javascript">
+
+            $("#tab-bucketmovement").click(function (event) {
+                //event.preventDefault();
+                bucket_movement.getBucketMovementHistory();
+            });
+        </script>
+        <script>
+            var bucket_movement = new Vue({
+                el:'#bucket_movement',
+                data:{
+                    bucket_movement_details:{},
+                },
+                filters:{
+                  getAbsoluteValue:function(value){
+                      return value < 0 ? value * -1: value;
+                  }
+                },
+                methods:{
+                    getBucketMovementHistory:function () {
+                        var host = window.location.host;
+                        var url = 'https://'+host+'/api/soap/getBucketMovementHistory?accountNumber='+accountNo;
+                        this.$http.get(url,
+                            {credentials : true, headers:{
+                                    'X-CSRF-TOKEN' : window.csrfToken,
+                                }}).then(res => {
+                            console.log(res);
+                            if(res.body){
+                                this.bucket_movement_details = res.body.history;
+
+                                var map = new Map();
+                                for(var i=0; i<this.bucket_movement_details.length; i++){
+                                    var year = this.bucket_movement_details[i].transactionDate.split('-')[2];
+                                    map.set(year, this.bucket_movement_details[i]);
+                                }
+                                console.log(map);
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+
+            })
+        </script>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

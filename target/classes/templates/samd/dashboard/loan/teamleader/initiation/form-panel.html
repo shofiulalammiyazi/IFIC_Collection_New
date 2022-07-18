@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Team Leader Dashboard- Loan</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<!--<a  id="tab-personalInfo" href="#" class="list-group-item" title="Personal Information">Personal Performance</a>-->
+									<a  id="tab-personalInfo" href="#" class="list-group-item" title="Personal Information">Team Details</a>
+									<!--&lt;!&ndash;<a  id="tab-guarantorInfo" href="#" class="list-group-item" title="Guarantor Information">Team Performance</a>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a  id="tab-guarantorInfo2" href="#" class="list-group-item" title="Guarantor Information">Pending</a>&ndash;&gt;-->
+									<a  id="team_summary_details" href="#" class="list-group-item" title="Guarantor Information">Summary Details</a>
+									<!--&lt;!&ndash;<a  id="tab-accountInfo" href="#" class="list-group-item" title="Account Information">Payment Details</a>&ndash;&gt;-->
+									<a id="tab-ptp-status-summary" href="#" class="list-group-item" title="PTP Status Summary">PTP Status Summary</a>
+									<a id="tab-product-wise-summary" href="#" class="list-group-item" title="Interest Details">Team Target Details  Status</a>
+									<!--&lt;!&ndash;<a  id="tab-allocationDetails" href="#" class="list-group-item" title="Allocation Details">PAR Release Account, NPL Release- Overall summary</a>&ndash;&gt;-->
+									<!--&lt;!&ndash;<a  id="tab-otherInfo" href="#" class="list-group-item" title="Other Information">Daily Performance</a>&ndash;&gt;-->
+									<a href="#" id="tab-follow-up" class="list-group-item" title="Follow Up">Follow Up</a>
+									<!--&lt;!&ndash;<a  id="tab-letterInfo" href="#" class="list-group-item" title="Letter Information">Search Sorting</a>&ndash;&gt;-->
+									<a id="tab_agency_detail" href="#" class="list-group-item" title="Letter Information">Agency Details</a>
+									<a id="tab-followUp" href="#" class="list-group-item" title="Follow up">Work Management</a>
+									<!--&lt;!&ndash;<a  id="tab-diaryNotes" href="#" class="list-group-item" title="Diary Notes">Performance & ESAU Trends</a>&ndash;&gt;-->
+									<a id="tab_rfd_detail" href="#" class="list-group-item" title="PTP">RFD Details</a>
+									<a id="productAndDpd" href="#" class="list-group-item" title="Product Wise Irregular">Product & DPD</a>
+									<!--<a  id="layout-cibReport" href="#" class="list-group-item" title="Product Wise Irregular">Graph</a>-->
+									<a id="advancedAccountSearch" href="#" class="list-group-item" title="Advanced Account Search">Advanced Account Search</a>
+
+								</div>
+							</div>
+							<!--/ Details View -->
+							<!-- /TAB HEAD -->
+
+
+
+							<!-- TAB CONTENT Details-->
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_personalperformance :: tll_personalperformance"></div>-->
+
+								<!--</div>-->
+
+							<!--</div>-->
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/team_details :: team-info"></div>
+								</div>
+
+							</div>
+
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_teamperformancedealer :: tll_teamperformancedealer"></div>&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+							<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+							<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_pending :: tll_pending"></div>&ndash;&gt;-->
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/summary_details :: summary_details"></div>
+
+								</div>
+
+
+
+							</div>
+							<!--&lt;!&ndash;&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_paymentdetails :: tll_paymentdetails"></div>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/tll_ptpstatus :: tll_ptpstatus"></div>
+
+								</div>
+
+
+
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/team_targetdetails :: team-targetdetails"></div>
+
+								</div>
+
+
+
+							</div>
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_test:: tll_test"></div>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_dailyperformance :: tll_dailyperformance"></div>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/tll_followup :: tll_followup"></div>
+
+								</div>
+
+
+
+							</div>
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_searchsorting :: tll_searchsorting"></div>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/agency_details :: agency-details"></div>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/tll_workmanagement :: tll_workmanagement"></div>
+
+								</div>
+							</div>
+
+							<!--&lt;!&ndash;<div class="bhoechie-tab csi-preview-bhoechie-tab">&ndash;&gt;-->
+
+								<!--&lt;!&ndash;<div class="bhoechie-tab-content" >&ndash;&gt;-->
+									<!--&lt;!&ndash;<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_performanceesau :: tll_performanceesau"></div>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/shared/common/rfd :: rfd-details"></div>
+
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/loan/teamleader/details/panels/middle/tll_productwise :: product"></div>
+								</div>
+							</div>
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/loan/teamleader/details/panels/middle/graph :: graph_test"></div>-->
+								<!--</div>-->
+							<!--</div>-->
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+
+								<div class="bhoechie-tab-content" >
+									<div th:replace="samd/dashboard/shared/advance_search :: advanced-account-search"></div>
+
+								</div>
+							</div>
+
+
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

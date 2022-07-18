@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Security</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="security-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Security Details</h3>
+
+        </div>
+        <div class="box-body" id="associated_facility">
+            <form class="form-horizontal csi-view-form">
+                <div class="csi-indi-form-box">
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Alias Name:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding">{{aliasName}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Secured:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding" th:text="${securedcard?.getSecureCheck()}"></label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Account Number:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding" th:text="${securedcard?.getAccountNo()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Lient Amount:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding">{{associated_details.lienAmountAgainstSecuredCard}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">FDR Link Acc:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding">{{associated_details.fdrLinkAccountNo}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left">FDR Maturity Date:</label>
+                        <label class="col-sm-3 custom-form-lebel"  id="moOutstanding">{{associated_details.fdrMaturityDate}}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var accountNo = /*[[${cardAccountBasic.cardNo}]]*/ [];
+
+            /*]]>*/
+            $("#tab-Associated-Facilities").click(function (event) {
+                //event.preventDefault();
+                associated_facilites.getAssociatedFacility(accountNo);
+            });
+        </script>
+        <script>
+            var associated_facilites = new Vue({
+                el:"#associated_facility",
+                data:{
+                    associated_details:"",
+                    aliasName:""
+                },
+                methods:{
+                    getAssociatedFacility:function (accountNo){
+                        this.aliasName = profileInformation.profileInformation.cbaliasname;
+                        var host = window.location.host;
+                        var url = 'https://'+host+'/api/soap/getAssociatedFacilities?accountNumber='+accountNo;
+
+                        this.$http.get(url,
+                            {credentials : true, headers:{
+                                    'X-CSRF-TOKEN' : window.csrfToken,
+                                }}).then(res => {
+                            console.log(res);
+                            if(res.body){
+                                this.associated_details = res.body;
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+            })
+        </script>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Amount Wise</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="account_wise_fragement">
+    <div  id="account_wise_queue_status_summary">
+        <center><h5>Total</h5></center>
+        <table class="table table-condensed table-bordered" style="overflow: auto;width: 100%">
+            <thead >
+            <th class="text-center">Product</th>
+            <th class="text-center">DPD</th>
+            <th class="text-center">Total</th>
+            <th class="text-center">Touched</th>
+            <th class="text-center">Untouched</th>
+            <th class="text-center">Pending</th>
+            <th class="text-center" colspan="4">PAR</th>
+            <th class="text-center" colspan="4">NPL</th>
+            </thead>
+            <tbody id="dass_account_data" class="tbl-row">
+            <tr>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center" id="account_wise_total_total"></td>
+                <td class="text-center" id="account_wise_touched_total"></td>
+                <td class="text-center" id="account_wise_un_touched_total"></td>
+                <td class="text-center" id="account_wise_pending_total"></td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold"title="Queue Next Date">Queue ND</td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+            </tr>
+            <tr v-for="account in accountWiseList">
+                <td>{{account.product}}</td>
+                <td>{{account.dpd}}</td>
+                <td>{{account.totalAccount}}</td>
+                <td>{{account.touchedAccount}}</td>
+                <td>{{account.unTouchedAccount}}</td>
+                <td>{{account.pendingAccount}}</td>
+
+                <td>{{account.parReleaseAccount}}</td>
+                <td>{{account.parRemainingAccount}}</td>
+                <td>{{account.parQueueAccount}}</td>
+                <td>{{account.parQueuendAccount}}</td>
+
+                <td>{{account.nplReleaseAccount}}</td>
+                <td>{{account.nplRemainingAccount}}</td>
+                <td>{{account.nplQueueAccount}}</td>
+                <td>{{account.nplQueuendAccount}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br/>
+    </div>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $("#loanAccWiseDisributiontSummaryTab").click(function (event) {
+                account_wise_queue_status_summary.getAccountWiseData();
+            });
+        });
+    </script>
+    <script>
+        var account_wise_queue_status_summary = new Vue({
+            el:'#account_wise_queue_status_summary',
+            data:{
+                accountWiseList:[],
+            },
+            methods:{
+                getAccountWiseData(){
+                    let userPin= $("#globalUserPinForSummary").val();
+                    let unit=$("#globalUnitForSummary").val();
+                    let designation=$("#globalUserDesignationForSummary").val();
+                    let userId=$("#globalUserIdForSummary").val();
+
+                    var host = window.location.host;
+                    var url = window.location.protocol + "//" + host + "/collection/dashboard/distribution/accountWise?userPin=" + userPin + "&unit=" + unit + "&designation=" + designation + "&userId=" + userId;
+                    this.$http.get(url,
+                        {credentials : true, headers:{
+                                'X-CSRF-TOKEN' : window.csrfToken,
+                            }}).then(res => {
+                        console.log(res);
+                        if(res.body){
+                            this.accountWiseList = res.body;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+
+
+</body>
+
+
+</html>
+

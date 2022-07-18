@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Visit Report</title>
+</head>
+<body>
+<div class="bs-example" th:fragment="monitoring-fololw-tap">
+    <div class="multi-line-broadcom-div">
+        <ul id="info-tabs" class="nav nav-tabs">
+            <li id="tab-Monitoring_Follow_Up"><a data-toggle="tab" href="#Monitoring_Follow_Up" title="Monitoring & Follow Up">Monitoring & Follow Up</a></li>
+            <li id="tab-latest-updated-address"><a data-toggle="tab" href="#latestUpdatedAddress" title="Latest/Updated Address">Latest/Updated Address</a></li>
+
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+
+        <div role="tabpanel1" class="tab-pane top-buffer" id="Monitoring_Follow_Up">
+            <div th:replace="collection/details/panels/middle/monitoringAndFollowUp/monitoring_follow_up :: monitorin-and-follow-up"></div>
+        </div>
+
+        <div role="tabpanel1" class="tab-pane top-buffer" id="latestUpdatedAddress">
+            <div th:replace="collection/details/panels/middle/monitoringAndFollowUp/updated_address :: updated-address"></div>
+        </div>
+
+
+
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle }"></title>
+    <link rel="stylesheet" href="/css/datatables-utils/buttons.dataTables.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-xs-12" id="pending-court-cases-app">
+                    <!--<div class="text-right margin-bottom" v-if="clReport">
+                        <button class="btn btn-primary btn-generate-pdf">
+                            <span>Export to PDF</span>
+                            <span class="glyphicon glyphicon-download-alt" ></span>
+                        </button>
+                        <button class="btn btn-primary btn-generate-excel">
+                            <span>Export to Excel</span>
+                            <span class="glyphicon glyphicon-download-alt" ></span>
+                        </button>
+                    </div>-->
+
+                    <div class="box box-info" id="pdf-box">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" th:text="${reportTitle}"></div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center" id="report-data">
+                                <thead>
+                                    <tr class="hidden">
+                                        <th>SL</th>
+                                        <th>BRANCH_CODE</th>
+                                        <th>BRANCH_NAME</th>
+                                        <th>NOS_OF_ARS</th>
+                                        <th>ARTHARIN_RELATED_SUIT_VALUE</th>
+                                        <th>NOS_OF_EX_CASE</th>
+                                        <th>EXE_CASE_RELATED_SUIT_VALUE</th>
+                                        <th>TOTAL_NUMBER_OF_AE_SUIT</th>
+                                        <th>TOTAL_SUIT_VALUE</th>
+                                        <th>NOS_OF_NI_ACT</th>
+                                        <th>CHEQUE_AMOUNT</th>
+                                        <th>NOS_OF_MONEY_SUITS_AGAINST_BANK</th>
+                                        <th>AMOUNT_AGAINST_BANK</th>
+                                        <th>NUMBER_OF_WRIT_PETITION</th>
+                                        <th>AMOUNT</th>
+                                        <th>REMARK</th>
+                                    </tr>
+                                    <tr>
+                                        <th>SL.</th>
+                                        <th class="text-left">BRANCH CODE</th>
+                                        <th class="text-left">BRANCH NAME</th>
+                                        <th>NOS. OF A.R.S</th>
+                                        <th>ARTHARIN RELATED SUIT VALUE</th>
+                                        <th>NOS. OF EX. CASE</th>
+                                        <th>EXE. CASE RELATED SUIT VALUE</th>
+                                        <th>TOTAL NUMBER OF ARTHARIN/EXECUTION SUIT</th>
+                                        <th>TOTAL SUIT VALUE</th>
+                                        <th>NOS. OF N.I. ACT.</th>
+                                        <th>CHEQUE AMOUNT</th>
+                                        <th>NOS. OF MONEY SUITS AGAINST BANK</th>
+                                        <th>AMOUNT(AGAINST BANK)</th>
+                                        <th>NUMBER OF WRIT PETITION</th>
+                                        <th>AMOUNT</th>
+                                        <th>REMARK</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="case : ${pendingCases}">
+                                        <td th:text="${case.serial}"></td>
+                                        <td th:text="${case.branchCode}" class="text-left"></td>
+                                        <td th:text="${case.branchName}" class="text-left"></td>
+                                        <td th:text="${case.nosOfARS}">14</td>
+                                        <td th:text="${case.artharinRelatedSuitValue}"></td>
+                                        <td th:text="${case.nosOfExCase}"></td>
+                                        <td th:text="${case.exCaseRelatedSuitValue}"></td>
+                                        <td th:text="${case.totalNumberOfArtharinExecutionSuit}"></td>
+                                        <td th:text="${case.totalSuitValue}"></td>
+                                        <td th:text="${case.nosOfNIAct}"></td>
+                                        <td th:text="${case.chequeAmount}"></td>
+                                        <td th:text="${case.nosOfMoneySuitAgainstBank}"></td>
+                                        <td th:text="${case.amountAgainstBank}"></td>
+                                        <td th:text="${case.numberOfWritPetition}"></td>
+                                        <td th:text="${case.amount}"></td>
+                                        <td th:text="${case.remarks}"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="text-bold">
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-left">Total</td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![nosOfARS])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![artharinRelatedSuitValue])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![nosOfExCase])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![exCaseRelatedSuitValue])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![totalNumberOfArtharinExecutionSuit])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![totalSuitValue])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![nosOfNIAct])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![chequeAmount])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![nosOfMoneySuitAgainstBank])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![amountAgainstBank])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![numberOfWritPetition])}"></td>
+                                        <td th:text="${#aggregates.sum(pendingCases.![amount])}"></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('body').delegate('.btn-generate-pdf', 'click', () => {
+                    printElementIncludingStyles('pdf-box')
+                })
+
+                $('body').delegate('.btn-generate-excel', 'click', () => {
+                    let dataSource = shield.DataSource.create({
+                        data: "#report-data",
+                        schema: {
+                            type: "table",
+                            fields: {
+                                "SL" : {type: String},
+                                "BRANCH_CODE" : {type: String},
+                                "BRANCH_NAME" : {type: String},
+                                "NOS_OF_ARS" : {type: String},
+                                "ARTHARIN_RELATED_SUIT_VALUE" : {type: String},
+                                "NOS_OF_EX_CASE" : {type: String},
+                                "EXE_CASE_RELATED_SUIT_VALUE" : {type: String},
+                                "TOTAL_NUMBER_OF_AE_SUIT" : {type: String},
+                                "TOTAL_SUIT_VALUE" : {type: String},
+                                "NOS_OF_NI_ACT" : {type: String},
+                                "CHEQUE_AMOUNT" : {type: String},
+                                "NOS_OF_MONEY_SUITS_AGAINST_BANK" : {type: String},
+                                "AMOUNT_AGAINST_BANK" : {type: String},
+                                "NUMBER_OF_WRIT_PETITION" : {type: String},
+                                "AMOUNT" : {type: String},
+                                "REMARK" : {type: String},
+                            }
+                        }
+                    })
+
+                    dataSource.read().then(function (data) {
+                    new shield.exp.OOXMLWorkbook({
+                        author: "UCBL",
+                        worksheets: [{
+                            name: 'Pending Court Cases Monitoring',
+                            rows: [{
+                                cells: [
+                                    {
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "SL."
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "BRANCH CODE"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "BRANCH NAME"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "NOS. OF A.R.S"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "ARTHARIN RELATED SUIT VALUE"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "NOS. OF EX. CASE"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "EXE. CASE RELATED SUIT VALUE"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "TOTAL NUMBER OF ARTHARIN/EXECUTION SUIT"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "TOTAL SUIT VALUE"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "NOS. OF N.I. ACT."
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "CHEQUE AMOUNT"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "NOS. OF MONEY SUITS AGAINST BANK"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "AMOUNT(AGAINST BANK)"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "NUMBER OF WRIT PETITION"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "AMOUNT"
+                                    },{
+                                        style: {bold: true},
+                                        type: String,
+                                        value: "REMARK"
+                                    }
+
+                                ]
+                            }].concat($.map(data, function (item) {
+                                return {
+                                    cells: [
+                                        {type: String, value: item.SL},
+                                        {type: String, value: item.BRANCH_CODE},
+                                        {type: String, value: item.BRANCH_NAME},
+                                        {type: String, value: item.NOS_OF_ARS},
+                                        {type: String, value: item.ARTHARIN_RELATED_SUIT_VALUE},
+                                        {type: String, value: item.NOS_OF_EX_CASE},
+                                        {type: String, value: item.EXE_CASE_RELATED_SUIT_VALUE},
+                                        {type: String, value: item.TOTAL_NUMBER_OF_AE_SUIT},
+                                        {type: String, value: item.TOTAL_SUIT_VALUE},
+                                        {type: String, value: item.NOS_OF_NI_ACT},
+                                        {type: String, value: item.CHEQUE_AMOUNT},
+                                        {type: String, value: item.NOS_OF_MONEY_SUITS_AGAINST_BANK},
+                                        {type: String, value: item.AMOUNT_AGAINST_BANK},
+                                        {type: String, value: item.NUMBER_OF_WRIT_PETITION},
+                                        {type: String, value: item.AMOUNT},
+                                        {type: String, value: item.REMARK},
+                                    ]
+                                };
+                            }))
+                        }]
+                    }).saveAs({
+                            fileName: 'Pending Court Cases Monitoring'
+                        })
+                    })
+                })
+            </script>
+
+            <style>
+                .text-left {
+                    text-align: left !important;
+                }
+            </style>
+
+            <script>
+                function initTable() {
+                    table = $('#report-data').DataTable( {
+                        dom: 'Bfrtip',
+                        buttons: ['csv', 'excel', 'print']
+                    });
+                }
+
+                $(document).ready(function () {
+                    initTable()
+                })
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

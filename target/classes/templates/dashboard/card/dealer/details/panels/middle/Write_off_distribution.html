@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Write Off Distribution</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="write-off-distribution">
+
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            height: 700px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px 16px;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+
+    <div class="csi-view-form-full-area csi-view-indtable" id="write-off-distribution">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Write Off Distribution</h3>
+
+        </div>
+        <div class="box-body" >
+            <div class="tableFixHead">
+                <table name="letter_info"
+                       class="table table-striped table-bordered sticky-header">
+                    <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account No</th>
+                        <th>Customer Name</th>
+                        <th>No. of Attempt</th>
+                        <th>No. of contact <br> (right party)</th>
+                        <th>No. of contact <br> (Guaranter/third party)</th>
+                        <th>No. of PTP</th>
+                        <th>Broken PTP</th>
+                        <th>Kept PTP</th>
+                        <th>No. of Visit</th>
+                        <th>Followup Date</th>
+                        <th>Bucket</th>
+                        <th>Outstanding</th>
+                        <th>Overdue</th>
+                        <th>EMI</th>
+                        <th>Last Payment amount</th>
+                        <th>Total Payment <br> during the month</th>
+                        <th>Branch Name</th>
+                        <th>Risk Category</th>
+                        <th>Allocation date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(distribution, index) in writeOffDistributionList" :key="index">
+                            <td>{{index+1}}</td>
+                            <td><a :href="'/profile/loanprofile/search?account='+distribution.accountNumber">{{distribution.accountNo}}</a></td>
+                            <td>{{distribution.customerName}}</td>
+                            <td>{{distribution.numberOfContact}}</td>
+                            <td>{{distribution.numberOfRightPartyContact}}</td>
+                            <td>{{distribution.numberOfGuarantorOrThirdPartyContact}}</td>
+                            <td>{{distribution.totalPtp}}</td>
+                            <td>{{distribution.brokenPtp}}</td>
+                            <td>{{distribution.curedPtp}}</td>
+                            <td>{{distribution.numberOfVisit}}</td>
+                            <td>{{distribution.followUpDate}}</td>
+                            <td>{{distribution.dpdBucket}}</td>
+                            <td>{{distribution.outstanding}}</td>
+                            <td>{{distribution.overdueAmount}}</td>
+                            <td>{{distribution.emiAmount}}</td>
+                            <td>{{distribution.lastPayment}}</td>
+                            <td>{{distribution.currentMonthPayment}}</td>
+                            <td>{{distribution.branchName}}</td>
+                            <td>{{distribution.riskCategory}}</td>
+                            <td>{{distribution.allocationDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        accountWriteOffDistributionApp = new Vue({
+            el: '#write-off-distribution',
+            data: {
+                writeOffDistributionList: [],
+            }
+        })
+
+        $(document).ready(function () {
+
+            $('#tab-writeOff-distribution').click(function () {
+                $.ajax({
+                    url: '/retail/loan/data-entry/write-off-account-distribution/write-off-account/distribution/summary',
+                    success: function (response) {
+                        accountWriteOffDistributionApp.writeOffDistributionList = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessfull')
+                    }
+                })
+            })
+        })
+    </script>
+
+
+</div>
+</body>
+
+
+</html>

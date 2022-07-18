@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="retail/shared/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Notifications</title>
+
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+
+    <div class="modal fade" id="modal-followup-today">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-label="Close">
+                        <!--<span aria-hidden="true">&times;</span>-->
+
+                        <i class="fa fa-window-close"></i>
+                    </span>
+                    <h4 class="modal-title">Today's Follow Ups</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <table id="follow-up-today-tbl" class="table table-bordered table-hover" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Account No.</th>
+                                <th>Time</th>
+                                <th>Reasons</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const followupToday = /*[[${followupToday}]]*/ [];
+        /*]]>*/
+
+        if (Array.isArray(followupToday) && followupToday.length) {
+            // Load datatable document script first
+            // let printScripts = [
+            //     '/js/datatable/dataTables.buttons.min.js',
+            //     '/js/datatable/jszip.min.js',
+            //     '/js/datatable/pdfmake.min.js',
+            //     '/js/datatable/vfs_fonts.js',
+            //     '/js/datatable/buttons.html5.min.js'
+            // ];
+            // loadScripts(...printScripts);
+
+            $(document).ready(function () {
+                $('#follow-up-today-tbl').DataTable({
+                    'bInfo': false,
+                    'lengthChange': false,
+                    searching: false,
+                    data: followupToday,
+                    columns:
+                        [
+                            {"data": "accountNo"},
+                            {"data": "time"},
+                            {"data": "reasons"}
+                        ],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            filename: 'today-followup',
+                            title: 'Follow Ups Today'
+                        },{
+                            extend: 'excel',
+                            text: 'Excel',
+                            filename: 'today-followup',
+                            title: 'Follow Ups Today'
+                        }
+                    ]
+                });
+                $('#modal-followup-today').modal('show');
+
+            })
+
+        }
+        //
+        // function loadScripts(...scriptUrlList) {
+        //     let script = {};
+        //     scriptUrlList.forEach(url => {
+        //         let customScript = document.createElement("script");
+        //         customScript.setAttribute("src", url);
+        //         customScript.setAttribute("async", "false");
+        //         document.body.appendChild(customScript);
+        //         script.addEventListener("load", scriptLoaded, false);
+        //         if (url === '/js/datatable/pdfmake.min.js')
+        //             script = customScript;
+        //     });
+        //
+        //     script.addEventListener("load", scriptLoaded, false);
+        // }
+        //
+        // function scriptLoaded() {
+        //
+        //     $(document).ready(function () {
+        //         $('#follow-up-today-tbl').DataTable({
+        //             'bInfo': false,
+        //             'lengthChange': false,
+        //             searching: false,
+        //             data: followupToday,
+        //             columns:
+        //                 [
+        //                     {"data": "accountNo"},
+        //                     {"data": "time"},
+        //                     {"data": "reasons"}
+        //                 ],
+        //             dom: 'Bfrtip',
+        //             buttons: ['excel', 'pdf']
+        //         });
+        //         $('#modal-followup-today').modal('show');
+        //
+        //     })
+        // }
+
+    </script>
+</div>
+
+
+</body>
+</html>

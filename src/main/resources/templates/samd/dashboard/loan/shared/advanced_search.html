@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Advanced Account Search </title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="content">
+    <link rel="stylesheet" href="/css/loader/dots-horizontal-loader.css">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Advanced Account Search </h3>
+
+        </div>
+        <div class="box-body">
+            <section class="content" id="app">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <form class="form-horizontal bg-gray-light" style="padding: 5px;">
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">LD Number</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.ldNumber" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="LD Number" id="ldNumber" name="ldNumber"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Loan Account No.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.loanAccountNo" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Loan Account No." id="loanAccountNo" name="loanAccountNo"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Loan Account Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.loanAccountName" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Loan Account Name" id="loanAccountName" name="loanAccountName"/>
+                                        </div>
+                                    </div>
+
+                                    <!--        2nd block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Case Number</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.caseNumber" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Case Number" id="case_number" name="caseNumber"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Customer ID (CIF) No</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.customerId" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Customer ID (CIF) No" id="customerId" name="customerId"/>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-form-lebel-right">Loan Liability(LLN) No</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.lln" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Loan Liability(LLN) No" id="lln" name="lln"/>
+                                        </div>
+                                    </div>
+
+                                    <!--        3rd block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Lawyer's ID</label>
+                                        <div class="col-sm-2">
+
+                                            <input v-model="advanceSearchPayload.lawyersId" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Lawyer's ID" name="lawyersId" id="lawyers_id"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Lawyer's Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.lawyersName" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Lawyer's Name" id="lawyersName" name="lawyersName"/>
+                                        </div>
+
+                                        <label class="col-sm-2 custom-form-lebel-right">Suite/Case Type</label>
+                                        <div class="col-sm-2">
+                                            <!--<multiselect v-model="advanceSearchPayload.caseTypes"
+                                                         placeholder="Case Type"
+                                                         label="name" track-by="id"
+                                                         :options="caseTypes"
+                                                         :multiple="false" :taggable="true">
+                                            </multiselect>-->
+
+                                            <select v-model="advanceSearchPayload.caseType" class="form-control input-sm">
+                                                 <option v-for="ct in caseType" v-bind:value="ct.id">{{ct.name}}</option>
+                                            </select>
+                                            <!--<input v-model="advanceSearchPayload.caseType" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Suite/Case Type" id="case_type" name="caseType"/>-->
+                                        </div>
+                                    </div>
+
+                                    <!--        4th block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Suite/Case Status</label>
+                                        <div class="col-sm-2">
+
+                                            <!--<input v-model="advanceSearchPayload.caseStatus" type="text"
+                                                   class="form-control input-sm" id="caseStatus"
+                                                   placeholder="Suite/Case Status" name="caseStatus"/>-->
+                                            <select v-model="advanceSearchPayload.caseStatus" class="form-control input-sm">
+                                                <option v-for="cs in caseStatus" v-bind:value="cs.id">{{cs.name}}</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Next Date</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.nextDate" type="text"
+                                                   class="form-control input-sm" id="nextDate"
+                                                   placeholder="Next Date" name="nextDate"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Next Date Status</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.nextDateStatus" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Next Date Status" name="nextDateStatus"/>
+                                        </div>
+                                    </div>
+
+
+                                    <!--        5th block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's Org.</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersOrganization" type="text"
+                                                   class="form-control input-sm" id="borrowersOrganization"
+                                                   placeholder="Borrower's Organization" name="borrowersOrganization"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersName" type="text"
+                                                   class="form-control input-sm" id="borrowersName"
+                                                   placeholder="Borrower's Name" name="borrowersName"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's DOB</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersDob" type="text"
+                                                   class="form-control input-sm" id="borrowersDob"
+                                                   placeholder="Borrower Date Of Birth" name="borrowersDob"/>
+                                        </div>
+
+                                    </div>
+
+                                    <!--        5th block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's DL No</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersDrivingLicense" type="text"
+                                                   class="form-control input-sm" id="borrowersDrivingLicense"
+                                                   placeholder="Borrower's Driving License No" name="borrowersDrivingLicense"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's Mobile No</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersMobileNo" type="text"
+                                                   class="form-control input-sm" id="borrowersMobileNo"
+                                                   placeholder="Borrower's Mobile No" name="borrowersMobileNo"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Existing Case Status</label>
+                                        <div class="col-sm-2">
+                                            <select v-model="advanceSearchPayload.existingCaseStatus" class="form-control input-sm">
+                                                <option v-for="ecs in existingCaseStatus" v-bind:value="ecs.id">{{ecs.name}}</option>
+                                            </select>
+                                            <!--<input v-model="advanceSearchPayload.existingCaseStatus" type="text"
+                                                   class="form-control input-sm" id="existingCaseStatus"
+                                                   placeholder="Existing Case Status" name="existingCaseStatus"/>-->
+                                        </div>
+                                        <!--<label class="col-sm-2 custom-form-lebel-right">Borrower's DOB</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersMobileNo" type="text"
+                                                   class="form-control input-sm" id="borrowersDob"
+                                                   placeholder="Borrower's DOB" name="borrowersDob"/>
+                                        </div>-->
+                                    </div>
+
+                                    <!--        5th block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's Email</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersEmail" type="text"
+                                                   class="form-control input-sm" id="borrowersEmail"
+                                                   placeholder="Borrower's Email" name="borrowersEmail"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's NID</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersNid" type="text"
+                                                   class="form-control input-sm" id="borrowersNid"
+                                                   placeholder="Borrower's NID" name="borrowersNid"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Result of the Case</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.resultOfTheCase" type="text"
+                                                   class="form-control input-sm" id="resultOfTheCase"
+                                                   placeholder="Result of the Case" name="resultOfTheCase"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower's Passport</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersPassport" type="text"
+                                                   class="form-control input-sm" id="borrowersPassport"
+                                                   placeholder="Borrower's Passport" name="borrowersPassport"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Borrower Father's Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.borrowersFathersName" type="text"
+                                                   class="form-control input-sm" id="borrowersFathersName"
+                                                   placeholder="Borrower Father's Name" name="borrowersFathersName"/>
+                                        </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">A/C Status</label>
+                                        <div class="col-sm-2" style="margin-top: 3px;">
+                                            <label>
+
+                                                <input v-model="advanceSearchPayload.active" name="removelines"
+                                                       type="radio"
+                                                       class="cheker" autocomplete="off" :value="'Y'" checked>
+                                                Active
+                                            </label>
+                                            <label>
+
+                                                <input v-model="advanceSearchPayload.active" name="removelines"
+                                                       type="radio"
+                                                       class="cheker" :value="'N'">
+                                                Inactive
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!--        6th block starts        -->
+                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+
+                                    </div>
+                                    <!--        6th block ends        -->
+
+                                    <div class="col-sm-2 col-sm-offset-5" style="margin-top: 20px;margin-right: -31px;">
+                                        <button @click.prevent="searchCustomers()"
+                                                class="btn btn-success btn-sm btn-block pull-right">Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"  v-show="filtered" >
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border" style="text-align: center;">
+                                <h1 class="box-title">
+                                    <span >
+                                        Customer Details
+                                    </span>
+                                </h1>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+
+                                <div v-show="!customers.length && filtered" class="alert alert-danger"
+                                     style="text-align: center">
+                                    No records yet
+                                </div>
+                                <div v-show="!customers.length && loading" class="text-center">
+                                    <div class="dots-horizontal-loader"></div>
+                                </div>
+                                <div style="overflow: auto;" v-show="customers.length">
+                                    <table name="datatable-responsive"
+                                           class="table table-striped table-bordered table-condensed"
+                                           cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th>Client Name</th>
+                                            <th>Scheme Code</th>
+                                            <th>Outstanding Balance</th>
+                                            <th>Link/Proxy Account</th>
+                                            <th>DOB</th>
+                                            <th>Mobile No.</th>
+                                            <th>A/C Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="customer in customers">
+                                            <td>
+                                                <!--<a :href="'/profile/loanprofile/search?account='+ customer.accountNo"-->
+                                                <!--target="_blank">{{customer.accountNo}}</a>-->
+                                            </td>
+                                            <td>{{customer.custNo}}</td>
+                                            <td>{{customer.acDesc}}</td>
+                                            <td>{{customer.dateOfBirth}}</td>
+                                            <td>{{customer.mobileNumber}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <script th:inline="javascript">
+
+                /*<![CDATA[*/
+                var caseType = /*[[${caseTypes}]]*/ [];
+                var caseStatus = /*[[${caseStaus}]]*/ {};
+                var existingCaseStatus = /*[[${caseStaus}]]*/ {};
+                /*]]>*/
+            </script>
+
+            <script>
+                var advancedSearchApp = new Vue({
+                    el: '#app',
+                    components: {
+                        Multiselect: VueMultiselect.default,
+                        //vuejsDatepicker
+                    },
+                    data: {
+                        customers: [],
+                        advanceSearchPayload: {},
+                        caseType: [],
+                        caseStatu: [],
+                        existingCaseStatu: [],
+                        filtered: false,
+                        loading: false,
+                    },
+                    created: function () {
+                        this.caseType = Array.isArray(caseType) ? caseType : [];
+                        this.caseStatus = Array.isArray(caseStatus) ? caseStatus : [];
+                        this.existingCaseStatus = Array.isArray(existingCaseStatus) ? existingCaseStatus : [];
+                    },
+                    methods: {
+                        searchCustomers() {
+                            let vm = this;
+                            let host = window.location.host;
+                            let params = JSON.stringify(this.advanceSearchPayload);
+                            let url = '/collection/samd/advanced-search?payload=' + encodeURIComponent(params);
+
+                            vm.loading = true;
+                            this.$http.get(url,
+                                {
+                                    credentials: true, headers: {
+                                        'X-CSRF-TOKEN': window.csrfToken,
+                                    }
+                                }).then(res => {
+                                vm.loading = false;
+                            if (Array.isArray(res.body)) {
+                                this.filtered = true;
+                                vm.customers = res.body;
+                            } else {
+                                swal('Something went wrong');
+                            }
+                        }).catch(err => {
+                                console.log(err);
+                        })
+
+                        },
+                    }
+                })
+
+                function setPropertyValueFromInput(source) {
+                    advancedSearchApp.advanceSearchPayload[source.name] = source.value;
+                }
+
+            </script>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

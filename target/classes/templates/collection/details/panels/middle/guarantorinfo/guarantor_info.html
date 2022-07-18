@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Guarantor Information</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="guarantor-info">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Guarantor Information</h3>
+            <div>
+                <a id="add-guarantor" class=" btn btn-sm pull-right" data-toggle="modal" data-target="#modal-guarantor-info" >
+                    <i class="fa fa-plus-square"></i>
+                    Add More
+                </a>
+            </div>
+        </div>
+        <div class="box-body" >
+
+            <div class="row">
+                <div class="modal fade" id="modal-guarantor-info"  data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" style="width: 60%">
+                    <div class="modal-content col-sm-12">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" onclick="enableFormAndClearFormData()" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                            <h3 >Guarantor Information</h3>
+                        </div>
+                        <form  id="guarantorInfoSaveForm" action="" method="post" class="form-horizontal"  >
+
+                            <input type="hidden" id="guarantor-id" name="id"/>
+                            <input type="hidden" name="customerBasicInfo" value=""/>
+                            <div class="alert alert-warning hidden" id="guaranto-error-messages"></div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left required">Guarantor's A/C (if any).</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="accountNo" id="guaccNo" class="form-control" placeholder="Account No."></input>
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left">Name</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="name" id="guarantorName" class="form-control" placeholder="Name"></input>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Occupation</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="ocupation" id="guarantor-occupation" name="occupation"></input>
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left ">Company Name</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Company Name" id="guarantor-companyName" name="companyName"></input>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Designation</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Designation" id="guarannntorDesignation" name="designation"></input>
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left">Phone No.</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Phone No." id="guarantorPhone" name="phoneNo"></input>
+                                </div>
+                            </div>
+
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">DOB</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" name="dob" id="guarantor-dob" class="form-control fu2-date"
+                                               placeholder="dd-mm-yyyy" required/>
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left">NID / Passport No.</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Phone No." id="guarantorNid" name="nidOrPassport"></input>
+                                </div>
+                            </div>
+
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Guarantor's Father Name</label>
+
+
+
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Guarantor's Father Name" id="guaranntorFather" name="guarantorFatherName"></input>
+
+
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left">Guarantor' Mother Name</label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Guarantor?s Mother Name" id="guarantorMother" name="guarantorMotherName"></input>
+
+
+                                </div>
+                            </div>
+
+                            <div class="row top-buffer">
+
+                                <label class="col-sm-2 custom-details-lebel-left ">Relationship with Guarantor</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Relationship with Guarantor" id="relGuarantor" name="relationGuarantor"></input>
+                                </div>
+                                <label class="col-sm-2 custom-details-lebel-left">Facility with UCB (Yes/No)</label>
+                                <div class="col-sm-4">
+                                    <select id ="facilityWithUcbl" name="facilityWithUcbl" class="form-control">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Home Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Home Address" id="gurantorHomeAddress" name="homeAddress"></input>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Office Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Office Address" id="guarantor-OfficeAddress" name="officeAddress"></input>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Permanent Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Permanent Address" id="guarantor-PermanentAddress" name="permanentAddress"></input>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-info" id="guarantor-info-save-btn" onclick="guarantorInformationSave()" >Save</button>
+                                <button type="button" id="guarantor-cancel-btn"  class="btn btn-danger" onclick="enableFormAndClearFormData()" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="form-horizontal csi-view-form" id="guarantorInfo">
+                <input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />
+                <input type="hidden" name="refId" id="refId" th:value="${guarId}"  />
+                <input name="_csrf" value="" type="hidden">
+                <input type="hidden" name="customerId" value="">
+                <div id="gurantor_info">
+                    <table name="guarantor_info" id="guarantorInfoTable"
+                           class=" table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Guarantor's Account No. </th>
+                            <th>Name</th>
+                            <th>Phone No</th>
+                            <th>Home Address</th>
+                            <th>Relation</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="guarantorinfo_tBody">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ <script type="text/javascript" th:src="@{/customerprofileloan/guarantorinfo.js}"></script>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Background of the Borrower</title>
+</head>
+<body>
+
+<div id="layout-cibReport" th:fragment="background-borrower">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div id="reportOne">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title">Background of the Borrower</h3>
+                <a class=" btn btn-xs btn-primary pull-right btn-add-customer-request" data-toggle="modal" data-target="#modal-report-one" >
+                    <i class="fa fa-plus-square"></i>
+                    <!--<span v-if="reportOne == ''">Add More</span>-->
+                    <!--<span v-else>Edit</span>-->
+                </a>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="modal fade in" id="modal-report-one"  data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog" style="width: 60%">
+                            <div class="modal-content col-sm-12">
+                                <div class="modal-header">
+                                    <h3 >Background of the Borrower</h3>
+                                </div>
+
+                                <form class="form-horizontal" >
+                                    <!--<input name="_csrf" v-model="csrfToken" type="hidden">-->
+
+                                    <!--<input id="id" name="id" v-model="reportOne.id" type="hidden">-->
+                                    <!--<input name="customerId" v-model="customerId" type="hidden">-->
+                                    <!--<input type="hidden" name="officerMakingVisitIds" v-model="getSelectedOfficer"/>-->
+                                    <!--<input type="hidden" name="representativeBranchIds" v-model="getSelectedRepresentative"/>-->
+
+                                    <div class="modal-body">
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Visit Date:</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" name="visitDate"   class="form-control" placeholder="Visit date"></input>
+                                            </div>
+                                            <label class="col-sm-2 custom-details-lebel-left">Branch Name:</label>
+                                            <div class="col-sm-4">
+                                                <!--<select :value="reportOne.branchName" name="branchName">-->
+                                                <!--<option>Select Branch</option>-->
+                                                <!--<option v-for="branch in branchList" :value="branch.branchName">{{branch.branchName}}</option>-->
+                                                <!--</select>-->
+                                            </div>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Purpose of visit:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="purposeOfVisit"   class="form-control" placeholder="Purpose of visit"></input>
+                                            </div>
+
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Officer(s) Making the Visit:</label>
+                                            <div class="col-sm-4">
+                                                <!--<multiselect v-model="selectedOfficer" placeholder="Officers Making the Visit"-->
+                                                <!--label="pin" track-by="id" :options="employeeList"-->
+                                                <!--:multiple="true" :taggable="true"></multiselect>-->
+                                            </div>
+                                        </div>
+                                        <div class="row top-buffer">
+                                            <label class="col-sm-2 custom-details-lebel-left">Representative from Branch :</label>
+                                            <div class="col-sm-4">
+                                                <!--<multiselect v-model="selectedRepresentative" placeholder="Representative from Branch"-->
+                                                <!--label="pin" track-by="id" :options="employeeList"-->
+                                                <!--:multiple="true" :taggable="true"></multiselect>-->
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer text-center">
+                                        <button type="submit" class="btn btn-info">Save</button>
+                                        <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal csi-view-form">
+                    <div>
+                        <table type="datatable-responsive"
+                               class="table table-striped table-bordered table-condensed" width="100%">
+                            <thead>
+
+                            <th colspan="4" style="text-align: center"><span>Background of the Borrower</span> <br/>
+                            </th>
+                            </thead>
+                            <tbody>
+                                <tr>Background of the borrower</tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+
+</html>

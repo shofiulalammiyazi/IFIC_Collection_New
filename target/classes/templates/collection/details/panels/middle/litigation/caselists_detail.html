@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Lists Detail</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="caselistsdetail">
+    <div id="caseViewApp" class="box box-primary">
+        <div v-if="litigationCaseInfo.id && litigationCaseInfo.ldNo" class="csi-view-form-full-area csi-view-indtable">
+            <div class="box-header with-border csi-view-box-header">
+                <h3 class="box-title">Case Lists Detail</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-horizontal csi-view-form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Case Filed </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.caseFiled.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-3 control-label">Suit/Case Type </label>
+
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.caseType.name}}</label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Ld No </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.ldNo}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Branch Name </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.branchName}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Name of the Account </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.nameOfAcc}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Borrower's Name </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.borrowerName}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Customer's CIF No </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.customerCifNo}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Customer's A/c No </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.customerAccNum}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Business segment </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.businessSegment}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Plaintiff’s Name </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.plaintiffName}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">NI Act Case No </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.niActCaseNo}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Suit Value </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.suitValue}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Case Year </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.caseYear}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Case Number </label>
+                        <div class="col-sm-6 text-danger">
+                            <label>{{litigationCaseInfo.caseNumber}}</label>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var caseViewApp = new Vue({
+            el: "#caseViewApp",
+            data: {
+                litigationCaseInfo: {},
+            },
+            methods: {
+                getModifiedDate: function (date) {
+                    return moment(date).format("DD/MMM/YYYY")
+                },
+            }
+        })
+    </script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Manual Account Write Off</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row" id="manual-account-write-off">
+                <div class="col-md-12">
+                    <div class="box" id="entity-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title"> Manual Account Write Off</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+
+                                <div class="tab-content" style="overflow-y: auto; max-height: 45em">
+                                    <div class="tab-pane active" id="approval">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em" id="manual-account-write-off-table">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Account Name</th>
+                                                    <th class="text-center">Account Status</th>
+                                                    <th class="text-center">Location</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Branch Code</th>
+                                                    <th class="text-center">Dealer Pin</th>
+                                                    <th class="text-center">Dealer Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr th:each="manualAccount: ${manualAccountList}">
+                                                    <td th:text="${manualAccount.accountNumber}"></td>
+                                                    <td th:text="${manualAccount.accountName}"></td>
+                                                    <td th:text="${manualAccount.accountStatus}"></td>
+                                                    <td th:text="${manualAccount.location}"></td>
+                                                    <td th:text="${manualAccount.productCode}"></td>
+                                                    <td th:text="${manualAccount.branchCode}"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <th:block >
+                        <script src="/js/datatable/dataTables.buttons.min.js"></script>
+                        <script src="/js/datatable/jszip.min.js"></script>
+                        <script src="/js/datatable/pdfmake.min.js"></script>
+                        <script src="/js/datatable/vfs_fonts.js"></script>
+                        <script src="/js/datatable/buttons.html5.min.js"></script>
+                        <script src="/js/datatable/buttons.print.min.js"></script>
+                    </th:block>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var loandistributionList  = [[${list}]];
+                        var reportTitle  = [[${reportTitle}]];
+
+                        // console.log(loandistributionList);
+                        /*]]>*/
+                    </script>
+
+                    <script>
+                        manualAccountWriteOffApp = new Vue({
+                            el: '#manual-account-write-off',
+                            data: {
+                                
+                            },
+                            updated: function () {
+                                araExecutionTable.destroy();
+                                manualAccountWriteOff = initTable("#manual-account-write-off-table")
+                            }
+                        })
+
+                        var table;
+                        function initTable(id) {
+                            return $(id).DataTable( {
+                                dom: 'Bfrtip',
+                                buttons: ['excel']
+                            });
+                        }
+
+                        $(document).ready(function () {
+                            manualAccountWriteOff = initTable("#manual-account-write-off-table")
+                        })
+
+                        // $('body').delegate('.btn-generate-pdf', 'click', () => {
+                        //     printElementIncludingStyles('pdf-box')
+                        // })
+                    </script>
+
+
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Agency KPI Target Exception Rules- Card</title>
+</head>
+<body>
+
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Agency KPI Target Exception Rules- Card List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/kpi/card/agency/exception/create}"><span class="glyphicon glyphicon-plus"> </span> Add New Exception</a>
+                            <table th:if="${agencyList!=null}"  style="display: block; overflow: auto" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Product Type</th>
+                                    <th>Status CD</th>
+                                    <th>Dealer Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="temp,status : ${agencyList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td style="display: block">
+                                        <ul style="width:222px; display:block; list-style: none; overflow:auto; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getProductTypeEntityList()}"><span class="label label-success" th:text="${dpd.getName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getStatusCdList()}"><span class="label label-success" th:text="${dpd.getStatuscdName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px; padding: 0px;">
+                                            <li style="display:inline" th:each="dpd : ${temp?.getEmployeeInfoEntityList()}"><span class="label label-success" th:text="${dpd.getUser().getFirstName()}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" th:href="@{/collection/kpi/card/agency/exception/edit(id=${temp.id})}"><i class="fa fa-edit"></i>Edit</a>
+                                        <a class="btn btn-xs btn-success" th:href="@{/collection/kpi/card/agency/exception/view(id=${temp.id})}"><i class="fa fa-eye"></i>View</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

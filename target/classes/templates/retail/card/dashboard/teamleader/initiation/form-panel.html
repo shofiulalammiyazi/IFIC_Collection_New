@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Team Leader Dashboard- Loan</title>
+</head>
+<body>
+
+	<div id="layout-form-panel" class="box box-primary  csi-layout-form-panel-sp" th:fragment="layout-form-panel">
+
+<!-- /.box-header -->
+		<div class="box-body csi-box-body">
+			<section class="content ">
+					<div class="row">
+						<div class="col-md-12">
+							<!-- Details View -->
+							<div class=" bhoechie-tab-menu">
+								<div class="list-group csi-list-group1">
+									<a  id="tab-personalInfo" href="#" class="list-group-item active" title="Team Details">Team Details</a>
+									<a  id="tab-distribution-and-status-summary" href="#" class="list-group-item" title="Team Queue and Status Summary">Team Queue and Status Summary</a>
+									<a  id="tab-follow-up" href="#"  class="list-group-item" title="Team Follow Up Details">Team Follow Up Details</a>
+									<a  id="tab-ptp-status-summary" href="#" class="list-group-item" title="PTP Status Summary">Team PTP Details</a>
+									<a  id="tab-payment-detail" href="#" class="list-group-item" title="Team Payment Details">Team Payment Details</a>
+									<a  id="tab-product_wise_summary" href="#" class="list-group-item" title="Team Target Details  Status">Team KPI Target Details</a>
+									<a  id="tab_agency_detail" href="#" class="list-group-item" title="Agency Details">Agency Details</a>
+									<a  id="tab-followUp" href="#" class="list-group-item" title="Work Management">Work Management</a>
+									<a  id="tab_rfd_detail" href="#" class="list-group-item" title="RFD Details">RFD Details</a>
+									<!--<a  id="layout-cibReport" href="#" class="list-group-item" title="Product & DPD">Product & DPD</a>-->
+									<a  id="layout-cibReport" href="#" class="list-group-item" title="Advanced Account Search">Advanced Account Search</a>
+
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content active" >
+									<div th:replace="dashboard/loan/teamleader/details/panels/middle/team_details :: team-info"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/teamleader/details/panels/middle/summary_details :: summary_details"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="retail/card/dashboard/shared/followup/team-follow-up-details :: content"></div>
+								</div>
+							</div>
+
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="retail/card/dashboard/shared/ptp/team-ptp-details :: content"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="retail/card/dashboard/shared/payment/team-payment-details :: content"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/teamleader/details/panels/middle/team_targetdetails :: team-targetdetails"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/teamleader/details/panels/middle/agency_details :: agency-details"></div>
+								</div>
+							</div>
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="retail/card/dashboard/shared/work_management  :: work-management"></div>
+								</div>
+							</div>
+
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/shared/rfd :: rfd"></div>
+								</div>
+							</div>
+
+
+							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">-->
+								<!--<div class="bhoechie-tab-content" >-->
+									<!--<div th:replace="dashboard/loan/teamleader/details/panels/middle/tll_productwise :: product"></div>-->
+								<!--</div>-->
+							<!--</div>-->
+
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content" >
+									<div th:replace="dashboard/loan/shared/advance_search :: content"></div>
+								</div>
+							</div>
+							<!-- /TAB CONTENT Details-->
+						</div>
+					</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</body>
+</html>

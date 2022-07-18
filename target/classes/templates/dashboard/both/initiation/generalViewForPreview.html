@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>General Info-View</title>
+</head>
+<body>
+<div id="layout-generalPreview" th:fragment="frag-general-view-PreView">
+    <div class="loandetail-area-sp box box-primary">
+        <form method="post" id="generalInfoFormViw">
+            <div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">
+                <div class="loan-init-details-sp-inner">
+
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Employee PIN :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${employee?.getPin()}"></label>
+
+                        <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Employee Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${employee?.getUser()?.getFirstName()}"></label>
+                    </div>
+                    <div class="row csi-view-form-group">
+                       <!-- <label class="col-sm-3 custom-form-lebel" id="accountNo"></label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Team Leader PIN :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Team Leader Name</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getUser()?.getFirstName()}"></label>
+                    </div>
+
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Supervisor PIN</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>
+                        <label class="col-sm-3 custom-details-lebel-left">Supervisor Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getUser()?.getFirstName()}"></label>
+                    </div>
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Login Status : </label>
+                        <label class="col-sm-9 custom-form-lebel">Regular</label>
+                    </div>
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Login Time :</label>
+                        <label class="col-sm-9 custom-form-lebel" th:text="${#dates.format(session.loginTime, 'dd-MMM-yyyy hh:mm')}"></label>
+                    </div>
+                    <div class="row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Current Date :</label>
+                        <label class="col-sm-3 custom-form-lebel" th:text="${#dates.format(loginTime, 'dd-MMM-yyyy')}"></label>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

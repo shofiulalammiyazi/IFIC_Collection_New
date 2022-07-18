@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${reportTitle}"></title>
+    <script src="/js/common.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content-wrapper" id="branchWiseClReportApp">
+        <div class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box" >
+                        <div class="box-body">
+                            <div class="row margin">
+                                <!--<div class="col-sm-4">-->
+                                    <!--<multiselect v-model="selectedRegions" placeholder="Select Regions"-->
+                                                 <!--:options="regions" :show-labels="false" :multiple="true"-->
+                                                 <!--:taggable="true" :close-on-select="false">-->
+                                    <!--</multiselect>-->
+                                <!--</div>-->
+                                <!--<div class="col-sm-4">-->
+                                    <!--<multiselect v-model="selectedDivisions" placeholder="Select Divisions"-->
+                                                 <!--:options="divisions" :show-labels="false" :multiple="true"-->
+                                                 <!--:taggable="true" :close-on-select="false">-->
+                                    <!--</multiselect>-->
+                                <!--</div>-->
+                                <div class="col-sm-5">
+                                    <div>
+                                        Branch Name
+                                    </div>
+                                    <multiselect v-model="selectedBranches" placeholder="Select Branches"
+                                                 label="branchName" track-by="branchCode" :options="branchList"
+                                                 :multiple="true" :taggable="true"
+                                                 :close-on-select="false">
+                                    </multiselect>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="col-sm-1">
+                                    Month :
+                                </div>
+                                <div id="month-picker-container" class="col-sm-4 from-group"
+                                     style="padding-right: 25px;">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input name="month" v-model="month" placeholder="Select month"
+                                               onchange="setObjectPropertyValueFromInputByName(branchWiseClReportAppNk, this)"
+                                               class="form-control input-sm from month-picker" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-sm btn-info pull-right" @click="getbranchClReportData()">
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="print" class="box box-info">
+                        <div class="box-header with-border text-center">
+                            <div class="box-title" id="reportTitle" th:text="${reportTitle}"></div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="branch-wise-cl-report-table"
+                                       class="table table-bordered table-condensed text-center"
+                                       cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th rowspan="2">Branch Name</th>
+                                        <th colspan="2">BL</th>
+                                        <th colspan="2">DF</th>
+                                        <th colspan="2">SS</th>
+                                        <th colspan="2">SMA</th>
+                                        <th colspan="2">UC</th>
+                                        <th colspan="2">TOTAL</th>
+                                        <th colspan="3">CL</th>
+                                    </tr>
+                                    <tr>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>$</td>
+                                        <td>#</td>
+                                        <td>%</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="data in dataList">
+                                            <td>{{data.branch_NAME}}</td>
+                                            <td>{{data.bl_OS}}</td>
+                                            <td>{{data.bl_ACC}}</td>
+                                            <td>{{data.df_OS}}</td>
+                                            <td>{{data.df_ACC}}</td>
+                                            <td>{{data.ss_OS}}</td>
+                                            <td>{{data.ss_ACC}}</td>
+                                            <td>{{data.sma_OS}}</td>
+                                            <td>{{data.sma_ACC}}</td>
+                                            <td>{{data.uc_OS}}</td>
+                                            <td>{{data.uc_ACC}}</td>
+                                            <td>{{data.total_OS}}</td>
+                                            <td>{{data.total_ACC}}</td>
+                                            <td>{{data.cl_OS}}</td>
+                                            <td>{{data.cl_ACC}}</td>
+                                            <td>{{parseFloat(data.cl_PERC).toFixed(2)}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td><b>Grand Total</b></td>
+                                        <!--<td><b>{{total_blos}}</b></td>-->
+                                        <td><b>{{sum_blos(dataList)}}</b></td>
+                                        <td><b>{{sum_blac(dataList)}}</b></td>
+                                        <td><b>{{sum_dfos(dataList)}}</b></td>
+                                        <td><b>{{sum_dfac(dataList)}}</b></td>
+                                        <td><b>{{sum_ssos(dataList)}}</b></td>
+                                        <td><b>{{sum_ssac(dataList)}}</b></td>
+                                        <td><b>{{sum_smaos(dataList)}}</b></td>
+                                        <td><b>{{sum_smaac(dataList)}}</b></td>
+                                        <td><b>{{sum_ucos(dataList)}}</b></td>
+                                        <td><b>{{sum_ucac(dataList)}}</b></td>
+                                        <td><b>{{sum_ttlos(dataList)}}</b></td>
+                                        <td><b>{{sum_ttlac(dataList)}}</b></td>
+                                        <td><b>{{sum_clos(dataList)}}</b></td>
+                                        <td><b>{{sum_clac(dataList)}}</b></td>
+                                        <td></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var reportTitle = /*[[${reportTitle}]]*/ [];
+        var branchList = /*[[${branchList}]]*/ [];
+        var regionList = /*[[${regionList}]]*/ [];
+        var divisionList = /*[[${divisionList}]]*/ [];
+        /*]]>*/
+    </script>
+
+    <script>
+
+        // $('#branch-wise-cl-report-table').DataTable( {
+        //     dom: 'Bfrtip',
+        //     buttons: [
+        //         'copy', 'csv', 'excel', 'pdf', 'print'
+        //     ]
+        // } );
+
+
+        var table;
+        function getExportFileName(){
+            return branchWiseClReportAppNk.reportName;
+        }
+        function initTable() {
+            return $('#branch-wise-cl-report-table').DataTable({
+                ordering: false,
+                paging: true,
+                "info": false,
+                "processing": true,
+                "ajax": null,
+                "columns": [
+                    {"data": "branch_NAME"},
+                    {"data": "bl_OS"},
+                    {"data": "bl_ACC"},
+                    {"data": "df_OS"},
+                    {"data": "df_ACC"},
+                    {"data": "ss_OS"},
+                    {"data": "ss_ACC"},
+                    {"data": "sma_OS"},
+                    {"data": "sma_ACC"},
+                    {"data": "uc_OS"},
+                    {"data": "uc_ACC"},
+                    {"data": "total_OS"},
+                    {"data": "total_ACC"},
+                    {"data": "cl_OS"},
+                    {"data": "cl_ACC"},
+                    {"data": "cl_PERC"},
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        text: 'CSV',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }, {
+                        extend: 'excel',
+                        text: 'Excel',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }, {
+                        extend: 'print',
+                        text: 'Print',
+                        filename: function () {
+                            return getExportFileName();
+                        },
+                        title: function () {
+                            return getExportFileName();
+                        }
+                    }
+
+                ]
+            })
+        }
+
+        var branchWiseClReportAppNk = new Vue({
+            el: "#branchWiseClReportApp",
+            components: {
+                Multiselect: VueMultiselect.default,
+            },
+            data: {
+                month:'',
+                branchList:[],
+                selectedBranches:[],
+                dataList:[],
+                reportName: reportTitle
+            },
+            created: function () {
+                this.branchList = branchList;
+            },
+            // updated: function () {
+            //     // console.log('nk');
+            //     if(!table)
+            //         table = initTable()
+            // },
+            // computed:{
+            //     total_blos: function () {
+            //         if(this.dataList.length)
+            //         return this.dataList.map(item => parseFloat(item.bl_OS)).reduce((a,b) => a+b )
+            //         else return 0;
+            //     },
+            //
+            // },
+
+            methods: {
+
+                getBranchCode(){
+
+                    return this.selectedBranches.map(item => {
+                        return item.branchCode;
+                });
+                },
+
+                //total
+                sum_blos(blos){
+                    let sum=0;
+                    blos.forEach(e => {
+                        sum+= Number(e.bl_OS)
+                    });
+                    return sum;
+                },
+
+                sum_blac(blac){
+                    let sum=0;
+                    blac.forEach(e=>{
+                        sum+=Number(e.bl_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_dfos(dfos){
+                    let sum=0;
+                    dfos.forEach(e=>{
+                        sum+=Number(e.df_OS)
+                    });
+                    return sum;
+                },
+
+                sum_dfac(dfac){
+                    let sum=0;
+                    dfac.forEach(e=>{
+                        sum+=Number(e.df_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_ssos(ssos){
+                    let sum=0;
+                    ssos.forEach(e=>{
+                        sum+=Number(e.ss_OS)
+                    });
+                    return sum;
+                },
+
+                sum_ssac(ssac){
+                    let sum=0;
+                    ssac.forEach(e=>{
+                        sum+=Number(e.ss_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_smaos(smaos){
+                    let sum=0;
+                    smaos.forEach(e=>{
+                        sum+=Number(e.sma_OS)
+                    });
+                    return sum;
+                },
+
+                sum_smaac(smaac){
+                    let sum=0;
+                    smaac.forEach(e=>{
+                        sum+=Number(e.sma_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_ucos(ucos){
+                    let sum=0;
+                    ucos.forEach(e=>{
+                        sum+=Number(e.uc_OS)
+                    });
+                    return sum;
+                },
+
+                sum_ucac(ucac){
+                    let sum=0;
+                    ucac.forEach(e=>{
+                        sum+=Number(e.uc_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_ttlos(ttlos){
+                    let sum=0;
+                    ttlos.forEach(e=>{
+                        sum+=Number(e.total_OS)
+                    });
+                    return sum;
+                },
+
+                sum_ttlac(ttlac){
+                    let sum=0;
+                    ttlac.forEach(e=>{
+                        sum+=Number(e.total_ACC)
+                    });
+                    return sum;
+                },
+
+                sum_clos(clos){
+                    let sum=0;
+                    clos.forEach(e=>{
+                        sum+=Number(e.cl_OS)
+                    });
+                    return sum;
+                },
+
+                sum_clac(clac){
+                    let sum=0;
+                    clac.forEach(e=>{
+                        sum+=Number(e.cl_ACC)
+                    });
+                    return sum;
+                },
+
+
+                getbranchClReportData:function(){
+
+                    this.branchList = Array.isArray(branchList) ? branchList : [];
+
+
+                    $.ajax({
+                        url: '/collection/report/retail/loan/branch-wise-cl/get?date='+this.month +'&branchCode=' +this.getBranchCode(),
+                        type: 'get',
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(response) {
+                            // console.log(JSON.stringify(response));
+                            branchWiseClReportAppNk.dataList = response;
+                            branchWiseClReportAppNk.reportTitle = response.reportTitle;
+
+                            // table.destroy();
+                            // table = undefined;
+
+                        }
+                    })
+                },
+            }
+        });
+
+        $(".month-picker").datepicker({
+            format: "yyyy-mm",
+            minViewMode: 1,
+            container: "#month-picker-container",
+            autoclose: true
+        });
+
+    </script>
+
+</div>
+</body>
+</html>

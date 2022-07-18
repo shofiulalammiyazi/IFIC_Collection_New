@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Waiver/Reversal Facility List</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="content-wrapper">
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box">
+							<div class="box-header with-border" style="text-align: center;">
+								<h3 class="box-title">Waiver/Reversal Facility List</h3>
+							</div>
+
+							<div class="box-body">
+								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/waiver_reversal_facility/create}"><span class="glyphicon glyphicon-plus"> </span> Add Waiver/Reversal Facility</a>
+								<table th:if="${waiverList!=null}" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
+									<thead>
+									<tr>
+										<th>Sl No.</th>
+										<th>Acc No</th>
+										<th>Amount</th>
+										<th>Type</th>
+										<th>Execution Date</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="waiver,status : ${waiverList}">
+										<td th:text="${status.count}"></td>
+										<td><span th:text="${waiver.accNo}"></span></td>
+										<td><span th:text="${waiver.amount}"></span></td>
+										<td><span th:text="${waiver.type}"></span></td>
+										<td>
+											<span th:text="${#dates.format(waiver.effectiveDate, 'dd-MMM-yyyy')}"></span>
+										</td>
+
+										<td>
+											<span th:if="${waiver.enabled == true}" th:text="Active"></span>
+											<span th:if="${waiver.enabled == false}" th:text="Inactive"></span>
+										<td>
+											<a class="btn btn-xs btn-primary" th:href="@{/collection/waiver_reversal_facility/edit(id=${waiver.id})}"><i class="fa fa-edit"></i>Edit</a>
+											<a class="btn btn-xs btn-success" th:href="@{/collection/waiver_reversal_facility/view(id=${waiver.id})}"><i class="fa fa-eye"></i>View</a>
+											<!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>

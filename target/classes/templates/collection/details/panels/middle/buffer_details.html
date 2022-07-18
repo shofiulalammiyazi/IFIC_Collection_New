@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Buffer Details</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="buffer-details">
+    <div class="csi-view-form-full-area csi-view-indtable">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title" >Buffer Details</h3>
+
+        </div>
+        <div class="box-body" id="buffer_details">
+            <form class="form-horizontal csi-view-form">
+
+                <table name="letter_info"
+                       class=" table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Buffer Account No. </th>
+                        <th>Narration</th>
+                        <th>Buffer Amount</th>
+                        <th>Realization Amount</th>
+                        <th>Buffer Remaining Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="buffer in bufferDetails">
+                        <td>{{buffer.bufferAccountNo}}</td>
+                        <td>{{buffer.narration}}</td>
+                        <td>{{buffer.bufferAmount}}</td>
+                        <td>{{buffer.realizationAmount}}</td>
+                        <td>{{buffer.bufferRemainingAmount}}</td>
+                    </tr>
+                    </tbody>
+                    <!--
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">TOTAL</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                    -->
+                </table>
+            </form>
+        </div>
+        <script th:inline="javascript">
+            $("#tab-bufferdetails").click(function (event) {
+                //event.preventDefault();
+                var linkAccount = profile_information.loanAccDetails.sattlementLoanAc != null ? profile_information.loanAccDetails.sattlementLoanAc : 0;
+                buffer_details.getBufferDetails(linkAccount);
+            });
+        </script>
+
+        <script>
+            var buffer_details = new Vue({
+                el:"#buffer_details",
+                data:{
+                    bufferDetails:"",
+                },
+                methods:{
+                    getBufferDetails:function (accountNo){
+                        var host = window.location.host;
+                        var url = 'https://'+host+'/api/soap/getBufferDetails?loanAccountNumber='+accountNo;
+
+                        this.$http.get(url,
+                            {credentials : true, headers:{
+                                    'X-CSRF-TOKEN' : window.csrfToken,
+                                }}).then(res => {
+                            console.log(res);
+                            if(res.body){
+                                this.bufferDetails = res.body.responseDetails
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+            })
+        </script>
+    </div>
+
+
+</div>
+</body>
+
+
+</html>

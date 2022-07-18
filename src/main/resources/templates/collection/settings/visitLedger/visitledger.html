@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Visit Ledger List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Visit Ledger List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/visitledger/create')}"
+                               th:href="@{/collection/visitledger/create}"><span class="glyphicon glyphicon-plus"> </span> Add Visit Ledger </a>
+                            <table th:if="${visitLedgerList!=null}" id="example" class="table table-striped table-hover table-condensed table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>User Name</th>
+                                    <th>Visit Date</th>
+                                    <th>Visit Time</th>
+                                    <th>Account Type</th>
+                                    <th>Account/Card Number</th>
+                                    <th>Location</th>
+                                    <th>Remark</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="visitledger,status : ${visitLedgerList}">
+                                    <td th:text="${status.count}"></td>
+                                    <td><span th:text="${visitledger.name}"></span></td>
+                                    <td><span th:text="${visitledger.dateOfVisit}"></span></td>
+                                    <td><span th:text="${visitledger.visitTime}"></span></td>
+                                    <td><span th:text="${visitledger.productUnit}"></span></td>
+                                    <td><span th:text="${visitledger.accountCardNumber}"></span></td>
+                                    <td><span th:text="${visitledger.location}"></span></td>
+                                    <td><span th:text="${visitledger.remark}"></span></td>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" th:if="${session.urlList.contains('/collection/visitledger/edit')}"
+                                           th:href="@{/collection/visitledger/edit(id=${visitledger.id})}"><i class="fa fa-edit"></i>Edit</a>
+                                        <a class="btn btn-xs btn-success" th:if="${session.urlList.contains('/collection/visitledger/view')}"
+                                           th:href="@{/collection/visitledger/view(id=${visitledger.id})}"><i class="fa fa-eye"></i>View</a>
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="box box-primary csi-preview-box" th:fragment="panel-left-collection-card">
+		<div class="box-header with-border csi-view-plate-title">
+			<h3 class="box-title">Activities</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body csi-box-body-none">
+			<section class="content">
+				<div class="row">
+					<div th:replace="collection/cardprofile/details/panels/left/decision :: decision-collection"></div>
+
+				</div>
+			</section>
+		</div>
+		<!-- /.box-body -->
+
+	</div>
+	<!-- /.box -->
+
+</body>
+</html>

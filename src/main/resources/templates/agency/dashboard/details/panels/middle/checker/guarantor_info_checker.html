@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Guarantor Information</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="guarantor-info-checker">
+    <div class="csi-view-form-full-area csi-view-indtable" id="guarantor-info-checker-id">
+        <div class="box-header with-border csi-view-box-header">
+            <h3 class="box-title">Guarantor Information</h3>
+
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="modal fade" id="modal-guarantor-info-view-checker"  data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" style="width: 60%">
+                        <div class="modal-content col-sm-12">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <!--<span aria-hidden="true">×</span>-->
+                                </button>
+                                <h3 >Guarantor Information</h3>
+                            </div>
+
+                            <div class="box-body">
+
+                                    <!--<button id="cardRefModalSubmitBtn" class="btn btn-info" onclick="guarantorInfoSave()">Save</button>-->
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left ">Account No :</label>
+                                        <label  class="col-sm-3 custom-form-control" id="refeAccountNo">{{guarantorInfoEntity.accountNo}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Name :</label>
+                                        <label class="col-sm-3 custom-form-control" id="refeName">{{guarantorInfoEntity.name}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Occupation :</label>
+                                        <label class="col-sm-3 custom-form-control" id="refeOccupation">{{guarantorInfoEntity.reqThough}}</label>
+                                        <label class="col-sm-3 custom-details-lebel-left">Company Name :</label>
+                                        <label class="col-sm-3 custom-form-control" id="refeCompanyName">{{guarantorInfoEntity.companyName}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Designation :</label>
+                                        <label class="col-sm-3 custom-form-control"id="refeDesignation" >{{guarantorInfoEntity.designation}}</label>
+
+                                        <label class="col-sm-3 custom-details-lebel-left">Phone No :</label>
+                                        <label class="col-sm-3 custom-form-control" id="refePhone">{{guarantorInfoEntity.phoneNo}}</label>
+
+                                    </div>
+                                <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Home Address :</label>
+                                        <label class="col-sm-9 custom-form-control"id="refeHomeAddress">{{guarantorInfoEntity.homeAddress}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Office Address :</label>
+                                        <label class="col-sm-9 custom-form-control" id="refeOfficeAddress">{{guarantorInfoEntity.officeAddress}}</label>
+                                    </div>
+                                <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>
+                                        <label class="col-sm-9 custom-form-control" id="refePermanentAddress">{{guarantorInfoEntity.permanentAddress}}</label>
+                                    </div>
+                                    <div class="form-group row csi-view-form-group">
+                                        <label class="col-sm-3 custom-details-lebel-left">Relationship with Guarantor :</label>
+                                        <label class="col-sm-3 custom-form-control" id="reletionReference">{{guarantorInfoEntity.relationGuarantor}}</label>
+                                    </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" id="cardRefModalCancelBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Div class="form-horizontal csi-view-form">
+                <!--<input class="gen-card-id" type="hidden"  name="cardId" th:value="${cdi}" />-->
+                <!--<input type="hidden" name="refId" id="refId" th:value="${refId}"  />-->
+                <!--<input name="_csrf" value="" type="hidden">-->
+                <table name="guarantor_info" id="guarantorInfoTable"
+                       class=" table table-striped table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Account No. </th>
+                        <th>Name</th>
+                        <th>Phone No</th>
+                        <th>Status</th>
+                        <th style="min-width: 100px">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="guarantor in guarantorInfoEntities">
+                        <td>{{guarantor.accountNo}}</td>
+                        <td>{{guarantor.name}}</td>
+                        <td>{{guarantor.phoneNo}}</td>
+                        <td>{{guarantor.status}}</td>
+                        <td><button class="btn btn-success btn-xs" id="view-guarantor-entity" v-bind:data-id="guarantor.id" data-toggle="modal" data-target="#modal-guarantor-info-view-checker" style="margin-right: 5px"><i fa fa-eye></i>View</button>
+                            <button v-bind:data-id="guarantor.id" id="view-guarantor-approve" class="btn btn-success btn-xs"><i fa fa-eye></i>Approve</button>
+                            <button v-bind:data-id="guarantor.id" id="view-guarantor-reject" class="btn btn-danger btn-xs"><i fa fa-eye></i>Reject</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </Div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var guarantorInfoEntities = /*[[${guarantorInfoEntities}]]*/ [];
+        console.log(guarantorInfoEntities);
+        /*]]>*/
+    </script>
+    <script>
+
+        guarantorInfoChecker = new Vue({
+            el: '#guarantor-info-checker-id',
+            data: {
+                guarantorInfoEntities: [],
+                guarantorInfoEntity: {}
+            },
+            created: function () {
+                this.guarantorInfoEntities = Array.isArray(guarantorInfoEntities) ? guarantorInfoEntities : [];
+            }
+        })
+
+        $(document).ready(function () {
+
+            $('#view-guarantor-entity').click(function () {
+
+                $.ajax({
+                    url: '/customerloanprofile/guarantorinfo/find-by?id='+$(this).data('id'),
+                    success: function (response) {
+                        guarantorInfoChecker.guarantorInfoEntity = response;
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+
+
+            $('#view-guarantor-approve').click(function () {
+                $.ajax({
+                    url: '/customerloanprofile/guarantorinfo/approve-guarantor?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+
+            $('#view-guarantor-reject').click(function () {
+                $.ajax({
+                    url: '/customerloanprofile/guarantorinfo/reject-guarantor?id='+$(this).data('id'),
+                    success: function (response) {
+                        window.location.href = '/';
+                    },
+                    error: function (response) {
+                        alert('Unsuccessful')
+                    }
+                })
+            })
+
+        })
+
+    </script>
+</div>
+</body>
+</html>

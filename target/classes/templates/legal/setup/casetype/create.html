@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="legal/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Case Type</title>
+    <style>
+        .caseTypeDiv {
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${createEditStatus == 'create'}" class="box-title">Create New Nature of Suit</h3>
+                            <h3 th:if="${createEditStatus == 'edit'}" class="box-title">Update Nature of Suit</h3>
+                        </div>
+                        <form class="form-horizontal validate" id="caseTypeForm" method="post"
+                              th:action="@{/legal/setup/caseType/create}"
+                              th:object="${caseTypeWrapper}">
+                            <input type="hidden" th:value="${createEditStatus}" name="createEditStatus"></input>
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case Type</label>
+                                    <div class="col-md-6">
+                                        <select id="caseFile" class="form-control" th:name="caseFiledType"
+                                                onchange="onChangeCaseFile()">
+                                            <option th:if="${createEditStatus}=='create'"
+                                                    th:each="caseFiled:${CaseFiledTypeList}" th:text="${caseFiled.name}"
+                                                    th:value="${caseFiled.id}">
+                                            <option th:if="${createEditStatus}=='edit'"
+                                                    th:each="caseFiled:${CaseFiledTypeList}"
+                                                    th:selected="${caseFiled.id} == ${caseTypeWrapper.caseFiledType.id}"
+                                                    th:value="${caseFiled.id}" th:text="${caseFiled.name}">1
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group"
+                                     th:style="${caseTypeWrapper.caseFiledSubType!=null?'display:block':'display: none'}">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case Sub Type</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" th:if="${createEditStatus}=='edit'"
+                                                th:field="*{caseFiledSubType}" th:id="caseFiledSubTypeId">
+                                            <option th:value="null">Select</option>
+                                            <option th:each="caseFiledSubType:${caseFiledSubTypeList}"
+                                                    th:value="${caseFiledSubType.id}"
+                                                    th:text="${caseFiledSubType.name}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" id="caseFiledSubTypeDiv" style="display:none">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case Filed Sub Type</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" th:if="${createEditStatus}=='create'"
+                                                th:field="*{caseFiledSubType}">
+                                            <option th:value="null">Select</option>
+                                            <option th:each="caseFiledSubType:${caseFiledSubTypeList}"
+                                                    th:value="${caseFiledSubType.id}"
+                                                    th:text="${caseFiledSubType.name}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Case Type Name</label>
+                                    <div class="col-md-6">
+                                        <div class="row" id="caseTypeParentDiv">
+                                            <div  th:each="caseType,stat:${caseTypeWrapper.caseTypeList}" class="caseTypeDiv">
+                                                <div class="col-md-8">
+                                                    <input type="text"  class="form-control"
+                                                           th:field="*{caseTypeList[__${stat.index}__]?.name}"
+                                                           placeholder="Case/Suit Type" th:required="true"/>
+                                                </div>
+                                                <div class="col-md-2" th:if="${stat.index eq 0}">
+                                                    <button type="button" class="btn btn-primary"
+                                                            onclick="addRow()"><span class="fa fa-plus"></span></button>
+                                                </div>
+
+                                                <div class="col-md-2" th:if="${stat.index gt 0}">
+                                                    <button type="button" class="btn btn-danger" onclick="deleteRow(event)">
+                                                        X
+                                                    </button>
+                                                </div>
+                                                <br/><br/>
+                                                <input type="hidden" class="form-control"
+                                                       th:field="*{caseTypeList[__${stat.index}__].id}"
+                                                       placeholder="Case/Suit Type"/>
+
+                                                <!--<label class="col-sm-4 required">Sequence: </label>-->
+                                                <div class="col-sm-7">
+                                                    <input type="number"  name="sequence"
+                                                           class="form-control input-sm required"
+                                                           th:required="true"
+                                                           th:field="*{caseTypeList[__${stat.index}__].sequence}"
+                                                           placeholder="Cronological sequence" min="1"/>
+                                                </div>
+
+                                                <!--<fieldset id="group1" th:each="caseTypeEnum:${caseTypeEnums}"-->
+                                                <!--style="display:inline;margin-left: 2%">-->
+                                                <!--<input type="radio"-->
+                                                <!--th:field="*{caseTypeList[__${stat.index}__].caseTypeEnum}"-->
+                                                <!--th:value="${caseTypeEnum}">-->
+                                                <!--<label th:text="${caseTypeEnum}"></label>-->
+                                                <!--</fieldset>-->
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="submit" class="btn btn-info btn-sm ">Save</button>
+                                <a type="submit" class="btn btn-danger btn-sm"
+                                   href="/legal/setup/caseType/list">Cancel</a>
+                            </div>
+                        </form>
+                        <script th:inline="javascript">
+
+                            // var caseTypeEnums = /*[[${caseTypeEnums}]]*/
+
+
+                            function addRow() {
+                                let index = 0;
+                                index = $(".caseTypeDiv").length;
+                                let row = '' +
+                                    '<div class="caseTypeDiv">' +
+                                    '   <div class="col-md-8">' +
+                                    '       <input type="text"  class="form-control" name="caseTypeList[' + index + '].name" placeholder="Case/Suit Type" required/>' +
+                                    '   </div>' +
+                                    '   <div class="col-md-2">' +
+                                    '       <button type="button" class="btn btn-danger" onclick="deleteRow(event)">' +
+                                    '           X ' +
+                                    '       </button>' +
+                                    '   </div>' +
+                                    '   <input type="hidden" class="form-control" id="caseTypeList' + index + '.caseFiledType" name="caseTypeList[' + index + '].id"  />' +
+                                    '    <div class="col-sm-7">\n' +
+                                    '        <input type="number"  name="sequence" class="form-control input-sm required"\n' +
+                                    '               name="caseTypeList[' + index + '].sequence"\n' +
+                                    '               placeholder="Cronological sequence" min="1"/>\n' +
+                                    '    </div>\n' +
+                                    '</div>';
+
+
+                                // for (let i = 0; i < caseTypeEnums.length; i++) {
+                                //     row = row +
+                                //
+                                //         '                                                        <fieldset id="group1"  style="display:inline;margin-left: 2%">\n' +
+                                //         '                                                              <input type="radio" name="caseTypeList[' + index + '].caseTypeEnum"  value="' + caseTypeEnums[i] + '">\n' +
+                                //         '                                                              <label>' + caseTypeEnums[i] + '</label></fieldset>';
+                                // }
+                                row = row + '</div>';
+
+
+                                $("#caseTypeParentDiv").append(row);
+
+
+                            }
+
+                            function deleteRow(e) {
+
+                                $(e.target.closest('.caseTypeDiv').remove());
+                                var length = $('.caseTypeDiv').length;
+
+                                $('.caseTypeDiv').each(function (i, obj) {
+                                    if (i > 0) {
+                                        let children = $(obj).children();
+                                        console.log(children);
+                                        let input = children[0].children;
+                                        //console.log(input[0].name);
+                                        const name1 = 'caseTypeList[' + i + '].name';
+
+                                        let inputId = children[4].children
+                                        const name2 = 'caseTypeList[' + i + '].id';
+
+                                        input[0].name = name1;
+                                        inputId[1].name = name2;
+
+                                        // for (let j = 5; j < children.length; j++) {
+                                        //     let caseTypeId = children[j].children;
+                                        //
+                                        //     let caseTypeIdName = 'caseTypeList[' + i + '].caseTypeEnum';
+                                        //     console.log(caseTypeId);
+                                        //     caseTypeId[0].name = caseTypeIdName;
+                                        // }
+
+
+                                    }
+                                });
+                            }
+
+                            function onChangeCaseFile() {
+                                //let caseFiledTypeId = document.getElementById("caseFile");
+                                var caseFiledType = $("#caseFile option:selected").text();
+
+                                if (caseFiledType.includes("Supreme Court")) {
+                                    $("#caseFiledSubTypeDiv").show();
+                                    $("#caseFiledSubType").show();
+                                }
+
+
+                                else {
+                                    console.log(caseFiledType);
+                                    $("#caseFiledSubTypeDiv").hide();
+                                    $("#caseFiledSubType").hide();
+                                    $("#caseFiledSubTypeId").val("");
+
+                                }
+                                /*let row = $(".caseTypeDiv").length;
+                                for(let i=0;i<row;i++){
+                                    let id = 'caseTypeList' + i + '.caseFiledType';
+                                    id = document.getElementById(id);
+                                    id.value=caseFiledTypeId;
+
+                                }*/
+                            }
+
+                            $("#caseTypeForm").submit(function (event) {
+
+
+                                var caseFiledType = $("#caseFile option:selected").text();
+                                if (caseFiledType.includes("Supreme Court")) {
+
+                                    if ($("#caseFiledSubType").val() == "") {
+                                        alert("Please select a case filed sub-type.");
+                                        return false;
+                                    }
+
+                                    else {
+
+                                        return true;
+                                    }
+                                }
+                                else {
+                                    return true;
+                                }
+
+
+                            });
+
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

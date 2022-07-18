@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="card/layouts/main/main-layout">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Role-View</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="content">
+		<div class="col-md-offset-3 col-md-6">
+			<!-- Horizontal Form -->
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">View Role</h3>
+					<a th:href="@{/role/list}" type="submit" class="btn btn-primary pull-right">Back to Role List</a>
+				</div>
+				<div></div>
+				<table>
+					<tr>
+
+					</tr>
+				</table>
+					<div class="box-body">
+						<div class="form-group form-group-code">
+							<label class="col-sm-4 control-label">Role Title</label>
+							<div class="col-sm-8 custom-form-control br">
+								<level th:text="${role.name}" ></level>
+							</div>
+						</div>
+						<div class="form-group form-group-code">
+							<label class="col-sm-4 control-label">Description</label>
+							<div class="col-sm-8 custom-form-control br">
+								<level th:text="${role.description}" ></level>
+							</div>
+						</div>
+
+						<!--<div class="form-group form-group-code">-->
+							<!--<label class="col-sm-4 control-label">Users</label>-->
+							<!--<div class="col-sm-7 custom-form-control br" th:each="user:${role.users}">-->
+								<!--<level  th:text="${user.username}" ></level>-->
+							<!--</div>-->
+						<!--</div>-->
+					</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

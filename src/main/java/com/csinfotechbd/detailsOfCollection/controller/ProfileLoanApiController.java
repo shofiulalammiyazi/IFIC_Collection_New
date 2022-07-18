@@ -1,0 +1,120 @@
+package com.csinfotechbd.detailsOfCollection.controller;
+
+
+import com.csinfotechbd.audittrail.AuditTrailService;
+import com.csinfotechbd.collection.accountescalation.*;
+import com.csinfotechbd.collection.allocationLogic.PeopleAllocationLogicInfo;
+import com.csinfotechbd.collection.allocationLogic.PeopleAllocationLogicRepository;
+import com.csinfotechbd.collection.settings.dpdBucket.DPDBucketEntity;
+import com.csinfotechbd.collection.settings.dpdBucket.DpdBucketRepository;
+import com.csinfotechbd.collection.settings.employee.EmployeeInfoEntity;
+import com.csinfotechbd.collection.settings.employee.EmployeeRepository;
+import com.csinfotechbd.collection.settings.productType.ProductTypeEntity;
+import com.csinfotechbd.collection.settings.productType.ProductTypeRepository;
+import com.csinfotechbd.loanApi.model.LoanAccDetails;
+import com.csinfotechbd.loanApi.service.RetailLoanUcbApiService;
+import com.csinfotechbd.user.UserPrincipal;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import sun.misc.Cache;
+
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping(value = "/collection/loan/profile/api")
+public class ProfileLoanApiController {
+
+    private AccountEscalationRepository accountEscalationRepository;
+
+    private PeopleAllocationLogicRepository peopleAllocationLogicRepository;
+
+    private EmployeeRepository employeeRepository;
+
+    private ProductTypeRepository productTypeRepository;
+
+    private DpdBucketRepository dpdBucketRepository;
+
+    private AuditTrailService auditTrailService;
+
+    private RetailLoanUcbApiService apiService;
+
+    private AccountEscalationNoteService accountEscalationNoteService;
+
+    private AccountEscalationService accountEscalationService;
+
+    @GetMapping("/list")
+    public List<AccountEscalation> getAccountEscalation(@RequestParam(value = "cardAccNumber") String cardNumber) {
+        return getByAccountNumberOrderByCreatedDateDesc(cardNumber);
+    }
+
+    @PostMapping("/save")
+    public List<AccountEscalation> setAccountEscalation(@Valid @RequestBody AccountEscalationPayLoad accountEscalationPayLoad) {
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        EmployeeInfoEntity employeeInfoEntity = employeeRepository.findByPin(principal.getUsername());
+        PeopleAllocationLogicInfo peopleAllocationLogicInfo = peopleAllocationLogicRepository.findByDealerAndUnit(employeeInfoEntity, employeeInfoEntity.getUnit());
+
+        LoanAccDetails loanAccDetails = null;
+        try {
+             loanAccDetails = apiService.getLoanAccountDetails(accountEscalationPayLoad.getAccount());
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
+        AccountEscalation accountEscalation = new AccountEscalation();
+        accountEscalation.setAccountNumber(accountEscalationPayLoad.getAccount());
+//        accountEscalation.setNote(accountEscalationPayLoad.getNotes());
+        accountEscalation.setTypeCheck(employeeInfoEntity.getUnit());
+        accountEscalation.setCreatedDate(new Date());
+        accountEscalation.setStatus("Pending");
+        accountEscalation.setFromUserName(principal.getFirstName());
+        accountEscalation.setFromUserPin(principal.getUsername());
+
+        accountEscalation.setBucket(loanAccDetails == null ? null : loanAccDetails.getDpdBucket());
+        accountEscalation.setCreatedBy(principal.getUsername());
+        accountEscalation.setDealerPin(principal.getUsername());
+
+        accountEscalation.setToUserName(peopleAllocationLogicInfo.getTeamlead().getUser().getLastName());
+        accountEscalation.setToUserPin(peopleAllocationLogicInfo.getTeamlead().getPin());
+
+        AccountEscalationHistory accountEscalationHistory = new AccountEscalationHistory();
+        BeanUtils.copyProperties(accountEscalation, accountEscalationHistory);
+
+        AccountEscalation escalation = accountEscalationRepository.save(accountEscalation);
+
+        accountEscalationService.saveHistory(accountEscalationHistory);
+
+        AccountEscalationNote accountEscalationNote = new AccountEscalationNote();
+        accountEscalationNote.setNote(accountEscalationPayLoad.getNotes());
+        accountEscalationNote.setStatus("DealerNote");
+        accountEscalationNote.setAccountEscalation(escalation);
+        accountEscalationNoteService.save(accountEscalationNote);
+
+        auditTrailService.saveCreatedData("Account Escalation", accountEscalation);
+
+        return getByAccountNumberOrderByCreatedDateDesc(accountEscalationPayLoad.getAccount());
+    }
+
+    public List<AccountEscalation> getByAccountNumberOrderByCreatedDateDesc(String cardNumber) {
+        System.out.println("test");
+        return accountEscalationRepository.findByAccountNumberOrderByCreatedDateDesc(cardNumber);
+    }
+
+    @GetMapping("/productdetails")
+    public ProductTypeEntity getProductDetails(@RequestParam(value = "schemecode") String schemeCode) {
+        return productTypeRepository.findByCode(schemeCode);
+    }
+
+    @GetMapping("/dpdbucket")
+    public DPDBucketEntity getDpdBucketEntity(@RequestParam(value = "dpd") String dpd) {
+        DPDBucketEntity dpdBucket = dpdBucketRepository
+                .findFirstByMinDpdLessThanEqualAndMaxDpdGreaterThanEqual(
+                        Double.parseDouble(dpd), Double.parseDouble(dpd));
+        return dpdBucket;
+    }
+}

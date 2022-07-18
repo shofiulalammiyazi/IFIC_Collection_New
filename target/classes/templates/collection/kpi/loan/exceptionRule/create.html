@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title> Target Exception Rule-Loan </title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${exceptionRuleLoan.id == null}" class="box-title">Create Target Exception Rule-Loan</h3>
+                            <h3 th:if="${exceptionRuleLoan.id != null}" class="box-title">Update Target Exception Rule-Loan</h3>
+                        </div>
+
+                        <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/kpi/loan/exceptionRule/create}" th:object="${exceptionRuleLoan}">
+                            <input type="hidden" th:field="*{id}"></input>
+                            <input type="hidden" th:field="*{productTypeIds}" v-model="getSelectedProductTypeId"></input>
+                            <input type="hidden" th:field="*{sectorGroupIds}" v-model="getSelectedSectorGroupId"></input>
+                            <input type="hidden" th:field="*{zoneIds}" v-model="getSelectedZoneId"></input>
+                            <input type="hidden" th:field="*{locationIds}" v-model="getSelectedLocationId"></input>
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Product Type</label>
+                                    <div class="col-sm-6">
+                                        <multiselect  v-model="selectedProductType" placeholder="Search a Product Type" label="name" track-by="id"  :options="productTypeOption" :multiple="true" :taggable="true" th:required="true"></multiselect>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary btn-sm" style="padding: 10px;" @click.prevent="selectAllProduct">All Product</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Sector Group</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedSectorGroup" placeholder="Search a Sector Group" label="name" track-by="id"  :options="sectorGroupOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">OutStanding Amount (%):</label>
+
+                                    <div class="col-sm-4">
+                                        <input name="maxAmount" type="text" id="maxAmount" th:field="*{maxAmount}" onkeyup="javascript:checkNumber2('maxAmount');" class="form-control required" placeholder="Max Amount" th:required="true"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input name="minAmount" type="text" id="minAmount" th:field="*{minAmount}" onkeyup="javascript:checkNumber2('minAmount');" class="form-control required " placeholder="Min Amount" th:required="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Zone</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedZone" placeholder="Search a Zone" label="name" track-by="id"  :options="zoneOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Location</label>
+                                    <div class="col-sm-8">
+                                        <multiselect  v-model="selectedLocation" placeholder="Search a Location" label="city" track-by="id"  :options="locationOption" :multiple="true" :taggable="true"></multiselect>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label required">Status</label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <input  type="radio" name="enabled" id="enabled" th:checked="${exceptionRuleLoan.enabled ==true}"  th:value="true"> Active</input>
+                                            <input type="radio"  name="enabled" id="enabled" th:checked="${exceptionRuleLoan.enabled ==false}" th:value="false"> Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-group" th:if="${exceptionRuleLoan?.modifiedDate != null}">
+                                    <label  class="col-sm-4 custom-form-lebel-right">Last Modeified Date:</label>
+                                    <div class="col-sm-8">
+                                        <label name="modifiedDate"  th:text="${#dates.format(exceptionRuleLoan?.modifiedDate, 'dd-MMM-yyyy HH:mm')}"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group" th:if="${exceptionRuleLoan?.modifiedBy != null}">
+                                    <label  class="col-sm-4 custom-form-lebel-right">Last Modeified By:</label>
+                                    <div class="col-sm-8">
+                                        <label name="modifiedBy"  th:text="${exceptionRuleLoan?.modifiedBy}"></label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                <button type="submit" th:if="${exceptionRuleLoan?.id != null}" class="btn btn-info btn-sm">Update</button>
+                                <button type="submit" th:if="${exceptionRuleLoan?.id == null}" class="btn btn-info btn-sm">Submit</button>
+                                <a type="submit" class="btn btn-danger" href="/collection/kpi/loan/exceptionRule/list">Cancel</a>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var productTypeList = /*[[${productTypeList}]]*/ || [];
+                            var selectedProductTypeList = /*[[${selectedProductTypeList}]]*/ || [];
+                            var sectorGroupList = /*[[${sectorGroupList}]]*/ || [];
+                            var selectedSectorGroupList = /*[[${selectedSectorGroupList}]]*/ || [];
+                            var zoneList = /*[[${zoneList}]]*/ || [];
+                            var selectedZoneList = /*[[${selectedZoneList}]]*/ || [];
+                            var locationList = /*[[${locationList}]]*/ || [];
+                            var selectedLocationList = /*[[${selectedLocationList}]]*/ || [];
+                            /*]]>*/
+                        </script>
+                        <script>
+                            new Vue({
+                                el: '#app',
+                                components:{
+                                    Multiselect: VueMultiselect.default
+                                },
+                                data:{
+                                    productTypeOption:[],
+                                    selectedProductType:[],
+                                    sectorGroupOption:[],
+                                    selectedSectorGroup:[],
+                                    zoneOption:[],
+                                    selectedZone:[],
+                                    locationOption:[],
+                                    selectedLocation:[],
+
+                                },
+                                methods:{
+                                    selectAllProduct:function () {
+                                        this.selectedProductType = [];
+                                        this.selectedProductType = this.productTypeOption;
+                                    }
+                                },
+                                created: function () {
+                                    this.productTypeOption = JSON.parse(productTypeList) ? JSON.parse(productTypeList) : [];
+                                    this.selectedProductType = JSON.parse(selectedProductTypeList) ? JSON.parse(selectedProductTypeList) : [];
+                                    this.sectorGroupOption = JSON.parse(sectorGroupList) ? JSON.parse(sectorGroupList) : [];
+                                    this.selectedSectorGroup = JSON.parse(selectedSectorGroupList) ? JSON.parse(selectedSectorGroupList) : [];
+                                    this.zoneOption = JSON.parse(zoneList) ? JSON.parse(zoneList) : [];
+                                    this.selectedZone = JSON.parse(selectedZoneList) ? JSON.parse(selectedZoneList) : [];
+                                    this.locationOption = JSON.parse(locationList) ? JSON.parse(locationList) : [];
+                                    this.selectedLocation = JSON.parse(selectedLocationList) ? JSON.parse(selectedLocationList) : [];
+                                },
+                                computed:{
+                                    getSelectedProductTypeId: function () {
+                                        return this.selectedProductType.map(productType => { return productType.id});
+                                    },
+                                    getSelectedSectorGroupId: function () {
+                                        return this.selectedSectorGroup.map(sectorGroup => { return sectorGroup.id});
+                                    },
+                                    getSelectedZoneId: function () {
+                                        return this.selectedZone.map(zone => { return zone.id});
+                                    },
+                                    getSelectedLocationId: function () {
+                                        return this.selectedLocation.map(location => { return location.id});
+                                    },
+                                },
+                            })
+                        </script>
+                        <style>
+                            .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+                                font-size: 13px;
+                            }
+                            .multiselect__tag{
+                                font-size: 12px;
+                            }
+                            select {
+                                -webkit-appearance: menulist;
+                            }
+
+                        </style>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

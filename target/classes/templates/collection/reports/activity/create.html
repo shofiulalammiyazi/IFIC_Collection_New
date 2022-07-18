@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://schemas.xmlsoap.org/wsdl/"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Activity Report</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Activity Report
+			</h1>
+		</section>
+
+		<!-- Main content -->
+		<section class="content" id="app">
+			<div class="row">
+				<div class="col-xs-12">
+
+					<!-- .box -->
+					<div class="box box-info">
+						<div class="box-header with-border">
+
+						</div>
+						<!-- Horizontal Form -->
+						<form class="form-horizontal" method="post" id="rfdscarch"  action="/rfd/report/search">
+							<div class="box-body">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Date range</label>
+
+									<div class="col-sm-4 input-group" style="padding-right: 13px;padding-left: 13px;">
+										<div class=" input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" name="daterange" class="form-control pull-right activityDate" id="reservation">
+									</div>
+
+								</div>
+
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer">
+								<!--<button type="submit" class="btn btn-default pull-right">Search </button>-->
+								<button type="button" class="btn btn-info pull-right" onclick="activitySearch()">Search</button>
+							</div>
+							<!-- /.box-footer -->
+						</form>
+						<button  style="border-radius: 0; margin-bottom: 2px;float: right" id="exportActivityXl" class="btn btn-primary clearfix"><span class="glyphicon glyphicon-save"></span> Export to Excel</button>
+						<button  style="border-radius: 0; margin-bottom: 2px;float: right" id="exportActivitypdf" class="btn btn-primary clearfix"><span class="glyphicon glyphicon-save"></span> Export to Pdf</button>
+
+					</div>
+					<!-- /.box -->
+				</div>
+				</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<!-- /.box-header -->
+						<div class="box-body">
+							<!--{ "cardNo": "123456", "clientName": "Dewan", "outstandingBalance": "4000", "autoDebitAccount": "1314253535", "dob": "10-04-1990", "mobileNo": "01763546474", "cardStatus": "Active" }-->
+							<table id="example" name="datatable-responsive"
+								   class="table table-striped table-bordered table-condensed"
+								   cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>NO</th>
+										<th>Ptp</th>
+										<th>Dairynote</th>
+										<th>Dailynote</th>
+										<th>Hotnote</th>
+										<th>Followup</th>
+										<th>Unit</th>
+
+									</tr>
+								</thead>
+								<tbody id="activitySrcBody">
+
+									</tr>
+								</tbody>
+
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script  type="text/javascript">
+            jQuery(function ($) {
+                $("#exportActivityXl").click(function () {
+                    // parse the HTML table element having an id=exportTable
+                    var clientDbServer2DataSource = shield.DataSource.create({
+                        data: "#example",
+                        schema: {
+                            type: "table",
+                            fields: {
+                                ID: { type: String },
+                                Name: { type: String },
+                                NO: { type: String },
+                                Ptp: { type: String},
+                                Dairynote:   { type: String },
+                                Dailynote:   { type: String },
+                                Hotnote:   { type: String },
+                                Followup:   { type: String },
+                                Unit:   { type: String },
+                            }
+                        }
+                    });
+
+                    // when parsing is done, export the data to Excel
+                    clientDbServer2DataSource.read().then(function (data) {
+                        console.log(data);
+                        new shield.exp.OOXMLWorkbook({
+                            author: "PrepBootstrap",
+                            worksheets: [
+                                {
+                                    name: "PrepBootstrap Table",
+                                    rows: [
+                                        {
+                                            cells: [
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "ID"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "NO"
+                                                }, {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Name"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "NO"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Ptp"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Dairynote"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Dailynote"
+                                                }, {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Hotnote"
+                                                },
+                                                {
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Followup"
+                                                },{
+                                                    style: {
+                                                        bold: true
+                                                    },
+                                                    type: String,
+                                                    value: "Unit"
+                                                },
+
+                                            ]
+                                        }
+                                    ].concat($.map(data, function(item) {
+                                        return {
+                                            cells: [
+                                                { type: String, value: item.ID },
+                                                { type: String, value: item.Name},
+                                                { type: String, value: item.No },
+                                                { type: String, value: item.Ptp },
+                                                { type: String, value: item.Dairynote },
+                                                { type: String, value: item.Dailynote },
+                                                { type: String, value: item.Hotnote },
+                                                { type: String, value: item.Followup },
+                                                { type: String, value: item.Unit },
+
+
+                                            ]
+                                        };
+                                    }))
+                                }
+                            ]
+                        }).saveAs({
+                            fileName: "Activity"
+                        });
+                    });
+                });
+            });
+
+
+
+            jQuery(function ($) {
+                $("#exportActivitypdf").click(function () {
+
+                    // parse the HTML table element having an id=exportTable
+                    var clientDbServer2DataSource = shield.DataSource.create({
+                        data: "#example",
+                        schema: {
+                            type: "table",
+                            fields: {
+                                ID: { type: String },
+                                Name: { type: String },
+                                NO: { type: String },
+                                Ptp: { type: String},
+                                Dairynote:   { type: String },
+                                Dailynote:   { type: String },
+                                Hotnote:   { type: String },
+                                Followup:   { type: String },
+                                Unit:   { type: String },
+                            }
+                        }
+                    });
+
+                    // when parsing is done, export the data to PDF
+                    clientDbServer2DataSource.read().then(function (data) {
+                        var pdf = new shield.exp.PDFDocument({
+                            author: "PrepBootstrap",
+                            created: new Date(),
+                            fontSize:8,
+                        });
+
+                        pdf.addPage("a4", "portrait");
+
+                        pdf.table(
+                            50,
+                            50,
+                            data,
+                            [
+                                { field: "ID", title: "ID", width: 50 },
+                                { field: "Name", title: "Name", width: 100 },
+                                { field: "NO", title: "NO", width: 50 },
+                                { field: "Ptp", title: "Ptp", width: 50 },
+                                { field: "Dairynote", title: "Dairynote", width: 45 },
+                                { field: "Dailynote", title: "Dailynote", width: 45 },
+                                { field: "Hotnote", title: "Hotnote", width: 45 },
+                                { field: "Followup", title: "Followup", width: 45 },
+                                { field: "Unit", title: "Unit", width: 40 },
+
+                            ],
+                            {
+                                margins: {
+                                    top: 50,
+                                    left: 50,
+                                    right:50,
+                                    bottom:50
+                                }
+                            }
+                        );
+
+                        pdf.saveAs({
+                            fileName: "ActivityPDF"
+                        });
+                    });
+                });
+            });
+		</script>
+	</div>
+
+</div>
+</body>
+</html>

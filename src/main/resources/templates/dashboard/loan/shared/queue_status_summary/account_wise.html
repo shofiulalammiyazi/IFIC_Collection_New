@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Amount Wise</title>
+</head>
+<body>
+<div id="layout-cibReport" th:fragment="account_wise_fragement">
+    <center><h5>Total</h5></center>
+    <div class="table-responsive" id="loan_account_wise_queue_status_summary">
+        <table class="table table-condensed table-bordered">
+            <thead class="thead-light">
+            <th class="text-center">Product</th>
+            <th class="text-center">Bucket</th>
+            <th class="text-center">Total</th>
+            <th class="text-center">Attempt</th>
+            <th class="text-center">Unattempt</th>
+            <th class="text-center">PTP Taken</th>
+            <th class="text-center">PTP Not Taken</th>
+            <th class="text-center">Kept From Taken PTP</th>
+            <th class="text-center">Broken From Taken PTP</th>
+            <th class="text-center" colspan="4">PAR</th>
+            <th class="text-center" colspan="4">NPL</th>
+            </thead>
+            <tbody id="dass_account_data" class="tbl-row">
+            <tr>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center" id="account_wise_total_total"></td>
+                <td class="text-center" id="account_wise_touched_total"></td>
+                <td class="text-center" id="account_wise_un_touched_total"></td>
+                <td class="text-center" id="account_wise_pending_total"></td>
+                <td class="text-center" id="ptp_not_taken"></td>
+                <td class="text-center" id="kept_from_taken"></td>
+                <td class="text-center" id="broken_from_kept"></td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+                <td class="text-center text-bold">Release</td>
+                <td class="text-center text-bold">Remaining</td>
+                <td class="text-center text-bold">Queue</td>
+                <td class="text-center text-bold" title="Queue Next Date">Queue ND</td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td id="parReleaseTotal"></td>
+                    <td id="parRemainingTotal"></td>
+                    <td id="parQueueTotal"></td>
+                    <td></td>
+                    <td id="nplReleaseTotal"></td>
+                    <td id="nplRemainingTotal"></td>
+                    <td id="nplQueueTotal"></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <br/>
+    </div>
+</div>
+
+
+</body>
+
+
+</html>
+
