@@ -1,0 +1,4 @@
+package com.unisoft.reports.retail.loan.bucketMovementReport;
+
+public interface BucketMovementReportRepository {
+}

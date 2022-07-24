@@ -1,0 +1,11 @@
+package com.unisoft.collection.samd.setup.capableInfluenceCustomerBankDue;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CapableInfluenceCustomerBankDueRepository extends JpaRepository<CapableInfluenceCustomerBankDue, Long> {
+
+
+    CapableInfluenceCustomerBankDue findCapableInfluenceCustomerBankDueById(Long id);
+}
