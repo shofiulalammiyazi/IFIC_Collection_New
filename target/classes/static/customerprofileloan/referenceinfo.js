@@ -1,6 +1,4 @@
-//Setu Bishwas, Nabil (On 25th August,2019)
-//Updated by Abu Salek Shaon,  (On 10th april,2021)
-//Updated by tajkia
+
 var globalRow;
 var refrencenode;
 

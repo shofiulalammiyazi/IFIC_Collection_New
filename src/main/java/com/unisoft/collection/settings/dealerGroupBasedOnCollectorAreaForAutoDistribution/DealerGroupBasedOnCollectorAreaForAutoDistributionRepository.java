@@ -1,0 +1,8 @@
+package com.unisoft.collection.settings.dealerGroupBasedOnCollectorAreaForAutoDistribution;
+
+import com.unisoft.common.CommonRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DealerGroupBasedOnCollectorAreaForAutoDistributionRepository extends CommonRepository<DealerGroupBasedOnCollectorAreaForAutoDistribution> {
+}

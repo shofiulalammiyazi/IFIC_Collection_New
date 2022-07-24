@@ -13,48 +13,9 @@
                     }
                 </style>
                 <section class="sidebar">
-                    <!--<section class="sidebar"-->
-                    <!--th:with="isLoan=${#strings.contains(employee?.unit, 'Loan')},-->
-                    <!--isCard=${#strings.contains(employee?.unit, 'Card')},-->
-                    <!--isLegal=${#strings.contains(employee?.unit, 'Legal')}">-->
 
                     <ul class="sidebar-menu" data-widget="tree">
-                        <!--Base-->
-                        <!--<li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-home"></i> <span>Home</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                                <li class="treeview">
-                                    <a href="#"><i class="fa fa-circle-o"></i> Level One
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                                        <li class="treeview">
-                                            <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                            </ul>
-                        </li>-->
 
-                        <!--Home-->
 
                         <li class="tab">
                             <a href="/">
@@ -76,122 +37,7 @@
                             <ul class="treeview-menu">
 
 
-                                <!--Distribution-->
-                                <!--<li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-share-alt"></i>
-                                        Distribution
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/distribution/wirteoff/list')}"
-                                               class="tab" th:href="@{/collection/distribution/wirteoff/list}">Write Off
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/collection/distribution/wirteoff/create')}"
-                                                    th:href="@{/collection/distribution/wirteoff/create}">Write Off Excel
-                                                Upload
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/collection/autodistribution')}"
-                                                    th:href="@{/collection/autodistribution}">Auto Distribution</a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:href="@{/collection/distribution/samaccount/cardlist}">SAM Card</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/collection/distribution/samaccount/loanlist')}"
-                                                    th:href="@{/collection/distribution/samaccount/loanlist}">SAM</a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/collection/distribution/samaccount/create')}"
-                                                    th:href="@{/collection/distribution/samaccount/create}">SAM Excel
-                                                Upload
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/collection/distribution/emiDetails/list')}"
-                                                    th:href="@{/collection/distribution/emiDetails/list}">EMI Excel Upload
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"
-                                               class="tab" th:href="@{/collection/account/reschedule/list}">Account
-                                                Reschedule/Restructure
-                                            </a>
-                                        </li>
 
-                                        &lt;!&ndash;SAM&ndash;&gt;
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"
-                                               class="tab" th:href="@{/collection/account/reschedule/list}">
-                                                Sam Card Distribution
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"
-                                               class="tab" th:href="@{/collection/account/reschedule/list}">
-                                                Loan Account Distribution
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;SAM&ndash;&gt;
-
-                                    </ul>
-                                </li>-->
-
-                                <!--Document-->
-                               <!-- <li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-folder-open-o"></i>
-                                        Document
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-
-                                    </ul>
-                                </li>-->
-
-
-                                <!--Letter-->
-                                <!--<li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-envelope"></i>
-                                        Letter
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/settings/dlgexceptionrulesloan/create')}"
-                                               th:href="@{/collection/settings/dlgexceptionrulesloan/create}">
-                                                Dunning Letter Generate Exception Rule – Loan
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a class="tab"&ndash;&gt;
-                                        &lt;!&ndash;th:href="@{/collection/settings/dlgexceptionrulescard/create}">&ndash;&gt;
-                                        &lt;!&ndash;Dunning Letter Generate Exception Rule – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-
-                                    </ul>
-                                </li>-->
                                 <li>
                                     <a class="tab"
                                        th:if="${session.urlList.contains('/audittrail/list')}"
@@ -208,30 +54,7 @@
                                     </a>
                                 </li>
 
-                                <!--People Allocation-->
-                                <!--<li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-file-excel-o"></i>
-                                        People Allocation
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a class="tab" th:href="@{/collection/card/autodistribution/list}">Automatic&ndash;&gt;
-                                        &lt;!&ndash;Distribution- Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        &lt;!&ndash;<li>
-                                            <a class="tab" th:if="${session.urlList.contains('/collection/autodistribution/list')}"
-                                               th:href="@{/collection/autodistribution/list}">Automatic
-                                                Distribution- Loan
-                                            </a>
-                                        </li>&ndash;&gt;
 
-                                    </ul>
-                                </li>-->
 
                                 <!--User Management-->
                                 <li class="treeview">
@@ -293,9 +116,6 @@
 
                                     </ul>
                                 </li>
-
-
-                                <!--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>-->
                             </ul>
                         </li>
 
@@ -321,11 +141,7 @@
                                         </span>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <!--<li>-->
-                                            <!--<a th:if="${session.urlList.contains('/collection/distribution/wirteoff/list')}"-->
-                                               <!--class="tab" th:href="@{/collection/distribution/wirteoff/list}">Write Off-->
-                                            <!--</a>-->
-                                        <!--</li>-->
+
 
                                         <li>
                                             <a
@@ -334,15 +150,6 @@
                                             </a>
                                         </li>
 
-
-                                        <!--<li>-->
-                                            <!--<a-->
-                                                    <!--th:if="${session.urlList.contains('/collection/distribution/wirteoff/create')}"-->
-                                                    <!--th:href="@{/collection/distribution/wirteoff/create}">Write Off-->
-                                                <!--Excel-->
-                                                <!--Upload-->
-                                            <!--</a>-->
-                                        <!--</li> -->
 
                                         <li>
                                             <a
@@ -366,54 +173,6 @@
                                             </a>
                                         </li>
 
-                                        <!--<li>-->
-                                            <!--<a-->
-                                                    <!--th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"-->
-                                                    <!--th:href="@{/retail/loan/data-entry/distribution/auto/list}">Excel Download-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                        <!--<a th:href="@{/collection/distribution/samaccount/cardlist}">SAM Card</a>-->
-                                        <!--</li>-->
-
-
-                                        <!--<li>-->
-                                            <!--<a th:if="${session.urlList.contains('/collection/distribution/emiDetails/list')}"-->
-                                               <!--th:href="@{/collection/distribution/emiDetails/list}">EMI Excel-->
-                                                <!--Upload-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"-->
-                                               <!--class="tab" th:href="@{/collection/account/reschedule/list}">Account-->
-                                                <!--Reschedule/Restructure-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-
-                                        <!--SAM-->
-
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"
-                                               class="tab" th:href="@{/collection/account/reschedule/list}">
-                                                Sam Card Distribution
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"
-                                               class="tab" th:href="@{/collection/account/reschedule/list}">
-                                                Loan Account Distribution
-                                            </a>
-                                        </li>-->
-                                        <!--SAM-->
-                                        <!--<li>
-                                            <a class="tab" th:if="${session.urlList.contains('/collection/autodistribution/list')}"
-                                               th:href="@{/collection/autodistribution/list}">Automatic
-                                                Distribution- Loan
-                                            </a>
-                                        </li>-->
-
-                                        <!--profile-->
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/loan/list')}"
@@ -428,13 +187,6 @@
                                                 th:href="@{/distribution/card/list}">Allocated Account List- Card
                                             </a>
                                         </li>
-                                        <!-- <li>
-                                             <a th:if="${session.urlList.contains('/distribution/loan/list')}"
-                                                class="tab"
-                                                th:href="@{/distribution/loan/list}">Allocated Account List- Loan
-                                                 (Agency)
-                                             </a>
-                                         </li>-->
                                         <li>
                                             <!--th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/approval')-->
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
@@ -455,171 +207,7 @@
                                 </li>
 
 
-                                <!--Agency Management-->
-                                <!--<li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-handshake-o"></i>
-                                        Agency Management
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/agency/card/bycommision/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab" th:href="@{/collection/kpi/agency/card/bycommision/list}">&ndash;&gt;
-                                        &lt;!&ndash;Agency Commission Rate- Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bycommision/list')}"
-                                               class="tab" th:href="@{/collection/kpi/agency/loan/bycommision/list}">
-                                                Agency Commission Rate- Loan
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/card/agency/exception/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab" th:href="@{/collection/kpi/card/agency/exception/list}">&ndash;&gt;
-                                        &lt;!&ndash;Agency KPI Target Exception Rules – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/weight/account/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab"&ndash;&gt;
-                                        &lt;!&ndash;th:href="@{/collection/kpi/agency/card/bytarget/weight/account/list}">&ndash;&gt;
-                                        &lt;!&ndash;Agency KPI Target Setup (Weight) based on Account – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/wight/account/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/kpi/agency/loan/bytarget/wight/account/list}">
-                                                Agency KPI Target Setup (Weight) based on Account – Loan
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/weight/amount/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab"&ndash;&gt;
-                                        &lt;!&ndash;th:href="@{/collection/kpi/agency/card/bytarget/weight/amount/list}">&ndash;&gt;
-                                        &lt;!&ndash;Agency KPI Target Setup (Weight) based on Amount – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/wight/amount/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/kpi/agency/loan/bytarget/wight/amount/list}">
-                                                Agency KPI Target Setup (Weight) based on Amount – Loan
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/account/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab"&ndash;&gt;
-                                        &lt;!&ndash;th:href="@{/collection/kpi/agency/card/bytarget/account/list}">Agency KPI&ndash;&gt;
-                                        &lt;!&ndash;Target Setup based on Account – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/account/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/kpi/agency/loan/bytarget/account/list}">Agency KPI
-                                                Target Setup based on Account – Loan
-                                            </a>
-                                        </li>
-                                        &lt;!&ndash;<li>&ndash;&gt;
-                                        &lt;!&ndash;<a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/list')}"&ndash;&gt;
-                                        &lt;!&ndash;class="tab" th:href="@{/collection/kpi/agency/card/bytarget/list}">Agency&ndash;&gt;
-                                        &lt;!&ndash;KPI Target Setup based on Amount – Card&ndash;&gt;
-                                        &lt;!&ndash;</a>&ndash;&gt;
-                                        &lt;!&ndash;</li>&ndash;&gt;
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/list')}"
-                                               class="tab" th:href="@{/collection/kpi/agency/loan/bytarget/list}">Agency
-                                                KPI Target Setup based on Amount/Outstanding – Loan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/agency/list')}"
-                                               class="tab" th:href="@{/collection/agency/list}">Agency
-                                            </a>
-                                        </li>
 
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/agencyPerformance/view')}"
-                                               class="tab" th:href="@{/collection/agencyPerformance/view}">Agency Performance
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>-->
-
-                                <!--Dashboard
-                                <li class="treeview">
-                                    <a href="#"><i class="fa fa-dashboard"></i> Dashboard
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-
-                                    </ul>
-                                </li>-->
-
-
-                                <!--&lt;!&ndash;Distribution&ndash;&gt;-->
-                                <!--<li class="treeview">-->
-                                <!--<a href="#">-->
-                                <!--<i class="fa fa-share-alt"></i>-->
-                                <!--Distribution-->
-                                <!--<span class="pull-right-container">-->
-                                <!--<i class="fa fa-angle-left pull-right"></i>-->
-                                <!--</span>-->
-                                <!--</a>-->
-                                <!--<ul class="treeview-menu">-->
-                                <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/collection/postinterim/create')}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;class="tab" th:href="@{/collection/postinterim/create}">Auto Distribution&ndash;&gt;-->
-                                <!--&lt;!&ndash;(Post Interim) Condition Setup – Card&ndash;&gt;-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/collection/postinterim/exception/create')}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;class="tab" th:href="@{/collection/postinterim/exception/create}">Auto&ndash;&gt;-->
-                                <!--&lt;!&ndash;Distribution (Post Interim) Exception Setup – Card&ndash;&gt;-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/collection/postpeople/loan/create')}"-->
-                                <!--class="tab" th:href="@{/collection/postpeople/loan/create}">Post Interim-->
-                                <!--Exception Loan-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/collection/distribution/exception/create')}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;class="tab" th:href="@{/collection/distribution/exception/create}">Auto&ndash;&gt;-->
-                                <!--&lt;!&ndash;Distribution Exception- Card&ndash;&gt;-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/collection/distribution/loan/exception/create')}"-->
-                                <!--class="tab" th:href="@{/collection/distribution/loan/exception/create}">-->
-                                <!--Distribution Exception Loan-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/collection/automaticdistribution/sam/create')}"-->
-                                <!--class="tab" th:href="@{/collection/automaticdistribution/sam/create}">Sam-->
-                                <!--Distribution Rule- Loan-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/collcection/distribution/sam/card/create')}"&ndash;&gt;-->
-                                <!--&lt;!&ndash;class="tab" th:href="@{/collcection/distribution/sam/card/create}">Sam&ndash;&gt;-->
-                                <!--&lt;!&ndash;Distribution Rule- Card&ndash;&gt;-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-
-                                <!--</ul>-->
-                                <!--</li>-->
 
                                 <!--Dunning Letter-->
                                 <li class="treeview">
@@ -638,12 +226,6 @@
                                                 Letter Rules – Loan
                                             </a>
                                         </li>
-                                        <!--<li>-->
-                                        <!--<a class="tab"-->
-                                        <!--th:href="@{/collection/settings/dunningLetterRulesCard/list}">Dunning-->
-                                        <!--Letter Rules – Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
 
 
                                     </ul>
@@ -659,24 +241,7 @@
                                         </span>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <!--<li>-->
-                                        <!--<a class="tab" th:href="@{/collection/dealer/card/bytarget/manager/list}">-->
-                                        <!--Dealer Account Target Setup by Manager- Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/dealer/card/bytarget/manager/list')}"-->
-                                        <!--class="tab"-->
-                                        <!--th:href="@{/collection/dealer/card/bytarget/manager/amount/list}">-->
-                                        <!--Dealer Amount Target Setup by Manager- Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/dealer/loan/bytarget/manager/list')}"
-                                               class="tab" th:href="@{/collection/dealer/loan/bytarget/manager/list}">
-                                                Dealer Account Target Setup by Manager – Loan
-                                            </a>
-                                        </li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/dealer/loan/bytarget/manager/amo/list')}"
                                                class="tab"
@@ -725,12 +290,7 @@
                                                 Setup
                                             </a>
                                         </li>
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/card/esau/list')}"-->
-                                        <!--class="tab" th:href="@{/collection/card/esau/list}">ESAU Rating-->
-                                        <!--Setup-Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/loan/esau/list')}"
                                                class="tab" th:href="@{/collection/loan/esau/list}">ESAU Rating
@@ -818,14 +378,7 @@
                                         Setup based on Amount-Card
                                         </a>
                                         </li>
-                                        <!--SAM-->
 
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/kpi/loan/byAccount/list')}"-->
-                                        <!--class="tab" th:href="@{/collection/kpi/loan/byAccount/list}">KPI Target-->
-                                        <!--Setup based on Account-Loan-->
-                                        <!--</a>-->
-                                        <!--</li>-->
 
                                         <li th:if="${#strings.startsWith(session.unit,'SAM')}">
                                             <a th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list')}"
@@ -906,23 +459,7 @@
                                         </span>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/account/mapping/card/list')}"-->
-                                        <!--class="tab" th:href="@{/collection/account/mapping/card/list}">Account-->
-                                        <!--Location Mapping – Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/age_classification_rule/list')}"-->
-                                        <!--class="tab" th:href="@{/collection/age_classification_rule/list}">Age &-->
-                                        <!--Classification Rule-Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/ageCode/list')}"-->
-                                        <!--class="tab" th:href="@{/collection/ageCode/list}">Age Code-Card-->
-                                        <!--</a>-->
-                                        <!--</li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/asset_classification_loan/list')}"
                                                class="tab" th:href="@{/collection/asset_classification_loan/list}">Asset
@@ -940,12 +477,7 @@
                                                 Rules-Loan
                                             </a>
                                         </li>
-                                        <!--<li>
-                                        <a th:if="${session.urlList.contains('/collection/npl_logic_setup/create')}"
-                                        class="tab" th:href="@{/collection/npl_logic_setup/create}">NPL Logic
-                                        Setup-Card
-                                        </a>
-                                        </li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/npl_queue_acc_rule/list')}"
                                                class="tab" th:href="@{/collection/npl_queue_acc_rule/list}">Probable NPL account rule
@@ -958,13 +490,7 @@
                                                 NPL Release - Loan
                                             </a>
                                         </li>
-                                        <!--<li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/retail/loan/setup/npl-release-loan/create')}"
-                                               th:href="@{/retail/loan/setup/npl-release-loan/create}">
-                                                NPL Release - Loan
-                                            </a>
-                                        </li>-->
+
                                         <li>
                                         <a th:if="${session.urlList.contains('/collection/npl_release_amount/create')}"
                                         class="tab" th:href="@{/collection/npl_release_amount/create}">NPL
@@ -1002,12 +528,6 @@
                                         Release Amount-Card
                                         </a>
                                         </li>
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/collection/securedCardCriteria/create')}"-->
-                                        <!--class="tab" th:href="@{/collection/securedCardCriteria/create}">Secured-->
-                                        <!--Card Criteria-->
-                                        <!--</a>-->
-                                        <!--</li>-->
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/status-cd/list')}"
                                                class="tab" th:href="@{/collection/status-cd/list}">Status CD Management
@@ -1063,11 +583,6 @@
                                                class="tab" th:href="@{/collection/settings/vip-status/list}">VIP Status
                                             </a>
                                         </li>
-                                       <!-- <li>
-                                            <a th:if="${session.urlList.contains('/collection/settings/atm/list')}"
-                                               class="tab" th:href="@{/collection/settings/atm/list}">ATM
-                                            </a>
-                                        </li>-->
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/lateReason/list')}"
                                                class="tab" th:href="@{/collection/lateReason/list}">Late Reason
@@ -1088,12 +603,7 @@
                                                class="tab" th:href="@{/collection/product_type/list}">Product Type
                                             </a>
                                         </li>
-                                       <!-- <li>
-                                            <a
-                                                    th:if="${session.urlList.contains('/businessRegion/list')}"
-                                                    class="tab" th:href="@{/businessRegion/list}">Business Region
-                                            </a>
-                                        </li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/businessSegment/list')}"
                                                     class="tab" th:href="@{/businessSegment/list}">Business Segment
@@ -1226,12 +736,7 @@
                                                 Save Back Amount
                                             </a>
                                         </li>
-                                        <!--<li>-->
-                                        <!--<a th:if="${session.urlList.contains('/cardOtherAccountInfo/list')}"-->
-                                        <!--class="tab" th:href="@{/cardOtherAccountInfo/list}">Card Other Account-->
-                                        <!--Info-->
-                                        <!--</a>-->
-                                        <!--</li>-->
+
 
                                     </ul>
                                 </li>
@@ -1279,80 +784,7 @@
                         </li>
 
 
-                        <!--Notification Management-->
-                        <!--<li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bell-o"></i> <span>Notification Management</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
 
-
-
-                                &lt;!&ndash;<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>&ndash;&gt;
-                            </ul>
-                        </li>-->
-
-
-                        <!--Distribution Desired by UCBL-->
-                        <!--<li class="treeview">-->
-                        <!--<a href="#">-->
-                        <!--<i class="	fa fa-address-book-o"></i>-->
-                        <!--<span>Distribution</span>-->
-                        <!--<span class="pull-right-container">-->
-                        <!--<i class="fa fa-angle-left pull-right"></i>-->
-                        <!--</span>-->
-                        <!--</a>-->
-                        <!--<ul class="treeview-menu">-->
-
-                        <!--<li class="treeview">-->
-                        <!--<a href="#">-->
-                        <!--<i class="fa fa-share-alt"></i>-->
-                        <!--Rules Set Up-->
-                        <!--<span class="pull-right-container">-->
-                        <!--<i class="fa fa-angle-left pull-right"></i>-->
-                        <!--</span>-->
-                        <!--</a>-->
-                        <!--<ul class="treeview-menu">-->
-                        <!--<li>-->
-                        <!--<a th:if="${session.urlList.contains('/collection/distribution/wirteoff/list')}"-->
-                        <!--class="tab" th:href="@{/collection/distribution/wirteoff/list}">Write Off-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:href="@{/collection/distribution/wirteoff/create}">Write Off Excel-->
-                        <!--Upload-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:href="@{/collection/autodistribution}">Auto Distribution</a>-->
-                        <!--</li>-->
-                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a th:href="@{/collection/distribution/samaccount/cardlist}">SAM Card</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--<li>-->
-                        <!--<a th:href="@{/collection/distribution/samaccount/loanlist}">SAM</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:href="@{/collection/distribution/samaccount/create}">SAM Excel-->
-                        <!--Upload-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:href="@{/collection/distribution/emiDetails/list}">EMI Excel Upload-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:if="${session.urlList.contains('/collection/account/reschedule/list')}"-->
-                        <!--class="tab" th:href="@{/collection/account/reschedule/list}">Account-->
-                        <!--Reschedule/Restructure-->
-                        <!--</a>-->
-                        <!--</li>-->
-
-                        <!--</ul>-->
-                        <!--</li>-->
 
 
                         <!--Profile-->
@@ -1373,94 +805,9 @@
                                     </a>
                                 </li>
 
-                                <!--<li>
-                                    <a th:if="${session.urlList.contains('/distribution/loan/list')}"
-                                       class="tab"
-                                       th:href="@{/distribution/loan/list}">Allocated Account List- Loan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:if="${session.urlList.contains('/distribution/loan/list')}"
-                                       class="tab"
-                                       th:href="@{/distribution/loan/list}">Allocated Account List- Loan
-                                        (Agency)
-                                    </a>
-                                </li>-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"-->
-                                <!--th:href="@{/distribution/card/list}">Allocated Account List- Card-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"-->
-                                <!--th:href="@{/distribution/card/agency}">Allocated Account List- Card (Agency)-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>
-                                    <a th:if="${session.urlList.contains('/distribution/loan/unallocated/list')}"
-                                       class="tab" th:href="@{/distribution/loan/unallocated/list}">Unallocated
-                                        Account
-                                        List- Loan
-                                    </a>
-                                </li>-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/distribution/card/unallocated/list')}"-->
-                                <!--class="tab" th:href="@{/distribution/card/unallocated/list}">Unallocated Account-->
-                                <!--List- Card-->
-                                <!--</a>-->
-                                <!--</li>-->
-
-
-                                <!--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>-->
                             </ul>
                         </li>
 
-                        <!--<li class="treeview">-->
-                        <!--<a href="#">-->
-                        <!--<i class="	fa fa-address-book-o"></i>-->
-                        <!--<span>Profile</span>-->
-                        <!--<span class="pull-right-container">-->
-                        <!--<i class="fa fa-angle-left pull-right"></i>-->
-                        <!--</span>-->
-                        <!--</a>-->
-                        <!--<ul class="treeview-menu">-->
-                        <!--<li>-->
-                        <!--<a th:if="${session.urlList.contains('/distribution/loan/list')}" class="tab"-->
-                        <!--th:href="@{/distribution/loan/list}">Allocated Account List- Loan-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a th:if="${session.urlList.contains('/distribution/loan/list')}" class="tab"-->
-                        <!--th:href="@{/distribution/loan/list}">Allocated Account List- Loan (Agency)-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"&ndash;&gt;-->
-                        <!--&lt;!&ndash;th:href="@{/distribution/card/list}">Allocated Account List- Card&ndash;&gt;-->
-                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"&ndash;&gt;-->
-                        <!--&lt;!&ndash;th:href="@{/distribution/card/agency}">Allocated Account List- Card (Agency)&ndash;&gt;-->
-                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--<li>-->
-                        <!--<a th:if="${session.urlList.contains('/distribution/loan/unallocated/list')}"-->
-                        <!--class="tab" th:href="@{/distribution/loan/unallocated/list}">Unallocated Account-->
-                        <!--List- Loan-->
-                        <!--</a>-->
-                        <!--</li>-->
-                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<a th:if="${session.urlList.contains('/distribution/card/unallocated/list')}"&ndash;&gt;-->
-                        <!--&lt;!&ndash;class="tab" th:href="@{/distribution/card/unallocated/list}">Unallocated Account&ndash;&gt;-->
-                        <!--&lt;!&ndash;List- Card&ndash;&gt;-->
-                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-
-
-                        <!--&lt;!&ndash;<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>&ndash;&gt;-->
-                        <!--</ul>-->
-                        <!--</li>-->
 
 
                         <!--Report-->
@@ -1473,19 +820,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/report/auditTrail/list}">Audit Trail</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/collection/report/create}">PTP</a>-->
-                                <!--</li>-->
-                                <!--<a th:href="@{/card/report/approvedmemo(cid=${generalInfo?.cardId},pid=${pid},tc=${tc},branchName=${generalInfo?.branchName},cibReportDate=${cibReportEntity?.cibReportDate},cibReportName=${cibReportEntity?.name})}-->
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/rfd/report/create}">RFD & Sub RFD</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/activity/report/create}">Activity</a>-->
-                                <!--</li>-->
+
 
                                 <th:block th:if="${#strings.contains(session?.unit, 'Loan')}">
                                     <li>
@@ -1593,7 +928,6 @@
                                     </li>
 
                                 </th:block>
-                                <!--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>-->
                             </ul>
                         </li>
 
@@ -1620,10 +954,6 @@
                                         Loan
                                     </a>
                                 </li>
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/customersearch/card}">Advanced Customer Search- Card</a>-->
-                                <!--</li>-->
-                                <!--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>-->
                             </ul>
                         </li>
 
@@ -1644,70 +974,14 @@
                                        th:href="@{/collection/dnote_menu/list}">Reason For delinquency
                                     </a>
                                 </li>
-                                <!--<li>-->
-                                    <!--<a th:if="${session.urlList.contains('/collection/dn_submenu1/list')}"-->
-                                       <!--class="tab"-->
-                                       <!--th:href="@{/collection/dn_submenu1/list}">Diary Note Sub Menu 1-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a th:if="${session.urlList.contains('/collection/dn_submenu2/list')}"-->
-                                       <!--class="tab"-->
-                                       <!--th:href="@{/collection/dn_submenu2/list}">Diary Note Sub Menu 2-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a th:if="${session.urlList.contains('/collection/dn_submenu3/list')}"-->
-                                       <!--class="tab"-->
-                                       <!--th:href="@{/collection/dn_submenu3/list}">Diary Note Sub Menu 3-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                <!--<a th:if="${session.urlList.contains('/collection/waiver_reversal_facility/list')}"-->
-                                <!--class="tab" th:href="@{/collection/waiver_reversal_facility/list}">-->
-                                <!--Waiver/Reversal Facility-Card-->
-                                <!--</a>-->
-                                <!--</li>-->
+
                                 <li>
                                     <a th:if="${session.urlList.contains('/collection/mainclassification/list')}"
                                        class="tab" th:href="@{/collection/mainclassification/list}">Loan Main
                                         Classification
                                     </a>
                                 </li>
-                               <!-- <li>
-                                    <a th:if="${session.urlList.contains('/collection/subclassification/list')}"
-                                       class="tab" th:href="@{/collection/subclassification/list}">Loan Sub
-                                        Classification
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:if="${session.urlList.contains('/collection/ptpContact_location/list')}"
-                                       class="tab" th:href="@{/collection/ptpContact_location/list}">PTP Contact
-                                        Location
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:if="${session.urlList.contains('/collection/ptp_promisor/list')}"
-                                       class="tab"
-                                       th:href="@{/collection/ptp_promisor/list}">PTP Promisor
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:if="${session.urlList.contains('/collection/ptp_contact_details/list')}"
-                                       class="tab" th:href="@{/collection/ptp_contact_details/list}">PTP Contact
-                                        Details
-                                    </a>
-                                </li>-->
-                                <!--<li>-->
-                                <!--<a class="tab" th:href="@{/collection/secured/sample/list}">Secured Card</a>-->
-                                <!--</li>-->
-                               <!-- <li>
-                                    <a class="tab"
-                                       th:if="${session.urlList.contains('/collection/settings/monthlyworking/list')}"
-                                       th:href="@{/collection/settings/monthlyworking/list}">Monthly
-                                        working day
-                                    </a>
-                                </li>-->
+
                                 <li>
                                     <a class="tab"
                                        th:if="${session.urlList.contains('/collection/allocationlogic/upload')}"
@@ -1720,7 +994,6 @@
                                        th:href="@{/collection/visitledger/list}">Visit Ledger
                                     </a>
                                 </li>
-                                <!--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>-->
                             </ul>
                         </li>
 
@@ -1747,16 +1020,7 @@
                                         </span>
                                     </a>
                                     <ul class="treeview-menu">
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/ptp_contact_details/list')}"
-                                               class="tab" th:href="@{/collection/ptp_contact_details/list}">SAMD PTP Contact Details
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/ptp_promisor/list')}"
-                                                    th:href="@{/collection/ptp_promisor/list}">SAMD PTP Promisor
-                                            </a>
-                                        </li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/dpdBucket/list')}"
                                                th:href="@{/collection/dpdBucket/list}">Bucket Setup
@@ -1768,11 +1032,7 @@
                                             </a>
                                         </li>
 
-                                        <!--<li>-->
-                                            <!--<a th:if="${session.urlList.contains('/collection/agency/list')}"-->
-                                               <!--th:href="@{/collection/agency/list}">Agency Management-->
-                                            <!--</a>-->
-                                        <!--</li>-->
+
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list')}"
@@ -2157,13 +1417,7 @@
                                                th:href="@{/collection/samd/written-off-execution/list}">Written-Off Execution – via Excel
                                             </a>
                                         </li>
-                                        <!--<li>-->
-                                            <!--<a class="tab"-->
-                                               <!--th:if="${session.urlList.contains('/collection/samd/loan-account-distribution/list')}"-->
-                                               <!--th:href="@{/collection/samd/loan-account-distribution/list}">Manual-->
-                                                <!--Distribution-->
-                                            <!--</a>-->
-                                        <!--</li>-->
+
 
 
                                     </ul>
@@ -2232,12 +1486,7 @@
                                 <li>
                                     <a th:href="@{/collection/settings/dunningLetterRulesCard/list}">Dunning Letter Rule(card)</a>
                                 </li>
-                               <!-- <li>
-                                    <a th:href="@{/collection/kpi/card/byAmount/list}">KPI Target Setup based on Amount – Card</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/kpi/card/byAccount/list}">KPI Target Setup based on Account – Card</a>
-                                </li>-->
+
                                 <li>
                                     <a th:href="@{/collection/dealer/card/bytarget/manager/list}">Dealer Target Setup By Manager-Card</a>
                                 </li>
@@ -2269,223 +1518,6 @@
                             </ul>
                         </li>
 
-
-
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-wrench"></i>
-                                <span>Report(card)</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li>
-                                    <a th:href="@{/collection/report/card/dailydata/view}">Daily Data</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/fidcarddetails/view}">Fid Card Details</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/nonstartercarddetails/view}">Non Startter Card Details</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/securecarddetails/view}">Secure Card Details</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/emicarddetails/view}">Emi Card Details</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/emitrackerandstatementreport/view}">Emi Tracker & Statement Report</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/viporsensitivecardlist/view}">Vip or Sensitive Card List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/agencyallocationlist/view}">Agency Allocation List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/cardbreakdownlist/view}">Card Breakdown List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/writtenoffcardspaymentlist/view}">Written Off Cards Payment List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/writtenoffcardsremainingbalancelist/view}">Written Off Cards Remaining Balance List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/excessoverlimitcardlist/view}">Excess Over Limit Card List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/monthwisecarddisbursallist/view}">Month Wise Card Disbursal List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/monthwisecardclosurelist/view}">Month Wise Card Closure List</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/collection/report/card/employeeforcardreport/view}">Employee Database</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--------------------------------------Previous---------------------------------------->
-
-                        <!--<li   class="treeview"><a href="#"><i class="fa fa-cog"></i>
-                            <span>Control Panel</span> <span class="pull-right-container"> <i
-                                    class="fa fa-angle-left pull-right"></i>
-                            </span> </a>
-                            <ul class="treeview-menu">
-                                <li><a class="tab" th:href="@{/profile/loanprofile}">Customer Profile</a></li>
-                                <li><a class="tab" th:href="@{/customersearch/loan}">Customer Search Loan</a></li>
-                                <li><a class="tab" th:href="@{/customersearch/card}">Customer Search Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/audittrail/list')}" class="tab" th:href="@{/audittrail/list}">Audit Trail View</a></li>
-                                <li><a th:if="${session.urlList.contains('/company/view')}" class="tab" th:href="@{/company/view}">Company Settings</a></li>
-                                <li><a th:if="${session.urlList.contains('/branch/list')}" class="tab" th:href="@{/branch/list}">Branch</a></li>
-                                <li><a th:if="${session.urlList.contains('/role/list')}" class="tab" th:href="@{/role/list}">Role</a></li>
-                                <li><a th:if="${session.urlList.contains('/user/list')}" class="tab" th:href="@{/user/list}">User</a></li>
-                                <li><a th:if="${session.urlList.contains('/user-role/authentication/list')}" class="tab" th:href="@{/user-role/authentication/list}">User-Role</a></li>
-                                <li th:if="${session.urlList.contains('/user-role/template/urltolist/list')}"><a class="tab" th:href="@{/user-role/template/urltolist/list}">Template Permission</a></li>
-                            </ul>
-                        </li>
-
-
-                        <li   class="treeview">
-                            <a href="#"><i class="fa fa-cog"></i>
-                                <span>KPI</span> <span class="pull-right-container"> <i
-                                        class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/list')}" class="tab" th:href="@{/collection/kpi/agency/loan/bytarget/list}">Agency KPI Target Setup Amount (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/wight/amount/list')}" class="tab" th:href="@{/collection/kpi/agency/loan/bytarget/wight/amount/list}">Agency KPI Target Setup Amount (Weight) (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/account/list')}" class="tab" th:href="@{/collection/kpi/agency/loan/bytarget/account/list}">Agency KPI Target Setup Account (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bytarget/wight/account/list')}" class="tab" th:href="@{/collection/kpi/agency/loan/bytarget/wight/account/list}">Agency KPI Target Setup Account (Weight) (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/loan/bycommision/list')}" class="tab" th:href="@{/collection/kpi/agency/loan/bycommision/list}">Agency KPI Commision (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/list')}" class="tab" th:href="@{/collection/kpi/agency/card/bytarget/list}">Agency KPI Target Setup Amount (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/account/list')}" class="tab" th:href="@{/collection/kpi/agency/card/bytarget/account/list}">Agency KPI Target Setup Account (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/weight/account/list')}" class="tab" th:href="@{/collection/kpi/agency/card/bytarget/weight/account/list}">Agency KPI Target Weight Setup  Account (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/card/bytarget/weight/amount/list')}" class="tab" th:href="@{/collection/kpi/agency/card/bytarget/weight/amount/list}">Agency KPI Target Weight Setup  Amount (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/agency/card/bycommision/list')}" class="tab" th:href="@{/collection/kpi/agency/card/bycommision/list}">Agency KPI Commision (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dealer/loan/bytarget/manager/list')}" class="tab" th:href="@{/collection/dealer/loan/bytarget/manager/list}">Dealer Account Target Setup Manager (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dealer/loan/bytarget/manager/amo/list')}" class="tab" th:href="@{/collection/dealer/loan/bytarget/manager/amo/list}">Dealer Amount Target Setup Manager (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dealer/card/bytarget/manager/list')}" class="tab" th:href="@{/collection/dealer/card/bytarget/manager/list}">Dealer Amount Target Setup Manager (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/card/agency/exception/list')}" class="tab" th:href="@{/collection/kpi/card/agency/exception/list}">Agency KPI Target Exception Setup (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/esau/create')}" class="tab" th:href="@{/collection/kpi/esau/create}">EASU Default Rating Setup</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/loan/byOutstanding/list')}" class="tab" th:href="@{/collection/kpi/loan/byOutstanding/list}">Target By Outstanding-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/loan/byAccount/list')}" class="tab" th:href="@{/collection/kpi/loan/byAccount/list}">Target By Account-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/card/byAmount/list')}" class="tab" th:href="@{/collection/kpi/card/byAmount/list}">Target By Amount-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/card/byAccount/list')}" class="tab" th:href="@{/collection/kpi/card/byAccount/list}">Target By Account-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/user-role/template/urltolist/list')}" class="tab" th:href="@{/collection/kpi/loan/weightByAccount/list}">Target(Weight) By Account-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/loan/weightByAccount/list')}" class="tab" th:href="@{/collection/kpi/loan/weightByAmount/list}">Target(Weight) By Amount-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/user-role/template/urltolist/list')}" class="tab" th:href="@{/collection/kpi/card/weightByAccount/list}">Target(Weight) By Account-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/card/weightByAmount/list')}" class="tab" th:href="@{/collection/kpi/card/weightByAmount/list}">Target(Weight) By Amount-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/loan/exceptionRule/list')}" class="tab" th:href="@{/collection/kpi/loan/exceptionRule/list}">Target Exception Rule-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/kpi/card/exceptionRule/list')}" class="tab" th:href="@{/collection/kpi/card/exceptionRule/list}">Target Exception Rule-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/loan/esau/list')}" class="tab" th:href="@{/collection/loan/esau/list}">ESAU Rating Setup-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/card/esau/list')}" class="tab" th:href="@{/collection/card/esau/list}">ESAU Rating Setup-Card</a></li>
-                            </ul>
-                        </li>
-
-
-                        <li class="treeview"><a href="#"><i class="fa fa-cogs"></i>
-                            <span>Settings</span> <span class="pull-right-container"> <i
-                                    class="fa fa-angle-left pull-right"></i>
-                            </span> </a>
-                            <ul   class="treeview-menu">
-                                <li><a th:if="${session.urlList.contains('/collection/securedCardCriteria/create')}" class="tab" th:href="@{/collection/securedCardCriteria/create}">Secured Card Criteria</a></li>
-                                <li><a  class="tab" th:href="@{/collection/settings/officeTimeSetup/create}">Office Time Setup</a></li>
-                                <li><a th:if="${session.urlList.contains('/cardOtherAccountInfo/list')}" class="tab" th:href="@{/cardOtherAccountInfo/list}">Card Other Account Info</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/visitledger/list')}" class="tab" th:href="@{/collection/visitledger/list}">Visit Ledger</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/location/list')}" class="tab" th:href="@{/collection/location/list}">Location</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/division/list')}" class="tab" th:href="@{/collection/division/list}">Unit</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/department/list')}" class="tab" th:href="@{/collection/department/list}">Department</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/designation/list')}" class="tab" th:href="@{/collection/designation/list}">Collection Role</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/job_role/list')}" class="tab" th:href="@{/collection/job_role/list}">Job Role</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/employee_status/list')}" class="tab" th:href="@{/collection/employee_status/list}">Employee Status</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/product_group/list')}" class="tab" th:href="@{/collection/product_group/list}">Product Group</a></li>
-                                &lt;!&ndash;<li><a th:if="${session.urlList.contains('/collection/product_type/list')}" class="tab" th:href="@{/collection/product_type/list}">Product Type</a></li>&ndash;&gt;
-                                <li><a th:if="${session.urlList.contains('/collection/dnote_menu/list')}" class="tab" th:href="@{/collection/dnote_menu/list}">Diairy Note Menu</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dn_submenu1/list')}" class="tab" th:href="@{/collection/dn_submenu1/list}">Diary Note Sub Menu 1</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dn_submenu2/list')}" class="tab" th:href="@{/collection/dn_submenu2/list}">Diary Note Sub Menu 2</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dn_submenu3/list')}" class="tab" th:href="@{/collection/dn_submenu3/list}">Diary Note Sub Menu 3</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/ptpContact_location/list')}" class="tab" th:href="@{/collection/ptpContact_location/list}">PTP Contact Location </a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/sector_group/list')}" class="tab" th:href="@{/collection/sector_group/list}">Sector Group </a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/sector/list')}" class="tab" th:href="@{/collection/sector/list}">Sector</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/ptp_promisor/list')}" class="tab" th:href="@{/collection/ptp_promisor/list}">PTP Promisor</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/ptp_contact_details/list')}" class="tab" th:href="@{/collection/ptp_contact_details/list}">PTP Contact Details</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/zone/list')}" class="tab" th:href="@{/collection/zone/list}">Zone</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/district/list')}" class="tab" th:href="@{/collection/district/list}">District</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/login_policy/create')}" class="tab" th:href="@{/collection/login_policy/create}">Login Policy</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/lateReason/list')}" class="tab" th:href="@{/collection/lateReason/list}">Late Reason</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/dpdBucket/list')}" class="tab" th:href="@{/collection/dpdBucket/list}">DPD Bucket-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/agency/list')}" class="tab" th:href="@{/collection/agency/list}">Agency</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/employee/list')}" class="tab" th:href="@{/collection/employee/list}">Employee</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/ageCode/list')}" class="tab" th:href="@{/collection/ageCode/list}">Age Code-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/par_release_amount/create')}" class="tab" th:href="@{/collection/par_release_amount/create}">PAR Release Amount-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/npl_release_amount/create')}" class="tab" th:href="@{/collection/npl_release_amount/create}">NPL Release Amount-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/age_classification_rule/list')}" class="tab" th:href="@{/collection/age_classification_rule/list}">Age & Classification Rule-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/npl_account_rule/list')}" class="tab" th:href="@{/collection/npl_account_rule/list}">NPL Account Rule-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/npl_queue_acc_rule/list')}" class="tab" th:href="@{/collection/npl_queue_acc_rule/list}">NPL Queue Account Rule-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/retail/loan/setup/par-release-loan/create')}" class="tab" th:href="@{/retail/loan/setup/par-release-loan/create}">PAR Release Amount-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/retail/loan/setup/npl-release-loan/create')}" class="tab" th:href="@{/retail/loan/setup/npl-release-loan/create}">NPL Release Amount-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/par_account_rule_loan/list')}" class="tab" th:href="@{/collection/par_account_rule_loan/list}">PAR Account Rule-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/par_queue_acc_rule_loan/list')}" class="tab" th:href="@{/collection/par_queue_acc_rule_loan/list}">PAR Queue Account Rule-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/asset_classification_loan/list')}" class="tab" th:href="@{/collection/asset_classification_loan/list}">Asset Classification-Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/employee_status_manager/list')}" class="tab" th:href="@{/collection/employee_status_manager/list}">Employee Status Management</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/par_logic_setup/create')}" class="tab" th:href="@{/collection/par_logic_setup/create}">PAR Logic Setup-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/npl_logic_setup/create')}" class="tab" th:href="@{/collection/npl_logic_setup/create}">NPL Logic Setup-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/waiver_reversal_facility/list')}" class="tab" th:href="@{/collection/waiver_reversal_facility/list}">Waiver/Reversal Facility-Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/mainclassification/list')}" class="tab" th:href="@{/collection/mainclassification/list}">Loan Main Classification</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/subclassification/list')}" class="tab" th:href="@{/collection/subclassification/list}">Loan Sub Classification</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/allocationlogic/list')}" class="tab" th:href="@{/collection/allocationlogic/list}">People Allocation Logic</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/latereasonexplain/list')}" class="tab" th:href="@{/collection/latereasonexplain/list}">Late Reason Explaination</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/employeeprofile/list')}" class="tab" th:href="@{/collection/employeeprofile/list}">Employee profile login</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/status-cd/list')}" class="tab" th:href="@{/collection/status-cd/list}">Status Cd</a></li>
-                                <li><a th:if="${session.urlList.contains('/customerbasicinfo/list')}" class="tab" th:href="@{/customerbasicinfo/list}">Customer</a></li>
-                            </ul>
-                        </li>
-
-                        <li   class="treeview">
-                            <a href="#"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                <span>Distribution (Via Excel)</span> <span class="pull-right-container"> <i
-                                        class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-
-                            <ul class="treeview-menu">
-                                <li><a th:if="${session.urlList.contains('/collection/autodistribution')}" class="tab" th:href="@{/collection/autodistribution}">Auto Distribution</a></li>
-                                <li><a th:if="${session.urlList.contains('/distribution/loan/list')}" class="tab" th:href="@{/distribution/loan/list}">Loan Distribution Excel</a></li>
-                                <li><a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab" th:href="@{/distribution/card/list}">Card Distribution Excel</a></li>
-                                &lt;!&ndash;<li><a th:if="${session.urlList.contains('/collection/distribution/samaccount/loanlist')}" class="tab" th:href="@{/collection/distribution/samaccount/list}">Sam</a></li>&ndash;&gt;
-                                <li><a th:href="@{/collection/distribution/samaccount/cardlist}">SAM Card</a></li>
-                                <li><a th:href="@{/collection/distribution/samaccount/loanlist}">SAM</a></li>
-                                <li><a th:href="@{/collection/distribution/samaccount/create}">SAM Excel Upload</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/distribution/wirteoff/list')}" class="tab" th:href="@{/collection/distribution/wirteoff/list}">Write Off</a></li>
-                                <li><a th:href="@{/collection/distribution/wirteoff/create}">Write Off Excel Upload</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/automaticdistribution/sam/create')}" class="tab" th:href="@{/collection/automaticdistribution/sam/create}">Sam Rule Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collcection/distribution/sam/card/create')}" class="tab" th:href="@{/collcection/distribution/sam/card/create}">Sam Rule Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/postinterim/create')}" class="tab" th:href="@{/collection/postinterim/create}">Post Interim Condition Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/postpeople/loan/create')}" class="tab" th:href="@{/collection/postpeople/loan/create}">Post Interim Exception Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/postinterim/exception/create')}" class="tab" th:href="@{/collection/postinterim/exception/create}">Post Interim Exception Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/distribution/exception/create')}" class="tab" th:href="@{/collection/distribution/exception/create}">Distribution Exception Card</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/distribution/loan/exception/create')}" class="tab" th:href="@{/collection/distribution/loan/exception/create}">Distribution Exception Loan</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/account/mapping/card/list')}" class="tab" th:href="@{/collection/account/mapping/card/list}">Account Mapping Location</a></li>
-                                <li><a th:if="${session.urlList.contains('/distribution/loan/unallocated/list')}" class="tab" th:href="@{/distribution/loan/unallocated/list}">Unallocated List (Loan)</a></li>
-                                <li><a th:if="${session.urlList.contains('/distribution/card/unallocated/list')}" class="tab" th:href="@{/distribution/card/unallocated/list}">Unallocated List (Card)</a></li>
-                                <li><a th:if="${session.urlList.contains('/collection/account/reschedule/list')}" class="tab" th:href="@{/collection/account/reschedule/list}">Account Reschedule</a></li>
-                            </ul>
-                        </li>
-
-                        <li   class="treeview">
-                            <a href="#"><i class="fa fa-files-o" aria-hidden="true"></i>
-                                <span>Report</span> <span class="pull-right-container"> <i
-                                        class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-
-                            <ul class="treeview-menu">
-                                <li><a th:href="@{/report/auditTrail/list}">Audit Trail Report</a></li>
-                            </ul>
-                        </li>-->
                     </ul>
                 </section>
             </aside>

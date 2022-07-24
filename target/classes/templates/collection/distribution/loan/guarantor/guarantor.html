@@ -74,8 +74,8 @@
                                     <td style="display: none" class="guar-id" th:text="${guarantor?.id}"></td>
                                     <td style="display: none" class="guar-created-date" th:text="${#dates.format(guarantor.createdDate, 'yyyy-MM-dd')}"></td>
                                     <td style="display: none" class="guar-created-by" th:text="${guarantor.createdBy}"></td>
-                                    <td th:if="${guarantor.status == T(com.csinfotechbd.customerloanprofile.guarantorinfo.GuarantorInfoStatus).PENDING}and (${guarantor.createdBy}eq ${user})"></td>
-                                    <td  th:if="${guarantor.status == T(com.csinfotechbd.customerloanprofile.guarantorinfo.GuarantorInfoStatus).PENDING}and (${guarantor.createdBy}ne ${user})" style="text-align: left"><input class="checkbox guarantor-checkbox" type="checkbox"></input></td>
+                                    <td th:if="${guarantor.status == T(com.unisoft.customerloanprofile.guarantorinfo.GuarantorInfoStatus).PENDING}and (${guarantor.createdBy}eq ${user})"></td>
+                                    <td th:if="${guarantor.status == T(com.unisoft.customerloanprofile.guarantorinfo.GuarantorInfoStatus).PENDING}and (${guarantor.createdBy}ne ${user})" style="text-align: left"><input class="checkbox guarantor-checkbox" type="checkbox"></input></td>
                                     <td  class="guar-loan-account-no" th:text="${guarantor?.loanAccountNo}"></td>
                                     <td class="guar-account-no"  th:text="${guarantor?.accountNo}"></td>
                                     <td class="guar-name"  th:text="${guarantor?.name}"></td>

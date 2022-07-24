@@ -66,8 +66,8 @@
                                     <td style="display: none" class="ref-id" th:text="${referenceInfo.id}"></td>
                                     <td style="display: none" class="ref-created-date" th:text="${#dates.format(referenceInfo.createdDate, 'yyyy-MM-dd')}"></td>
                                     <td style="display: none" class="ref-created-by" th:text="${referenceInfo.createdBy}"></td>
-                                    <td th:if="${referenceInfo.status == T(com.csinfotechbd.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}eq ${user})"></td>
-                                    <td  th:if="${referenceInfo.status == T(com.csinfotechbd.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}ne ${user})" style="text-align: left"><input class="checkbox reference-checkbox" type="checkbox"></input></td>
+                                    <td th:if="${referenceInfo.status == T(com.unisoft.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}eq ${user})"></td>
+                                    <td th:if="${referenceInfo.status == T(com.unisoft.customerloanprofile.referenceinfo.ReferenceInfoStatus).PENDING}and (${referenceInfo.createdBy}ne ${user})" style="text-align: left"><input class="checkbox reference-checkbox" type="checkbox"></input></td>
                                     <td class="ref-loan-account-no" th:text="${referenceInfo.loanAccountNo}"></td>
                                     <td class="ref-account-no"  th:text="${referenceInfo.accountNo}"></td>
                                     <td class="ref-name"  th:text="${referenceInfo.name}"></td>

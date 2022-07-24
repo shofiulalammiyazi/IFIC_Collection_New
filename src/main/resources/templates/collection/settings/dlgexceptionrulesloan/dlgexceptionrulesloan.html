@@ -163,7 +163,7 @@
                                 getCifNumbers: function(){
                                     let vm = this;
                                     vm.loading = true;
-                                    // TODO: Collect customer CIF numbers from UCBL API when available
+                                    // TODO: Collect customer CIF numbers from Bank API when available
                                     let url = '/collection/settings/dlgexceptionrulesloan/dummy-cif';
                                     vm.$http.get(url)
                                         .then(res =>

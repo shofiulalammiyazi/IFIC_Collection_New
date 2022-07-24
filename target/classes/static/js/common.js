@@ -1,6 +1,6 @@
 /*
 Implementation for commonly required functions.
-Created by Yasir Araphat on 6 January 2021
+Created by    on 6 January 2021
 Dependencies : JQuery, SweetAlert - js
  */
 
