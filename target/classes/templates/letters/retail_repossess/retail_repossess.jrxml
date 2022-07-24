@@ -133,7 +133,7 @@ where cust.id = $P{customerId}]]>
 			</textField>
 			<textField>
 				<reportElement x="10" y="673" width="396" height="20" uuid="e33b3fe4-bd4d-4c59-bc28-ff8d5e8dcd7c"/>
-				<textFieldExpression><![CDATA["CC: Head of Branch," + $P{branchName} + " , UCBL, Dhaka.	"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CC: Head of Branch," + $P{branchName} + " , IFIC, Dhaka.	"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

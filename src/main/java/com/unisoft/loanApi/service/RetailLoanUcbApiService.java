@@ -190,10 +190,6 @@ public class RetailLoanUcbApiService {
         return preparedStatementBasedDao.getAdvanceSearchData(params);
     }
 
-//    public List test() {
-//        return preparedStatementBasedDao.test();
-//    }
-
 
     public List<LoanAccDetails> getRMInfoByRMCode(String accNo,String cif,String rmCode, Date date) {
         Map<String, Object> params = parameterManager.getRmInfoParams(accNo, cif,rmCode, date);

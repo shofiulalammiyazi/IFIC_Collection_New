@@ -75,10 +75,10 @@ jQuery(function ($) {
         clientDbServer2DataSource.read().then(function (data) {
             console.log(data);
             new shield.exp.OOXMLWorkbook({
-                author: "UCBL",
+                author: "IFIC",
                 worksheets: [
                     {
-                        name: "UCBL VIP List",
+                        name: "VIP List",
                         rows: [
                             {
                                 cells: [
@@ -135,7 +135,7 @@ jQuery(function ($) {
                     }
                 ]
             }).saveAs({
-                fileName: "UCBL-productWiseClReport"
+                fileName: "productWiseClReport"
             });
         });
     });
@@ -162,7 +162,7 @@ jQuery(function ($) {
         // when parsing is done, export the data to PDF
         clientDbServer2DataSource.read().then(function (data) {
             let pdf = new shield.exp.PDFDocument({
-                author: "UCBL",
+                author: "IFIC",
                 fontSize: 8,
                 created: new Date()
             });
@@ -192,7 +192,7 @@ jQuery(function ($) {
             );
 
             pdf.saveAs({
-                fileName: "UCBL-productWiseClReport"
+                fileName: "productWiseClReport"
             });
         });
     });

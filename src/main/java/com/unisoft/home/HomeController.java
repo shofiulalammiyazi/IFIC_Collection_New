@@ -20,7 +20,6 @@ import com.unisoft.collection.settings.customerRequest.CustomerRequestsService;
 import com.unisoft.collection.settings.designation.DesignationEntity;
 import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.collection.settings.designation.DesignationViewModel;
-import com.unisoft.collection.settings.diaryNoteSubMenu1.DNSubMenu1Service;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
@@ -93,8 +92,6 @@ public class HomeController {
     private final PeopleAllocationLogicRepository peopleAllocationLogicRepository;
 
     private final DealerPerformanceDataService dealerPerformanceService;
-
-    private final DNSubMenu1Service dnSubMenu1Service;
 
     private final DPDBucketService dpdBucketService;
 

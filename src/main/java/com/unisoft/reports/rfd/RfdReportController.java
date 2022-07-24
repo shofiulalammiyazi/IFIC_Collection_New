@@ -2,8 +2,6 @@ package com.unisoft.reports.rfd;
 
 import com.unisoft.collection.settings.diaryNoteMenu.DiaryNoteMenuEntity;
 import com.unisoft.collection.settings.diaryNoteMenu.DnoteMenuService;
-import com.unisoft.collection.settings.diaryNoteSubMenu1.DNSubMenu1Dao;
-import com.unisoft.collection.settings.diaryNoteSubMenu1.DiaryNoteSubMenu1Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +18,14 @@ import java.util.stream.Stream;
 public class RfdReportController {
     @Autowired
     private DnoteMenuService dnoteMenuService;
-    @Autowired
-    private DNSubMenu1Dao dnSubMenu1Dao;
+
     @Autowired
     public RfdReportDao dao;
     @GetMapping("create")
     public String create( Model model){
         List<DiaryNoteMenuEntity> dairynotelist=dnoteMenuService.getAllActive();
-        List<DiaryNoteSubMenu1Entity> dairynotesubmenulist=dnSubMenu1Dao.getActiveOnly();
 
         model.addAttribute("rfd",dairynotelist);
-        model.addAttribute("subrfd",dairynotesubmenulist);
         return "collection/reports/rfd/create";
     }
 
@@ -48,9 +43,6 @@ public class RfdReportController {
                 " b.ACCOUNT_NO ACCOUNT_NO," +
                 " b.ACCOUNT_NAME ACCOUNT_NAME," +
                 " a.LOAN_MENU ," +
-                " a.LOAN_SUBMENU_ONE," +
-                " a.LOAN_SUBMENU_TWO," +
-                " a.LOAN_SUBMENU_THREE," +
                 " a.LOAN_SHORT_NOTE" +
                 "  FROM " +
                 " DAIRY_NOTES_LOAN a, LOAN_ACCOUNT_BASIC_INFO b" +
@@ -79,9 +71,6 @@ public class RfdReportController {
                 " b.CARD_NO ACCOUNT_NO," +
                 "  b.CARD_NAME ACCOUNT_NAME," +
                 " a.CARD_MENU ," +
-                " a.CARD_SUBMENU_ONE," +
-                " a.CARD_SUBMENU_TWO," +
-                " a.CARD_SUBMENU_THREE," +
                 " a.CARD_SHORT_NOTE" +
                 "  FROM " +
                 " DAIRY_NOTES a, CARD_ACCOUNT_BASIC_INFO b" +
