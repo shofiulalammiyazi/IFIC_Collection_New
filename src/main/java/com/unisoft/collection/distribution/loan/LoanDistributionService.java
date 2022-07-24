@@ -282,7 +282,7 @@ public class LoanDistributionService {
         String disbursementDateString = accInfoFromReportServer.getDisbursmentDt();
         Date disbursementDate = StringUtils.hasText(disbursementDateString) ?
                 dateUtils.getFormattedDate(disbursementDateString, "dd-MMM-yyyy") :
-                dateUtils.getFormattedDate("1983-06-26", "yyyy-MM-dd"); // "1983-06-26" is UCBL's establishment date
+                dateUtils.getFormattedDate("1983-06-26", "yyyy-MM-dd");
         double disburseAmount = getDisbursementAmountByAccount(loanAccountBasicInfo, disbursementDate);
 //        double disburseAmount = accInfoFromReportServer.getDisburseLoanAmount();
 //        Date disbursementDate = dateManager.getFormattedDate("dd-MMM-yyyy", accInfoFromReportServer.getDisbursmentDt());

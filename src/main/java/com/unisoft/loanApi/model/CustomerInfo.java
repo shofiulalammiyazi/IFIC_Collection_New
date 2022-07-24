@@ -41,7 +41,7 @@ public class CustomerInfo implements BaseLoanApiModel{
     private String cifStatus;
     private String customerType;
     private String accountType;
-    private String customerCategory; // Provided as Company Category by UCBL IT
+    private String customerCategory;
 
     private String secCode;
     private String secDesc;

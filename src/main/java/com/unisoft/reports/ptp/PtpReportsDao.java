@@ -40,7 +40,7 @@ public class PtpReportsDao {
     public JasperPrint exportPdfFile() throws SQLException, JRException, IOException {
         Connection conn = jdbcTemplate.getDataSource().getConnection();
 
-        BufferedImage image = ImageIO.read(getClass().getResource("/static/images/ucbl_logo_x.png"));
+        BufferedImage image = ImageIO.read(getClass().getResource("/static/images/ific.png"));
 
         String path = resourceLoader.getResource("classpath:/templates/reports/ptp/ptp.jrxml").getURI().getPath();
         JasperReport jasperReport = JasperCompileManager.compileReport(path);

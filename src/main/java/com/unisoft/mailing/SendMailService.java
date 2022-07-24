@@ -59,7 +59,7 @@ public class SendMailService {
     
         helper.setText("Find the attached image", true);
     
-        helper.addAttachment("hero.jpg", new ClassPathResource("/logo/ucbl_logo_x.png"));
+        helper.addAttachment("hero.jpg", new ClassPathResource("/logo/ific.png"));
     
         mailSender.send(msg);
     }

@@ -101,7 +101,7 @@ public class DlgExceptionRulesLoanController {
         return "redirect:/collection/settings/dlgexceptionrulesloan/create";
     }
 
-    //    TODO: Temporary api implementation for customer CIF numbers. Deactivate this method when UCBL API is abvailable.
+    //    TODO: Temporary api implementation for customer CIF numbers. Deactivate this method when  API is abvailable.
     @ResponseBody
     @GetMapping("dummy-cif")
     public List<HashMap<String, String>> getDummyCifNumbers() {

@@ -76,10 +76,10 @@ jQuery(function ($) {
         clientDbServer2DataSource.read().then(function (data) {
 
             new shield.exp.OOXMLWorkbook({
-                author: "UCBL",
+                author: "IFIC",
                 worksheets: [
                     {
-                        name: "UCBL VIP List",
+                        name: "VIP List",
                         rows: [
                             {
                                 cells: [
@@ -136,7 +136,7 @@ jQuery(function ($) {
                     }
                 ]
             }).saveAs({
-                fileName: "UCBL-VipList"
+                fileName: "Bank-VipList"
             });
         });
     });

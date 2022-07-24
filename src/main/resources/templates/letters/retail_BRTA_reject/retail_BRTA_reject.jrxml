@@ -83,7 +83,7 @@ Dhaka
 			<textField>
 				<reportElement x="11" y="260" width="526" height="39" uuid="d83aedd8-0a3e-4a8e-a76a-0796fd1f5410"/>
 				<textElement textAlignment="Justified"/>
-				<textFieldExpression><![CDATA["This is to inform you that the above mentioned vehicle is registered in name of UCBL and the customer " + $P{customerName} + " is authorized under an Auto/Car Loan Agreement to use the car subject to regular payment of the monthly installments against the Auto/Car loan. "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["This is to inform you that the above mentioned vehicle is registered in name of Bank and the customer " + $P{customerName} + " is authorized under an Auto/Car Loan Agreement to use the car subject to regular payment of the monthly installments against the Auto/Car loan. "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="11" y="315" width="222" height="20" uuid="709ced5e-c7eb-4bfa-9fab-93ecbe43d607"/>

@@ -826,7 +826,7 @@ public class HomeController {
                 totalOutstanding += Optional.ofNullable(Double.valueOf(distributionInfo.getOutstandingAmount())).orElse(0.0);
                 totalMindue += Optional.ofNullable(distributionInfo.getMinDuePayment()).orElse(0.0);
 
-                // Todo: Update save and back amount logic when provided by UCBL
+                // Todo: Update save and back amount logic when provided by IFIC
                 distributionInfo.setSaveAmount(Optional.ofNullable(distributionInfo.getEmiAmount()).orElse(0.0));
                 distributionInfo.setBackAmount(Optional.ofNullable(distributionInfo.getEmiAmount()).orElse(0.0) + 1);
             }
@@ -1253,7 +1253,7 @@ public class HomeController {
                 totalOutstanding += Double.valueOf(distributionInfo.getOutStanding());
                 totalMindue += distributionInfo.getOpeningOverDue();
 
-                // Todo: Update save and back amount logic when provided by UCBL
+                // Todo: Update save and back amount logic when provided by IFIC
                 distributionInfo.setSaveAmount(distributionInfo.getEmiAmount());
                 distributionInfo.setBackAmount(distributionInfo.getEmiAmount() + 1);
             }
