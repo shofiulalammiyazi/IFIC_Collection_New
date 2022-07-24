@@ -1,6 +1,6 @@
 package com.unisoft.collection.settings.unit;
 /*
-Created by Yasir Araphat on 15/11/2020
+Created by    on 15/11/2020
 */
 
 import org.springframework.beans.factory.annotation.Autowired;

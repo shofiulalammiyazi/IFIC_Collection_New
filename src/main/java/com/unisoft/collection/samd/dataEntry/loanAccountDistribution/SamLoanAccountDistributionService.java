@@ -424,12 +424,7 @@ public class SamLoanAccountDistributionService implements CommonService<SamLoanA
         return distribution;
     }
 
-    /*
-     * Created By :~ Hasibul Islam
-     * Software Engineer
-     * 13-Jan-2021 11:40 AM
-     * For Loan Account Distribution Summary Dealer Dashboard.
-     * */
+
     public List<SamLoanAccountDistributionSummary> getLoanAccountDistributionSummary(String dealerPin){
         List<Tuple> summaries = samLoanAccountDistributionRepository.getLoanAccountDistributionSummary(dealerPin);
         List<SamLoanAccountDistributionSummary> finalizedSummary = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Summary model for Loan account details
  * <p>
- * Modified By Yasir Araphat
+ * Modified By
  * At 12 April 2021
  */
 @Data

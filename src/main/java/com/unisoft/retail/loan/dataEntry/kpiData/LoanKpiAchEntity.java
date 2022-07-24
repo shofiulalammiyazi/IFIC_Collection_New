@@ -1,6 +1,6 @@
 package com.unisoft.retail.loan.dataEntry.kpiData;
 /*
-  Created by Yasir Araphat on 3 May 2021
+  Created by    on 3 May 2021
 */
 
 import lombok.Data;

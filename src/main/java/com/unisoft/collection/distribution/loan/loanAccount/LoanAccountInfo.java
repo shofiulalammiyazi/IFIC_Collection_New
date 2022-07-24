@@ -9,7 +9,7 @@ import javax.persistence.*;
 /*
 Created by   Islam at 7/17/2019
 
-Unique constraint on LOAN_ACCOUNT_BASIC_INFO_ID added by Yasir Araphat on 25-03-2021
+Unique constraint on LOAN_ACCOUNT_BASIC_INFO_ID added by    on 25-03-2021
 */
 @Data
 @Entity

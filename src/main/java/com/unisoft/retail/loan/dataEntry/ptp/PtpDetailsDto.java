@@ -3,7 +3,7 @@ package com.unisoft.retail.loan.dataEntry.ptp;
 import lombok.Data;
 
 /**
- * Created by Yasir Araphat
+ * Created by
  * Created at 05 April, 2021
  */
 

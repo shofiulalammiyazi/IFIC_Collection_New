@@ -73,10 +73,6 @@ public class User extends BaseInfo implements PropertyBasedMakerCheckerModel {
     private String remark;
 
 
-    /*
-     * LOGIN WRONG PASSWORD SECURITY ENHANCE
-     * IMPLEMENTED BY :~: HASIBUL ISLAM. 08-Mar-2021.
-     * */
     @Column
     @Expose
     private int loginFailureAttempts;

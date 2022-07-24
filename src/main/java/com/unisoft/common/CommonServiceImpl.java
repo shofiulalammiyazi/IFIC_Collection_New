@@ -13,7 +13,7 @@ import java.util.Map;
  * Provides implementation for commonly required persistent operations
  * (e.g. Persist, Data audit and Fetch)
  * <p>
- * Implementation by Yasir Araphat
+ * Implementation by
  * on 25 April, 2021
  *
  * @param <T>

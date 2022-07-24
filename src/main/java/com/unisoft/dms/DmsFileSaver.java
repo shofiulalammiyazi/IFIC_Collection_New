@@ -38,7 +38,7 @@ public class DmsFileSaver {
     /**
      * Modification made according to Logicaldoc version 8.x.x and CMIS documentation
      * Applicable for logicaldoc-8.x.x-tomcat-bundle.zip (Operating System Independent)
-     * Modified by Yasir Araphat on 29 April 2021
+     * Modified by    on 29 April 2021
      *
      * @return CMIS Session or null if failed to create session
      * @throws CmisConnectionException
@@ -81,7 +81,7 @@ public class DmsFileSaver {
     }
 
     /**
-     * Modified by Yasir Araphat at 29 April 2021
+     * Modified by    at 29 April 2021
      * Modifications:
      * 1. Remove repetitive cmisSession() call by session parameter,
      * 2. Create folders by path instead of by static folder name parameters
@@ -105,7 +105,7 @@ public class DmsFileSaver {
     }
 
     /**
-     * Created by Yasir Araphat on 29 April 2021
+     * Created by    on 29 April 2021
      *
      * @param path
      * @param session
@@ -171,7 +171,7 @@ public class DmsFileSaver {
      */
 
     /**
-     * Modified By Yasir Araphat on 29 April 2021
+     * Modified By    on 29 April 2021
      *
      * @param documentId
      * @return
@@ -188,7 +188,7 @@ public class DmsFileSaver {
     }
 
     /**
-     * Modified by Yasir Araphat on 28 April 2021
+     * Modified by    on 28 April 2021
      *
      * @param documentId
      * @return

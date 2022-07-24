@@ -16,7 +16,7 @@ public interface LoanPerformanceAndEsauTrendRepository extends JpaRepository<ESA
     /**
      * ESAU Rating based on dealer performance
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 18, 2021
      *
      * @param dealerPins

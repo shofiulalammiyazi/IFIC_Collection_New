@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Created by Yasir Araphat
+ * Created by
  * Created at 23 February 2021
  */
 public class ResultSetExtractor {

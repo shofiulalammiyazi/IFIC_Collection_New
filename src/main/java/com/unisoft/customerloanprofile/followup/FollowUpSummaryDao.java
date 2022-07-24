@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Yasir Araphat
+ * Created by
  * Created at 5 April 2021
  */
 
@@ -26,7 +26,7 @@ public class FollowUpSummaryDao {
     /**
      * Generates summary for current month follow ups associated with a dealer
      *
-     * Implemented by Yasir Araphat
+     * Implemented by
      * At 05 April 2021
      * @param userPin
      * @return List of FollowUpSummaryModel
@@ -141,7 +141,7 @@ public class FollowUpSummaryDao {
     /**
      * Generates summary for current month follow ups associated with a supervisor
      *
-     * Modified by Yasir Araphat
+     * Modified by
      * At 05 April 2021
      * @param userPin
      * @return List of FollowUpSummaryModel
@@ -264,7 +264,7 @@ public class FollowUpSummaryDao {
     /**
      * Generates summary for current month follow ups associated with a team leader
      *
-     * Modified by Yasir Araphat
+     * Modified by
      * At 05 April 2021
      * @param userPin
      * @return List of FollowUpSummaryModel
@@ -387,7 +387,7 @@ public class FollowUpSummaryDao {
     /**
      * Generates summary for current month follow ups associated with a manager
      *
-     * Modified by Yasir Araphat
+     * Modified by
      * At 05 April 2021
      * @param userPin
      * @return List of FollowUpSummaryModel

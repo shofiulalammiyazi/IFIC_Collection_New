@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Yasir Araphat
+ * Created by
  * Created on 01 August, 2021
  */
 @Repository
@@ -20,7 +20,7 @@ public interface RetailLoanDashboardRepository extends JpaRepository<LoanAccount
 
     /**
      * Account wise distribution and status summary for dealer, team leader, supervisor and manager dashboard.
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 02, 2021
      *
      * @param dealerPins
@@ -324,7 +324,7 @@ public interface RetailLoanDashboardRepository extends JpaRepository<LoanAccount
 
     /**
      * Amount wise distribution and status summary for dealer, team leader, supervisor and manager dashboard.
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 02, 2021
      *
      * @param dealerPins
@@ -628,7 +628,7 @@ public interface RetailLoanDashboardRepository extends JpaRepository<LoanAccount
 
     /**
      * Categorized payment summary for dealer dashboard.
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 03, 2021
      *
      * @param dealerPins
@@ -770,7 +770,7 @@ public interface RetailLoanDashboardRepository extends JpaRepository<LoanAccount
      * LPCM -> Current month payment summary,
      * LPLD -> Yesterday payment summary.
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * at 18 April 2021
      *
      * @param dealerPins

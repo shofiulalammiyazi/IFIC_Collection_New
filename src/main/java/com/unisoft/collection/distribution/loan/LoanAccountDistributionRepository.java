@@ -84,7 +84,7 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
      * Account wise summary for dealer dashboard.
      * Provides details for PTP, Follow Up and other account and customer related information.
      * <p>
-     * Completed by Yasir Araphat
+     * Completed by
      * At 12 April 2021
      *
      * @param dealerPin

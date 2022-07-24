@@ -1,6 +1,6 @@
 package com.unisoft.collection.settings.district;
 /*
-Created by Yasir Araphat on 9 March 2021
+Created by    on 9 March 2021
 */
 
 import lombok.Data;

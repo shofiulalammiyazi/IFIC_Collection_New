@@ -34,7 +34,7 @@ public class LoanKpiTargetVsAchievementSevrice {
      * 2. Monthly performance is calculated at next month's first date with a view to getting a whole month data.
      * When calculating performance this way, yesterday means the last date of the previous month.
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 12, 2021
      */
     public void updateKpiPerformanceStatusForAllDealerTillYesterday() {

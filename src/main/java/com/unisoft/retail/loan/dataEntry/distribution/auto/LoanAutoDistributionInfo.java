@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * Data model for temporarily storing delinquent account related data pulled from client database
  * Need to clear all previous data before storing new data at the first day of every month.
  *
- * Created by Yasir Araphat on 29 May 2021
+ * Created by    on 29 May 2021
  */
 @Data
 @Entity

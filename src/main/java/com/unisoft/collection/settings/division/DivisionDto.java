@@ -1,6 +1,6 @@
 package com.unisoft.collection.settings.division;
 /*
-Created by Yasir Araphat on 3/11/2021
+Created by    on 3/11/2021
 */
 
 import lombok.Data;

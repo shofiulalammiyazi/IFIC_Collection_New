@@ -1,7 +1,7 @@
 package com.unisoft.retail.loan.setup.parReleaseLoan;
 
 /*
- * Created by Yasir Araphat on 25 April, 2021
+ * Created by    on 25 April, 2021
  */
 
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;

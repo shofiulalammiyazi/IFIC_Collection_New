@@ -3,7 +3,7 @@ package com.unisoft.customerloanprofile.followup;
 import lombok.Data;
 
 /**
- * Created by Yasir Araphat on 05 April, 2021
+ * Created by    on 05 April, 2021
  */
 
 @Data

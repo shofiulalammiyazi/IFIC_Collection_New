@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Yasir Araphat
+ * @author
  * @since May 27, 2021
  */
 @Component

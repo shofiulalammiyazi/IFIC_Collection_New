@@ -2,10 +2,6 @@ package com.unisoft.collection.samd.dataEntry.loanAccountDistribution;
 
 import lombok.Data;
 
-/*
-* created by ~ Hasibul Islam
-* 28 Mar, 2021 10:34 AM
-* */
 @Data
 public class SamLoanAccountDistributionSummary {
     private Object accountNo;

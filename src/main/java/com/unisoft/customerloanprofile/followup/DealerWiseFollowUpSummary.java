@@ -6,7 +6,7 @@ import javax.persistence.Tuple;
 import java.util.Objects;
 
 /**
- * Created by Yasir Araphat
+ * Created by
  * at 19 April, 2021
  */
 

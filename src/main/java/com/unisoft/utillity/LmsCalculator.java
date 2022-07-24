@@ -1,7 +1,7 @@
 package com.unisoft.utillity;
 
 /*
-  Created by Yasir Araphat on 5/1/2021
+  Created by    on 5/1/2021
 */
 
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;

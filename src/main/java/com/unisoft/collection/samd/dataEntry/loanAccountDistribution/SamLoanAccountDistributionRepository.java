@@ -38,11 +38,7 @@ public interface SamLoanAccountDistributionRepository extends JpaRepository<SamL
             "ORDER BY LADI.CREATED_DATE DESC", nativeQuery = true)
     List<Tuple> getLoanAccountDealerAllocationHistory(String accountNo, Date startDate, Date endDate);
 
-    /*
-     * Created By :~ Hasibul Islam
-     * 28 Mar, 2021 10:40 AM
-     * For Sam dealer Dashboard, Account Summary.
-     * */
+
     @Query(value = "SELECT " +
             "LABI.ACCOUNT_NO                                                                 AS accountNo, " +
             "COALESCE(DNL.CONTACT_COUNT, 0)                                                  AS contact, " +

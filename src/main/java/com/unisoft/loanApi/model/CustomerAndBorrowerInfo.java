@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 
 /**
  * Entity for the customer information which comes from manual input by the employees
- * Created By Yasir Araphat on May 30, 2021
+ * Created By    on May 30, 2021
  */
 @Entity
 @Data

@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
 /*
   Created by Md.   Islam on 12/31/2019
 
-  Modified by Yasir Araphat on 05 April, 2021
+  Modified by    on 05 April, 2021
 */
 @Data
 public class PtpStatusSummary {

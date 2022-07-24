@@ -1,7 +1,7 @@
 package com.unisoft.collection.settings.branch;
 
 
-// Created by Yasir Araphat on 13 March, 2021
+// Created by    on 13 March, 2021
 
 import lombok.Data;
 

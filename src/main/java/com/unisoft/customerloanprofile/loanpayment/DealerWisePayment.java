@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.Tuple;
 
 /**
- * Implementation by Yasir Araphat
+ * Implementation by
  * at 18 April 2021
  */
 @Data

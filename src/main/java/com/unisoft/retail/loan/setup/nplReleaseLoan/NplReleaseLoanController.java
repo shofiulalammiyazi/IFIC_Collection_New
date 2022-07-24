@@ -2,7 +2,7 @@ package com.unisoft.retail.loan.setup.nplReleaseLoan;
 /*
 Created by   Islam on 7/10/2019
 
-Modified by Yasir Araphat on 25 April, 2021
+Modified by    on 25 April, 2021
 */
 
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;

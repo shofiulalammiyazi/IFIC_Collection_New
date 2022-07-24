@@ -17,12 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-/*
- * Author: Hasibul Islam
- * Software Engineer. CS InfoTech Ltd.
- * From Jun-2021,
- * For more query don't hesitate to Contact.
- * */
 @Component
 public class JasperReportManager {
 

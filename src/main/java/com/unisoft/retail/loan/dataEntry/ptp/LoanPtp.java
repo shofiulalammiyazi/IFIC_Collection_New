@@ -16,7 +16,7 @@ import java.util.Date;
  * One ResultSetMapping for four queries as the named queries returns
  * same columns and requires same constructor to extract the values.
  *
- * Implemented by Yasir Araphat
+ * Implemented by
  * At 28 February, 2021
  */
 @SqlResultSetMappings({
@@ -40,7 +40,7 @@ import java.util.Date;
  * javax.persistence.NamedNativeQuery used to map native queries to LoanPtp entity.
  * The queries are accessible from any @Repository
  *
- * Implemented by Yasir Araphat
+ * Implemented by
  * At 28 February, 2021
  */
 @NamedNativeQueries({

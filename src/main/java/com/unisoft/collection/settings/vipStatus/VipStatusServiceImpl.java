@@ -1,6 +1,6 @@
 package com.unisoft.collection.settings.vipStatus;
 /*
-Created by Yasir Araphat on 01/02/2021
+Created by    on 01/02/2021
 */
 
 import com.unisoft.audittrail.AuditTrailService;

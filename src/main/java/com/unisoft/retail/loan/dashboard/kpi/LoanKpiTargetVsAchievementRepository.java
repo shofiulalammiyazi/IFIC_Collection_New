@@ -22,7 +22,7 @@ public interface LoanKpiTargetVsAchievementRepository extends JpaRepository<Loan
      * Performance matrix for dealers based on product group and dpd buckets. Calculations are based on account count
      * in each product and dpd bucket group.
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 10, 2021
      *
      * @param dealerPins
@@ -197,7 +197,7 @@ public interface LoanKpiTargetVsAchievementRepository extends JpaRepository<Loan
      * Performance matrix for dealers based on product group and dpd buckets. Calculations are based on sum of outstanding
      * in each product and dpd bucket group.
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * on August 10, 2021
      *
      * @param dealerPins

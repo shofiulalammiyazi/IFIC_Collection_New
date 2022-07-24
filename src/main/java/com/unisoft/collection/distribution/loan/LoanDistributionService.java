@@ -398,7 +398,7 @@ public class LoanDistributionService {
      * changes in Account Statement. Therefore, account statements after previous calculation
      * are collected form server.
      * <p>
-     * Implemented by Yasir Araphat
+     * Implemented by
      * At 15 April 2021
      *
      * @param accountBasicInfo

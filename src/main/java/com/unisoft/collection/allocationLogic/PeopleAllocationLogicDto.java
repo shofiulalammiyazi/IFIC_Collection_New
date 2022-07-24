@@ -1,6 +1,6 @@
 package com.unisoft.collection.allocationLogic;
 /*
-Created by Yasir Araphat on June 4, 2021
+Created by    on June 4, 2021
 */
 
 import lombok.Data;

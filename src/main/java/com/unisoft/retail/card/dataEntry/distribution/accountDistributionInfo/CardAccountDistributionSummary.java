@@ -1,6 +1,6 @@
 package com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo;
 /*
- * Created by Yasir Araphat on 17 May, 2021
+ * Created by    on 17 May, 2021
  */
 
 import lombok.Data;

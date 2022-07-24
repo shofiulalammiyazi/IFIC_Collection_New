@@ -18,7 +18,7 @@ import java.util.Optional;
  * <p>
  * N.B. No target, no performance. Performance is less than  or equal to 25%, no performance.
  * <p>
- * Implemented by Yasir Araphat
+ * Implemented by
  * on August 10, 2021
  */
 

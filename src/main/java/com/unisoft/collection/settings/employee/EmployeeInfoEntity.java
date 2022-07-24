@@ -2,7 +2,7 @@ package com.unisoft.collection.settings.employee;
 /*
 Created by   Islam at 7/2/2019
 
-Regex validation by Yasir Araphat on June 24, 2021
+Regex validation by    on June 24, 2021
 */
 
 import com.unisoft.base.BaseInfo;

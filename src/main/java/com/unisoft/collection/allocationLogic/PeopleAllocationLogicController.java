@@ -4,8 +4,6 @@ Created by   Islam at 7/18/2019
 */
 
 import com.unisoft.audittrail.AuditTrailService;
-import com.unisoft.collection.samd.dashboard.managerDashboard.monitoringTeamSummary.PeopleAllocationForMonitoringSummaryDto;
-import com.unisoft.collection.samd.dashboard.managerDashboard.monitoringTeamSummary.PeopleAllocationForMonitoringTeamSummaryService;
 import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.branch.Branch;
@@ -52,7 +50,6 @@ public class PeopleAllocationLogicController {
     private final AuditTrailService auditTrailService;
     private final UnitService unitService;
     private final PeopleAllocationLogicService peopleAllocationLogicService;
-    private final PeopleAllocationForMonitoringTeamSummaryService summaryService;
     private final AgencyService agencyService;
     @Autowired
     private  ProductTypeCardService productTypeCardService;
@@ -328,7 +325,7 @@ public class PeopleAllocationLogicController {
 
 
 
-    @GetMapping("findBy-supervisor")
+   /* @GetMapping("findBy-supervisor")
     @ResponseBody
     public List<EmployeeInfoEntity> getSupervisorWiseTeamleader(@RequestParam String supervisorPin, @RequestParam String unit){
         EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(supervisorPin);
@@ -341,10 +338,10 @@ public class PeopleAllocationLogicController {
 
         return entities;
 
-    }
+    }*/
 
 
-    @GetMapping("findBy-teamleader")
+   /* @GetMapping("findBy-teamleader")
     @ResponseBody
     public List<EmployeeInfoEntity> geteamleaderWisedealer(@RequestParam Long teamleaderId, @RequestParam String unit){
         EmployeeInfoEntity employeeInfoEntity = employeeService.getById(teamleaderId);
@@ -357,7 +354,7 @@ public class PeopleAllocationLogicController {
 
         return entities;
 
-    }
+    }*/
 
 
 

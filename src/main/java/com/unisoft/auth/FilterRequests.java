@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
- * Implemented By :~ Hasibul Islam | 22-Mar-2021 12:35
- * To Check Permissions & Security for requested url.
- * */
 @Component
 public class FilterRequests implements Filter {
 
