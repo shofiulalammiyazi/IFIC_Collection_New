@@ -7,7 +7,6 @@ import com.csinfotechbd.collection.emi.EmiEntity;
 import com.csinfotechbd.collection.emi.EmiRepository;
 import com.csinfotechbd.collection.emi.EmiService;
 import com.csinfotechbd.collection.reasonDelinquency.ReasonDelinquencyServiceImpl;
-import com.csinfotechbd.collection.samd.setup.sourceOfRecovery.SourceOfRecoveryRepository;
 import com.csinfotechbd.collection.settings.ExchangeRate.ExchangeRateEntity;
 import com.csinfotechbd.collection.settings.ExchangeRate.ExchangeRateService;
 import com.csinfotechbd.collection.settings.customerinfouploadcard.professionsegment.ProfessionSegment;

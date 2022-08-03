@@ -3,7 +3,6 @@ package com.csinfotechbd.retail.card.dataEntry.distribution.accountBasicInfo;
 Created by Monirul Islam at 7/21/2019
 */
 
-import com.csinfotechbd.legal.dataEntry.caseEntry.CardInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,14 +63,14 @@ public class CardAccountBasicService {
 
 
 
-    public CardInfoDto getCardInfoForLegal(String clientId) {
-        Tuple tuple = cardAccountBasicRepository.getCardDataForLegal(clientId);
-        CardInfoDto cardInfoDto = new CardInfoDto();
-        cardInfoDto.setCustomerAccName(tuple.get("customerAccName"));
-        cardInfoDto.setCardNumber(tuple.get("cardNumber"));
-        cardInfoDto.setBranchName(tuple.get("branchName"));
-        return cardInfoDto;
-    }
+//    public CardInfoDto getCardInfoForLegal(String clientId) {
+//        Tuple tuple = cardAccountBasicRepository.getCardDataForLegal(clientId);
+//        CardInfoDto cardInfoDto = new CardInfoDto();
+//        cardInfoDto.setCustomerAccName(tuple.get("customerAccName"));
+//        cardInfoDto.setCardNumber(tuple.get("cardNumber"));
+//        cardInfoDto.setBranchName(tuple.get("branchName"));
+//        return cardInfoDto;
+//    }
 
     public List<CardAccountBasicInfo> findAllByContractId(String accountNo) {
         return cardAccountBasicRepository.findAllByContractId(accountNo);

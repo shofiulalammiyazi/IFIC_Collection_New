@@ -1,7 +1,6 @@
 package com.csinfotechbd.detailsOfCollection.controller;
 
 import com.csinfotechbd.collection.reasonDelinquency.ReasonDelinquencyServiceImpl;
-import com.csinfotechbd.collection.samd.dataEntry.loanAccountDistribution.SamLoanAccountDistributionService;
 import com.csinfotechbd.collection.settings.deferredAccount.DeferredAccount;
 import com.csinfotechbd.collection.settings.deferredAccount.DeferredAccountService;
 import com.csinfotechbd.collection.settings.employee.EmployeeInfoEntity;
@@ -128,7 +127,7 @@ public class ProfileLoanController {
 
     private final HttpSession session;
 
-    private final SamLoanAccountDistributionService samLoanAccountDistributionService;
+
 
     private final EmployeeService employeeService;
 
@@ -319,11 +318,8 @@ public class ProfileLoanController {
 
         Date currentMonthStartDate = dateUtils.getMonthStartDate();
         Date currentMonthEndDate = dateUtils.getMonthEndDate();
-        if (session.getAttribute("unit").toString().toUpperCase().contains("SAM"))
-            model.addAttribute("dealerAllocationHistory", samLoanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
-        else
-            model.addAttribute("dealerAllocationHistory",
-                    loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
+
+            model.addAttribute("dealerAllocationHistory", loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
         return "collection/details/main";
     }
 

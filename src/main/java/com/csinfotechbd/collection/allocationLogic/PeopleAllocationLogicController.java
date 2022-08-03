@@ -4,8 +4,6 @@ Created by Monirul Islam at 7/18/2019
 */
 
 import com.csinfotechbd.audittrail.AuditTrailService;
-import com.csinfotechbd.collection.samd.dashboard.managerDashboard.monitoringTeamSummary.PeopleAllocationForMonitoringSummaryDto;
-import com.csinfotechbd.collection.samd.dashboard.managerDashboard.monitoringTeamSummary.PeopleAllocationForMonitoringTeamSummaryService;
 import com.csinfotechbd.collection.settings.agency.AgencyEntity;
 import com.csinfotechbd.collection.settings.agency.AgencyService;
 import com.csinfotechbd.collection.settings.branch.Branch;
@@ -52,7 +50,6 @@ public class PeopleAllocationLogicController {
     private final AuditTrailService auditTrailService;
     private final UnitService unitService;
     private final PeopleAllocationLogicService peopleAllocationLogicService;
-    private final PeopleAllocationForMonitoringTeamSummaryService summaryService;
     private final AgencyService agencyService;
     @Autowired
     private  ProductTypeCardService productTypeCardService;
@@ -328,36 +325,9 @@ public class PeopleAllocationLogicController {
 
 
 
-    @GetMapping("findBy-supervisor")
-    @ResponseBody
-    public List<EmployeeInfoEntity> getSupervisorWiseTeamleader(@RequestParam String supervisorPin, @RequestParam String unit){
-        EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(supervisorPin);
-        List<PeopleAllocationForMonitoringSummaryDto> peopleAllocationLogicInfoList = summaryService.findSupervisorWiseTeamleader(employeeInfoEntity.getId(), unit);
-        List<EmployeeInfoEntity> entities = new ArrayList<>();
-        for (PeopleAllocationForMonitoringSummaryDto peopleAllocationLogicInfo: peopleAllocationLogicInfoList){
-            EmployeeInfoEntity entity = employeeService.getById(((Number) peopleAllocationLogicInfo.getTeamleaderId()).longValue());
-            entities.add(entity);
-        }
-
-        return entities;
-
-    }
 
 
-    @GetMapping("findBy-teamleader")
-    @ResponseBody
-    public List<EmployeeInfoEntity> geteamleaderWisedealer(@RequestParam Long teamleaderId, @RequestParam String unit){
-        EmployeeInfoEntity employeeInfoEntity = employeeService.getById(teamleaderId);
-        List<PeopleAllocationForMonitoringSummaryDto> peopleAllocationLogicInfoList = summaryService.findTeamleaderWiseDealer(employeeInfoEntity.getId(), unit);
-        List<EmployeeInfoEntity> entities = new ArrayList<>();
-        for (PeopleAllocationForMonitoringSummaryDto peopleAllocationLogicInfo: peopleAllocationLogicInfoList){
-            EmployeeInfoEntity entity = employeeService.getById(((Number) peopleAllocationLogicInfo.getDealerId()).longValue());
-            entities.add(entity);
-        }
 
-        return entities;
-
-    }
 
 
 
