@@ -1,8 +1,0 @@
-package com.csinfotechbd.collection.settings.agency;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface AgencyEntityDtoRepository extends JpaRepository<AgencyEntity, Long> {
-}

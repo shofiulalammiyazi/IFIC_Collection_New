@@ -1,4 +1,4 @@
-//Setu Bishwas, Nabil (On 25th August,2019)
+
 var guarantorNode;
 
 

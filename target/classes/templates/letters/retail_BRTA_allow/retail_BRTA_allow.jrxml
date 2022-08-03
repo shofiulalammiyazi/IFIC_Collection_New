@@ -117,7 +117,7 @@ Dhaka
 			</textField>
 			<textField>
 				<reportElement x="11" y="655" width="487" height="20" uuid="f3ce9a22-3be8-4559-a922-3a6a537e1d2f"/>
-				<textFieldExpression><![CDATA["CC: Head of Branch, " + ($P{branch}==null?"":$P{branch}) + " , UCBL, Dhaka."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CC: Head of Branch, " + ($P{branch}==null?"":$P{branch}) + " , IFIC, Dhaka."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="11" y="53" width="312" height="20" uuid="052589ce-9163-4d2c-b220-a5862af5410c"/>
