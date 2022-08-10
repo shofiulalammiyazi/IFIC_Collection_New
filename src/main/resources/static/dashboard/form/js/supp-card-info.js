@@ -88,8 +88,8 @@ $('#suppInfoEditButton').click(function(event) {
 $("#tab-suppCard").click(function(){
 
  var supp={
-        name : "mahim",
-        company : "CsInfotech",
+        name : "Unisoft",
+        company : "Unisoft",
         id : $("#personalCustomerIdEdit").val()
     };
 

@@ -16,25 +16,25 @@
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left ">Father Name :</label>
+
                         <label class="col-sm-3 custom-form-lebel" id="fatherName">{{customerInfo.fatherName}}</label>
+
                         <label class="col-sm-3 custom-details-lebel-left "> Mother Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="motherName">{{customerInfo.motherName}}</label>
+
                     </div>
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Spouse Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{customerInfo.spouseName}}</label>
-                        <!--<label class="col-sm-3 custom-details-lebel-left">Status :</label>
-                        <label class="col-sm-3 custom-form-lebel">{{loanAccInfo.accountStatus}}</label>-->
+
                     </div>
-                    <div class="form-group row csi-view-form-group" th:if="${#strings.startsWith(session.unit,'SAM')}">
-                        <!--<label class="col-sm-3 custom-details-lebel-left" >Spouse Occupation :</label>-->
-                        <!--<label class="col-sm-3 custom-form-lebel">-</label>-->
-                    </div>
+
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Passport No. :</label>
                         <label class="col-sm-3 custom-form-lebel"
                                id="passportNo">{{customerInfo.passportNumber}}</label>
+
                         <label class="col-sm-3 custom-details-lebel-left">National ID :</label>
                         <label class="col-sm-3 custom-form-lebel" id="nid">{{customerInfo.nationalId}}</label>
                     </div>
@@ -42,13 +42,12 @@
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
                         <label class="col-sm-3 custom-form-lebel" id="email">{{customerInfo.email}}</label>
+
+
                         <label class="col-sm-3 custom-details-lebel-left">TIN :</label>
                         <label class="col-sm-3 custom-form-lebel" id="tin">{{customerInfo.tinNo}}</label>
                     </div>
-                    <div class="form-group row csi-view-form-group" th:if="${#strings.startsWith(session.unit,'SAM')}">
-                        <label class="col-sm-3 custom-details-lebel-left">Driving License :</label>
-                        <label class="col-sm-3 custom-form-lebel">-</label>
-                    </div>
+
                 </div>
             </div>
 
