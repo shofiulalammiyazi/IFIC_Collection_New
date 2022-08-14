@@ -492,7 +492,7 @@ public class CardProfileController {
         accountInformation.setCustomerAddress(customer.getHomeAddress());
         accountInformation.setProductTypeName(collectionReportOne.getCardProduct());
         accountInformation.setRewardPoint(collectionReportTwo.getRewardPoint());
-        accountInformation.setUcbStuff(collectionReportOne.getCardProduct() != null ? collectionReportOne.getCardProduct().equalsIgnoreCase("employee")?"Y":"N":"");
+        accountInformation.setBankStuff(collectionReportOne.getCardProduct() != null ? collectionReportOne.getCardProduct().equalsIgnoreCase("employee")?"Y":"N":"");
 
         double totalPaidAmt = 0.0;
         if(collectionReportTwo.getTotalBdtPay() != null && collectionReportTwo.getTotalUsdPay() != null)
