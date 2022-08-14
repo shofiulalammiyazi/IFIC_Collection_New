@@ -21,17 +21,7 @@
                         </div>
 
                         <div class="box-body">
-                            <!-- <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
-                                th:href="@{/legal/setup/legalexpense/create}">
-                                 <span class="glyphicon glyphicon-plus"> </span>
-                                 Add New Legal Expense
-                             </a>-->
-                            <!-- <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
-                                th:if="${session.urlList.contains('/legal/setup/legalexpense/create')}"
-                                th:href="@{/legal/setup/legalexpense/create}">
-                                 <span class="glyphicon glyphicon-plus"> </span>
-                                 Add New Legal Expense
-                             </a>-->
+
                             <div class="table-responsive">
                                 <table th:if="${emiAll!=null}" id="example" name="datatable-responsive"
                                        class="table table-striped table-bordered table-condensed" width="100%">
@@ -50,32 +40,6 @@
                                         <td><span th:text="${emi.contractId}"></span></td>
                                         <td><span th:text="${emi.totalSettlementAmount}"></span></td>
                                         <td><span th:text="${emi.tenor}"></span></td>
-                                        <!-- <td style="text-align: center">
-                                             <a class="btn btn-primary btn-xs"
-
-                                                th:href="@{/legal/setup/legalexpense/edit(id=${legalExpense.id})}">
-                                                 <i class="fa fa-edit"></i>
-                                                 Edit
-                                             </a>
-                                             <a class="btn btn-success btn-xs"
-
-                                                th:href="@{/legal/setup/legalexpense/view(id=${legalExpense.id})}">
-                                                 <i class="fa fa-eye"></i>
-                                                 View
-                                             </a>
-                                             &lt;!&ndash; <a class="btn btn-primary btn-xs"
-                                                 th:if="${session.urlList.contains('/legal/setup/legalexpense/edit')}"
-                                                 th:href="@{/legal/setup/legalexpense/edit(id=${legalExpense.id})}">
-                                                  <i class="fa fa-edit"></i>
-                                                  Edit
-                                              </a>
-                                              <a class="btn btn-success btn-xs"
-                                                 th:if="${session.urlList.contains('/legal/setup/legalexpense/view')}"
-                                                 th:href="@{/legal/setup/legalexpense/view(id=${legalExpense.id})}">
-                                                  <i class="fa fa-eye"></i>
-                                                  View
-                                              </a>&ndash;&gt;
-                                         </td>-->
                                     </tr>
                                     </tbody>
                                 </table>

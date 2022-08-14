@@ -37,12 +37,7 @@
 									<!--<a  id="customerAndBorrowerInfo" th:if="${session.urlList.contains('customerAndBorrowerInfo')}" href="#" class="list-group-item" title="Updated Additional Info">Updated Additional Info</a>-->
 									<a  id="bucketMovementCalculator" th:if="${session.urlList.contains('bucketMovementCalculator')}" href="#" class="list-group-item" title="Bucket Movement Calculator">Bucket Movement Calculator</a>
 									<a  id="letterGeneratedInfo" th:if="${session.urlList.contains('letterGeneratedInfo')}" href="#" class="list-group-item" title="Letter Generated Information">Letter Generated Information</a>
-									<a  id="ptp" href="#" class="list-group-item" title="PTP" th:if="${#strings.startsWith(session.unit,'SAM')}">PTP</a>
-									<a  id="visite-report" href="#" class="list-group-item" title="Visit Report" th:if="${#strings.startsWith(session.unit,'SAM')}">Visit Report</a>
-									<a  id="written-off-management"  href="#" class="list-group-item" title="Written-Off Management" th:if="${#strings.startsWith(session.unit,'SAM')}">Written-Off Management</a>
-									<a  id="proposal-management"  href="#" class="list-group-item" title="Proposal Management" th:if="${#strings.startsWith(session.unit,'SAM')}">Proposal Management</a>
-									<a  id="proposal-management-rescheduling"  href="#" class="list-group-item" title="Proposal Management Rescheduling" th:if="${#strings.startsWith(session.unit,'SAM')}">Proposal Management Rescheduling</a>
-									<a  id="generation-classification-provisioning"  href="#" class="list-group-item" title="Generation of Classification And Provisioning" th:if="${#strings.startsWith(session.unit,'SAM')}">Generation of Classification And Provisioning</a>
+
 									<a  id="statement-detail" th:if="${session.urlList.contains('statement-detail')}" href="#" class="list-group-item" title="Account Statement" >Account Statement</a>
 									<a  id="delinquency-reason" th:if="${session.urlList.contains('delinquency-reason')}" href="#" class="list-group-item" title="Reason For Delinquency" >Reason For Delinquency</a>
 									<a  id="tab-legal-action" th:if="${session.urlList.contains('tab-legal-action')}" href="#" class="list-group-item" title="Legal Action" >Legal Action</a>
@@ -52,25 +47,7 @@
 									<a  id="tab-allocationDetails" th:if="${session.urlList.contains('tab-allocationDetails')}" href="#" class="list-group-item" title="MO Information">MO Information</a>
 									<a  id="tab-updateAdditionalInfo" th:if="${session.urlList.contains('tab-updateAdditionalInfo')}" href="#" class="list-group-item" title="Customer And Borrower Information">Customer And Borrower Information</a>
 									<a  id="tab-additionalInfo" th:if="${session.urlList.contains('tab-additionalInfo')}" href="" class="list-group-item" title="Additional Information">Additional Information</a>
-									<a  id="tab-monitoring-and-follow-up" href="#" class="list-group-item" title="Monitoring And FollowUp" th:if="${#strings.startsWith(session.unit,'SAM')}">Monitoring And FollowUp</a>
-
-									<a  id="tab-details-of-the-account" href="#" class="list-group-item" title="Details Of The Account" th:if="${#strings.startsWith(session.unit,'SAM')}">Details Of The Account</a>
-									<a  id="tab-previous-approval-related-to-loan-rescheduling" href="#" class="list-group-item" title="Previous Approval Related to Loan Rescheduling" th:if="${#strings.startsWith(session.unit,'SAM')}">Previous Approval Related to Loan Rescheduling</a>
-
-
-
-									<!--<a  id="tab-branch-proposal-format" href="#" class="list-group-item" title="Branch Proposal Format" th:if="${#strings.startsWith(session.unit,'SAM')}">Branch Proposal Format</a>-->
-									<!--<a  id="tab-backgournd-of-borrower" href="#" class="list-group-item" title="Backgournd of the Borrower" th:if="${#strings.startsWith(session.unit,'SAM')}">Backgournd of the Borrower</a>-->
-									<a  id="tab-basic-information" href="#" class="list-group-item" title="Basic Information" th:if="${#strings.startsWith(session.unit,'SAM')}">Basic Information</a>
-									<a  id="tab-background-of-the-borrower" href="#" class="list-group-item" title="Background of the Borrower" th:if="${#strings.startsWith(session.unit,'SAM')}">Background of the Borrower</a>
-									<a  id="tab-details-of-head-office-approval" href="#" class="list-group-item" title="Details of Head office Approval" th:if="${#strings.startsWith(session.unit,'SAM')}">Details of Head Office Approval</a>
-									<a  id="tab-latest-approval-related-to-loan-rescheduling-settlement-waiver" href="#" class="list-group-item" title="Latest approval related to loan resheduling/settlement/waiver" th:if="${#strings.startsWith(session.unit,'SAM')}">Latest approval related to loan resheduling/settlement/waiver</a>
-									<a  id="tab-reason-for-classification" href="#" class="list-group-item" title="Reason for Classification" th:if="${#strings.startsWith(session.unit,'SAM')}">Reason for Classification</a>
-									<a  id="tab-borrower-present-proposition" href="#" class="list-group-item" title="Borrower's present proposition regarding adjustment of the loan liabilities" th:if="${#strings.startsWith(session.unit,'SAM')}">Borrower's present proposition regarding adjustment of the loan liabilities</a>
-									<a  id="tab-initiative-action-taken-after-delinquency" href="#" class="list-group-item" title="Initiative/Actions taken after delinquency" th:if="${#strings.startsWith(session.unit,'SAM')}">Initiative/Actions taken after delinquency</a>
-									<a  id="tab-future-recovery-plan" href="#" class="list-group-item" title="Future Recovery plan to settle the loan liability" th:if="${#strings.startsWith(session.unit,'SAM')}">Future Recovery plan to settle the loan liability</a>
-									<a  id="tab-justification" href="#" class="list-group-item" title="Justification for not being classified the loan" th:if="${#strings.startsWith(session.unit,'SAM')}">Justification for not being classified the loan</a>
-
+									<a  id="tab-collateralInfo"  href="" class="list-group-item" title="Collateral Security Details">Collateral Security Details</a>
 
 								</div>
 							</div>
@@ -254,45 +231,6 @@
 								</div>
 							</div>
 
-							<!--SAMD PTP-->
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/ptp :: ptp"></div>
-								</div>
-							</div>
-
-							<!--SAMD PTP-->
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/visit_report :: visit-report"></div>
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/written_off_management :: written-off-management"></div>
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/proposalManagement/main :: proposal-management"></div>
-								</div>
-							</div>
-
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/proposal_management_rescheduling :: proposal-management-rescheduling"></div>
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/generation_classification_provisioning :: generation-classification-provisioning"></div>
-								</div>
-							</div>
-
 
 							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${session.urlList.contains('statement-detail')}">
 								<div class="bhoechie-tab-content" >
@@ -353,104 +291,11 @@
 								</div>
 							</div>
 
-
-
-							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/monitoring_and_follow_tab :: monitoring-fololw-tap"></div>
-								</div>
-							</div>-->
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/monitoring_and_follow_tab :: monitoring-fololw-tap"></div>
-
+							<div class="bhoechie-tab csi-preview-bhoechie-tab">
+								<div class="bhoechie-tab-content">
+									<div th:replace="collection/details/panels/middle/collateralSecurityDetails :: collateral-security-details"></div>
 								</div>
 							</div>
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="samd/details-account/details-of-the-account:: details-of-the-account-tab"></div>
-								</div>
-							</div>
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="samd/previous-approval-related-to-loan-rescheduling/loan-rescheduling:: loan-rescheduling-tab"></div>
-								</div>
-							</div>
-
-
-
-						<!--<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">-->
-								<!--<div class="bhoechie-tab-content" >-->
-									<!--<div th:replace="collection/details/panels/middle/branch_proposal_format :: branch-proposal-format"></div>-->
-								<!--</div>-->
-							<!--</div>-->
-							<!--<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">-->
-								<!--<div class="bhoechie-tab-content" >-->
-									<!--<div th:replace="collection/details/panels/middle/background_of_borrower :: background-borrower"></div>-->
-
-								<!--</div>-->
-							<!--</div>-->
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/basic_info :: basic-info"></div>
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/background_of_the_borrower :: background-of-the-borrower-tap"></div>
-
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/details_of_head_office_approval :: details-of-head-office-tap"></div>
-
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/latest_approval_related_to_loan_resheduling_settlement_waiver :: latest-related-to-loan-resheduling-settlement-waiver-tap"></div>
-
-								</div>
-							</div>
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/reason_for_classification :: reason-for-classification-tap"></div>
-
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/borrower_present_proposition :: borrower-present-proposition-tap"></div>
-
-								</div>
-							</div>
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/initiative_action_taken_after_delinquency :: initiative-action-taken-after-delinquency-tap"></div>
-
-								</div>
-							</div>
-
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/future_recovery_plan :: future-recovery-plan-tap"></div>
-
-								</div>
-							</div>
-							<div class="bhoechie-tab csi-preview-bhoechie-tab" th:if="${#strings.startsWith(session.unit,'SAM')}">
-								<div class="bhoechie-tab-content" >
-									<div th:replace="collection/details/panels/middle/samd/justification :: justification-tap"></div>
-
-								</div>
-							</div>
-
 
 							<!-- /TAB CONTENT Details-->
 						</div>

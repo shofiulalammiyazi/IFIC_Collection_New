@@ -121,7 +121,7 @@ Dhaka
 			</textField>
 			<textField>
 				<reportElement x="11" y="53" width="312" height="20" uuid="052589ce-9163-4d2c-b220-a5862af5410c"/>
-				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="11" y="546" width="267" height="20" uuid="973f74f2-e7a0-40d4-a7a9-59c80a90b3d3"/>

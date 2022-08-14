@@ -1,7 +1,4 @@
 package com.unisoft.collection.distribution.loanAccountBasic;
-/*
-Created by   Islam at 7/17/2019
-*/
 
 import com.unisoft.base.BaseInfo;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;

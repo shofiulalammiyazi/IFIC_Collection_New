@@ -81,7 +81,7 @@
                                     <td style="display: none" class="ref-permanent-address" th:text="${referenceInfo.permanentAddress}"></td>
                                     <td style="display: none" class="ref-phone-no" th:text="${referenceInfo.phoneNo}"></td>
                                     <td style="display: none" class="ref-dealer-pin" th:text="${referenceInfo.dealerPin}"></td>
-                                    <td style="display: none" class="ref-facility" th:text="${referenceInfo.facilityWithUcbl}"></td>
+                                    <td style="display: none" class="ref-facility" th:text="${referenceInfo.facilityWithBank}"></td>
                                     <td style="display: none" class="ref-dob" th:text="${referenceInfo.dob}"></td>
                                     <td style="display: none" class="ref-nid-passport" th:text="${referenceInfo.nidOrPassport}"></td>
                                     <td style="display: none" class="ref-customer-id" th:text="${referenceInfo.customerId}"></td>
@@ -184,7 +184,7 @@
                                         refInfo.permanentAddress = $(".ref-permanent-address").eq(i).text();
                                         refInfo.phoneNo = $(".ref-phone-no").eq(i).text();
                                         refInfo.dealerPin = $(".ref-dealer-pin").eq(i).text();
-                                        refInfo.facilityWithUcbl = $(".ref-facility").eq(i).text();
+                                        refInfo.facilityWithBank = $(".ref-facility").eq(i).text();
                                         refInfo.dob = $(".ref-dob").eq(i).text();
                                         refInfo.nidOrPassport = $(".ref-nid-passport").eq(i).text();
                                         refInfo.customerId = $(".ref-customer-id").eq(i).text();
@@ -246,7 +246,7 @@
                                         refInfo.permanentAddress = $(".ref-permanent-address").eq(i).text();
                                         refInfo.phoneNo = $(".ref-phone-no").eq(i).text();
                                         refInfo.dealerPin = $(".ref-dealer-pin").eq(i).text();
-                                        refInfo.facilityWithUcbl = $(".ref-facility").eq(i).text();
+                                        refInfo.facilityWithBank = $(".ref-facility").eq(i).text();
                                         refInfo.dob = $(".ref-dob").eq(i).text();
                                         refInfo.nidOrPassport = $(".ref-nid-passport").eq(i).text();
                                         refInfo.customerId = $(".ref-customer-id").eq(i).text();

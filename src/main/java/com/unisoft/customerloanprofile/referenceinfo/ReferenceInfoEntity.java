@@ -23,7 +23,7 @@ public class ReferenceInfoEntity extends BaseInfo {
     private String phoneNo;
     private String relationReference;
     private String dealerPin;
-    private String facilityWithUcbl;
+    private String facilityWithBank;
     private String dob;
     private String nidOrPassport;
 

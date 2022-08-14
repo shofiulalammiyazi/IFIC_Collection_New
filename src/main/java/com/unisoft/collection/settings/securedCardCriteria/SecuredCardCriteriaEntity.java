@@ -1,7 +1,6 @@
 package com.unisoft.collection.settings.securedCardCriteria;
 
 
-/*Created by Nabil, assisted by Monir, Onjon on 19 August, 2019 */
 
 import com.unisoft.base.BaseInfo;
 import lombok.Data;

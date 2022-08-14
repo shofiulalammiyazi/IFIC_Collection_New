@@ -90,7 +90,7 @@
                                     <td style="display: none" class="guar-permanent-address" th:text="${guarantor?.permanentAddress}"></td>
                                     <td style="display: none" class="guar-phone-no" th:text="${guarantor?.phoneNo}"></td>
                                     <td style="display: none" class="guar-dealer-pin" th:text="${guarantor?.dealerPin}"></td>
-                                    <td style="display: none" class="guar-facility" th:text="${guarantor?.facilityWithUcbl}"></td>
+                                    <td style="display: none" class="guar-facility" th:text="${guarantor?.facilityWithBank}"></td>
                                     <td style="display: none" class="guar-dob" th:text="${guarantor?.dob}"></td>
                                     <td style="display: none" class="guar-nid-passport" th:text="${guarantor?.nidOrPassport}"></td>
                                     <td style="display: none" class="guar-customer-id" th:text="${guarantor?.customerBasicInfo?.customerId}"></td>
@@ -148,7 +148,7 @@
                                         guaInfo.permanentAddress = $(".guar-permanent-address").eq(i).text();
                                         guaInfo.phoneNo = $(".guar-phone-no").eq(i).text();
                                         guaInfo.dealerPin = $(".guar-dealer-pin").eq(i).text();
-                                        guaInfo.facilityWithUcbl = $(".guar-facility").eq(i).text();
+                                        guaInfo.facilityWithBank = $(".guar-facility").eq(i).text();
                                         guaInfo.dob = $(".guar-dob").eq(i).text();
                                         guaInfo.nidOrPassport = $(".guar-nid-passport").eq(i).text();
                                         guaInfo.customerId = $(".guar-customer-id").eq(i).text();
@@ -210,7 +210,7 @@
                                         guaInfo.permanentAddress = $(".guar-permanent-address").eq(i).text();
                                         guaInfo.phoneNo = $(".guar-phone-no").eq(i).text();
                                         guaInfo.dealerPin = $(".guar-dealer-pin").eq(i).text();
-                                        guaInfo.facilityWithUcbl = $(".guar-facility").eq(i).text();
+                                        guaInfo.facilityWithBank = $(".guar-facility").eq(i).text();
                                         guaInfo.dob = $(".guar-dob").eq(i).text();
                                         guaInfo.nidOrPassport = $(".guar-nid-passport").eq(i).text();
                                         guaInfo.customerId = $(".guar-customer-id").eq(i).text();

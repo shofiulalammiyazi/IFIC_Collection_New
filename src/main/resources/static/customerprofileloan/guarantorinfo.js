@@ -31,7 +31,7 @@ $("#tab-gurantor").click(function () {
                             "<td style=\"display:none;\">" +( data.guarantorInfo[i].dob==null?'':data.guarantorInfo[i].dob )+ "</td>" +
                             "<td style=\"display:none;\">" +( data.guarantorInfo[i].nidOrPassport==null?'':data.guarantorInfo[i].nidOrPassport )+ "</td>" +
                             "<td>" + (data.guarantorInfo[i].relationGuarantor ==null?'':data.guarantorInfo[i].relationGuarantor ) + "</td>" +
-                            "<td style=\"display:none;\">" +( data.guarantorInfo[i].facilityWithUcbl==null?'':data.guarantorInfo[i].facilityWithUcbl )+ "</td>" +
+                            "<td style=\"display:none;\">" +( data.guarantorInfo[i].facilityWithBank==null?'':data.guarantorInfo[i].facilityWithBank )+ "</td>" +
                             "<td>" + (data.guarantorInfo[i].status==null?'':data.guarantorInfo[i].status ) + "</td>" +
                             "<td style=\"display:none;\">" + (data.guarantorInfo[i].guarantorFatherName == null ? '' : data.guarantorInfo[i].guarantorFatherName) + "</td>" +
                             "<td style=\"display:none;\">" + (data.guarantorInfo[i].guarantorMotherName == null ? '' : data.guarantorInfo[i].guarantorMotherName) + "</td>" +
@@ -95,7 +95,7 @@ function guarantorInformationSave() {
                     "<td style=\"display:none;\">" + (data.guarantorInfo.dob == null ? '' : data.guarantorInfo.dob) + "</td>" +
                     "<td style=\"display:none;\">" + (data.guarantorInfo.nidOrPassport == null ? '' : data.guarantorInfo.nidOrPassport) + "</td>" +
                     "<td>" + (data.guarantorInfo.relationGuarantor == null ? '' : data.guarantorInfo.relationGuarantor) + "</td>" +
-                    "<td style=\"display:none;\">" + (data.guarantorInfo.facilityWithUcbl == null ? '' : data.guarantorInfo.facilityWithUcbl) + "</td>" +
+                    "<td style=\"display:none;\">" + (data.guarantorInfo.facilityWithBank == null ? '' : data.guarantorInfo.facilityWithBank) + "</td>" +
                     "<td>" + (data.guarantorInfo.status == null ? '' : data.guarantorInfo.status) + "</td>" +
                     "<td style=\"display:none;\">" + (data.guarantorInfo.guarantorFatherName == null ? '' : data.guarantorInfo.guarantorFatherName) + "</td>" +
                     "<td style=\"display:none;\">" + (data.guarantorInfo.guarantorMotherName == null ? '' : data.guarantorInfo.guarantorMotherName) + "</td>" +
@@ -117,7 +117,7 @@ function guarantorInformationSave() {
                 globalRow.cells[10].innerHTML=data.guarantorInfo.dob;
                 globalRow.cells[11].innerHTML=data.guarantorInfo.nidOrPassport;
                 globalRow.cells[12].innerHTML=data.guarantorInfo.relationGuarantor;
-                globalRow.cells[13].innerHTML=data.guarantorInfo.facilityWithUcbl;
+                globalRow.cells[13].innerHTML=data.guarantorInfo.facilityWithBank;
                 globalRow.cells[14].innerHTML=data.guarantorInfo.status;
                 globalRow.cells[15].innerHTML=data.guarantorInfo.guarantorFatherName;
                 globalRow.cells[16].innerHTML=data.guarantorInfo.guarantorMotherName;
@@ -155,7 +155,7 @@ function editGuarantorRow(node){
     $("#guarantor-dob").val(row.cells[10].innerHTML);
     $("#guarantorNid").val(row.cells[11].innerHTML);
     $("#relGuarantor").val(row.cells[12].innerHTML);
-    $("#facilityWithUcbl").val(row.cells[13].innerHTML);
+    $("#facilityWithBank").val(row.cells[13].innerHTML);
     $("#guaranntorFather").val(row.cells[15].innerHTML);
     $("#guarantorMother").val(row.cells[16].innerHTML);
 
@@ -177,7 +177,7 @@ function viewGuarantorRow(node) {
     $("#guarantor-dob").val(row.cells[10].innerHTML);
     $("#guarantorNid").val(row.cells[11].innerHTML);
     $("#relGuarantor").val(row.cells[12].innerHTML);
-    $("#facilityWithUcbl").val(row.cells[13].innerHTML);
+    $("#facilityWithBank").val(row.cells[13].innerHTML);
     $("#guaranntorFather").val(row.cells[15].innerHTML);
     $("#guarantorMother").val(row.cells[16].innerHTML);
 
@@ -209,7 +209,7 @@ function enableFormAndClearFormData() {
     $("#guarantor-dob").val('');
     $("#guarantorNid").val('');
     $("#relGuarantor").val('');
-    $("#facilityWithUcbl").val('');
+    $("#facilityWithBank").val('');
     $("#guaranntorFather").val('');
     $("#guarantorMother").val('');
 }

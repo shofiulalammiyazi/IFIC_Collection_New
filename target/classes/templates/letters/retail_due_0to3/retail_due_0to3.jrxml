@@ -76,7 +76,7 @@ where cust.id = $P{customerId}]]>
 			</staticText>
 			<textField>
 				<reportElement x="17" y="71" width="321" height="20" uuid="9e2fe5a0-ac94-4de0-ae0e-5ff2804c7d69"/>
-				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="17" y="195" width="502" height="20" uuid="9c55d7d6-dabf-4855-9c8a-75371a0717a8"/>
