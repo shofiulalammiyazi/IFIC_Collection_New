@@ -163,7 +163,7 @@ jQuery(function ($) {
         // when parsing is done, export the data to PDF
         clientDbServer2DataSource.read().then(function (data) {
             var pdf = new shield.exp.PDFDocument({
-                author: "UCBL",
+                author: "Unisoft",
                 fontSize: 8,
                 created: new Date()
             });
@@ -193,7 +193,7 @@ jQuery(function ($) {
             );
 
             pdf.saveAs({
-                fileName: "UCBL-VipList"
+                fileName: "VipList"
             });
         });
     });
