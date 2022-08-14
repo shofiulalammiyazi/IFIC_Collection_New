@@ -1,7 +1,6 @@
 package com.unisoft.detailsOfCollection.controller;
 
 import com.unisoft.collection.reasonDelinquency.ReasonDelinquencyServiceImpl;
-import com.unisoft.collection.samd.dataEntry.loanAccountDistribution.SamLoanAccountDistributionService;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccount;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccountService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
@@ -128,7 +127,6 @@ public class ProfileLoanController {
 
     private final HttpSession session;
 
-    private final SamLoanAccountDistributionService samLoanAccountDistributionService;
 
     private final EmployeeService employeeService;
 
@@ -319,9 +317,7 @@ public class ProfileLoanController {
 
         Date currentMonthStartDate = dateUtils.getMonthStartDate();
         Date currentMonthEndDate = dateUtils.getMonthEndDate();
-        if (session.getAttribute("unit").toString().toUpperCase().contains("SAM"))
-            model.addAttribute("dealerAllocationHistory", samLoanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
-        else
+
             model.addAttribute("dealerAllocationHistory",
                     loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
         return "collection/details/main";

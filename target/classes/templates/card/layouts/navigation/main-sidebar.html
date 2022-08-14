@@ -379,16 +379,6 @@
                                         </a>
                                         </li>
 
-
-                                        <li th:if="${#strings.startsWith(session.unit,'SAM')}">
-                                            <a th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list}">
-                                                SAM KPI
-                                                Target Setup (Weight) based on Amount-Loan
-                                            </a>
-                                        </li>
-                                        <!--SAM-->
                                     </ul>
                                 </li>
 
@@ -648,27 +638,7 @@
 
                                         <!--SAM-->
 
-                                        <li th:if="${#strings.startsWith(session.unit,'SAM')}">
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/setup/temporary-job-delegation/list')}"
-                                               th:href="@{/collection/samd/setup/temporary-job-delegation/list}">
-                                                Temporary Job Delegation
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/setup/riskCategories/list')}"
-                                               th:href="@{/collection/samd/setup/riskCategories/list}">
-                                                Risk Categories
-                                            </a>
-                                        </li>
-                                        <li th:if="${#strings.startsWith(session.unit,'SAM')}" >
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-account/list')}"
-                                               th:href="@{/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-account/list}">
-                                                SAM Kpi Target Setup Based On Account
-                                            </a>
-                                        </li>
+
 
                                         <li >
                                             <a class="tab"
@@ -823,13 +793,13 @@
 
 
                                 <th:block th:if="${#strings.contains(session?.unit, 'Loan')}">
-                                    <li>
+                                   <!-- <li>
                                         <a class="tab"
                                            th:if="${session.urlList.contains('/collection/report/retail/loan/listing/view')}"
                                            th:href="@{'/collection/report/retail/loan/listing/view'}">
                                             Listing
                                         </a>
-                                    </li>
+                                    </li>-->
                                     <li>
                                         <a class="tab"
                                            th:if="${session.urlList.contains('/collection/report/retail/loan/month-basis-cl/view')}"
@@ -921,11 +891,11 @@
                                             Agency Allocated List
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a th:if="${session.urlList.contains('/distribution/loan/dealerAllocationList')}" class="tab"
                                            th:href="@{/distribution/loan/dealerAllocationList}">Dealer wise Allocation Distribution List
                                         </a>
-                                    </li>
+                                    </li>-->
 
                                 </th:block>
                             </ul>
@@ -1035,350 +1005,18 @@
 
 
                                         <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-amount/list}">
-                                                KPI Target Setup based on Amount/Outstanding – Loan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-account/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/samd/kpi/sam-loan-kpi-target-setup-based-on-account/list}">
-                                                KPI Target Setup based on Account – Loan
-                                            </a>
-                                        </li>
-
-                                        <li>
                                             <a th:if="${session.urlList.contains('/collection/memoNoteCategory/create')}"
                                                class="tab" th:href="@{/collection/memoNoteCategory/create}">Memo Note
                                                 Category
                                             </a>
                                         </li>
-                                        <li>
-                                            <a
-                                               class="tab"
-                                               th:href="@{/collection/samd/setup/temporary-job-delegation/list}">
-                                                Temporary Job Delegation
-                                            </a>
-                                        </li>
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list')}"
                                                class="tab"
                                                th:href="@{/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list}">
                                                 Dealer Group based on Collector Area for Auto Distribution
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/setup/riskCategories/list')}"
-                                               class="tab" th:href="@{/collection/samd/setup/riskCategories/list}">Risk
-                                                Categories
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/distribution/samaccount/loanlist')}"
-                                               class="tab" th:href="@{/collection/distribution/samaccount/loanlist}">
-                                                Manual Account Handover – Agency
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/setup/sam-npl-release/sam-npl-release-loan/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/samd/setup/sam-npl-release/sam-npl-release-loan/list}">
-                                                SAMD NPL Release – Loan
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/setup/written-off-management/list')}"
-                                               class="tab"
-                                               th:href="@{/collection/samd/setup/written-off-management/list}">
-                                                Written Of Management
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/whether-the-loan/te-td-r-c-rs/list}">
-                                                Whether the Loan is TE/TD/R/C/RS
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/source-of-recovery-tools/list}">
-                                                Source Of Recovery Tools
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/borrower-staying-at/list}">
-                                                Borrower staying at
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/borrower-business-status/list}">
-                                                Borrower's business status
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/borrower-guarantor-availability/list}">
-                                                Borrower & Guarantor's Availability
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/possibility-probability/list}">
-                                                Possibility/Probability to Hit in NPL Unclassified
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/borrower-guarantor-capability-repay/list}">
-                                                Borrower & Guarantor's Capability to Repay
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/possibility-probability-classified/list}">
-                                                Possibility/Probability to Hit in NPL Classified
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                                    th:href="@{/collection/samd/setup/bb-comments-for-classification/list}">
-                                                BB Comments for Classification
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/agency/list')}"
-                                               th:href="@{/collection/samd/agency/list}">Agency
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/businessRegion/list')}"
-                                               th:href="@{/collection/samd/businessRegion/list}">Business Region Management
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/samd/businessSegment/list')}"
-                                               th:href="@{/collection/samd/businessSegment/list}">Business Segment Management
-                                            </a>
-                                        </li>
-
-
-                                        <!--Proposal Management-->
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-share-alt"></i>
-                                                Proposal Management
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/proposal-status/list')}"
-                                                       th:href="@{/collection/samd/setup/proposal-status/list}">Proposal Status
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/approval-level/list')}"
-                                                       th:href="@{/collection/samd/setup/approval-level/list}">Approval Level
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/bbApproval-requirement/list')}"
-                                                       th:href="@{/collection/samd/setup/bbApproval-requirement/list}">BB Approval Requirement
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/hr-position/list')}"
-                                                       th:href="@{/collection/samd/setup/hr-position/list}">Proposal Placed to
-                                                    </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/proposed-reschedule-times/list')}"
-                                                       th:href="@{/collection/samd/setup/proposed-reschedule-times/list}">Proposal reschedule Times
-                                                    </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/proposal-prepared-reason/list')}"
-                                                       th:href="@{/collection/samd/setup/proposal-prepared-reason/list}">Proposal Prepared For
-                                                    </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/proposal-purpose/list')}"
-                                                       th:href="@{/collection/samd/setup/proposal-purpose/list}">Purpose of the Proposal
-                                                    </a>
-                                                </li>
-
-
-                                            </ul>
-                                        </li>
-
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-share-alt"></i>
-                                                Monitoring & Follow-Up
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/borrower-present-status/list')}"
-                                                       th:href="@{/collection/samd/setup/borrower-present-status/list}">Borrower Present Status
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/bb-audit-type/list')}"
-                                                       th:href="@{/collection/samd/setup/bb-audit-type/list}">BB Audit Type
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/capable-influence-customer-bank-due/list')}"
-                                                       th:href="@{/collection/samd/setup/capable-influence-customer-bank-due/list}">capable to influence Customer for making payment/settlement of bank due
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/category-for-delinquency/list')}"
-                                                       th:href="@{/collection/samd/setup/category-for-delinquency/list}">Category for Delinquency
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/interested-further-Loan/list')}"
-                                                       th:href="@{/collection/samd/setup/interested-further-Loan/list}">Interested Further Loan
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/loan-liability-recoverability/list')}"
-                                                       th:href="@{/collection/samd/setup/loan-liability-recoverability/list}">Loan Liability Recoverability
-                                                    </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/logic-in-terms/list')}"
-                                                       th:href="@{/collection/samd/setup/logic-in-terms/list}">Logic In Terms
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/source-of-recovery/list')}"
-                                                       th:href="@{/collection/samd/setup/source-of-recovery/list}">Source Of Recovery
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/way-forward-reduce-from-npl/list')}"
-                                                       th:href="@{/collection/samd/setup/way-forward-reduce-from-npl/list}">Way Forward to reduce from NPL
-                                                    </a>
-                                                </li>
-
-                                                <!--new-->
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/whether-the-loan/te-td-r-c-rs/list')}"
-                                                       th:href="@{/collection/samd/setup/whether-the-loan/te-td-r-c-rs/list}">Whether the Loan is TE/TD/R/C/RS ?
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/source-of-recovery-tools/list')}"
-                                                       th:href="@{/collection/samd/setup/source-of-recovery-tools/list}">Source of Recovery Tools
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/borrower-staying-at/list')}"
-                                                       th:href="@{/collection/samd/setup/borrower-staying-at/list}">Borrower Staying at
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/borrower-business-status/list')}"
-                                                       th:href="@{/collection/samd/setup/borrower-business-status/list}">Borrower's Business Status
-                                                    </a>
-                                                </li>
-
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/borrower-guarantor-availability/list')}"
-                                                       th:href="@{/collection/samd/setup/borrower-guarantor-availability/list}">Borrower & Guarantor's Availability
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/borrower-guarantor-capability-repay/list')}"
-                                                       th:href="@{/collection/samd/setup/borrower-guarantor-capability-repay/list}">Borrower & Guarantor's Capability to Repay
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/possibility-probability-classified/list')}"
-                                                       th:href="@{/collection/samd/setup/possibility-probability-classified/list}">Possibility/Probability to Release from NPL (applicable for classified or to be classified a/cs only)
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/bb-audit-type/list')}"
-                                                       th:href="@{/collection/samd/setup/bb-audit-type/list}">BB Audit Type
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a class="tab"
-                                                            th:if="${session.urlList.contains('/collection/samd/setup/bb-comments-for-classification/list')}"
-                                                       th:href="@{/collection/samd/setup/bb-comments-for-classification/list}">BB Comments for Classification
-                                                    </a>
-                                                </li>
-
-
-                                            </ul>
                                         </li>
 
 
@@ -1387,85 +1025,8 @@
 
                                 <!--Data Entry-->
 
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-share-alt"></i>
-                                        Data Entry
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/data-entry/agency-allocation-via-excel/list')}"
-                                               th:href="@{/collection/samd/data-entry/agency-allocation-via-excel/list}">Agency
-                                                Allocation – via Excel
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/loan-account-distribution/list')}"
-                                               th:href="@{/collection/samd/loan-account-distribution/list}">Manual
-                                                Account Distribution – via Excel
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/samd/written-off-execution/list')}"
-                                               th:href="@{/collection/samd/written-off-execution/list}">Written-Off Execution – via Excel
-                                            </a>
-                                        </li>
 
 
-
-                                    </ul>
-                                </li>
-
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-share-alt"></i>
-                                        Extra
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/distribution/samaccount/loanlist')}"
-                                               th:href="@{/collection/distribution/samaccount/loanlist}">SAM Loan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/distribution/samaccount/create')}"
-                                               th:href="@{/collection/distribution/samaccount/create}">SAM Excel
-                                                Upload
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                                <!--card settings-->
-                                <!--SAMD LETTER AND EMAIL-->
-                                <li class="treeview menu-open">
-                                    <a href="#">
-                                        <i class="fa fa-envelope"></i>
-                                        SAMD Letter
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu" style="display: block;">
-                                        <li>
-                                            <a class="tab" href="/samd/communication-by-mail/create">
-                                                Mail to branch
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                                <!--SAMD LETTER AND EMAIL-->
                             </ul>
                         </li>
                         <li class="treeview" th:if="${#strings.startsWith(session.unit,'Card')}">

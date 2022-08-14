@@ -22,14 +22,14 @@
                             <label class="col-sm-3 custom-form-lebel" id="loanNo">{{loanAccInfo.accountNumber}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Loan A/C No 2 :</label>
-                            <label class="col-sm-3 custom-form-lebel" >{{loanAccDetails.sattlementLoanAc}}</label>
+                            <label class="col-sm-3 custom-form-lebel" >{{loanAccDetails.sattlementLoanAc}}*</label>
 
                         </div>
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Loan A/C No 3 :</label>
-                            <label class="col-sm-3 custom-form-lebel" ></label>
+                            <label class="col-sm-3 custom-form-lebel" >*</label>
                             <label class="col-sm-3 custom-details-lebel-left"> Loan A/C No 4 :</label>
-                            <label class="col-sm-3 custom-form-lebel" id=" relatedPreviousAccount">{{loanAccDetails.previousAccountNo !== null ? loanAccDetails.previousAccountNo : loanAccDetails.altAccNo !== null ? loanAccDetails.altAccNo : previousAccountEntity.previousAccountNo }}</label>
+                            <label class="col-sm-3 custom-form-lebel" id=" relatedPreviousAccount">*{{loanAccDetails.previousAccountNo !== null ? loanAccDetails.previousAccountNo : loanAccDetails.altAccNo !== null ? loanAccDetails.altAccNo : previousAccountEntity.previousAccountNo }}</label>
 
                         </div>
 
@@ -38,7 +38,7 @@
                             <label class="col-sm-3 custom-form-lebel" id="linkAccountNo">{{loanAccDetails.sattlementLoanAc}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Link Account Status :</label>
-                            <label class="col-sm-3 custom-form-lebel" ></label>
+                            <label class="col-sm-3 custom-form-lebel" >*</label>
 
                         </div>
                         <div class="form-group row csi-view-form-group">
@@ -68,10 +68,10 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Product Name :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="productName"></label>
+                            <label class="col-sm-3 custom-form-lebel" id="productName">*</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Link A/c Product Code :</label>
-                            <label class="col-sm-3 custom-form-lebel" ></label>
+                            <label class="col-sm-3 custom-form-lebel" >*</label>
 
                         </div>
                         <div class="form-group row csi-view-form-group">
@@ -86,7 +86,7 @@
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left ">Routing No. :</label>
-                            <label class="col-sm-3 custom-form-lebel" ></label>
+                            <label class="col-sm-3 custom-form-lebel" >*</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left"> Disbursement Amount :</label>
@@ -99,7 +99,7 @@
                             <label class="col-sm-3 custom-details-lebel-left">Sanction Amount :</label>
                             <label class="col-sm-3 custom-form-lebel" id="sanctionAmount">{{numberToBdt(loanAccDetails.limitAmount)}}</label>
 
-                            <label class="col-sm-3 custom-details-lebel-left "> Disbursement/Issue Date :</label>
+                            <label class="col-sm-3 custom-details-lebel-left "> Disbursement Date :</label>
                             <label class="col-sm-3 custom-form-lebel" id="disburesmentDate">{{loanAccDetails.disbursementDate}}</label>
                         </div>
 
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="form-group row csi-view-form-group">
-                            <label class="col-sm-3 custom-details-lebel-left"> Last Approval Date :</label>
+                            <label class="col-sm-3 custom-details-lebel-left"> Loan Approval Date :</label>
                             <label class="col-sm-3 custom-form-lebel" id="lastApprovalDate">{{loanAccDetails.latestApprovalDate | formatDate}}</label>
 
 
@@ -145,10 +145,10 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Latest Disbursement Date :</label>
-                            <label class="col-sm-3 custom-form-lebel" ></label>
+                            <label class="col-sm-3 custom-form-lebel" >*</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Latest Disbursement Amount :</label>
-                            <label class="col-sm-3 custom-form-lebel"></label>
+                            <label class="col-sm-3 custom-form-lebel">*</label>
                         </div>
 
                         <div class="form-group row csi-view-form-group" style="margin-top: 10px;background-color:#f3eeee">
@@ -183,7 +183,7 @@
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left">EMI Date :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="nextDate"></label>
+                            <label class="col-sm-3 custom-form-lebel" id="nextDate">*</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left">ATE :</label>
@@ -256,6 +256,9 @@
                             <label class="col-sm-3 custom-details-lebel-left">Interest Suspense :</label>
                             <label class="col-sm-3 custom-form-lebel">{{numberToBdt(loanAccDetails.interestSuspence)}}</label>
 
+                            <label class="col-sm-3 custom-details-lebel-left">No. Overdue Installment :</label>
+                            <label class="col-sm-3 custom-form-lebel">*</label>
+
                         </div>
 
 
@@ -296,11 +299,11 @@
                         </div>
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Industry Scale ID :</label>
-                            <label class="col-sm-3 custom-form-lebel"></label>
+                            <label class="col-sm-3 custom-form-lebel">*</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Security Code :</label>
-                            <label class="col-sm-3 custom-form-lebel"></label>
+                            <label class="col-sm-3 custom-form-lebel">*</label>
 
                         </div>
 

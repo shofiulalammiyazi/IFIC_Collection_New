@@ -26,7 +26,7 @@ public class GuarantorInfoEntity extends BaseInfo {
     private String relationGuarantor;
 //    this Added By Abdullah
     private String loanAccountNo;
-    private String facilityWithUcbl;
+    private String facilityWithBank;
     private String dob;
     private String nidOrPassport;
     private String guarantorFatherName;

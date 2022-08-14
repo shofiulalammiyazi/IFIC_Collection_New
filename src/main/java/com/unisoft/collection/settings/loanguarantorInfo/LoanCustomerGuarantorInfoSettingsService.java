@@ -60,7 +60,7 @@ private  LoanCustomerGuarantorInfoSettingsRepository repository;
                     guarantorInfo.setDob(row.getCell(10) != null ? row.getCell(10).toString().trim() : null);
                     guarantorInfo.setNidOrPassport(row.getCell(11) != null ? row.getCell(11).toString().trim() : null);
                     guarantorInfo.setRelationGuarantor(row.getCell(12) != null ? row.getCell(12).toString().trim() : null);
-                    guarantorInfo.setFacilityWithUcbl(row.getCell(13) != null ? row.getCell(13).toString().trim() : null);
+                    guarantorInfo.setFacilityWithBank(row.getCell(13) != null ? row.getCell(13).toString().trim() : null);
 
                     guarantorInfo.setGuarantorFatherName(row.getCell(14) != null ? row.getCell(14).toString().trim() : null);
                     guarantorInfo.setGuarantorMotherName(row.getCell(15) != null ? row.getCell(15).toString().trim() : null);
