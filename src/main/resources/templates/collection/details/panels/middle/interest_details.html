@@ -17,19 +17,23 @@
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Interest Income :</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.interestIncome}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.interestIncome}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel" >4258.65</label>
                         <label class="col-sm-3 custom-details-lebel-left">Interest Suspense :</label>
-                        <label class="col-sm-3 custom-form-lebel"  id="interestSuspense">{{numberToBdt(loanAccDetails.interestSuspence)}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel"  id="interestSuspense">{{numberToBdt(loanAccDetails.interestSuspence)}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel"  id="interestSuspense">20.0</label>
                     </div>
 
                     <div class="form-group row csi-view-form-group">
                         <!--<label class="col-sm-3 custom-details-lebel-left">Accured Interest :</label>-->
                         <!--<label class="col-sm-3 custom-form-lebel" >{{totalPrincipal+totalInterest}}</label>-->
                         <label class="col-sm-3 custom-details-lebel-left">Other Charge :</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.otherCharge}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.otherCharge}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel" >2.00</label>
 
                         <label class="col-sm-3 custom-details-lebel-left">Total Repayment :</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{numberToBdt(loanAccStatement.totalPrinciple + loanAccStatement.totalInterest)}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" >{{numberToBdt(loanAccStatement.totalPrinciple + loanAccStatement.totalInterest)}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel" >34,17,183.5633</label>
                     </div>
 
                    <!-- <div class="form-group row csi-view-form-group">
@@ -41,18 +45,21 @@
                     </div>-->
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Save Amount :</label>
-                         <label class="col-sm-3 custom-form-lebel " v-if="saveAmountEmi>0" id="saveAmount">{{((saveAmountEmi/100)*saveAmountFromApi)}}</label>
-                        <label class="col-sm-3 custom-form-lebel" v-if="saveAmountOverdue>0" id="saveAmount">{{((saveAmountOverdue/100)*saveAmountFromApi)}}</label>
+                         <!--<label class="col-sm-3 custom-form-lebel " v-if="saveAmountEmi>0" id="saveAmount">{{((saveAmountEmi/100)*saveAmountFromApi)}}</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel" v-if="saveAmountOverdue>0" id="saveAmount">{{((saveAmountOverdue/100)*saveAmountFromApi)}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel"  id="saveAmount">450000</label>
 
                         <label class="col-sm-3 custom-details-lebel-left">Back Amount :</label>
-                        <label class="col-sm-3 custom-form-lebel" v-if="backAmountEmi>0" id="backAmount">{{((backAmountEmi/100)*backAmountFromApi)}}</label>
-                        <label class="col-sm-3 custom-form-lebel " v-if="backAmountOverdue>0" id="backAmount">{{((backAmountOverdue/100)*backAmountFromApi)}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" v-if="backAmountEmi>0" id="backAmount">{{((backAmountEmi/100)*backAmountFromApi)}}</label>-->
+                        <!--<label class="col-sm-3 custom-form-lebel " v-if="backAmountOverdue>0" id="backAmount">{{((backAmountOverdue/100)*backAmountFromApi)}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel "  id="backAmount">5000</label>
                     </div>
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">NPL Release Amount :</label>
-                        <label class="col-sm-3 custom-form-lebel"
-                           id="nplRelease">{{numberToBdt(nplReleaseAmount)}}</label>
+                        <label class="col-sm-3 custom-form-lebel">5.0</label>
+                           <!--id="nplRelease">{{numberToBdt(nplReleaseAmount)}}</label>-->
+
                     </div>
 
                 </div>

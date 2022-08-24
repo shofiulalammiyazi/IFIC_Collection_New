@@ -43,13 +43,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Branch Name :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="branchName">{{branchInfo.branchName}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="branchName">{{branchInfo.branchName}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="branchName">Gulshan Branch</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Loan Account Name :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="accountName">{{loanAccInfo.accountName}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="accountName">{{loanAccInfo.accountName}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="accountName">Abdus Subhan</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -58,13 +60,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Loan Account Number :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="loanAcNumber">{{loanAccInfo.accountNumber}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="loanAcNumber">{{loanAccInfo.accountNumber}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="loanAcNumber">08RH0898897332</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">CASA Account Number :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="casaAcNumber">{{loanAccDetails.sattlementLoanAc}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="casaAcNumber">{{loanAccDetails.sattlementLoanAc}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="casaAcNumber">894321691002349101</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -73,13 +77,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Loan Limit :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="loanLimit">{{numberToBdt(loanAccDetails.limitAmount)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="loanLimit">{{numberToBdt(loanAccDetails.limitAmount)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="loanLimit">25,00,000.00</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Loan Outstanding :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="loanOS">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="loanOS">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="loanOS">13,61,321.00</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,13 +94,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Overdue :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="overDue">{{numberToBdt(loanAccDetails.overdue)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="overDue">{{numberToBdt(loanAccDetails.overdue)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="overDue">15,20,250.00</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Overdue Amount(Monthend) :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="overDueAmount">{{numberToBdt(loanAccDetails.amountPaidLastMnth)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="overDueAmount">{{numberToBdt(loanAccDetails.amountPaidLastMnth)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="overDueAmount">10,12,200.00</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -103,13 +111,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">EMI (Per Sanction) :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="emi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="emi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="emi">12,000.00</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Present EMI :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="presentEmi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="presentEmi">{{numberToBdt(loanAccDetails.emiAmount)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="presentEmi">36,25,588.00</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -118,13 +128,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Rate of Interest(Per Sanction) :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="rateOfInterest">{{loanAccDetails.interestRate}} %</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="rateOfInterest">{{loanAccDetails.interestRate}} %</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="rateOfInterest">2 %</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Present Rate of Interest :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="presentRateInterest">{{loanAccDetails.interestRate}} %</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="presentRateInterest">{{loanAccDetails.interestRate}} %</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="presentRateInterest">5 %</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -133,13 +145,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Bucket :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="bucket">{{loanAccDetails.dpdBucket}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="bucket">{{loanAccDetails.dpdBucket}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="bucket">54</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Current Month Schedule date :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="crntScheduleDate">{{formatDate(loanAccInfo.scheduleCurDate)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="crntScheduleDate">{{formatDate(loanAccInfo.scheduleCurDate)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="crntScheduleDate">40</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -148,13 +162,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Last payment date :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="paymentDate">{{loanAccStatement.valueDate | formatDate}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="paymentDate">{{loanAccStatement.valueDate | formatDate}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="paymentDate">2022-12-20</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Last payment Amount :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="paymentAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="paymentAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="paymentAmount">15,20,200.00</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -163,13 +179,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Total payment till date :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="totalPayment">{{numberToBdt(loanAccStatement.totalCustomerPaid)}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="totalPayment">{{numberToBdt(loanAccStatement.totalCustomerPaid)}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="totalPayment">25,20,500.00</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Disburse Date :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="disburseDate">{{loanAccDetails.disbursementDate}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="disburseDate">{{loanAccDetails.disbursementDate}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="disburseDate">120000</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -178,13 +196,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Deferred Status-Yes/No :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="deferredStatus">{{ deferredAccount !==null?deferredAccount.status:""}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="deferredStatus">{{ deferredAccount !==null?deferredAccount.status:""}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="deferredStatus">YES</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Expiry Date(After Deferral) :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="expiryDate">{{loanAccDetails.expiryDate}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="expiryDate">{{loanAccDetails.expiryDate}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="expiryDate">2023-12-10</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -193,14 +213,16 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Occupation :</label>
-                                            <label class="col-sm-6 custom-form-lebel"  v-if="customerInfo.employer != '' && entity.occupation == null ">{{customerInfo.employer}}</label>
-                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.employer != '' && entity.occupation != null" id="occupation">{{entity.occupation}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel"  v-if="customerInfo.employer != '' && entity.occupation == null ">{{customerInfo.employer}}</label>-->
+                                            <!--<label class="col-sm-6 custom-form-lebel" v-if="customerInfo.employer != '' && entity.occupation != null" id="occupation">{{entity.occupation}}</label> -->
+                                            <label class="col-sm-6 custom-form-lebel"  id="occupation">Business</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Organization Name :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="organizationName">{{entity.organizationName}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="organizationName">{{entity.organizationName}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="organizationName">KY Group</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -209,15 +231,17 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Contact No :</label>
-                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo != null" id="contactNo">{{entity.contactNo}}</label>
-                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo == null" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo != null" id="contactNo">{{entity.contactNo}}</label>-->
+                                            <!--<label class="col-sm-6 custom-form-lebel" v-if="customerInfo.mobileNumber != '' && entity.contactNo == null" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel"  id="contactNoMobile">01721003717</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Email Address :</label>
-                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email == null "  id="emailAddress">{{customerInfo.email}}</label>
-                                            <label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email != null " id="email">{{entity.email}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email == null "  id="emailAddress">{{customerInfo.email}}</label>-->
+                                            <!--<label class="col-sm-6 custom-form-lebel" v-if="customerInfo.email !='' && entity.email != null " id="email">{{entity.email}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel"  id="email">aburRahman@gmail.com</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -226,13 +250,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Spouse Mobile No :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="spouseMobileNo">{{entity.spouseMobileNo}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="spouseMobileNo">{{entity.spouseMobileNo}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="spouseMobileNo">0156321456</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Spouse occupation :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="spouseOccupation">{{entity.spouseOccupation}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="spouseOccupation">{{entity.spouseOccupation}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="spouseOccupation">House Wife</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -261,8 +287,9 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-3">Permanent Address :</label>
-                                            <label class="col-sm-9 custom-form-lebel" id="permanentAddress" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress != null">{{latestAdditionalInfo.permanentAddress}}</label>
-                                            <label class="col-sm-9 custom-form-lebel" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress == null">{{customerInfo.permanentAddress}}</label>
+                                            <!--<label class="col-sm-9 custom-form-lebel" id="permanentAddress" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress != null">{{latestAdditionalInfo.permanentAddress}}</label>-->
+                                            <!--<label class="col-sm-9 custom-form-lebel" v-if="customerInfo.permanentAddress != '' && latestAdditionalInfo.permanentAddress == null">{{customerInfo.permanentAddress}}</label>-->
+                                            <label class="col-sm-9 custom-form-lebel" >Basail,Tangail</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -271,13 +298,15 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">FID status :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="fidStatus">{{loanAccDetails.fid}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="fidStatus">{{loanAccDetails.fid}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="fidStatus">0234</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Credit Card Client ID (If Any) :</label>
-                                            <label class="col-sm-6 custom-form-lebel"  id="creditCardId">{{entity.creditCardId}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel"  id="creditCardId">{{entity.creditCardId}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel"  id="creditCardId">NO</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -296,7 +325,8 @@
                                          <!--   <label class="col-sm-6">RM mobile no :</label>
                                             <label class="col-sm-6 custom-form-lebel" id="rmMobileNo">{{entity.rmMobileNo}}</label>-->
                                             <label class="col-sm-6">RM mobile no :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="rmMobileNo">{{rmContactNo}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="rmMobileNo">{{rmContactNo}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="rmMobileNo">0155-1236545</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -313,7 +343,8 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-6">Dealer mobile No :</label>
-                                            <label class="col-sm-6 custom-form-lebel" id="dealerMobileNo">{{entity.dealerMobileNo}}</label>
+                                            <!--<label class="col-sm-6 custom-form-lebel" id="dealerMobileNo">{{entity.dealerMobileNo}}</label>-->
+                                            <label class="col-sm-6 custom-form-lebel" id="dealerMobileNo">0187025664</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -322,7 +353,8 @@
                                     <td>
                                         <div class="form-group" style="margin-bottom: 0px !important;">
                                             <label class="col-sm-3">Remarks :</label>
-                                            <label class="col-sm-9 custom-form-lebel" id="remarks">{{entity.remarks}}</label>
+                                            <!--<label class="col-sm-9 custom-form-lebel" id="remarks">{{entity.remarks}}</label>-->
+                                            <label class="col-sm-9 custom-form-lebel" id="remarks">all are ok</label>
                                         </div>
                                     </td>
                                 </tr>
