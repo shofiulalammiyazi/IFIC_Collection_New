@@ -64,7 +64,7 @@ public class LoanCustomerReferenceInfoSettingsService {
                     referenceInfoEntity.setDob(row.getCell(10) != null ? row.getCell(10).toString().trim() : null);
                     referenceInfoEntity.setNidOrPassport(row.getCell(11) != null ? row.getCell(11).toString().trim() : null);
                     referenceInfoEntity.setRelationReference(row.getCell(12) != null ? row.getCell(12).toString().trim() : null);
-                    referenceInfoEntity.setFacilityWithUcbl(row.getCell(13) != null ? row.getCell(13).toString().trim() : null);
+                    referenceInfoEntity.setFacilityWithBank(row.getCell(13) != null ? row.getCell(13).toString().trim() : null);
                     referenceInfoEntity.setFatherName(row.getCell(14) != null ? row.getCell(14).toString().trim() : null);
                     referenceInfoEntity.setMotherName(row.getCell(15) != null ? row.getCell(14).toString().trim() : null);
                     referenceInfoEntity.setOptimaId(row.getCell(16) != null ? row.getCell(14).toString().trim() : null);

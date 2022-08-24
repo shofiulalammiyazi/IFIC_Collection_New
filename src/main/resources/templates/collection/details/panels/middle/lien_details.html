@@ -17,12 +17,14 @@
                     <table name="letter_info" class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th>Account No</th>
+                            <th>Deposit A/C No.</th>
                             <th>Lien Amount</th>
                             <th>Lien Date</th>
                             <th>Lien Type</th>
                             <th>Lien Reason</th>
-                            <th th:if="${!(#strings.startsWith(session.unit,'SAM'))}">Lien Remarks</th>
+                            <th>Lien Remarks</th>
+                            <th>Ref No or Instrument No.</th>
+                            <th>Deposit or Instrument Type</th>
 
                         </tr>
                         </thead>
@@ -33,6 +35,8 @@
                             <td>{{lien.fromDate}}</td>
                             <td>{{lien.accountType}}</td>
                             <td>{{lien.narration}}</td>
+                            <td>-</td>
+                            <td>-</td>
                             <td>-</td>
                         </tr>
                         </tbody>

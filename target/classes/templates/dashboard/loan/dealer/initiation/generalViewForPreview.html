@@ -68,31 +68,31 @@
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Supervisor PIN :</label>
+                                <label class="col-sm-2">TeamLeader PIN :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>
-                                <label class="col-sm-3">Supervisor Name :</label>
+                                <label class="col-sm-3">TeamLeader Name :</label>
                                 <label class="col-sm-4 custom-form-lebel"
                                        th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getTeamlead()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getTeamlead()?.getUser()?.getLastName())}">
                                 </label>
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Manager PIN :</label>
+                                <label class="col-sm-2">Supervisor PIN :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>
 
-                                <label class="col-sm-3">Manager Name :</label>
+                                <label class="col-sm-3">Supervisor Name :</label>
                                 <label class="col-sm-4 custom-form-lebel"
                                        th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getSupervisor()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getSupervisor()?.getUser()?.getLastName())}">
                                 </label>
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Sr. Manager PIN :</label>
+                                <label class="col-sm-2">Manager PIN :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getManager()?.getPin()}"></label>
-                                <label class="col-sm-3">Sr. Manager Name :</label>
+                                <label class="col-sm-3">Manager Name :</label>
                                 <label class="col-sm-4 custom-form-lebel"
                                        th:text="${#strings.concatReplaceNulls('', peopleAllocationLogic?.getManager()?.getUser()?.getFirstName(), ' ', peopleAllocationLogic?.getManager()?.getUser()?.getLastName())}">
                                 </label>

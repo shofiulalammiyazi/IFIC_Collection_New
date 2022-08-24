@@ -72,7 +72,7 @@ where cust.id = $P{customerId}]]>
 			</textField>
 			<textField>
 				<reportElement x="10" y="80" width="381" height="20" uuid="0caa1587-2a89-4c5b-a4b5-2aef0432763c"/>
-				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="406" y="10" width="114" height="24" uuid="2b19f0d0-c49f-4cc5-9e3c-a9763887b069"/>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Risk Categories</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <style>
+        .multiselect, .multiselect__input, .multiselect__single, .multiselect__content {
+            font-size: 13px;
+        }
+
+        .multiselect__tag {
+            font-size: 12px;
+        }
+
+        select {
+            -webkit-appearance: menulist;
+        }
+    </style>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${riskCategory.id == null}" class="box-title">Create Risk Category</h3>
+                            <h3 th:if="${riskCategory.id}" class="box-title">Update Risk Category</h3>
+                        </div>
+                        <form id="app" class="form-horizontal validate"
+                              th:action="@{/collection/samd/setup/riskCategories/create}"
+                              method="post" th:object="${riskCategory}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" name="dpdBucketIds" v-model="getSelectedDpdIds"/>
+                            <input type="hidden" name="ageCodeIds" v-model="getSelectedAgeCodeIds"/>
+                            <input type="hidden" name="unitId" v-model="getSelectUnit"/>
+                            <div class="box-body">
+
+                                <!--<p th:if="${error}" class="text-center text-danger" th:text="${error}">Error </p>-->
+                                <!--<p th:if="${message}" class="text-center text-success" th:text="${message}">Error </p>-->
+
+                                <!--<div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Type: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="type" th:field="*{type}" class="form-control input-sm required" placeholder="type"/>
+                                    </div>
+                                    &lt;!&ndash;<label class="col-sm-10 text-right text-danger"&ndash;&gt;
+                                           &lt;!&ndash;th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>&ndash;&gt;
+                                </div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Risk Category
+                                        Name: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="riskCategoryName" th:field="*{riskCategoryName}"
+                                               class="form-control input-sm required"
+                                               placeholder="Risk Category Name :"/>
+                                    </div>
+                                    <!--<label class="col-sm-10 text-right text-danger"-->
+                                    <!--th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Unit:</label>
+                                    <div class="col-sm-6">
+                                        <multiselect v-model="selectedUnit" placeholder="select a Unit"
+                                                     label="name" track-by="id" :options="unitList"
+                                                     :multiple="false" :taggable="true"></multiselect>
+                                    </div>
+                                    <!--<label class="col-sm-10 text-right text-danger"-->
+                                    <!--th:if="${#fields.hasErrors('caseTypes')}"-->
+                                    <!--th:errors="*{caseTypes}">Case type Error</label>-->
+                                </div>
+                                <!--Age code-->
+                                <div v-if="isAgeCode" class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Age Code:</label>
+                                    <div class="col-sm-6">
+                                        <multiselect v-model="selectedAgeCode" placeholder="select a Age Code"
+                                                     label="name" track-by="id" :options="ageCodeList"
+                                                     :multiple="true" :taggable="true"></multiselect>
+
+                                    </div>
+                                    <!--<label class="col-sm-10 text-right text-danger"-->
+                                    <!--th:if="${#fields.hasErrors('caseTypes')}"-->
+                                    <!--th:errors="*{caseTypes}">Case type Error</label>-->
+                                </div>
+                                <!--Dpd-->
+                                <div v-if="isDpd" class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Bucket:</label>
+                                    <div class="col-sm-6">
+                                        <multiselect v-model="selectedDpdBucket" placeholder="select a Bucket"
+                                                     label="bucketName" track-by="id" :options="dpdList"
+                                                     :multiple="true" :taggable="true" :close-on-select="false"></multiselect>
+                                    </div>
+                                    <!--<label class="col-sm-10 text-right text-danger"-->
+                                    <!--th:if="${#fields.hasErrors('caseTypes')}"-->
+                                    <!--th:errors="*{caseTypes}">Case type Error</label>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">FID: </label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <label>
+                                                <input type="radio" name="fid" id="fid"
+                                                       th:checked="${riskCategory.fid}" th:value="true">
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="fid" id="disabled"
+                                                       th:checked="${!riskCategory.fid}" th:value="false">
+                                                No
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                    <!--<label class="col-sm-10 text-right text-danger"-->
+                                    <!--th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</label>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Status</label>
+                                    <div class="col-sm-6">
+                                        <fieldset id="group1">
+                                            <input type="radio" name="enabled" id="enabled"
+                                                   th:checked="${riskCategory.enabled ==true}" th:value="true">
+                                            Active </input>
+                                            <input type="radio" name="enabled" id="disabled"
+                                                   th:checked="${riskCategory.enabled ==false}" th:value="false">
+                                            Inactive </input>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!--</div>-->
+                                <div class="box-footer text-center">
+                                    <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                    <a type="submit" class="btn btn-danger btn-sm"
+                                       th:href="@{/collection/samd/setup/riskCategories/list}">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    var unitList = /*[[${unitList}]]*/ [];
+                    var dpdList = /*[[${dpdList}]]*/ [];
+                    var ageCodeList = /*[[${ageCodeList}]]*/ [];
+
+                    var selectedDpdBucket = /*[[${selectedDpdBucket}]]*/ [];
+                    var selectedAgeCode = /*[[${selectedAgeCode}]]*/ [];
+                    var selectedUnit = /*[[${selectedUnit}]]*/ [];
+                    console.log(selectedUnit);
+                    /*]]>*/
+                </script>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        var riskCategory = new Vue({
+            el: '#app',
+            components: {
+                Multiselect: VueMultiselect.default
+            },
+            data: {
+                unitList: [],
+                selectedUnit: null,
+
+                selectedDpdBucket: selectedDpdBucket,
+                selectedAgeCode: selectedAgeCode,
+
+                dpdList: [],
+                ageCodeList: [],
+
+                dpdOrAgeCodeList: [],
+            },
+            created: function () {
+                this.selectedUnit = selectedUnit.id ? selectedUnit : null;
+                this.unitList = Array.isArray(unitList) ? unitList : [];
+                this.dpdList = Array.isArray(dpdList) ? dpdList : [];
+                this.ageCodeList = Array.isArray(ageCodeList) ? ageCodeList : [];
+            },
+            computed: {
+                isDpd: function () {
+
+                    let isDpd = this.selectedUnit && this.selectedUnit.name && this.selectedUnit.name.toLowerCase() === 'loan';
+                    if (isDpd)
+                        this.selectedAgeCode = [];
+                    return isDpd;
+                },
+                isAgeCode: function () {
+                    let isAgeCode = this.selectedUnit && this.selectedUnit.name && this.selectedUnit.name.toLowerCase() === 'card';
+                    if (isAgeCode)
+                        this.selectedDpdBucket = [];
+                    return isAgeCode;
+                },
+
+                getSelectedDpdIds: function () {
+                    return this.selectedDpdBucket.map(item => {
+                        return item.id;
+                    });
+                },
+                getSelectedAgeCodeIds: function () {
+                    return this.selectedAgeCode.map(item => {
+                        return item.id;
+                    });
+                },
+                getSelectUnit: function () {
+                    if (this.selectedUnit)
+                        return this.selectedUnit.id;
+                    else
+                        return '';
+                }
+
+            },
+            methods: {}
+        })
+
+    </script>
+</div>
+</body>
+</html>

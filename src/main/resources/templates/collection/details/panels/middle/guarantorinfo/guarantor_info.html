@@ -44,9 +44,9 @@
                                 </div>
                             </div>
                             <div class="row top-buffer">
-                                <label class="col-sm-2 custom-details-lebel-left ">Occupation</label>
+                                <label class="col-sm-2 custom-details-lebel-left ">Profession</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="ocupation" id="guarantor-occupation" name="occupation"></input>
+                                    <input type="text" class="form-control" placeholder="Profession" id="guarantor-occupation" name="occupation"></input>
                                 </div>
                                 <label class="col-sm-2 custom-details-lebel-left ">Company Name</label>
                                 <div class="col-sm-4">
@@ -75,9 +75,9 @@
                                                placeholder="dd-mm-yyyy" required/>
                                     </div>
                                 </div>
-                                <label class="col-sm-2 custom-details-lebel-left">NID / Passport No.</label>
+                                <label class="col-sm-2 custom-details-lebel-left">NID/ Passport/BRC (if any)</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Phone No." id="guarantorNid" name="nidOrPassport"></input>
+                                    <input type="text" class="form-control" placeholder="NID/ Passport/BRC (if any)" id="guarantorNid" name="nidOrPassport"></input>
                                 </div>
                             </div>
 
@@ -103,22 +103,31 @@
 
                             <div class="row top-buffer">
 
-                                <label class="col-sm-2 custom-details-lebel-left ">Relationship with Guarantor</label>
+                                <label class="col-sm-2 custom-details-lebel-left ">Relationship with Borrower</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Relationship with Guarantor" id="relGuarantor" name="relationGuarantor"></input>
+                                    <input type="text" class="form-control" placeholder="Relationship with Borrower" id="relGuarantor" name="relationGuarantor"></input>
                                 </div>
-                                <label class="col-sm-2 custom-details-lebel-left">Facility with Bank (Yes/No)</label>
+                                <label class="col-sm-2 custom-details-lebel-left">Relationship with IFIC (Yes/No)</label>
                                 <div class="col-sm-4">
-                                    <select id ="facilityWithUcbl" name="facilityWithUcbl" class="form-control">
+                                    <select id ="facilityWithBank" name="facilityWithBank" class="form-control">
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row top-buffer">
-                                <label class="col-sm-2 custom-details-lebel-left ">Home Address</label>
+
+                                <label class="col-sm-2 custom-details-lebel-left ">Email Address</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="Email Address" id="emailGuarantor" ></input>
+                                </div>
+
+                            </div>
+                            <div class="row top-buffer">
+                                <label class="col-sm-2 custom-details-lebel-left ">Present Address</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Home Address" id="gurantorHomeAddress" name="homeAddress"></input>
+                                    <input type="text" class="form-control" placeholder="Present Address" id="gurantorHomeAddress" name="homeAddress"></input>
                                 </div>
                             </div>
                             <div class="row top-buffer">

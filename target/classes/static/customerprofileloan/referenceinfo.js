@@ -42,7 +42,7 @@ $("#tab-referenceInfo").click(function () {
                             "<td style=\"display:none;\">" +( data.referenceInfo[i].dob==null?'':data.referenceInfo[i].dob )+ "</td>" +
                             "<td style=\"display:none;\">" +( data.referenceInfo[i].nidOrPassport==null?'':data.referenceInfo[i].nidOrPassport )+ "</td>" +
                             "<td>" + (data.referenceInfo[i].relationReference ==null?'':data.referenceInfo[i].relationReference ) + "</td>" +
-                            "<td style=\"display:none;\">" +( data.referenceInfo[i].facilityWithUcbl==null?'':data.referenceInfo[i].facilityWithUcbl )+ "</td>" +
+                            "<td style=\"display:none;\">" +( data.referenceInfo[i].facilityWithBank==null?'':data.referenceInfo[i].facilityWithBank )+ "</td>" +
                             "<td>" + (data.referenceInfo[i].status==null?'':data.referenceInfo[i].status ) + "</td>" +
                             "<td>"+(data.referenceInfo[i].status == 'PENDING' ? '': '<a class=\"btn btn-xs\" onclick=\"editRow(this)\"><i class=\"fa fa-edit\"></i>Edit</a>') +
                             "<a class=\"btn btn-xs btn-xs-dlt\" onclick=\"viewRow(this)\"> <i class=\"fa fa-eye\"></i>view</a></td>" +
@@ -115,7 +115,7 @@ function referenceInformationSave() {
                     "<td style=\"display:none;\">" +( data.referenceInfo.dob==null?'':data.referenceInfo.dob )+ "</td>" +
                     "<td style=\"display:none;\">" +( data.referenceInfo.nidOrPassport==null?'':data.referenceInfo.nidOrPassport )+ "</td>" +
                     "<td>" + (data.referenceInfo.relationReference ==null?'':data.referenceInfo.relationReference ) + "</td>" +
-                    "<td style=\"display:none;\">" +( data.referenceInfo.facilityWithUcbl==null?'':data.referenceInfo.facilityWithUcbl )+ "</td>" +
+                    "<td style=\"display:none;\">" +( data.referenceInfo.facilityWithBank==null?'':data.referenceInfo.facilityWithBank )+ "</td>" +
                     "<td>" + (data.referenceInfo.status==null?'':data.referenceInfo.status ) + "</td>" +
                     "<td>"+(data.referenceInfo.status == 'PENDING' ? '': '<a class=\"btn btn-xs\" onclick=\"editRow(this)\"><i class=\"fa fa-edit\"></i>Edit</a>') +
                     "<a class=\"btn btn-xs btn-xs-dlt\" onclick=\"viewRow(this)\"> <i class=\"fa fa-trash\"></i>view</a></td>" +
@@ -143,7 +143,7 @@ function referenceInformationSave() {
                 globalRow.cells[10].innerHTML=data.referenceInfo.dob;
                 globalRow.cells[11].innerHTML=data.referenceInfo.nidOrPassport;
                 globalRow.cells[12].innerHTML=data.referenceInfo.relationReference;
-                globalRow.cells[13].innerHTML=data.referenceInfo.facilityWithUcbl;
+                globalRow.cells[13].innerHTML=data.referenceInfo.facilityWithBank;
                 globalRow.cells[14].innerHTML=data.referenceInfo.status;
             }
 
@@ -179,7 +179,7 @@ function editRow(node){
     $("#refdob").val(row.cells[10].innerHTML);
     $("#refNid").val(row.cells[11].innerHTML);
     $("#relReference").val(row.cells[12].innerHTML);
-    $("#reffacilityWithUcbl").val(row.cells[13].innerHTML);
+    $("#reffacilityWithBank").val(row.cells[13].innerHTML);
 
     $('#modal-reference-info').modal('show');
 }

@@ -40,7 +40,7 @@ where cust.id = $P{customerId}]]>
 		<band height="703" splitType="Stretch">
 			<textField>
 				<reportElement x="10" y="64" width="319" height="20" uuid="e67633b7-d70f-407c-acdc-101223ec0084"/>
-				<textFieldExpression><![CDATA["UCB/CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CHO/CRMD/" + new SimpleDateFormat("yyyy").format( new java.util.Date() )+ "/" +($P{dispatchNumber}==null?"":$P{dispatchNumber})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="91" width="373" height="20" uuid="9e3e541a-f05b-48ce-947e-5ea44cf184b8"/>

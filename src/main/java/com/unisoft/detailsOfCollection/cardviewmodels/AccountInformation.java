@@ -72,7 +72,7 @@ public class AccountInformation {
 
     private String productTypeName;
     private String rewardPoint;
-    private String ucbStuff;
+    private String bankStuff;
     private String totalPaidAmt;
     private String bdtEmiTotal;
     private String usdEmiTotal;

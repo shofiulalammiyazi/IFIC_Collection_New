@@ -22,7 +22,7 @@ public class ReferenceInfoEntityDto{
     private String relationReference;
     private String dob;
     private String nid;
-    private String facilityWithUcbl;
+    private String facilityWithBank;
 
 }
 

@@ -320,7 +320,10 @@ public class ProfileLoanController {
         Date currentMonthStartDate = dateUtils.getMonthStartDate();
         Date currentMonthEndDate = dateUtils.getMonthEndDate();
 
-            model.addAttribute("dealerAllocationHistory", loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
+
+            model.addAttribute("dealerAllocationHistory",
+                    loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
+
         return "collection/details/main";
     }
 
