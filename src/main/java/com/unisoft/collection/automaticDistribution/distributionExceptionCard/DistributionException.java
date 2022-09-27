@@ -1,8 +1,8 @@
 package com.unisoft.collection.automaticDistribution.distributionExceptionCard;
 
+
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.automaticDistribution.distributionExceptionCardModel.ProductGroupAgeCode;
-import com.unisoft.collection.samd.setup.riskCategories.RiskCategory;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
@@ -56,9 +56,7 @@ public class DistributionException extends BaseInfo {
     @JoinColumn(name = "Card_Exeception_id", nullable = false)
     private List<ProductGroupAgeCode> productGroupAgeCodes = new ArrayList<>();
 
-    @LazyCollection(value = LazyCollectionOption.FALSE)
-    @OneToMany
-    private List<RiskCategory> riskCategoryList = new ArrayList<>();
+
 
     @Transient
     private List<String> customerIds = new ArrayList<>();

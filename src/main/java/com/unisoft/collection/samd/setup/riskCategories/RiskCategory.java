@@ -1,11 +1,12 @@
 package com.unisoft.collection.samd.setup.riskCategories;
 
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.unit.UnitEntity;
 import com.unisoft.common.CommonEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 

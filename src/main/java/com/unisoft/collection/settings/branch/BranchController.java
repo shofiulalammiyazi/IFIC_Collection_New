@@ -96,12 +96,5 @@ public class BranchController {
         return "card/contents/settings/branch/upload";
     }
 
-    /*@PostMapping("/branch/upload-excel")
-    public String bulkUpload(@RequestParam("file") MultipartFile multipartFile, HttpSession session) {
-        List errors = branchService.saveFromExcel(multipartFile);
-        session.setAttribute("errors", errors);
-        return "redirect:list";
-    }*/
-
 
 }

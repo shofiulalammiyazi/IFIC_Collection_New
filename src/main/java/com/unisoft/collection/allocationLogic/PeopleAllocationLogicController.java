@@ -3,6 +3,7 @@ package com.unisoft.collection.allocationLogic;
 Created by   Islam at 7/18/2019
 */
 
+
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
@@ -325,36 +326,8 @@ public class PeopleAllocationLogicController {
 
 
 
-   /* @GetMapping("findBy-supervisor")
-    @ResponseBody
-    public List<EmployeeInfoEntity> getSupervisorWiseTeamleader(@RequestParam String supervisorPin, @RequestParam String unit){
-        EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(supervisorPin);
-        List<PeopleAllocationForMonitoringSummaryDto> peopleAllocationLogicInfoList = summaryService.findSupervisorWiseTeamleader(employeeInfoEntity.getId(), unit);
-        List<EmployeeInfoEntity> entities = new ArrayList<>();
-        for (PeopleAllocationForMonitoringSummaryDto peopleAllocationLogicInfo: peopleAllocationLogicInfoList){
-            EmployeeInfoEntity entity = employeeService.getById(((Number) peopleAllocationLogicInfo.getTeamleaderId()).longValue());
-            entities.add(entity);
-        }
-
-        return entities;
-
-    }*/
 
 
-   /* @GetMapping("findBy-teamleader")
-    @ResponseBody
-    public List<EmployeeInfoEntity> geteamleaderWisedealer(@RequestParam Long teamleaderId, @RequestParam String unit){
-        EmployeeInfoEntity employeeInfoEntity = employeeService.getById(teamleaderId);
-        List<PeopleAllocationForMonitoringSummaryDto> peopleAllocationLogicInfoList = summaryService.findTeamleaderWiseDealer(employeeInfoEntity.getId(), unit);
-        List<EmployeeInfoEntity> entities = new ArrayList<>();
-        for (PeopleAllocationForMonitoringSummaryDto peopleAllocationLogicInfo: peopleAllocationLogicInfoList){
-            EmployeeInfoEntity entity = employeeService.getById(((Number) peopleAllocationLogicInfo.getDealerId()).longValue());
-            entities.add(entity);
-        }
-
-        return entities;
-
-    }*/
 
 
 

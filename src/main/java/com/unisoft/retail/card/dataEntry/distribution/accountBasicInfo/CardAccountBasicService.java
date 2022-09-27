@@ -61,6 +61,19 @@ public class CardAccountBasicService {
         return cardAccountBasicRepository.findAllByClientId(clientId);
     }
 
+
+
+
+//    public CardInfoDto getCardInfoForLegal(String clientId) {
+//        Tuple tuple = cardAccountBasicRepository.getCardDataForLegal(clientId);
+//        CardInfoDto cardInfoDto = new CardInfoDto();
+//        cardInfoDto.setCustomerAccName(tuple.get("customerAccName"));
+//        cardInfoDto.setCardNumber(tuple.get("cardNumber"));
+//        cardInfoDto.setBranchName(tuple.get("branchName"));
+//        return cardInfoDto;
+//    }
+
+
     public List<CardAccountBasicInfo> findAllByContractId(String accountNo) {
         return cardAccountBasicRepository.findAllByContractId(accountNo);
     }

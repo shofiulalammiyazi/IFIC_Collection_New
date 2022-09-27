@@ -1,5 +1,4 @@
 package com.unisoft.cardprofile;
-
 import com.unisoft.cardprofile.cardOtherAccountInfo.CardOtherAccountInfo;
 import com.unisoft.cardprofile.cardOtherAccountInfo.CardOtherAccountInfoRepository;
 import com.unisoft.collection.emi.EmiEmtityDto;

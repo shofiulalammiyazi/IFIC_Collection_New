@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Risk Category List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Risk Category List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
+                               th:href="@{/collection/samd/setup/riskCategories/create}"><span
+                                    class="glyphicon glyphicon-plus"> </span> Add New Risk Category </a>
+                            <table th:if="${riskCategoryList!=null}" id="example" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Risk Category Name</th>
+                                    <th>Unit</th>
+                                    <th>DPD</th>
+                                    <th>Age Coge</th>
+                                    <th></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="riskCategory : ${riskCategoryList}">
+                                    <td th:text="${riskCategory.riskCategoryName}"></td>
+                                    <td th:text="${riskCategory.unit.name}"></td>
+                                    <td>
+
+                                            <button class="btn btn-xs btn-success" style="margin-right: 5px" th:each="dpd :${riskCategory.dpdBucketEntities}" th:text="${dpd.bucketName}"></button>
+                                    </td>
+                                    <td>
+
+                                        <button class="btn btn-xs btn-success" style="margin-right: 5px" th:each="ageCode :${riskCategory.ageCodeEntities}" th:text="${ageCode.name}"></button>
+
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        <a class="btn btn-primary btn-xs"
+                                        th:href="@{/collection/samd/setup/riskCategories/edit(id=${riskCategory.id})}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                        <a class="btn btn-success btn-xs disabled">
+                                            <i class="fa fa-eye"></i>
+                                            View
+                                        </a>
+                                        <!--<a class="btn btn-xs btn-xs-dlt"-->
+                                        <!--th:href="@{/legal/setup/courseofaction/remove(id=${courseOfAction.id})}">-->
+                                        <!--<i class="fa fa-trash"></i>-->
+                                        <!--Delete-->
+                                        <!--</a>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

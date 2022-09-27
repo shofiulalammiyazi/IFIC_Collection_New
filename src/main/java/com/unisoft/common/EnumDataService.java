@@ -1,6 +1,4 @@
 package com.unisoft.common;
-
-
 import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.assetClassificationLoan.AssetClassificationLoanEntity;
@@ -50,4 +48,5 @@ public class EnumDataService {
         List<EmployeeInfoEntity> dealers = employeeService.getUnitWiseDealer("Dealer", "SAM Loan");
         return dealers;
     }
+
 }

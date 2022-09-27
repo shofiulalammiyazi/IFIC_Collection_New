@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dd669e06-70c7-4033-8777-86e0d15b1686" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/collateralSecurityDetails.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/samd/setup/riskCategories/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/samd/setup/riskCategories/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csinfotechbd.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unisoftSystemLtd.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusNew.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusNewRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/employee/EmployeeInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/employee/EmployeeInfoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/card/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/card/form/js/supp-card-info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/collection/reports/retail/loan/vip-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/collection/reports/retail/loan/vip-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/guarantorinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/guarantorinfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/referenceinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/referenceinfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/dashboard/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/dashboard/form/js/supp-card-info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/legalreport/legalreportall.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/litigation/litigation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/html5shiv.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/html5shiv.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/ionicons.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/ionicons.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/respond.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/respond.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-datepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-datepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-timepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-timepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/jquery-3.2.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/sam/details_of_head_office_approval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/sam/latest_approval_related_to_loan.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/samd/details-of-the-account.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/samd/loan-rescheduling.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/cutomer360Page/pannels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/cutomer360Page/pannels/middle/other_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_email_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_email_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_verification.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/cardGeneralView_Account.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/cardGeneralView_Account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/legal_action.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/legal_action.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/reference_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/GenerationClassificationProvisioning/automatedProvisioning/automated_provisioning.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_history.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_movement_calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_movement_calculator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/generation_classification_provisioning.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/lien_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/lien_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoringAndFollowUp/monitoring_follow_up.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoringAndFollowUp/updated_address.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoring_and_follow_tab.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/other_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/personal_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/personal_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/profile_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/profile_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_interest_charge_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_latest_liability_position.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_proposal_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/time_extension_td_conversion.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/Interest_charged_recovery_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/latest_liability_position_loan_listing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/proposal_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposal_management_rescheduling.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/ptp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/background_of_the_borrower.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/basic_info.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/borrower_present_proposition.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/branchProposalFormat/details_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/details_of_head_office_approval.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/future_recovery_plan.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/initiative_action_taken_after_delinquency.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/justification.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/latest_approval_related_to_loan_resheduling_settlement_waiver.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/reason_for_classification.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/visit_report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/written_off_management.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/guarantor/guarantor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/guarantor/guarantor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/reference/reference-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/reference/reference-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/emiTrackerInfo/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/emiTrackerInfo/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/initiation/form-panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/initiation/form-panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/allocatedLoanList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/allocatedLoanList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_allow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_allow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_reject.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_reject.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_0-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_0-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_4-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_4-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_7.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_8.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_repossession.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_repossession.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_warning_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_0_6.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_0_6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_11.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_12.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_7_10.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_7_10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_warning_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/editPending.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/editPending.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_7/retail_due_7.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_7/retail_due_7.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_8/retail_due_8.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_8/retail_due_8.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_employee/retail_employee.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_employee/retail_employee.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_gurantor/retail_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_gurantor/retail_gurantor.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_repossess/retail_repossess.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_repossess/retail_repossess.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_warning/retail_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_warning/retail_warning.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_11/sme_due_11.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_11/sme_due_11.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_12/sme_due_12.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_12/sme_due_12.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_gurantor/sme_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_gurantor/sme_gurantor.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_warning/sme_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_warning/sme_warning.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/card/dashboard/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/card/dashboard/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/card/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/shared/layouts/footer/main-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/shared/layouts/footer/main-footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/UnisoftApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/UnisoftApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/cardprofile/CardProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/cardprofile/CardProfileController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusNew.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusNewRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/employee/EmployeeInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/employee/EmployeeInfoEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/common/EnumDataService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/common/EnumDataService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/card/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/card/form/js/supp-card-info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/collection/reports/retail/loan/vip-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/collection/reports/retail/loan/vip-list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/customerprofileloan/guarantorinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/customerprofileloan/guarantorinfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/customerprofileloan/referenceinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/customerprofileloan/referenceinfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/dashboard/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/dashboard/form/js/supp-card-info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/cutomer360Page/pannels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/cutomer360Page/pannels/middle/other_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_email_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_email_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_verification.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/card/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/cardGeneralView_Account.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/cardGeneralView_Account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/legal_action.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/legal_action.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/reference_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/account_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/account_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_history.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_movement_calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_movement_calculator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/customer_and_borrower_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/customer_and_borrower_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/finalsettlement_amount.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/finalsettlement_amount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/lien_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/lien_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/other_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/personal_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/personal_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/profile_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/profile_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/referenceinfo/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/referenceinfo/reference_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/sector_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/sector_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/guarantor/guarantor.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/guarantor/guarantor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/reference/reference-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/reference/reference-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/emiTrackerInfo/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/emiTrackerInfo/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/initiation/form-panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/initiation/form-panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/allocatedLoanList.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/allocatedLoanList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_allow.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_allow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_reject.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_reject.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_0-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_0-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_4-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_4-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_7.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_8.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_repossession.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_repossession.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_warning_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_0_6.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_0_6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_11.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_12.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_7_10.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_7_10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_warning_letter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/editPending.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/editPending.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/common/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/common/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_7/retail_due_7.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_7/retail_due_7.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_8/retail_due_8.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_8/retail_due_8.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_employee/retail_employee.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_employee/retail_employee.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_gurantor/retail_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_gurantor/retail_gurantor.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_repossess/retail_repossess.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_repossess/retail_repossess.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_warning/retail_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_warning/retail_warning.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_11/sme_due_11.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_11/sme_due_11.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_12/sme_due_12.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_12/sme_due_12.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_gurantor/sme_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_gurantor/sme_gurantor.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_warning/sme_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_warning/sme_warning.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/card/dashboard/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/card/dashboard/dealer/initiation/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/card/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/loan/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/loan/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/shared/layouts/footer/main-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/shared/layouts/footer/main-footer.html" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ific" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ific" type="feb32156:DbDataSourceImpl" />
+        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ific" type="feb32156:DbDataSourceImpl" />
+        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ific" type="feb32156:DbDataSourceImpl" />
+        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="LOS_TB_S_ROLES: table" type="be4db629:OracleImplModel$Table" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1875970350">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.opened" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="CUSTOMER_BASIC_INFO_ENTITY" value="4" />
+          <entry key="LOAN_ACCOUNT_BASIC_INFO" value="1" />
+          <entry key="LOAN_ACCOUNT_DISTRIBUTION_INFO" value="3" />
+          <entry key="LOS_TB_M_USERS" value="1" />
+          <entry key="LOS_TB_S_ROLES" value="1" />
+          <entry key="html" value="11" />
+          <entry key="java" value="44" />
+          <entry key="properties" value="6" />
+          <entry key="sql" value="2" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Database Element" value="10" />
+          <entry key="HTML" value="11" />
+          <entry key="JAVA" value="44" />
+          <entry key="Properties" value="6" />
+          <entry key="Scratch" value="2" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cell" value="28" />
+          <entry key="html" value="842" />
+          <entry key="java" value="80" />
+          <entry key="sql" value="36" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="842" />
+          <entry key="JAVA" value="80" />
+          <entry key="Scratch" value="64" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="607">
+              <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1214#1215#0" expanded="true" />
+                <element signature="e#1283#1284#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/lang/NumberFormatException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountDistributionInfo/CardAccountDistributionService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="92" column="27" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application-shariar.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="16" column="67" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="41" column="42" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>#modal-reference-info</find>
+      <find>Sector Detail</find>
+      <find>Interest Details And CL Info</find>
+      <find>Letter Information</find>
+      <find>Final Settlement Details (Payoff Amount)</find>
+      <find>Changing Date</find>
+      <find>Link Account Statement</find>
+      <find>Customer and Borrower's Info</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/common/EnumDataService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/allocationLogic/PeopleAllocationLogicController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/detailsOfCollection/controller/ProfileLoanController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/retail/card/dataEntry/distribution/accountBasicInfo/CardAccountBasicService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/settings/branch/BranchService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/home/SamDashboardController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/cardprofile/CardProfileController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/settings/branch/BranchController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountBasicInfo/CardAccountBasicService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/allocationLogic/PeopleAllocationLogicController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationRepository.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/f44871a0-2b22-4349-ae0a-301cad9baab5/console.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/interest_details.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/interest_rate_change_history.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/account_statement.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/bootstrap-datepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/bootstrap-daterangepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/chart.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/eve-raphael/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/jquery-knob/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/bootstrap-datepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/bootstrap-daterangepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/chart.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/eve-raphael/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/jquery-knob/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/card/dist/js/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/css/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/bootstrap-datepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/bootstrap-daterangepicker/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/chart.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/eve-raphael/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/jquery-knob/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/dashboard/dist/js/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/src/main/resources/static/plugins/jQuery-Ajax-Loading-Overlay-with-Loading-Text-Spinner-Plugin/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="975" />
+    <option name="height" value="690" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Production'; set:Production; class com.intellij.psi.search.scope.ProjectProductionScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="csinfotechbd" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IFIC_Collection" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Production'; set:Production; class com.intellij.psi.search.scope.ProjectProductionScope">
+          <expand>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="samd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="samd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="setup" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="common" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="detailsOfCollection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="detailsOfCollection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="controller" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="cardData" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="logo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="oracle" />
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1661322774478" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.unisoft.collection.samd.setup.riskCategories" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="shariar" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="unisoftSystemLtd" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.unisoft.UnisoftApplication" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="C:/Program Files/Java/jdk1.8.0_202" />
+      <envs>
+        <env name="spring.profiles.active" value="shariar" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd669e06-70c7-4033-8777-86e0d15b1686" name="Default Changelist" comment="" />
+      <created>1658124451830</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658124451830</updated>
+      <workItem from="1658124454393" duration="3611000" />
+      <workItem from="1658144460294" duration="597000" />
+      <workItem from="1658288256915" duration="3121000" />
+      <workItem from="1659507551167" duration="13155000" />
+      <workItem from="1659584865545" duration="3530000" />
+      <workItem from="1661312861295" duration="4090000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="28104000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32931727" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32863188" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.58674186" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32863188" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.32863188" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32863188" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32863188" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.30606487" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.32863188" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.3299866" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32931727" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32931727" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.46826518" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32863188" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.32863188" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32863188" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32863188" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="13" visible="true" weight="0.30606487" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.32863188" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.3299866" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32931727" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java</url>
+          <line>95</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionException.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/settings/branch/BranchController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/cardprofile/CardProfileController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionRepository.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-abdullah.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountBasicInfo/CardAccountBasicService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1218">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/allocationLogic/PeopleAllocationLogicController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationServiceImpl.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationService.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationRepository.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="27" column="66" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOAN_ACCOUNT_BASIC_INFO">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+          <column-attributes>
+            <column name="ROWID" enabled="false" />
+          </column-attributes>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="179" column="66" selection-start-line="179" selection-start-column="66" selection-end-line="179" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOS_TB_S_ROLES">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+          <column-attributes>
+            <column name="ROWID" enabled="false" />
+          </column-attributes>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOS_TB_M_USERS">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+          <column-attributes>
+            <column name="ROWID" enabled="false" />
+          </column-attributes>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOAN_ACCOUNT_DISTRIBUTION_INFO">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+          <column-attributes>
+            <column name="ROWID" enabled="false" />
+          </column-attributes>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/CUSTOMER_BASIC_INFO_ENTITY">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f44871a0-2b22-4349-ae0a-301cad9baab5/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="261" column="19" selection-start-line="261" selection-start-column="16" selection-end-line="261" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="819">
+          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/interest_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1239">
+          <caret line="59" column="77" selection-start-line="59" selection-start-column="77" selection-end-line="59" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/letter_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1911">
+          <caret line="98" column="72" selection-start-line="98" selection-start-column="72" selection-end-line="98" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/interest_rate_change_history.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/account_statement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2688">
+          <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="278" column="41" lean-forward="true" selection-start-line="278" selection-start-column="41" selection-end-line="278" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#7;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#8;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#8;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#10;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#11;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#12;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#1;n#tr#12;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#13;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4580">
+          <caret line="143" column="31" lean-forward="true" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="165" column="38" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
+          <folding>
+            <element signature="n#style#0;n#th#6;n#tr#0;n#thead#0;n#table#0;n#Div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/sector_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-630" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1703">
+          <caret line="325" selection-start-line="325" selection-end-line="325" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-shariar.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="67" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="41" column="42" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1214#1215#0" expanded="true" />
+            <element signature="e#1283#1284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountDistributionInfo/CardAccountDistributionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="92" column="27" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
