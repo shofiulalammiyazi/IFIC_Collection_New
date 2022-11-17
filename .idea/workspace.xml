@@ -2,260 +2,501 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd669e06-70c7-4033-8777-86e0d15b1686" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/collateralSecurityDetails.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/samd/setup/riskCategories/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/samd/setup/riskCategories/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SendSMS.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SentSMSToCustomerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-mahmud.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/adapters/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/bender-runner.config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/ckeditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/contents.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/_translationstatus.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/bn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/bs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/cy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/de-ch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/en-au.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/en-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/en-gb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/es-mx.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/fo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/fr-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/gu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/hi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/km.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ku.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/mn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ms.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/nb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/oc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/pt-br.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/si.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sr-latn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/tt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/ug.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/zh-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/a11yhelp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/_translationstatus.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/cy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/de-ch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/en-au.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/en-gb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/es-mx.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/fo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/fr-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/gu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/hi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/km.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ku.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/mn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/nb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/oc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/pt-br.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/si.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sr-latn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/tt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/ug.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/zh-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/a11yhelp/dialogs/lang/zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/about/dialogs/about.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/about/dialogs/hidpi/logo_ckeditor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/about/dialogs/logo_ckeditor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/clipboard/dialogs/paste.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/colordialog/dialogs/colordialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/colordialog/dialogs/colordialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/copyformatting/cursors/cursor-disabled.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/copyformatting/cursors/cursor.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/dialog/dialogDefinition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/dialog/styles/dialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/div/dialogs/div.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/exportpdf/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/exportpdf/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/exportpdf/plugindefinition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/find/dialogs/find.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/flash/dialogs/flash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/flash/images/placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/button.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/checkbox.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/hiddenfield.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/radio.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/select.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/textarea.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/dialogs/textfield.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/forms/images/hiddenfield.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/icons.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/icons_hidpi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/iframe/dialogs/iframe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/iframe/images/placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/image/dialogs/image.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/image/images/noimage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/link/dialogs/anchor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/link/dialogs/link.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/link/images/anchor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/link/images/hidpi/anchor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/liststyle/dialogs/liststyle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/magicline/images/hidpi/icon-rtl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/magicline/images/hidpi/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/magicline/images/icon-rtl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/magicline/images/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pagebreak/images/pagebreak.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pastefromgdocs/filter/default.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pastefromlibreoffice/filter/default.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pastefromword/filter/default.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pastetools/filter/common.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/pastetools/filter/image.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/preview/images/pagebreak.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/preview/preview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/preview/styles/screen.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/dialogs/dialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/dialogs/options.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/dialogs/toolbar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_address.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_blockquote.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_div.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_h6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_p.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/showblocks/images/block_pre.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/dialogs/smiley.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/angel_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/angel_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/angry_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/angry_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/broken_heart.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/broken_heart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/confused_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/confused_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/cry_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/cry_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/devil_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/devil_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/embaressed_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/embarrassed_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/embarrassed_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/envelope.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/envelope.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/heart.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/heart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/kiss.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/kiss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/lightbulb.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/lightbulb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/omg_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/omg_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/regular_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/regular_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/sad_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/sad_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/shades_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/shades_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/teeth_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/teeth_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/thumbs_down.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/thumbs_down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/thumbs_up.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/thumbs_up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/tongue_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/tongue_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/tounge_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/whatchutalkingabout_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/whatchutalkingabout_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/wink_smile.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/smiley/images/wink_smile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/_translationstatus.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/cy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/de-ch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/en-au.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/en-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/en-gb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/es-mx.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/fr-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/km.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ku.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/nb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/oc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/pt-br.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/si.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sr-latn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/tt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/ug.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/zh-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/lang/zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/specialchar/dialogs/specialchar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/table/dialogs/table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/tableselection/styles/tableselection.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/tabletools/dialogs/tableCell.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/dialogs/templates.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/dialogs/templates.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/templates/default.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/templates/images/template1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/templates/images/template2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/templates/templates/images/template3.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/widget/images/handle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/dialogs/ciframe.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/dialogs/tmpFrameset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/dialogs/wsc.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/dialogs/wsc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/dialogs/wsc_ie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/icons/hidpi/spellchecker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/icons/spellchecker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/bn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/bs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/cy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/en-au.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/en-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/en-gb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/fo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/fr-ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/gu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/hi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/km.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ku.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/mn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ms.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/nb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/pt-br.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/sr-latn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/ug.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/zh-cn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/lang/zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/plugin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/dialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/dialog_ie.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/dialog_ie8.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/dialog_iequirks.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/editor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/editor_gecko.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/editor_ie.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/editor_ie8.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/editor_iequirks.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/icons.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/icons_hidpi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/hidpi/close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/hidpi/lock-open.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/hidpi/lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/hidpi/refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/lock-open.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/images/spinner.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/skins/moono-lisa/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/vendor/promise.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/sendSms/smsSendToCustomer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/generator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/show.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/view.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smstemplate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f44871a0-2b22-4349-ae0a-301cad9baab5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f44871a0-2b22-4349-ae0a-301cad9baab5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csinfotechbd.iml" beforeDir="false" afterPath="$PROJECT_DIR$/unisoftSystemLtd.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusNew.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusNewRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/connectplus/ConnectPlusRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/employee/EmployeeInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/employee/EmployeeInfoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/common/EnumDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/card/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/card/form/js/supp-card-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/collection/reports/retail/loan/vip-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/collection/reports/retail/loan/vip-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/guarantorinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/guarantorinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/referenceinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/customerprofileloan/referenceinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/dashboard/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/dashboard/form/js/supp-card-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/legalreport/legalreportall.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/litigation/litigation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/html5shiv.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/html5shiv.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/ionicons.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/ionicons.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon-login/respond.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/custom-login/respond.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-datepicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-datepicker.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-timepicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/bootstrap-timepicker.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/onjon/jquery-3.2.1.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/sam/details_of_head_office_approval.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/sam/latest_approval_related_to_loan.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/samd/details-of-the-account.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/samd/loan-rescheduling.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/cutomer360Page/pannels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/cutomer360Page/pannels/middle/other_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/agency/dashboard/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_email_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_email_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_reset_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/auth/passwordReset/password_verification.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/cardGeneralView_Account.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/cardGeneralView_Account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/legal_action.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/legal_action.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/cardprofile/details/panels/middle/reference_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/GenerationClassificationProvisioning/automatedProvisioning/automated_provisioning.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/account_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_history.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_history.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_movement_calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/bucket_movement_calculator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/customer_and_borrower_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/finalsettlement_amount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/generation_classification_provisioning.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/lien_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/lien_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoringAndFollowUp/monitoring_follow_up.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoringAndFollowUp/updated_address.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/monitoring_and_follow_tab.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/other_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/personal_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/personal_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/profile_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/profile_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_interest_charge_details.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_latest_liability_position.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/settlement_proposal_details.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagement/time_extension_td_conversion.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/Interest_charged_recovery_details.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/latest_liability_position_loan_listing.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposalManagementRescheduling/proposal_details.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/proposal_management_rescheduling.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/ptp.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/referenceinfo/reference_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/background_of_the_borrower.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/basic_info.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/borrower_present_proposition.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/branchProposalFormat/details_account.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/details_of_head_office_approval.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/future_recovery_plan.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/initiative_action_taken_after_delinquency.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/justification.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/latest_approval_related_to_loan_resheduling_settlement_waiver.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/samd/reason_for_classification.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/sector_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/visit_report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/details/panels/middle/written_off_management.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/guarantor/guarantor.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/guarantor/guarantor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/reference/reference-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/distribution/loan/reference/reference-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/emiTrackerInfo/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/emiTrackerInfo/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/initiation/form-panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/initiation/form-panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/allocatedLoanList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/allocatedLoanList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_allow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_allow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_reject.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_brta_reject.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_0-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_0-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_4-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_4-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_7.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_8.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_due_8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_repossession.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_repossession.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/retail_warning_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_0_6.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_0_6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_11.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_12.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_7_10.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_due_7_10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/LetterTemplates/sme_warning_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/editPending.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/collection/settings/employee/editPending.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/login/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_7/retail_due_7.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_7/retail_due_7.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_8/retail_due_8.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_due_8/retail_due_8.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_employee/retail_employee.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_employee/retail_employee.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_gurantor/retail_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_gurantor/retail_gurantor.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_repossess/retail_repossess.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_repossess/retail_repossess.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_warning/retail_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/retail_warning/retail_warning.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_11/sme_due_11.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_11/sme_due_11.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_12/sme_due_12.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_12/sme_due_12.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_gurantor/sme_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_gurantor/sme_gurantor.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_warning/sme_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/letters/sme_warning/sme_warning.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/card/dashboard/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/card/dashboard/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/card/layouts/navigation/main-sidebar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/retail/shared/layouts/footer/main-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/retail/shared/layouts/footer/main-footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/UnisoftApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/UnisoftApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/cardprofile/CardProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/cardprofile/CardProfileController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusNew.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusNewRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/connectplus/ConnectPlusRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loanAccountBasic/LoanAccountBasicInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/employee/EmployeeInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/employee/EmployeeInfoEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanguarantorInfo/LoanCustomerGuarantorInfoSettingsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/loanreferenceinfo/LoanCustomerReferenceInfoSettingsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/settings/securedCardCriteria/SecuredCardCriteriaEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/common/EnumDataService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/common/EnumDataService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/guarantorinfo/GuarantorInfoEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerloanprofile/referenceinfo/ReferenceInfoEntityDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/cardviewmodels/AccountInformation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/detailsOfCollection/controller/ProfileLoanController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/card/dataEntry/ptp/CardPtpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/card/dataEntry/ptp/CardPtpService$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/card/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/card/form/js/supp-card-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/collection/reports/retail/loan/vip-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/collection/reports/retail/loan/vip-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/customerprofileloan/guarantorinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/customerprofileloan/guarantorinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/customerprofileloan/referenceinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/customerprofileloan/referenceinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/dashboard/form/js/supp-card-info.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/dashboard/form/js/supp-card-info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/cutomer360Page/pannels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/cutomer360Page/pannels/middle/other_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/agency/dashboard/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_email_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_email_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_reset_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/auth/passwordReset/password_verification.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/legalreport/legalreportall.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/litigation/litigation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon-login/html5shiv.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon-login/ionicons.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon-login/respond.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon/bootstrap-datepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon/bootstrap-datepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon/bootstrap-timepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon/bootstrap-timepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/onjon/jquery-3.2.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/sam/details_of_head_office_approval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/sam/latest_approval_related_to_loan.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/samd/details-of-the-account.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/samd/loan-rescheduling.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/card/layouts/navigation/main-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/cardGeneralView_Account.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/cardGeneralView_Account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/legal_action.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/legal_action.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/cardprofile/details/panels/middle/reference_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/account_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/account_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_history.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_history.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_movement_calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/bucket_movement_calculator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/customer_and_borrower_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/customer_and_borrower_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/finalsettlement_amount.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/finalsettlement_amount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/guarantorinfo/guarantor_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/lien_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/lien_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/other_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/other_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/personal_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/personal_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/profile_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/profile_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/referenceinfo/reference_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/referenceinfo/reference_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/sector_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/sector_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/guarantor/guarantor.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/guarantor/guarantor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/reference/reference-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/distribution/loan/reference/reference-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/emiTrackerInfo/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/emiTrackerInfo/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/initiation/form-panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/initiation/form-panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/allocatedLoanList.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/allocatedLoanList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_allow.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_allow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_reject.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_brta_reject.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_0-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_0-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_4-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_4-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_7.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_8.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_due_8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_employee_assistance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_gurantor_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_repossession.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_repossession.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/retail_warning_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_0_6.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_0_6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_11.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_12.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_7_10.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_due_7_10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_gurantor_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_warning_letter.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/LetterTemplates/sme_warning_letter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/dealer_group_based_on_collector_area_for_auto_distribution/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/editPending.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/collection/settings/employee/editPending.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/common/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/common/login/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/generalViewForPreview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/card/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/generalViewForPreview.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/guarantor_info_checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/dashboard/loan/teamleader/details/panels/middle/checker/reference_info-checker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_allow/retail_BRTA_allow.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_BRTA_reject/retail_BRTA_reject.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_0to3/retail_due_0to3.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_4to6/retail_due_4to6.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_7/retail_due_7.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_7/retail_due_7.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_8/retail_due_8.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_due_8/retail_due_8.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_employee/retail_employee.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_employee/retail_employee.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_gurantor/retail_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_gurantor/retail_gurantor.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_repossess/retail_repossess.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_repossess/retail_repossess.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/retail_warning/retail_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/retail_warning/retail_warning.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_0to6/sme_due_0to6.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_11/sme_due_11.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_11/sme_due_11.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_12/sme_due_12.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_12/sme_due_12.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_due_7to10/sme_due_7to10.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_gurantor/sme_gurantor.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_gurantor/sme_gurantor.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/letters/sme_warning/sme_warning.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/letters/sme_warning/sme_warning.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/card/dashboard/dealer/initiation/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/card/dashboard/dealer/initiation/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/card/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/card/layouts/navigation/main-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/GenerationClassificationProvisioning/automatedProvisioning/automated_provisioning.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/generation_classification_provisioning.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/monitoringAndFollowUp/monitoring_follow_up.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/monitoringAndFollowUp/updated_address.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/monitoring_and_follow_tab.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/settlement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/settlement_interest_charge_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/settlement_latest_liability_position.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/settlement_proposal_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagement/time_extension_td_conversion.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagementRescheduling/Interest_charged_recovery_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagementRescheduling/latest_liability_position_loan_listing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposalManagementRescheduling/proposal_details.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/proposal_management_rescheduling.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/ptp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/background_of_the_borrower.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/basic_info.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/borrower_present_proposition.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/branchProposalFormat/details_account.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/details_of_head_office_approval.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/future_recovery_plan.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/initiative_action_taken_after_delinquency.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/justification.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/latest_approval_related_to_loan_resheduling_settlement_waiver.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/samd/reason_for_classification.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/visit_report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/collection/details/panels/middle/written_off_management.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/loan/layouts/navigation/main-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/loan/layouts/navigation/main-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/retail/shared/layouts/footer/main-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/retail/shared/layouts/footer/main-footer.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -283,20 +524,13 @@
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="ific" type="feb32156:DbDataSourceImpl" />
-        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
+        <item name="IFIC_COLLECTION_TEST: schema" type="ac44c5e0:OracleImplModel$Schema" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="ific" type="feb32156:DbDataSourceImpl" />
-        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
+        <item name="IFIC_COLLECTION_TEST: schema" type="ac44c5e0:OracleImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="ific" type="feb32156:DbDataSourceImpl" />
-        <item name="LMS_COLLECTION: schema" type="ac44c5e0:OracleImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="LOS_TB_S_ROLES: table" type="be4db629:OracleImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -354,111 +588,119 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1428695429">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="html" value="10" />
+          <entry key="java" value="11" />
+          <entry key="js" value="3" />
+          <entry key="properties" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="10" />
+          <entry key="JAVA" value="11" />
+          <entry key="JavaScript" value="3" />
+          <entry key="Properties" value="4" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-716998797">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="properties" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Properties" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateController.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerate.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateService.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateRepository.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1214#1215#0" expanded="true" />
-                <element signature="e#1283#1284#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SendSMS.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/lang/NumberFormatException.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SentSMSToCustomerController.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/create.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="147">
+              <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountDistributionInfo/CardAccountDistributionService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application-mahmud.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="92" column="27" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="27" />
+            <state relative-caret-position="42">
+              <caret line="2" column="48" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application-shariar.properties">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/ckeditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="67" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="41" column="42" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/UnisoftApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="294">
+              <caret line="17" column="297" selection-start-line="17" selection-start-column="297" selection-end-line="17" selection-end-column="297" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -470,6 +712,9 @@
       <find>Changing Date</find>
       <find>Link Account Statement</find>
       <find>Customer and Borrower's Info</find>
+      <find>templateMessage</find>
+      <find>ckeditor.js</find>
+      <find>massege</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -511,6 +756,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/unisoft/detailsOfCollection/controller/ProfileLoanController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-mahmud.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsTemplateName/create.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SentSMSToCustomerController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/create.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/af.js" />
       </list>
     </option>
   </component>
@@ -519,6 +773,13 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
@@ -574,8 +835,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
     <option name="width" value="975" />
     <option name="height" value="690" />
   </component>
@@ -596,7 +857,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Production'; set:Production; class com.intellij.psi.search.scope.ProjectProductionScope">
           <expand>
@@ -658,7 +918,7 @@
               <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="samd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -669,8 +929,8 @@
               <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="samd" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="setup" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -680,7 +940,10 @@
               <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="common" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="generator" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -690,18 +953,10 @@
               <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="detailsOfCollection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="unisoft" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="detailsOfCollection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="controller" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sendSms" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -709,22 +964,6 @@
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="cardData" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="logo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -734,15 +973,71 @@
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sendSms" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="csinfotechbd" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="unisoftSystemLtd" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="templates" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="collection" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="settings" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="SMS" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="smsgenerator" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="oracle" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -750,15 +1045,25 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1661322774478" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1667149659185" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\resources\templates\collection\settings\SMS" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.unisoft.collection.samd.setup.riskCategories" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\resources\static\assets\js" />
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\java\com\unisoft\collection\settings\SMS\sendSms" />
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\java\com\unisoft\collection\settings\SMS\generator" />
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\java\com\unisoft\collection\settings\SMS" />
+      <recent name="D:\All Unisoft Project\IFIC_Collection\src\main\resources\templates\collection\settings\SMS" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -774,13 +1079,13 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="shariar" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="mahmud" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="unisoftSystemLtd" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.unisoft.UnisoftApplication" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" value="C:/Program Files/Java/jdk1.8.0_202" />
       <envs>
-        <env name="spring.profiles.active" value="shariar" />
+        <env name="spring.profiles.active" value="mahmud" />
       </envs>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -803,11 +1108,15 @@
       <workItem from="1659507551167" duration="13155000" />
       <workItem from="1659584865545" duration="3530000" />
       <workItem from="1661312861295" duration="4090000" />
+      <workItem from="1667124414325" duration="1441000" />
+      <workItem from="1667138385135" duration="5373000" />
+      <workItem from="1667149742565" duration="17000" />
+      <workItem from="1668678735851" duration="1350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28104000" />
+    <option name="totallyTimeSpent" value="36285000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -819,9 +1128,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32931727" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2736842" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -832,14 +1141,14 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32863188" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.58674186" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5836299" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32863188" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32863188" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32863188" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32863188" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32740214" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.30606487" />
@@ -850,7 +1159,7 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Maven Projects" order="5" weight="0.3299866" />
-      <window_info anchor="right" id="Database" order="6" weight="0.32931727" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32874495" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" />
@@ -910,149 +1219,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/settings/branch/BranchController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/cardprofile/CardProfileController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/csinfotechbd/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-abdullah.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountBasicInfo/CardAccountBasicService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/branch/BranchController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/cardprofile/CardProfileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1218">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionExceptionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/allocationLogic/PeopleAllocationLogicController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationServiceImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/dataEntry/agencyAllocationViaExcel/AgencyAllocationController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="27" column="66" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOAN_ACCOUNT_BASIC_INFO">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-          <column-attributes>
-            <column name="ROWID" enabled="false" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="179" column="66" selection-start-line="179" selection-start-column="66" selection-end-line="179" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/automaticDistribution/distributionExceptionCard/DistributionException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOS_TB_S_ROLES">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-          <column-attributes>
-            <column name="ROWID" enabled="false" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOS_TB_M_USERS">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-          <column-attributes>
-            <column name="ROWID" enabled="false" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/LOAN_ACCOUNT_DISTRIBUTION_INFO">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-          <column-attributes>
-            <column name="ROWID" enabled="false" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f44871a0-2b22-4349-ae0a-301cad9baab5/schema/LMS_COLLECTION/table/CUSTOMER_BASIC_INFO_ENTITY">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f44871a0-2b22-4349-ae0a-301cad9baab5/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f44871a0-2b22-4349-ae0a-301cad9baab5/console.sql" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="861">
@@ -1106,9 +1273,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2688">
           <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1116,22 +1280,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="97">
           <caret line="278" column="41" lean-forward="true" selection-start-line="278" selection-start-column="41" selection-end-line="278" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#7;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#8;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#8;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#10;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#11;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#12;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#12;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#13;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1146,9 +1294,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="165" column="38" selection-start-line="165" selection-start-column="38" selection-end-line="165" selection-end-column="38" />
-          <folding>
-            <element signature="n#style#0;n#th#6;n#tr#0;n#thead#0;n#table#0;n#Div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1161,9 +1306,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1171,11 +1313,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1703">
           <caret line="325" selection-start-line="325" selection-end-line="325" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/application-mahmud.properties" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountDistributionInfo/CardAccountDistributionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1596">
+          <caret line="92" column="27" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-shaon.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-sabbir.properties">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application-shariar.properties">
       <provider selected="true" editor-type-id="text-editor">
@@ -1186,7 +1381,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
+        <state relative-caret-position="861">
           <caret line="41" column="42" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="42" />
         </state>
       </provider>
@@ -1198,63 +1393,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/retail/loan/layouts/navigation/main-sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="126">
+          <caret line="390" column="25" selection-start-line="390" selection-start-column="25" selection-end-line="390" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/card/layouts/navigation/main-sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        <state relative-caret-position="472">
+          <caret line="1125" column="7" selection-start-line="1125" selection-start-column="7" selection-end-line="1125" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsTemplateName/create.html" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsTemplateName/smstemplate.html" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsTemplateName/view.html" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/sendSms/smsSendToCustomer.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/create.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSEntity.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSService.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSRepository.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSDao.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/SMSController.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/lang/af.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/assets/js/ckeditor/ckeditor.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateController.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerate.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateService.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/generator/TemplateGenerateRepository.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SendSMS.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/settings/SMS/sendSms/SentSMSToCustomerController.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/ckeditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        <state relative-caret-position="294">
+          <caret line="17" column="297" selection-start-line="17" selection-start-column="297" selection-end-line="17" selection-end-column="297" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategoryController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/collection/settings/SMS/smsgenerator/create.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="147">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/samd/setup/riskCategories/RiskCategory.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-mahmud.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1214#1215#0" expanded="true" />
-            <element signature="e#1283#1284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_202/src.zip!/java/lang/NumberFormatException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/retail/card/dataEntry/distribution/accountDistributionInfo/CardAccountDistributionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="92" column="27" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="27" />
+        <state relative-caret-position="42">
+          <caret line="2" column="48" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
         </state>
       </provider>
     </entry>

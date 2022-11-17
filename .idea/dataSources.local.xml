@@ -8,7 +8,7 @@
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>lms_collection</user-name>
+      <user-name>IFIC_COLLECTION_TEST</user-name>
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
   </component>
