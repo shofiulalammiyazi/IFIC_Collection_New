@@ -12,7 +12,7 @@ public class RecoveryViewService {
     @Autowired
     private RecoveryViewDAO recoveryViewDAO;
 
-    public RecoveryViewDTO getRecoveryView(String contractNo, String date){
-        return recoveryViewDAO.getRecoveryView(contractNo, date);
-    }
+//    public RecoveryViewDTO getRecoveryView(String contractNo, String date){
+//        return recoveryViewDAO.getRecoveryView(contractNo, date);
+//    }
 }
