@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="card/layouts/main/main-layout">
+<head>
+	<meta charset="ISO-8859-1"/>
+	<title> SMS Generator</title>
+	<script th:src="@{/assets/js/ckeditor/ckeditor.js}"></script>
+</head>
+<body>
+<div  layout:fragment="content" th:remove="tag">
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">
+				<div class="box-body">
+					<div class="box box-primary">
+
+						<div class="box-header with-border" style="text-align: center;">
+							<h3 class="box-title">SMS Generation</h3>
+						</div>
+
+						<div class="box-body">
+							<form class="form-horizontal validate" id="form-create-template" method="post"  th:action="@{/collection/generator/save-generator}" th:object="${templateGenerate}" >
+								<input type="hidden" id="id" name="id" th:field="*{id}">
+								<div class="box-body">
+									<div class="form-group">
+										<label class="col-sm-4 text-right" style="padding-top: 6px;">Select SMS Type:</label>
+										<div class="col-sm-4">
+											<select class="form-control" name="smsType" th:field="*{smsType}"> <!-- th:field="*{category}-->
+												<option th:each="sms: ${smsEntityList}"  th:value="${sms.name}"  th:text="${sms.name}" ></option>
+											</select>
+										</div>
+
+										<!--<div class="form-group hidden">-->
+										<!--<label>Template</label>-->
+										<!--<input name="id" th:value="${generate.getId()}">-->
+										<!--&lt;!&ndash;<input th:value="${templateBody}" id="template" name="template">&ndash;&gt;-->
+										<!--<input th:value="${massege}" id="massege" name="template">-->
+										<!--</div>-->
+
+										<div class="col-sm-4">
+											<input type="hidden" id="massege" name="massege" th:field="*{massege}">
+
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="row">
+											<div class="col-sm-9">
+												<div class="box">
+													<div class="box-body" >
+														<div cols="80" height="800px"
+															 id="letter-editor"
+															 name="letter-editor"
+															 rows="10"
+															 data-sample-short></div>
+														<!--data-sample-short>[(${templateBody})]</div>-->
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-3" >
+												<div class="box">
+													<div class="box-body" >
+														<div class="form-group">
+															<label>Fields </label>
+															<input id="search-template-fields"
+																   name="search-template-fields"
+																   placeholder="Search by Name of Fields"
+																   class="form-control">
+														</div>
+
+														<div class="template-fields-container">
+															<div class="template-fields " >{{F.reference}}</div>
+															<div class="template-fields" >{{F.currentDate}}</div>
+															<div class="template-fields" >{{F.concernName}}</div>
+															<div class="template-fields" >{{F.concernAddress}}</div>
+
+															<div class="template-fields" >{{F.accountNo}}</div>
+															<div class="template-fields" >{{F.cardNo}}</div>
+															<div class="template-fields" >{{F.customerId}}</div>
+															<div class="template-fields" >{{F.productType}}</div>
+
+															<div class="template-fields" >{{F.installmentAmount}}</div>
+															<div class="template-fields" >{{F.overdueAmount}}</div>
+															<div class="template-fields" >{{F.outstandingAmount}}</div>
+															<div class="template-fields" >{{F.amountDue}}</div>
+
+															<div class="template-fields" >{{F.bblHoMobile}}</div>
+															<div class="template-fields" >{{F.bblHoAddress}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="box-footer text-center">
+									<button type="submit" id="sms_generate" class="btn btn-info ">Submit</button>
+									<a type="submit" class="btn btn-danger" th:href="@{/collection/generator/list}">Cancel</a>
+								</div>
+
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<script th:inline="javascript">
+                /*<![CDATA[*/
+                var templateMessage =/*[[${templateGenerate}]]*/ {}; //during the edit option of cdeditor
+                /*]]>*/
+
+
+                // console.log(/*[[${templateGenerate}]]*/ {});
+			</script>
+			<script>
+                $(document).ready(function () {
+                    CKEDITOR.replace('letter-editor', {
+                        height: 400,
+                        baseFloatZIndex: 10005,
+                        removeButtons: 'PasteFromWord,ImageButton,Button,HiddenField,TextField,Textarea,SelectionField,RadioButton,ExportPdf,Select'
+                    });
+                    CKEDITOR.instances['letter-editor'].setData(templateMessage.massege); //during the edit option of cdeditor
+
+
+                    $('#search-template-fields').on('input', function () {
+                        let searchData = $(this).val();
+                        $('.template-fields').addClass('hidden');
+                        $('.template-fields:contains("'+searchData+'")').removeClass('hidden');
+                    });
+
+                    $('#sms_generate').on('click', function () {
+                        let data = CKEDITOR.instances['letter-editor'].getData();
+                        data = data.replace('<p>', ''); // for p tag remove section
+                        data = data.replace('</p>', '');  //for p tag remove section
+
+
+                        $('#massege').val(data);
+                        $('#form-create-template').submit();
+
+                    });
+
+
+                })
+			</script>
+
+		</section>
+	</div>
+</div>
+
+</body>
+</html>

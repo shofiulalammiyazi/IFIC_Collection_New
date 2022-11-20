@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/unisoftSystemLtd.iml" filepath="$PROJECT_DIR$/unisoftSystemLtd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/IFIC_Collection.iml" filepath="$PROJECT_DIR$/.idea/IFIC_Collection.iml" />
     </modules>
   </component>
 </project>

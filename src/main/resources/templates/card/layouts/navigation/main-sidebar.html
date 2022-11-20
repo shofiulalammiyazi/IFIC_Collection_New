@@ -146,7 +146,7 @@
                                         <li>
                                             <a
                                                     th:if="${session.urlList.contains('/retail/loan/data-entry/manual-account-write-off/list')}"
-                                               class="tab" th:href="@{/retail/loan/data-entry/manual-account-write-off/list}">Write Off
+                                                    class="tab" th:href="@{/retail/loan/data-entry/manual-account-write-off/list}">Write Off
                                             </a>
                                         </li>
 
@@ -184,7 +184,7 @@
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"
-                                                th:href="@{/distribution/card/list}">Allocated Account List- Card
+                                               th:href="@{/distribution/card/list}">Allocated Account List- Card
                                             </a>
                                         </li>
                                         <li>
@@ -224,6 +224,38 @@
                                                th:if="${session.urlList.contains('/collection/settings/dunningLetterRulesLoan/list')}"
                                                th:href="@{/collection/settings/dunningLetterRulesLoan/list}">Dunning
                                                 Letter Rules – Loan
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+
+                                <!-- SMS Template-->
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-envelope"></i>
+                                        SMS
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a class="tab"
+                                               th:href="@{/collection/smstemplate/list}">SMS Template Name
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="tab"
+                                               th:href="@{/collection/generator/list}">SMS Generate Template
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="tab"
+                                               th:href="@{/collection/smsToCustomer/sms-actlist}">
+                                                SMS To Customer
                                             </a>
                                         </li>
 
@@ -333,10 +365,10 @@
                                         </li>
 
                                         <li th:if="${#strings.startsWith(session.unit,'Card')}">
-                                        <a th:if="${session.urlList.contains('/user-role/template/urltolist/list')}"
-                                        class="tab" th:href="@{/collection/kpi/card/weightByAccount/list}">KPI
-                                        Target Setup (Weight) based on Account-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/user-role/template/urltolist/list')}"
+                                               class="tab" th:href="@{/collection/kpi/card/weightByAccount/list}">KPI
+                                                Target Setup (Weight) based on Account-Card
+                                            </a>
                                         </li>
 
                                         <li>
@@ -346,10 +378,10 @@
                                             </a>
                                         </li>
                                         <li th:if="${#strings.startsWith(session.unit,'Card')}">
-                                        <a th:if="${session.urlList.contains('/collection/kpi/card/weightByAmount/list')}"
-                                        class="tab" th:href="@{/collection/kpi/card/weightByAmount/list}">KPI
-                                        Target Setup (Weight) based on Amount-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/kpi/card/weightByAmount/list')}"
+                                               class="tab" th:href="@{/collection/kpi/card/weightByAmount/list}">KPI
+                                                Target Setup (Weight) based on Amount-Card
+                                            </a>
                                         </li>
 
                                         <li>
@@ -359,10 +391,10 @@
                                             </a>
                                         </li>
                                         <li th:if="${#strings.startsWith(session.unit,'Card')}">
-                                        <a th:if="${session.urlList.contains('/collection/kpi/card/byAccount/list')}"
-                                        class="tab" th:href="@{/collection/kpi/card/byAccount/list}">KPI Target
-                                        Setup based on Account-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/kpi/card/byAccount/list')}"
+                                               class="tab" th:href="@{/collection/kpi/card/byAccount/list}">KPI Target
+                                                Setup based on Account-Card
+                                            </a>
                                         </li>
 
                                         <li>
@@ -373,10 +405,10 @@
                                         </li>
 
                                         <li th:if="${#strings.startsWith(session.unit,'Card')}">
-                                        <a th:if="${session.urlList.contains('/collection/kpi/card/byAmount/list')}"
-                                        class="tab" th:href="@{/collection/kpi/card/byAmount/list}">KPI Target
-                                        Setup based on Amount-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/kpi/card/byAmount/list')}"
+                                               class="tab" th:href="@{/collection/kpi/card/byAmount/list}">KPI Target
+                                                Setup based on Amount-Card
+                                            </a>
                                         </li>
 
                                     </ul>
@@ -482,10 +514,10 @@
                                         </li>
 
                                         <li>
-                                        <a th:if="${session.urlList.contains('/collection/npl_release_amount/create')}"
-                                        class="tab" th:href="@{/collection/npl_release_amount/create}">NPL
-                                        Release Amount-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/npl_release_amount/create')}"
+                                               class="tab" th:href="@{/collection/npl_release_amount/create}">NPL
+                                                Release Amount-Card
+                                            </a>
                                         </li>
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/par_account_rule_loan/list')}"
@@ -494,10 +526,10 @@
                                             </a>
                                         </li>
                                         <li>
-                                        <a th:if="${session.urlList.contains('/collection/par_logic_setup/create')}"
-                                        class="tab" th:href="@{/collection/par_logic_setup/create}">PAR Logic
-                                        Setup-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/par_logic_setup/create')}"
+                                               class="tab" th:href="@{/collection/par_logic_setup/create}">PAR Logic
+                                                Setup-Card
+                                            </a>
                                         </li>
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/par_queue_acc_rule_loan/list')}"
@@ -513,10 +545,10 @@
                                             </a>
                                         </li>
                                         <li>
-                                        <a th:if="${session.urlList.contains('/collection/par_release_amount/create')}"
-                                        class="tab" th:href="@{/collection/par_release_amount/create}">PAR
-                                        Release Amount-Card
-                                        </a>
+                                            <a th:if="${session.urlList.contains('/collection/par_release_amount/create')}"
+                                               class="tab" th:href="@{/collection/par_release_amount/create}">PAR
+                                                Release Amount-Card
+                                            </a>
                                         </li>
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/status-cd/list')}"
@@ -542,6 +574,13 @@
                                                class="tab" th:href="@{/collection/department/list}">Department
                                             </a>
                                         </li>
+
+                                        <!--<li>-->
+                                        <!--<a-->
+                                        <!--class="tab" th:href="@{/collection/smstemplate/list}">SMS Template-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+
                                         <li>
                                             <a th:if="${session.urlList.contains('/collection/designation/list')}"
                                                class="tab" th:href="@{/collection/designation/list}">Collection Role
@@ -596,7 +635,7 @@
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/businessSegment/list')}"
-                                                    class="tab" th:href="@{/businessSegment/list}">Business Segment
+                                               class="tab" th:href="@{/businessSegment/list}">Business Segment
                                             </a>
                                         </li>
                                         <li>
@@ -658,21 +697,21 @@
                                             <a class="tab"
                                                th:if="${session.urlList.contains('/collection/loan/settings/sector-code/list')}"
                                                th:href="@{/collection/loan/settings/sector-code/list}">
-                                               Profession Segment
+                                                Profession Segment
                                             </a>
                                         </li>
                                         <li>
                                             <a class="tab"
                                                th:if="${session.urlList.contains('/collection/loan/settings/previous-account/list')}"
                                                th:href="@{/collection/loan/settings/previous-account/list}">
-                                               Previous Account History
+                                                Previous Account History
                                             </a>
                                         </li>
 
                                         <li>
                                             <a  class="tab"
                                                 th:if="${session.urlList.contains('/collection/setting/additionalInfoExcel/list')}"
-                                               th:href="@{/collection/setting/additionalInfoExcel/list}">
+                                                th:href="@{/collection/setting/additionalInfoExcel/list}">
                                                 Additional Info
                                             </a>
                                         </li>
@@ -681,7 +720,7 @@
                                             <a  class="tab"
                                                 th:if="${session.urlList.contains('/collection/settings/noteDetailsExcel/list')}"
                                                 th:href="@{/collection/settings/noteDetailsExcel/list}">
-                                                Note Details 
+                                                Note Details
                                             </a>
                                         </li>
 
@@ -689,7 +728,7 @@
                                             <a  class="tab"
                                                 th:if="${session.urlList.contains('/collection/settings/reasonForDelinExcel/list')}"
                                                 th:href="@{/collection/settings/reasonForDelinExcel/list}">
-                                               Reason for Delinquency
+                                                Reason for Delinquency
                                             </a>
                                         </li>
                                         <li>
@@ -722,20 +761,20 @@
                                     <ul class="treeview-menu">
                                         <li>
                                             <a
-                                               class="tab"
-                                               th:href="@{/collection/card/profession-segment/list}"> Profession Segment
+                                                    class="tab"
+                                                    th:href="@{/collection/card/profession-segment/list}"> Profession Segment
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                               class="tab"
-                                               th:href="@{/collection/card/spouse-info/list}">Spouse Info
+                                                    class="tab"
+                                                    th:href="@{/collection/card/spouse-info/list}">Spouse Info
                                             </a>
                                         </li>
                                         <!--th:if="${session.urlList.contains('/collection/district/list')}"-->
                                         <li>
                                             <a
-                                               class="tab" th:href="@{/collection/card/source-channel/list}">Source Channel
+                                                    class="tab" th:href="@{/collection/card/source-channel/list}">Source Channel
                                             </a>
                                         </li>
                                         <li>
@@ -769,9 +808,9 @@
                             <ul class="treeview-menu">
                                 <li>
                                     <a
-                                       class="tab"
-                                       th:if="${session.urlList.contains('/collection/employee/pending-profile')}"
-                                       th:href="@{/collection/employee/pending-profile}">Employee pending profile
+                                            class="tab"
+                                            th:if="${session.urlList.contains('/collection/employee/pending-profile')}"
+                                            th:href="@{/collection/employee/pending-profile}">Employee pending profile
                                     </a>
                                 </li>
 
@@ -793,13 +832,13 @@
 
 
                                 <th:block th:if="${#strings.contains(session?.unit, 'Loan')}">
-                                   <!-- <li>
-                                        <a class="tab"
-                                           th:if="${session.urlList.contains('/collection/report/retail/loan/listing/view')}"
-                                           th:href="@{'/collection/report/retail/loan/listing/view'}">
-                                            Listing
-                                        </a>
-                                    </li>-->
+                                    <!-- <li>
+                                         <a class="tab"
+                                            th:if="${session.urlList.contains('/collection/report/retail/loan/listing/view')}"
+                                            th:href="@{'/collection/report/retail/loan/listing/view'}">
+                                             Listing
+                                         </a>
+                                     </li>-->
                                     <li>
                                         <a class="tab"
                                            th:if="${session.urlList.contains('/collection/report/retail/loan/month-basis-cl/view')}"
