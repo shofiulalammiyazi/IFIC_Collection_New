@@ -1758,7 +1758,7 @@
     </table>
     <table id="314" parent="2" name="EXP_SD_1390">
       <ObjectId>79124</ObjectId>
-      <Comment>Data Pump Master Table EXPORT                         SCHEMA                        </Comment>
+      <Comment>Data Pump Master Table EXPORT                         SCHEMA</Comment>
       <CreatedTimestamp>2022-08-03.20:33:28</CreatedTimestamp>
       <ModifiedTimestamp>2022-08-03.20:41:50</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>

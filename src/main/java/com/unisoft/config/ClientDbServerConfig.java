@@ -60,15 +60,15 @@ public class ClientDbServerConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "client.db.server3.datasource")
-    public DataSourceProperties clientDbServer3DataSourceProperties() {
+    @ConfigurationProperties(prefix = "client.db.server4.datasource")
+    public DataSourceProperties ificClientDBDatasourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean(name = "clientDbServer3DataSource")
-    @ConfigurationProperties(prefix = "client.db.server3.datasource")
-    public DataSource clientDbServer3DataSource() {
-        return clientDbServer3DataSourceProperties().
+    @Bean(name = "clientDbServerIfic")
+    @ConfigurationProperties(prefix = "client.db.server4.datasource")
+    public DataSource ificClientDBDataSource() {
+        return ificClientDBDatasourceProperties().
                 initializeDataSourceBuilder().
                 type(HikariDataSource.class).
                 build();
