@@ -376,7 +376,8 @@ public class ProfileLoanController {
         }
 
         if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null)
-            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
+            return returnToSearchPage(redirectAttributes);
+//            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
         else
             return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 

@@ -210,6 +210,12 @@
                 <activatedProperties>local</activatedProperties>
             </properties>
         </profile>
+        <profile>
+            <id>Sabbir</id>
+            <properties>
+                <activatedProperties>sabbir</activatedProperties>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
