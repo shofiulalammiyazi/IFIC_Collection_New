@@ -70,11 +70,14 @@ public class LoanDistributionService {
                     if (!isValidAccountForDistribution(accountNumber)) {
                         errors.put(accountNumber, "Invalid Account Number");
                         continue;
-                    }else if (checkAccountStatus(accountNumber)){
-                        errors.put(accountNumber, "This Account is Closed");
-                        continue;
-
-                    }else if (distributionInfos.get(accountNumber) != null) {
+                    }
+                    //to do: need to add condition for closed accounts
+//                    else if (checkAccountStatus(accountNumber)){
+//                        errors.put(accountNumber, "This Account is Closed");
+//                        continue;
+//
+//                    }
+                    else if (distributionInfos.get(accountNumber) != null) {
                         errors.put(accountNumber, "Duplicate Entry");
                         continue;
                     }
