@@ -52,5 +52,7 @@ public class AccountInformationService {
     }
 
 
-   
+    public AccountInformationEntity findAccountInformationByLoanAccountNo(String accountNumber) {
+        return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
+    }
 }
