@@ -3,25 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dd669e06-70c7-4033-8777-86e0d15b1686" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanAccountDistributionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanAccountDistributionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationRepository/AccountInformationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationRepository/AccountInformationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationService/AccountInformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationService/AccountInformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanAccountDistributionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanAccountDistributionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanDistributionService$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanDistributionService$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanDistributionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanDistributionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerbasicinfo/CustomerBasicInfoEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/card/dataEntry/ptp/CardPtpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/card/dataEntry/ptp/CardPtpService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationRepository/AccountInformationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationRepository/AccountInformationRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationService/AccountInformationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/CustomerUpdate/accountInformationService/AccountInformationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/retail/loan/dataEntry/ptp/LoanPtpService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/LoanController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/collection/distribution/loan/loanAccountBasic/LoanAccountBasicService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/unisoft/customerbasicinfo/CustomerBasicInfoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/unisoft/customerbasicinfo/CustomerBasicInfoService.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -100,21 +84,22 @@
     <session id="-2043920317">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="3" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="9" />
           <entry key="html" value="3" />
-          <entry key="java" value="59" />
+          <entry key="java" value="62" />
           <entry key="properties" value="11" />
           <entry key="sql" value="2" />
         </counts>
@@ -123,7 +108,7 @@
         <counts>
           <entry key="CLASS" value="9" />
           <entry key="HTML" value="3" />
-          <entry key="JAVA" value="59" />
+          <entry key="JAVA" value="62" />
           <entry key="Properties" value="11" />
           <entry key="Scratch" value="2" />
         </counts>
@@ -134,13 +119,13 @@
           <entry key="java" value="2069" />
           <entry key="properties" value="2" />
           <entry key="sql" value="145" />
-          <entry key="txt" value="26" />
+          <entry key="txt" value="56" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="2069" />
-          <entry key="PLAIN_TEXT" value="29" />
+          <entry key="PLAIN_TEXT" value="59" />
           <entry key="Properties" value="2" />
           <entry key="Scratch" value="145" />
         </counts>
@@ -183,6 +168,7 @@
       <find>updateLoanAccountBasicInfo</find>
       <find>populateLoanAccInfo</find>
       <find>/distribution/loan/list</find>
+      <find>findCurrentMonthDistributionList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -410,6 +396,17 @@
               <item name="collection" type="462c0819:PsiDirectoryNode" />
               <item name="distribution" type="462c0819:PsiDirectoryNode" />
               <item name="loan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IFIC_Collection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IFIC_Collection" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="unisoft" type="462c0819:PsiDirectoryNode" />
+              <item name="collection" type="462c0819:PsiDirectoryNode" />
+              <item name="distribution" type="462c0819:PsiDirectoryNode" />
+              <item name="loan" type="462c0819:PsiDirectoryNode" />
               <item name="loanAccountDistribution" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -432,6 +429,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="Scope">
         <subPane subId="Scope 'Production'; set:Production; class com.intellij.psi.search.scope.ProjectProductionScope">
           <expand>
@@ -477,7 +475,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -489,7 +486,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1669202302846" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1669203361742" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ucbl_collection" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -558,7 +555,9 @@
       <workItem from="1668935943528" duration="5213000" />
       <workItem from="1669010254993" duration="18000" />
       <workItem from="1669088663682" duration="16745000" />
-      <workItem from="1669174137014" duration="19384000" />
+      <workItem from="1669174137014" duration="19528000" />
+      <workItem from="1669226623652" duration="214000" />
+      <workItem from="1669263573708" duration="825000" />
     </task>
     <task id="LOCAL-00001" summary="update database connection">
       <created>1668938446057</created>
@@ -567,11 +566,18 @@
       <option name="project" value="LOCAL" />
       <updated>1668938446057</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="loan account distribution done">
+      <created>1669203391244</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669203391244</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80570000" />
+    <option name="totallyTimeSpent" value="81753000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -606,7 +612,7 @@
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32855093" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Version Control" order="13" weight="0.3055954" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="13" visible="true" weight="0.3055954" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.5609756" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -666,7 +672,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="create database connection" />
     <MESSAGE value="update database connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="update database connection" />
+    <MESSAGE value="loan account distribution done" />
+    <option name="LAST_COMMIT_MESSAGE" value="loan account distribution done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -676,12 +683,6 @@
           <line>55</line>
           <properties />
           <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java</url>
-          <line>150</line>
-          <properties />
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -777,9 +778,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="29" column="41" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="41" />
-          <folding>
-            <element signature="e#686#716#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -954,10 +952,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="89" column="53" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
-          <folding>
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#793#794#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,9 +969,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
           <caret line="55" column="61" selection-start-line="55" selection-start-column="61" selection-end-line="55" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -988,24 +979,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="152" selection-start-line="152" selection-end-line="152" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/customerbasicinfo/CustomerBasicInfoService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="105" column="89" selection-start-line="105" selection-start-column="89" selection-end-line="105" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="176" column="66" selection-start-line="176" selection-start-column="66" selection-end-line="176" selection-end-column="66" />
         </state>
       </provider>
     </entry>
@@ -1016,21 +993,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="81" column="70" selection-start-line="81" selection-start-column="70" selection-end-line="81" selection-end-column="70" />
-          <folding>
-            <element signature="e#9670#9671#0" expanded="true" />
-            <element signature="e#9730#9731#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/80b905ce-5971-47da-a7a0-619d3ae428a9/console_1.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="2" column="43" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanDistributionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1700">
+          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/LoanController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="179" column="61" selection-start-line="179" selection-start-column="61" selection-end-line="179" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/unisoft/collection/distribution/loan/loanAccountDistribution/LoanAccountDistributionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="168" column="47" lean-forward="true" selection-start-line="168" selection-start-column="47" selection-end-line="168" selection-end-column="47" />
         </state>
       </provider>
     </entry>
