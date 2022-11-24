@@ -240,4 +240,10 @@ public class AccountInformationService {
             accountInformationEntities.clear();
         }
     }
+
+    public AccountInformationEntity getAccountInformation(String accountNo) {
+        return accountInformationRepository.getByLoanAccountNo(accountNo);
+    }
+
+
 }

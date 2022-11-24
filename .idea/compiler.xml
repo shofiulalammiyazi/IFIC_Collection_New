@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="IFIC_Collection" />
+        <module name="unisoftSystemLtd" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="IFIC_Collection" target="1.8" />
+      <module name="unisoftSystemLtd" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

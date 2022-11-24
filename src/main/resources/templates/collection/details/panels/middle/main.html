@@ -74,6 +74,7 @@
             el: "#app",
             data: {
                 accountNo: "",
+                accountInformation: {},
                 customerInfo: {},
                 loanAccInfo: {},
                 loanAccDetails: {},
@@ -145,6 +146,7 @@
             created: function () {
 
                 this.setAccountNumber();
+                this.getAccountInformationEntity(accountNo)
                 this.setAccountDistributionInfo();
                 this.setInitialValues();
                 // this.getCustomerProfileViewModel(this.accountNo);
@@ -190,7 +192,18 @@
                 },
             },
             methods: {
-
+                getAccountInformationEntity: function(accountNo){
+                    let path = "/account-information/get-by-account-no?accountNo="+ accountNo;
+                    $.ajax({
+                        url: path,
+                        type: 'GET',
+                        success: function(res) {
+                            profile_information.accountInformation = res;
+                            // console.log(res);
+                            // alert(res);
+                        }
+                    });
+                },
                 getLatestAdditionalInfo: function (data) {
                     this.additionalInfo = data;
                 },
