@@ -79,7 +79,7 @@ public class LoanController {
         Date endDate = dateUtils.getLocalMonthEndDate();
 
         List<LoanAccountDistributionInfo> loanAccountDistributionInfos
-                = loanAccountDistributionService.findCurrentMonthAccountDistList();
+                = loanAccountDistributionService.findCurrentMonthDistributionList();
         List<LoanAgencyDistributionInfo> loanAgencyDistributionInfos =
                 loanAgencyDistributionRepository.findByCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(startDate, endDate);
 

@@ -8,7 +8,6 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.util.Date;
 
-// Created by Nabil on 7 August,2019
 
 @Data
 @Entity
