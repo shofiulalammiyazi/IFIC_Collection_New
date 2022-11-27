@@ -17,35 +17,41 @@
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left ">Father's Name :</label>
 
-                        <label class="col-sm-3 custom-form-lebel" id="fatherName">{{customerInfo.fatherName}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="fatherName">{{accountInformation.fatherName}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="fatherName">{{customerInfo.fatherName}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left "> Mother's Name :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="motherName">{{customerInfo.motherName}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="motherName">{{accountInformation.motherName}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="motherName">{{customerInfo.motherName}}</label>-->
 
                     </div>
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Spouse Name :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{customerInfo.spouseName}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{accountInformation.spouse != null ? accountInformation.spouse : "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{customerInfo.spouseName}}</label>-->
 
                     </div>
 
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Passport No. :</label>
-                        <label class="col-sm-3 custom-form-lebel"
-                               id="passportNo">{{customerInfo.passportNumber}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="passportNo">{{"-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="passportNo">{{customerInfo.passportNumber}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">National ID :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="nid">{{customerInfo.nationalId}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="nid">{{accountInformation.nid}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="nid">{{customerInfo.nationalId}}</label>-->
                     </div>
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="email">{{customerInfo.email}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="email">{{accountInformation.email}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="email">{{customerInfo.email}}</label>-->
 
 
                         <label class="col-sm-3 custom-details-lebel-left">TIN :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="tin">{{customerInfo.tinNo}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="tin">{{accountInformation.tin}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="tin">{{customerInfo.tinNo}}</label>-->
                     </div>
 
                 </div>

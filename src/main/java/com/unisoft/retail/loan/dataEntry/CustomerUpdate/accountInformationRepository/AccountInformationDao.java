@@ -37,49 +37,49 @@ public class AccountInformationDao {
 
             while (resultSet.next()){
 
-                AccountInformationDto AccountInformationDto= new AccountInformationDto();
+                AccountInformationDto accountInformationDto= new AccountInformationDto();
 
-                AccountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
-                AccountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
-                AccountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
-                AccountInformationDto.setSettlementLinkAccountBalance(resultSet.getString("SCBAL"));
-                AccountInformationDto.setLinkMotherAccountNo(resultSet.getString("NEEAN01"));
-                AccountInformationDto.setRoutingNo(resultSet.getString("BSBBRN"));
-                AccountInformationDto.setMobile(resultSet.getString("AAZMPHN"));
-                AccountInformationDto.setBranchName(resultSet.getString("CABRN"));
-                AccountInformationDto.setBranchCode(resultSet.getString("V5ABD"));
-                AccountInformationDto.setOverdue(resultSet.getString("OVERDUE"));
-                AccountInformationDto.setEmiAmount(resultSet.getString("OMNWR"));
-                AccountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
-                AccountInformationDto.setLastPaymentAmount(resultSet.getString("OMNWR01"));
-                AccountInformationDto.setProductType(resultSet.getString("V5DLP"));
+                accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
+                accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
+                accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
+                accountInformationDto.setSettlementLinkAccountBalance(resultSet.getString("SCBAL"));
+                accountInformationDto.setLinkMotherAccountNo(resultSet.getString("NEEAN01"));
+                accountInformationDto.setRoutingNo(resultSet.getString("BSBBRN"));
+                accountInformationDto.setMobile(resultSet.getString("AAZMPHN"));
+                accountInformationDto.setBranchName(resultSet.getString("CABRN"));
+                accountInformationDto.setBranchCode(resultSet.getString("V5ABD"));
+                accountInformationDto.setOverdue(resultSet.getString("OVERDUE"));
+                accountInformationDto.setEmiAmount(resultSet.getString("OMNWR"));
+                accountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
+                //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMNWR01"));
+                accountInformationDto.setProductType(resultSet.getString("V5DLP"));
                 //accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
-                AccountInformationDto.setActualTenor(resultSet.getString("OTMDT"));
-                AccountInformationDto.setDisbursementDate(resultSet.getString("OTSDTE"));
-                AccountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
-                AccountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
-                AccountInformationDto.setProfession(resultSet.getString("BHDSC"));
-                AccountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
-                AccountInformationDto.setNid(resultSet.getString("AAZIDN"));
-                AccountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
-                AccountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
-                AccountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
+                accountInformationDto.setActualTenor(resultSet.getString("OTMDT"));
+                accountInformationDto.setDisbursementDate(resultSet.getString("OTSDTE"));
+                accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
+                accountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
+                accountInformationDto.setProfession(resultSet.getString("BHDSC"));
+                accountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
+                accountInformationDto.setNid(resultSet.getString("AAZIDN"));
+                accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
+                accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
+                accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
 
 
 
-                AccountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
+                accountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
                 //accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
                 // accountInformationDto.setCustomerType(resultSet.getString(""));
                 // accountInformationDto.setSpouse(resultSet.getString(""));
-                AccountInformationDto.setDob(resultSet.getString("AAZBDTE"));
-                AccountInformationDto.setGender(resultSet.getString("BGSEX"));
-                AccountInformationDto.setFatherName(resultSet.getString("BGFNAM"));
-                AccountInformationDto.setMotherName(resultSet.getString("BGMNAM"));
-                AccountInformationDto.setNi(resultSet.getString("AAZIDN"));
-                AccountInformationDto.setTin(resultSet.getString("BGTIN"));
+                accountInformationDto.setDob(resultSet.getString("AAZBDTE"));
+                accountInformationDto.setGender(resultSet.getString("BGSEX"));
+                accountInformationDto.setFatherName(resultSet.getString("BGFNAM"));
+                accountInformationDto.setMotherName(resultSet.getString("BGMNAM"));
+                accountInformationDto.setNi(resultSet.getString("AAZIDN"));
+                accountInformationDto.setTin(resultSet.getString("BGTIN"));
 
 
-                AccountInformationDtoList.add(AccountInformationDto);
+                AccountInformationDtoList.add(accountInformationDto);
 
             }
         }catch (SQLException e){

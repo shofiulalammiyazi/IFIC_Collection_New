@@ -7,9 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * @author
@@ -343,4 +341,48 @@ public class DateUtils {
         String strDate = dateFormat.format(date);
         return strDate;
     }
+    public String db2DateFormat(String s){
+        int i;
+        String t = "";
+        Map<Integer, String> map = new HashMap<>();
+        int cnt = 1;
+        if ((s.length() == 7 && s.charAt(0) == '0') || s.length() == 6) {
+            String data = "";
+            if (s.length() == 7) {
+                for (i = 1; i < s.length(); i++) {
+                    data += s.charAt(i);
+                }
+            } else {
+                data = s;
+                for (i = 0; i < data.length(); i++) {
+                    t += data.charAt(i);
+                    if (t.length() == 2) {
+                        map.put(cnt, t);
+                        cnt++;
+                        t = "";
+                    }
+                }
+            }
+            int year = 1900 + Integer.parseInt(map.get(1));
+            //System.out.println(year + "-" + map.get(2) + "-" + map.get(3));
+            return year + "-" + map.get(2) + "-" + map.get(3);
+        } else {
+            String data = "";
+            for (i = 1; i < s.length(); i++) {
+                data += s.charAt(i);
+            }
+            for (i = 0; i < data.length(); i++) {
+                t += data.charAt(i);
+                if (t.length() == 2) {
+                    map.put(cnt, t);
+                    cnt++;
+                    t = "";
+                }
+            }
+            int year = 2000 + Integer.parseInt(map.get(1));
+
+            return year + "-" + map.get(2) + "-" + map.get(3);
+        }
+    }
+
 }
