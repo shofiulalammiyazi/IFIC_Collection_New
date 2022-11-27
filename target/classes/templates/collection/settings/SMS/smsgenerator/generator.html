@@ -34,7 +34,7 @@
 									<tbody>
 									<tr th:each="gn,index : ${generate}">
 										<td th:text="${index.count}"></td>
-										<td><span th:text="${gn.smsType.name}"></span></td>
+										<td><span th:text="${gn.smsType}"></span></td>
 										<td th:text="${gn.massege}"></td>
 										<!--<td>-->
 											<!--<span th:if="${gn.status == 'true'}">Active</span>-->

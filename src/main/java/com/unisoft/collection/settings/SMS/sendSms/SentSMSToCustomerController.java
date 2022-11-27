@@ -2,15 +2,14 @@ package com.unisoft.collection.settings.SMS.sendSms;
 
 import com.unisoft.collection.distribution.loan.LoanController;
 import com.unisoft.collection.distribution.loan.LoanViewModel;
-import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
-import com.unisoft.collection.settings.SMS.smsType.SMSService;
+import com.unisoft.collection.settings.SMS.SMSEntity;
+import com.unisoft.collection.settings.SMS.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import sun.net.www.protocol.https.HttpsURLConnectionImpl;
 
 import java.io.BufferedReader;
@@ -35,7 +34,9 @@ public class SentSMSToCustomerController {
     @GetMapping("/sms-actlist")
     public String accountList(Model model) {
 
-        model.addAttribute("loanviewlist", loanController.getLoanViewModelsForSms());
+
+        List<LoanViewModel> loanViewModels = loanController.getLoanViewModels();
+        model.addAttribute("loanviewlist", loanViewModels);
 
         List<SMSEntity> smsEntityList = smsService.findAll();
         model.addAttribute("smsEntityList", smsEntityList);
@@ -51,16 +52,48 @@ public class SentSMSToCustomerController {
     }
 
 
-    @GetMapping("/get-sms")
-    public static String sendSMS(String msisdn, String sms_string)
-    {
-        try
-        {
-            sms_string = "dfvdsd";
-            msisdn = "01618811202";
-            String url = "http://sms.sslwireless.com/pushapi/dynamic/server.php";
-            String args = "?msisdn="+msisdn+"&sms="+URLEncoder.encode(sms_string)+"&user=IFICRECOVERY&pass=88x@6R57&sid=88x@6R57&csmsid=123456789";
-            URL obj = new URL(url+args);
+    @PostMapping("/send-sms")
+    public static String sendsms(String msisdn, String sms) {
+        try {
+            String url = "";
+
+            URL obj = new URL(url);
+            HttpsURLConnectionImpl con = (HttpsURLConnectionImpl) obj.openConnection();
+            //add reuqest header
+            con.setRequestMethod("POST");
+            con.setRequestProperty("User‐Agent", "USER_AGENT");
+            con.setRequestProperty("Accept‐Language", "en‐US,en;q=0.5");
+            String args = "user=username&pass=password&sid=SID &sms=" + msisdn + "&sms =" + sms + "&sms=" + UUID.randomUUID();
+            // Send post request
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(args);
+            wr.flush();
+            wr.close();
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return response.toString();
+        } catch (Exception ex) {
+            return "<SMS_STATUS>ERROR</SMS_STATUS>";
+        }
+    }
+
+
+    @GetMapping("/get-send-sms")
+    public static String getSms(String msisdn, String sms) {
+        try {
+            String url = "";
+            String args = "?msisdn=" + msisdn + "&sms=" + URLEncoder.encode(sms) +
+                    "& user = USER NAME & pass = PASSWORD & sid = STAKEHOLDER & csmsid = 123456789 ";
+
+            URL obj = new URL(url + args);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("User‐Agent", "USER_AGENT");
@@ -73,57 +106,11 @@ public class SentSMSToCustomerController {
                 response.append(inputLine);
             }
             in.close();
+
             return response.toString();
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return "<SMS_STATUS>ERROR</SMS_STATUS>";
         }
-    }
-
-    @PostMapping("/send-sms")
-    public static String sendsmss(@RequestParam(value = "msisdn") String msisdn,
-                                  @RequestParam(value = "sms_string") String sms_string)
-    {
-        try
-        {
-            String url = "https://sms.sslwireless.com/pushapi/dynamic/server.php";
-            URL obj = new URL(url);
-            HttpsURLConnectionImpl con = (HttpsURLConnectionImpl) obj.openConnection();
-//add reuqest header
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User‐Agent", "USER_AGENT");
-            con.setRequestProperty("Accept‐Language", "en‐US,en;q=0.5");
-            String args = "user=IFICRECOVERY"+"&pass=88x@6R57"+"&sid=88x@6R57"+" &sms[0][0]=" + msisdn + "&sms[0][1]=" + sms_string + "&sms[0][2]="+UUID.randomUUID();
-// Send post request
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(args);
-            wr.flush();
-            wr.close();
-            System.out.println(con.getInputStream());
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return response.toString();
-        }
-        catch(Exception ex){
-            return "<SMS_STATUS>ERROR</SMS_STATUS>";
-        }
-    }
-
-    public String convertBanglatoUnicode(String banglaText) {
-        StringBuilder sb = new StringBuilder();
-        for(char c : banglaText.toCharArray())
-        {
-            sb.append("{1:x4}", c, (int)c);
-        }
-        String unicode = sb.toString().toUpperCase();
-        return unicode;
     }
 }
 
