@@ -32,7 +32,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <span th:text="${generates}"></span>
                                 <tr th:each="gn,index : ${generates}">
                                     <td th:text="${index.count}"></td>
                                     <td><span th:text="${gn.smsType}"></span></td>

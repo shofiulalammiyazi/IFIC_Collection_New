@@ -1,9 +1,12 @@
-package com.unisoft.collection.settings.SMS.template;
+package com.unisoft.collection.settings.SMS.generator;
 
 import com.unisoft.base.BaseInfo;
-import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
+import com.unisoft.collection.settings.SMS.SMSEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class TemplateGenerate extends BaseInfo {
@@ -12,16 +15,19 @@ public class TemplateGenerate extends BaseInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    private SMSEntity smsType;
+    private String smsType;
 
-    @Lob
     private String massege;
 
 
     public TemplateGenerate() {
     }
 
+    public TemplateGenerate(String smsType, SMSEntity smsEntity, String massege) {
+        this.smsType = smsType;
+        this.massege = massege;
+//        this.smsEntity = smsEntity;
+    }
 
     public Long getId() {
         return id;
@@ -31,11 +37,11 @@ public class TemplateGenerate extends BaseInfo {
         this.id = id;
     }
 
-    public SMSEntity getSmsType() {
+    public String getSmsType() {
         return smsType;
     }
 
-    public void setSmsType(SMSEntity smsType) {
+    public void setSmsType(String smsType) {
         this.smsType = smsType;
     }
 

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountInformationRepository extends JpaRepository<AccountInformationEntity, Long> {
 
-    AccountInformationEntity findByCustomerId(String customerId);
-
     AccountInformationEntity getByLoanACNo(String accountNumber);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE REPLACE(LOANACNO,' ','') = ?1", nativeQuery = true)
