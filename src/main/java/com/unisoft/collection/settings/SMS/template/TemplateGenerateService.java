@@ -1,4 +1,4 @@
-package com.unisoft.collection.settings.SMS.generator;
+package com.unisoft.collection.settings.SMS.template;
 
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class TemplateGenerateService {
 
     public TemplateGenerate findTemGenById(Long id) {
 
-       return templateGenerateRepository.findTemGenById(id);
+       return templateGenerateRepository.findTemGenBySmsTypeId(id);
 
     }
 }

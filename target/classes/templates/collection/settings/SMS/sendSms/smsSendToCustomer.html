@@ -25,15 +25,19 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-3 text-right"><label class="control-label required">SMS Type </label></div>
                                     <div class="col-sm-6">
-                                        <select class="form-control"> <!-- th:field="*{category}-->
-                                            <option class="form-control required">Select a SMS Type</option>
-                                            <option th:each="sms: ${smsEntityList}"  th:value="${sms.name}"  th:text="${sms.name}" ></option>
+                                        <!--<select class="form-control"> &lt;!&ndash; th:field="*{category}&ndash;&gt;-->
+                                            <!--<option class="form-control required">Select a SMS Type</option>-->
+                                            <!--<option th:each="sms: ${smsEntityList}"  th:value="${sms.name}"  th:text="${sms.name}" ></option>-->
+                                        <!--</select>-->
+                                        <select name="letterType" v-model="letterType" id="letterType" class="form-control required" required>
+                                            <option class="form-control required" value="" selected>Select a Letter Type</option>
+                                            <option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>
                                         </select>
 
                                     </div>
                                 </div>
                                 <div class="col-sm-12 text-center" style="margin: 15px;">
-                                    <button @click="previewLetter" id="latterGenarateId" class="btn btn-primary" style="padding: 5px;">Generate</button>
+                                    <button @click="generateSms" id="latterGenarateId" class="btn btn-primary" style="padding: 5px;">Generate</button>
                                 </div>
 
                             </div>
@@ -54,19 +58,17 @@
                                 <tr v-for="loan, index in accountNoLList" >
                                     <td >
                                         <label>
-                                            <input v-model="selectedList"  :id="'loan-' + index"
-                                                   :value="loan.accountNo" type="checkbox"
-                                                   class="mdl-checkbox__input">
-                                        </label>
-                                    </td>
+                                            <input :id="'loan-' + index" type="checkbox"
+                                                   class="mdl-checkbox__input" @click="getData(loan,index)">
+                                        </label></td>
 
-                                    <td ><a :href="'/profile/loanprofile/search?account='+ loan.accountNo"
-                                           rel="noopener noreferrer" target="_blank">{{loan.accountNo}}</a>
-                                    </td>
+                                    <td >{{loan.accountNo}}</td>
                                     <td>
-                                        <div style="height: 16px; overflow: auto">{{loan.customerName}}</div>
+                                        <div style="height: 16px; overflow: auto">
+                                            {{loan.customerName}}
+                                        </div>
                                     </td>
-                                    <td><input class="form-control" name="phone"></td>
+                                    <td>{{loan.mobileNo}}</td>
                                     <td style="min-width: 140px;" v-if="selectedList.includes(loan.accountNo)">
 
                                         <button class="btn btn-primary btn-preview">
@@ -74,265 +76,253 @@
                                                rel="noopener noreferrer" target="_blank">preview</a>
 
                                         </button>
-                                        <button class="btn btn-primary" id="sendSms">send</button>
+                                        <button class="btn btn-primary" @click="sendSms(loan.accountNo, index+1)" id="sendSms">send</button>
                                     </td>
 
                                 </tr>
                                 </tbody>
                             </table>
 
-                            <!--<form th:method="POST" class="hidden form-letter-app" th:action="@{/collection/settings/issueletter/send-email}">-->
-                                <!--<input name="accountNo" v-bind:value="emailInfo.accountNo">-->
+                            <form th:method="POST" class="hidden form-send-sms" th:action="@{/collection/generate/sms/generate}">
+                                <input type="hidden" name="account" v-bind:value="selectedList">
+                                <input type="hidden" name="letterType" v-bind:value="letterType">
+                                <input type="hidden" name="mobileNo" v-bind:value="selectedMobileNo">
+                            </form>
 
-                                <!--<input name="emailTo" v-bind:value="emailInfo.emailTo">-->
-                                <!--<input name="emailCC" v-bind:value="emailInfo.emailCC">-->
-                                <!--<input name="emailSubject" v-bind:value="emailInfo.emailSubject">-->
-                                <!--<input name="emailBody" v-bind:value="emailInfo.emailBody">-->
-                            <!--</form>-->
-
-                            <!--<form action="http://sms.sslwireless.com/pushapi/dynamic/server.php" method="post">-->
-                                <!--<input type="hidden" value="username" name="user" />-->
-                                <!--<input type="hidden" value="password" name="pass" />-->
-                                <!--<input type="hidden" value="XXXXXXXXXXXXXXXXXXXX" name="sid" />-->
-                                <!--<input type="hidden" value="880XXXXXXXXXX" name="sms[0][0]" />-->
-                                <!--<input type="hidden" value="Test SMS One" name="sms[0][1]" />-->
-                                <!--<input type="hidden" value="123456789" name="sms[0][2]" />-->
-                                <!--<input type="hidden" value="880XXXXXXXXXX " name="sms[1][0]" />-->
-                                <!--<input type="hidden" value="Test SMS Two" name="sms[1][1]" />-->
-                                <!--<input type="hidden" value="123456790" name="sms[1][2]" />-->
-                                <!--<input type="submit" />-->
-                            <!--</form>-->
 
 
                         </div>
 
                         <script th:inline="javascript">
                             /*<![CDATA[*/
-                            var loanviewlist = /*[[${loanviewlistJson}]]*/   [];
                             var accountNoLList = /*[[${loanviewlist}]]*/   [];
-                            var unit =/*[[${unit}]]*/ '';
                             /*]]>*/
                         </script>
 
-                        <!--<script>-->
-                            <!--$(document).ready(function () {-->
-                                <!--$('#smstable').DataTable();-->
-                            <!--})-->
-                        <!--</script>-->
 
+                <script>
+                    $('#smstable').DataTable();
+                    var arr = [];
 
-                        <script>
-                            $(document).ready(function () {
+                    var smsApp = new Vue({
+                        el: "#app",
+                        data: {
+                            generateViaExcel: false,
+                            errors: [],
 
+                            loanViewList: [],
+                            tempViewList: [],
+                            excelViewList: [],
+                            accountNoLList: [],
 
-                                $('#smstable').DataTable();
+                            selectedList: [],
+                            dealerId: "",
+                            dualType: "SINGLE",
+                            agencyId: "",
+                            LettergenErr: false,
+                            generated: false,
+                            LettergenErrMsg: [],
+                            selectedAccount: '',
+                            letterType: '',
+                            mobileNo:'',
+                            selectedMobileNo:[],
+                            letterTypeText: '',
+                            unit: '',
+                            smsContent:{
+                                accountNo:'',
+                                mobileNo:''
+                            },
+                            sendLetter: false,
+                            letterModel:{
+                                dispatcherNumber:''
+                            }
+                        },
 
-                                letterApp = new Vue({
-                                    el: "#app",
-                                    data: {
-                                        generateViaExcel: false,
-                                        errors: [],
+                        created: function () {
+                            this.accountNoLList = accountNoLList ? accountNoLList: [];
+                        },
 
-                                        loanViewList: [],
-                                        tempViewList: [],
-                                        excelViewList: [],
-                                        accountNoLList: [],
+                        methods: {
+                            getData(loan,index) {
 
-                                        selectedList: [],
-                                        dealerId: "",
-                                        dualType: "SINGLE",
-                                        agencyId: "",
-                                        LettergenErr: false,
-                                        generated: false,
-                                        LettergenErrMsg: [],
-                                        selectedAccount: '',
-                                        letterType: '',
-                                        letterTypeText: '',
-                                        unit: '',
+                                var l = loan.accountNo+"-"+loan.mobileNo+"-"+loan.productName+"-"
+                                    +loan.installmentAmount+"-"+loan.nextEmiDate+"-"+loan.currentMonth+
+                                    "-"+loan.customerId+"-"+loan.customerName;
+                                if(arr.indexOf(index) == -1){
+                                    arr.push(index);
+                                    this.selectedList.push(l);
+                                }
+                                else{
+                                    this.selectedList = this.selectedList.splice(this.selectedList.indexOf(l)-1,this.selectedList.indexOf(l));
+                                    arr = arr.slice(arr.indexOf(index)-1,arr.indexOf(index));
+                                }
+                            },
+                            generateSms(){
+                                if(this.selectedList.length == 0){
+                                    alert("Select a account.");
+                                    return;
+                                }
 
-                                        emailInfo: {
-                                            emailTo: '',
-                                            emailCC: '',
-                                            emailSubject: '',
-                                            emailBody: '',
-                                            emailAccountNo: ''
-                                        },
-                                        sendLetter: false,
-                                        letterModel:{
-                                            dispatcherNumber:''
-                                        }
+                                if(!this.letterType){
+                                    alert("Select a letter type.")
+                                    return;
+                                }
+                                var token = $("meta[name='_csrf']").attr("content");
+                                var header = $("meta[name='_csrf_header']").attr("content");
+                                $.ajax({
+                                    url:"/collection/generator/generatesms?accountNo="+this.selectedList+"&smsType="+this.letterType,
+                                    type: 'POST',
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType   : "json",
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader(header, token);
                                     },
-
-                                    created: function () {
-                                        this.loanViewList = JSON.parse(loanviewlist);
-                                        this.accountNoLList = accountNoLList ? accountNoLList: [];
-                                        this.unit = unit;
+                                    success: function (data) {
+                                        window.location=''
                                     },
-
-                                    // mounted: function(){
-                                    //     $('#example1').DataTable();
-                                    // },
-                                    //
-                                    // updated: function(){
-                                    //     $('#example1').DataTable();
-                                    // },
-
-                                    computed: {
-                                        getAccounts: function () {
-                                            return this.selectedList.toString();
-                                        }
-                                    },
-
-                                    watch: {
-                                        letterType: function(){
-                                            this.letterTypeText = $('#letterType option[value="'+this.letterType+'"]').text();
-                                        },
-
-                                        sendLetter: function () {
-                                            setTimeout(() => {
-                                                $('.form-letter-app').submit();
-                                        }, 1000)
-                                        },
-
-                                        generateViaExcel: function () {
-                                            $('#example1').dataTable().fnDestroy();
-
-                                            let data = this.loanViewList;
-                                            this.loanViewList = this.tempViewList;
-                                            this.tempViewList = data;
-                                        }
-                                    },
-
-                                    methods: {
-                                        previewLetter() {
-                                            if(this.letterType=='retail_due_0-3' || this.letterType=='retail_due_4-6' || this.letterType=='retail_due_7' || this.letterType=='retail_due_8' || this.letterType=='retail_gurantor_letter' || this.letterType=='retail_repossession' || this.letterType=='retail_warning_letter' || this.letterType=='sme_due_0_6' || this.letterType=='sme_due_7_10' || this.letterType=='sme_due_11' || this.letterType=='sme_due_12' || this.letterType=='sme_gurantor_letter' || this.letterType=='sme_warning_letter' || this.letterType=='retail_brta_reject' || this.letterType=='retail_brta_allow'){
-                                                $('#retail_due_0_3').modal('show');
-                                            }else if(this.letterType=='retail_employee_assistance'){
-                                                $('#retail_employee_assistance').modal('show');
-                                            }
-
-                                            this.LettergenErrMsg = [];
-                                            if (!this.letterType.length) {
-                                                this.LettergenErrMsg.push('Select Letter Type');
-                                            }
-                                            if (!this.selectedList.length) {
-                                                this.LettergenErrMsg.push('Select at least one account');
-                                            }
-                                            this.LettergenErr = this.LettergenErrMsg.length;
-                                            this.generated = !this.LettergenErr;
-                                        },
-
-                                        generateLetter: function () {
-                                            if(this.selectedList.length == 0){
-                                                alert("Select a account.");
-                                                return;
-                                            }
-
-                                            if(!this.letterType){
-                                                alert("Select a letter type.")
-                                                return;
-                                            }
-                                            $('#form-generate-bulk').submit();
-                                        },
-                                        // changeGenerationType: function() {
-                                        //     this.generateViaExcel = !this.generateViaExcel;
-                                        // },
-                                        importViaExcel: function() {
-                                            let form = $('#import-excel');
-
-                                            $.ajax({
-                                                type: 'POST',
-                                                encType: form.prop('enctype'),
-                                                contentType: false,
-                                                processData: false,
-                                                url: form.prop('action'),
-                                                data: new FormData(form[0]),
-                                                dataType: 'JSON',
-                                                success: function (response) {
-                                                    if(response.outcome == 'success'){
-
-                                                        letterApp.errors = [];
-                                                    }
-                                                    else{
-                                                        letterApp.errors = response.errors;
-                                                    }
-                                                },
-                                                error: function () {
-                                                    alert("failed")
-                                                }
-                                            })
-                                        },
-                                        sendEmail: function (accountNo, index) {
-                                            letterApp.emailInfo.accountNo =  letterApp.loanViewList[index-1].accountNo;
-                                            letterApp.emailInfo.emailTo = $('tr').eq(index).find('input[name="email"]').val();
-                                            letterApp.emailInfo.emailCC = $('tr').eq(index).find('input[name="email_cc"]').val();
-
-                                            if(!letterApp.emailInfo.emailTo){
-
-                                                alert("No email, Please select email.")
-                                                return ;
-                                            }
-
-                                            let iframe = document.createElement('iframe');
-                                            let srcValue = '/collection/settings/issueletter/generate?account=' + accountNo + '&letterType='+ (this.letterType)+'&unit='+this.unit+'&dispatcherNumber='+this.letterModel.dispatcherNumber+'&concernPerson='+this.letterModel.concernPerson+'&address='+this.letterModel.address+'&organization='+this.letterModel.organization+'&letterNo='+this.letterModel.letterNo+'&designation='+this.letterModel.designation;
-                                            iframe.setAttribute('src', srcValue);
-                                            iframe.setAttribute('style', 'width: 100%; display: none;');
-
-                                            document.body.appendChild(iframe)
-
-                                            iframe.addEventListener('load', function (ev) {
-                                                let htmlText = $('iframe').contents().find('#letter-body').html();
-                                                letterApp.emailInfo.emailSubject = $('iframe').contents().find('#email-subject').text().split('Subject:').join('');
-                                                letterApp.emailInfo.emailBody = htmlText;
-                                                letterApp.sendLetter = !letterApp.sendLetter;
-                                                $('iframe').remove();
-                                            })
-                                        },
+                                    error: function (err) {
                                     }
+
                                 });
+                            },
+                            previewLetter() {
+                                if(this.letterType=='retail_due_0-3' || this.letterType=='retail_due_4-6' || this.letterType=='retail_due_7' || this.letterType=='retail_due_8' || this.letterType=='retail_gurantor_letter' || this.letterType=='retail_repossession' || this.letterType=='retail_warning_letter' || this.letterType=='sme_due_0_6' || this.letterType=='sme_due_7_10' || this.letterType=='sme_due_11' || this.letterType=='sme_due_12' || this.letterType=='sme_gurantor_letter' || this.letterType=='sme_warning_letter' || this.letterType=='retail_brta_reject' || this.letterType=='retail_brta_allow'){
+                                    $('#retail_due_0_3').modal('show');
+                                }else if(this.letterType=='retail_employee_assistance'){
+                                    $('#retail_employee_assistance').modal('show');
+                                }
 
-                                $('#dispatcherId1, #dispatcherId2').click(function () {
+                                this.LettergenErrMsg = [];
+                                if (!this.letterType.length) {
+                                    this.LettergenErrMsg.push('Select Letter Type');
+                                }
+                                if (!this.selectedList.length) {
+                                    this.LettergenErrMsg.push('Select at least one account');
+                                }
+                                this.LettergenErr = this.LettergenErrMsg.length;
+                                this.generated = !this.LettergenErr;
+                            },
 
-                                    var token = csrfToken;
-                                    console.log(token)
-                                    var header = $("meta[name='_csrf_header']").attr("content");
+                            generateLetter: function () {
+                                if(this.selectedList.length == 0){
+                                    alert("Select a account.");
+                                    return;
+                                }
 
-                                    var latterType = $('#letterType').val();
-                                    var a = letterApp.selectedList;
-                                    reId1 = letterApp.letterModel.dispatcherNumber;
-                                    var refeId = 'CHO/CRMD/'+new Date().getFullYear()+'/'+ reId1;
-                                    console.log(refeId);
-                                    jsonArray = [];
-                                    for (var i = 0; i<a.length; i++){
-                                        latter = {};
+                                if(!this.letterType){
+                                    alert("Select a letter type.")
+                                    return;
+                                }
+                                $('#form-generate-bulk').submit();
+                            },
+                            // changeGenerationType: function() {
+                            //     this.generateViaExcel = !this.generateViaExcel;
+                            // },
+                            importViaExcel: function() {
+                                let form = $('#import-excel');
 
-                                        latter ["accountNo"] = a[i];
-                                        latter ["latterType"] = latterType;
-                                        latter ["referenceId"] = refeId;
+                                $.ajax({
+                                    type: 'POST',
+                                    encType: form.prop('enctype'),
+                                    contentType: false,
+                                    processData: false,
+                                    url: form.prop('action'),
+                                    data: new FormData(form[0]),
+                                    dataType: 'JSON',
+                                    success: function (response) {
+                                        if(response.outcome == 'success'){
 
-                                        jsonArray.push(latter);
-                                    }
-                                    json = JSON.stringify(jsonArray)
-
-                                    url = "/collection/settings/issueletter/generated-letter";
-                                    $.ajax({
-                                        type: "POST",
-                                        url: url,
-                                        data: json,
-                                        contentType: 'application/json',
-                                        dataType: 'json',
-                                        beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
-                                        },
-                                        success: function (data) {
-                                            console.log('Successfull')
-                                        },
-                                        error: function (error) {
-                                            console.log(error);
+                                            letterApp.errors = [];
                                         }
-                                    });
-                                });
+                                        else{
+                                            letterApp.errors = response.errors;
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("failed")
+                                    }
+                                })
+                            },
+                            letterType: function(){
+                                this.letterTypeText = $('#letterType option[value="'+this.letterType+'"]').text();
+                            },
+                            sendSms: function (accountNo, index) {
 
-                            })
+                                console.log(smsApp.letterType)
+                                smsApp.smsContent.accountNo =  smsApp.accountNoLList[index-1].accountNo;
+                                let mobileNo = smsApp.mobileNo;
+                                let letterType = smsApp.letterType;
+
+                                if(!smsApp.letterType){
+                                    alert("Select a letter type.")
+                                    return;
+                                }
+
+                                if(!smsApp.mobileNo){
+                                    alert("No phone no!, Please insert phone no.")
+                                    return ;
+                                }
+
+                                let iframe = document.createElement('iframe')
+                                let srcValue = '/collection/generate/sms/generate?account=' + accountNo + '&letterType='+ letterType +'&mobile='+mobileNo;
+                                iframe.setAttribute('src', srcValue);
+                                iframe.setAttribute('style', 'width: 100%; display: none;');
+
+                                document.body.appendChild(iframe)
+
+                                iframe.addEventListener('load', function (ev) {
+                                    let htmlText = $('iframe').contents().find('#letter-editor').html();
+
+                                    smsApp.smsContent.emailSubject = $('iframe').contents().find('#email-subject').text().split('Subject:').join('');
+                                    smsApp.smsContent.emailBody = htmlText;
+                                    smsApp.sendLetter = !smsApp.sendLetter;
+
+                                    $('iframe').remove();
+                                })
+                            },
+                        }
+                    });
+
+                    $('#dispatcherId1, #dispatcherId2').click(function () {
+
+                        var token = csrfToken;
+                        console.log(token)
+                        var header = $("meta[name='_csrf_header']").attr("content");
+
+                        var latterType = $('#letterType').val();
+                        var a = letterApp.selectedList;
+                        reId1 = letterApp.letterModel.dispatcherNumber;
+                        var refeId = 'CHO/CRMD/'+new Date().getFullYear()+'/'+ reId1;
+                        console.log(refeId);
+                        jsonArray = [];
+                        for (var i = 0; i<a.length; i++){
+                            latter = {};
+
+                            latter ["accountNo"] = a[i];
+                            latter ["latterType"] = latterType;
+                            latter ["referenceId"] = refeId;
+
+                            jsonArray.push(latter);
+                        }
+                        json = JSON.stringify(jsonArray)
+
+                        url = "/collection/settings/issueletter/generated-letter";
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: json,
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
+                            },
+                            success: function (data) {
+                                console.log('Successfull')
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    });
                         </script>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-package com.unisoft.collection.settings.SMS;
+package com.unisoft.collection.settings.SMS.smsType;
 
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
