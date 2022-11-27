@@ -18,6 +18,8 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
+/src/target/
+src/target/
 
 ### NetBeans ###
 /nbproject/private/
@@ -26,3 +28,6 @@ mvnw.cmd
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Git ###
+.git
