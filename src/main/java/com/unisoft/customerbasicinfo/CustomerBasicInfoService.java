@@ -101,4 +101,9 @@ public class CustomerBasicInfoService {
 
         return repository.findFirstByContractIdAndCardType(contractId,cardType);
     }
+
+
+    public CustomerBasicInfoEntity save(CustomerBasicInfoEntity customerBasicInfoEntity){
+        return repository.save(customerBasicInfoEntity);
+    }
 }
