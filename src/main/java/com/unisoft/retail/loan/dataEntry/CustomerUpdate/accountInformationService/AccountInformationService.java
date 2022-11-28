@@ -49,7 +49,7 @@ public class AccountInformationService {
             }
 
             if (dto.getLastPaymentDate() !=null) {
-                accountInformationEntity.setLastPaymentDate(dateUtils.db2DateFormat(dto.getLastPaymentDate().trim()));
+                accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
             }else {
                 accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
             }
@@ -108,7 +108,7 @@ public class AccountInformationService {
             }
 
             if (dto.getEmiDate() !=null) {
-                accountInformationEntity.setEmiDate(dateUtils.db2DateFormat(dto.getEmiDate().trim()));
+                accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
             }else {
                 accountInformationEntity.setEmiDate(dto.getEmiDate());
             }
@@ -127,7 +127,7 @@ public class AccountInformationService {
             }
 
             if (dto.getLatestDisbursementDate() !=null) {
-                accountInformationEntity.setDisbursementDate(dateUtils.db2DateFormat(dto.getDisbursementDate().trim()));
+                accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
             }else {
                 accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
             }
@@ -169,7 +169,7 @@ public class AccountInformationService {
             }
 
             if (dto.getExpiryDate() !=null) {
-                accountInformationEntity.setExpiryDate(dateUtils.db2DateFormat(dto.getExpiryDate().trim()));
+                accountInformationEntity.setExpiryDate(dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()));
             }else {
                 accountInformationEntity.setExpiryDate(dto.getExpiryDate());
             }
@@ -191,7 +191,7 @@ public class AccountInformationService {
             // accountInformationDto.setSpouse(resultSet.getString(""));
 
             if (dto.getDob() !=null) {
-                accountInformationEntity.setDob(dateUtils.db2DateFormat(dto.getDob().trim()));
+                accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
             }else {
                 accountInformationEntity.setDob(dto.getDob());
             }

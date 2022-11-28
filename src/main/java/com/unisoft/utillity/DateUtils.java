@@ -341,7 +341,7 @@ public class DateUtils {
         String strDate = dateFormat.format(date);
         return strDate;
     }
-    public String db2DateFormat(String s){
+    public String db2ToOracleDateFormat(String s){
         int i;
         String t = "";
         Map<Integer, String> map = new HashMap<>();
@@ -364,7 +364,6 @@ public class DateUtils {
                 }
             }
             int year = 1900 + Integer.parseInt(map.get(1));
-            //System.out.println(year + "-" + map.get(2) + "-" + map.get(3));
             return year + "-" + map.get(2) + "-" + map.get(3);
         } else {
             String data = "";

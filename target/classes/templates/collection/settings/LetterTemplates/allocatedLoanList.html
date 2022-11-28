@@ -28,22 +28,22 @@
                                         <select name="letterType" v-model="letterType" id="letterType" class="form-control required" required>
                                             <option class="form-control required" value="" selected>Select a Letter Type</option>
                                             <th:block th:if="${unit == 'loan'}">
-                                                <option class="form-control required" value="retail_due_0-3" >Retail-Due 0-3</option>
-                                                <option class="form-control required" value="retail_due_4-6" >Retail-Due 4-6</option>
+                                                <option class="form-control required" value="first_reminder" >First Reminder</option>
+                                                <option class="form-control required" value="soft_reminder" >Soft Reminder</option>
                                                 <option class="form-control required" value="retail_due_7" >Retail-Due 7</option>
-                                                <option class="form-control required" value="retail_due_8" >Retail-Due 8+</option>
-                                                <option class="form-control required" value="retail_employee_assistance" >Retail-Employee Assistance</option>
-                                                <option class="form-control required" value="retail_gurantor_letter">Retail-Guarantor Letter</option>
-                                                <option class="form-control required" value="retail_repossession">Retail-Repossession  Letters</option>
-                                                <option class="form-control required" value="retail_warning_letter">Retail-Warning  Letters</option>
-                                                <option class="form-control required" value="retail_brta_allow">Retail-BRTA - Allow</option>
-                                                <option class="form-control required" value="retail_brta_reject">Retail-BRTA - Reject</option>
-                                                <option class="form-control required" value="sme_due_0_6">SME-Due 0-6</option>
-                                                <option class="form-control required" value="sme_due_7_10">SME-Due 7-10</option>
-                                                <option class="form-control required" value="sme_due_11">SME-Due 11</option>
-                                                <option class="form-control required" value="sme_due_12">SME-Due 12+</option>
-                                                <option class="form-control required" value="sme_gurantor_letter">SME-Gurantor Letter</option>
-                                                <option class="form-control required" value="sme_warning_letter">SME-Warning Letter</option>
+                                                <!--<option class="form-control required" value="retail_due_8" >Retail-Due 8+</option>-->
+                                                <!--<option class="form-control required" value="retail_employee_assistance" >Retail-Employee Assistance</option>-->
+                                                <!--<option class="form-control required" value="retail_gurantor_letter">Retail-Guarantor Letter</option>-->
+                                                <!--<option class="form-control required" value="retail_repossession">Retail-Repossession  Letters</option>-->
+                                                <!--<option class="form-control required" value="retail_warning_letter">Retail-Warning  Letters</option>-->
+                                                <!--<option class="form-control required" value="retail_brta_allow">Retail-BRTA - Allow</option>-->
+                                                <!--<option class="form-control required" value="retail_brta_reject">Retail-BRTA - Reject</option>-->
+                                                <!--<option class="form-control required" value="sme_due_0_6">SME-Due 0-6</option>-->
+                                                <!--<option class="form-control required" value="sme_due_7_10">SME-Due 7-10</option>-->
+                                                <!--<option class="form-control required" value="sme_due_11">SME-Due 11</option>-->
+                                                <!--<option class="form-control required" value="sme_due_12">SME-Due 12+</option>-->
+                                                <!--<option class="form-control required" value="sme_gurantor_letter">SME-Gurantor Letter</option>-->
+                                                <!--<option class="form-control required" value="sme_warning_letter">SME-Warning Letter</option>-->
                                             </th:block>
                                             <th:block th:if="${unit == 'card'}">
                                                 <option class="form-control required" value="letterAge1" >Age Code 1</option>
@@ -55,6 +55,10 @@
                                                 <option class="form-control required" value="letterAge7" >Age Code 7</option>
                                             </th:block>
                                         </select>
+                                        <!--<select name="letterType" v-model="letterType" id="letterType" class="form-control required" required>-->
+                                            <!--<option class="form-control required" value="" selected>Select a Letter Type</option>-->
+                                            <!--<option th:each="template : ${templates}" th:value="${template.getId()}" th:text="${template.getName()}"></option>-->
+                                        <!--</select>-->
                                     </div>
                                 </div>
                                 <div class="col-sm-12" v-if="generateViaExcel">
