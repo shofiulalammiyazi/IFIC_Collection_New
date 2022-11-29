@@ -30,7 +30,7 @@
                                             <th:block th:if="${unit == 'loan'}">
                                                 <option class="form-control required" value="first_reminder" >First Reminder</option>
                                                 <option class="form-control required" value="soft_reminder" >Soft Reminder</option>
-                                                <option class="form-control required" value="retail_due_7" >Retail-Due 7</option>
+                                                <option class="form-control required" value="third_reminder" >Third Reminder</option>
                                                 <!--<option class="form-control required" value="retail_due_8" >Retail-Due 8+</option>-->
                                                 <!--<option class="form-control required" value="retail_employee_assistance" >Retail-Employee Assistance</option>-->
                                                 <!--<option class="form-control required" value="retail_gurantor_letter">Retail-Guarantor Letter</option>-->
@@ -46,19 +46,15 @@
                                                 <!--<option class="form-control required" value="sme_warning_letter">SME-Warning Letter</option>-->
                                             </th:block>
                                             <th:block th:if="${unit == 'card'}">
-                                                <option class="form-control required" value="letterAge1" >Age Code 1</option>
-                                                <option class="form-control required" value="letterAge2" >Age Code 2</option>
-                                                <option class="form-control required" value="letterAge3" >Age Code 3</option>
-                                                <option class="form-control required" value="letterAge4" >Age Code 4</option>
-                                                <option class="form-control required" value="letterAge5" >Age Code 5</option>
-                                                <option class="form-control required" value="letterAge6" >Age Code 6</option>
-                                                <option class="form-control required" value="letterAge7" >Age Code 7</option>
+                                                <!--<option class="form-control required" value="letterAge1" >Age Code 1</option>-->
+                                                <!--<option class="form-control required" value="letterAge2" >Age Code 2</option>-->
+                                                <!--<option class="form-control required" value="letterAge3" >Age Code 3</option>-->
+                                                <!--<option class="form-control required" value="letterAge4" >Age Code 4</option>-->
+                                                <!--<option class="form-control required" value="letterAge5" >Age Code 5</option>-->
+                                                <!--<option class="form-control required" value="letterAge6" >Age Code 6</option>-->
+                                                <!--<option class="form-control required" value="letterAge7" >Age Code 7</option>-->
                                             </th:block>
                                         </select>
-                                        <!--<select name="letterType" v-model="letterType" id="letterType" class="form-control required" required>-->
-                                            <!--<option class="form-control required" value="" selected>Select a Letter Type</option>-->
-                                            <!--<option th:each="template : ${templates}" th:value="${template.getId()}" th:text="${template.getName()}"></option>-->
-                                        <!--</select>-->
                                     </div>
                                 </div>
                                 <div class="col-sm-12" v-if="generateViaExcel">
@@ -77,21 +73,21 @@
 
                                 <div v-if="!generateViaExcel" class="col-sm-12 text-center" style="margin: 15px;">
                                     <button @click="previewLetter" id="latterGenarateId" class="btn btn-primary" style="padding: 5px;">Generate</button>
-                                    <button @click="generateLetter" class="btn btn-primary" style="padding: 5px;">Generate Bulk</button>
-                                    <button class="btn btn-primary" @click="changeGenerationType">Generate via Excel</button>
+                                    <!--<button @click="generateLetter" class="btn btn-primary" style="padding: 5px;">Generate Bulk</button>-->
+                                    <!--<button class="btn btn-primary" @click="changeGenerationType">Generate via Excel</button>-->
                                 </div>
 
-                                <div v-if="generateViaExcel" class="col-sm-12 text-center" style="margin: 15px;">
-                                    <button class="btn btn-primary" @click="importViaExcel"  style="padding: 5px;">Import from Excel</button>
-                                    <button class="btn btn-primary" @click="changeGenerationType">Manual Letter Generate</button>
-                                </div>
+                                <!--<div v-if="generateViaExcel" class="col-sm-12 text-center" style="margin: 15px;">-->
+                                    <!--<button class="btn btn-primary" @click="importViaExcel"  style="padding: 5px;">Import from Excel</button>-->
+                                    <!--<button class="btn btn-primary" @click="changeGenerationType">Manual Letter Generate</button>-->
+                                <!--</div>-->
 
-                                <form method="get" id="form-generate-bulk" th:action="@{/collection/settings/issueletter/generate-bulk}">
+                                <!--<form method="get" id="form-generate-bulk" th:action="@{/collection/settings/issueletter/generate-bulk}">-->
 
-                                    <input type="hidden" name="accounts" v-bind:value="getAccounts">
-                                    <input type="hidden" name="letterType" v-bind:value="letterType">
-                                    <input type="hidden" name="unit" v-bind:value="unit">
-                                </form>
+                                    <!--<input type="hidden" name="accounts" v-bind:value="getAccounts">-->
+                                    <!--<input type="hidden" name="letterType" v-bind:value="letterType">-->
+                                    <!--<input type="hidden" name="unit" v-bind:value="unit">-->
+                                <!--</form>-->
                             </div>
 
                             <span v-if="LettergenErr" class="text-danger">
