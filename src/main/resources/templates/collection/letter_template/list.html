@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1" />
+    <title>Letter Templates</title>
+</head>
+
+<body>
+    <div class="content-wrapper" layout:fragment="content">
+        <div class="content" >
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h4 class="pull-left">Letter Templates</h4>
+                    <a href="/collection/retail/operation/letter-template/create" class="btn btn-primary pull-right">
+                        <i class="fa fa-plus"></i>
+                        <span>New Template</span>
+                    </a>
+                </div>
+
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sl. #</th>
+                                    <th>Name</th>
+                                    <th>Unit</th>
+                                    <th>Last Updated</th>
+                                    <th class="text-right">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr th:each="template, index : ${templates}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td th:text="${template.getName()}"></td>
+                                    <td th:text="${template.getUnit()}"></td>
+                                    <td th:text="${#dates.format(template?.getModifiedDate(), 'MMMM dd, yyyy HH:mm aa')}"></td>
+                                    <td class="text-right">
+                                        <a th:href="@{/collection/retail/operation/letter-template/create(id=${template.getId()})}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <!--<a th:href="@{/collection/retail/operation/letter-template/view(id=${template.getId()})}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

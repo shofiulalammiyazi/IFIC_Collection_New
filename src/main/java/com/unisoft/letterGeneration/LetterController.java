@@ -9,6 +9,7 @@ import com.unisoft.collection.distribution.loan.LoanViewModel;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicRepository;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
+import com.unisoft.collection.lettertemplate.LetterTemplateService;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeRepository;
@@ -17,6 +18,7 @@ import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
 import com.unisoft.customerloanprofile.guarantorinfo.GurantorInfoRepository;
 import com.unisoft.customerloanprofile.vehicleRepossession.VehicleRepossessionRepository;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.loanApi.model.CustomerAndBorrowerInfo;
 import com.unisoft.loanApi.model.CustomerAndBorrowerRepo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
@@ -24,6 +26,8 @@ import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccou
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicRepository;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.user.UserService;
 import com.unisoft.utillity.DateUtils;
@@ -88,6 +92,12 @@ public class LetterController {
     private VehicleRepossessionRepository vehicleRepossessionRepository;
     private final DateUtils dateUtils;
 
+    @Autowired
+    private LetterTemplateService letterTemplateService;
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
+
     @GetMapping("/aclist")
     public String accountList(Model model, String unit){
         model.addAttribute("unit", unit.toLowerCase());
@@ -103,6 +113,7 @@ public class LetterController {
 
             Gson gson = new Gson();
 
+            model.addAttribute("templates", letterTemplateService.getAllByUnit("Loan"));
             model.addAttribute("loanviewlist", loanViewModels);
             model.addAttribute("loanviewlistJson", gson.toJson(loanViewModels));
             model.addAttribute("dealerList", dealerList);
@@ -121,6 +132,7 @@ public class LetterController {
 
             Gson gson = new Gson();
 
+            model.addAttribute("templates", letterTemplateService.getAllByUnit("Card"));
             model.addAttribute("loanviewlist", loanViewModels);
             model.addAttribute("loanviewlistJson", gson.toJson(loanViewModels));
             model.addAttribute("dealerList", dealerList);
@@ -162,17 +174,25 @@ public class LetterController {
                                  Model model){
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CustomerBasicInfoEntity customer = customerBasicInfoEntityRepository.findFirstByAccountNoOrderByAccountNoAsc(Account);
+        AccountInformationEntity accountInformation = accountInformationRepository.getByLoanAccountNo(Account);
+
+        if(accountInformation != null){
+            accountInformation.setEmiDate(dateUtils.db2ToOracleDateFormat(accountInformation.getEmiDate()));
+            accountInformation.setDisbursementDate(dateUtils.db2ToOracleDateFormat(accountInformation.getDisbursementDate()));
+        }
+
         model.addAttribute("customer", customer);
         model.addAttribute("customerInfo",retailLoanUcbApiService.getCustomerInfo(customer.getCustomerId()));
-        model.addAttribute("loanAccDetails",retailLoanUcbApiService.getLoanAccountDetails(Account));
+        //model.addAttribute("loanAccDetails",retailLoanUcbApiService.getLoanAccountDetails(Account));
+        model.addAttribute("loanAccDetails",accountInformation);
         model.addAttribute("letterModel",letterModel);
         model.addAttribute("guarantorInfo",gurantorInfoRepository.findByAccountNo(Account));
         model.addAttribute("letterPayload",loanAccountDistributionRepository.getLetterInfo(Account,dateUtils.getMonthStartDate(),dateUtils.getLocalMonthEndDate()));
         model.addAttribute("employeeInfo",employeeRepository.findByPin(principal.getUsername()));
         model.addAttribute("vehicleInfo",vehicleRepossessionRepository.findByCustomerId(String.valueOf(customer.getId())));
         if(customer != null){
-            CustomerAndBorrowerInfo customerAndBorrowerInfo=customerAndBorrowerRepo.findByCustomerId(Long.parseLong(customer.getCustomerId()));
-            model.addAttribute("customerAndBorrowerInfo",customerAndBorrowerInfo);
+            CustomerAndBorrowerInfo customerAndBorrowerInfo = customerAndBorrowerRepo.findByCustomerId(customer.getId());
+            model.addAttribute("customerAndBorrowerInfo",customerAndBorrowerInfo == null ? new CustomerAndBorrowerInfo(): customerAndBorrowerInfo);
         }
 
         if (unit.toLowerCase().equals("loan")){
