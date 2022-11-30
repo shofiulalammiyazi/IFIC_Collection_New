@@ -17,7 +17,7 @@
 								<h3 class="box-title">IVR Employee List</h3>
 							</div>
 							<div class="box-body">
-								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm"  th:if="${session.urlList.contains('/collection/sector/create')}" th:href="@{/collection/settings/ivr-setup-Config/create}"><span class="glyphicon glyphicon-plus"> </span> Add IVR Employee </a>
+								<a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:href="@{/collection/settings/ivr-setup-Config/create}"><span class="glyphicon glyphicon-plus"> </span> Add IVR Employee </a>
 								<table id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered" width="100%">
 									<thead>
 									<tr>
@@ -30,7 +30,14 @@
 									</tr>
 									</thead>
 									<tbody>
-
+										<tr th:each="ivr, stat: ${ivrEntityList}">
+											<td th:text="${stat.count}"></td>
+											<td><span th:text="${ivr.dealerPin}"></span></td>
+											<td><span th:text="${ivr.ivrAccId}"></span></td>
+											<td><span th:text="${ivr.ivrAgentId}"></span></td>
+											<td><span th:text="${ivr.skillId}"></span></td>
+											<td><a class="btn btn-primary btn-xs" th:href="@{/collection/settings/ivr-setup-Config/edit(id=${ivr.id})}"><i class="fa fa-edit"></i>Edit</a></td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
