@@ -274,11 +274,11 @@
                             let params = JSON.stringify(this.advanceSearchPayload);
                             console.log("param : "+JSON.stringify(params));
                             let url = '/retail/loan/dashboard/advance-search?payload=' + encodeURIComponent(params);
-                            let cardUrl = '/collection/card/dashboard/advanced-search?payload=' + encodeURIComponent(params);
+                        //     let cardUrl = '/collection/card/dashboard/advanced-search?payload=' + encodeURIComponent(params);
                             vm.loading = true;
-                            vm.cardLoading = true;
+                        //     vm.cardLoading = true;
                             this.filtered = false;
-                            this.cardFiltered = false;
+                        //     this.cardFiltered = false;
                             this.$http.get(url,
                                 {
                                     credentials: true, headers: {
@@ -296,79 +296,79 @@
                             }).catch(err => {
                                 notifyError();
                             });
-
-                            this.$http.get(cardUrl,
-                                {
-                                    credentials: true, headers: {
-                                        'X-CSRF-TOKEN': window.csrfToken,
-                                    }
-                                }).then(res => {
-                                vm.cardLoading = false;
-                                if (Array.isArray(res.body)) {
-                                    vm.cardCustomers = res.body;
-                                    this.initializeDataTable('advance-search-tbl-card', vm.cardCustomers);
-                                    this.cardFiltered = true;
-                                } else {
-                                    notifyError();
-                                }
-                            }).catch(err => {
-                                notifyError();
-                            });
-                        },
-
-                        initializeDataTable: function (tableId, arr) {
-                            let table = $('#' + tableId).DataTable();
-                            if (typeof table != 'undefined' && table) {
-                                table.clear().destroy();
-                            }
-
-                            if (!arr) {
-                                arr = [];
-                            }
-
-                            $('#' + tableId).DataTable({
-                                data: arr,
-                                columns: [
-                                    {
-                                        "data": "",
-                                        render: function (data, type, row, meta) {
-                                            return meta.row + meta.settings._iDisplayStart + 1;
-                                        },
-                                    },
-                                    {"data": "accountNo"},
-                                    {"data": "cifNo"},
-                                    {"data": "customerName"},
-                                    {"data": "dob"},
-                                    {"data": "mobileNo"},
-                                    {"data": "outstanding"},
-                                    {"data": "overdue"},
-                                    {"data": "linkProxyAcc"},
-                                    {"data": "mothersName"},
-                                    {"data": "email"},
-                                    {"data": "acStatus"},
-                                    {"data": "nid"},
-                                    {"data": "homePhone"},
-                                    {"data": "workPhone"}
-                                ],
-                                columnDefs: [
-                                    {
-                                        render: function (data, type, row) {
-                                            return data ? formatBdtInEnglish(data) : 0;
-                                        },
-                                        targets: [6, 7]
-                                    },
-                                    {
-                                        render: function (data, type, row) {
-                                            return data ? formatDate_DD_MM_YYYY(data) : 0;
-                                        },
-                                        targets: [4]
-                                    }
-                                ],
-                                destroy: true,
-                                paging: true,
-                                "bInfo": true,
-                                "bLengthChange": true,
-                            });
+                        //
+                        //     this.$http.get(cardUrl,
+                        //         {
+                        //             credentials: true, headers: {
+                        //                 'X-CSRF-TOKEN': window.csrfToken,
+                        //             }
+                        //         }).then(res => {
+                        //         vm.cardLoading = false;
+                        //         if (Array.isArray(res.body)) {
+                        //             vm.cardCustomers = res.body;
+                        //             this.initializeDataTable('advance-search-tbl-card', vm.cardCustomers);
+                        //             this.cardFiltered = true;
+                        //         } else {
+                        //             notifyError();
+                        //         }
+                        //     }).catch(err => {
+                        //         notifyError();
+                        //     });
+                        // },
+                        //
+                        // initializeDataTable: function (tableId, arr) {
+                        //     let table = $('#' + tableId).DataTable();
+                        //     if (typeof table != 'undefined' && table) {
+                        //         table.clear().destroy();
+                        //     }
+                        //
+                        //     if (!arr) {
+                        //         arr = [];
+                        //     }
+                        //
+                        //     $('#' + tableId).DataTable({
+                        //         data: arr,
+                        //         columns: [
+                        //             {
+                        //                 "data": "",
+                        //                 render: function (data, type, row, meta) {
+                        //                     return meta.row + meta.settings._iDisplayStart + 1;
+                        //                 },
+                        //             },
+                        //             {"data": "accountNo"},
+                        //             {"data": "cifNo"},
+                        //             {"data": "customerName"},
+                        //             {"data": "dob"},
+                        //             {"data": "mobileNo"},
+                        //             {"data": "outstanding"},
+                        //             {"data": "overdue"},
+                        //             {"data": "linkProxyAcc"},
+                        //             {"data": "mothersName"},
+                        //             {"data": "email"},
+                        //             {"data": "acStatus"},
+                        //             {"data": "nid"},
+                        //             {"data": "homePhone"},
+                        //             {"data": "workPhone"}
+                        //         ],
+                        //         columnDefs: [
+                        //             {
+                        //                 render: function (data, type, row) {
+                        //                     return data ? formatBdtInEnglish(data) : 0;
+                        //                 },
+                        //                 targets: [6, 7]
+                        //             },
+                        //             {
+                        //                 render: function (data, type, row) {
+                        //                     return data ? formatDate_DD_MM_YYYY(data) : 0;
+                        //                 },
+                        //                 targets: [4]
+                        //             }
+                        //         ],
+                        //         destroy: true,
+                        //         paging: true,
+                        //         "bInfo": true,
+                        //         "bLengthChange": true,
+                        //     });
                         },
                     }
                 })

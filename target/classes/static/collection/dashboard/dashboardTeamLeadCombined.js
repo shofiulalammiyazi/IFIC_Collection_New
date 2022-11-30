@@ -10,6 +10,7 @@ $(document).ready(function () {
     function getAccountDetails() {
         $('#account-details-tbody').html('');
         var dealerPin = $("#globalUserPinForSummary").val();
+        // debugger;
         var unit = $("#globalUnitForSummary").val();
         var Url = '/retail/loan/dashboard/account-details?dealerPin=' + dealerPin;
         if (unit == 'Card') {

@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService;
 
+import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -245,5 +247,30 @@ public class AccountInformationService {
         return accountInformationRepository.getByLoanAccountNo(accountNo);
     }
 
+
+    public List<AccountInformationEntity> advancedSearch(String accountNo, String cif, String customerName, String motherName, String mobileNo, String nid, String dob, String email, String passportNo, String organization, String linkAccount, String customerId, String autoDebit, String loanId, String clsFlag, String active){
+        if (!dob.isEmpty()) {
+            String []monthShortNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            String []date = dob.split("/");
+            for (int i = 0; i < monthShortNames.length; i++) {
+                if (monthShortNames[i].equals(date[1])) {
+                    int index = i + 1;
+                    if (index < 10) date[1] =  "0" + String.valueOf(i + 1);
+                    else date[1] = String.valueOf(i + 1);
+                    break;
+                }
+            }
+            dob = date[2]+"-"+date[1]+"-"+date[0];
+            System.out.println(date[0]);
+        }
+        return accountInformationRepository.advancedSearch(accountNo,customerName, motherName, mobileNo, nid, dob, email, linkAccount, customerId);
+//        advanceSearchPayload.getOrganization(), advanceSearchPayload.getAutoDebit(),advanceSearchPayload.getCif(), advanceSearchPayload.getClsFlag(),
+    }
+
+    public List<AccountInformationEntity> advancedSearch(AdvanceSearchPayload payload){
+        return accountInformationRepository.advancedSearchDashboard(payload.getAccountNo(), payload.getCustomerName(), payload.getMotherName(), payload.getMobile(),
+                payload.getNationalId(), payload.getDateOfBirth(), payload.getEmail(), payload.getLinkAccount(), payload.getTin());
+    }
 
 }
