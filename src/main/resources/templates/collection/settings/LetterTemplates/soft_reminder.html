@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Soft Reminder</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <button onclick="generatePDF()">Download</button>
+                            <span class="pull-right"><span class="label label-info">EDIT:</span> Double click on Bold text to edit</span>
+                        </div>
+
+                        <style>
+                            .row {
+                                margin: 0 auto;
+                            }
+
+                            .letter-body {
+                                max-width: 800px;
+                                margin: auto;
+                                padding: 35px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+                                font-size: 12px;
+                                line-height: 24px;
+                                font-family: 'Times New Roman', 'Times New Roman', Helvetica, Arial, sans-serif;
+                                color: #555;
+                            }
+
+                            .marginBottom {
+                                margin-bottom: 30px;
+                            }
+                        </style>
+
+                        <div class="box-body">
+                            <div id="letter-body" class="letter-body">
+                                <div style="margin: 60px 40px; text-align: justify">
+                                    <div class="marginBottom">
+                                        <h4 style="text-align: center"><span>Soft Reminder</span></h4>
+                                    </div>
+
+                                    <div class="marginBottom" style="margin-bottom: 50px">
+                                        <span>Ref: {{ref}}</span><br/>
+                                        <span>Date: {{currentDate | dateFormat}}</span>
+                                    </div>
+
+                                    <div class="marginBottom" style="margin-bottom: 50px">
+                                        <span>{{customer.customerName}}</span><br/>
+                                        <span>{{customerInfo.permanentAddress}}</span>
+                                    </div>
+
+                                    <div class="marginBottom">
+                                        <span id="email-subject" v-if="!showEmailSubject"
+                                              @dblclick="showEmailSubject = !showEmailSubject"
+                                              style="font-size: 16px"><strong>{{emailSubject}}</strong></span>
+                                        <input style="width: 500px" v-else v-focus @blur="doneEmailSubject"
+                                               @keyup.enter="doneEmailSubject" type="text" name="emailSubject"
+                                               v-model="emailSubject">
+                                    </div>
+
+                                    <p>Dear Sir,</p>
+                                    <p class="marginBottom">
+                                        We are thankful to you for availing a IFIC Aamar Bari Home Loan amounting BDT
+                                        ({{emiAmount}})
+                                        from our ({{branchName}}) Branch.
+                                    </p>
+                                    <p class="marginBottom">
+                                        The sanctioned loan was disbursed on ({{loanAccDetails.disbursementDate}}). Your
+                                        installment became
+                                        due on………………………… But we regret to inform that you are not paying your monthly
+                                        installment
+                                        regularly. As a result, unpaid installment amount against the loan stands at BDT
+                                        (………….to be fetched from system)
+                                        equivalent to (…………..to be fetched from system) nos. of monthly installments as
+                                        on date.
+                                    </p>
+                                    <p style="margin-bottom: 20px">
+                                        Under the above circumstances, we would request you to adjust your unpaid
+                                        installment amount against
+                                        your (IFIC Aamar Bari Home Loan) at the earliest to avoid unforeseen
+                                        circumstances.
+                                    </p>
+
+                                    <p>
+                                        Thanking you,
+                                    </p>
+
+                                    <div style="margin-bottom: 20px; margin-top: 90px; display: inline-block; width: 100%">
+                                        <div style="float:left;">
+                                            <span>Authorized Official</span>
+                                        </div>
+                                        <div style="float: right">
+                                            <div style="text-align: right">
+                                                <span>Authorized Official</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p style="margin-bottom: 60px">
+                                        <strong>Note:</strong> If you have already made the payment, please ignore this
+                                        letter.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function generatePDF() {
+                                //$("#letter-body").print();
+                                var divContents = document.getElementById("letter-body").innerHTML;
+                                var a = window.open();
+                                a.document.write('<html>' + divContents + '</html>');
+                                a.document.close();
+                                a.print();
+                                return (false);
+                            }
+                        </script>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var customer = /*[[${customer}]]*/ {};
+                            var letterModel = /*[[${letterModel}]]*/ {};
+                            var customerInfo = /*[[${customerInfo}]]*/ [];
+                            var overdueAmount = /*[[${overdueAmount}]]*/ [];
+                            var customerAddress = /*[[${customerAddress}]]*/ [];
+                            var loanAccDetails = /*[[${loanAccDetails}]]*/ [];
+                            /*]]>*/
+                        </script>
+                        <script>
+                            let vm = new Vue({
+                                el: '#letter-body',
+                                data: {
+                                    ref: '',//IFICB/CRU/'+new Date().getFullYear()+'/ Ref No./
+                                    currentDate: "",
+                                    currentYear: '',
+                                    privacy: 'PRIVATE AND CONFIDENTIAL',
+                                    emailSubject: '',
+                                    genDate: "",
+                                    agentAddress: '',
+                                    agentPhone: '01833147905',
+                                    dispatcherNo: '',
+                                    showReference: false,
+                                    showCurrentDate: false,
+                                    showPrivacy: false,
+                                    showCustomerName: false,
+                                    showCustomerAddress: false,
+                                    showEmailSubject: false,
+                                    showAmount: false,
+                                    showGenDate: false,
+                                    showAgentAddress: false,
+                                    showAgentPhone: false,
+                                    customer: {},
+                                    customerInfo: {},
+                                    loanAccDetails: {}
+
+                                },
+                                created: function () {
+                                    this.customer = customer;
+                                    this.customerInfo = customerInfo;
+                                    this.loanAccDetails = loanAccDetails;
+                                    this.currentDate = new Date();
+                                    this.genDate = new Date();
+                                    this.ref = this.ref + letterModel.dispatcherNumber;
+                                    this.customerAddress = customerAddress;
+                                    this.amount = overdueAmount;
+                                    this.initValues();
+                                },
+                                filters: {
+                                    dateFormat(value) {
+                                        return formatDate_DD_MM_YYYY(value, '/');
+                                    },
+                                },
+                                directives: {
+                                    focus: {
+                                        // directive definition
+                                        inserted: function (el) {
+                                            el.focus()
+                                        }
+                                    }
+                                },
+                                methods: {
+                                    initValues() {
+                                        this.name = this.customer.customerName;
+                                        this.accountNo = this.customer.accountNo;
+                                        this.emiAmount = this.loanAccDetails.emiAmount;
+                                        this.loanAcNo = this.loanAccDetails.loanACNo;
+                                        this.branchName = this.loanAccDetails.branchName;
+                                        this.emailSubject = 'Subject: Request for making payment of unpaid installment amount against your Loan (' + this.loanAccDetails.loanACNo + ')';
+                                    },
+                                    doneEditingReference() {
+                                        this.showReference = false;
+                                    },
+                                    doneEditingCurrentDate() {
+                                        this.showCurrentDate = false;
+                                    },
+                                    doneEditingPrivacy() {
+                                        this.showPrivacy = false;
+                                    },
+                                    doneEditingName() {
+                                        this.showCustomerName = false;
+                                    },
+                                    doneCustomerAddress() {
+                                        this.showCustomerAddress = false;
+                                    },
+                                    doneEmailSubject() {
+                                        this.showEmailSubject = false;
+                                    },
+                                    doneEditingAmount() {
+                                        this.showAmount = false;
+                                    },
+                                    doneEditingGenDate() {
+                                        this.showGenDate = false;
+                                    },
+                                    doneEditingAgentAddress() {
+                                        this.showAgentAddress = false;
+                                    },
+                                    doneEditingAgentPhone() {
+                                        this.showAgentPhone = false;
+                                    }
+                                }
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

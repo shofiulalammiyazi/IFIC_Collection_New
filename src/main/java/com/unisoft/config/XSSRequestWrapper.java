@@ -1,9 +1,13 @@
 package com.unisoft.config;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.Arrays;
+import java.util.List;
 
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
@@ -39,6 +43,25 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     public String getHeader(String name) {
         String value = super.getHeader(name);
         return stripXSS(value);
+    }
+
+    public static String sanitizeHTML(String untrustedHTML) {
+        List<String> allowedElements = Arrays.asList("a", "label", "h1", "h2", "h3", "h4", "h5", "h6",
+                "p", "i", "b", "u", "strong", "em", "small", "big", "pre", "code",
+                "cite", "samp", "sub", "sup", "strike", "center", "blockquote",
+                "hr", "br", "col", "font", "span", "div", "img",
+                "ul", "ol", "li", "dd", "dt", "dl", "tbody", "thead", "tfoot",
+                "table", "td", "th", "tr", "colgroup", "fieldset", "legend"
+        );
+        PolicyFactory policy = new HtmlPolicyBuilder()
+                .allowAttributes("class").onElements(allowedElements.toString())
+                .allowAttributes("style").onElements(allowedElements.toString())
+                .allowStandardUrlProtocols()
+                .allowElements(
+                        allowedElements.toString()
+                ).toFactory();
+
+        return policy.sanitize(untrustedHTML);
     }
 
     private String stripXSS(String value) {
