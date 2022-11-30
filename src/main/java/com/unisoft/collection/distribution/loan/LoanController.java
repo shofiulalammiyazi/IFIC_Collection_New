@@ -12,12 +12,15 @@ import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAcco
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.customerloanprofile.letterinformation.LetterInformation;
 import com.unisoft.customerloanprofile.letterinformation.LetterInformationRepository;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.utillity.DateUtils;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +62,9 @@ public class LoanController {
     private final LoanDistributionService loanDistributionService;
 
     private final DateUtils dateUtils;
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
 
     @GetMapping(value = "/dealerAllocationList")
     public String dealerList(Model model,HttpSession session){
@@ -307,6 +313,63 @@ public class LoanController {
         return byLoanAccountBasicInfo.get(index);
     }
 
+    private LoanViewModelForSMS getLoanViewModelForSMS(LoanAccountDistributionInfo loanAccountDistributionInfo, LoanViewModelForSMS loanViewModel) {
+
+        AccountInformationEntity accountInformationEntity = accountInformationRepository.findByCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
+
+        loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
+        loanViewModel.setCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
+        loanViewModel.setCustomerName(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountName());
+        loanViewModel.setMobileNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getMobileNo());
+        loanViewModel.setProductName(accountInformationEntity == null?"":accountInformationEntity.getProductName());
+        loanViewModel.setInstallmentAmount(loanAccountDistributionInfo.getEmiAmount().toString());
+        loanViewModel.setNextEmiDate(loanAccountDistributionInfo.getEmiDueDate());
+        try {
+            loanViewModel.setCurrentMonth(this.getMonth(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return loanViewModel;
+    }
+
+    private String getMonth(Date date) throws ParseException{
+        Date d = date;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        String monthName = new SimpleDateFormat("MMMM").format(cal.getTime());
+        return monthName;
+    }
+
+    public List<LoanViewModelForSMS> getLoanViewModelsForSms() {
+        LocalDate today = LocalDate.now();
+        LocalDate startDateOfMonth = today.withDayOfMonth(1);
+        Date startDate = Date.from(startDateOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        LocalDate endDateOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        String endDateOfMonthString = endDateOfMonth.toString().trim();
+        endDateOfMonthString = endDateOfMonthString + " 11:59 PM";
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("yyyy-MM-dd hh:mm a").parse(endDateOfMonthString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<LoanViewModelForSMS> loanViewModels = new ArrayList<>();
+
+        List<LoanAccountDistributionInfo> loanAccountDistributionRepositoryByCreatedDateIsBetween
+                = loanAccountDistributionRepository.
+                findByCreatedDateIsBetweenAndSamAccountAndWriteOffAccountAndLatestOrderByCreatedDateDesc(startDate, endDate, "0", "0", "1");
+
+        loanAccountDistributionRepositoryByCreatedDateIsBetween.forEach(loanAccountDistributionInfo -> {
+            LoanViewModelForSMS loanViewModelForBasicInfo = getLoanViewModelForSMS(loanAccountDistributionInfo, new LoanViewModelForSMS());
+            loanViewModels.add(loanViewModelForBasicInfo);
+        });
+        return loanViewModels;
+
+    }
 
 
 //    private LoanAccountInfo getLoanAccountInfo(LoanAccountBasicInfo loanAccountBasicInfo) {
