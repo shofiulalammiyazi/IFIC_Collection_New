@@ -913,7 +913,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for txt file data upload starts from here ${card.scheduler.timer}*/
     /*-----------------------------------------------------------------------*/
     @Scheduled(cron = "${card.scheduler.timer}")
-    public void get83TextFileData() {
+    public void  get83TextFileData() {
         try {
 //            File file = new File("D:/Tajkia Apu/Card text file latest/83_Report_Partial_05062022.txt");
             File file = new File("C:/Users/User/Downloads/card/card/card data format/83_Report_Partial_05062022.txt");
