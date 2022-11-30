@@ -43,7 +43,8 @@
 
                         <!--<label class="col-sm-4 custom-form-lebel" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>-->
                         <label class="col-sm-4 custom-form-lebel" id="contactNoMobile">
-                            <a role="button" data-toggle="modal" data-target="#callThroughApi">{{accountInformation.mobile}}</a>
+                            <span id="val-mobile-no">{{accountInformation.mobile}}</span>
+                            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#callThroughApi">Call</button>
                         </label>
                         <!--<div class="col-sm-2">-->
                             <!--<button  v-if="customerAndBorrowerInfo.entity && customerAndBorrowerInfo.entity.contactNo && !showContactNo" @click="showContactNo=true">Additional Info</button>-->
@@ -175,9 +176,12 @@
         </form>
         <script>
             $(document).ready(function() {
+
                 $('#callThroughApiLabelCallButton').click(function(){
+                    var mobileNo = $("#val-mobile-no").text();
+                    alert(mobileNo)
                     $.ajax({
-                        url: "/test",
+                        url: "/collection/settings/ivr-setup-Config/call?mobileNo="+mobileNo,
                         type: 'GET',
                         success: function(res){
 
