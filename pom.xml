@@ -188,6 +188,18 @@
             <artifactId>json</artifactId>
             <version>20180130</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+            <version>20211018.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.sf.jt400/jt400 -->
+        <dependency>
+            <groupId>net.sf.jt400</groupId>
+            <artifactId>jt400</artifactId>
+            <version>9.7</version>
+        </dependency>
 
     </dependencies>
 

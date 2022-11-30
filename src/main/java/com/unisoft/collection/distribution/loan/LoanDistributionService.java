@@ -185,14 +185,14 @@ public class LoanDistributionService {
         if (loanAccountBasicInfo.getId() != null){
             loanAccountBasicInfo.setCustomer(customerBasicInfoEntity);
             loanAccountBasicInfo.setAccountName(accountInformationEntity.getCustomerName());
-            loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanACNo());
+            loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
 
              basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo);
         }else {
             LoanAccountBasicInfo loanAccountBasicInfo1 = new LoanAccountBasicInfo();
             loanAccountBasicInfo1.setCustomer(customerBasicInfoEntity);
             loanAccountBasicInfo1.setAccountName(accountInformationEntity.getCustomerName());
-            loanAccountBasicInfo1.setAccountNo(accountInformationEntity.getLoanACNo());
+            loanAccountBasicInfo1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
             basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo1);
         }
 
@@ -214,7 +214,7 @@ public class LoanDistributionService {
             customerBasicInfoEntity.setNid(accountInformationEntity.getNid());
             customerBasicInfoEntity.setOccupation(accountInformationEntity.getProfession());
             customerBasicInfoEntity.setTin(accountInformationEntity.getTin());
-            customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo());
+            customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s",""));
 
             basicInfoEntity =  customerBasicInfoService.save(customerBasicInfoEntity);
         }else {
@@ -230,7 +230,7 @@ public class LoanDistributionService {
             customerBasicInfoEntity1.setNid(accountInformationEntity.getNid());
             customerBasicInfoEntity1.setOccupation(accountInformationEntity.getProfession());
             customerBasicInfoEntity1.setTin(accountInformationEntity.getTin());
-            customerBasicInfoEntity1.setAccountNo(accountInformationEntity.getLoanACNo());
+            customerBasicInfoEntity1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
             basicInfoEntity = customerBasicInfoService.save(customerBasicInfoEntity1);
         }
 
