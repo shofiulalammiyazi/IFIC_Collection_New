@@ -58,7 +58,8 @@
                                     </div>
 
                                     <div class="marginBottom">
-                                        <span id="email-subject" v-if="!showEmailSubject" @dblclick="showEmailSubject = !showEmailSubject"
+                                        <span id="email-subject" v-if="!showEmailSubject"
+                                              @dblclick="showEmailSubject = !showEmailSubject"
                                               style="font-size: 16px"><strong>{{emailSubject}}</strong></span>
                                         <input style="width: 500px" v-else v-focus @blur="doneEmailSubject"
                                                @keyup.enter="doneEmailSubject" type="text" name="emailSubject"
@@ -67,25 +68,32 @@
 
                                     <p>Dear Sir,</p>
                                     <p class="marginBottom">
-                                        We are thankful to you for availing a IFIC Aamar Bari Home Loan amounting BDT ({{emiAmount}})
+                                        We are thankful to you for availing a IFIC Aamar Bari Home Loan amounting BDT
+                                        ({{emiAmount}})
                                         from our ({{branchName}}) Branch.
                                     </p>
                                     <p class="marginBottom">
-                                        The sanctioned loan was disbursed on ({{loanAccDetails.disbursementDate}}). Your installment became
-                                        due on………………………… But we regret to inform that you are not paying your monthly installment
-                                        regularly. As a result, unpaid installment amount against the loan stands at BDT (………….to be fetched from system)
-                                        equivalent to (…………..to be fetched from system) nos. of monthly installments as on date.
+                                        The sanctioned loan was disbursed on ({{loanAccDetails.disbursementDate}}). Your
+                                        installment became
+                                        due on………………………… But we regret to inform that you are not paying your monthly
+                                        installment
+                                        regularly. As a result, unpaid installment amount against the loan stands at BDT
+                                        (………….to be fetched from system)
+                                        equivalent to (…………..to be fetched from system) nos. of monthly installments as
+                                        on date.
                                     </p>
                                     <p style="margin-bottom: 20px">
-                                        Under the above circumstances, we would request you to adjust your unpaid installment amount against
-                                        your (IFIC Aamar Bari Home Loan) at the earliest to avoid unforeseen circumstances.
+                                        Under the above circumstances, we would request you to adjust your unpaid
+                                        installment amount against
+                                        your (IFIC Aamar Bari Home Loan) at the earliest to avoid unforeseen
+                                        circumstances.
                                     </p>
 
                                     <p>
                                         Thanking you,
                                     </p>
 
-                                    <div style="margin-bottom: 20px; margin-top: 40px; display: inline-block; width: 100%">
+                                    <div style="margin-bottom: 20px; margin-top: 90px; display: inline-block; width: 100%">
                                         <div style="float:left;">
                                             <span>Authorized Official</span>
                                         </div>
@@ -97,18 +105,19 @@
                                     </div>
 
                                     <p style="margin-bottom: 60px">
-                                        <strong>Note:</strong> If you have already made the payment, please ignore this letter.
+                                        <strong>Note:</strong> If you have already made the payment, please ignore this
+                                        letter.
                                     </p>
 
                                 </div>
                             </div>
                         </div>
                         <script>
-                            function generatePDF(){
+                            function generatePDF() {
                                 //$("#letter-body").print();
                                 var divContents = document.getElementById("letter-body").innerHTML;
                                 var a = window.open();
-                                a.document.write('<html>'+divContents+'</html>');
+                                a.document.write('<html>' + divContents + '</html>');
                                 a.document.close();
                                 a.print();
                                 return (false);
@@ -130,13 +139,13 @@
                                 data: {
                                     ref: '',//IFICB/CRU/'+new Date().getFullYear()+'/ Ref No./
                                     currentDate: "",
-                                    currentYear:'',
+                                    currentYear: '',
                                     privacy: 'PRIVATE AND CONFIDENTIAL',
                                     emailSubject: '',
                                     genDate: "",
                                     agentAddress: '',
                                     agentPhone: '01833147905',
-                                    dispatcherNo:'',
+                                    dispatcherNo: '',
                                     showReference: false,
                                     showCurrentDate: false,
                                     showPrivacy: false,
@@ -148,13 +157,13 @@
                                     showAgentAddress: false,
                                     showAgentPhone: false,
                                     customer: {},
-                                    customerInfo:{},
-                                    loanAccDetails:{}
+                                    customerInfo: {},
+                                    loanAccDetails: {}
 
                                 },
                                 created: function () {
                                     this.customer = customer;
-                                    this.customerInfo=customerInfo;
+                                    this.customerInfo = customerInfo;
                                     this.loanAccDetails = loanAccDetails;
                                     this.currentDate = new Date();
                                     this.genDate = new Date();
@@ -177,13 +186,13 @@
                                     }
                                 },
                                 methods: {
-                                    initValues(){
-                                        this.name=  this.customer.customerName;
+                                    initValues() {
+                                        this.name = this.customer.customerName;
                                         this.accountNo = this.customer.accountNo;
                                         this.emiAmount = this.loanAccDetails.emiAmount;
                                         this.loanAcNo = this.loanAccDetails.loanACNo;
                                         this.branchName = this.loanAccDetails.branchName;
-                                        this.emailSubject = 'Subject: Request for making payment of unpaid installment amount against your Loan ('+this.loanAccDetails.loanACNo+')';
+                                        this.emailSubject = 'Subject: Request for making payment of unpaid installment amount against your Loan (' + this.loanAccDetails.loanACNo + ')';
                                     },
                                     doneEditingReference() {
                                         this.showReference = false;

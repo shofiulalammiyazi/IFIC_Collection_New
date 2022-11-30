@@ -6,6 +6,7 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationReposi
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class AccountInformationService {
     @Autowired
     private DateUtils dateUtils;
 
+    //@Scheduled("")
     public void getAccountInformationData(){
         List<AccountInformationDto> dataList = accountInformationDao.getData();
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
