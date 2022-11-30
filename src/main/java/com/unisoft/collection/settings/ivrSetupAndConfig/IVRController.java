@@ -31,6 +31,9 @@ public class IVRController {
     @Autowired
     private IVRRepository ivrRepository;
 
+    @Autowired
+    private IVRService ivrService;
+
 
     @GetMapping("/list")
     public String showList(Model model) {
@@ -62,6 +65,16 @@ public class IVRController {
         model.addAttribute("dealerPinList", dealerPinList);
 
         return "collection/settings/ivrSetup/create";
+    }
+
+    @GetMapping("/call")
+    public String call(@RequestParam String mobileNo){
+        try {
+            ivrService.call(mobileNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private String createUpdateIvr(IvrEntity ivrEntity, Model model) {
