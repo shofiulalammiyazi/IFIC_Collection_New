@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Letter Template View</title>
+</head>
+
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div id="template-view" class="container-fluid" style="padding-top: 10px">
+        <div class="box box-primary">
+            <div class="box-header text-center"><h3 th:text="${template.getName()}"></h3></div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="box" style="margin-top: 20px;">
+                            <div class="box-body" >
+                                <div id="letter-editor" name="letter-editor" >
+                                    <div v-for="F in accounts">
+                                        <!--[(${templateBody})]-->
+                                        <div>{{template}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center"><a class="btn btn-default" href="/collection/retail/operation/letter-template/list">Back</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var accounts =  /*[[${accounts}]]*/ [];
+            var templateBody =  /*[[${templateBody}]]*/ [];
+        /*]]*/
+    </script>
+    <th:block>
+        <script src="/js/HtmlSanitizer.js"></script>
+    </th:block>
+
+    <script>
+
+        $(document).ready(function () {
+            letterTemplateApp = new Vue({
+                el: '#template-view',
+                data: {
+                    accounts: [],
+                    template: '',
+                },
+                created: function () {
+                    this.accounts = accounts;
+                    this.template = templateBody;
+                    // reference link: stackoverflow/questions/1912501/unescape-html-entities-in-javascript
+                    var doc = new DOMParser().parseFromString(this.template, "text/html");
+                    this.template =  doc.documentElement.textContent;
+                    for (key in this.accounts[0]) {
+                        while (this.template.includes('{{F.' + key + '}}'))
+                            this.template = this.template.replace('{{F.' + key + '}}', this.accounts[0][key]);
+                    }
+                    this.template = HtmlSanitizer.SanitizeHtml(this.template);
+                },
+            });
+        })
+    </script>
+</div>
+
+</body>
+
+</html>

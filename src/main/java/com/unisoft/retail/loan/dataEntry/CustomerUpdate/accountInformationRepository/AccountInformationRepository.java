@@ -15,6 +15,9 @@ import java.util.List;
 @Repository
 public interface AccountInformationRepository extends JpaRepository<AccountInformationEntity, Long> {
 
+    @Query(value = "select * From account_information_entity Where replace(loanacno,' ','') = ? fetch first row only ", nativeQuery = true)
+    AccountInformationEntity findAccountInformationEntityByLoanACNo(String loanACNo);
+
     AccountInformationEntity getByLoanACNo(String accountNumber);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE REPLACE(LOANACNO,' ','') = ?1", nativeQuery = true)

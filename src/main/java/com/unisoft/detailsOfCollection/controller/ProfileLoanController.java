@@ -187,7 +187,7 @@ public class ProfileLoanController {
                 model.addAttribute("distributionAgencyInfo", loanAgencyDistributionInfo);
             }
 
-            boolean isWriteOffAccount = !distributionInfo.getWriteOffAccount().equals("0");
+            boolean isWriteOffAccount = distributionInfo.getWriteOffAccount() != null;
             if (isWriteOffAccount) {
                 WriteOffAccountInfo writeOffAccountInfo =
                         writeOffAccountRepository
@@ -197,7 +197,7 @@ public class ProfileLoanController {
             }
             model.addAttribute("writeOff", isWriteOffAccount);
 
-            boolean isSamAccount = !distributionInfo.getSamAccount().equals("0");
+            boolean isSamAccount = distributionInfo.getSamAccount() != null;
             if (isSamAccount) {
                 SamAccountHandoverInfo samAccountHandoverInfo =
                         samAccountHandoverRepository

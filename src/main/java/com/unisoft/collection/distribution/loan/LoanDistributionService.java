@@ -14,6 +14,8 @@ import com.unisoft.collection.distribution.loan.loanAccountOther.LoanAccountOthe
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,8 @@ public class LoanDistributionService {
 
     private final LoanAccountDistributionService loanAccountDistributionService;
 
+    private final AccountInformationService accountInformationService;
+
     public Map<String, String> saveManuallyDistributedAccounts(MultipartFile multipartFile) {
         Map<String, String> errors = new LinkedHashMap<>();
         Map<String, LoanAccountDistributionInfo> distributionInfos = new HashMap<>();
@@ -70,14 +74,11 @@ public class LoanDistributionService {
                     if (!isValidAccountForDistribution(accountNumber)) {
                         errors.put(accountNumber, "Invalid Account Number");
                         continue;
-                    }
-                    //to do: need to add condition for closed accounts
-//                    else if (checkAccountStatus(accountNumber)){
-//                        errors.put(accountNumber, "This Account is Closed");
-//                        continue;
-//
-//                    }
-                    else if (distributionInfos.get(accountNumber) != null) {
+                    }else if (checkAccountStatus(accountNumber)){
+                        errors.put(accountNumber, "This Account is not found!");
+                        continue;
+
+                    }else if (distributionInfos.get(accountNumber) != null) {
                         errors.put(accountNumber, "Duplicate Entry");
                         continue;
                     }
@@ -93,28 +94,36 @@ public class LoanDistributionService {
 
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 
-                    CustomerBasicInfoEntity customerInfo = findOrSaveCustomerInfo(accountNumber);
-                    if (customerInfo == null || customerInfo.getId() == null) continue;
 
-                    LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.findOrSave(new LoanAccountBasicInfo(customerInfo));
+                    LoanAccountDistributionInfo accountDistributionInfo = new LoanAccountDistributionInfo();
+                    accountDistributionInfo.setDealerPin(dealerPin);
+                    accountDistributionInfo.setDealerName(dealerName);
+                    distributionInfos.put(accountNumber, accountDistributionInfo);
 
-                    LoanAccountDistributionInfo loanAccountDistributionInfo = new LoanAccountDistributionInfo();
-                    loanAccountDistributionInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
-                    loanAccountDistributionInfo.setDealerPin(dealerPin);
-                    loanAccountDistributionInfo.setDealerName(dealerName);
 
-                    loanAccountDistributionInfo.setStatusDate(dateUtils.getMonthStartDate());
-                    loanAccountDistributionService.save(loanAccountDistributionInfo);
-                    distributionInfos.put(accountNumber, loanAccountDistributionInfo);
 
-                    LoanAccountInfo loanAccountInfo = new LoanAccountInfo();
-                    loanAccountInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
-                    loanAccountService.findOrSave(loanAccountInfo);
-                    accountInfos.put(accountNumber, loanAccountInfo);
-
-                    LoanAccountOtherInfo loanAccountOtherInfo = new LoanAccountOtherInfo();
-                    loanAccountOtherInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
-                    accountOtherInfos.put(accountNumber, loanAccountOtherInfo);
+//                    CustomerBasicInfoEntity customerInfo = findOrSaveCustomerInfo(accountNumber);
+//                    if (customerInfo == null || customerInfo.getId() == null) continue;
+//
+//                    LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.findOrSave(new LoanAccountBasicInfo(customerInfo));
+//
+//                    LoanAccountDistributionInfo loanAccountDistributionInfo = new LoanAccountDistributionInfo();
+//                    loanAccountDistributionInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
+//                    loanAccountDistributionInfo.setDealerPin(dealerPin);
+//                    loanAccountDistributionInfo.setDealerName(dealerName);
+//
+//                    loanAccountDistributionInfo.setStatusDate(dateUtils.getMonthStartDate());
+//                    loanAccountDistributionService.save(loanAccountDistributionInfo);
+//                    distributionInfos.put(accountNumber, loanAccountDistributionInfo);
+//
+//                    LoanAccountInfo loanAccountInfo = new LoanAccountInfo();
+//                    loanAccountInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
+//                    loanAccountService.findOrSave(loanAccountInfo);
+//                    accountInfos.put(accountNumber, loanAccountInfo);
+//
+//                    LoanAccountOtherInfo loanAccountOtherInfo = new LoanAccountOtherInfo();
+//                    loanAccountOtherInfo.setLoanAccountBasicInfo(loanAccountBasicInfo);
+//                    accountOtherInfos.put(accountNumber, loanAccountOtherInfo);
 
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
@@ -125,31 +134,122 @@ public class LoanDistributionService {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        manageBulkLoanAccountDistributionAsync(distributionInfos, accountInfos, accountOtherInfos);
+
+        updateLoanAccountDistribution(distributionInfos);
+//        manageBulkLoanAccountDistributionAsync(distributionInfos, accountInfos, accountOtherInfos);
         return errors;
     }
 
-    private boolean isValidAccountForDistribution(String accountNumber) {
-        boolean isAccountNumberValid = StringUtils.hasText(accountNumber) && accountNumber.length() == 16;
-        if (isAccountNumberValid) {
-            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNumber);
-            if (loanAccountBasicInfo.getId() == null) {
-                LoanAccInfo loanAccInfo = retailLoanUcbApiService.getLoanAccountInfo(accountNumber);
-                return loanAccInfo.getCustomerId() != null;
+    private void updateLoanAccountDistribution(Map<String, LoanAccountDistributionInfo> distributionInfos) {
+
+        Date monthStartDate = dateUtils.getMonthStartDate();
+        Date monthEndDate = dateUtils.getMonthEndDate();
+
+        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = user.getUsername();
+
+        List<LoanAccountDistributionInfo> list = loanAccountDistributionService.findLoanAccountDistributionInfoByLatest("1");
+        list.forEach(distribution ->{
+            distribution.setLatest("0");
+            loanAccountDistributionService.save(distribution);
+        });
+
+        distributionInfos.forEach((accountNumber,distribution)->{
+
+            System.out.println(accountNumber);
+
+
+
+            AccountInformationEntity accountInformationEntity = accountInformationService.findAccountInformationByLoanAccountNo(accountNumber);
+            if (accountInformationEntity != null){
+                CustomerBasicInfoEntity customerBasicInfoEntity = updateCustomerBasiscInfo(accountInformationEntity);
+
+                LoanAccountBasicInfo loanAccountBasicInfo = updateLoanAccountBasicInfo(accountInformationEntity, customerBasicInfoEntity);
+                System.out.println("test");
+                distribution.setLoanAccountBasicInfo(loanAccountBasicInfo);
+                distribution.setLatest("1");
+                distribution.setCreatedDate(new Date());
+                distribution.setCreatedBy(username);
+                distribution.setStatusDate(new Date());
+                distribution.setOutStanding(accountInformationEntity.getTotalOutstanding());
+                distribution.setDpdBucket(accountInformationEntity.getDpd());
+                distribution.setEmiAmount(Double.parseDouble(accountInformationEntity.getEmiAmount()));
+                loanAccountDistributionService.saveDistribution(distribution);
             }
+        });
+    }
+
+    private LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
+        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntity.getLoanACNo());
+        LoanAccountBasicInfo basicInfo;
+        if (loanAccountBasicInfo.getId() != null){
+            loanAccountBasicInfo.setCustomer(customerBasicInfoEntity);
+            loanAccountBasicInfo.setAccountName(accountInformationEntity.getCustomerName());
+            loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+
+             basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo);
+        }else {
+            LoanAccountBasicInfo loanAccountBasicInfo1 = new LoanAccountBasicInfo();
+            loanAccountBasicInfo1.setCustomer(customerBasicInfoEntity);
+            loanAccountBasicInfo1.setAccountName(accountInformationEntity.getCustomerName());
+            loanAccountBasicInfo1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+            basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo1);
         }
+
+        return basicInfo;
+    }
+
+    private CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
+        CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntity.getLoanACNo());
+        CustomerBasicInfoEntity basicInfoEntity;
+        if (customerBasicInfoEntity != null){
+            customerBasicInfoEntity.setCustomerName(accountInformationEntity.getCustomerName());
+            customerBasicInfoEntity.setEmail(accountInformationEntity.getEmail());
+            customerBasicInfoEntity.setCustomerFatherName(accountInformationEntity.getFatherName());
+            customerBasicInfoEntity.setBranchCode(accountInformationEntity.getBranchCode());
+            customerBasicInfoEntity.setBranchName(accountInformationEntity.getBranchName());
+            customerBasicInfoEntity.setSex(accountInformationEntity.getGender());
+            customerBasicInfoEntity.setMobileNumber(accountInformationEntity.getMobile());
+            customerBasicInfoEntity.setMotherName(accountInformationEntity.getMotherName());
+            customerBasicInfoEntity.setNid(accountInformationEntity.getNid());
+            customerBasicInfoEntity.setOccupation(accountInformationEntity.getProfession());
+            customerBasicInfoEntity.setTin(accountInformationEntity.getTin());
+            customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s",""));
+
+            basicInfoEntity =  customerBasicInfoService.save(customerBasicInfoEntity);
+        }else {
+            CustomerBasicInfoEntity customerBasicInfoEntity1 = new CustomerBasicInfoEntity();
+            customerBasicInfoEntity1.setCustomerName(accountInformationEntity.getCustomerName());
+            customerBasicInfoEntity1.setEmail(accountInformationEntity.getEmail());
+            customerBasicInfoEntity1.setCustomerFatherName(accountInformationEntity.getFatherName());
+            customerBasicInfoEntity1.setBranchCode(accountInformationEntity.getBranchCode());
+            customerBasicInfoEntity1.setBranchName(accountInformationEntity.getBranchName());
+            customerBasicInfoEntity1.setSex(accountInformationEntity.getGender());
+            customerBasicInfoEntity1.setMobileNumber(accountInformationEntity.getMobile());
+            customerBasicInfoEntity1.setMotherName(accountInformationEntity.getMotherName());
+            customerBasicInfoEntity1.setNid(accountInformationEntity.getNid());
+            customerBasicInfoEntity1.setOccupation(accountInformationEntity.getProfession());
+            customerBasicInfoEntity1.setTin(accountInformationEntity.getTin());
+            customerBasicInfoEntity1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+            basicInfoEntity = customerBasicInfoService.save(customerBasicInfoEntity1);
+        }
+
+
+
+        return basicInfoEntity;
+    }
+
+    private boolean isValidAccountForDistribution(String accountNumber) {
+        boolean isAccountNumberValid = StringUtils.hasText(accountNumber) && accountNumber.length() == 13;
         return isAccountNumberValid;
     }
 
     private boolean checkAccountStatus(String accountNumber) {
-        LoanAccInfo loanAccInfo = retailLoanUcbApiService.getLoanAccountInfo(accountNumber);
-        if(loanAccInfo.getCustomerId() == null){
+        AccountInformationEntity accountInformationEntity = accountInformationService.findAccountInformationByLoanAccountNo(accountNumber);
+        if(accountInformationEntity != null){
             return false;
         }
-        if (loanAccInfo.getAccountStatus().equals("Liquidated")){
-            return true;
-        }
-        return false;
+        return true;
     }
 
     private CustomerBasicInfoEntity findOrSaveCustomerInfo(String accountNumber) {
@@ -158,65 +258,62 @@ public class LoanDistributionService {
         return customerBasicInfoService.findOrSave(customerInfo);
     }
 
-    public void manageBulkLoanAccountDistributionAsync(Map<String, LoanAccountDistributionInfo> distributionInfos,
-                                                       Map<String, LoanAccountInfo> accountInfos,
-                                                       Map<String, LoanAccountOtherInfo> accountOtherInfos) {
-        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = user.getUsername();
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                ExecutorService executorService = Executors.newFixedThreadPool(100);
-
-//                List<LoanAccountDistributionInfo> distributionInfos = loanAccountDistributionService.findCurrentMonthAccountDistList();
-
-                distributionInfos.forEach((accountNumber, distributionInfo) -> {
-
-//                    String accountNo = distributionInfo.getLoanAccountBasicInfo().getAccountNo();
-
-                    LoanAccountInfo loanAccountInfo = accountInfos.get(accountNumber);
-                    LoanAccountOtherInfo accountOtherInfo = accountOtherInfos.get(accountNumber);
-
-                    executorService.execute(new Runnable() {
-
-                        @Override
-                        public void run() {
-
-                            if (!loanAccountDistributionService.isValidDistribution(distributionInfo)) return;
-
-                            String accountNumber = distributionInfo.getLoanAccountBasicInfo().getAccountNo();
-
-                            /* get account info and details info from server for specific account */
-                            LoanAccInfo accInfoFromReportServer = retailLoanUcbApiService.getLoanAccountInfo(accountNumber);
-                            if (!accInfoFromReportServer.getAccountStatus().equals("Liquidated")){
-                                LoanAccDetails accDetailsFormReportServer = retailLoanUcbApiService.getLoanAccountDetails(accountNumber);
-                                BranchInfo branchInfoFormReportServer = retailLoanUcbApiService.getBranchInfo(accInfoFromReportServer.getBranchCode());
-
-                                LoanAccountBasicInfo loanAccountBasicInfo = distributionInfo.getLoanAccountBasicInfo();
-
-                                CustomerBasicInfoEntity customer = loanAccountBasicInfo.getCustomer();
-                                customer.setBranchName(branchInfoFormReportServer.getBranchName());
-                                CustomerInfo customerInfo = updateCustomerInfo(customer, accInfoFromReportServer, accDetailsFormReportServer, username);
-
-                                loanAccountBasicInfo.setLocation(customerInfo.getLocation());
-                                loanAccountBasicInfo = updateLoanAccountBasicInfo(loanAccountBasicInfo, accInfoFromReportServer, accDetailsFormReportServer, username);
-
-                                updateLoanAccountDistributionInfo(distributionInfo, loanAccountBasicInfo, accDetailsFormReportServer);
-                                updateLoanAccountInfo(loanAccountInfo, loanAccountBasicInfo, accDetailsFormReportServer, branchInfoFormReportServer, username);
-                                updateLoanAccountOtherInfo(accountOtherInfo, loanAccountBasicInfo, accInfoFromReportServer, username);
-                            }
-
-                        }
-                    });
-
-                });
-                executorService.shutdown();
-            }
-        });
-        thread.start();
-    }
+//    public void manageBulkLoanAccountDistributionAsync(Map<String, LoanAccountDistributionInfo> distributionInfos,
+//                                                       Map<String, LoanAccountInfo> accountInfos,
+//                                                       Map<String, LoanAccountOtherInfo> accountOtherInfos) {
+//        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String username = user.getUsername();
+//
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                ExecutorService executorService = Executors.newFixedThreadPool(100);
+//
+////                List<LoanAccountDistributionInfo> distributionInfos = loanAccountDistributionService.findCurrentMonthAccountDistList();
+//
+//                distributionInfos.forEach((accountNumber, distributionInfo) -> {
+//
+////                    String accountNo = distributionInfo.getLoanAccountBasicInfo().getAccountNo();
+//
+//                    LoanAccountInfo loanAccountInfo = accountInfos.get(accountNumber);
+//                    LoanAccountOtherInfo accountOtherInfo = accountOtherInfos.get(accountNumber);
+//
+//                    executorService.execute(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//
+//                            if (!loanAccountDistributionService.isValidDistribution(distributionInfo)) return;
+//
+//                            String accountNumber = distributionInfo.getLoanAccountBasicInfo().getAccountNo();
+//
+//                            AccountInformationEntity accountInformationEntity = accountInformationService.findAccountInformationByLoanAccountNo(accountNumber);
+//
+//                            /* get account info and details info from server for specific account */
+//
+//                                LoanAccountBasicInfo loanAccountBasicInfo = distributionInfo.getLoanAccountBasicInfo();
+//
+//                                CustomerBasicInfoEntity customer = loanAccountBasicInfo.getCustomer();
+//                                customer.setBranchName(accountInformationEntity.getBranchName());
+//                                CustomerInfo customerInfo = updateCustomerInfo(customer,accountInformationEntity, username);
+//
+//                                loanAccountBasicInfo.setLocation(customerInfo.getLocation());
+//                                loanAccountBasicInfo = updateLoanAccountBasicInfo(loanAccountBasicInfo, accInfoFromReportServer, accDetailsFormReportServer, username);
+//
+//                                updateLoanAccountDistributionInfo(distributionInfo, loanAccountBasicInfo, accDetailsFormReportServer);
+//                                updateLoanAccountInfo(loanAccountInfo, loanAccountBasicInfo, accDetailsFormReportServer, branchInfoFormReportServer, username);
+//                                updateLoanAccountOtherInfo(accountOtherInfo, loanAccountBasicInfo, accInfoFromReportServer, username);
+//                            }
+//
+//                    });
+//
+//                });
+//                executorService.shutdown();
+//            }
+//        });
+//        thread.start();
+//    }
 
 
 
@@ -240,29 +337,7 @@ public class LoanDistributionService {
         if (StringUtils.hasText(loanAccInfo.getCustomerId())) {
 
             customerInfoFromReportServer = retailLoanUcbApiService.getCustomerInfo(loanAccInfo.getCustomerId());
-            String customerId = loanAccInfo.getCustomerId();
-            String customerName = loanAccInfo.getAccountName();
-            String customerFatherName = customerInfoFromReportServer.getFatherName();
-            String customerMotherName = customerInfoFromReportServer.getMotherName();
-            String mobileNumber = customerInfoFromReportServer.getMobileNumber();
-            String typeAccount = customerInfoFromReportServer.getAccountType();
-            String clStatus = loanAccDetails.getStatus1();
-            String occupation = customerInfoFromReportServer.getEmployer();
-            String branchCode = loanAccInfo.getBranchCode();
-            String sourcingChannel = loanAccInfo.getRmCode();
-//            Todo: Must find source of this value for 'Branch wise CL Report'
-            String region;
 
-            customer.setCustomerId(customerId);
-            customer.setCustomerName(customerName);
-            customer.setCustomerFatherName(customerFatherName);
-            customer.setCustomerMotherName(customerMotherName);
-            customer.setMobileNumber(mobileNumber);
-            customer.setTypeAccount(typeAccount);
-            customer.setClStatus(clStatus);
-            customer.setOccupation(occupation);
-            customer.setBranchCode(branchCode);
-            customer.setSourcingChannel(sourcingChannel);
         }
         return customerInfoFromReportServer;
     }
@@ -301,7 +376,7 @@ public class LoanDistributionService {
         loanAccountBasicService.saveOrUpdate(loanAccountBasicInfo, username);
         return loanAccountBasicInfo;
     }
-
+//
     public LoanAccountDistributionInfo updateLoanAccountDistributionInfo(LoanAccountDistributionInfo loanAccountDistributionInfo,
                                                                          LoanAccountBasicInfo loanAccountBasicInfo, LoanAccDetails loanAccDetails) {
 
@@ -339,7 +414,7 @@ public class LoanDistributionService {
         loanAccountDistributionService.update(loanAccountDistributionInfo);
         return loanAccountDistributionInfo;
     }
-
+//
     public LoanAccountInfo updateLoanAccountInfo(LoanAccountInfo loanAccountInfo, LoanAccountBasicInfo loanAccountBasicInfo, LoanAccDetails loanAccDetails, BranchInfo branchInfo, String username) {
 
         String schemeCode = loanAccDetails.getProductCode();
@@ -369,7 +444,7 @@ public class LoanDistributionService {
 
         return loanAccountInfo;
     }
-
+//
     public LoanAccountOtherInfo updateLoanAccountOtherInfo(LoanAccountOtherInfo loanAccountOtherInfo, LoanAccountBasicInfo loanAccountBasicInfo, LoanAccInfo loanAccInfo, String username) {
         // TODO: if required data provided in future, have to change it;
         String status = loanAccInfo.getAccountStatus();
@@ -385,7 +460,7 @@ public class LoanDistributionService {
         return (loanAccDetails == null || loanAccDetails.getAccountNumber() == null) ?
                 retailLoanUcbApiService.getLoanAccountDetails(accountNo) : loanAccDetails;
     }
-
+//
     public LoanAccInfo populateLoanAccInfo(LoanAccInfo loanAccInfo, String accountNo) {
         return (loanAccInfo == null || loanAccInfo.getAccountNumber() == null) ?
                 retailLoanUcbApiService.getLoanAccountInfo(accountNo) : loanAccInfo;

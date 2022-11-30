@@ -85,4 +85,9 @@ public class LoanAccountBasicService {
         return entity;
     }
 
+
+    public LoanAccountBasicInfo save(LoanAccountBasicInfo loanAccountBasicInfo){
+        return repository.save(loanAccountBasicInfo);
+    }
+
 }

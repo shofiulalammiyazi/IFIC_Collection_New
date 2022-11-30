@@ -11,6 +11,7 @@ import com.unisoft.user.UserService;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.persistence.Tuple;
 import java.text.SimpleDateFormat;
@@ -158,5 +159,21 @@ public class LoanAccountDistributionService {
         }
 
         return dataList;
+    }
+
+    public List<LoanAccountDistributionInfo> findLoanAccountDistributionInfoByLatest(String s) {
+        return repository.findLoanAccountDistributionInfosByLatest(s);
+    }
+
+
+    public LoanAccountDistributionInfo saveDistribution(LoanAccountDistributionInfo loanAccountBasicInfo){
+        return repository.save(loanAccountBasicInfo);
+    }
+
+    public List<LoanAccountDistributionInfo> findCurrentMonthDistributionList() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        Date startDate = dateUtils.getDateOfCurrentMonth(1);
+        Date endDate = dateUtils.getLocalMonthEndDate();
+        return repository.findLoanAccountDistributionInfosByCreatedDateAndLatest(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
     }
 }

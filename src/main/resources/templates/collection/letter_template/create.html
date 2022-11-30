@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Letter Template Design</title>
+
+    <style>
+        .template-fields-container {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .template-fields {
+            border: 1px solid lightgray;
+            background-color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <div id="template-design" class="container-fluid" style="padding-top: 10px;">
+        <div class="box box-primary">
+            <div class="box-header text-center"><h3>Letter Template Design</h3></div>
+
+            <div class="box-body">
+                <form id="form-create-template" th:method="POST" th:action="@{/collection/retail/operation/letter-template/create}">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-2">
+                            <div class="form-horizontal">
+                                <div class="form-group" >
+                                    <label class="col-sm-4 text-right" style="padding-top: 6px;">Unit</label>
+                                    <div class="col-sm-8">
+                                        <select id="unit" name="unit" class="form-control" >
+                                            <option value="">Select a unit</option>
+                                            <option th:selected="${template.getUnit() == 'Loan'}" value="Loan">Loan</option>
+                                            <option th:selected="${template.getUnit() == 'Card'}" value="Card">Card</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 text-right" style="padding-top: 6px;">Name of Template</label>
+                                    <div class="col-sm-8">
+                                        <input th:value="${template.getName()}" id="name" name="name" class="form-control" placeholder="e.g. Letter for Age Code 1" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-sm-4 text-right" style="padding-top: 6px;">Email Subject</label>
+                                    <div class="col-sm-8">
+                                        <input th:value="${template.getEmailSubject()}" id="emailSubject" name="emailSubject" class="form-control" placeholder="e.g. Letter for Age Code 1" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group hidden">
+                                    <label>Template</label>
+                                    <input name="id" th:value="${template.getId()}">
+                                    <!--<input th:value="${templateBody}" id="template" name="template">-->
+                                    <input th:value="${templateBody}" id="template" name="template">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="box">
+                                <div class="box-body" >
+                                    <div cols="80" height="800px"
+                                         id="letter-editor"
+                                         name="letter-editor"
+                                         rows="10"
+                                         data-sample-short>[(${template.getTemplate()})]</div>
+                                    <!--data-sample-short>[(${templateBody})]</div>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <div class="box">
+                                <div class="box-body" >
+                                    <div class="form-group">
+                                        <label>Fields </label>
+                                        <input id="search-template-fields"
+                                               name="search-template-fields"
+                                               placeholder="Search by Name of Fields"
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="template-fields-container">
+                                        <div class="template-fields" >{{F.reference}}</div>
+                                        <div class="template-fields" >{{F.currentDate}}</div>
+                                        <div class="template-fields" >{{F.concernName}}</div>
+                                        <div class="template-fields" >{{F.concernAddress}}</div>
+
+                                        <div class="template-fields" >{{F.accountNo}}</div>
+                                        <div class="template-fields" >{{F.cardNo}}</div>
+                                        <div class="template-fields" >{{F.customerId}}</div>
+                                        <div class="template-fields" >{{F.productType}}</div>
+
+                                        <div class="template-fields" >{{F.installmentAmount}}</div>
+                                        <div class="template-fields" >{{F.overdueAmount}}</div>
+                                        <div class="template-fields" >{{F.outstandingAmount}}</div>
+                                        <div class="template-fields" >{{F.amountDue}}</div>
+
+                                        <div class="template-fields" >{{F.bblHoMobile}}</div>
+                                        <div class="template-fields" >{{F.bblHoAddress}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <a href="/collection/retail/operation/letter-template/list" class="btn btn-default" type="button">Cancel</a>
+                        <button class="btn btn-primary btn-create" type="button">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('letter-editor', {
+                height: 400,
+                baseFloatZIndex: 10005,
+                removeButtons: 'PasteFromWord,ImageButton,Button,HiddenField,TextField,Textarea,SelectionField,RadioButton,ExportPdf,Select'
+            });
+
+            $('#search-template-fields').on('input', function () {
+                let searchData = $(this).val();
+                $('.template-fields').addClass('hidden');
+                $('.template-fields:contains("'+searchData+'")').removeClass('hidden');
+            });
+
+            $('.btn-create').on('click', function () {
+                let data = CKEDITOR.instances['letter-editor']. getData();
+                $('#template').val(data);
+                $('#form-create-template').submit();
+            });
+
+        })
+    </script>
+</div>
+
+</body>
+
+</html>
