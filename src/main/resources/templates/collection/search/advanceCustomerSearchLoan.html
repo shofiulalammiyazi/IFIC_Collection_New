@@ -218,25 +218,39 @@
 									</tr>
 									</thead>
 									<tbody id="advCustSrcBody">
+									<!--<tr v-for="customer in loanCustomer">-->
+										<!--<td><a :href="'/profile/loanprofile/search?account='+ customer.foracid" target="_blank">{{customer.foracid}}</a></td>-->
+										<!--<td>{{customer.cifid}}</td>-->
+										<!--<td>{{customer.acctname}}</td>-->
+										<!--<td>{{customer.custdob | dateFormat}}</td>-->
+										<!--<td>{{customer.cellph1}}</td>-->
+										<!--<td>{{customer.clrbalamt | getAbsoluteValue}}</td>-->
+										<!--<td></td>-->
+										<!--<td><a :href="'/profile/loanprofile/search?account='+ customer.linkacct" target="_blank">{{customer.linkacct}}</a></td>-->
+										<!--<td>{{customer.mothername}}</td>-->
+										<!--<td>{{customer.email}}</td>-->
+										<!--<td>{{customer.acctclsflg}}</td>-->
+										<!--<td>{{customer.nid}}</td>-->
+										<!--<td>{{customer.communicationphn1}}</td>-->
+										<!--<td>{{customer.communicationphn2}}</td>-->
+									<!--</tr>-->
 									<tr v-for="customer in loanCustomer">
-										<td><a :href="'/profile/loanprofile/search?account='+ customer.foracid" target="_blank">{{customer.foracid}}</a></td>
-										<td>{{customer.cifid}}</td>
-										<td>{{customer.acctname}}</td>
-										<td>{{customer.custdob | dateFormat}}</td>
-										<td>{{customer.cellph1}}</td>
-										<td>{{customer.clrbalamt | getAbsoluteValue}}</td>
-										<td></td>
-										<td><a :href="'/profile/loanprofile/search?account='+ customer.linkacct" target="_blank">{{customer.linkacct}}</a></td>
-										<td>{{customer.mothername}}</td>
+										<td><a :href="'/profile/loanprofile/search?account='+ customer.foracid" target="_blank">{{customer.loanACNo}}</a></td>
+										<td>{{"-"}}</td>
+										<td>{{customer.customerName}}</td>
+										<td>{{customer.dob}}</td>
+										<td>{{customer.mobile}}</td>
+										<td>{{customer.totalOutstanding}}</td>
+										<td>{{customer.overdue}}</td>
+										<td><a :href="'/profile/loanprofile/search?account='+ customer.linkacct" target="_blank">{{customer.linkMotherAccountNo}}</a></td>
+										<td>{{customer.motherName}}</td>
 										<td>{{customer.email}}</td>
-										<td>{{customer.acctclsflg}}</td>
+										<td>{{"-"}}</td>
 										<td>{{customer.nid}}</td>
-										<td>{{customer.communicationphn1}}</td>
-										<td>{{customer.communicationphn2}}</td>
+										<td>{{"-"}}</td>
+										<td>{{"-"}}</td>
 									</tr>
 									</tbody>
-
-
 								</table>
 							</div>
 						</div>
@@ -245,7 +259,7 @@
 			</div>
 		</section>
 		<script>
-			new Vue({
+			var advCusSearch = new Vue({
 				el:'#app',
 				data:{
 				    cardCustomer:[],
@@ -324,42 +338,87 @@
                         var linkAccount = this.linkAccount;
                         var loanId =  this.loanId;
                         var clsFlag =  this.clsFlag;
+						// $('#advSearchForm').serialize();
+                        // console.log(JSON.stringify($('#advSearchForm').serializeArray()));
+                        // console.log($('#advSearchForm').serializeObject());
+                        // console.log(JSON.stringify($('#advSearchForm')));
+                        // console.log(encodeURIComponent(JSON.stringify($('#advSearchForm'))));
+                        // var indexed_array;
+                        // getFormData();
+                        // function getFormData(){
+                        //     var unindexed_array = $('#advSearchForm').serializeArray();
+                        //     indexed_array = {};
+						//
+                        //     $.map(unindexed_array, function(n, i){
+                        //         indexed_array[n['name']] = n['value'];
+                        //     });
+                        //     console.log(indexed_array);
+                        //     return indexed_array;
+                        // }
 
-                        var url = 'https://'+host+'/api/soap/customerSearch?accountNumber='+accNo+ '&CIF='+cif+'&AutoDebitAccount='+autoDebit+'&CustId='+cusId+
-                            '&MobileNo='+mob+'&NID='+nanId+'&CustomerName='+cusName+'&MotherName='+mothName+'&DOB='+dob+
-                            '&OrganizationName='+org+'&EmailAddress='+emi+'&PassportNo='+pass+'&Status='+ac;
+                        // $.ajax({
+						// 	url: "/account-information/advanced-search",
+						// 	type: "POST",
+						// 	data: JSON.stringify(indexed_array),
+                        //     dataType : "json",
+                        //     contentType: "application/json; charset=utf-8",
+						// 	success: function (response){
+						// 		console.log(response);
+						// 	}
+						// });
 
-                        this.$http.get(url,
-                        {credentials : true, headers:{
-                        			'X-CSRF-TOKEN' : window.csrfToken,
-                        }}).then(res => {
-                        		console.log(res);
-                        	if(res.body){
-                        		this.cardCustomer = res.body.customerInfo;
-                        		if(this.cardCustomer.length > 0) this.cardTableShow = false;
-                        		else this.cardTableShow = true;
-                        	}
-                        }).catch(err => {
-                        		console.log(err);
-                        })
-
-                        var url = 'https://'+host+'/api/soap/getLoanSearchInfo?accNo='+accNo+ '&custId='+cif+'&linkAccount='+linkAccount+
-                            '&phoneNo='+mob+'&nid='+nanId+'&custName='+cusName+'&mothername='+mothName+'&dob='+dob+
-                            '&clsFlag='+clsFlag+'&email='+emi+'&passport='+pass+'&loanId='+loanId;
-
-                        this.$http.get(url,
-                            {credentials : true, headers:{
-                                    'X-CSRF-TOKEN' : window.csrfToken,
-                                }}).then(res => {
-                            console.log(res);
-                            if(res.body){
-                                this.loanCustomer = res.body.responseDetails;
-                                if(this.loanCustomer.length > 0) this.loanTableShow = false;
-                                else this.loanTableShow = true;
+                        $.ajax({
+                            url: "/account-information/advanced-search?accountNo="+accNo+"&cifno="+cif+"&customerName="+cusName+"&motherName="+mothName+
+							"&mobileNo="+mob+"&nid="+nanId+"&dob="+dob+"&email="+emi+"&passportNo="+pass+"&organization="+org+"&linkAccount="+linkAccount+
+							"&customerId="+cusId+"&autoDebit="+autoDebit+"&loanId="+loanId+"&clsFlag="+clsFlag+"&active="+ac,
+                            type: 'GET',
+                            success: function(res) {
+                                advCusSearch.loanCustomer = res;
+                                console.log(res)
+                                if(advCusSearch.loanCustomer.length > 0) advCusSearch.loanTableShow = false;
+								else advCusSearch.loanTableShow = true;
                             }
-                        }).catch(err => {
-                            console.log(err);
-                        })
+                        });
+
+                        // data: {data: indexed_array},
+                        // contentType: "application/json; charset=utf-8",
+                        //     dataType: "json",
+
+                        // var url = 'https://'+host+'/api/soap/customerSearch?accountNumber='+accNo+ '&CIF='+cif+'&AutoDebitAccount='+autoDebit+'&CustId='+cusId+
+                        //     '&MobileNo='+mob+'&NID='+nanId+'&CustomerName='+cusName+'&MotherName='+mothName+'&DOB='+dob+
+                        //     '&OrganizationName='+org+'&EmailAddress='+emi+'&PassportNo='+pass+'&Status='+ac;
+						//
+                        // this.$http.get(url,
+                        // {credentials : true, headers:{
+                        // 			'X-CSRF-TOKEN' : window.csrfToken,
+                        // }}).then(res => {
+                        // 		console.log(res);
+                        // 	if(res.body){
+                        // 		this.cardCustomer = res.body.customerInfo;
+                        // 		if(this.cardCustomer.length > 0) this.cardTableShow = false;
+                        // 		else this.cardTableShow = true;
+                        // 	}
+                        // }).catch(err => {
+                        // 		console.log(err);
+                        // })
+						//
+                        // var url = 'https://'+host+'/api/soap/getLoanSearchInfo?accNo='+accNo+ '&custId='+cif+'&linkAccount='+linkAccount+
+                        //     '&phoneNo='+mob+'&nid='+nanId+'&custName='+cusName+'&mothername='+mothName+'&dob='+dob+
+                        //     '&clsFlag='+clsFlag+'&email='+emi+'&passport='+pass+'&loanId='+loanId;
+						//
+                        // this.$http.get(url,
+                        //     {credentials : true, headers:{
+                        //             'X-CSRF-TOKEN' : window.csrfToken,
+                        //         }}).then(res => {
+                        //     console.log(res);
+                        //     if(res.body){
+                        //         this.loanCustomer = res.body.responseDetails;
+                        //         if(this.loanCustomer.length > 0) this.loanTableShow = false;
+                        //         else this.loanTableShow = true;
+                        //     }
+                        // }).catch(err => {
+                        //     console.log(err);
+                        // })
                     }
 				}
 			})
