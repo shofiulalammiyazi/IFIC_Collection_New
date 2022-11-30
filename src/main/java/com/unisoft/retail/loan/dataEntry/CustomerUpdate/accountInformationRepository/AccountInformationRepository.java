@@ -15,6 +15,9 @@ import java.util.List;
 @Repository
 public interface AccountInformationRepository extends JpaRepository<AccountInformationEntity, Long> {
 
+    @Query(value = "select * From account_information_entity Where CUSTOMER_ID = ? fetch first row only ", nativeQuery = true)
+    AccountInformationEntity findByCustomerId(String customerId);
+
     @Query(value = "select * From account_information_entity Where replace(loanacno,' ','') = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findAccountInformationEntityByLoanACNo(String loanACNo);
 
