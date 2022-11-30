@@ -27,12 +27,12 @@
                                                    class="form-control input-sm"
                                                    placeholder="Account No" id="accountNo" name="accountNo"/>
                                         </div>
-                                        <label class="col-sm-2 custom-form-lebel-right">CIF No.</label>
+                                       <!-- <label class="col-sm-2 custom-form-lebel-right">CIF No.</label>
                                         <div class="col-sm-2">
                                             <input v-model="advanceSearchPayload.cif" type="text"
                                                    class="form-control input-sm"
                                                    placeholder="CIF No." id="cifNo" name="cifNo"/>
-                                        </div>
+                                        </div>-->
                                         <label class="col-sm-2 custom-form-lebel-right">Customer Name</label>
                                         <div class="col-sm-2">
                                             <input v-model="advanceSearchPayload.customerName" type="text"
@@ -40,6 +40,14 @@
                                                    title="Please input at least 3 characters"
                                                    placeholder="Customer Name" id="customerName" name="customerName"/>
                                         </div>
+                                        <label class="col-sm-2 custom-form-lebel-right">Customer ID</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.customerId" type="text"
+                                                   class="form-control input-sm" pattern="|[\w]{3}"
+                                                   title="Please input at least 3 characters"
+                                                   placeholder="Customer Name" id="customerId" name="customerId"/>
+                                        </div>
+
                                     </div>
 
                                     <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
@@ -65,6 +73,13 @@
                                     </div>
 
                                     <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
+                                        <label class="col-sm-2 custom-form-lebel-right">Father's Name</label>
+                                        <div class="col-sm-2">
+                                            <input v-model="advanceSearchPayload.fatherName" type="text"
+                                                   class="form-control input-sm"
+                                                   placeholder="Father Name" id="fatherName" name="fatherName"/>
+                                        </div>
+
 
                                         <label class="col-sm-2 custom-form-lebel-right">DOB</label>
                                         <div class="col-sm-2">
@@ -89,13 +104,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group" style="padding: 0px;margin-bottom:-5px;">
-                                        <label class="col-sm-2 custom-form-lebel-right">Organization</label>
-                                        <div class="col-sm-2">
-                                            <input v-model="advanceSearchPayload.organization" type="text"
-                                                   class="form-control input-sm"
-                                                   placeholder="Organization Name" id="orgName" name="orgName"/>
-                                        </div>
+                                    <div class="form-group" style="padding: 0px;margin-top:-30px;">
 
                                         <label class="col-sm-2 custom-form-lebel-right">Link Acc.</label>
                                         <div class="col-sm-2">
@@ -112,26 +121,28 @@
                                     </div>
 
                                     <div class="form-group" style="padding: 0px;">
-                                        <label class="col-sm-2 custom-form-lebel-right">AutoDebit Acc</label>
+                                        <!--<label class="col-sm-2 custom-form-lebel-right">AutoDebit Acc</label>
                                         <div class="col-sm-2">
                                             <input v-model="advanceSearchPayload.autoDebit" type="text"
                                                    class="form-control input-sm"
                                                    placeholder="AutoDebit Acc"/>
-                                        </div>
-                                        <label class="col-sm-2 custom-form-lebel-right">Cls Flag</label>
+                                        </div>-->
+                                       <!-- <label class="col-sm-2 custom-form-lebel-right">Cls Flag</label>
                                         <div class="col-sm-2">
                                             <input v-model="advanceSearchPayload.clsFlag" type="text"
                                                    class="form-control input-sm"
                                                    placeholder="Cls Flag" name="dealerId"/>
                                         </div>
                                         <label class="col-sm-2 custom-form-lebel-right">Status</label>
-                                        <div class="col-sm-2">
+                                       --> <!--<div class="col-sm-2">
                                             <select v-model="advanceSearchPayload.status" class="form-control">
                                                 <option :value="''">Select status</option>
                                                 <option :value="'A'">Active</option>
                                                 <option :value="'L'">Liquidate</option>
                                             </select>
-                                            <!--<label>-->
+                                            </div>
+-->
+                                        <!--<label>-->
 
                                             <!--<input v-model="advanceSearchPayload.status" name="removelines"-->
                                             <!--type="radio" class="cheker" autocomplete="off" :value="'Active'">-->
@@ -143,7 +154,6 @@
                                             <!--type="radio" class="cheker" :value="'Inactive'">-->
                                             <!--Inactive-->
                                             <!--</label>-->
-                                        </div>
                                     </div>
 
                                 </form>
@@ -189,7 +199,7 @@
                                         <tr>
                                             <th>SL</th>
                                             <th>Account No</th>
-                                            <th>CIF</th>
+                                            <!--<th>CIF</th>-->
                                             <th>Account Name</th>
                                             <th>DOB</th>
                                             <th>Mobile</th>
@@ -197,11 +207,12 @@
                                             <th>Overdue</th>
                                             <th>Link/Proxy Acc.</th>
                                             <th>Mother name</th>
+                                            <th>Father name</th>
                                             <th>Email</th>
-                                            <th>A/C Status</th>
+                                            <!--<th>A/C Status</th>-->
                                             <th>NID</th>
-                                            <th>Home Phone</th>
-                                            <th>Work Phone</th>
+                                            <!--<th>Home Phone</th>
+                                            <th>Work Phone</th>-->
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -300,20 +311,21 @@
                                             return meta.row + meta.settings._iDisplayStart + 1;
                                         },
                                     },
-                                    {"data": "accountNo"},
-                                    {"data": "cifNo"},
+                                    {"data": "loanACNo"},
+                                    // {"data": "cifNo"},
                                     {"data": "customerName"},
                                     {"data": "dob"},
-                                    {"data": "mobileNo"},
-                                    {"data": "outstanding"},
+                                    {"data": "mobile"},
+                                    {"data": "totalOutstanding"},
                                     {"data": "overdue"},
-                                    {"data": "linkProxyAcc"},
-                                    {"data": "mothersName"},
+                                    {"data": "linkMotherAccountNo"},
+                                    {"data": "motherName"},
+                                    {"data": "fatherName"},
                                     {"data": "email"},
-                                    {"data": "acStatus"},
+                                    /*{"data": "acStatus"},*/
                                     {"data": "nid"},
-                                    {"data": "homePhone"},
-                                    {"data": "workPhone"}
+                                    /*{"data": "homePhone"},
+                                    {"data": "workPhone"}*/
                                 ],
                                 columnDefs: [
                                     {

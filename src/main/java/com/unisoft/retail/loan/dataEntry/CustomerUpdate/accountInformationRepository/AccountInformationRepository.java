@@ -39,14 +39,15 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT * " +
             "FROM ACCOUNT_INFORMATION_ENTITY " +
             "WHERE LOANACNO = ?1 " +
-            "   OR CUSTOMER_NAME = ?2 " +
-            "   OR MOTHER_NAME = ?3 " +
-            "   OR MOBILE = ?4 " +
-            "   OR NID = ?5 " +
-            "   OR DOB = ?6 " +
-            "   OR EMAIL = ?7 " +
-            "   OR LINK_MOTHER_ACCOUNT_NO = ?8 " +
-//            "   OR CUSTOMER_ID = ?9 " +
-            "   OR TIN = ?9", nativeQuery = true)
-    public List<AccountInformationEntity> advancedSearchDashboard(String accountNo, String customerName, String motherName, String mobileNo, String nid, String dob, String email, String linkAccount, String tin);
+            "   OR lower(CUSTOMER_NAME) like '%'||DECODE(?2, NULL, 'CUSTOMER_NAME', lower(?2))||'%' " +
+            "   OR lower(MOTHER_NAME) like '%'||DECODE(?3, NULL, 'MOTHER_NAME', lower(?3))||'%' " +
+            "   OR lower(FATHER_NAME) like '%'||DECODE(?4, NULL, 'FATHER_NAME', lower(?4))||'%' " +
+            "   OR MOBILE = ?5 " +
+            "   OR NID = ?6 " +
+            "   OR lower(DOB) = LOWER(TO_CHAR(TO_DATE(?7),'YYYY-MON-DD')) " +
+            "   OR EMAIL = ?8 " +
+            "   OR LINK_MOTHER_ACCOUNT_NO = ?9 " +
+            "   OR CUSTOMER_ID = ?10 " +
+            "   OR TIN = ?11", nativeQuery = true)
+    public List<AccountInformationEntity> advancedSearchDashboard(String accountNo, String customerName, String motherName, String fatherName, String mobileNo, String nid, String dob, String email, String linkAccount,String customerId, String tin);
 }
