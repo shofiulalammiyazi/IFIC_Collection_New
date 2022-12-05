@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountInformationService {
@@ -29,29 +30,36 @@ public class AccountInformationService {
 
     //@Scheduled("")
     public void getAccountInformationData(){
+
         List<AccountInformationDto> dataList = accountInformationDao.getData();
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
 
         for(AccountInformationDto dto:dataList ){
             AccountInformationEntity accountInformationEntity;
 
-            accountInformationEntity = accountInformationRepository.getByLoanACNo(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"");
+            accountInformationEntity = accountInformationRepository.findFirstByLoanACNo(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"");
 
 
             if (accountInformationEntity ==null){
                 accountInformationEntity = new AccountInformationEntity();
                 accountInformationEntity.setCreatedDate(new Date());
 
+                if (dto.getLoanACNo() !=null) {
+                    accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
+                }else {
+                    accountInformationEntity.setLoanACNo(dto.getLoanACNo());
+                }
+
             }else {
                 accountInformationEntity.setModifiedDate(new Date());
             }
 
-            if (dto.getLoanACNo() !=null) {
+           /* if (dto.getLoanACNo() !=null) {
                 accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
             }else {
                 accountInformationEntity.setLoanACNo(dto.getLoanACNo());
             }
-
+*/
             if (dto.getLastPaymentDate() !=null) {
                 accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
             }else {
@@ -111,12 +119,17 @@ public class AccountInformationService {
                 accountInformationEntity.setEmiAmount(dto.getEmiAmount());
             }
 
-            if (dto.getEmiDate() !=null) {
-                accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
-            }else {
-                accountInformationEntity.setEmiDate(dto.getEmiDate());
+            try{
+                if (dto.getEmiDate() !=null) {
+                    accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
+                }else {
+                    accountInformationEntity.setEmiDate(dto.getEmiDate());
+                }
+            }catch (Exception e){
+                System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getEmiDate());
             }
-           // accountInformationEntity.setLastPaymentAmount(resultSet.getString("OMNWR01"));
+
+            // accountInformationEntity.setLastPaymentAmount(resultSet.getString("OMNWR01"));
             if (dto.getProductType() !=null) {
                 accountInformationEntity.setProductType(dto.getProductType().trim());
             }else {
@@ -194,11 +207,16 @@ public class AccountInformationService {
             // accountInformationDto.setCustomerType(resultSet.getString(""));
             // accountInformationDto.setSpouse(resultSet.getString(""));
 
-            if (dto.getDob() !=null) {
-                accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
-            }else {
-                accountInformationEntity.setDob(dto.getDob());
+            try{
+                if (dto.getDob() !=null) {
+                    accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
+                }else {
+                    accountInformationEntity.setDob(dto.getDob());
+                }
+            }catch (Exception e){
+                System.out.println("loanacc = "+ dto.getLoanACNo() +"dob = "+ dto.getDob());
             }
+
 
             if (dto.getGender() !=null) {
                 accountInformationEntity.setGender(dto.getGender().trim());
@@ -230,16 +248,23 @@ public class AccountInformationService {
                 accountInformationEntity.setTin(dto.getTin());
             }
 
-            if (dto.getLoanACNo() !=null)
-            accountInformationEntities.add(accountInformationEntity);
+            if ((dto.getLoanACNo() !=null)){
+                accountInformationEntities.add(accountInformationEntity);
+            }
+
+            System.out.println("test "+dto.getLoanACNo());
+
 
             if(accountInformationEntities.size() == 1000){
                 accountInformationRepository.saveAll(accountInformationEntities);
+                System.out.println("innerlopp");
                 accountInformationEntities.clear();
             }
         }
 
         if(accountInformationEntities.size() > 0 && accountInformationEntities.size() < 1000){
+            System.out.println("outerloop");
+
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
