@@ -168,6 +168,8 @@ public class LoanDistributionService {
                 System.out.println("test");
                 distribution.setLoanAccountBasicInfo(loanAccountBasicInfo);
                 distribution.setLatest("1");
+                distribution.setWriteOffAccount("0");
+                distribution.setSamAccount("0");
                 distribution.setCreatedDate(new Date());
                 distribution.setCreatedBy(username);
                 distribution.setStatusDate(new Date());
