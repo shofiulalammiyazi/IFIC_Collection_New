@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService;
 
+import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
@@ -10,8 +11,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountInformationService {
@@ -27,29 +30,36 @@ public class AccountInformationService {
 
     //@Scheduled("")
     public void getAccountInformationData(){
+
         List<AccountInformationDto> dataList = accountInformationDao.getData();
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
 
         for(AccountInformationDto dto:dataList ){
             AccountInformationEntity accountInformationEntity;
 
-            accountInformationEntity = accountInformationRepository.getByLoanACNo(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"");
+            accountInformationEntity = accountInformationRepository.findFirstByLoanACNo(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"");
 
 
             if (accountInformationEntity ==null){
                 accountInformationEntity = new AccountInformationEntity();
                 accountInformationEntity.setCreatedDate(new Date());
 
+                if (dto.getLoanACNo() !=null) {
+                    accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
+                }else {
+                    accountInformationEntity.setLoanACNo(dto.getLoanACNo());
+                }
+
             }else {
                 accountInformationEntity.setModifiedDate(new Date());
             }
 
-            if (dto.getLoanACNo() !=null) {
+           /* if (dto.getLoanACNo() !=null) {
                 accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
             }else {
                 accountInformationEntity.setLoanACNo(dto.getLoanACNo());
             }
-
+*/
             if (dto.getLastPaymentDate() !=null) {
                 accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
             }else {
@@ -109,12 +119,17 @@ public class AccountInformationService {
                 accountInformationEntity.setEmiAmount(dto.getEmiAmount());
             }
 
-            if (dto.getEmiDate() !=null) {
-                accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
-            }else {
-                accountInformationEntity.setEmiDate(dto.getEmiDate());
+            try{
+                if (dto.getEmiDate() !=null) {
+                    accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
+                }else {
+                    accountInformationEntity.setEmiDate(dto.getEmiDate());
+                }
+            }catch (Exception e){
+                System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getEmiDate());
             }
-           // accountInformationEntity.setLastPaymentAmount(resultSet.getString("OMNWR01"));
+
+            // accountInformationEntity.setLastPaymentAmount(resultSet.getString("OMNWR01"));
             if (dto.getProductType() !=null) {
                 accountInformationEntity.setProductType(dto.getProductType().trim());
             }else {
@@ -192,11 +207,16 @@ public class AccountInformationService {
             // accountInformationDto.setCustomerType(resultSet.getString(""));
             // accountInformationDto.setSpouse(resultSet.getString(""));
 
-            if (dto.getDob() !=null) {
-                accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
-            }else {
-                accountInformationEntity.setDob(dto.getDob());
+            try{
+                if (dto.getDob() !=null) {
+                    accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
+                }else {
+                    accountInformationEntity.setDob(dto.getDob());
+                }
+            }catch (Exception e){
+                System.out.println("loanacc = "+ dto.getLoanACNo() +"dob = "+ dto.getDob());
             }
+
 
             if (dto.getGender() !=null) {
                 accountInformationEntity.setGender(dto.getGender().trim());
@@ -228,16 +248,23 @@ public class AccountInformationService {
                 accountInformationEntity.setTin(dto.getTin());
             }
 
-            if (dto.getLoanACNo() !=null)
-            accountInformationEntities.add(accountInformationEntity);
+            if ((dto.getLoanACNo() !=null)){
+                accountInformationEntities.add(accountInformationEntity);
+            }
+
+            System.out.println("test "+dto.getLoanACNo());
+
 
             if(accountInformationEntities.size() == 1000){
                 accountInformationRepository.saveAll(accountInformationEntities);
+                System.out.println("innerlopp");
                 accountInformationEntities.clear();
             }
         }
 
         if(accountInformationEntities.size() > 0 && accountInformationEntities.size() < 1000){
+            System.out.println("outerloop");
+
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
@@ -249,6 +276,31 @@ public class AccountInformationService {
 
     public AccountInformationEntity findAccountInformationByLoanAccountNo(String accountNumber) {
         return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
+    }
+
+    public List<AccountInformationEntity> advancedSearch(String accountNo, String cif, String customerName, String motherName, String mobileNo, String nid, String dob, String email, String passportNo, String organization, String linkAccount, String customerId, String autoDebit, String loanId, String clsFlag, String active){
+        if (!dob.isEmpty()) {
+            String []monthShortNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            String []date = dob.split("/");
+            for (int i = 0; i < monthShortNames.length; i++) {
+                if (monthShortNames[i].equals(date[1])) {
+                    int index = i + 1;
+                    if (index < 10) date[1] =  "0" + String.valueOf(i + 1);
+                    else date[1] = String.valueOf(i + 1);
+                    break;
+                }
+            }
+            dob = date[2]+"-"+date[1]+"-"+date[0];
+            System.out.println(date[0]);
+        }
+        return accountInformationRepository.advancedSearch(accountNo,customerName, motherName, mobileNo, nid, dob, email, linkAccount, customerId);
+//        advanceSearchPayload.getOrganization(), advanceSearchPayload.getAutoDebit(),advanceSearchPayload.getCif(), advanceSearchPayload.getClsFlag(),
+    }
+
+    public List<AccountInformationEntity> advancedSearch(AdvanceSearchPayload payload){
+        return accountInformationRepository.advancedSearchDashboard(payload.getAccountNo(), payload.getCustomerName(), payload.getMotherName(), payload.getFatherName(), payload.getMobile(),
+                payload.getNationalId(), payload.getDateOfBirth(), payload.getEmail(), payload.getLinkAccount(), payload.getCustomerId(), payload.getTin());
     }
 
 }

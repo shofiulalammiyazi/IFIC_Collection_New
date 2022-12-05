@@ -20,6 +20,8 @@ import com.unisoft.retail.loan.dashboard.esau.LoanPerformanceAndEsauTrendDataMod
 import com.unisoft.retail.loan.dashboard.esau.LoanPerformanceAndEsauTrendService;
 import com.unisoft.retail.loan.dashboard.kpi.LoanKpiTargetVsAchievement;
 import com.unisoft.retail.loan.dashboard.kpi.LoanKpiTargetVsAchievementSevrice;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.retail.loan.dataEntry.ptp.DealerWisePtpSummary;
 import com.unisoft.retail.loan.dataEntry.ptp.LoanPtpService;
 import com.unisoft.retail.loan.dataEntry.ptp.PtpStatusSummary;
@@ -52,6 +54,8 @@ public class RetailLoanDashboardController {
     private final LoanKpiTargetVsAchievementSevrice kpiTargetVsAchievementSevrice;
     private final LoanPerformanceAndEsauTrendService performanceAndEsauTrendService;
     private final DateUtils dateUtils;
+    @Autowired
+    private AccountInformationService accountInformationService;
     @Autowired
     private  EmployeeService employeeService;
     @Autowired
@@ -102,13 +106,14 @@ public class RetailLoanDashboardController {
     }
 
     @GetMapping(value = "advance-search")
-    public List<AdvanceSearchDataModel> getAdvenceSearchData(@RequestParam("payload") String payloadString) throws Exception {
+    public List<AccountInformationEntity> getAdvenceSearchData(@RequestParam("payload") String payloadString) throws Exception {
 
         payloadString = payloadString.replace("&quot;", "\"");
 
         AdvanceSearchPayload payload = new ObjectMapper().readValue(payloadString, AdvanceSearchPayload.class);
-
-        return retailLoanUcbApiService.getAdvanceSearchData(payload);
+        List<AccountInformationEntity> accountInformationEntity = accountInformationService.advancedSearch(payload);
+        return accountInformationEntity;
+//        return retailLoanUcbApiService.getAdvanceSearchData(payload);
     }
 
     @GetMapping(value = "dealer-wise-payment-summary")

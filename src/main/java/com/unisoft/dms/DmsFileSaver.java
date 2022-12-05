@@ -51,7 +51,7 @@ public class DmsFileSaver {
             Map<String, String> parameter = new HashMap<>();
             parameter.put(SessionParameter.USER, lDoc.getUsername());
             parameter.put(SessionParameter.PASSWORD, lDoc.getPassword());
-            parameter.put(SessionParameter.ATOMPUB_URL, "http://" + lDoc.getIp() + ":" + lDoc.getPort() + "/logicaldoc/service/cmis");
+            parameter.put(SessionParameter.ATOMPUB_URL, "http://" + lDoc.getIp() + ":" + lDoc.getPort() + "/service/cmis");
             parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
             List<Repository> repositories = sessionFactory.getRepositories(parameter);
             Repository repository = repositories.get(0);
@@ -59,6 +59,7 @@ public class DmsFileSaver {
             Session session = sessionFactory.createSession(parameter);
             return session;
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println(e.getMessage());
         }
         return null;

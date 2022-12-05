@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Generated SMS</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+
+                        <div class="box-header with-border" style="text-align: center">
+                            <h3 class="box-title">Generated SMS List</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div id="app" class="box-body">
+                            <table id="smstable1" name="datatable-responsive"
+                                   class="table table-striped table-bordered table-condensed" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>SMS Template Name</th>
+                                    <th>Massage</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="sms, index in generatedSMS">
+                                    <td>
+                                        <label>
+                                            <input :id="'sms-' + index" type="checkbox"
+                                                   class="mdl-checkbox__input" > <!--@click="getData(sms,index)"-->
+                                        </label>
+                                    </td>
+                                    <td>{{sms?.smsType.name}}</td>
+                                    <td>{{sms.massege}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs" @click="sendSms(sms, index+1)"
+                                                id="sendSms">send
+                                        </button>
+                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var generatedSMS = /*[[${generatedSMS}]]*/   [];
+                            /*]]>*/
+                        </script>
+
+                        <script>
+                            var sendSmsApp = new Vue({
+                                el: "#app",
+                                data: {
+                                    generatedSMS: [],
+                                    letterType:''
+                                },
+
+                                created: function () {
+                                    this.generatedSMS = generatedSMS ? generatedSMS : [];
+                                },
+
+                                methods: {
+                                    sendSms: function (sms, index) {
+
+                                        console.log(sms)
+
+                                        if (sms.smsType.name == "") {
+                                            alert("Select a letter type.")
+                                            return;
+                                        }
+
+                                        if (sms.mobileNo == "") {
+                                            alert("No phone no!, Please insert phone no.")
+                                            return;
+                                        }
+
+                                        var token = $("meta[name='_csrf']").attr("content");
+                                        var header = $("meta[name='_csrf_header']").attr("content");
+                                        $.ajax({
+                                            url:'/collection/smsToCustomer/send-sms?msisdn=' + sms.mobileNo + '&sms_string=' + sms.massege,
+                                            type: 'POST',
+                                            contentType: "application/json; charset=utf-8",
+                                            dataType   : "json",
+                                            beforeSend: function (xhr) {
+                                                xhr.setRequestHeader(header, token);
+                                            },
+                                            success: function (data) {
+                                                console.log(data)
+                                            },
+                                            error: function (err) {
+                                            }
+
+                                        });
+                                    },
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ public class AdvanceSearchPayload {
     private String accountNo = "";
     private String cif = ""; // customer id from client API
     private String customerName = "";
+    private String customerId = "";
     private String fatherName = "";
     private String motherName = "";
     private String mobile = "";
