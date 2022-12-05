@@ -1,22 +1,17 @@
 package com.unisoft.collection.settings.SMS.template;
 
-import com.unisoft.collection.distribution.loan.LoanController;
-import com.unisoft.collection.distribution.loan.LoanViewModelForSMS;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMSRepository;
 import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
 import com.unisoft.collection.settings.SMS.smsType.SMSRepository;
 import com.unisoft.collection.settings.SMS.smsType.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/collection/generator")
@@ -58,7 +53,7 @@ public class TemplateGenerateController {
 
     }
 
-    @GetMapping(value="/find-all")
+    @GetMapping(value="/list")
     public String findAllSms(Model model){
 
         List<TemplateGenerate>  generate = templateGenerateService.findAll();
@@ -98,9 +93,9 @@ public class TemplateGenerateController {
 
 
     //@GetMapping(value = "/generatesms")
-    @PostMapping("/generatesms")
+    @GetMapping("/generatesms")
     public String generatesms(@RequestParam(value = "accountNo") List<String> loanViewModelForSMS,
-                              @RequestParam(value = "smsType") Long smsType){
+                              @RequestParam(value = "smsType") Long smsType, Model model){
         String sms = "";
 
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
@@ -121,7 +116,7 @@ public class TemplateGenerateController {
         }
         generatedSMSRepository.saveAll(generatedSMS);
 
-        return "redirect:/collection/generator/generatedsmslist";
+        return generatedSmsList(model);//"redirect:/collection/generator/generatedsmslist";
     }
 
     @GetMapping("/generatedsmslist")
@@ -129,7 +124,7 @@ public class TemplateGenerateController {
 
         model.addAttribute("generatedSMS",generatedSMSRepository.findAll());
 
-        return "collection/settings/sms/generatedsms/generatedsms";
+        return "collection/settings/SMS/generatedsms/gensms";
     }
 
 

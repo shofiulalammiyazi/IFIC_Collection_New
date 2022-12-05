@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      lang="en"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="UTF-8">
@@ -71,8 +71,6 @@
                                 },
 
                                 methods: {
-                                    getData(loan,index) {
-                                    },
                                     sendSms: function (sms, index) {
 
                                         console.log(sms)
