@@ -93,7 +93,7 @@ public class SentSMSToCustomerController {
             con.setRequestMethod("POST");
             con.setRequestProperty("User‐Agent", "USER_AGENT");
             con.setRequestProperty("Accept‐Language", "en‐US,en;q=0.5");
-            String args = "user=IFICRECOVERY"+"&pass=88x@6R57"+"&sid=88x@6R57"+" &sms[0][0]=" + msisdn + "&sms[0][1]=" + sms_string + "&sms[0][2]="+UUID.randomUUID();
+            String args = "user=IFICRECOVERY"+"&pass=88x@6R57"+"&sid=88x@6R57"+"&sms[0][0]=" + msisdn + "&sms[0][1]=" + sms_string + "&sms[0][2]="+UUID.randomUUID();
 // Send post request
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
