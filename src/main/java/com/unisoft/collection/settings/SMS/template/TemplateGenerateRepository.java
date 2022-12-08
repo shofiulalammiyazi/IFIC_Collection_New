@@ -11,6 +11,9 @@ public interface TemplateGenerateRepository extends JpaRepository<TemplateGenera
     @Query(value = "SELECT TG.* FROM TEMPLATE_GENERATE TG WHERE TG.SMS_TYPE_ID = ?1", nativeQuery = true)
     TemplateGenerate findTemGenBySmsTypeId(Long id);
 
+    @Query(value = "SELECT TG.* FROM TEMPLATE_GENERATE TG WHERE TG.ID = ?1", nativeQuery = true)
+    TemplateGenerate findTempById(Long id);
+
     TemplateGenerate findBySmsType(SMSEntity smsEntity);
 }
 
