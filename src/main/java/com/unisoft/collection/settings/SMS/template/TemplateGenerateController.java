@@ -49,7 +49,7 @@ public class TemplateGenerateController {
     public String saveSMSGenerator(Model model, TemplateGenerate templateGenerate){
 
         templateGenerateService.saveGenerate(templateGenerate);
-        return "redirect:/collection/generator/find-all";
+        return "redirect:/collection/generator/list";
 
     }
 
@@ -64,7 +64,7 @@ public class TemplateGenerateController {
 
     @GetMapping("/edit")
     public String editGeneration(@RequestParam Long id, Model model){
-        TemplateGenerate templateGenerate = templateGenerateRepository.findTemGenBySmsTypeId(id);
+        TemplateGenerate templateGenerate = templateGenerateRepository.findTempById(id);
         model.addAttribute("templateGenerate", templateGenerate);
 
         List<SMSEntity> smsEntityList = smsService.findAll();
