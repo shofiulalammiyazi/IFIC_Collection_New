@@ -1,5 +1,6 @@
 package com.unisoft;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.unisoft.collection.dashboard.DashboardDao;
 import lombok.extern.slf4j.Slf4j;
 
