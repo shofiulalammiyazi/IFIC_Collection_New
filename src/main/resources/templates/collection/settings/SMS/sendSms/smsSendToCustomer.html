@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="card/layouts/main/main-layout">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8"/>
     <title>Send SMS Section</title>
 </head>
 <body>
@@ -171,158 +171,24 @@
                                         var header = $("meta[name='_csrf_header']").attr("content");
                                         $.ajax({
                                             url:"/collection/generator/generatesms?accountNo="+this.selectedList+"&smsType="+this.letterType,
-                                            type: 'POST',
-                                            contentType: "application/json; charset=utf-8",
-                                            dataType   : "json",
+                                            type: 'GET',
                                             beforeSend: function (xhr) {
                                                 xhr.setRequestHeader(header, token);
                                             },
-                                            success: function (data) {
-                                                console.log("vdxgdxvdx")
-                                                console.log(data)
+                                            success: function (response) {
+                                                console.log(response)
+                                                window.location.href = "/collection/generator/generatedsmslist";
                                             },
-                                            error: function (err) {
+                                            error: function (response) {
+                                                console.log(response)
                                             }
 
                                         });
                                     },
-                                    previewLetter() {
-                                        if(this.letterType=='retail_due_0-3' || this.letterType=='retail_due_4-6' || this.letterType=='retail_due_7' || this.letterType=='retail_due_8' || this.letterType=='retail_gurantor_letter' || this.letterType=='retail_repossession' || this.letterType=='retail_warning_letter' || this.letterType=='sme_due_0_6' || this.letterType=='sme_due_7_10' || this.letterType=='sme_due_11' || this.letterType=='sme_due_12' || this.letterType=='sme_gurantor_letter' || this.letterType=='sme_warning_letter' || this.letterType=='retail_brta_reject' || this.letterType=='retail_brta_allow'){
-                                            $('#retail_due_0_3').modal('show');
-                                        }else if(this.letterType=='retail_employee_assistance'){
-                                            $('#retail_employee_assistance').modal('show');
-                                        }
-
-                                        this.LettergenErrMsg = [];
-                                        if (!this.letterType.length) {
-                                            this.LettergenErrMsg.push('Select Letter Type');
-                                        }
-                                        if (!this.selectedList.length) {
-                                            this.LettergenErrMsg.push('Select at least one account');
-                                        }
-                                        this.LettergenErr = this.LettergenErrMsg.length;
-                                        this.generated = !this.LettergenErr;
-                                    },
-
-                                    generateLetter: function () {
-                                        if(this.selectedList.length == 0){
-                                            alert("Select a account.");
-                                            return;
-                                        }
-
-                                        if(!this.letterType){
-                                            alert("Select a letter type.")
-                                            return;
-                                        }
-                                        $('#form-generate-bulk').submit();
-                                    },
-                                    // changeGenerationType: function() {
-                                    //     this.generateViaExcel = !this.generateViaExcel;
-                                    // },
-                                    importViaExcel: function() {
-                                        let form = $('#import-excel');
-
-                                        $.ajax({
-                                            type: 'POST',
-                                            encType: form.prop('enctype'),
-                                            contentType: false,
-                                            processData: false,
-                                            url: form.prop('action'),
-                                            data: new FormData(form[0]),
-                                            dataType: 'JSON',
-                                            success: function (response) {
-                                                if(response.outcome == 'success'){
-
-                                                    letterApp.errors = [];
-                                                }
-                                                else{
-                                                    letterApp.errors = response.errors;
-                                                }
-                                            },
-                                            error: function () {
-                                                alert("failed")
-                                            }
-                                        })
-                                    },
                                     letterType: function(){
                                         this.letterTypeText = $('#letterType option[value="'+this.letterType+'"]').text();
-                                    },
-                                    sendSms: function (accountNo, index) {
-
-                                        console.log(smsApp.letterType)
-                                        smsApp.smsContent.accountNo =  smsApp.accountNoLList[index-1].accountNo;
-                                        let mobileNo = smsApp.mobileNo;
-                                        let letterType = smsApp.letterType;
-
-                                        if(!smsApp.letterType){
-                                            alert("Select a letter type.")
-                                            return;
-                                        }
-
-                                        if(!smsApp.mobileNo){
-                                            alert("No phone no!, Please insert phone no.")
-                                            return ;
-                                        }
-
-                                        let iframe = document.createElement('iframe')
-                                        let srcValue = '/collection/generate/sms/generate?account=' + accountNo + '&letterType='+ letterType +'&mobile='+mobileNo;
-                                        iframe.setAttribute('src', srcValue);
-                                        iframe.setAttribute('style', 'width: 100%; display: none;');
-
-                                        document.body.appendChild(iframe)
-
-                                        iframe.addEventListener('load', function (ev) {
-                                            let htmlText = $('iframe').contents().find('#letter-editor').html();
-
-                                            smsApp.smsContent.emailSubject = $('iframe').contents().find('#email-subject').text().split('Subject:').join('');
-                                            smsApp.smsContent.emailBody = htmlText;
-                                            smsApp.sendLetter = !smsApp.sendLetter;
-
-                                            $('iframe').remove();
-                                        })
-                                    },
-                                }
-                            });
-
-                            $('#dispatcherId1, #dispatcherId2').click(function () {
-
-                                var token = csrfToken;
-                                console.log(token)
-                                var header = $("meta[name='_csrf_header']").attr("content");
-
-                                var latterType = $('#letterType').val();
-                                var a = letterApp.selectedList;
-                                reId1 = letterApp.letterModel.dispatcherNumber;
-                                var refeId = 'CHO/CRMD/'+new Date().getFullYear()+'/'+ reId1;
-                                console.log(refeId);
-                                jsonArray = [];
-                                for (var i = 0; i<a.length; i++){
-                                    latter = {};
-
-                                    latter ["accountNo"] = a[i];
-                                    latter ["latterType"] = latterType;
-                                    latter ["referenceId"] = refeId;
-
-                                    jsonArray.push(latter);
-                                }
-                                json = JSON.stringify(jsonArray)
-
-                                url = "/collection/settings/issueletter/generated-letter";
-                                $.ajax({
-                                    type: "POST",
-                                    url: url,
-                                    data: json,
-                                    contentType: 'application/json',
-                                    dataType: 'json',
-                                    beforeSend: function (xhr) {xhr.setRequestHeader(header, token);
-                                    },
-                                    success: function (data) {
-                                        console.log('Successfull')
-                                    },
-                                    error: function (error) {
-                                        console.log(error);
                                     }
-                                });
+                                }
                             });
                         </script>
                     </div>

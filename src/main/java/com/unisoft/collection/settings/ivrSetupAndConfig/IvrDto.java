@@ -5,22 +5,22 @@ import lombok.Data;
 @Data
 public class IvrDto {
 
-    private String ivrAccId;
-    private String ivrAgentId;
+    private String account_id;
+    private String agent_id;
     private String dial;
     private String time;
     private String hash;
-    private String skillId;
+    private String skill_id;
 
-    public IvrDto(String ivrAccId, String ivrAgentId, String dial, String time, String hash, String skillId) {
-        this.ivrAccId = ivrAccId;
-        this.ivrAgentId = ivrAgentId;
+    public IvrDto() {
+    }
+
+    public IvrDto(String account_id, String agent_id, String dial, String time, String hash, String skill_id) {
+        this.account_id = account_id;
+        this.agent_id = agent_id;
         this.dial = dial;
         this.time = time;
         this.hash = hash;
-        this.skillId = skillId;
-    }
-
-    public IvrDto() {
+        this.skill_id = skill_id;
     }
 }

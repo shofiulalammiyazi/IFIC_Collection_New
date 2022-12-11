@@ -179,12 +179,14 @@
 
                 $('#callThroughApiLabelCallButton').click(function(){
                     var mobileNo = $("#val-mobile-no").text();
-                    alert(mobileNo)
                     $.ajax({
                         url: "/collection/settings/ivr-setup-Config/call?mobileNo="+mobileNo,
                         type: 'GET',
                         success: function(res){
-
+                            if(res == "200")
+                                swal("Call Success");
+                            else
+                                swal("Error Occurred!");
                         }
                     });
                 });

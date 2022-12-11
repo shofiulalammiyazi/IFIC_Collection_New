@@ -2,6 +2,9 @@ package com.unisoft.collection.settings.ivrSetupAndConfig;
 
 
 import com.google.gson.Gson;
+import com.unisoft.user.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,56 +21,50 @@ import java.util.Date;
 public class IVRService {
 
     private final String callUrl = "http://192.168.1.187/ccpro/click-to-call/?param=";
+    private final String shareKey = "46b7dc11c0c5292a753457881db298d2";
 
-    public void call(String callId) throws Exception {
+    @Autowired
+    private IVRRepository ivrRepository;
 
-        Gson gson = new Gson();
-        String accId = "234556";
-        String ageId = "2222";
-        String mobileNo = "+8801737829182";
+    public String call(String callId) throws Exception {
+
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Date date = new Date();
+        Gson gson = new Gson();
+
+        IvrEntity ivrEntity = ivrRepository.findByDealerPin(principal.getUsername());
+
+        String accId = ivrEntity.getIvrAccId();
+        String ageId = ivrEntity.getIvrAgentId();
         String time = String.valueOf(date.getTime());
-        String skillId = "";
-        String hashVal = this.getMD5Value(accId, ageId, mobileNo, date.getTime());
+        String skillId = ivrEntity.getSkillId();
+        String hashVal = this.MD5Encode(accId.concat(ageId).concat(callId).concat(time).concat(shareKey));
 
-        IvrDto ivrDto = new IvrDto(
-                accId,ageId,mobileNo,time,hashVal,skillId);
-
-        String requestString = Base64.getEncoder().encodeToString(gson.toJson(ivrDto).getBytes());
-
-        this.call(requestString);
+        return this.callUrl(Base64.getEncoder().encodeToString(gson.toJson(new IvrDto(accId, ageId, callId, time, hashVal, skillId)).getBytes()));
     }
 
-
-    private String getMD5Value(String accId, String ageId, String mobileNo, Long milis) throws NoSuchAlgorithmException {
-
-        String s = accId.concat(ageId).concat(mobileNo).concat(String.valueOf(milis));
-        System.out.println(s);
-
-        MessageDigest md = MessageDigest.getInstance("MD5");
-
-        byte[] message = md.digest(s.getBytes());
-
-        BigInteger no = new BigInteger(1, message);
-        String ss = no.toString(16);
-
-        System.out.println(ss.length());
-
-        while (ss.length() < 32) {
-            ss = "0" + ss;
+    private String MD5Encode(String sourceString) {
+        try {
+            byte[] bytesOfMessage = sourceString.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] md5 = md.digest(bytesOfMessage);
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < md5.length; i++) {
+                stringBuffer.append(Integer.toString((md5[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            return stringBuffer.toString();
         }
-
-        System.out.println(Base64.getEncoder().encodeToString(ss.getBytes()));
-
-        return Base64.getEncoder().encodeToString(ss.getBytes());
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String callUrl(String request) throws IOException {
-            URL url = new URL(callUrl+request);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            int res = httpURLConnection.getResponseCode();
-            System.out.println(res);
+        URL url = new URL(callUrl + request);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("GET");
+        int res = httpURLConnection.getResponseCode();
 
         return String.valueOf(res);
     }

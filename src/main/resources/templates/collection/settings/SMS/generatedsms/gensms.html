@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      lang="en"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="UTF-8">
@@ -71,11 +71,7 @@
                                 },
 
                                 methods: {
-                                    getData(loan,index) {
-                                    },
                                     sendSms: function (sms, index) {
-
-                                        console.log(sms)
 
                                         if (sms.smsType.name == "") {
                                             alert("Select a letter type.")
@@ -90,7 +86,7 @@
                                         var token = $("meta[name='_csrf']").attr("content");
                                         var header = $("meta[name='_csrf_header']").attr("content");
                                         $.ajax({
-                                            url:'/collection/smsToCustomer/send-sms?msisdn=' + sms.mobileNo + '&sms_string=' + sms.massege,
+                                            url:'/collection/smsToCustomer/send-sms?id=' + sms.id,
                                             type: 'POST',
                                             contentType: "application/json; charset=utf-8",
                                             dataType   : "json",
@@ -99,8 +95,16 @@
                                             },
                                             success: function (data) {
                                                 console.log(data)
+                                                if(data == "OK")
+                                                    swal("SMS Successfully Sent!");
+                                                else
+                                                    swal("SMS Sent Unsuccessful!");
                                             },
                                             error: function (err) {
+                                                if(err.responseText == "OK")
+                                                    swal("SMS Successfully Sent!");
+                                                else
+                                                    swal("SMS Sent Unsuccessful!");
                                             }
 
                                         });
