@@ -1,13 +1,19 @@
 package com.unisoft.collection.settings.SMS.sendSms;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.google.gson.Gson;
 import com.unisoft.collection.distribution.loan.LoanController;
-import com.unisoft.collection.distribution.loan.LoanViewModel;
 import com.unisoft.collection.settings.SMS.SMSDto;
+import com.unisoft.collection.settings.SMS.SmsLog;
+import com.unisoft.collection.settings.SMS.smslog.SMSLogDto;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMSRepository;
 import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
 import com.unisoft.collection.settings.SMS.smsType.SMSService;
+import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -15,17 +21,16 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.net.www.protocol.https.HttpsURLConnectionImpl;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -44,6 +49,12 @@ public class SentSMSToCustomerController {
 
     @Autowired
     private GeneratedSMSRepository generatedSMSRepository;
+
+    @Autowired
+    private SendSmsToCustomerService sendSmsToCustomerService;
+
+    @Autowired
+    private SMSLogRepository smsLogRepository;
 
     @Value("${ific.sms.api.username}")
     private String smsApiUsername;
@@ -87,16 +98,13 @@ public class SentSMSToCustomerController {
     @ResponseBody
     public String sendsmss(@RequestParam("id") Long id) {
         try {
-            //String url = "https://sms.sslwireless.com/pushapi/dynamic/server.php";
-//            String url = "http://192.168.1.94/sms.php";
-//            String userName = "IFICRECOVERY";
-//            String password = "88x@6R57";
-//            String sid = "IFICRECOVERYENG";
+
             Gson gson = new Gson();
 
             GeneratedSMS generatedSMS = generatedSMSRepository.getOne(id);
 
-            SMSDto smsDto = new SMSDto(generatedSMS.getMobileNo(), generatedSMS.getMassege(), smsApiUsername, smsApiPassword, smsApiSid, UUID.randomUUID().toString());
+            String tnxId =  UUID.randomUUID().toString();
+            SMSDto smsDto = new SMSDto(generatedSMS.getMobileNo(), generatedSMS.getMassege(), smsApiUsername, smsApiPassword, smsApiSid, tnxId);
 
             HttpClient httpClient = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(smsApiUrl);
@@ -107,12 +115,24 @@ public class SentSMSToCustomerController {
             post.setEntity(postingString);
             HttpResponse response = httpClient.execute(post);
             String jsonString = EntityUtils.toString(response.getEntity());
-            System.out.println(jsonString);
 
-            return jsonString;
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonString);
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+            String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+            SMSLogDto sms = mapper.readValue(jsonStr, SMSLogDto.class);
+
+            SmsLog smsLog = sendSmsToCustomerService.setValue(sms,tnxId);
+
+            smsLogRepository.save(smsLog);
+
+            return "OK";
         } catch (Exception ex) {
             ex.printStackTrace();
-            return ex.getMessage();
+            return "500";
         }
     }
 
