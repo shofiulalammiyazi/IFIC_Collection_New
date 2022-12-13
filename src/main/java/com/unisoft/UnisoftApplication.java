@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 @Slf4j
 @SpringBootApplication
+@EnableEncryptableProperties
 public class UnisoftApplication implements CommandLineRunner {
 
 
