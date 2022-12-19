@@ -79,7 +79,7 @@
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Contact No(Home) :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{accountInformation.contractNoHome}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{customerInfo.homePhone}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">Customer ID :</label>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Office Address :</label>
-                        <label class="col-sm-4 custom-form-lebel" id="officeAddress">{{"-"}}</label>
+                        <label class="col-sm-4 custom-form-lebel" id="officeAddress">{{accountInformation.address1+", "+accountInformation.address2+", "+accountInformation.address3+", "+accountInformation.address4 +" , "+accountInformation.address5}}</label>
                         <!--<label class="col-sm-4 custom-form-lebel" id="officeAddress">{{customerInfo.correspondenceAddress}}</label>-->
 
 
