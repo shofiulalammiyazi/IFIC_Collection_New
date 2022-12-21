@@ -60,10 +60,14 @@ public class AccountInformationService {
                 accountInformationEntity.setLoanACNo(dto.getLoanACNo());
             }
 */
-            if (dto.getLastPaymentDate() !=null) {
-                accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
-            }else {
-                accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
+            try {
+                if (dto.getLastPaymentDate() != null) {
+                    accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
+                } else {
+                    accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
+                }
+            }catch (Exception e){
+                System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getLastPaymentDate());
             }
 
             if (dto.getLastPaymentAmount() !=null) {
@@ -185,10 +189,14 @@ public class AccountInformationService {
                 accountInformationEntity.setProfessionSegment(dto.getProfessionSegment());
             }
 
-            if (dto.getExpiryDate() !=null) {
-                accountInformationEntity.setExpiryDate(dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()));
-            }else {
-                accountInformationEntity.setExpiryDate(dto.getExpiryDate());
+            try {
+                if (dto.getExpiryDate() != null) {
+                    accountInformationEntity.setExpiryDate(dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()));
+                } else {
+                    accountInformationEntity.setExpiryDate(dto.getExpiryDate());
+                }
+            }catch (Exception e){
+                System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getExpiryDate());
             }
 
             if (dto.getDisbursementAmount() !=null) {

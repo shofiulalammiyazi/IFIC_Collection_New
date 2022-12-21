@@ -41,7 +41,7 @@ public class AccountInformationDao {
 
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
                 accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
-                accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
+                //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
                 accountInformationDto.setSettlementLinkAccountBalance(resultSet.getString("SCBAL"));
                 accountInformationDto.setLinkMotherAccountNo(resultSet.getString("NEEAN01"));
                 accountInformationDto.setRoutingNo(resultSet.getString("BSBBRN"));
@@ -77,7 +77,7 @@ public class AccountInformationDao {
                 accountInformationDto.setFatherName(resultSet.getString("BGFNAM"));
                 accountInformationDto.setMotherName(resultSet.getString("BGMNAM"));
                 accountInformationDto.setNi(resultSet.getString("AAZIDN"));
-                accountInformationDto.setTin(resultSet.getString("BGTIN"));
+                accountInformationDto.setTin(resultSet.getString("AAZTIN"));
 
                 //new add
                 accountInformationDto.setContractNo(resultSet.getString("AAZBPHN"));
