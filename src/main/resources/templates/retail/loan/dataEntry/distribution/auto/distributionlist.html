@@ -44,24 +44,21 @@
                                                     <th class="text-center">Product Code</th>
                                                     <th class="text-center">Bucket</th>
                                                     <th class="text-center">Outstanding</th>
-                                                    <th class="text-center">Dealer</th>
-                                                    <th class="text-center">Dealer pin</th>
+
                                                     <th class="text-center">Agency</th>
                                                     <th class="text-center">Remarks</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
-                                                <tr th:each="loanAutoDistribution,index: ${list}">
+                                                <tr th:each="accountInformationList,index: ${list}">
                                                     <td class="text-left" th:text="${index?.count}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.accountNo}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.location}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.productCode}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.dpdBucket}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.outstanding}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.dealerName}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.dealerPin}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.agencyId}" ></td>
-                                                    <td class="text-left" th:text="${loanAutoDistribution?.remarks}" ></td>
+                                                    <td class="text-left" th:text="${accountInformationList?.loanACNo}" ></td>
+                                                    <td class="text-left" th:text="${accountInformationList?.location}" ></td>
+                                                    <td class="text-left" th:text="${accountInformationList?.productCode}" ></td>
+                                                    <td class="text-left" th:text="${accountInformationList?.dpd}" ></td>
+                                                    <td class="text-left" th:text="${accountInformationList?.totalOutstanding}" ></td>
+                                                    <td class="text-left"  >-</td>
+                                                    <td class="text-left"  >-</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -89,10 +86,10 @@
             </th:block>
             <script th:inline="javascript">
                 /*<![CDATA[*/
-                var loandistributionList  = [[${list}]];
+                var accountInformationList  = [[${list}]];
                 var reportTitle  = [[${reportTitle}]];
 
-                console.log(loandistributionList);
+
                 /*]]>*/
             </script>
 
@@ -100,12 +97,12 @@
                 loandistributionApp = new Vue({
                     el: '#loan-auto-distribution-list',
                     data: {
-                        loandistributionListData : loandistributionList,
+                        accountInformationListData : accountInformationList,
                         reportTitle: reportTitle,
                     },
                     updated: function () {
                         araExecutionTable.destroy();
-                        loanautodistribution = initTable("#loan-auto-distribution-list-table")
+                        accountInformationList = initTable("#loan-auto-distribution-list-table")
                     }
                 })
 
@@ -118,7 +115,7 @@
                 }
 
                 $(document).ready(function () {
-                    loanautodistribution = initTable("#loan-auto-distribution-list-table")
+                    accountInformationList = initTable("#loan-auto-distribution-list-table")
                 })
 
                 // $('body').delegate('.btn-generate-pdf', 'click', () => {
