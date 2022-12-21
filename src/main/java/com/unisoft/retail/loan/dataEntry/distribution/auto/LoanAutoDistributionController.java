@@ -4,6 +4,9 @@ import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,7 @@ public class LoanAutoDistributionController {
     private final EmployeeService employeeService;
     private final AgencyService agencyService;
     private final LoanAutoDistributionService autoDistributionService;
+    private final AccountInformationService accountInformationService;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -63,12 +67,15 @@ public class LoanAutoDistributionController {
     public String getTemporaryDistributionList(Model model) {
 
         List<LoanAutoDistributionDto> distributionSummary = service.getCurrentMonthAllocatedList();
+
+      List<AccountInformationEntity>  accountInformationEntities = accountInformationService.findAll();
 //        List<String> exceptionUnits = Arrays.asList("SAM", "Write Off", "Legal"); // Avoid employees from SAM, Legal or Write Off
 //        List<EmployeeInfoDto> dealerList = employeeService.findEmployeePinsByUnitAndDesignation(Arrays.asList("Dealer", "Supervisor"), "Loan", exceptionUnits);
 //
 //        List<AgencyEntity> agencyList = agencyService.getActiveList();
 
-        model.addAttribute("list", distributionSummary);
+     //   model.addAttribute("list", distributionSummary);
+        model.addAttribute("list", accountInformationEntities);
 //        model.addAttribute("employeeList", dealerList);
 //        model.addAttribute("agencyList", agencyList);
 

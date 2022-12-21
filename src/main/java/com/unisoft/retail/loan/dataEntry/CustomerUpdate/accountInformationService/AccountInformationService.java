@@ -429,6 +429,11 @@ public class AccountInformationService {
         return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
     }
 
+    public List<AccountInformationEntity> findAll(){
+
+        return accountInformationRepository.findAll();
+    }
+
     public List<AccountInformationEntity> advancedSearch(String accountNo, String cif, String customerName, String motherName, String mobileNo, String nid, String dob, String email, String passportNo, String organization, String linkAccount, String customerId, String autoDebit, String loanId, String clsFlag, String active){
         if (!dob.isEmpty()) {
             String []monthShortNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
