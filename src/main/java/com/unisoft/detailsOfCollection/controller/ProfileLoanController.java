@@ -9,6 +9,7 @@ import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.loansectorcode.SectorCodeEntity;
 import com.unisoft.collection.settings.loansectorcode.SectorCodeService;
 import com.unisoft.customerloanprofile.contactInfo.ContactInfoService;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.loanApi.model.LoanAccDetails;
 import com.unisoft.loanApi.model.LoanAccInfo;
 import com.unisoft.collection.datamigration.VechileRepository;
@@ -43,6 +44,8 @@ import com.unisoft.customerloanprofile.loanpayment.LoanPaymentRepository;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.retail.loan.dataEntry.ptp.LoanPtpRepository;
 import com.unisoft.customerloanprofile.referenceinfo.ReferenceInfoService;
 import com.unisoft.user.UserPrincipal;
@@ -141,10 +144,19 @@ public class ProfileLoanController {
     @Autowired
     private DeferredAccountService deferredAccountService;
 
+    @Autowired
+    private AccountInformationService accountInformationService;
+
+
+
     @GetMapping("/loan")
     public String profileLoanDetails(@RequestParam(value = "custid") Long custId,
-                                     @RequestParam(value = "loanid") Long loanId, Model model) {
+                                     @RequestParam(value = "loanid") Long loanId, Model model
+    ,@RequestParam(value = "branchMnemonic") String branchMnemonic,@RequestParam(value = "productCode") String productCode,@RequestParam(value = "dealReference") String dealReference) {
 
+        model.addAttribute("branchMnemonic",branchMnemonic);
+        model.addAttribute("productCode",productCode);
+        model.addAttribute("dealReference",dealReference);
 
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(user.getUsername());
@@ -331,10 +343,34 @@ public class ProfileLoanController {
     public String getLoanProfile(@RequestParam(value = "account") String accountNo,
                                  Model model, RedirectAttributes redirectAttributes) {
         log.info("search loan account basic info for account");
-        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
 
 
-        if (accountNo != null) {
+        List<AccountInformationEntity> accountInformationEntityList = accountInformationService.findAccountInformationEntityByLoanAccountNo(accountNo);
+
+        CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntityList.get(0));
+        LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
+
+
+       // LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
+
+        if (accountInformationEntityList.size() >1) {
+            model.addAttribute("loanList", accountInformationEntityList);
+
+            return "collection/search/loanList";
+        }else {
+             if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null) {
+                 return returnToSearchPage(redirectAttributes);
+             }
+             else {
+                 return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model,accountInformationEntityList.get(0).getBranchMnemonic(),
+                         accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
+             }
+
+        }
+
+
+
+      /*  if (accountNo != null) {
             List<CardAccountBasicInfo> cardList = cardBasicService.findAllByClientId(accountNo);
             List<CardAccountBasicInfo> cardList2 = cardBasicService.findAllByContractId(accountNo);
 
@@ -374,12 +410,26 @@ public class ProfileLoanController {
             }
 
         }
+*/
+
+    }
+
+    @GetMapping("/searchList")
+    public String getTest(@RequestParam(value = "account") String accountNo,
+                          Model model, RedirectAttributes redirectAttributes, @RequestParam(value = "branchMnemonic") String branchMnemonic,
+                          @RequestParam(value = "productCode") String productCode,@RequestParam(value = "dealReference") String dealReference){
+
+        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
+
+        model.addAttribute("branchMnemonic",branchMnemonic);
+        model.addAttribute("productCode",productCode);
+        model.addAttribute("dealReference",dealReference);
 
         if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null)
             return returnToSearchPage(redirectAttributes);
 //            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
         else
-            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
+            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model, branchMnemonic,productCode,dealReference);
 
     }
 
