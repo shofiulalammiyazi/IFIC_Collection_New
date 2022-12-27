@@ -181,7 +181,7 @@ public class LoanDistributionService {
         });
     }
 
-    private LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
+    public LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
         LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntity.getLoanACNo());
         LoanAccountBasicInfo basicInfo;
         if (loanAccountBasicInfo.getId() != null){
@@ -201,7 +201,7 @@ public class LoanDistributionService {
         return basicInfo;
     }
 
-    private CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
+    public CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
         CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntity.getLoanACNo());
         CustomerBasicInfoEntity basicInfoEntity;
         if (customerBasicInfoEntity != null){

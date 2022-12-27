@@ -37,7 +37,8 @@ public class AccountInformationService {
         for(AccountInformationDto dto:dataList ){
             AccountInformationEntity accountInformationEntity;
 
-            accountInformationEntity = accountInformationRepository.findFirstByLoanACNo(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"");
+            accountInformationEntity = accountInformationRepository.findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"",dto.getBranchMnemonic() !=null?dto.getBranchMnemonic().trim():"",
+                    dto.getProductCode() !=null?dto.getProductCode().trim():"",dto.getDealReference() !=null?dto.getDealReference().trim():"");
 
 
             if (accountInformationEntity ==null){
@@ -425,8 +426,17 @@ public class AccountInformationService {
         return accountInformationRepository.getByLoanAccountNo(accountNo);
     }
 
+    public AccountInformationEntity getAllAccountInformation(String accountNo, String branchMnemonic, String productCode, String dealReference) {
+        return accountInformationRepository.getAllByLoanAccountNo(accountNo,branchMnemonic,productCode,dealReference);
+    }
+
+
     public AccountInformationEntity findAccountInformationByLoanAccountNo(String accountNumber) {
         return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
+    }
+
+    public List<AccountInformationEntity> findAccountInformationEntityByLoanAccountNo(String accountNumber){
+        return accountInformationRepository.findAllByLoanACNo(accountNumber);
     }
 
     public List<AccountInformationEntity> findAll(){
