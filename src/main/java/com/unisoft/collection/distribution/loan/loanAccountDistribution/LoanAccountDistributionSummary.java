@@ -8,8 +8,8 @@ import java.util.Objects;
 /**
  * Summary model for Loan account details
  * <p>
- * Modified By
- * At 12 April 2021
+ * Modified By SHAHIN
+ * At 28 DEC 2020
  */
 @Data
 public class LoanAccountDistributionSummary {
@@ -56,6 +56,13 @@ public class LoanAccountDistributionSummary {
 
     private String allocationDate;
 
+
+    //new shahin
+
+    private String branchMnemonic;
+    private String dealReference;
+    private String productCode;
+
     public LoanAccountDistributionSummary() {
     }
 
@@ -81,5 +88,8 @@ public class LoanAccountDistributionSummary {
         branchName = Objects.toString(summary.get("branchName"), "-");
         riskCategory = Objects.toString(summary.get("riskCategory"), "-");
         allocationDate = Objects.toString(summary.get("allocationDate"), "-");
+        branchMnemonic = Objects.toString(summary.get("branchMnemonic"), "-");
+        dealReference = Objects.toString(summary.get("dealReference"), "-");
+        productCode = Objects.toString(summary.get("productCode"), "-");
     }
 }

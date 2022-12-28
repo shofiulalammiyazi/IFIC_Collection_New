@@ -198,4 +198,10 @@ public class LoanAccountDistributionInfo extends BaseInfo {
     public void setLastPaidAmount(Double lastPaidAmount) {
         this.lastPaidAmount = Optional.ofNullable(lastPaidAmount).orElse(0D);
     }
+
+    private String branchMnemonic;
+    private String productCode;
+    private String dealReference;
+    private String accountNo;
+
 }
