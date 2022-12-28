@@ -49,7 +49,7 @@
                             <!--<label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.accountStatus}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">Settlement/Link Account Balance :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="settlementAccountBalance">{{accountInformation.settlementLinkAccountBalance || "-"}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="settlementAccountBalance">{{numberToBdt((accountInformation.settlementLinkAccountBalance/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="settlementAccountBalance">{{loanAccDetails.sattlementAcBal}}</label>-->
 
                         </div>
@@ -99,7 +99,7 @@
 
 
                             <label class="col-sm-3 custom-details-lebel-left"> Disbursement Amount :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="disbursementAmount">{{accountInformation.disbursementAmount || "-"}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="disbursementAmount">{{numberToBdt(accountInformation.disbursementAmount/100)}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="disbursementAmount">{{loanAccInfo.disburseLoanAmount}}</label>-->
 
                         </div>
@@ -107,7 +107,7 @@
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left">Sanction Amount :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="sanctionAmount">{{numberToBdt(accountInformation.sanctionAmount || "0")}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="sanctionAmount">{{numberToBdt((accountInformation.sanctionAmount/100) || "0")}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left "> Disbursement Date :</label>
                             <label class="col-sm-3 custom-form-lebel" id="disburesmentDate">{{accountInformation.disbursementDate || "-"}}</label>
@@ -150,7 +150,7 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left"> Actual Tenor :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.actualTenor}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.actualTenor || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel">{{loanAccDetails.actualTenor}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">First Installment Default(FID) :</label>
@@ -164,7 +164,7 @@
                             <label class="col-sm-3 custom-form-lebel" >{{accountInformation.disbursementDate}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Latest Disbursement Amount :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.disbursementAmount}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation.disbursementAmount/100))}}</label>
                         </div>
 
 
@@ -174,7 +174,7 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Total Outstanding :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt(accountInformation.totalOutstanding)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt((accountInformation.totalOutstanding/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left ">Interest Rate :</label>
@@ -184,7 +184,7 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left "> Overdue :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt(accountInformation.overdue || "0")}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt((accountInformation.overdue/100) || "0")}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt(loanAccInfo.totalOverdue)}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left ">Total No. of Installment :</label>
@@ -195,7 +195,7 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">EMI Amount:</label>
-                            <label class="col-sm-3 custom-form-lebel" id="emiAmount">{{numberToBdt(accountInformation.emiAmount) || "-"}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="emiAmount">{{numberToBdt((accountInformation.emiAmount/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="emiAmount">{{numberToBdt(loanAccDetails.emiAmount)}}</label>-->
 
 
@@ -206,7 +206,7 @@
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left">EMI Date :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="nextDate">{{accountInformation.emiDate}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="nextDate">{{accountInformation.emiDate || "-"}}</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left">ATE :</label>
@@ -226,74 +226,74 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">DPD After Expiry Date :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.dpdAfterExpiryDate}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.dpdAfterExpiryDate || "-"}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Payment During the month :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="totalCurrentMonthPaid">{{numberToBdt(accountInformation.paymentDuringTheMonth)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="totalCurrentMonthPaid">{{numberToBdt((accountInformation.paymentDuringTheMonth/100))}}</label>
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Last Payment Amount:</label>
-                            <label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt(accountInformation.lastPaymentAmount)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt((accountInformation.lastPaymentAmount/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>-->
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Paid Amount in Last Month :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="lastMonthPaid">{{numberToBdt(accountInformation.paidAmountInLastMonth)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="lastMonthPaid">{{numberToBdt((accountInformation.paidAmountInLastMonth/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="lastMonthPaid">{{numberToBdt(loanAccDetails.amountPaidLastMnth)}}</label>-->
 
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Last Payment Date :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{accountInformation.lastPaymentDate}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{accountInformation.lastPaymentDate || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{loanAccStatement.valueDate | formatDate}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left"> No of Installment Due :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="noOfInstallmentDue">{{accountInformation.noOfInstallmentDue}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="noOfInstallmentDue">{{accountInformation.noOfInstallmentDue || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="noOfInstallmentDue">{{loanAccDetails.noOfIntallmentDue}}</label>-->
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">No of Installment Paid :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="noOfInstallmentPaid">{{accountInformation.noOfInstallmentPaid}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="noOfInstallmentPaid">{{accountInformation.noOfInstallmentPaid || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="noOfInstallmentPaid">{{loanAccDetails.noOfIntallmentPaid}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left ">Principle Paid :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="principlePaid">{{numberToBdt(accountInformation.principlePaid)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="principlePaid">{{numberToBdt((accountInformation.principlePaid/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="principlePaid">{{numberToBdt(loanAccStatement.totalPrinciple)}}</label>-->
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Interest Paid :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="interestPaid">{{numberToBdt(accountInformation.interestPaid)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="interestPaid">{{numberToBdt((accountInformation.interestPaid/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="interestPaid">{{numberToBdt(loanAccStatement.totalInterest)}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">Subsidy from BB COVID :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt(accountInformation?.subsidyFromBBCOVID)}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation?.subsidyFromBBCOVID/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel">{{numberToBdt(loanAccStatement?.totalSubsidyFromBbCovid)}}</label>-->
                         </div>
 
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left">Waiver of Interest :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt(accountInformation.waiverOfInterest)}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation.waiverOfInterest/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel">{{numberToBdt(loanAccStatement.totalWaivedInterest)}}</label>-->
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Total Enhancement Amount :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt(accountInformation.totalEnhancementAmount)}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation.totalEnhancementAmount/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel">{{numberToBdt(loanAccStatement.totalRolloverOfContract)}}</label>-->
                         </div>
 
                         <div class="form-group row csi-view-form-group">
 
                             <label class="col-sm-3 custom-details-lebel-left">Interest Suspense :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt(accountInformation.interestSuspense)}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation.interestSuspense/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel">{{numberToBdt(loanAccDetails.interestSuspence)}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">No. Overdue Installment :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.noOverdueInstallment}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.noOverdueInstallment || "-"}}</label>
 
                         </div>
 
@@ -305,12 +305,12 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left"> DST / Source Code :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="chanelCode">{{accountInformation.dstSourceCode}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="chanelCode">{{accountInformation.dstSourceCode || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="chanelCode">{{loanAccInfo.source}}</label>-->
 
 
                             <label class="col-sm-3 custom-details-lebel-left">RM Code: </label>
-                            <label class="col-sm-3 custom-form-lebel" id="rmCodeId" style="cursor: pointer; color: blue !important" data-toggle="modal" data-target="#modal-rm-code-info">{{accountInformation.rmCode}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="rmCodeId" style="cursor: pointer; color: blue !important" data-toggle="modal" data-target="#modal-rm-code-info">{{accountInformation.rmCode || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="rmCodeId" style="cursor: pointer; color: blue !important" data-toggle="modal" data-target="#modal-rm-code-info">{{loanAccInfo.rmCode}}</label>-->
 
 
@@ -318,11 +318,11 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Economic Purpose Code :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.economicPurposeCode}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.economicPurposeCode || "-"}}</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Economic Purpose Name :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="economicPurposeSectorCode">{{accountInformation.economicPurposeName}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="economicPurposeSectorCode">{{accountInformation.economicPurposeName || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="economicPurposeSectorCode">{{loanAccInfo.ecoPurposeName}}</label>-->
                          </div>
 
@@ -333,27 +333,27 @@
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Sector Name :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="bankSectorCode">{{accountInformation.sectorName}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="bankSectorCode">{{accountInformation.sectorName || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="bankSectorCode">{{customerInfo.secDesc}}</label>-->
 
                         </div>
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Industry Scale ID :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.industryScaleID}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.industryScaleID || "-"}}</label>
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Security Code :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.securityCode}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.securityCode || "-"}}</label>
 
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">SME Code/ Industry Scale ID :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="smeCode">{{accountInformation.smeCodeIndustryScaleID}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="smeCode">{{accountInformation.smeCodeIndustryScaleID || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="smeCode">{{customerInfo.smeCode}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">SME Desc :</label>
-                            <label class="col-sm-3 custom-form-lebel" >{{accountInformation.smeDesc}}</label>
+                            <label class="col-sm-3 custom-form-lebel" >{{accountInformation.smeDesc || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" >{{customerInfo.smeDesc}}</label>-->
 
                         </div>
@@ -364,7 +364,7 @@
                             <!--<label class="col-sm-3 custom-form-lebel" id="creditRating">{{customerInfo.creditRating}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left"> Location :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="location">{{accountInformation.location}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="location">{{accountInformation.location || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="location">{{customerInfo.location}}</label>-->
                         </div>
 
@@ -383,32 +383,32 @@
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left ">Total Amount Paid :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="totalPaidAmount">{{numberToBdt(accountInformation.totalAmountPaid)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="totalPaidAmount">{{numberToBdt((accountInformation.totalAmountPaid/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="totalPaidAmount">{{numberToBdt(loanAccStatement.totalCustomerPaid)}}</label>-->
 
 
                             <label class="col-sm-3 custom-details-lebel-left">Penal Charge :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="penalCharge">{{numberToBdt(accountInformation.penalCharge)}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="penalCharge">{{numberToBdt((accountInformation.penalCharge/100))}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="penalCharge">{{numberToBdt(loanAccSchedule.penalCharge)}}</label>-->
 
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Nature of business :</label>
-                            <label class="col-sm-3 custom-form-lebel" id="natureOfBusiness">{{accountInformation.natureOfBusiness}}</label>
+                            <label class="col-sm-3 custom-form-lebel" id="natureOfBusiness">{{accountInformation.natureOfBusiness || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" id="natureOfBusiness">{{loanAccDetails.sectDesc}}</label>-->
 
                             <label class="col-sm-3 custom-details-lebel-left">Mortgage/RIGPA Deferral Status :</label>
-                            <label class="col-sm-3 custom-form-lebel" >{{accountInformation.mortgageRIGPADeferralStatus}}</label>
+                            <label class="col-sm-3 custom-form-lebel" >{{accountInformation.mortgageRIGPADeferralStatus || "-"}}</label>
                             <!--<label class="col-sm-3 custom-form-lebel" >{{ deferredAccount !==null?deferredAccount.status : ''}}</label>-->
                         </div>
 
                         <div class="form-group row csi-view-form-group">
                             <label class="col-sm-3 custom-details-lebel-left">Rental Payment of Mortgage property(year) :</label>
-                            <label class="col-sm-3 custom-form-lebel">{{accountInformation.rentalPaymentOfMortgagePropertyYear}}</label>
+                            <label class="col-sm-3 custom-form-lebel">{{numberToBdt((accountInformation.rentalPaymentOfMortgagePropertyYear/100))}}</label>
 
                             <label class="col-sm-3 custom-details-lebel-left">Mortgaged amount :</label>
-                            <label class="col-sm-3 custom-form-lebel" >{{accountInformation.mortgagedAmount}}</label>
+                            <label class="col-sm-3 custom-form-lebel" >{{numberToBdt((accountInformation.mortgagedAmount/100))}}</label>
                         </div>
                     </div>
                 </div>

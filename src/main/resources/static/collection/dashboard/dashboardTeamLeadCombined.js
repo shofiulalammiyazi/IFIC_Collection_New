@@ -67,6 +67,9 @@ $(document).ready(function () {
                             + '<td><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" href="/profile/loanprofile/search?account=' + data.accountNo + '">' + data.accountNo + '</a></td>'
                            /* + '<td>'+data.customerName+'</td>'*/
                             + '<td><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" >' +data.customerName + '</a></td>'
+                                + '<td class="text-right">' + data.branchMnemonic + '</td>'
+                                + '<td class="text-right">' + data.dealReference + '</td>'
+                                + '<td class="text-right">' + data.productCode + '</td>'
                             + '<td class="text-left">' + data.productShortName + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfContact) + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfRightPartyContact) + '</td>'
@@ -198,7 +201,8 @@ $(document).ready(function () {
                     // Table scarch Edit  by Abdullah
                     $('#account-details-tbl thead th').each(function(i) {
                         var title = $(this).text();
-                        if(title == 'Account No' || title=='Customer Name' || title=='Product Short Name'
+                        if(title == 'Account No' || title=='Customer Name' || title=='Branch Mnemonic' ||
+                            title=='Product Code' || title=='Deal Reference' || title=='Product Short Name'
                             || title=='No. of Attempt' || title=='Right party'
                             || title=='Guarantor / Third party' || title=='Taken'
                             || title=='Broken' || title=='Kept' || title == 'DPD' || title == 'CL Status'

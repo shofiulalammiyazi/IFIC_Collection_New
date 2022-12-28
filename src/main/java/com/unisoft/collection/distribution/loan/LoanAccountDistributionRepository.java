@@ -84,8 +84,8 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
      * Account wise summary for dealer dashboard.
      * Provides details for PTP, Follow Up and other account and customer related information.
      * <p>
-     * Completed by
-     * At 12 April 2021
+     * Completed by SHAHIN
+     * At 28 DEC 2022
      *
      * @param dealerPin
      * @return List of Tuples consisting account summary
@@ -93,6 +93,9 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     @Query(value = "" +
             "SELECT DISTINCT LABI.ACCOUNT_NO                                                 AS accountNo, " +
             "                CBIE.CUSTOMER_NAME                                              AS customerName, " +
+            "                LADI.BRANCH_MNEMONIC                                              AS branchMnemonic, " +
+            "                LADI.PRODUCT_CODE                                              AS dealReference, " +
+            "                LADI.DEAL_REFERENCE                                              AS productCode, " +
             "                COALESCE(CI.TOTAL_CONTACT, 0)                                   AS numberOfContact, " +
             "                COALESCE(CI.RIGHT_PARTY_COUNT, 0)                               AS numberOfRightPartyContact, " +
             "                COALESCE(CI.OTHER_PARTY_COUNT, 0)                               AS numberOfGuarantorOrThirdPartyContact, " +
@@ -259,4 +262,5 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByCreatedDateAndLatest(@Param("startDate") String startDate,@Param("endDate") String endDate);
 
 
+    LoanAccountDistributionInfo findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(String branchMnemonic, String productCode, String dealReference, String latest);
 }
