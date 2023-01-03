@@ -11,6 +11,8 @@ import com.unisoft.collection.settings.SMS.generate.GeneratedSMSRepository;
 import com.unisoft.collection.settings.SMS.smslog.SMSLogDto;
 import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
 import com.unisoft.collection.settings.SMS.smslog.SmsLog;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -36,6 +38,9 @@ public class SendSmsToCustomerService {
 
     @Autowired
     private GeneratedSMSRepository generatedSMSRepository;
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
 
     @Autowired
     private SMSLogRepository smsLogRepository;
@@ -101,7 +106,10 @@ public class SendSmsToCustomerService {
                 String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
                 SMSLogDto sms = mapper.readValue(jsonStr, SMSLogDto.class);
 
+                AccountInformationEntity accountInformationEntity = accountInformationRepository.getOne(generatedSMSes.get(i).getId());
+                accountInformationEntity.setIsSmsSent("Y");
 
+                accountInformationRepository.save(accountInformationEntity);
 
                 SmsLog smsLog = this.setValue(sms,tnxId);
 
