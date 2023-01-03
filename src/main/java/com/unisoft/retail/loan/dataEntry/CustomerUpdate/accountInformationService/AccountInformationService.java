@@ -480,7 +480,7 @@ public class AccountInformationService {
         if (accountNo != null && accountNo != ""){
             allProducts = accountInformationRepository.findAllByLoanACNo(accountNo, pageElements);
         }else {
-            allProducts = accountInformationRepository.findAll(pageElements);
+            allProducts = accountInformationRepository.findAllAcc(pageElements);
         }
         return ResponseEntity.ok(allProducts);
     }
