@@ -177,7 +177,7 @@ public class LoanAccountDistributionService {
         return repository.findLoanAccountDistributionInfosByCreatedDateAndLatest(simpleDateFormat.format(startDate), simpleDateFormat.format(endDate));
     }
 
-    public LoanAccountDistributionInfo findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(String branchMnemonic,String productCode, String dealReference, String latest){
-        return repository.findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(branchMnemonic,productCode,dealReference,latest);
+    public LoanAccountDistributionInfo findLoanAccountDistributionInfoByAccountNo(String accountNo, String latest){
+        return repository.findByAccountNoAndLatest(accountNo,latest);
     }
 }

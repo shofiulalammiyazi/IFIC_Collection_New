@@ -70,6 +70,7 @@
         var branchMnemonic = [[${branchMnemonic}]];
         var productCode = [[${productCode}]];
         var dealReference = [[${dealReference}]];
+        var loanConcatNumber = [[${loanConcatNumber}]];
 
         // Todo: Adjusted previous code without testing. Need to debug all the functions in this script
 
@@ -147,12 +148,13 @@
                 customerIdGlobal: '',
                 branchMnemonic:branchMnemonic,
                 productCode:productCode,
-                dealReference:dealReference
+                dealReference:dealReference,
+                loanConcatNumber:loanConcatNumber
             },
             created: function () {
 
                 this.setAccountNumber();
-                this.getAccountInformationEntity(accountNo,branchMnemonic,productCode,dealReference);
+                this.getAccountInformationEntity(loanConcatNumber);
                 this.setAccountDistributionInfo();
                 this.setInitialValues();
                 // this.getCustomerProfileViewModel(this.accountNo);
@@ -198,14 +200,10 @@
                 },
             },
             methods: {
-                getAccountInformationEntity: function(accountNo,branchMnemonic,productCode,dealReference){
+                getAccountInformationEntity: function(accountNo){
 
-                    let path = "";
-                    if (branchMnemonic ==null && productCode ==null && dealReference==null){
-                        path = "/account-information/get-by-account-no?accountNo="+ accountNo;
-                    }else {
-                        path = "/account-information/get-by-account-no-all?accountNo="+ accountNo+"&branchMnemonic="+branchMnemonic+"&productCode="+productCode+"&dealReference="+dealReference;
-                    }
+                    let   path = "/account-information/get-by-account-no?accountNo="+ accountNo;
+
 
                     $.ajax({
                         url: path,

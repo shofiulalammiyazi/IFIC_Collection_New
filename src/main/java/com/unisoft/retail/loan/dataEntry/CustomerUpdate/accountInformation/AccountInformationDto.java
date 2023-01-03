@@ -118,8 +118,6 @@ public class AccountInformationDto {
     private String dealAcSuffix;
     private String uniqueDealLoan;
 
-
-
-
+    private String loanAccountNew;
 
 }

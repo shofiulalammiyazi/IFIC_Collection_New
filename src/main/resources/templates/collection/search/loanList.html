@@ -27,10 +27,7 @@
             <tr th:each="loan, index : ${loanList}" >
                 <td scope="row" class="text-center" th:text="${index?.count}"></td>
                 <td scope="row" class="text-center" th:text="${loan?.customerName}"></td>
-                <td scope="row" class="text-center">
-                    <a th:href="@{'/profile/searchList?account=' + ${loan?.loanACNo}+'&branchMnemonic='+${loan.branchMnemonic}+'&productCode='+${loan.productCode}+'&dealReference='+${loan.dealReference}}"
-                       th:text="${loan.loanACNo}"></a>
-                </td>
+                <td scope="row" class="text-center"><a th:href="@{'/profile/searchList?account='+${loan?.loanAccountNew}}" th:text="${loan?.loanACNo}"></a></td>
                 <td scope="row" class="text-center" th:text="${loan?.branchMnemonic}"></td>
                 <td scope="row" class="text-center" th:text="${loan?.productCode}"></td>
 
@@ -38,6 +35,8 @@
             </tr>
             </tbody>
         </table>
+        <!--<a th:href="@{'/profile/searchList?account=' + ${loan?.loanACNo}+'&branchMnemonic='+${loan.branchMnemonic}+'&productCode='+${loan.productCode}+'&dealReference='+${loan.dealReference}}"
+                       th:text="${loan.loanACNo}"></a>-->
         <!-- /.content -->
     </div>
 </div>

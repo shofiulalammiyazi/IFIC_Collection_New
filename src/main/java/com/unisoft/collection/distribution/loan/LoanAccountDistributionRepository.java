@@ -91,7 +91,7 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
      * @return List of Tuples consisting account summary
      */
     @Query(value = "" +
-            "SELECT DISTINCT LABI.ACCOUNT_NO                                                 AS accountNo, " +
+            "SELECT DISTINCT SUBSTR(LABI.ACCOUNT_NO,0,13)                                                 AS accountNo, " +
             "                CBIE.CUSTOMER_NAME                                              AS customerName, " +
             "                LADI.BRANCH_MNEMONIC                                              AS branchMnemonic, " +
             "                LADI.PRODUCT_CODE                                              AS dealReference, " +
@@ -262,5 +262,5 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByCreatedDateAndLatest(@Param("startDate") String startDate,@Param("endDate") String endDate);
 
 
-    LoanAccountDistributionInfo findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(String branchMnemonic, String productCode, String dealReference, String latest);
+    LoanAccountDistributionInfo findByAccountNoAndLatest(String accountNo, String latest);
 }
