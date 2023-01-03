@@ -4,6 +4,8 @@ import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.loanApi.model.AdvanceSearchDataModel;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -59,4 +61,8 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
 
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1%", nativeQuery = true)
+    public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
+
 }
