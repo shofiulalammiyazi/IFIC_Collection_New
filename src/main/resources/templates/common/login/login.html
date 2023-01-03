@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div th:if="${session.isLate}" style="text-align: center; width: 100%;">
+                <div th:if="${session.isLate}" style=" text-align: center; width: 100%;">
                     <div class="alert alert-info">
                         Please select a late reason.
                     </div>
@@ -114,6 +114,7 @@
 
                 <div class="form-group">
                     <select id="reasonselected" name="module" class="form-control">
+                        <option value="">Select a Late Reason</option>
                         <option th:each="reason :${latereasonList}" th:value="${reason.id}"
                                 th:text="${reason.reasonTitle}">NA
                         </option>

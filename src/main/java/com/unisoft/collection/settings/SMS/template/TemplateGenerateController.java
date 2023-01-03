@@ -6,12 +6,16 @@ import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
 import com.unisoft.collection.settings.SMS.smsType.SMSRepository;
 import com.unisoft.collection.settings.SMS.smsType.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/collection/generator")
@@ -127,5 +131,13 @@ public class TemplateGenerateController {
         return "collection/settings/SMS/generatedsms/gensms";
     }
 
+    @GetMapping("/byId")
+    public ResponseEntity<Map<String,Object>> getById(@RequestParam(value = "id") Long id){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",templateGenerateRepository.findTemGenBySmsTypeId(id).getMassege());
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
 }
