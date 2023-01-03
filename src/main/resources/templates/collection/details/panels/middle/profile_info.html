@@ -18,7 +18,7 @@
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Account Title :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="customerName">{{accountInformation.customerName}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="customerName">{{accountInformation.customerName || "-"}}</label>
 
                         <!--<label class="col-sm-3 custom-details-lebel-left">Account Name :</label>
                         <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.accountName}}</label>-->
@@ -28,13 +28,13 @@
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Borrower's Name :</label>
                         <label class="col-sm-3 custom-form-lebel"
-                               id="companyName">{{accountInformation.borrowersName}}</label>
+                               id="companyName">{{accountInformation.borrowersName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel"-->
                                <!--id="companyName">{{customerInfo.proprietorName}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left"> Profession :</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="occupation">{{customerInfo.employer}}</label>-->
-                        <label class="col-sm-3 custom-form-lebel" id="occupation">{{accountInformation.profession}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="occupation">{{accountInformation.profession || "-"}}</label>
 
                     </div>
 
@@ -43,7 +43,7 @@
 
                         <!--<label class="col-sm-4 custom-form-lebel" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>-->
                         <label class="col-sm-4 custom-form-lebel" id="contactNoMobile">
-                            <span id="val-mobile-no">{{accountInformation.mobile}}</span>
+                            <span id="val-mobile-no">{{accountInformation.mobile || "-"}}</span>
                             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#callThroughApi">Call</button>
                         </label>
                         <!--<div class="col-sm-2">-->
@@ -93,7 +93,7 @@
                         <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{getCoApplicantNames}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">Customer Liability Number :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{accountInformation.branchMnemonic+""+accountInformation.productCode+""+accountInformation.dealReference}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{loanAccDetails.liabilityNo}}</label>-->
 
                     </div>
@@ -115,7 +115,7 @@
                         <div class="col-sm-2">
                             <button  v-if="additionalInfo.homeAddress && !showHomeAddress" @click="showHomeAddress=true">Additional Info</button>
                         </div>
-                        <label class="col-sm-4 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress}}</label>
+                        <label class="col-sm-4 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress || "-"}}</label>
 
                     </div>
                     <div class="form-group row csi-view-form-group">
@@ -151,12 +151,12 @@
                     </div>
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Date of Birth :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{accountInformation.dob}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{accountInformation.dob || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{customerInfo.dateOfBirth}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">Profession Segment :</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{accountInformation.professionSegment != null?accountInformation.professionSegment:""}}</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{professionSegment !==null?professionSegment.groupName:""}}</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{accountInformation.professionSegment != null?accountInformation.professionSegment:"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{professionSegment !==null?professionSegment.groupName:"-"}}</label>
 
 
                     </div>
