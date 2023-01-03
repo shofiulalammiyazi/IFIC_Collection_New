@@ -7,6 +7,10 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationReposi
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.unisoft.retail.loan.dataEntry.distribution.auto.Datatable;
 
 @Service
 public class AccountInformationService {
@@ -440,7 +446,6 @@ public class AccountInformationService {
     }
 
     public List<AccountInformationEntity> findAll(){
-
         return accountInformationRepository.findAll();
     }
 
@@ -467,6 +472,17 @@ public class AccountInformationService {
     public List<AccountInformationEntity> advancedSearch(AdvanceSearchPayload payload){
         return accountInformationRepository.advancedSearchDashboard(payload.getAccountNo(), payload.getCustomerName(), payload.getMotherName(), payload.getFatherName(), payload.getMobile(),
                 payload.getNationalId(), payload.getDateOfBirth(), payload.getEmail(), payload.getLinkAccount(), payload.getCustomerId(), payload.getTin());
+    }
+
+    public ResponseEntity findAllAndPagination(int page, int length, String accountNo){
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInformationEntity> allProducts;
+        if (accountNo != null && accountNo != ""){
+            allProducts = accountInformationRepository.findAllByLoanACNo(accountNo, pageElements);
+        }else {
+            allProducts = accountInformationRepository.findAll(pageElements);
+        }
+        return ResponseEntity.ok(allProducts);
     }
 
 }
