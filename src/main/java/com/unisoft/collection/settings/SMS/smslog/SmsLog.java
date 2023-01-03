@@ -1,5 +1,6 @@
-package com.unisoft.collection.settings.SMS;
+package com.unisoft.collection.settings.SMS.smslog;
 
+import com.unisoft.base.BaseInfo;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class SmsLog {
+public class SmsLog extends BaseInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
