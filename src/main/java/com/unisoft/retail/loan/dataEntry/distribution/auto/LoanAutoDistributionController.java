@@ -66,22 +66,24 @@ public class LoanAutoDistributionController {
     @GetMapping("list")
     public String getTemporaryDistributionList(Model model) {
 
-        List<LoanAutoDistributionDto> distributionSummary = service.getCurrentMonthAllocatedList();
+//        List<LoanAutoDistributionDto> distributionSummary = service.getCurrentMonthAllocatedList();
 
-      List<AccountInformationEntity>  accountInformationEntities = accountInformationService.findAll();
+//      List<AccountInformationEntity>  accountInformationEntities = accountInformationService.findAllAndPagination();
 //        List<String> exceptionUnits = Arrays.asList("SAM", "Write Off", "Legal"); // Avoid employees from SAM, Legal or Write Off
 //        List<EmployeeInfoDto> dealerList = employeeService.findEmployeePinsByUnitAndDesignation(Arrays.asList("Dealer", "Supervisor"), "Loan", exceptionUnits);
 //
 //        List<AgencyEntity> agencyList = agencyService.getActiveList();
 
      //   model.addAttribute("list", distributionSummary);
-        model.addAttribute("list", accountInformationEntities);
+//        model.addAttribute("list", accountInformationEntities);
 //        model.addAttribute("employeeList", dealerList);
 //        model.addAttribute("agencyList", agencyList);
 
 //        return "retail/loan/dataEntry/distribution/auto/list";
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
     }
+
+
 
     @GetMapping("redistribute")
     public String redistributeDelinquentAccounts() {

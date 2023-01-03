@@ -20,12 +20,22 @@ import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
 import com.unisoft.loanApi.model.CustomerInfo;
 import com.unisoft.loanApi.model.LoanAccDetails;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.utillity.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.IIOException;
 import javax.persistence.Tuple;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -202,6 +212,43 @@ public class LoanAutoDistributionServiceImpl extends CommonServiceImpl<LoanAutoD
    * */
     private int getArrayFlipRotationIndex(int index, int totalElements) {
         return (index / totalElements) % 2 == 0 ? index % totalElements : totalElements - index % totalElements - 1;
+    }
+
+    public Map<String, Object> saveDistributionExcel(List<AccountInformationEntity> dataToBeInExcel) throws IOException {
+        Map<String, Object> y = new HashMap<String, Object>();
+        //create blank workbook
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        //Create a blank sheet
+        XSSFSheet sheet = workbook.createSheet("Loan Distribution");
+        //Iterate over data and write to sheet
+        int rownum = 0;
+        for (AccountInformationEntity accountInformationEntity : dataToBeInExcel)
+        {
+            Row row = sheet.createRow(rownum++);
+            int cellnum = 0;
+            Cell cell = row.createCell(cellnum++);
+            cell.setCellValue((String)accountInformationEntity.getLoanACNo());
+            cell.setCellValue((String)accountInformationEntity.getBranchName());
+            cell.setCellValue((String)accountInformationEntity.getProductCode());
+            cell.setCellValue((String)accountInformationEntity.getDealReference());
+            cell.setCellValue((String)accountInformationEntity.getTotalOutstanding());
+        }
+        try
+        {
+            //Write the workbook in file system
+            FileOutputStream out = new FileOutputStream(new File("CountriesDetails.xlsx"));
+            workbook.write(out);
+            out.close();
+            System.out.println("CountriesDetails.xlsx has been created successfully");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            workbook.close();
+        }
+        return y;
     }
 
 //
