@@ -156,8 +156,7 @@ public class LoanDistributionService {
         List<LoanAccountDistributionInfo> list = loanAccountDistributionService.findLoanAccountDistributionInfoByLatest("1");
         list.forEach(distribution ->{
 
-            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(distribution.getBranchMnemonic() !=null?distribution.getBranchMnemonic():"",
-                                                                        distribution.getProductCode() !=null?distribution.getProductCode():"",distribution.getDealReference() !=null?distribution.getDealReference():"","1");
+            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(distribution.getAccountNo(),"1");
 
             if (loanAccountDistributionInfo !=null)
                 distribution.setLatest("0");
@@ -193,19 +192,25 @@ public class LoanDistributionService {
     }
 
     public LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
-        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntity.getLoanACNo());
+        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntity.getLoanAccountNew());
         LoanAccountBasicInfo basicInfo;
         if (loanAccountBasicInfo.getId() != null){
             loanAccountBasicInfo.setCustomer(customerBasicInfoEntity);
             loanAccountBasicInfo.setAccountName(accountInformationEntity.getCustomerName());
-            loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+            //loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
+
+            if(!accountInformationEntity.getBranchMnemonic().isEmpty() && !accountInformationEntity.getProductCode().isEmpty() && !accountInformationEntity.getDealReference().isEmpty()) {
+                loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanACNo()+""+accountInformationEntity.getBranchMnemonic()+""+accountInformationEntity.getProductCode()+""+accountInformationEntity.getDealReference());
+            }else {
+                loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
+            }
 
              basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo);
         }else {
             LoanAccountBasicInfo loanAccountBasicInfo1 = new LoanAccountBasicInfo();
             loanAccountBasicInfo1.setCustomer(customerBasicInfoEntity);
             loanAccountBasicInfo1.setAccountName(accountInformationEntity.getCustomerName());
-            loanAccountBasicInfo1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+            loanAccountBasicInfo1.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
             basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo1);
         }
 
@@ -213,7 +218,7 @@ public class LoanDistributionService {
     }
 
     public CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
-        CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntity.getLoanACNo());
+        CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntity.getLoanAccountNew());
         CustomerBasicInfoEntity basicInfoEntity;
         if (customerBasicInfoEntity != null){
             customerBasicInfoEntity.setCustomerName(accountInformationEntity.getCustomerName());
@@ -227,7 +232,13 @@ public class LoanDistributionService {
             customerBasicInfoEntity.setNid(accountInformationEntity.getNid());
             customerBasicInfoEntity.setOccupation(accountInformationEntity.getProfession());
             customerBasicInfoEntity.setTin(accountInformationEntity.getTin());
-            customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s",""));
+           // customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s",""));
+
+            if(!accountInformationEntity.getBranchMnemonic().isEmpty() && !accountInformationEntity.getProductCode().isEmpty() && !accountInformationEntity.getDealReference().isEmpty()) {
+                customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo()+""+accountInformationEntity.getBranchMnemonic()+""+accountInformationEntity.getProductCode()+""+accountInformationEntity.getDealReference());
+            }else {
+                customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
+            }
 
             basicInfoEntity =  customerBasicInfoService.save(customerBasicInfoEntity);
         }else {
@@ -243,7 +254,8 @@ public class LoanDistributionService {
             customerBasicInfoEntity1.setNid(accountInformationEntity.getNid());
             customerBasicInfoEntity1.setOccupation(accountInformationEntity.getProfession());
             customerBasicInfoEntity1.setTin(accountInformationEntity.getTin());
-            customerBasicInfoEntity1.setAccountNo(accountInformationEntity.getLoanACNo().replaceAll("\\s", ""));
+
+            customerBasicInfoEntity1.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
             basicInfoEntity = customerBasicInfoService.save(customerBasicInfoEntity1);
         }
 

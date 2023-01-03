@@ -26,7 +26,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO= ?1 and BRANCH_MNEMONIC=?2 and PRODUCT_CODE = ?3 and DEAL_REFERENCE=?4", nativeQuery = true)
     public AccountInformationEntity getAllByLoanAccountNo(String accountNo, String branchMnemonic,String productCode,String dealReference );
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO= ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOAN_ACCOUNT_NEW= ?1", nativeQuery = true)
     public AccountInformationEntity getByLoanAccountNo(String accountNo);
 
     @Query(value = "SELECT * " +

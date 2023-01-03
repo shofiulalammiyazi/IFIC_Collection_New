@@ -126,4 +126,5 @@ public class AccountInformationEntity extends BaseInfo {
     private String dealAcBasic;
     private String dealAcSuffix;
     private String uniqueDealLoan;
+    private String loanAccountNew;
 }

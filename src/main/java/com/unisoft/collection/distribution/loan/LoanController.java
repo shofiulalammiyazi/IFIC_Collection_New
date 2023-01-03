@@ -283,7 +283,7 @@ public class LoanController {
 //        LoanAccountInfo loanAccountInfo = loanAccountService.findByLoanAccountBasicId(
 //                loanAccountDistributionInfo.getLoanAccountBasicInfo());
 
-        loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
+        loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo().substring(0,13));
 //        loanViewModel.setClientId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getClientId());
         loanViewModel.setCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
         loanViewModel.setCustomerName(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountName());

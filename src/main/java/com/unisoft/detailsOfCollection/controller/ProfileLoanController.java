@@ -151,12 +151,11 @@ public class ProfileLoanController {
 
     @GetMapping("/loan")
     public String profileLoanDetails(@RequestParam(value = "custid") Long custId,
-                                     @RequestParam(value = "loanid") Long loanId, Model model
-    ,@RequestParam(value = "branchMnemonic") String branchMnemonic,@RequestParam(value = "productCode") String productCode,@RequestParam(value = "dealReference") String dealReference) {
+                                     @RequestParam(value = "loanid") Long loanId, Model model) {
 
-        model.addAttribute("branchMnemonic",branchMnemonic);
-        model.addAttribute("productCode",productCode);
-        model.addAttribute("dealReference",dealReference);
+        model.addAttribute("branchMnemonic","");
+        model.addAttribute("productCode","");
+        model.addAttribute("dealReference","");
 
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(user.getUsername());
@@ -166,6 +165,9 @@ public class ProfileLoanController {
 
         CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findById(custId);
         LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getById(loanId);
+
+        model.addAttribute("loanConcatNumber",loanAccountBasicInfo.getAccountNo());
+
 
         Date startDate = dateUtils.getDateOfCurrentMonth(1);
         Date endDate = dateUtils.getLocalMonthEndDate();
@@ -353,6 +355,7 @@ public class ProfileLoanController {
 
        // LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
 
+
         if (accountInformationEntityList.size() >1) {
             model.addAttribute("loanList", accountInformationEntityList);
 
@@ -362,8 +365,13 @@ public class ProfileLoanController {
                  return returnToSearchPage(redirectAttributes);
              }
              else {
+/*
                  return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model,accountInformationEntityList.get(0).getBranchMnemonic(),
                          accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
+*/
+
+                 return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
+
              }
 
         }
@@ -414,7 +422,7 @@ public class ProfileLoanController {
 
     }
 
-    @GetMapping("/searchList")
+    /*@GetMapping("/searchList")
     public String getTest(@RequestParam(value = "account") String accountNo,
                           Model model, RedirectAttributes redirectAttributes, @RequestParam(value = "branchMnemonic") String branchMnemonic,
                           @RequestParam(value = "productCode") String productCode,@RequestParam(value = "dealReference") String dealReference){
@@ -430,6 +438,29 @@ public class ProfileLoanController {
 //            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
         else
             return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model, branchMnemonic,productCode,dealReference);
+
+    }*/
+
+    @GetMapping("/searchList")
+    public String getTest(@RequestParam(value = "account") String accountNo,
+                          Model model, RedirectAttributes redirectAttributes){
+
+        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
+
+        /*model.addAttribute("branchMnemonic",branchMnemonic);
+        model.addAttribute("productCode",productCode);
+        model.addAttribute("dealReference",dealReference);
+*/
+
+      String s =  loanAccountBasicInfo.getAccountNo();
+        model.addAttribute("accountConcatNumber",s.substring(0,13));
+
+
+        if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null)
+            return returnToSearchPage(redirectAttributes);
+//            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
+        else
+            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 
     }
 
