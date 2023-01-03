@@ -369,6 +369,7 @@ public class ProfileLoanController {
                  return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model,accountInformationEntityList.get(0).getBranchMnemonic(),
                          accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
 */
+                 model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
 
                  return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 
@@ -452,8 +453,8 @@ public class ProfileLoanController {
         model.addAttribute("dealReference",dealReference);
 */
 
-      String s =  loanAccountBasicInfo.getAccountNo();
-        model.addAttribute("accountConcatNumber",s.substring(0,13));
+
+        model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
 
 
         if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null)

@@ -404,6 +404,11 @@ public class AccountInformationService {
                 accountInformationEntity.setDocType(dto.getDocType());
             }
 
+            if (dto.getLoanACNo() !=null && dto.getBranchMnemonic() !=null && dto.getProductCode() !=null && dto.getDealReference() !=null) {
+                accountInformationEntity.setLoanAccountNew(dto.getLoanACNo().trim()+""+dto.getBranchMnemonic().trim()+""+dto.getProductCode().trim()+""+dto.getDealReference().trim());
+            }else {
+                accountInformationEntity.setDocType(dto.getLoanACNo()+""+dto.getBranchMnemonic()+""+dto.getProductCode()+""+dto.getDealReference());
+            }
 
 
             if ((dto.getLoanACNo() !=null)){
