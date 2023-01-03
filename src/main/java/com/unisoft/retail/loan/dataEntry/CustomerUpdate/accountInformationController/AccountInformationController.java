@@ -30,9 +30,17 @@ public class AccountInformationController {
 
     @GetMapping("get-by-account-no")
     public AccountInformationEntity getByAccountId(@RequestParam("accountNo") String accountNo){
-        AccountInformationEntity entity = accountInformationService.getAccountInformation(accountNo);
+
         return accountInformationService.getAccountInformation(accountNo);
     }
+
+    @GetMapping("get-by-account-no-all")
+    public AccountInformationEntity getAllByLoanAcAndBmAndPcAndDr(@RequestParam("accountNo") String accountNo,@RequestParam("branchMnemonic") String branchMnemonic,
+                                                   @RequestParam("productCode") String productCode,@RequestParam("dealReference") String dealReference){
+
+        return accountInformationService.getAllAccountInformation(accountNo,branchMnemonic,productCode,dealReference);
+    }
+
 
     @GetMapping("advanced-search")
     public List<AccountInformationEntity> advancedSearch(@RequestParam(value = "accountNo") String accountNo, @RequestParam(value = "cifno")String cif,

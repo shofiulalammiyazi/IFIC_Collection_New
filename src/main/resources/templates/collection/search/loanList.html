@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title> Loan Account List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <!-- Main content -->
+
+        <table id="card-list" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">SI</th>
+                <th scope="col" class="text-center">Customer Name</th>
+                <th scope="col" class="text-center">Account No</th>
+                <th scope="col" class="text-center">Branch Mnemonic</th>
+                <th scope="col" class="text-center">Product Code</th>
+                <th scope="col" class="text-center">Deal Reference</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="loan, index : ${loanList}" >
+                <td scope="row" class="text-center" th:text="${index?.count}"></td>
+                <td scope="row" class="text-center" th:text="${loan?.customerName}"></td>
+                <td scope="row" class="text-center">
+                    <a th:href="@{'/profile/searchList?account=' + ${loan?.loanACNo}+'&branchMnemonic='+${loan.branchMnemonic}+'&productCode='+${loan.productCode}+'&dealReference='+${loan.dealReference}}"
+                       th:text="${loan.loanACNo}"></a>
+                </td>
+                <td scope="row" class="text-center" th:text="${loan?.branchMnemonic}"></td>
+                <td scope="row" class="text-center" th:text="${loan?.productCode}"></td>
+
+                <td scope="row" class="text-center" th:text="${loan?.dealReference}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- /.content -->
+    </div>
+</div>
+</body>
+</html>

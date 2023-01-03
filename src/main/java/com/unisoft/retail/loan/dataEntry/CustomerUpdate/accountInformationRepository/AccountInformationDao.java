@@ -25,7 +25,7 @@ public class AccountInformationDao {
 
         String query = "select * from CRLIB.CRPF";
 
-        List<AccountInformationDto> AccountInformationDtoList = new ArrayList<>();
+        List<AccountInformationDto> accountInformationDtoList = new ArrayList<>();
         Statement statement=null;
         Connection connection = null;
 
@@ -41,7 +41,7 @@ public class AccountInformationDao {
 
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
                 accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
-                accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
+                //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
                 accountInformationDto.setSettlementLinkAccountBalance(resultSet.getString("SCBAL"));
                 accountInformationDto.setLinkMotherAccountNo(resultSet.getString("NEEAN01"));
                 accountInformationDto.setRoutingNo(resultSet.getString("BSBBRN"));
@@ -53,33 +53,64 @@ public class AccountInformationDao {
                 accountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
                 //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMNWR01"));
                 accountInformationDto.setProductType(resultSet.getString("V5DLP"));
+                accountInformationDto.setProductCode(resultSet.getString("V5DLP"));
                 //accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
-                accountInformationDto.setActualTenor(resultSet.getString("OTMDT"));
+                //accountInformationDto.setActualTenor(resultSet.getString("OTMDT"));
                 accountInformationDto.setDisbursementDate(resultSet.getString("OTSDTE"));
                 accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
                 accountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
-                accountInformationDto.setProfession(resultSet.getString("BHDSC"));
+                accountInformationDto.setProfession(resultSet.getString("BGPROF"));
                 accountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
                 accountInformationDto.setNid(resultSet.getString("AAZIDN"));
-                accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
+                //accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
                 accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
                 accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
 
 
 
                 accountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
-                //accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
-                // accountInformationDto.setCustomerType(resultSet.getString(""));
-                // accountInformationDto.setSpouse(resultSet.getString(""));
+                accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
+                accountInformationDto.setCustomerType(resultSet.getString("GFCTP"));
+                accountInformationDto.setSpouse(resultSet.getString("BGSNAM"));
                 accountInformationDto.setDob(resultSet.getString("AAZBDTE"));
                 accountInformationDto.setGender(resultSet.getString("BGSEX"));
                 accountInformationDto.setFatherName(resultSet.getString("BGFNAM"));
                 accountInformationDto.setMotherName(resultSet.getString("BGMNAM"));
                 accountInformationDto.setNi(resultSet.getString("AAZIDN"));
-                accountInformationDto.setTin(resultSet.getString("BGTIN"));
+                accountInformationDto.setTin(resultSet.getString("AAZTIN"));
+
+                //new add
+                accountInformationDto.setContractNo(resultSet.getString("AAZBPHN"));
+                accountInformationDto.setContractNoHome(resultSet.getString("AAZHPHN"));
+                accountInformationDto.setEconomicPurposeName(resultSet.getString("BHDSC02"));
+                accountInformationDto.setEconomicPurposeCode(resultSet.getString("B0ECON"));
+                accountInformationDto.setProductName(resultSet.getString("OBDPD"));
+                accountInformationDto.setSectorCode(resultSet.getString("B0SECC"));
+                accountInformationDto.setSectorName(resultSet.getString("BHDSC01"));
+                accountInformationDto.setAddress1(resultSet.getString("SVNA1"));
+                accountInformationDto.setAddress2(resultSet.getString("SVNA2"));
+                accountInformationDto.setAddress3(resultSet.getString("SVNA3"));
+                accountInformationDto.setAddress4(resultSet.getString("SVNA4"));
+                accountInformationDto.setAddress5(resultSet.getString("SVNA5"));
+                accountInformationDto.setAccountTitle(resultSet.getString("SCSHN"));
+                accountInformationDto.setSmeCodeIndustryScaleID(resultSet.getString("SCC1R"));
+                accountInformationDto.setInterestRate(resultSet.getString("V5APRR"));
+                accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
+                accountInformationDto.setLinkAccountStatus(resultSet.getString("SCAI20"));
+                accountInformationDto.setLinkACProductCode(resultSet.getString("SCACT"));
 
 
-                AccountInformationDtoList.add(accountInformationDto);
+                accountInformationDto.setBranchMnemonic(resultSet.getString("V5BRNM"));
+                accountInformationDto.setDealReference(resultSet.getString("V5DLR"));
+                accountInformationDto.setDealAcBasic(resultSet.getString("V5AND"));
+                accountInformationDto.setDealAcSuffix(resultSet.getString("V5ASD"));
+                accountInformationDto.setPartyId(resultSet.getString("GFPID"));
+                accountInformationDto.setDocType(resultSet.getString("AAZIDC"));
+
+
+
+
+                accountInformationDtoList.add(accountInformationDto);
 
             }
         }catch (SQLException e){
@@ -100,7 +131,7 @@ public class AccountInformationDao {
 
         }
 
-        return AccountInformationDtoList;
+        return accountInformationDtoList;
     }
 
 

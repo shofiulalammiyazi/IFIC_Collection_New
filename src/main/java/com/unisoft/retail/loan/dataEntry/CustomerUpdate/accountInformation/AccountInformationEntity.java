@@ -110,4 +110,20 @@ public class AccountInformationEntity extends BaseInfo {
     private String address1;
     private String address2;
     private String address3;
+    private String address4;
+    private String address5;
+
+    //new add
+
+    private String contractNo;
+    private String contractNoHome;
+    private String accountTitle;
+
+    private String branchMnemonic;
+    private String dealReference;
+    private String docType;
+    private String partyId;
+    private String dealAcBasic;
+    private String dealAcSuffix;
+    private String uniqueDealLoan;
 }

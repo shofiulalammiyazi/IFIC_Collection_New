@@ -94,10 +94,19 @@ public class LoanDistributionService {
 
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 
+                    String branchMnemonic = Objects.toString(row.getCell(3), "").trim();
+                    String productCode = Objects.toString(row.getCell(4), "").trim();
+                    String dealReference = Objects.toString(row.getCell(5), "").trim();
+
 
                     LoanAccountDistributionInfo accountDistributionInfo = new LoanAccountDistributionInfo();
                     accountDistributionInfo.setDealerPin(dealerPin);
                     accountDistributionInfo.setDealerName(dealerName);
+                    accountDistributionInfo.setBranchMnemonic(branchMnemonic);
+                    accountDistributionInfo.setProductCode(productCode);
+                    accountDistributionInfo.setDealReference(dealReference);
+                    accountDistributionInfo.setAccountNo(accountNumber);
+
                     distributionInfos.put(accountNumber, accountDistributionInfo);
 
 
@@ -141,16 +150,18 @@ public class LoanDistributionService {
     }
 
     private void updateLoanAccountDistribution(Map<String, LoanAccountDistributionInfo> distributionInfos) {
-
-        Date monthStartDate = dateUtils.getMonthStartDate();
-        Date monthEndDate = dateUtils.getMonthEndDate();
-
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = user.getUsername();
 
         List<LoanAccountDistributionInfo> list = loanAccountDistributionService.findLoanAccountDistributionInfoByLatest("1");
         list.forEach(distribution ->{
-            distribution.setLatest("0");
+
+            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByBranchMnemonicAndProductCodeAndDealReferenceAndLatest(distribution.getBranchMnemonic() !=null?distribution.getBranchMnemonic():"",
+                                                                        distribution.getProductCode() !=null?distribution.getProductCode():"",distribution.getDealReference() !=null?distribution.getDealReference():"","1");
+
+            if (loanAccountDistributionInfo !=null)
+                distribution.setLatest("0");
+
             loanAccountDistributionService.save(distribution);
         });
 
@@ -160,7 +171,7 @@ public class LoanDistributionService {
 
 
 
-            AccountInformationEntity accountInformationEntity = accountInformationService.findAccountInformationByLoanAccountNo(accountNumber);
+            AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(accountNumber,distribution.getBranchMnemonic(),distribution.getProductCode(),distribution.getDealReference());
             if (accountInformationEntity != null){
                 CustomerBasicInfoEntity customerBasicInfoEntity = updateCustomerBasiscInfo(accountInformationEntity);
 
@@ -181,7 +192,7 @@ public class LoanDistributionService {
         });
     }
 
-    private LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
+    public LoanAccountBasicInfo updateLoanAccountBasicInfo(AccountInformationEntity accountInformationEntity, CustomerBasicInfoEntity customerBasicInfoEntity) {
         LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntity.getLoanACNo());
         LoanAccountBasicInfo basicInfo;
         if (loanAccountBasicInfo.getId() != null){
@@ -201,7 +212,7 @@ public class LoanDistributionService {
         return basicInfo;
     }
 
-    private CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
+    public CustomerBasicInfoEntity updateCustomerBasiscInfo(AccountInformationEntity accountInformationEntity) {
         CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntity.getLoanACNo());
         CustomerBasicInfoEntity basicInfoEntity;
         if (customerBasicInfoEntity != null){
