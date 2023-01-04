@@ -3,9 +3,11 @@ var guarantorNode;
 
 
 $("#tab-gurantor").click(function () {
-    var params = new window.URLSearchParams(window.location.search);
+    //var params = new window.URLSearchParams(window.location.search);
+    var accountNo = loanConcatNumber;
     $.ajax({
-        url: "/customerloanprofile/guarantorinfo/view?id="+params.get('account'),
+       // url: "/customerloanprofile/guarantorinfo/view?id="+params.get('account'),
+        url: "/customerloanprofile/guarantorinfo/view?id="+accountNo,
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
