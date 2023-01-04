@@ -62,7 +62,10 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAcc(Pageable pageable);
 
 }

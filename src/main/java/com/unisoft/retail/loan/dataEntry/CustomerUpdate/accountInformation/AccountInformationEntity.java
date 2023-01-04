@@ -127,4 +127,5 @@ public class AccountInformationEntity extends BaseInfo {
     private String dealAcSuffix;
     private String uniqueDealLoan;
     private String loanAccountNew;
+    private String isSmsSent = "N";
 }
