@@ -145,9 +145,9 @@
                                 methods: {
                                     getData(loan,index) {
 
-                                        var l = loan.accountNo+"-"+loan.mobileNo+"-"+loan.productName+"-"
-                                            +loan.installmentAmount+"-"+loan.nextEmiDate+"-"+loan.currentMonth+
-                                            "-"+loan.customerId+"-"+loan.customerName;
+                                        var l = loan.accountNo+":"+loan.mobileNo+":"+loan.productName+":"
+                                            +loan.installmentAmount+":"+loan.nextEmiDate+":"+loan.currentMonth+
+                                            ":"+loan.customerId+":"+loan.customerName;
                                         if(arr.indexOf(index) == -1){
                                             arr.push(index);
                                             this.selectedList.push(l);

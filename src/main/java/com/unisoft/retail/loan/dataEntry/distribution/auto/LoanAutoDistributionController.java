@@ -85,7 +85,7 @@ public class LoanAutoDistributionController {
 
     @GetMapping("/sendsms")
     public ResponseEntity<Map<String, Object>> generatesms(@RequestParam(value = "accountNo") List<String> loanViewModelForSMS,
-                                           @RequestParam(value = "smsType") Long smsType, Model model){
+                                                           @RequestParam(value = "smsType") Long smsType, Model model){
 
         Map<String, Object> map = new HashMap<>();
         String sms = "";
@@ -96,7 +96,7 @@ public class LoanAutoDistributionController {
         TemplateGenerate templateGenerate = templateGenerateRepository.findTemGenBySmsTypeId(smsType);
 
         for(String acc : loanViewModelForSMS){
-            String[] content = acc.split("-");
+            String[] content = acc.split(":");
             sms = templateGenerate.getMassege();
             sms = sms.replace("{{F.accountNo}}",content[0]);
             sms = sms.replace("{{F.installmentAmount}}",content[3]);
