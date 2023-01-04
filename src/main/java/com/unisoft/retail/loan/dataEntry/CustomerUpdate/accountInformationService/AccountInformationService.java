@@ -374,12 +374,12 @@ public class AccountInformationService {
                 accountInformationEntity.setLinkACProductCode(dto.getLinkACProductCode());
             }
 
-            if (dto.getBranchMnemonic() !=null) {
+           /* if (dto.getBranchMnemonic() !=null) {
                 accountInformationEntity.setBranchMnemonic(dto.getBranchMnemonic().trim());
             }else {
                 accountInformationEntity.setBranchMnemonic(dto.getBranchMnemonic());
             }
-
+*/
             if (dto.getDealAcBasic() !=null) {
                 accountInformationEntity.setDealAcBasic(dto.getDealAcBasic().trim());
             }else {
@@ -404,6 +404,16 @@ public class AccountInformationService {
                 accountInformationEntity.setDocType(dto.getDocType());
             }
 
+            String account = dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"";
+            String branchMnemonic = dto.getBranchMnemonic() !=null?dto.getBranchMnemonic().trim():"";
+            String productCode = dto.getProductCode() !=null?dto.getProductCode().trim():"";
+            String dealReference = dto.getDealReference() !=null?dto.getDealReference().trim():"";
+
+            accountInformationEntity.setBranchMnemonic(branchMnemonic);
+            accountInformationEntity.setProductCode(productCode);
+            accountInformationEntity.setDealReference(dealReference);
+
+            accountInformationEntity.setLoanAccountNew(account+""+branchMnemonic+""+productCode+""+dealReference);
 
 
             if ((dto.getLoanACNo() !=null)){
