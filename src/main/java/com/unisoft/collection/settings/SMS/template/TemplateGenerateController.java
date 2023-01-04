@@ -108,7 +108,7 @@ public class TemplateGenerateController {
         TemplateGenerate templateGenerate = templateGenerateRepository.findTemGenBySmsTypeId(smsType);
 
         for(String acc : loanViewModelForSMS){
-            String[] content = acc.split("-");
+            String[] content = acc.split(":");
             sms = templateGenerate.getMassege();
             sms = sms.replace("{{F.accountNo}}",content[0]);
             sms = sms.replace("{{F.installmentAmount}}",content[3]);
