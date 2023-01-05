@@ -60,6 +60,7 @@ public class AccountInformationDao {
                 accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
                 accountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
                 accountInformationDto.setProfession(resultSet.getString("BGPROF"));
+                accountInformationDto.setProfessionSegment(resultSet.getString("BHDSC"));
                 accountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
                 accountInformationDto.setNid(resultSet.getString("AAZIDN"));
                 //accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
