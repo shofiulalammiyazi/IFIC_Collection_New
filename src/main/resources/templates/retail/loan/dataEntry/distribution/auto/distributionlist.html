@@ -163,9 +163,9 @@
                     methods: {
                         getData(loan,index) {
 
-                            var l = loan.loanACNo+"-"+loan.mobile+"-"+loan.productName+"-"
-                                +loan.emiAmount+"-"+loan.emiDate+"-"+loan.currentMonth+
-                                "-"+loan.customerId+"-"+loan.customerName+"-"+loan.id;
+                            var l = loan.loanACNo+":"+loan.mobile+":"+loan.productName+":"
+                                +loan.emiAmount+":"+loan.emiDate+":"+loan.currentMonth+
+                                ":"+loan.customerId+":"+loan.customerName+":"+loan.id;
                             if(arr.indexOf(index) == -1){
                                 arr.push(index);
                                 this.selectedList.push(l);
