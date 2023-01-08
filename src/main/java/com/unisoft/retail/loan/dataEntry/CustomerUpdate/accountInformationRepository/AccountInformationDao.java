@@ -60,13 +60,12 @@ public class AccountInformationDao {
                 accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
                 accountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
                 accountInformationDto.setProfession(resultSet.getString("BGPROF"));
+                accountInformationDto.setProfessionSegment(resultSet.getString("BHDSC"));
                 accountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
                 accountInformationDto.setNid(resultSet.getString("AAZIDN"));
                 //accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
                 accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
                 accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
-
-
 
                 accountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
                 accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
@@ -99,16 +98,12 @@ public class AccountInformationDao {
                 accountInformationDto.setLinkAccountStatus(resultSet.getString("SCAI20"));
                 accountInformationDto.setLinkACProductCode(resultSet.getString("SCACT"));
 
-
                 accountInformationDto.setBranchMnemonic(resultSet.getString("V5BRNM"));
                 accountInformationDto.setDealReference(resultSet.getString("V5DLR"));
                 accountInformationDto.setDealAcBasic(resultSet.getString("V5AND"));
                 accountInformationDto.setDealAcSuffix(resultSet.getString("V5ASD"));
                 accountInformationDto.setPartyId(resultSet.getString("GFPID"));
                 accountInformationDto.setDocType(resultSet.getString("AAZIDC"));
-
-
-
 
                 accountInformationDtoList.add(accountInformationDto);
 

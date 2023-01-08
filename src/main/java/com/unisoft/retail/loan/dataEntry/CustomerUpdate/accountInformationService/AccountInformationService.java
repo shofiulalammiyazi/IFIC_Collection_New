@@ -61,12 +61,136 @@ public class AccountInformationService {
                 accountInformationEntity.setModifiedDate(new Date());
             }
 
-           /* if (dto.getLoanACNo() !=null) {
-                accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
-            }else {
-                accountInformationEntity.setLoanACNo(dto.getLoanACNo());
+
+            String lastPaymentAmount = dto.getLastPaymentAmount() !=null?dto.getLastPaymentAmount().trim():"";
+            String settlementLinkAccountBalance = dto.getSettlementLinkAccountBalance() !=null?dto.getSettlementLinkAccountBalance().trim():"";
+            String linkMotherAccountNo = dto.getLinkMotherAccountNo() !=null?dto.getLinkMotherAccountNo().trim():"";
+            String routingNo = dto.getRoutingNo() !=null?dto.getRoutingNo().trim():"";
+            String mobile = dto.getMobile() !=null?dto.getMobile().trim():"";
+            String branchName = dto.getBranchName() !=null?dto.getBranchName().trim():"";
+            String branchCode = dto.getBranchCode() !=null?dto.getBranchCode().trim():"";
+            String overDue = dto.getOverdue() !=null?dto.getOverdue().trim():"";
+            String emiAmount = dto.getEmiAmount() !=null?dto.getEmiAmount().trim():"";
+
+            String productType = dto.getProductType() !=null?dto.getProductType().trim():"";
+            String actualTenor = dto.getActualTenor() !=null?dto.getActualTenor().trim():"";
+            String totalOutstanding = dto.getTotalOutstanding() !=null?dto.getTotalOutstanding().trim():"";
+            String borrowerName = dto.getBorrowersName() !=null?dto.getBorrowersName().trim():"";
+            String profession = dto.getProfession() !=null?dto.getProfession().trim():"";
+            String email = dto.getEmail() !=null?dto.getEmail().trim():"";
+            String nid = dto.getNid() !=null?dto.getNid().trim():"";
+            String professionSegment = dto.getProfessionSegment() !=null?dto.getProfessionSegment().trim():"";
+
+            String disbursementAmount = dto.getDisbursementAmount() !=null?dto.getDisbursementAmount().trim():"";
+            String customerId = dto.getCustomerId() !=null?dto.getCustomerId().trim():"";
+            String customerName = dto.getCustomerName() !=null?dto.getCustomerName().trim():"";
+            String customerType = dto.getCustomerType() !=null?dto.getCustomerType().trim():"";
+            String spouse = dto.getSpouse() !=null?dto.getSpouse().trim():"";
+
+            String gender = dto.getGender() !=null?dto.getGender().trim():"";
+            String fatherName = dto.getFatherName() !=null?dto.getFatherName().trim():"";
+            String motherName = dto.getMotherName() !=null?dto.getMotherName().trim():"";
+            String ni = dto.getNi() !=null?dto.getNi().trim():"";
+            String tin = dto.getTin() !=null?dto.getTin().trim():"";
+
+            String contractNo = dto.getContractNo() !=null?dto.getContractNo().trim():"";
+            String contractNoHome = dto.getContractNoHome() !=null?dto.getContractNoHome().trim():"";
+            String economicPurposeName = dto.getEconomicPurposeName() !=null?dto.getEconomicPurposeName().trim():"";
+            String economicPurposeCode = dto.getEconomicPurposeCode() !=null?dto.getEconomicPurposeCode().trim():"";
+            String productName = dto.getProductName() !=null?dto.getProductName().trim():"";
+            String sectorCode = dto.getSectorCode() !=null?dto.getSectorCode().trim():"";
+            String sectorName = dto.getSectorName() !=null?dto.getSectorName().trim():"";
+            String address1 = dto.getAddress1() !=null?dto.getAddress1().trim():"";
+            String address2 = dto.getAddress2() !=null?dto.getAddress2().trim():"";
+            String address3 = dto.getAddress3() !=null?dto.getAddress3().trim():"";
+            String address4 = dto.getAddress4() !=null?dto.getAddress4().trim():"";
+            String address5 = dto.getAddress5() !=null?dto.getAddress5().trim():"";
+            String accountTitle = dto.getAccountTitle() !=null?dto.getAccountTitle().trim():"";
+            String smeCodeIndustryScalID = dto.getSmeCodeIndustryScaleID() !=null?dto.getSmeCodeIndustryScaleID().trim():"";
+            String interestRate = dto.getInterestRate() !=null?dto.getInterestRate().trim():"";
+            String sanctionAmount = dto.getSanctionAmount() !=null?dto.getSanctionAmount().trim():"";
+            String linkAccountStatus = dto.getLinkAccountStatus() !=null?dto.getLinkAccountStatus().trim():"";
+            String linkAcProductCode = dto.getLinkACProductCode() !=null?dto.getLinkACProductCode().trim():"";
+            String dealAcBasic = dto.getDealAcBasic() !=null?dto.getDealAcBasic().trim():"";
+            String dealAcSuffix = dto.getDealAcSuffix() !=null?dto.getDealAcSuffix().trim():"";
+            String partyId = dto.getPartyId() !=null?dto.getPartyId().trim():"";
+
+            String docType = dto.getDocType() !=null?dto.getDocType().trim():"";
+            String account = dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"";
+            String branchMnemonic = dto.getBranchMnemonic() !=null?dto.getBranchMnemonic().trim():"";
+            String productCode = dto.getProductCode() !=null?dto.getProductCode().trim():"";
+            String dealReference = dto.getDealReference() !=null?dto.getDealReference().trim():"";
+
+            accountInformationEntity.setLastPaymentAmount(lastPaymentAmount);
+            accountInformationEntity.setSettlementLinkAccountBalance(settlementLinkAccountBalance);
+            accountInformationEntity.setLinkMotherAccountNo(linkMotherAccountNo);
+            accountInformationEntity.setRoutingNo(routingNo);
+            accountInformationEntity.setMobile(mobile);
+            accountInformationEntity.setBranchName(branchName);
+            accountInformationEntity.setBranchCode(branchCode);
+            accountInformationEntity.setOverdue(overDue);
+            accountInformationEntity.setEmiAmount(emiAmount);
+
+            accountInformationEntity.setProductType(productType);
+            accountInformationEntity.setActualTenor(actualTenor);
+            accountInformationEntity.setTotalOutstanding(totalOutstanding);
+            accountInformationEntity.setBorrowersName(borrowerName);
+            accountInformationEntity.setProfession(profession);
+            accountInformationEntity.setEmail(email);
+            accountInformationEntity.setNid(nid);
+            accountInformationEntity.setProfessionSegment(professionSegment);
+
+            accountInformationEntity.setDisbursementAmount(disbursementAmount);
+            accountInformationEntity.setCustomerId(customerId);
+            accountInformationEntity.setCustomerName(customerName);
+            accountInformationEntity.setCustomerType(customerType);
+            accountInformationEntity.setSpouse(spouse);
+
+            accountInformationEntity.setGender(gender);
+            accountInformationEntity.setFatherName(fatherName);
+            accountInformationEntity.setMotherName(motherName);
+            accountInformationEntity.setNi(ni);
+            accountInformationEntity.setTin(tin);
+
+            accountInformationEntity.setContractNo(contractNo);
+            accountInformationEntity.setContractNoHome(contractNoHome);
+            accountInformationEntity.setEconomicPurposeName(economicPurposeName);
+            accountInformationEntity.setEconomicPurposeCode(economicPurposeCode);
+            accountInformationEntity.setProductName(productName);
+            accountInformationEntity.setSectorCode(sectorCode);
+            accountInformationEntity.setSectorName(sectorName);
+            accountInformationEntity.setAddress1(address1);
+            accountInformationEntity.setAddress2(address2);
+            accountInformationEntity.setAddress3(address3);
+            accountInformationEntity.setAddress4(address4);
+            accountInformationEntity.setAddress5(address5);
+            accountInformationEntity.setAccountTitle(accountTitle);
+            accountInformationEntity.setSmeCodeIndustryScaleID(smeCodeIndustryScalID);
+            accountInformationEntity.setInterestRate(interestRate);
+            accountInformationEntity.setSanctionAmount(sanctionAmount);
+
+            try {
+                if (linkAccountStatus.toLowerCase().equals("n")) {
+                    accountInformationEntity.setLinkAccountStatus("Active");
+                }else if(linkAccountStatus.toLowerCase().equals("y")) {
+                    accountInformationEntity.setLinkAccountStatus("Inactive");
+                }
+            }catch (Exception e){
+                System.out.println("status");
             }
-*/
+
+            accountInformationEntity.setLinkACProductCode(linkAcProductCode);
+            accountInformationEntity.setDealAcBasic(dealAcBasic);
+            accountInformationEntity.setDealAcSuffix(dealAcSuffix);
+            accountInformationEntity.setPartyId(partyId);
+
+            accountInformationEntity.setDocType(docType);
+            accountInformationEntity.setBranchMnemonic(branchMnemonic);
+            accountInformationEntity.setProductCode(productCode);
+            accountInformationEntity.setDealReference(dealReference);
+
+            accountInformationEntity.setLoanAccountNew(account+""+branchMnemonic+""+productCode+""+dealReference);
+
             try {
                 if (dto.getLastPaymentDate() != null) {
                     accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
@@ -75,59 +199,6 @@ public class AccountInformationService {
                 }
             }catch (Exception e){
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getLastPaymentDate());
-            }
-
-            if (dto.getLastPaymentAmount() !=null) {
-                accountInformationEntity.setLastPaymentAmount(dto.getLastPaymentAmount().trim());
-            }else {
-                accountInformationEntity.setLastPaymentAmount(dto.getLastPaymentAmount());
-            }
-            if (dto.getSettlementLinkAccountBalance() !=null) {
-                accountInformationEntity.setSettlementLinkAccountBalance(dto.getSettlementLinkAccountBalance().trim());
-            }else {
-                accountInformationEntity.setSettlementLinkAccountBalance(dto.getSettlementLinkAccountBalance());
-            }
-
-            if (dto.getLinkMotherAccountNo() !=null) {
-                accountInformationEntity.setLinkMotherAccountNo(dto.getLinkMotherAccountNo().trim());
-            }else {
-                accountInformationEntity.setLinkMotherAccountNo(dto.getLinkMotherAccountNo());
-            }
-
-            if (dto.getRoutingNo() !=null) {
-                accountInformationEntity.setRoutingNo(dto.getRoutingNo().trim());
-            }else {
-                accountInformationEntity.setRoutingNo(dto.getRoutingNo());
-            }
-
-            if (dto.getMobile() !=null) {
-                accountInformationEntity.setMobile(dto.getMobile().trim());
-            }else {
-                accountInformationEntity.setMobile(dto.getMobile());
-            }
-
-            if (dto.getBranchName() !=null) {
-                accountInformationEntity.setBranchName(dto.getBranchName().trim());
-            }else {
-                accountInformationEntity.setBranchName(dto.getBranchName());
-            }
-
-            if (dto.getBranchCode() !=null) {
-                accountInformationEntity.setBranchCode(dto.getBranchCode().trim());
-            }else {
-                accountInformationEntity.setBranchCode(dto.getBranchCode());
-            }
-
-            if (dto.getOverdue() !=null) {
-                accountInformationEntity.setOverdue(dto.getOverdue().trim());
-            }else {
-                accountInformationEntity.setOverdue(dto.getOverdue());
-            }
-
-            if (dto.getEmiAmount() !=null) {
-                accountInformationEntity.setEmiAmount(dto.getEmiAmount().trim());
-            }else {
-                accountInformationEntity.setEmiAmount(dto.getEmiAmount());
             }
 
             try{
@@ -140,60 +211,14 @@ public class AccountInformationService {
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getEmiDate());
             }
 
-            // accountInformationEntity.setLastPaymentAmount(resultSet.getString("OMNWR01"));
-            if (dto.getProductType() !=null) {
-                accountInformationEntity.setProductType(dto.getProductType().trim());
-            }else {
-                accountInformationEntity.setProductType(dto.getProductType());
-            }
-            //accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
-
-            if (dto.getActualTenor() !=null) {
-                accountInformationEntity.setActualTenor(dto.getActualTenor().trim());
-            }else {
-                accountInformationEntity.setActualTenor(dto.getActualTenor());
-            }
-
-            if (dto.getLatestDisbursementDate() !=null) {
-                accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
-            }else {
-                accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
-            }
-
-            if (dto.getTotalOutstanding() !=null) {
-                accountInformationEntity.setTotalOutstanding(dto.getTotalOutstanding().trim());
-            }else {
-                accountInformationEntity.setTotalOutstanding(dto.getTotalOutstanding());
-            }
-
-            if (dto.getBorrowersName() !=null) {
-                accountInformationEntity.setBorrowersName(dto.getBorrowersName().trim());
-            }else {
-                accountInformationEntity.setBorrowersName(dto.getBorrowersName());
-            }
-
-            if (dto.getProfession() !=null) {
-                accountInformationEntity.setProfession(dto.getProfession().trim());
-            }else {
-                accountInformationEntity.setProfession(dto.getProfession());
-            }
-
-            if (dto.getEmail() !=null) {
-                accountInformationEntity.setEmail(dto.getEmail().trim());
-            }else {
-                accountInformationEntity.setEmail(dto.getEmail());
-            }
-
-            if (dto.getNid() !=null) {
-                accountInformationEntity.setNid(dto.getNid().trim());
-            }else {
-                accountInformationEntity.setNid(dto.getNid());
-            }
-
-            if (dto.getProfessionSegment() !=null) {
-                accountInformationEntity.setProfessionSegment(dto.getProfessionSegment().trim());
-            }else {
-                accountInformationEntity.setProfessionSegment(dto.getProfessionSegment());
+            try{
+                if (dto.getDisbursementDate() !=null) {
+                    accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
+                }else {
+                    accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
+                }
+            }catch (Exception e){
+                System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getEmiDate());
             }
 
             try {
@@ -206,22 +231,6 @@ public class AccountInformationService {
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getExpiryDate());
             }
 
-            if (dto.getDisbursementAmount() !=null) {
-                accountInformationEntity.setDisbursementAmount(dto.getDisbursementAmount().trim());
-            }else {
-                accountInformationEntity.setDisbursementAmount(dto.getDisbursementAmount());
-            }
-
-
-            if (dto.getCustomerName() !=null) {
-                accountInformationEntity.setCustomerName(dto.getCustomerName().trim());
-            }else {
-                accountInformationEntity.setCustomerName(dto.getCustomerName());
-            }
-            //accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
-            // accountInformationDto.setCustomerType(resultSet.getString(""));
-            // accountInformationDto.setSpouse(resultSet.getString(""));
-
             try{
                 if (dto.getDob() !=null) {
                     accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
@@ -232,196 +241,11 @@ public class AccountInformationService {
                 System.out.println("loanacc = "+ dto.getLoanACNo() +"dob = "+ dto.getDob());
             }
 
-
-            if (dto.getGender() !=null) {
-                accountInformationEntity.setGender(dto.getGender().trim());
-            }else {
-                accountInformationEntity.setGender(dto.getGender());
-            }
-
-            if (dto.getFatherName() !=null) {
-                accountInformationEntity.setFatherName(dto.getFatherName().trim());
-            }else {
-                accountInformationEntity.setFatherName(dto.getFatherName());
-            }
-
-            if (dto.getMotherName() !=null) {
-                accountInformationEntity.setMotherName(dto.getMotherName().trim());
-            }else {
-                accountInformationEntity.setMotherName(dto.getMotherName());
-            }
-
-            if (dto.getNi() !=null) {
-                accountInformationEntity.setNi(dto.getNi().trim());
-            }else {
-                accountInformationEntity.setNi(dto.getNi());
-            }
-
-            if (dto.getTin() !=null) {
-                accountInformationEntity.setTin(dto.getTin().trim());
-            }else {
-                accountInformationEntity.setTin(dto.getTin());
-            }
-
-
-            //****************** new add *********************
-
-            if (dto.getContractNo() !=null) {
-                accountInformationEntity.setContractNo(dto.getContractNo().trim());
-            }else {
-                accountInformationEntity.setContractNo(dto.getContractNo());
-            }
-
-            if (dto.getContractNoHome() !=null) {
-                accountInformationEntity.setContractNoHome(dto.getContractNoHome().trim());
-            }else {
-                accountInformationEntity.setContractNoHome(dto.getContractNoHome());
-            }
-
-            if (dto.getEconomicPurposeName() !=null) {
-                accountInformationEntity.setEconomicPurposeName(dto.getEconomicPurposeName().trim());
-            }else {
-                accountInformationEntity.setEconomicPurposeName(dto.getEconomicPurposeName());
-            }
-
-            if (dto.getEconomicPurposeCode() !=null) {
-                accountInformationEntity.setEconomicPurposeCode(dto.getEconomicPurposeCode().trim());
-            }else {
-                accountInformationEntity.setEconomicPurposeCode(dto.getEconomicPurposeCode());
-            }
-
-            if (dto.getProductName() !=null) {
-                accountInformationEntity.setProductName(dto.getProductName().trim());
-            }else {
-                accountInformationEntity.setProductName(dto.getProductName());
-            }
-
-            if (dto.getSectorCode() !=null) {
-                accountInformationEntity.setSectorCode(dto.getSectorCode().trim());
-            }else {
-                accountInformationEntity.setSectorCode(dto.getSectorCode());
-            }
-
-            if (dto.getSectorName() !=null) {
-                accountInformationEntity.setSectorCode(dto.getSectorName().trim());
-            }else {
-                accountInformationEntity.setSectorCode(dto.getSectorName());
-            }
-
-            if (dto.getAddress1() !=null) {
-                accountInformationEntity.setAddress1(dto.getAddress1().trim());
-            }else {
-                accountInformationEntity.setAddress1(dto.getAddress1());
-            }
-
-            if (dto.getAddress2() !=null) {
-                accountInformationEntity.setAddress2(dto.getAddress2().trim());
-            }else {
-                accountInformationEntity.setAddress2(dto.getAddress2());
-            }
-
-            if (dto.getAddress3() !=null) {
-                accountInformationEntity.setAddress3(dto.getAddress3().trim());
-            }else {
-                accountInformationEntity.setAddress3(dto.getAddress3());
-            }
-
-            if (dto.getAddress4() !=null) {
-                accountInformationEntity.setAddress4(dto.getAddress4().trim());
-            }else {
-                accountInformationEntity.setAddress4(dto.getAddress4());
-            }
-
-            if (dto.getAddress5() !=null) {
-                accountInformationEntity.setAddress5(dto.getAddress5().trim());
-            }else {
-                accountInformationEntity.setAddress5(dto.getAddress5());
-            }
-
-            if (dto.getAccountTitle() !=null) {
-                accountInformationEntity.setAccountTitle(dto.getAccountTitle().trim());
-            }else {
-                accountInformationEntity.setAccountTitle(dto.getAccountTitle());
-            }
-
-            if (dto.getSmeCodeIndustryScaleID() !=null) {
-                accountInformationEntity.setSmeCodeIndustryScaleID(dto.getSmeCodeIndustryScaleID().trim());
-            }else {
-                accountInformationEntity.setSmeCodeIndustryScaleID(dto.getSmeCodeIndustryScaleID());
-            }
-
-            if (dto.getInterestRate() !=null) {
-                accountInformationEntity.setInterestRate(dto.getInterestRate().trim());
-            }else {
-                accountInformationEntity.setInterestRate(dto.getInterestRate());
-            }
-
-            if (dto.getSanctionAmount() !=null) {
-                accountInformationEntity.setSanctionAmount(dto.getSanctionAmount().trim());
-            }else {
-                accountInformationEntity.setSanctionAmount(dto.getSanctionAmount());
-            }
-
-            if (dto.getLinkAccountStatus() !=null) {
-                accountInformationEntity.setLinkAccountStatus(dto.getLinkAccountStatus().trim());
-            }else {
-                accountInformationEntity.setLinkAccountStatus(dto.getLinkAccountStatus());
-            }
-
-            if (dto.getLinkACProductCode() !=null) {
-                accountInformationEntity.setLinkACProductCode(dto.getLinkACProductCode().trim());
-            }else {
-                accountInformationEntity.setLinkACProductCode(dto.getLinkACProductCode());
-            }
-
-           /* if (dto.getBranchMnemonic() !=null) {
-                accountInformationEntity.setBranchMnemonic(dto.getBranchMnemonic().trim());
-            }else {
-                accountInformationEntity.setBranchMnemonic(dto.getBranchMnemonic());
-            }
-*/
-            if (dto.getDealAcBasic() !=null) {
-                accountInformationEntity.setDealAcBasic(dto.getDealAcBasic().trim());
-            }else {
-                accountInformationEntity.setDealAcBasic(dto.getDealAcBasic());
-            }
-
-            if (dto.getDealAcSuffix() !=null) {
-                accountInformationEntity.setDealAcSuffix(dto.getDealAcSuffix().trim());
-            }else {
-                accountInformationEntity.setDealAcSuffix(dto.getDealAcSuffix());
-            }
-
-            if (dto.getPartyId() !=null) {
-                accountInformationEntity.setPartyId(dto.getPartyId().trim());
-            }else {
-                accountInformationEntity.setPartyId(dto.getPartyId());
-            }
-
-            if (dto.getDocType() !=null) {
-                accountInformationEntity.setDocType(dto.getDocType().trim());
-            }else {
-                accountInformationEntity.setDocType(dto.getDocType());
-            }
-
-            String account = dto.getLoanACNo() !=null?dto.getLoanACNo().trim():"";
-            String branchMnemonic = dto.getBranchMnemonic() !=null?dto.getBranchMnemonic().trim():"";
-            String productCode = dto.getProductCode() !=null?dto.getProductCode().trim():"";
-            String dealReference = dto.getDealReference() !=null?dto.getDealReference().trim():"";
-
-            accountInformationEntity.setBranchMnemonic(branchMnemonic);
-            accountInformationEntity.setProductCode(productCode);
-            accountInformationEntity.setDealReference(dealReference);
-
-            accountInformationEntity.setLoanAccountNew(account+""+branchMnemonic+""+productCode+""+dealReference);
-
-
             if ((dto.getLoanACNo() !=null)){
                 accountInformationEntities.add(accountInformationEntity);
             }
 
             System.out.println("test "+dto.getLoanACNo());
-
 
             if(accountInformationEntities.size() == 1000){
                 accountInformationRepository.saveAll(accountInformationEntities);
