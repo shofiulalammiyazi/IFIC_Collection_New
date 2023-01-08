@@ -495,4 +495,15 @@ public class AccountInformationService {
         return ResponseEntity.ok(allProducts);
     }
 
+    public ResponseEntity findAllAndPaginationByIsSmsSent(int page, int length, String accountNo){
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInformationEntity> allProducts;
+        if (accountNo != null && accountNo != ""){
+            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntity(accountNo, pageElements);
+        }else {
+            allProducts = accountInformationRepository.findAllAccIsSmsEntity(pageElements);
+        }
+        return ResponseEntity.ok(allProducts);
+    }
+
 }
