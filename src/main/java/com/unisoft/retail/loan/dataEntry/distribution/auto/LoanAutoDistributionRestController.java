@@ -29,6 +29,14 @@ public class LoanAutoDistributionRestController {
                                                                                     @RequestParam("length") int length, HttpServletRequest request){
         return accountInformationService.findAllAndPagination(page, length, search);
     }
+
+    @RequestMapping("get-page-by-issmssent")
+    ResponseEntity accountInformationEntitiesByPaginationByIsSmsSent(@RequestParam("page") int page,
+                                                          @RequestParam(required = false) String search,
+                                                          @RequestParam("length") int length, HttpServletRequest request){
+        return accountInformationService.findAllAndPaginationByIsSmsSent(page, length, search);
+    }
+
     @RequestMapping("get-all-data")
     List<AccountInformationEntity> getAllAccountInformation(){
         return accountInformationService.findAll();

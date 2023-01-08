@@ -192,9 +192,19 @@
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
                                                class="tab"
                                                th:href="@{/retail/loan/data-entry/distribution/auto/list}">
+                                                Send SMS For Automatic Distribution
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <!--th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/approval')-->
+                                            <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/distributionlist')}"
+                                               class="tab"
+                                               th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">
                                                 Automatic Distribution
                                             </a>
                                         </li>
+
                                         <li>
                                             <a class="tab"
                                                th:if="${session.urlList.contains('/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list')}"
