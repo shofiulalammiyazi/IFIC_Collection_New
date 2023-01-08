@@ -4,7 +4,7 @@
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="ISO-8859-1"></meta>
-    <title>Send SMS To Auto Distribution Account</title>
+    <title>Auto Distribution List</title>
     <style>
         td {
             word-wrap: break-word;
@@ -24,35 +24,10 @@
                 <div class="col-md-12">
                     <div class="box" id="entity-approval">
                         <div class="box-header with-border" style="text-align: center;">
-                            <h3 class="box-title">Send SMS To Auto Distribution List</h3>
+                            <h3 class="box-title">Auto Distribution List</h3>
                         </div>
-
-                        <div class="col-sm-12" style="margin-top: 10px">
-                            <div class="col-sm-3 text-right"><label class="control-label">SMS Type </label></div>
-                            <div class="col-sm-6">
-                                <select name="letterType" v-model="letterType" id="letterType" class="form-control required" @change="getSmsContent()">
-                                    <option class="form-control required" value="" selected>Select a Letter Type</option>
-                                    <option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12" style="margin-top: 10px; margin-bottom: 10px;">
-                            <div class="col-sm-3 text-right"><label class="control-label">Message </label></div>
-                            <div class="col-sm-6">
-                                <textarea class="form-control" id="message"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-9" style="margin-top: 10px; margin-bottom: 10px;">
-                            <button class="btn btn-primary pull-right" @click="generateSms()" id="sendSms">Send SMS</button>
-                        </div>
-
                         <div class="col-sm-12">
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary" @click="sendDataToExcel()">Upload Excel</button>
-                            </div>
-                            <div class="col-sm-6"></div>
+                            <div class="col-sm-8"></div>
                             <div class="col-sm-3">
                                 <input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">
                             </div>
@@ -140,7 +115,7 @@
             <script>
                 // var allAccountInformation;
                 var arr = [];
-                var allAccountInformationApp = new Vue({
+                var accountDistributionInformationApp = new Vue({
                     el: '#loan-auto-distribution-list',
                     data: {
                         allAccountInformation: [],
@@ -214,7 +189,7 @@
                                     else
                                         swal("SMS Not Sent!");
 
-                                    window.location = "/retail/loan/data-entry/distribution/auto/distributionlist";
+                                    window.location.reload();
                                 },
                                 error: function (response) {
                                     if(response.state == "OK")
@@ -228,16 +203,16 @@
                             });
                         },
                         getAllAccountInformation: function(page, length, search){
-                            var url = "/retail/loan/data-entry/distribution/auto/data/get-pagination?page="+page+"&length="+length;
+                            var url = "/retail/loan/data-entry/distribution/auto/data/get-page-by-issmssent?page="+page+"&length="+length;
                             if (search!=''){
-                                url= "/retail/loan/data-entry/distribution/auto/data/get-pagination?page="+page+"&search="+search+"&length="+length;
+                                url= "/retail/loan/data-entry/distribution/auto/data/get-page-by-issmssent?page="+page+"&search="+search+"&length="+length;
                             }
                             $.ajax({
                                 url: url,
                                 type: 'GET',
                                 dataType: 'json', // added data type
                                 success: function(res) {
-                                    allAccountInformationApp.allAccountInformation = res;
+                                    accountDistributionInformationApp.allAccountInformation = res;
                                 }
                             });
                         },
@@ -273,10 +248,10 @@
                         },
                         sendDataToExcel: function(){
                             var dateString = new Date().toJSON();
-                            allAccountInformationApp.dataToBeInExcel = this.allAccountInformation.content;
+                            accountDistributionInformationApp.dataToBeInExcel = this.allAccountInformation.content;
                             var CsvString = "";
                             CsvString += "Loan Account No, Employee Id, Employee Name, Branch Mnemonic, Product Code, Deal Reference \r\n";
-                            allAccountInformationApp.dataToBeInExcel.forEach(function(RowItem, RowIndex) {
+                            accountDistributionInformationApp.dataToBeInExcel.forEach(function(RowItem, RowIndex) {
                                 CsvString += RowItem.loanACNo!=null?"'"+RowItem.loanACNo:''; + ',';
                                 CsvString += ", , , ";
                                 CsvString += RowItem.branchMnemonic!=null?"'"+RowItem.branchMnemonic:''; + ',';
