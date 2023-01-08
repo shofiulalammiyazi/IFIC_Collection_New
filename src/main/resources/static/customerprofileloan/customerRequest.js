@@ -125,6 +125,11 @@ function custReqestInfoSave(event, e) {
             customerReqeustInfoList(id);
             // customerReqeustInfoList(customerId);
 
+        },
+        error:function (error) {
+            $('#modal-customer-request').modal('toggle')
+
+            customerReqeustInfoList(id);
         }
     }).done(function(){
         // Clear Form

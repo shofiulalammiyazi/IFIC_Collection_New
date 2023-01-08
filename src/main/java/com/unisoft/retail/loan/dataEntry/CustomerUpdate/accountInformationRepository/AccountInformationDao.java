@@ -67,8 +67,6 @@ public class AccountInformationDao {
                 accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
                 accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
 
-
-
                 accountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
                 accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
                 accountInformationDto.setCustomerType(resultSet.getString("GFCTP"));
@@ -100,16 +98,12 @@ public class AccountInformationDao {
                 accountInformationDto.setLinkAccountStatus(resultSet.getString("SCAI20"));
                 accountInformationDto.setLinkACProductCode(resultSet.getString("SCACT"));
 
-
                 accountInformationDto.setBranchMnemonic(resultSet.getString("V5BRNM"));
                 accountInformationDto.setDealReference(resultSet.getString("V5DLR"));
                 accountInformationDto.setDealAcBasic(resultSet.getString("V5AND"));
                 accountInformationDto.setDealAcSuffix(resultSet.getString("V5ASD"));
                 accountInformationDto.setPartyId(resultSet.getString("GFPID"));
                 accountInformationDto.setDocType(resultSet.getString("AAZIDC"));
-
-
-
 
                 accountInformationDtoList.add(accountInformationDto);
 

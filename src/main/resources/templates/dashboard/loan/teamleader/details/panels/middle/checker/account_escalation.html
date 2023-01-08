@@ -197,7 +197,7 @@
                     </thead>
                     <tbody id="account-escalation-table-body">
                     <tr v-for="(accountEscalation,index) in accountEscalationList">
-                        <td><a :href="'/profile/loanprofile/search?account='+accountEscalation.accountNumber">{{accountEscalation.accountNumber}}</a></td>
+                        <td><a :href="'/profile/loanprofile/search?account='+subString(accountEscalation.accountNumber)">{{subString(accountEscalation.accountNumber)}}</a></td>
                         <td>{{accountEscalation.fromUserPin}} - {{accountEscalation.fromUserName}}</td>
                         <td>{{accountEscalation.toUserPin}} - {{accountEscalation.toUserName}}</td>
                         <td>{{formatDate(accountEscalation.createdDate)}}</td>
@@ -264,6 +264,11 @@
                         }
                     });
                     return true;
+                },
+                subString: function (accountNo) {
+
+                   return accountNo.substr(0, 13);
+
                 }
             },
 

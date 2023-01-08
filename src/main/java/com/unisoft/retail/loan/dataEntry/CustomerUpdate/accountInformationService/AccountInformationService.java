@@ -169,10 +169,14 @@ public class AccountInformationService {
             accountInformationEntity.setInterestRate(interestRate);
             accountInformationEntity.setSanctionAmount(sanctionAmount);
 
-            if (linkAccountStatus.toLowerCase()=="no") {
-                accountInformationEntity.setLinkAccountStatus("Active");
-            }else {
-                accountInformationEntity.setLinkAccountStatus("Inactive");
+            try {
+                if (linkAccountStatus.toLowerCase().equals("n")) {
+                    accountInformationEntity.setLinkAccountStatus("Active");
+                }else if(linkAccountStatus.toLowerCase().equals("y")) {
+                    accountInformationEntity.setLinkAccountStatus("Inactive");
+                }
+            }catch (Exception e){
+                System.out.println("status");
             }
 
             accountInformationEntity.setLinkACProductCode(linkAcProductCode);
@@ -197,7 +201,6 @@ public class AccountInformationService {
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getLastPaymentDate());
             }
 
-
             try{
                 if (dto.getEmiDate() !=null) {
                     accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
@@ -218,7 +221,6 @@ public class AccountInformationService {
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getEmiDate());
             }
 
-
             try {
                 if (dto.getExpiryDate() != null) {
                     accountInformationEntity.setExpiryDate(dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()));
@@ -228,7 +230,6 @@ public class AccountInformationService {
             }catch (Exception e){
                 System.out.println("accountNo==="+dto.getLoanACNo() +"emidate = "+dto.getExpiryDate());
             }
-
 
             try{
                 if (dto.getDob() !=null) {
@@ -245,7 +246,6 @@ public class AccountInformationService {
             }
 
             System.out.println("test "+dto.getLoanACNo());
-
 
             if(accountInformationEntities.size() == 1000){
                 accountInformationRepository.saveAll(accountInformationEntities);
