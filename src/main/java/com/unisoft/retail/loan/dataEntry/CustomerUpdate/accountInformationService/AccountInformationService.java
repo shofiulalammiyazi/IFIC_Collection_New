@@ -279,6 +279,10 @@ public class AccountInformationService {
         return accountInformationRepository.findAllByLoanACNo(accountNumber);
     }
 
+    public AccountInformationEntity findAccountInformationEntityByLoanAccountNew(String accountNumber){
+        return accountInformationRepository.findAccountInformationEntityByLoanAccountNew(accountNumber);
+    }
+
     public List<AccountInformationEntity> findAll(){
         return accountInformationRepository.findAll();
     }

@@ -23,6 +23,11 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "select * From account_information_entity Where replace(loanacno,' ','') = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findAccountInformationEntityByLoanACNo(String loanACNo);
 
+
+    AccountInformationEntity findAccountInformationEntityByLoanAccountNew(String loanAccountNew);
+
+
+
     AccountInformationEntity findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(String accountNumber,String branchMnemonic,String productCode, String dealReference);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO= ?1 and BRANCH_MNEMONIC=?2 and PRODUCT_CODE = ?3 and DEAL_REFERENCE=?4", nativeQuery = true)
