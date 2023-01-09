@@ -254,7 +254,8 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     List<String> getCurrentMonthDistributionAccNo(@Param("startDate") Date startDate,@Param("endDate") Date endDate);
 
 
-    List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByLatest(String latest);
+    @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI WHERE LADI.ACCOUNT_NO IN (?1) AND LADI.LATEST = ?2", nativeQuery = true)
+    List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByLatest(List<String> ac,String latest);
 
 
     @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO WHERE TO_CHAR(CREATED_DATE, 'dd-mm-yyyy') between :startDate AND :endDate " +
