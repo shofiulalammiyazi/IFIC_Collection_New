@@ -161,8 +161,8 @@ public class LoanAccountDistributionService {
         return dataList;
     }
 
-    public List<LoanAccountDistributionInfo> findLoanAccountDistributionInfoByLatest(String s) {
-        return repository.findLoanAccountDistributionInfosByLatest(s);
+    public List<LoanAccountDistributionInfo> findLoanAccountDistributionInfoByLatest(List<String> acc,String s) {
+        return repository.findLoanAccountDistributionInfosByLatest(acc,s);
     }
 
 

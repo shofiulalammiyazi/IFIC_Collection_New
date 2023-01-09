@@ -71,7 +71,7 @@
                                                    style="max-height: 30em" id="loan-auto-distribution-list-table">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <td class="text-right" colspan="9">
+                                                    <td class="text-right" colspan="10">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -90,6 +90,7 @@
                                                     <th class="text-center">Product Code</th>
                                                     <th class="text-center">Deal Reference</th>
                                                     <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Overdue</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
@@ -108,11 +109,12 @@
                                                     <td>{{data.productCode}}</td>
                                                     <td>{{data.dealReference}}</td>
                                                     <td>{{data.totalOutstanding}}</td>
+                                                    <td>{{data.overdue}}</td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td class="text-right" colspan="9">
+                                                    <td class="text-right" colspan="10">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>

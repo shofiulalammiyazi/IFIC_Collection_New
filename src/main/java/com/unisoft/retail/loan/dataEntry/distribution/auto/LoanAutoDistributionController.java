@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.dataEntry.distribution.auto;
 
+import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
 import com.unisoft.collection.settings.SMS.sendSms.SendSmsToCustomerService;
 import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
@@ -46,6 +47,9 @@ public class LoanAutoDistributionController {
     @Autowired
     private SendSmsToCustomerService sendSmsToCustomerService;
 
+    @Autowired
+    private PeopleAllocationLogicRepository peopleAllocationLogicRepository;
+
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
 
@@ -77,6 +81,7 @@ public class LoanAutoDistributionController {
     @GetMapping("distributionlist")
     public String getDistributionList(Model model) {
 
+        model.addAttribute("dealerList", peopleAllocationLogicRepository.findByUnitAndDistributionType("Loan", "Regular"));
         List<SMSEntity> smsEntityList = smsService.findAll();
         model.addAttribute("smsEntityList", smsEntityList);
 
