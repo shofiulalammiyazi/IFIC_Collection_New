@@ -128,4 +128,5 @@ public class AccountInformationEntity extends BaseInfo {
     private String uniqueDealLoan;
     private String loanAccountNew;
     private String isSmsSent = "N";
+    private String isDistributed = "N";
 }

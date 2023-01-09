@@ -27,7 +27,13 @@
                             <h3 class="box-title">Auto Distribution List</h3>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-8"></div>
+                            <div class="col-sm-8">
+                                <button style="margin-bottom: 10px; margin-right: 5px; float: right;"
+                                        class="btn btn-primary btn-xs" data-toggle="modal"
+                                        data-target="#modal-default-dealer" :disabled="!selectedList.length"><span
+                                        class="glyphicon glyphicon-plus"> </span> MA (Dealer)
+                                </button>
+                            </div>
                             <div class="col-sm-3">
                                 <input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">
                             </div>
@@ -46,7 +52,7 @@
                                                    style="max-height: 30em" id="loan-auto-distribution-list-table">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <td class="text-right" colspan="9">
+                                                    <td class="text-right" colspan="10">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -65,14 +71,20 @@
                                                     <th class="text-center">Product Code</th>
                                                     <th class="text-center">Deal Reference</th>
                                                     <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Overdue</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
                                                 <tr v-for="(data, index) in allAccountInformation.content" class="text-center">
                                                     <td>
                                                         <label>
-                                                            <input :id="'data-' + index" type="checkbox"
+                                                            <input :id="'data-' + index" type="checkbox" :value="data.loanACNo"
                                                                    class="mdl-checkbox__input" @click="getData(data,index)">
+                                                            <!--<label class="mdl-checkbox mdl-js-checkbox">-->
+                                                                <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
+                                                                       <!--:value="loan.accountNo" type="checkbox"-->
+                                                                       <!--class="mdl-checkbox__input" checked>-->
+                                                            <!--</label>-->
                                                         </label>
                                                     </td>
                                                     <td>{{indexNumbering() + index+1}}</td>
@@ -83,11 +95,12 @@
                                                     <td>{{data.productCode}}</td>
                                                     <td>{{data.dealReference}}</td>
                                                     <td>{{data.totalOutstanding}}</td>
+                                                    <td>{{data.overdue}}</td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td class="text-right" colspan="9">
+                                                    <td class="text-right" colspan="10">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -111,7 +124,43 @@
 
 
                 </div>
+                <div class="modal fade" id="modal-default-dealer">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Manual Allocation (Dealer)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Dealer</label>
+                                    <div class="col-sm-8">
+                                        <select v-model="dealerId" id="dealer_id"
+                                                class="form-control input-sm">
+                                            <option value="">Choose One</option>
+                                            <option th:each="dealer : ${dealerList}" th:value="${dealer.id}"
+                                                    th:text="${dealer.getDealer().getUser().getFirstName()}">
+                                                Loan
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <a href="#" class="btn btn-success" @click="addManualAllocation()"
+                                   id="btn_ingresar">Submit</a>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
             </div>
+
             <script>
                 // var allAccountInformation;
                 var arr = [];
@@ -125,6 +174,7 @@
                         dataToBeInExcel: [],
                         selectedList: [],
                         letterType:"",
+                        dealerId: "",
                     },
                     computed: {
                         firstPageButtonShow: function(){
@@ -136,14 +186,32 @@
                         this.getAllAccountInformation(this.page, 100, this.searchField)
                     },
                     methods: {
+                        addManualAllocation: function () {
+                            var host = window.location.host;
+                            this.$http.post('https://' + host + '/distribution/loan/dealer-wise-distribution', {
+                                id: this.dealerId,
+                                list: this.selectedList,
+
+                            }, {
+                                credentials: true, headers: {
+                                    'X-CSRF-TOKEN': window.csrfToken,
+                                }
+                            }).then(res => {
+
+                                if (res.body) {
+                                    alert("saved successfully");
+                                    document.location.reload();
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        },
                         getData(loan,index) {
 
-                            var l = loan.loanACNo+":"+loan.mobile+":"+loan.productName+":"
-                                +loan.emiAmount+":"+loan.emiDate+":"+loan.currentMonth+
-                                ":"+loan.customerId+":"+loan.customerName+":"+loan.id;
+                            var l = loan.loanACNo;
                             if(arr.indexOf(index) == -1){
                                 arr.push(index);
-                                this.selectedList.push(l);
+                                this.selectedList.push(l+":"+loan.branchMnemonic+":"+loan.productCode+":"+loan.dealReference);
                             }
                             else{
                                 this.selectedList = this.selectedList.splice(this.selectedList.indexOf(l)-1,this.selectedList.indexOf(l));
