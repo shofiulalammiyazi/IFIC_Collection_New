@@ -20,7 +20,7 @@ public class EmailedLetterHistoriesService {
 
     public Long insertData(EmailedLetterHistories letterHistories) {
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoEntityRepository.findFirstByAccountNoOrderByAccountNoAsc(letterHistories.getAccountNo());
+        CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoEntityRepository.findFirstByAccountNoOrderByAccountNoSubStr(letterHistories.getAccountNo());
 
         letterHistories.setCustomerId(customerBasicInfoEntity.getId());
         letterHistories.setCreatedBy(principal.getUsername());

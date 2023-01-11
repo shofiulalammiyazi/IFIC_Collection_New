@@ -36,6 +36,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOAN_ACCOUNT_NEW= ?1", nativeQuery = true)
     public AccountInformationEntity getByLoanAccountNo(String accountNo);
 
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1", nativeQuery = true)
+    public AccountInformationEntity getByLoanAccountNoSub(String accountNo);
+
     @Query(value = "SELECT * " +
             "FROM ACCOUNT_INFORMATION_ENTITY " +
             "WHERE LOANACNO = ?1 " +
