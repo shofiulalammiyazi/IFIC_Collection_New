@@ -217,6 +217,12 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "WHERE baic.accountNo= :accNo AND distribution.latest = '1' AND distribution.createdDate BETWEEN :startDate AND :endDate")
     LetterPayload getLetterInfo(@Param("accNo") String accNo, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+    @Query(value = "" +
+            "SELECT new com.unisoft.letterGeneration.LetterPayload(distribution.currentOverdue,distribution.currentDpdBucket,distribution.emiAmount) FROM LoanAccountDistributionInfo distribution " +
+            "INNER JOIN LoanAccountBasicInfo baic ON distribution.loanAccountBasicInfo = baic.id " +
+            "WHERE substring(baic.accountNo,0,13) = :accNo AND distribution.latest = '1' AND distribution.createdDate BETWEEN :startDate AND :endDate")
+    LetterPayload getLetterInfoBySubAcNo(@Param("accNo") String accNo, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
 
     @Query(value = " SELECT " +
              "LADI.DEALER_NAME AS Dealer_Name, " +

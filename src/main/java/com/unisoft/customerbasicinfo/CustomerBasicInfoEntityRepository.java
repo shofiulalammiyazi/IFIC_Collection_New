@@ -35,6 +35,9 @@ public interface CustomerBasicInfoEntityRepository extends JpaRepository<Custome
 
     CustomerBasicInfoEntity findFirstByAccountNoOrderByAccountNoAsc(String accountNo);
 
+    @Query(value = "SELECT CBIE.* FROM CUSTOMER_BASIC_INFO_ENTITY CBIE WHERE SUBSTR(CBIE.ACCOUNT_NO,0,13) = ?1", nativeQuery = true)
+    CustomerBasicInfoEntity findFirstByAccountNoOrderByAccountNoSubStr(String accountNo);
+
     //added by shanto for card txt file data upload
     CustomerBasicInfoEntity findFirstByClientId(String clientId);
 
