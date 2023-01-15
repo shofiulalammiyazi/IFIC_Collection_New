@@ -1,23 +1,27 @@
 package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService;
 
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
+import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
+import com.unisoft.collection.distribution.loan.LoanDistributionService;
+import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
+import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
+import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.unisoft.retail.loan.dataEntry.distribution.auto.Datatable;
@@ -33,6 +37,9 @@ public class AccountInformationService {
 
     @Autowired
     private DateUtils dateUtils;
+
+    @Autowired
+    private LoanAccountDistributionRepository loanAccountDistributionRepository;
 
     //@Scheduled("")
     public void getAccountInformationData(){
@@ -191,6 +198,11 @@ public class AccountInformationService {
 
             accountInformationEntity.setLoanAccountNew(account+""+branchMnemonic+""+productCode+""+dealReference);
 
+            if(!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
+                accountInformationEntity.setIsDistributed("N");
+            else
+                accountInformationEntity.setIsDistributed("N");
+
             try {
                 if (dto.getLastPaymentDate() != null) {
                     accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
@@ -246,6 +258,36 @@ public class AccountInformationService {
             }
 
             System.out.println("test "+dto.getLoanACNo());
+
+            if(dto.getLoanACNo() != null) {
+                LoanAccountDistributionInfo loanAccountDistributionInfo =
+                        loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
+
+                if (loanAccountDistributionInfo != null &&
+                        (!loanAccountDistributionInfo.getOutStanding().equals(dto.getTotalOutstanding())
+                                || !String.valueOf(loanAccountDistributionInfo.getOpeningOverDue()).equals(dto.getOverdue()))) {
+                    UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                    LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
+                    BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);
+                    loanAccountDistributionInfo.setLatest("0");
+                    loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
+                    loanAccountDistributionInfo.setEndDate(new Date());
+
+                    loanAccountDistributionRepository.save(loanAccountDistributionInfo);
+
+                    loanAccountDistributionInfo1.setLatest("1");
+                    loanAccountDistributionInfo1.setWriteOffAccount("0");
+                    loanAccountDistributionInfo1.setSamAccount("0");
+                    loanAccountDistributionInfo1.setCreatedDate(new Date());
+                    loanAccountDistributionInfo1.setCreatedBy(user.getUsername());
+                    loanAccountDistributionInfo1.setStatusDate(new Date());
+                    loanAccountDistributionInfo1.setOutStanding(accountInformationEntity.getTotalOutstanding());
+                    loanAccountDistributionInfo1.setDpdBucket(accountInformationEntity.getDpd());
+                    loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(accountInformationEntity.getEmiAmount()));
+                    loanAccountDistributionInfo1.setStartDate(new Date());
+                    loanAccountDistributionRepository.save(loanAccountDistributionInfo1);
+                }
+            }
 
             if(accountInformationEntities.size() == 1000){
                 accountInformationRepository.saveAll(accountInformationEntities);
