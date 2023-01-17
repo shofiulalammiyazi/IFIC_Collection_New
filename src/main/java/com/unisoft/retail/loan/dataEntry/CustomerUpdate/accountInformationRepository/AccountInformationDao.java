@@ -33,14 +33,16 @@ public class AccountInformationDao {
 
             connection = clientDbServerIfic.getConnection();
             statement = connection.createStatement();
+
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()){
 
-                AccountInformationDto accountInformationDto= new AccountInformationDto();
+                AccountInformationDto accountInformationDto = new AccountInformationDto();
 
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
-                accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
+                accountInformationDto.setLastPaymentDate(resultSet.getString("LPAYDATE")); //updated at 16-01-2023
+                //accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
                 //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMARC01"));
                 accountInformationDto.setSettlementLinkAccountBalance(resultSet.getString("SCBAL"));
                 accountInformationDto.setLinkMotherAccountNo(resultSet.getString("NEEAN01"));
@@ -49,8 +51,11 @@ public class AccountInformationDao {
                 accountInformationDto.setBranchName(resultSet.getString("CABRN"));
                 accountInformationDto.setBranchCode(resultSet.getString("V5ABD"));
                 accountInformationDto.setOverdue(resultSet.getString("OVERDUE"));
-                accountInformationDto.setEmiAmount(resultSet.getString("OMNWR"));
-                accountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
+                //accountInformationDto.setEmiAmount(resultSet.getString("OMNWR"));
+                accountInformationDto.setEmiAmount(resultSet.getString("IZCRA"));// updated at 16-01-2023
+                accountInformationDto.setEmiDate(resultSet.getString("IZNDT"));  // -- update 16/01/2023
+                accountInformationDto.setNextEMIDate(resultSet.getString("NXTEMIDT")); // -- update 16/01/2023
+                //accountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
                 //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMNWR01"));
                 accountInformationDto.setProductType(resultSet.getString("V5DLP"));
                 accountInformationDto.setProductCode(resultSet.getString("V5DLP"));
@@ -104,6 +109,23 @@ public class AccountInformationDao {
                 accountInformationDto.setDealAcSuffix(resultSet.getString("V5ASD"));
                 accountInformationDto.setPartyId(resultSet.getString("GFPID"));
                 accountInformationDto.setDocType(resultSet.getString("AAZIDC"));
+
+                //added at 16/01/2023
+                accountInformationDto.setDivision(resultSet.getString("DIVISION"));
+                accountInformationDto.setDistrict(resultSet.getString("DISTRICT"));
+                accountInformationDto.setScheduleStartDate(resultSet.getString("IZDTES"));
+                accountInformationDto.setDealBalanceAtStartDate(resultSet.getString("IZBAL"));
+                accountInformationDto.setCalculatedMaturityDate(resultSet.getString("IZMDT"));
+                accountInformationDto.setFirstRepaymentAmount(resultSet.getString("IZCRAN"));
+                accountInformationDto.setLastRepaymentAmount(resultSet.getString("IZCRAL"));
+                accountInformationDto.setTotalNoOfInstallment(resultSet.getString("IZNPY"));
+                accountInformationDto.setFrequencyCode(resultSet.getString("IZRFRQ"));
+                accountInformationDto.setLoanCLStatus(resultSet.getString("T9LSD"));
+                accountInformationDto.setLastPaymentAmount(resultSet.getString("LPAYAMNT"));
+                accountInformationDto.setLatestDisbursementDate(resultSet.getString("LDISDATE"));
+                accountInformationDto.setLatestDisbursementAmount(resultSet.getString("LDISAMNT"));
+                accountInformationDto.setSanctionAmount(resultSet.getString("SANCAMNT"));
+                accountInformationDto.setJointStatus(resultSet.getString("SCAIC7"));
 
                 accountInformationDtoList.add(accountInformationDto);
 

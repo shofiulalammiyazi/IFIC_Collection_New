@@ -79,6 +79,12 @@ public class LoanAccountDistributionInfo extends BaseInfo {
 
     private Double lastPaidAmount = 0D;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date startDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date endDate;
+
     @Transient
     private double parRelAmnt = 0;
 
