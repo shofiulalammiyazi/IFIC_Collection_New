@@ -265,7 +265,7 @@ public class LoanDistributionService {
                 loanAccountBasicInfo.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s", ""));
             }
 
-             basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo);
+            basicInfo =  loanAccountBasicService.save(loanAccountBasicInfo);
         }else {
             LoanAccountBasicInfo loanAccountBasicInfo1 = new LoanAccountBasicInfo();
             loanAccountBasicInfo1.setCustomer(customerBasicInfoEntity);
@@ -292,7 +292,7 @@ public class LoanDistributionService {
             customerBasicInfoEntity.setNid(accountInformationEntity.getNid());
             customerBasicInfoEntity.setOccupation(accountInformationEntity.getProfession());
             customerBasicInfoEntity.setTin(accountInformationEntity.getTin());
-           // customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s",""));
+            // customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanAccountNew().replaceAll("\\s",""));
 
             if(!accountInformationEntity.getBranchMnemonic().isEmpty() && !accountInformationEntity.getProductCode().isEmpty() && !accountInformationEntity.getDealReference().isEmpty()) {
                 customerBasicInfoEntity.setAccountNo(accountInformationEntity.getLoanACNo()+""+accountInformationEntity.getBranchMnemonic()+""+accountInformationEntity.getProductCode()+""+accountInformationEntity.getDealReference());
@@ -461,7 +461,7 @@ public class LoanDistributionService {
         loanAccountBasicService.saveOrUpdate(loanAccountBasicInfo, username);
         return loanAccountBasicInfo;
     }
-//
+    //
     public LoanAccountDistributionInfo updateLoanAccountDistributionInfo(LoanAccountDistributionInfo loanAccountDistributionInfo,
                                                                          LoanAccountBasicInfo loanAccountBasicInfo, LoanAccDetails loanAccDetails) {
 
@@ -499,7 +499,7 @@ public class LoanDistributionService {
         loanAccountDistributionService.update(loanAccountDistributionInfo);
         return loanAccountDistributionInfo;
     }
-//
+    //
     public LoanAccountInfo updateLoanAccountInfo(LoanAccountInfo loanAccountInfo, LoanAccountBasicInfo loanAccountBasicInfo, LoanAccDetails loanAccDetails, BranchInfo branchInfo, String username) {
 
         String schemeCode = loanAccDetails.getProductCode();
@@ -529,7 +529,7 @@ public class LoanDistributionService {
 
         return loanAccountInfo;
     }
-//
+    //
     public LoanAccountOtherInfo updateLoanAccountOtherInfo(LoanAccountOtherInfo loanAccountOtherInfo, LoanAccountBasicInfo loanAccountBasicInfo, LoanAccInfo loanAccInfo, String username) {
         // TODO: if required data provided in future, have to change it;
         String status = loanAccInfo.getAccountStatus();
@@ -545,7 +545,7 @@ public class LoanDistributionService {
         return (loanAccDetails == null || loanAccDetails.getAccountNumber() == null) ?
                 retailLoanUcbApiService.getLoanAccountDetails(accountNo) : loanAccDetails;
     }
-//
+    //
     public LoanAccInfo populateLoanAccInfo(LoanAccInfo loanAccInfo, String accountNo) {
         return (loanAccInfo == null || loanAccInfo.getAccountNumber() == null) ?
                 retailLoanUcbApiService.getLoanAccountInfo(accountNo) : loanAccInfo;

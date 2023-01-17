@@ -30,7 +30,7 @@
                         <label class="col-sm-3 custom-form-lebel"
                                id="companyName">{{accountInformation.borrowersName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel"-->
-                               <!--id="companyName">{{customerInfo.proprietorName}}</label>-->
+                        <!--id="companyName">{{customerInfo.proprietorName}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left"> Profession :</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="occupation">{{customerInfo.employer}}</label>-->
@@ -47,7 +47,7 @@
                             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#callThroughApi">Call</button>
                         </label>
                         <!--<div class="col-sm-2">-->
-                            <!--<button  v-if="customerAndBorrowerInfo.entity && customerAndBorrowerInfo.entity.contactNo && !showContactNo" @click="showContactNo=true">Additional Info</button>-->
+                        <!--<button  v-if="customerAndBorrowerInfo.entity && customerAndBorrowerInfo.entity.contactNo && !showContactNo" @click="showContactNo=true">Additional Info</button>-->
                         <!--</div>-->
                         <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{"-"}}</label>-->
                         <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{customerAndBorrowerInfo.entity.contactNo}}</label>-->
@@ -162,9 +162,11 @@
                     </div>
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">District :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="district">{{accountInformation.district || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="district"></label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">Division :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="division">{{accountInformation.division || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" ></label>-->
 
 
