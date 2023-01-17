@@ -20,6 +20,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "select * From account_information_entity Where CUSTOMER_ID = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findByCustomerId(String customerId);
 
+    @Query(value = "select * From account_information_entity Where ID = ?", nativeQuery = true)
+    AccountInformationEntity findByCustId(Long id);
+
     @Query(value = "select * From account_information_entity Where replace(loanacno,' ','') = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findAccountInformationEntityByLoanACNo(String loanACNo);
 
@@ -70,8 +73,16 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' " +
+            "AND TO_DATE(EMI_DATE,'YYYY-MM-DD') <= (SELECT TO_DATE(TO_CHAR(SYSDATE+3, 'YYYY-MM-DD'),'YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    public Page<AccountInformationEntity> findAllByLoanACNoAndCurrentDatePlusThree(String accountNo, Pageable pageable);
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'YYYY-MM-DD') " +
+            "<= (SELECT TO_DATE(TO_CHAR(SYSDATE+3, 'YYYY-MM-DD'),'YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
