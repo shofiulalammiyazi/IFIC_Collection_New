@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +37,8 @@ public class LoanPtpController {
         loanPtp.setEnabled(true);
         loanPtp.setPin(user.getUsername());
         loanPtp.setUsername(user.getLastName());
+        loanPtp.setLoan_ptp_date(new Date());
+        loanPtp.setLoan_ptp_time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
 
 //        Date ptpDate = null;
 //        String stringToDate = "";

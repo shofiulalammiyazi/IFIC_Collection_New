@@ -1081,7 +1081,7 @@
                                         <form id="loan_ptpForm" action="" method="post" class="form-horizontal">
                                             <input type="hidden" id="loanptpcustomerId" th:value="${loanprofileview.id}"
                                                    name="customerBasicInfo.id"/>
-                                            <div >
+                                            <div  id="cureenDateTaim">
                                                 <input type="hidden" name="loan_contact_details" id="ptp_contact_details" value=""/>
                                                 <input type="hidden" name="loan_contact_location" id="ptp_location_details" value=""/>
                                                 <input type="hidden" name="loan_promisor_details" id="ptp_promisor_details" value=""/>
@@ -1122,7 +1122,7 @@
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </div>
-                                                            <input type="date" name="loan_ptp_date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date">
+                                                            <input type="date" name="loan_ptp_date" v-model="date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date" disabled>
                                                         </div>
                                                     </div>
                                                     <label for="card_ptp_time" class="col-sm-2 control-label">Time</label>
@@ -1131,8 +1131,9 @@
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-clock-o"></i>
                                                             </div>
-                                                            <input type="time" name="loan_ptp_time" class="form-control"
-                                                                   id="card_ptp_time" placeholder="12:00 PM"/>
+
+                                                            <input name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" disabled/>
+                                                            <input type="hidden" v-model="time">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1141,6 +1142,29 @@
                                         <br>
                                     </div>
                                 </div>
+
+
+                                <script>
+
+
+                                    var  currentDateTime = new Vue({
+                                        el: '#cureenDateTaim',
+                                        data: ({
+
+                                            date: new Date().toISOString().substr(0, 10),
+                                            time: new Date().toLocaleTimeString('en-US'),
+
+                                        }),
+
+
+                                    });
+
+
+
+                                </script>
+
+
+
 
 
                                 <div class="csi-view-form-full-area csi-view-indtable col-sm-6">
@@ -1564,6 +1588,8 @@
                             for (var i = 0; i < data.length; i++) {
                                 if (data != null) {
 
+                                    console.log(data);
+
                                     let date = new Date(data[i].loan_ptp_date);
                                     date.setHours(0);
                                     date.setMinutes(0);
@@ -1578,11 +1604,15 @@
                                     var str2 = '';
                                     var str3 = '';
                                     let b = date >= date1;
-                                    if (b) {
+                                    /*if (b) {
                                         if(user_designation =='Dealer') {
                                             str1 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_editRow(this," + data[i].loan_contact_details_id + "," + data[i].loan_contact_location_id + "," + data[i].loan_promisor_details_id + ",)\"> <i class=\"fa fa-edit\"></i></a>"
                                         }
+                                    }*/
+                                    if(user_designation !='Dealer') {
+                                        str1 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_editRow(this," + data[i].loan_contact_details_id + "," + data[i].loan_contact_location_id + "," + data[i].loan_promisor_details_id + ",)\"> <i class=\"fa fa-edit\"></i></a>"
                                     }
+
                                     str3 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_viewRow(this)\"> <i class=\"fa fa-eye\"></i></a>";
                                     data[i].createdDate = this.dateFormat(data[i].createdDate);
 
