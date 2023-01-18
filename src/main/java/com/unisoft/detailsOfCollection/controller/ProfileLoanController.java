@@ -370,6 +370,7 @@ public class ProfileLoanController {
                          accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
 */
                  model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
+                 model.addAttribute("customerName",loanAccountBasicInfo.getAccountName());
 
                  return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 
