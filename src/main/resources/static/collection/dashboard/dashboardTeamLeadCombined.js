@@ -66,7 +66,7 @@ $(document).ready(function () {
                             + '<td class="text-right">' + (index + 1) + '</td>'
                             + '<td><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" href="/profile/loanprofile/search?account=' + data.accountNo + '">' + data.accountNo + '</a></td>'
                            /* + '<td>'+data.customerName+'</td>'*/
-                            + '<td><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" >' +data.customerName + '</a></td>'
+                            + '<td>' +data.customerName + '</td>'
                                 + '<td class="text-right">' + data.branchMnemonic + '</td>'
                                 + '<td class="text-right">' + data.dealReference + '</td>'
                                 + '<td class="text-right">' + data.productCode + '</td>'
