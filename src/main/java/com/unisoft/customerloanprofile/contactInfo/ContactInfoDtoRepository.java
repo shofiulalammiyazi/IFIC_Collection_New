@@ -13,7 +13,7 @@ import java.util.List;
 public interface ContactInfoDtoRepository extends JpaRepository<LoanAccountDistributionInfo, Long> {
 
 
-    @Query(value = "SELECT L.ACCOUNT_NO                                         as accountNo, " +
+    @Query(value = "SELECT substr(L.ACCOUNT_NO,0,13)                                         as accountNo, " +
             "       l.CUSTOMER_ID                                        as customerId, " +
             "       COUNT(con.ATTEMPT) AS attempted " +
             "FROM LOAN_ACCOUNT_DISTRIBUTION_INFO ladi " +
@@ -40,7 +40,7 @@ public interface ContactInfoDtoRepository extends JpaRepository<LoanAccountDistr
             "GROUP BY L.CONTRACT_ID, l.CUSTOMER_ID ", nativeQuery = true)
     List<Tuple> findCurrentMonthContactInfoByCardDealerPin(Date startDate, Date endDate, String pin);
 
-    @Query(value = "SELECT LABI.ACCOUNT_NO                                         as accountNo, " +
+    @Query(value = "SELECT substr(LABI.ACCOUNT_NO ,0,13)                      as accountNo, " +
             "       LABI.CUSTOMER_ID                                        as customerId, " +
             "       COUNT(CI.ATTEMPT) AS attempted " +
             "FROM CONTACT_INFO CI " +
@@ -56,7 +56,7 @@ public interface ContactInfoDtoRepository extends JpaRepository<LoanAccountDistr
             "GROUP BY LABI.ACCOUNT_NO, LABI.CUSTOMER_ID ", nativeQuery = true)
     List<Tuple> findCurrentMonthContactInfoByTeamleadPin(Date startDate, Date endDate, String pin);
 
-    @Query(value = "SELECT LABI.ACCOUNT_NO                                         as accountNo, " +
+    @Query(value = "SELECT substr(LABI.ACCOUNT_NO ,0,13)                     as accountNo, " +
             "       LABI.CUSTOMER_ID                                        as customerId, " +
             "       COUNT(CI.ATTEMPT) AS attempted " +
             "FROM CONTACT_INFO CI " +
@@ -78,7 +78,7 @@ public interface ContactInfoDtoRepository extends JpaRepository<LoanAccountDistr
             "left join EMPLOYEE_INFO_ENTITY emp " +
             "       on emp.id = pl.DEALER_ID " +
             "       where e.pin = ?3) " +
-            "   select labi.ACCOUNT_NO as accountNo, count(*) AS attempted from LOAN_ACCOUNT_DISTRIBUTION_INFO ladi " +
+            "   select substr(labi.ACCOUNT_NO ,0,13) as accountNo, count(*) AS attempted from LOAN_ACCOUNT_DISTRIBUTION_INFO ladi " +
             " left join LOAN_ACCOUNT_BASIC_INFO labi " +
             "  on ladi.LOAN_ACCOUNT_BASIC_INFO_ID = labi.ID " +
             " left join CUSTOMER_BASIC_INFO_ENTITY cbie " +

@@ -42,9 +42,11 @@ public class AccountInformationService {
     private LoanAccountDistributionRepository loanAccountDistributionRepository;
 
     //@Scheduled("")
-    public void getAccountInformationData() {
+    public String getAccountInformationData() {
 
         List<AccountInformationDto> dataList = accountInformationDao.getData();
+        if(dataList.size()<1)
+            return "400";
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
 
         for (AccountInformationDto dto : dataList) {
@@ -320,6 +322,7 @@ public class AccountInformationService {
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
+        return "200";
     }
 
     public AccountInformationEntity getAccountInformation(String accountNo) {
@@ -376,9 +379,9 @@ public class AccountInformationService {
         Pageable pageElements = PageRequest.of(page, length);
         Page<AccountInformationEntity> allProducts;
         if (accountNo != null && accountNo != "") {
-            allProducts = accountInformationRepository.findAllByLoanACNo(accountNo, pageElements);
+            allProducts = accountInformationRepository.findAllByLoanACNoAndCurrentDatePlusThree(accountNo, pageElements);
         } else {
-            allProducts = accountInformationRepository.findAllAcc(pageElements);
+            allProducts = accountInformationRepository.findAllAccByCurrentDatePlusThree(pageElements);
         }
         return ResponseEntity.ok(allProducts);
     }

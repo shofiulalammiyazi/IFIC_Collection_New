@@ -321,12 +321,13 @@ public class LoanController {
 
     private LoanViewModelForSMS getLoanViewModelForSMS(LoanAccountDistributionInfo loanAccountDistributionInfo, LoanViewModelForSMS loanViewModel) {
 
-        AccountInformationEntity accountInformationEntity = accountInformationRepository.findByCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
+        AccountInformationEntity accountInformationEntity = accountInformationRepository.getByLoanAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
+                //accountInformationRepository.findByCustId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getId());
 
         loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
         loanViewModel.setCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
         loanViewModel.setCustomerName(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountName());
-        loanViewModel.setMobileNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getMobileNo());
+        loanViewModel.setMobileNo(accountInformationEntity.getMobile());
         loanViewModel.setProductName(accountInformationEntity == null?"":accountInformationEntity.getProductName());
         loanViewModel.setInstallmentAmount(loanAccountDistributionInfo.getEmiAmount().toString());
         loanViewModel.setNextEmiDate(loanAccountDistributionInfo.getEmiDueDate());

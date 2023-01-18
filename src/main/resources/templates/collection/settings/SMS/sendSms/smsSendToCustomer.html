@@ -43,7 +43,7 @@
                             </div>
 
 
-                            <table id="smstable" name="datatable-responsive" class="table table-striped table-bordered table-condensed" width="100%">
+                            <table id="smstable" name="" class="table table-striped table-bordered table-condensed" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Checkbox</th>
@@ -101,7 +101,8 @@
 
 
                         <script>
-                            $('#smstable').DataTable();
+                            $('#smstable').DataTable({
+                            });
                             var arr = [];
 
                             var smsApp = new Vue({

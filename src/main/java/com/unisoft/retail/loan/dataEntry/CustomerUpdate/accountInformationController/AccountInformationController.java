@@ -23,9 +23,9 @@ public class AccountInformationController {
 
 
     @GetMapping("get-data")
-    public void fetchData(){
-        accountInformationService.getAccountInformationData();
+    public String fetchData(){
 
+        return accountInformationService.getAccountInformationData();
     }
 
     @GetMapping("get-by-account-no")

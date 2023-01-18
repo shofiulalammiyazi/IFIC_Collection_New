@@ -63,10 +63,10 @@ $(document).ready(function () {
 
                         if(unit == 'Loan'){
                             tr+= '<tr>'
-                            + '<td class="text-right">' + (index + 1) + '</td>'
-                            + '<td><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" href="/profile/loanprofile/search?account=' + data.accountNo + '">' + data.accountNo + '</a></td>'
+                            + '<td style="background: white" class="text-right">' + (index + 1) + '</td>'
+                            + '<td style="background: white"><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" href="/profile/loanprofile/search?account=' + data.accountNo + '">' + data.accountNo + '</a></td>'
                            /* + '<td>'+data.customerName+'</td>'*/
-                            + '<td>' +data.customerName + '</td>'
+                            + '<td style="background: white">' +data.customerName + '</td>'
                                 + '<td class="text-right">' + data.branchMnemonic + '</td>'
                                 + '<td class="text-right">' + data.dealReference + '</td>'
                                 + '<td class="text-right">' + data.productCode + '</td>'
@@ -153,6 +153,9 @@ $(document).ready(function () {
                             ordering: true,
                             info: false,
                             autoWidth: true,
+                            fixedColumns:   {
+                                left: 3,
+                            },
                             //dom: 'Bfrtip',
                             buttons: [
                                 {
@@ -171,6 +174,9 @@ $(document).ready(function () {
                             info: false,
                             autoWidth: true,
                             dom: 'Bfrtip',
+                            fixedColumns:   {
+                                left: 3
+                            },
                             buttons: [
                                 {
                                     extend:'excel',
@@ -714,7 +720,7 @@ $(document).ready(function () {
                     }
 
                 }
-            })
+            });
         }
     })
 
@@ -784,7 +790,7 @@ $(document).ready(function () {
                         setTimeout(function () {
                             $('#date-wise-followup-table').DataTable().destroy();
                             $('#date-wise-followup-table').DataTable();
-                        }, 100)
+                        }, 100);
                     }
                 }
             })
