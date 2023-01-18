@@ -85,10 +85,12 @@ public class RetailLoanDashboardController {
             Long customerId = distributionInfo.getLoanAccountBasicInfo().getCustomer().getId();
             List<FollowUpEntity> followups = dashboardService.getLoanFollowUpByCusBasicInfo(customerId, userId);
             for (FollowUpEntity follow : followups) {
-                follow.setOutstanding(distributionInfo.getOutStanding());
-                follow.setAccNo(distributionInfo.getLoanAccountBasicInfo().getAccountNo());
+                if(new Date().compareTo(follow.getFollowUpDate()) == 1){
+                    follow.setOutstanding(distributionInfo.getOutStanding());
+                    follow.setAccNo(distributionInfo.getAccountNo());
+                    followUpList.add(follow);
+                }
             }
-            followUpList.addAll(followups);
         }
         map.put("loanFollowup", followUpList);
         return map;
