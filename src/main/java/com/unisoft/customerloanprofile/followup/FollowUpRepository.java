@@ -13,6 +13,7 @@ import java.util.List;
 public interface FollowUpRepository extends JpaRepository<FollowUpEntity, Long> {
 
     List<FollowUpEntity> findByCustomerBasicInfoIdAndFollowUpDateGreaterThanEqualOrderByIdDesc(Long customerId, Date startDate);
+    List<FollowUpEntity> findByPinAndFollowUpDateIsBetween(String pin, Date startDate, Date endDate);
 
     /**
      * Lists down account wise follow ups that should be done today.
