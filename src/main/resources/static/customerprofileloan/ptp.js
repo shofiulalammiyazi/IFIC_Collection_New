@@ -256,7 +256,7 @@ function loan_ptp_viewRow(node) {
 function ptpdetails(edit=0,contact_id=0,contact_name="",location_id=0,location_name="",promisor_id=0,promisor_name=""){
     console.log("ptp details function : "+edit)
     if(edit==0) {
-        $("#loan_amount").val("");
+        //$("#loan_amount").val("");
         // $("#loan_ptp_date").val("");
         // $("#card_ptp_time").val("");
         // $("#loan_ptp_remarks").val("");
