@@ -84,7 +84,9 @@
                 followupList: [],
                 followupSummaryWiseList: [],
                 accOrCard: 'Account No',
-                accOrCardName: 'Account Name'
+                accOrCardName: 'Account Name',
+                firstDate:'',
+                secondDate:''
             },
             filters: {
                 formatBdtInEnglish: function (value) {
@@ -93,6 +95,23 @@
             },
 
             methods: {
+                getFollowUpDataByDateRange(){
+                    var startDate = followUpApp.firstDate;
+                    var endDate = followUpApp.secondDate;
+                    var userId = $("#globalUserIdForSummary").val();
+                    var url = '/retail/loan/dashboard/followupbydate?startDate=' + startDate + '&endDate='+endDate+'&userId=' + userId;
+                    this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})
+                        .then(res => {
+                            // if (Array.isArray(res.body)) {
+                            //     $("#team_datewise_followUp_tbody").html("");
+                            //     this.followupList = res.body;
+                            // } else {
+                            //     //notifyError(res.body);
+                            // }
+                        }).catch(err => {
+                        console.log(err);
+                    })
+                },
                 getFollowupList() {
                    if (this.followupList.length) return;
 
