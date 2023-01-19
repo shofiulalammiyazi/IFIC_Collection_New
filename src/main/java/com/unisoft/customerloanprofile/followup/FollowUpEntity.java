@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -50,5 +51,18 @@ public class FollowUpEntity extends BaseInfo {
     @Expose
     private String username;
 
+    @Transient
+    private String crDate;
 
+    public FollowUpEntity() {
+    }
+
+//    public FollowUpEntity(Tuple t) {
+//        //this.followUpDate = Objects.toString(t.get(""),"-");
+//        this.followUpTime = Objects.toString(t.get(""),"-");
+//        this.crDate = Objects.toString(t.get("CREATED_DATE"),"-");
+//        this.accNo = Objects.toString(t.get("ACCOUNT_NO"),"-");
+//        this.outstanding = Objects.toString(t.get("OUTSTANDING"),"-");
+//        this.followUpReason = Objects.toString(t.get("OUTSTANDING"),"-");
+//    }
 }
