@@ -48,7 +48,7 @@ public class AccountInformationEntity extends BaseInfo {
     private String totalNoOfInstallment;
     private String emiAmount;
     private String nextEMIDate;
-    private String emiDate;
+    private String firstEmiDate;
     private String ate;
     private String dpd;
     private String assetClassification;
@@ -141,7 +141,7 @@ public class AccountInformationEntity extends BaseInfo {
     private String firstRepaymentAmount;
     private String lastRepaymentAmount;
     private String calculatedNoOfRepayment; //Total No. of Installment :
-    private String firstEmiDate;
+    //private String firstEmiDate;
     private String frequencyCode;
     private String jointStatus;
 

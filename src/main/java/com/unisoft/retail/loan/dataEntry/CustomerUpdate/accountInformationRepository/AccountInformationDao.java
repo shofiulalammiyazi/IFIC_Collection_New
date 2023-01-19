@@ -40,6 +40,16 @@ public class AccountInformationDao {
 
                 AccountInformationDto accountInformationDto = new AccountInformationDto();
 
+                double noOfInstallmentDue = 0.0;
+                double odAmt = resultSet.getString("OVERDUE") == null
+                        ?0.0:Double.parseDouble(resultSet.getString("OVERDUE"));
+                double emiAmt = resultSet.getString("EMIAMNT") == null
+                        ?0.0:Double.parseDouble(resultSet.getString("EMIAMNT"));
+
+                if(emiAmt != 0.0 && odAmt != 0.0)
+                    noOfInstallmentDue = odAmt/emiAmt;
+
+
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
                 accountInformationDto.setLastPaymentDate(resultSet.getString("LPAYDATE")); //updated at 16-01-2023
                 //accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));
@@ -52,8 +62,10 @@ public class AccountInformationDao {
                 accountInformationDto.setBranchCode(resultSet.getString("V5ABD"));
                 accountInformationDto.setOverdue(resultSet.getString("OVERDUE"));
                 //accountInformationDto.setEmiAmount(resultSet.getString("OMNWR"));
-                accountInformationDto.setEmiAmount(resultSet.getString("IZCRA"));// updated at 16-01-2023
-                accountInformationDto.setEmiDate(resultSet.getString("IZNDT"));  // -- update 16/01/2023
+                //accountInformationDto.setEmiAmount(resultSet.getString("IZCRA"));// updated at 16-01-2023
+                accountInformationDto.setEmiAmount(resultSet.getString("EMIAMNT"));// updated at 19-01-2023
+                //accountInformationDto.setEmiDate(resultSet.getString("IZNDT"));  // -- update 16/01/2023
+                accountInformationDto.setEmiDate(resultSet.getString("FSTEMIDATE"));  // -- update 19/01/2023
                 accountInformationDto.setNextEMIDate(resultSet.getString("NXTEMIDT")); // -- update 16/01/2023
                 //accountInformationDto.setEmiDate(resultSet.getString("OMDTE"));
                 //accountInformationDto.setLastPaymentAmount(resultSet.getString("OMNWR01"));
@@ -61,16 +73,20 @@ public class AccountInformationDao {
                 accountInformationDto.setProductCode(resultSet.getString("V5DLP"));
                 //accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
                 //accountInformationDto.setActualTenor(resultSet.getString("OTMDT"));
-                accountInformationDto.setDisbursementDate(resultSet.getString("OTSDTE"));
-                accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
+                //accountInformationDto.setDisbursementDate(resultSet.getString("OTSDTE"));
+                accountInformationDto.setDisbursementDate(resultSet.getString("STDATE"));// updated at 19-01-2023
+                //accountInformationDto.setTotalOutstanding(resultSet.getString("V5BAL"));
+                accountInformationDto.setTotalOutstanding(resultSet.getString("OUTSTAMNT"));// updated at 19-01-2023
                 accountInformationDto.setBorrowersName(resultSet.getString("GFCUN"));
                 accountInformationDto.setProfession(resultSet.getString("BGPROF"));
                 accountInformationDto.setProfessionSegment(resultSet.getString("BHDSC"));
                 accountInformationDto.setEmail(resultSet.getString("AAZEAD1"));
                 accountInformationDto.setNid(resultSet.getString("AAZIDN"));
                 //accountInformationDto.setProfessionSegment(resultSet.getString("BGPROF"));
-                accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
-                accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
+                //accountInformationDto.setExpiryDate(resultSet.getString("OTMDT"));
+                accountInformationDto.setExpiryDate(resultSet.getString("EXPDATE"));//updated at 19-01-2023
+                //accountInformationDto.setDisbursementAmount(resultSet.getString("OTDLA2"));
+                accountInformationDto.setDisbursementAmount(resultSet.getString("TDISAMNT"));// updated at 19-01-2023
 
                 accountInformationDto.setCustomerName(resultSet.getString("GFCUN"));
                 accountInformationDto.setCustomerId(resultSet.getString("GFCPNC"));
@@ -99,7 +115,7 @@ public class AccountInformationDao {
                 accountInformationDto.setAccountTitle(resultSet.getString("SCSHN"));
                 accountInformationDto.setSmeCodeIndustryScaleID(resultSet.getString("SCC1R"));
                 accountInformationDto.setInterestRate(resultSet.getString("V5APRR"));
-                accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
+                //accountInformationDto.setSanctionAmount(resultSet.getString("OTDLA2"));
                 accountInformationDto.setLinkAccountStatus(resultSet.getString("SCAI20"));
                 accountInformationDto.setLinkACProductCode(resultSet.getString("SCACT"));
 
@@ -118,14 +134,18 @@ public class AccountInformationDao {
                 accountInformationDto.setCalculatedMaturityDate(resultSet.getString("IZMDT"));
                 accountInformationDto.setFirstRepaymentAmount(resultSet.getString("IZCRAN"));
                 accountInformationDto.setLastRepaymentAmount(resultSet.getString("IZCRAL"));
-                accountInformationDto.setTotalNoOfInstallment(resultSet.getString("IZNPY"));
-                accountInformationDto.setFrequencyCode(resultSet.getString("IZRFRQ"));
-                accountInformationDto.setLoanCLStatus(resultSet.getString("T9LSD"));
+                //accountInformationDto.setTotalNoOfInstallment(resultSet.getString("IZNPY"));
+                accountInformationDto.setTotalNoOfInstallment(resultSet.getString("NUMOFEMI"));// updated at 19-01-2023
+                //accountInformationDto.setFrequencyCode(resultSet.getString("IZRFRQ"));
+                accountInformationDto.setFrequencyCode(resultSet.getString("FREQCODE"));// updated at 19-01-2023
+                //accountInformationDto.setLoanCLStatus(resultSet.getString("T9LSD"));
+                accountInformationDto.setLoanCLStatus(resultSet.getString("CLSTATUS"));// updated at 19-01-2023
                 accountInformationDto.setLastPaymentAmount(resultSet.getString("LPAYAMNT"));
                 accountInformationDto.setLatestDisbursementDate(resultSet.getString("LDISDATE"));
                 accountInformationDto.setLatestDisbursementAmount(resultSet.getString("LDISAMNT"));
                 accountInformationDto.setSanctionAmount(resultSet.getString("SANCAMNT"));
                 accountInformationDto.setJointStatus(resultSet.getString("SCAIC7"));
+                accountInformationDto.setNoOfInstallmentDue(String.valueOf(noOfInstallmentDue));
 
                 accountInformationDtoList.add(accountInformationDto);
 

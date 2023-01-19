@@ -43,7 +43,7 @@
 
                         <div id="three-sixty-icon" style="padding: 10px; float: left;">
                             <div class="form-group" style="color: white; font-weight: bolder; font-size: 20px">
-                                <label>Account Name : &nbsp;</label><span>{{customerName}}</span>
+                                <label>Customer Name : &nbsp;</label><span>{{borrowerName}}</span>
                             </div>
                         </div>
 
@@ -91,7 +91,7 @@
                         /*<![CDATA[*/
                         var accountNo = /*[[${accountConcatNumber}]]*/ [];
                         var cardNo = /*[[${cardAccountBasic?.cardNo}]]*/ [];
-                        var customerName = /*[[${customerName}]]*/ [];
+                        var borrowerName = /*[[${borrowerName}]]*/ [];
                         var isLoan = !!accountNo;
 
                         /*]]>*/
@@ -101,7 +101,7 @@
                             el:'#header_search',
                             data:{
                                 accountNo: accountNo ? accountNo : cardNo ? cardNo : '',
-                                customerName :customerName,
+                                borrowerName :borrowerName,
                             },
                             computed:{
                                 buttonDisableOrNot(){

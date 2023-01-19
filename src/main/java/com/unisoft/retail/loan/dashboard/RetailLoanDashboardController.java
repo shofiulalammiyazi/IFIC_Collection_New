@@ -77,7 +77,7 @@ public class RetailLoanDashboardController {
         Map map = new HashMap();
 
         map.put("loanFollowup", followUpRepository.findByPinAndFollowUpDateIsBetween(
-                userId,dateUtils.getFormattedDate(startDate,"yyyy-MM-dd"),dateUtils.getFormattedDate(endDate,"yyyy-MM-dd")));
+                userId,dateUtils.getFormattedDate(startDate,"dd-MMM-yyyy"),dateUtils.getFormattedDate(endDate,"dd-MMM-yyyy")));
         return map;
     }
 
@@ -97,7 +97,7 @@ public class RetailLoanDashboardController {
             Long customerId = distributionInfo.getLoanAccountBasicInfo().getCustomer().getId();
             List<FollowUpEntity> followups = dashboardService.getLoanFollowUpByCusBasicInfo(customerId, userId);
             for (FollowUpEntity follow : followups) {
-                if(new Date().compareTo(follow.getFollowUpDate()) == 1){
+                if(dateUtils.getFormattedDate(new Date(),"yyyy-MM-dd").compareTo(follow.getFollowUpDate()) == 0){
                     follow.setOutstanding(distributionInfo.getOutStanding());
                     follow.setAccNo(distributionInfo.getAccountNo());
                     followUpList.add(follow);

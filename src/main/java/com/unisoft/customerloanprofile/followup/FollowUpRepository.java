@@ -13,6 +13,8 @@ import java.util.List;
 public interface FollowUpRepository extends JpaRepository<FollowUpEntity, Long> {
 
     List<FollowUpEntity> findByCustomerBasicInfoIdAndFollowUpDateGreaterThanEqualOrderByIdDesc(Long customerId, Date startDate);
+
+    @Query(value = "SELECT * FROM FOLLOW_UP_ENTITY WHERE PIN = ?1 AND FOLLOW_UP_DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     List<FollowUpEntity> findByPinAndFollowUpDateIsBetween(String pin, Date startDate, Date endDate);
 
     /**

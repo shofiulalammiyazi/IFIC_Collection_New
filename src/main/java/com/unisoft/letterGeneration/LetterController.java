@@ -177,7 +177,7 @@ public class LetterController {
         AccountInformationEntity accountInformation = accountInformationRepository.getByLoanAccountNoSub(Account);
 
         if(accountInformation != null){
-            accountInformation.setEmiDate(dateUtils.db2ToOracleDateFormat(accountInformation.getEmiDate()));
+            accountInformation.setFirstEmiDate(dateUtils.db2ToOracleDateFormat(accountInformation.getFirstEmiDate()));
             accountInformation.setDisbursementDate(dateUtils.db2ToOracleDateFormat(accountInformation.getDisbursementDate()));
         }
 
