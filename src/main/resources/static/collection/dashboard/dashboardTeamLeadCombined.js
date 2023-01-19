@@ -67,28 +67,40 @@ $(document).ready(function () {
                             + '<td style="background: white"><a target="_blank" class="' + (data.numberOfContact > 0 ? 'text-success' : '') + ' text-bold" href="/profile/loanprofile/search?account=' + data.accountNo + '">' + data.accountNo + '</a></td>'
                            /* + '<td>'+data.customerName+'</td>'*/
                             + '<td style="background: white">' +data.customerName + '</td>'
-                                + '<td class="text-right">' + data.branchMnemonic + '</td>'
-                                + '<td class="text-right">' + data.dealReference + '</td>'
-                                + '<td class="text-right">' + data.productCode + '</td>'
-                            + '<td class="text-left">' + data.productShortName + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.numberOfContact) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.numberOfRightPartyContact) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.numberOfGuarantorOrThirdPartyContact) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.totalPtp) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.brokenPtp) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.curedPtp) + '</td>'
-                            + '<td class="text-right">' + formatBdIntegers(data.numberOfVisit) + '</td>'
-                            + '<td class="text-center">' + data.followUpDate + '</td>'
-                            + '<td class="text-right">' + data.dpdBucket + '</td>'
                             + '<td class="text-right">' + data.currentDpdBucket + '</td>'
-                            + '<td class="text-right">' + formatBdtInEnglish(data.outstanding) + '</td>'
                             + '<td class="text-right">' + formatBdtInEnglish(data.overdueAmount) + '</td>'
                             + '<td class="text-right">' + formatBdtInEnglish(data.emiAmount) + '</td>'
-                            + '<td class="text-right">' + formatBdtInEnglish(data.lastPayment) + '</td>'
-                            + '<td class="text-right">' + formatBdtInEnglish(data.currentMonthPayment) + '</td>'
+                            + '<td class="text-center">' + data.followUpDate + '</td>'
                             + '<td class="text-left">' + data.branchName + '</td>'
-                            + '<td class="text-left">' + data.riskCategory + '</td>'
-                            + '<td class="text-center">' + data.allocationDate + '</td>'
+                            + '<td class="text-right">' + formatBdIntegers(data.numberOfContact) + '</td>'
+                            + '<td class="text-right">' + formatBdtInEnglish(data.outstanding) + '</td>'
+                                + '<td class="text-right">' + formatBdIntegers(data.totalPtp) + '</td>'
+                                + '<td class="text-right">' + formatBdIntegers(data.brokenPtp) + '</td>'
+                                + '<td class="text-right">' + formatBdIntegers(data.curedPtp) + '</td>'
+                             + '<td class="text-right">' + data.branchMnemonic + '</td>'
+                             + '<td class="text-right">' + data.productCode + '</td>'
+                             + '<td class="text-right">' + data.dealReference + '</td>'
+                             + '<td class="text-left">' + data.productShortName + '</td>'
+                            + '<td class="text-right">' + formatBdIntegers(data.numberOfRightPartyContact) + '</td>'
+                            + '<td class="text-right">' + formatBdIntegers(data.numberOfGuarantorOrThirdPartyContact) + '</td>'
+                            + '<td class="text-right">' + formatBdIntegers(data.numberOfVisit) + '</td>'
+                                + '<td class="text-right">' + formatBdtInEnglish(data.lastPayment) + '</td>'
+                                + '<td class="text-right">' + formatBdtInEnglish(data.currentMonthPayment) + '</td>'
+                             + '<td class="text-left">' + data.riskCategory + '</td>'
+                             + '<td class="text-center">' + data.allocationDate + '</td>'
+
+
+
+
+                            + '<td class="text-right">' + data.dpdBucket + '</td>'
+
+
+
+
+
+
+
+
                             + '</tr>';
                         }
                         $('#account-details-tbody').append(tr);
