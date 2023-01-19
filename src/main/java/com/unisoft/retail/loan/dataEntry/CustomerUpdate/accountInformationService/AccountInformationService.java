@@ -41,7 +41,7 @@ public class AccountInformationService {
     @Autowired
     private LoanAccountDistributionRepository loanAccountDistributionRepository;
 
-    //@Scheduled("")
+    @Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
 
         List<AccountInformationDto> dataList = accountInformationDao.getData();
@@ -193,6 +193,7 @@ public class AccountInformationService {
                 accountInformationEntity.setLoanCLStatus(dto.getLoanCLStatus());
                 accountInformationEntity.setLatestDisbursementAmount(dto.getLatestDisbursementAmount());
                 accountInformationEntity.setSanctionAmount(dto.getSanctionAmount());
+                accountInformationEntity.setNoOfInstallmentDue(dto.getNoOfInstallmentDue());
                 //accountInformationEntity.setNextEMIDate(dto.getNextEMIDate());
 
                 try {
@@ -249,10 +250,10 @@ public class AccountInformationService {
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getLastPaymentDate());
                 }
                 try {
-                    accountInformationEntity.setEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
+                    accountInformationEntity.setFirstEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
 
                 } catch (Exception e) {
-                    accountInformationEntity.setEmiDate(dto.getEmiDate());
+                    accountInformationEntity.setFirstEmiDate(dto.getEmiDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getEmiDate());
                 }
                 try {
