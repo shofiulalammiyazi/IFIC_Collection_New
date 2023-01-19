@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,31 @@ public class RetailLoanDashboardDao {
 
             Criteria crt = session.createCriteria(FollowUpEntity.class);
             crt.add(Restrictions.between("followUpDate", dateUtils.getMonthStartDate(), dateUtils.getMonthEndDate()));
+            crt.add(Restrictions.eq("customerBasicInfo", customerBasicInfo));
+            //crt.add(Restrictions.eq("createdBy",userId));
+            crt.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+            followUpList = crt.list();
+
+            //System.err.println("DATA :"+followUpList);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return followUpList;
+    }
+
+    public List<FollowUpEntity> getLoanFollowUpByCusBasicInfoDateWise(Long cusId, String userId, String startDate, String endDate) {
+        List<FollowUpEntity> followUpList = new ArrayList<>();
+
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CustomerBasicInfoEntity customerBasicInfo = new CustomerBasicInfoEntity();
+        customerBasicInfo.setId(cusId);
+        try {
+            Session session = entityManager.unwrap(Session.class);
+
+            Criteria crt = session.createCriteria(FollowUpEntity.class);
+            crt.add(Restrictions.between("followUpDate",simpleDateFormat.parse(startDate), simpleDateFormat.parse(endDate)));
             crt.add(Restrictions.eq("customerBasicInfo", customerBasicInfo));
             //crt.add(Restrictions.eq("createdBy",userId));
             crt.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);

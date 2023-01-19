@@ -31,6 +31,10 @@ public class RetailLoanDashboardService {
         return dashboardDao.getLoanFollowUpByCusBasicInfo(cusId, userId);
     }
 
+    public List<FollowUpEntity> getLoanFollowUpByCusBasicInfoDateWise(Long cusId, String userId, String startDate, String endDate) {
+        return dashboardDao.getLoanFollowUpByCusBasicInfoDateWise(cusId, userId, startDate, endDate);
+    }
+
     public List<DealerWisePayment> getDealerWisePaymentSummary(List<String> dealerPins) {
         return dashboardRepository.getTeamPaymentSummary(dealerPins)
                 .stream().map(DealerWisePayment::new).collect(Collectors.toList());

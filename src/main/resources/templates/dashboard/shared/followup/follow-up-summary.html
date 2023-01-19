@@ -98,16 +98,55 @@
                 getFollowUpDataByDateRange(){
                     var startDate = followUpApp.firstDate;
                     var endDate = followUpApp.secondDate;
-                    var userId = $("#globalUserIdForSummary").val();
+                    var userId = $("#globalUserPinForSummary").val();
                     var url = '/retail/loan/dashboard/followupbydate?startDate=' + startDate + '&endDate='+endDate+'&userId=' + userId;
                     this.$http.get(url, {credentials: true, headers: {'X-CSRF-TOKEN': window.csrfToken}})
-                        .then(res => {
-                            // if (Array.isArray(res.body)) {
-                            //     $("#team_datewise_followUp_tbody").html("");
-                            //     this.followupList = res.body;
-                            // } else {
-                            //     //notifyError(res.body);
+                        .then(data => {
+
+                            // if (typeof data === 'string') {
+                            //     swal("Something went wrong");
+                            //     //window.location.reload();
+                            //     return;
                             // }
+                            console.log(data)
+                            data = data.body.loanFollowup;
+                            console.log(data)
+                            $("#team_datewise_followUp_tbody").html("");
+                            for (var i = 0; i < data.length; i++) {
+                                var tr = '';
+
+                                var reason = '';
+                                let reasonList = data[i].followUpReason;
+                                for (var k = 0; k < data[i].followUpReason.length; k++) {
+                                    if (reasonList[k].toLowerCase() === 'call' || reasonList[k].toLowerCase() === 'phone')
+                                        reason += '<span class="btn btn-xs bg-light-blue" title="Call" style="margin: 0px 2px"><i class="fa fa-phone"></i></span>';
+                                    else if (reasonList[k].toLowerCase() === 'email')
+                                        reason += '<span class="btn btn-xs bg-orange"  title="Email" style="margin: 0px 2px"><i class="fa fa-envelope"></i></span>';
+                                    else if (reasonList[k].toLowerCase() === 'sms')
+                                        reason += '<span class="btn btn-xs bg-olive"  title="SMS" style="margin: 0px 2px"><i class="fa fa-comments"></i></span>';
+                                    else if (reasonList[k].toLowerCase() === 'visit')
+                                        reason += '<span class="btn btn-xs bg-purple"  title="Visit" style="margin: 0px 2px"><i class="fa fa-user"></i></span>';
+                                    else if (reasonList[k].toLowerCase() === 'letter')
+                                        reason += '<span class="btn btn-xs bg-green"  title="Letter" style="margin: 0px 2px"><i class="fa fa-envelope"></i></span>';
+                                }
+
+                                tr = tr + '<tr >\n' +
+                                    '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].createdDate) + '</td>\n' +
+                                    '<td class="text-center"><a href="/profile/loanprofile/search?account=' + data[i].accNo + '" target="_blank">' + data[i].accNo + '</a></td>\n' +
+                                    '<td class="text-right">' + formatBdtInEnglish(data[i].outstanding) + '</td>\n' +
+                                    '<td class="text-left">' + reason + '</td>\n' +
+                                    '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].followUpDate) + '</td>\n' +
+                                    '</tr>'
+
+                                console.log(tr);
+                                $("#team_datewise_followUp_tbody").append(tr);
+                                // $("#team_accountwise_followUp_tbody").append(trr);
+
+                                // setTimeout(function () {
+                                //     $('#date-wise-followup-table').DataTable().destroy();
+                                //     $('#date-wise-followup-table').DataTable();
+                                // }, 100);
+                            }
                         }).catch(err => {
                         console.log(err);
                     })

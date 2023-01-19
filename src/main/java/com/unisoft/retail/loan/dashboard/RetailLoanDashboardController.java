@@ -31,7 +31,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Tuple;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -74,10 +77,43 @@ public class RetailLoanDashboardController {
                                           @RequestParam(value = "endDate") String endDate,
                                           @RequestParam(value = "userId") String userId,
                                           HttpSession session) {
+
+        String sDate = dateUtils.changeStringDatePattern(startDate,"yyyy-MM-dd","dd-MMM-yyyy");
+        String eDate = dateUtils.changeStringDatePattern(endDate,"yyyy-MM-dd","dd-MMM-yyyy");
         Map map = new HashMap();
 
-        map.put("loanFollowup", followUpRepository.findByPinAndFollowUpDateIsBetween(
-                userId,dateUtils.getFormattedDate(startDate,"dd-MMM-yyyy"),dateUtils.getFormattedDate(endDate,"dd-MMM-yyyy")));
+//        List<FollowUpEntity> followups = new ArrayList<>();
+//        List<Tuple> tuples = followUpRepository.findByPinAndFollowUpDateIsBetween(userId,sDate,eDate);
+//        for(Tuple t : tuples){
+//            followups.add(new FollowUpEntity(t));
+//        }
+//
+//        map.put("loanFollowup", followUpRepository.getLoanFollowUpByCusBasicInfoDateWise());
+
+        List<FollowUpEntity> followUpList = new ArrayList<>();
+        List<LoanAccountDistributionInfo> distributionInfos =
+                (List<LoanAccountDistributionInfo>) session.getAttribute("loanDistributionList");
+
+        if (distributionInfos == null) {
+            map.put("loanFollowup", followUpList);
+            return map;
+        }
+
+        for (LoanAccountDistributionInfo distributionInfo : distributionInfos) {
+            Long customerId = distributionInfo.getLoanAccountBasicInfo().getCustomer().getId();
+            List<FollowUpEntity> followups = dashboardService.getLoanFollowUpByCusBasicInfoDateWise(customerId, userId,startDate,endDate);
+            for (FollowUpEntity follow : followups) {
+                follow.setOutstanding(distributionInfo.getOutStanding());
+                follow.setAccNo(distributionInfo.getAccountNo());
+                followUpList.add(follow);
+//                if(follow.getFollowUpDate().after(dateUtils.getFormattedDate(startDate,"yyyy-MM-dd"))
+//                && !dateUtils.getFormattedDate(endDate,"yyyy-MM-dd").after(follow.getFollowUpDate())){
+//
+//                }
+            }
+        }
+        map.put("loanFollowup", followUpList);
+
         return map;
     }
 
