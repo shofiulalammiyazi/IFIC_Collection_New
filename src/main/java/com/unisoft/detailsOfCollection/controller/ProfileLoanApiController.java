@@ -11,11 +11,15 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeRepository;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.loanApi.model.LoanAccDetails;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +50,9 @@ public class ProfileLoanApiController {
 
     private AccountEscalationService accountEscalationService;
 
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
+
     @GetMapping("/list")
     public List<AccountEscalation> getAccountEscalation(@RequestParam(value = "cardAccNumber") String cardNumber) {
         return getByAccountNumberOrderByCreatedDateDesc(cardNumber);
@@ -56,13 +63,14 @@ public class ProfileLoanApiController {
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EmployeeInfoEntity employeeInfoEntity = employeeRepository.findByPin(principal.getUsername());
         PeopleAllocationLogicInfo peopleAllocationLogicInfo = peopleAllocationLogicRepository.findByDealerAndUnit(employeeInfoEntity, employeeInfoEntity.getUnit());
+        AccountInformationEntity accountInformationEntity = accountInformationRepository.getByLoanAccountNo(accountEscalationPayLoad.getAccount());
 
-        LoanAccDetails loanAccDetails = null;
-        try {
-             loanAccDetails = apiService.getLoanAccountDetails(accountEscalationPayLoad.getAccount());
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
+//        LoanAccDetails loanAccDetails = null;
+//        try {
+//             loanAccDetails = apiService.getLoanAccountDetails(accountEscalationPayLoad.getAccount());
+//        } catch (NullPointerException e){
+//            e.printStackTrace();
+//        }
 
 
         AccountEscalation accountEscalation = new AccountEscalation();
@@ -74,7 +82,16 @@ public class ProfileLoanApiController {
         accountEscalation.setFromUserName(principal.getFirstName());
         accountEscalation.setFromUserPin(principal.getUsername());
 
-        accountEscalation.setBucket(loanAccDetails == null ? null : loanAccDetails.getDpdBucket());
+        long od = Long.valueOf(accountInformationEntity.getOverdue() == null
+                ? "0":accountInformationEntity.getOverdue());
+        long emi = Long.valueOf(accountInformationEntity.getEmiAmount() == null ? "0":accountInformationEntity.getEmiAmount());
+        long bucket = 0;
+        if(od == 0 || emi == 0)
+            bucket = 0;
+        else
+            bucket = od/emi;
+
+        accountEscalation.setBucket(Double.valueOf(bucket));
         accountEscalation.setCreatedBy(principal.getUsername());
         accountEscalation.setDealerPin(principal.getUsername());
 

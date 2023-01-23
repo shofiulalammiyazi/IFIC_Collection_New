@@ -1125,7 +1125,8 @@ public class HomeController {
             model.addAttribute("totalLocation", locations);
 
             Set<String> activeList = loanDist.stream().map(LoanAccountDistributionInfo::getDpdBucket).collect(Collectors.toSet());
-            List<Integer> activeListInt = activeList.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+            List<Integer> activeListInt = new ArrayList<>();
+                activeListInt = activeList.stream().map(s -> s == null?-1:Integer.parseInt(s)).collect(Collectors.toList());
             Collections.sort(activeListInt);
             model.addAttribute("monitoringBuckets", activeListInt);
 
