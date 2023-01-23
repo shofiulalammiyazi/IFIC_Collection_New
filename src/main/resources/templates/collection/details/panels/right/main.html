@@ -1122,7 +1122,12 @@
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </div>
-                                                            <input type="date" name="loan_ptp_date" v-model="date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date" disabled>
+                                                            <!--<input type="text" name="loan_ptp_date" v-model="date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date"
+                                                                   placeholder="dd-mm-yyyy" >-->
+
+                                                            <input type="text" name="loan_ptp_date" v-model="date" class="form-control fu-date follow-up-date-loan"
+                                                                   placeholder="dd-mm-yyyy" />
+
                                                         </div>
                                                     </div>
                                                     <label for="card_ptp_time" class="col-sm-2 control-label">Time</label>
@@ -1132,7 +1137,7 @@
                                                                 <i class="fa fa-clock-o"></i>
                                                             </div>
 
-                                                            <input name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" disabled/>
+                                                            <input name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" />
                                                             <input type="hidden" v-model="time">
                                                         </div>
                                                     </div>
