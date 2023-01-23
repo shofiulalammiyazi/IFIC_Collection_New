@@ -250,7 +250,8 @@ $(document).ready(function () {
                                         .draw();
                                 }
                             });
-                        })
+                        });
+                        $(".dd-loader").remove();
                     });
 
                     // End Table Scarch
@@ -260,7 +261,7 @@ $(document).ready(function () {
                     notifyError(response);
                 }
             }
-        })
+        });
     }
 
     // $('#example tfoot th').each(function() {

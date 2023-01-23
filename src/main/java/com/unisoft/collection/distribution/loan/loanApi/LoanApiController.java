@@ -73,7 +73,7 @@ public class LoanApiController {
         }
 
         for (String s : loanApiPayload.getList()) {
-            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(s);
+            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNoNew(s);
             LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountSearchService.findFromLoanAccountDistributionInfo(loanAccountBasicInfo);
 
             if (loanAccountDistributionInfo != null) {
