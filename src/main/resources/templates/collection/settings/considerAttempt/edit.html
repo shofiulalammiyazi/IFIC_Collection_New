@@ -37,8 +37,12 @@
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${considerAttempt.attemptName}"></span></td>
                                     <td><span th:text="${considerAttempt.contactType}"></span></td>
-                                    <td><span th:text="${considerAttempt.considerContact}"></span></td>
-                                    <td><span th:text="${considerAttempt.contactCategory}"></span></td>
+                                    <td><span th:each="contactCategory: ${considerAttempt.contactCategoryObj}">
+                                        <span th:text="${contactCategory.considerationAsContact}"></span>,
+                                    </span></td>
+                                    <td><span th:each="contactCategory: ${considerAttempt.contactCategoryObj}">
+                                        <span th:text="${contactCategory.contactCategoryName}"></span>,
+                                    </span></td>
                                     <td>
                                         <span th:text="${considerAttempt.enabled ? 'Active' : 'Inactive'}"></span>
                                     </td>

@@ -1,5 +1,6 @@
 package com.unisoft.collection.settings.considerAttempt;
 
+import com.unisoft.collection.settings.contactCategory.ContactCategory;
 import com.unisoft.exception.NotFoundException;
 
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,8 +32,9 @@ public class ConsiderAttemptController {
         return "collection/settings/considerAttempt/create";
     }
 
-    @PostMapping(value = "/create", consumes = (MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    public String createPage(ConsiderAttempt considerAttempt, Model model){
+    @PostMapping(value = "/create")
+    public String createPage(@RequestBody ConsiderAttempt considerAttempt, Model model){
+
         String output = considerAttemptService.save(considerAttempt);
         switch (output) {
             case "1":
