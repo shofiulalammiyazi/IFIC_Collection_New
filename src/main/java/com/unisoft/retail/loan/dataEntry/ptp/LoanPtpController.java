@@ -3,6 +3,7 @@ package com.unisoft.retail.loan.dataEntry.ptp;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
 import com.unisoft.user.UserPrincipal;
+import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,25 +29,32 @@ public class LoanPtpController {
     @Autowired
     private CustomerBasicInfoEntityRepository customerBasicInfoEntityRepository;
 
+    private DateUtils dateUtils;
+
     @PostMapping(value="/save")
     public boolean saveReferenceInfo(LoanPtp loanPtp) throws IOException, ParseException {
 
+        String dateString = loanPtp.getLoan_ptp_dates().concat("");
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loanPtp.setCreatedBy(user.getUsername());
         loanPtp.setCreatedDate(new Date());
         loanPtp.setEnabled(true);
         loanPtp.setPin(user.getUsername());
         loanPtp.setUsername(user.getLastName());
-        loanPtp.setLoan_ptp_date(new Date());
-        loanPtp.setLoan_ptp_time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
 
-//        Date ptpDate = null;
-//        String stringToDate = "";
-//        loanPtp.setLoan_ptp_status("kept");
-//        stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
-//        ptpDate = new SimpleDateFormat("MM-dd-yyyy").parse(stringToDate);
-//
-//        loanPtp.setLoan_ptp_date(ptpDate);
+
+        Date LoanPtpDate = dateUtils.getFormattedDate(dateString, "dd-MM-yyyy");
+        loanPtp.setLoan_ptp_date(LoanPtpDate);
+        //loanPtp.setLoan_ptp_date(new Date());
+        //loanPtp.setLoan_ptp_time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
+
+        Date ptpDate = null;
+        String stringToDate = "";
+        //loanPtp.setLoan_ptp_status("kept");
+        stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
+        ptpDate = new SimpleDateFormat("MM-dd-yyyy").parse(stringToDate);
+
+        loanPtp.setLoan_ptp_date(ptpDate);
         service.save(loanPtp);
         return true;
     }
