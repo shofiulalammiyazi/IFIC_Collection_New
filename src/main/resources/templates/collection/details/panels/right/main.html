@@ -872,7 +872,7 @@
                                                 considerAttemptListById: []
                                             },
 
-                                        })
+                                        });
 
                                         $(document).ready(function () {
 
@@ -880,7 +880,7 @@
                                                 $.ajax({
                                                     url: "/collection/considerAttempt/attemptList/loan",
                                                     success: function (data) {
-                                                        considerAttemptApp.considerAttemptList= data;
+                                                        considerAttemptApp.considerAttemptList = data;
                                                     },
                                                     error: function (data) {
                                                         //alert("Failure!");
@@ -895,18 +895,27 @@
                                                 $('#contact_category_id, #ptp_promisor_details_id').html('<option value="">Select One </option>')
 
                                                 if (!!id) {
-                                                    let selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
-                                                    if (selected[0].considerContact != null) $('#considet_contact_id').append('<option value="'+selected[0].considerContact+'" selected="selected">'+selected[0].considerContact+'</option>');
-                                                    if (selected[0].considerContact != null){
-                                                        $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].id+'" selected="selected">'+selected[0].considerContact+'</option>');
-                                                        $('#ptp_contact_details').val(selected[0].considerContact)
-                                                    }
-                                                    if (selected[0].contactCategory != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategory+'" selected="selected">'+selected[0].contactCategory+'</option>');
-                                                    if (selected[0].contactCategory != null){
-                                                        $('#ptp_promisor_details_id').append('<option value="'+selected[0].id+'" selected="selected">'+selected[0].contactCategory+'</option>');
-                                                        $('#ptp_promisor_details').val(selected[0].contactCategory)
+                                                    var selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
+                                                    for(var j=0; j<selected[0].contactCategoryObj.length; j++){
+                                                        if(selected[0].contactCategoryObj[j].contactCategoryName != null)
+                                                            $('#considet_contact_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null){
+                                                            $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].contactCategoryObj[j].id+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_contact_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
+                                                        }
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null){
+                                                            $('#ptp_promisor_details_id').append('<option value="'+selected[0].contactCategoryObj[j].id+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_promisor_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
+                                                        }
                                                     }
                                                 }
+                                            });
+                                            
+                                            $("#considerAttemptForm").delegate("#contact_category_id","change",function () {
+                                                $('#ptp_promisor_details_id').html(' ');
+                                                $('#ptp_promisor_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
+                                                $('#ptp_promisor_details').val($(this).val());
                                             })
                                         })
 
@@ -1125,7 +1134,7 @@
                                                             <!--<input type="text" name="loan_ptp_date" v-model="date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date"
                                                                    placeholder="dd-mm-yyyy" >-->
 
-                                                            <input type="text" name="loan_ptp_date" v-model="date" class="form-control fu-date follow-up-date-loan"
+                                                            <input type="text" name="loan_ptp_date" v-model="date" class="form-control fu2-date-ptp ptp-date-loan"
                                                                    placeholder="dd-mm-yyyy" />
 
                                                         </div>
@@ -1156,8 +1165,8 @@
                                         el: '#cureenDateTaim',
                                         data: ({
 
-                                            date: new Date().toISOString().substr(0, 10),
-                                            time: new Date().toLocaleTimeString('en-US'),
+                                            date:  new Date().toISOString().substr(0, 10),
+                                            time: '',
                                             ptpAmount:profile_information.accountInformation.overdue/100,
 
                                         }),

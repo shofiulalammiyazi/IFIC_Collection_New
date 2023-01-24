@@ -34,18 +34,5 @@ return bool;
 }
 
 $('#modal-contactInfo').on('show.bs.modal', function () {
-    $(this).find('textarea').val('')
-})
-
-//
-// function contactValidate() {
-//     if($("#loan_consideration_attempt").val().length===0 && $("#loan_consideration_contact").val().length===0 && $("#loan_consideration_category").val().length===0){
-//         alert("must be fill up at least one field");
-//         return false;
-//     }
-//
-// }
-
-function clearLoanConsiderationFormData() {
-    $('#considerAttemptForm').trigger("reset");
-}
+    $(this).find('textarea').val('');
+});

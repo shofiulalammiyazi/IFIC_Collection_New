@@ -43,7 +43,7 @@
                                         <!--<input type="text" name="contactType" oninput="showhide(this)" th:required="true" class="form-control input-sm" th:field="*{contactType}" placeholder="Yes/No"/>-->
                                     </div>
                                 </div>
-                                <div v-for="(contactCategory,index) in considerAttempt.contactCategoryObj">
+                                <div v-for="(contactCategory,index) in considerAttempt.contactCategoryObj" id="showFields">
 
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right ">Consideration as Contact</label>
