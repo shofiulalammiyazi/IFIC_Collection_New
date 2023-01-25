@@ -34,7 +34,7 @@ public class LoanPtpController {
     @PostMapping(value="/save")
     public boolean saveReferenceInfo(LoanPtp loanPtp) throws IOException, ParseException {
 
-        String dateString = loanPtp.getLoan_ptp_dates().concat("");
+        //String dateString = loanPtp.getLoan_ptp_date();
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loanPtp.setCreatedBy(user.getUsername());
         loanPtp.setCreatedDate(new Date());
@@ -43,18 +43,18 @@ public class LoanPtpController {
         loanPtp.setUsername(user.getLastName());
 
 
-        Date LoanPtpDate = dateUtils.getFormattedDate(dateString, "dd-MM-yyyy");
-        loanPtp.setLoan_ptp_date(LoanPtpDate);
+        //Date LoanPtpDate = dateUtils.getFormattedDate(dateString, "dd-MM-yyyy");
+        //loanPtp.setLoan_ptp_date(LoanPtpDate);
         //loanPtp.setLoan_ptp_date(new Date());
         //loanPtp.setLoan_ptp_time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
 
-        Date ptpDate = null;
-        String stringToDate = "";
+       // Date ptpDate = null;
+        //String stringToDate = "";
         //loanPtp.setLoan_ptp_status("kept");
-        stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
-        ptpDate = new SimpleDateFormat("MM-dd-yyyy").parse(stringToDate);
+        //stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
+        //ptpDate = new SimpleDateFormat("dd-MM-yyyy").parse(stringToDate);
 
-        loanPtp.setLoan_ptp_date(ptpDate);
+        //loanPtp.setLoan_ptp_date(ptpDate);
         service.save(loanPtp);
         return true;
     }
