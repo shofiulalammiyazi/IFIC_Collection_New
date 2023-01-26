@@ -119,6 +119,8 @@
                                         :href="'/profile/loanprofile/search?account='+ getBeforeDash(acc)"
                                         target="_blank">{{getBeforeDash(acc)}}</a></td>
                                 <td class="text-center">{{getAfterDash(acc)}}</td>
+
+                                <!--{{accountInformation.loanACNo || "-"}}-->
                             </tr>
                             </tbody>
                         </table>
@@ -210,7 +212,7 @@
                     }
                 },
                 getBeforeDash(accNoWithAmt){
-                    return accNoWithAmt.substring(0,accNoWithAmt.indexOf('-'));
+                    return accNoWithAmt.substring(0,accNoWithAmt.indexOf('-')).substring(0,13);
                 },
                 getAfterDash(accNoWithAmt){
                     return accNoWithAmt.substring(accNoWithAmt.indexOf('-')+1);

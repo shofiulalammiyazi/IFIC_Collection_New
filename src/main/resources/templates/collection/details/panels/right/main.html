@@ -916,6 +916,11 @@
                                                 $('#ptp_promisor_details_id').html(' ');
                                                 $('#ptp_promisor_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
                                                 $('#ptp_promisor_details').val($(this).val());
+                                            });
+                                            $("#considerAttemptForm").delegate("#considet_contact_id","change",function () {
+                                                $('#ptp_contact_details_id').html(' ');
+                                                $('#ptp_contact_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
+                                                $('#ptp_contact_details_id').val($(this).val());
                                             })
                                         })
 
@@ -1140,13 +1145,10 @@
                                                         </div>
                                                     </div>
                                                     <label for="card_ptp_time" class="col-sm-2 control-label">Time</label>
-                                                    <div class="col-sm-4">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-clock-o"></i>
-                                                            </div>
-
-                                                            <input name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" />
+                                                    <div class="col-sm-4 ">
+                                                        <div class="">
+                                                           <!-- <input type="time" class="form-control " name="followUpTime" >-->
+                                                            <input type="time" name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" />
                                                             <input type="hidden" v-model="time">
                                                         </div>
                                                     </div>
@@ -1165,7 +1167,7 @@
                                         el: '#cureenDateTaim',
                                         data: ({
 
-                                            date:  new Date().toISOString().substr(0, 10),
+                                            date:  '',
                                             time: '',
                                             ptpAmount:profile_information.accountInformation.overdue/100,
 
