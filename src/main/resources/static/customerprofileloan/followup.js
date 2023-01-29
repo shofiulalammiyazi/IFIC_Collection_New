@@ -72,7 +72,7 @@ $('.fu2-date').datepicker({
 })
 $('.fu2-date-ptp').datepicker({
     startDate: date,
-    format: 'yyyy-mm-dd',
+    format: 'dd-mm-yyyy',
     autoclose: true,
     // container:'#modal-filefollowup',
     forceParse: false
