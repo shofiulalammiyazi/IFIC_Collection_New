@@ -17,10 +17,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +26,20 @@ import java.util.List;
 @RequestMapping("/employee/api/")
 public class EmployeeAPIController {
 
-    @Value("ific.employee.api.ip")
+    @Value("${ific.employee.api.ip}")
     private String employeeApiIp;
 
     private String getEmployeeApiUrl = "/apigateway/api/employeeinfo";
 
-    @PostMapping("getEmployee")
-    public String getEmployeeInfo(@RequestBody EmployeeApiPayload employeeApiPayload) {
+    @GetMapping("getEmployee")
+    public void callApi(@RequestParam("username") String username){
+        this.getEmployeeInfo(new EmployeeApiPayload("admin","UEqw7G5Vr4mYh5VK",username,"",""));
+    }
 
-        List<EmployeeApiPayload> employeeApiPayloads = new ArrayList<>();
 
+    public EmployeeDetails getEmployeeInfo(@RequestBody EmployeeApiPayload employeeApiPayload) {
+
+        EmployeeAPIResponse employeeAPIResponse = new EmployeeAPIResponse();
         try {
             Gson gson = new Gson();
             HttpClient httpClient = HttpClientBuilder.create().build();
@@ -59,11 +60,12 @@ public class EmployeeAPIController {
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
             String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
-            SMSLogDto sms = mapper.readValue(jsonStr, SMSLogDto.class);
+            employeeAPIResponse = mapper.readValue(jsonStr, EmployeeAPIResponse.class);
+            System.out.println(employeeAPIResponse);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return "500";
+            return new EmployeeDetails();
         }
-        return "OK";
+        return employeeAPIResponse.getData().get(0);
     }
 }
