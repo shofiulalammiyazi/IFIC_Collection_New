@@ -138,19 +138,24 @@ public class LoanAutoDistributionController {
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise(){
         String smsType = "";
-        String sms = "";
+        String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
+                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
+                "Pls, ignore if it is already paid.";
+
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDatePlusThree();
 
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for(AccountInformationEntity acc : accountInformationEntities){
             //sms = templateGenerate.getMassege();
-            sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
-            sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
-            sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
-            sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
-            sms = sms.replace("{{F.productName}}",acc.getProductName());
-            //GeneratedSMS generatedSMS1 = new GeneratedSMS(Long.valueOf(content[8]),smsEntity,sms,acc.getLoanACNo(),acc.getMobile());
-            //generatedSMS.add(generatedSMS1);
+            if(acc.getNextEMIDate() != null){
+                sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
+                sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+                sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
+                sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
+                sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
+                generatedSMS.add(generatedSMS1);
+            }
         }
         String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
 
