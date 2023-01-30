@@ -5,7 +5,10 @@ import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.distribution.card.CardRepository;
+import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
+import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.loanApi.model.CustomerInfo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
@@ -22,6 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +52,9 @@ public class VisitLedgerController {
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
     private PeopleAllocationLogicService peopleAllocationLogicService;
 
     @Autowired
@@ -54,6 +62,13 @@ public class VisitLedgerController {
 
     @Autowired
     private RetailLoanUcbApiService dbService;
+
+    @Autowired
+    private DistrictService districtService;
+
+    @Autowired
+
+
 
 
     @GetMapping("customer-info")
@@ -101,9 +116,15 @@ public class VisitLedgerController {
 
     @GetMapping("create")
     public String createVisitLedger(Model model) {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        //model.addAttribute("employeeList",gson.toJson(employeeRepository.findAll()));
+        Gson gson = new Gson();
         model.addAttribute("employeeList",gson.toJson(employeeRepository.findAll()));
+        model.addAttribute("sectorGroupList", gson.toJson(employeeService.getAll()));
+        List<EmployeeInfoEntity> employeeInfoEntities = employeeService.getAll();
+
         model.addAttribute("visitLedger",new VisitLedgerEntity());
+        model.addAttribute("district",districtService.getAll());
 
         return "collection/settings/visitLedger/create";
     }
@@ -159,6 +180,17 @@ public class VisitLedgerController {
         }
         visitLedgerEntity.setVisitors(employeeInfoEntities);*/
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM YYYY");
+        //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd MMM YYYY");
+
+        try {
+            System.out.println(simpleDateFormat.parse(visitLedgerEntity.getVisitDate()));
+            visitLedgerEntity.setDateOfVisit(simpleDateFormat.parse(visitLedgerEntity.getVisitDate()));
+        } catch (ParseException e) {
+            System.out.println(simpleDateFormat.format(visitLedgerEntity.getVisitDate()));
+            e.printStackTrace();
+        }
+
         visitLedgerEntity.setUsername(user.getUsername());
         visitLedgerEntity.setFirstName(user.getFirstName());
         visitLedgerEntity.setName(user.getUsername());
@@ -174,6 +206,17 @@ public class VisitLedgerController {
             e.printStackTrace();
         }*/
         if(visitLedgerEntity.getId()== null) {
+
+            List<EmployeeInfoEntity> employeeInfoEntities = new ArrayList<>();
+
+            for(String s: visitLedgerEntity.getEmployeeId()){
+                EmployeeInfoEntity employeeInfo= employeeService.getById(new Long(s));
+                employeeInfoEntities.add(employeeInfo);
+            }
+
+            visitLedgerEntity.setEmployee(employeeInfoEntities);
+
+
             visitLedgerEntity.setCreatedBy(user.getUsername());
             visitLedgerEntity.setCreatedDate(new Date());
             boolean save = visitLedgerService.saveVisitLedger(visitLedgerEntity);
@@ -184,8 +227,20 @@ public class VisitLedgerController {
             VisitLedgerEntity oldEntity = new VisitLedgerEntity();
             BeanUtils.copyProperties(entity, oldEntity);
 
+            List<EmployeeInfoEntity> employeeInfoEntities = new ArrayList<>();
+
+            for(String s: visitLedgerEntity.getEmployeeId()){
+                EmployeeInfoEntity employeeInfo= employeeService.getById(new Long(s));
+                employeeInfoEntities.add(employeeInfo);
+            }
+
+            visitLedgerEntity.setEmployee(employeeInfoEntities);
+
             visitLedgerEntity.setModifiedBy(user.getUsername());
             visitLedgerEntity.setModifiedDate(new Date());
+
+            visitLedgerEntity.setAccountCardNumber(oldEntity.getAccountCardNumber());
+
             boolean update = visitLedgerService.updateVisitLedger(visitLedgerEntity);
             auditTrailService.saveUpdatedData("Visit Ledger", oldEntity, visitLedgerEntity);
         }
@@ -201,7 +256,8 @@ public class VisitLedgerController {
         model.addAttribute("visitLedger",VisitLedgerEntityById);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         model.addAttribute("employeeList",gson.toJson(employeeRepository.findAll()));
-        model.addAttribute("selectedEmployeeList",gson.toJson(VisitLedgerEntityById.getVisitors()));
+        model.addAttribute("selectedEmployeeList",gson.toJson(VisitLedgerEntityById.getEmployee()));
+        model.addAttribute("district",districtService.getAll());
         return "collection/settings/visitLedger/create";
     }
 
