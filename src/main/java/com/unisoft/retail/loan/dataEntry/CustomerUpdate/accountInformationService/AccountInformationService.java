@@ -11,6 +11,10 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationReposi
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +25,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -391,11 +399,56 @@ public class AccountInformationService {
         Pageable pageElements = PageRequest.of(page, length);
         Page<AccountInformationEntity> allProducts;
         if (accountNo != null && accountNo != "") {
-            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntity(accountNo, pageElements);
+            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(accountNo, pageElements);
         } else {
-            allProducts = accountInformationRepository.findAllAccIsSmsEntity(pageElements);
+            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZero(pageElements);
         }
         return ResponseEntity.ok(allProducts);
+    }
+
+    public void writeExcel() throws IOException {
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllAccIsSmsEntity();
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        Sheet sheet = workbook.createSheet("UnAllocated_Account_List");
+        Map<String, Object[]> data = new TreeMap<>();
+        //data.put("1", );
+
+        String arr[] = {"Account No","Dealer PIN","Dealer Name","Branch Mnemonic","Product Code",
+                        "Deal Reference"};
+
+        Cell cell0 = null;
+        Row row1 = sheet.createRow(0);
+        for(int h=0; h<arr.length; h++){
+            cell0 = row1.createCell(h);
+            cell0.setCellValue(arr[h]);
+        }
+
+        //iterating r number of rows
+        AccountInformationEntity accountInformationEntity;
+        for (int r = 0; r < accountInformationEntities.size(); r++) {
+            Row row = sheet.createRow(r+1);
+            accountInformationEntity = accountInformationEntities.get(r);
+            //iterating c number of columns
+            Cell cell1 = row.createCell(0);
+            cell1.setCellValue(accountInformationEntity.getLoanACNo()==null?"":accountInformationEntity.getLoanACNo());
+            Cell cell2 = row.createCell(1);
+            cell2.setCellValue("");
+            Cell cell3 = row.createCell(2);
+            cell3.setCellValue("");
+            Cell cell4 = row.createCell(3);
+            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null?"":accountInformationEntity.getBranchMnemonic());
+            Cell cell5 = row.createCell(4);
+            cell5.setCellValue(accountInformationEntity.getProductCode() ==null?"":accountInformationEntity.getProductCode());
+            Cell cell6 = row.createCell(5);
+            cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
+        }
+
+        String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
+        FileOutputStream out = new FileOutputStream(fileLocation);
+        workbook.write(out);
+
+        out.close();
     }
 
 }
