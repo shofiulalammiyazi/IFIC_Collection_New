@@ -23,6 +23,7 @@ public class LoanAutoDistributionRestController {
     AccountInformationService accountInformationService;
     @Autowired
     LoanAutoDistributionServiceImpl loanAutoDistributionService;
+
     @RequestMapping("get-pagination")
     ResponseEntity accountInformationEntitiesByPagination(@RequestParam("page") int page,
                                                                                     @RequestParam(required = false) String search,
