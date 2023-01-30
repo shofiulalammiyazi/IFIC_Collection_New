@@ -399,9 +399,9 @@ public class AccountInformationService {
         Pageable pageElements = PageRequest.of(page, length);
         Page<AccountInformationEntity> allProducts;
         if (accountNo != null && accountNo != "") {
-            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntity(accountNo, pageElements);
+            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(accountNo, pageElements);
         } else {
-            allProducts = accountInformationRepository.findAllAccIsSmsEntity(pageElements);
+            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZero(pageElements);
         }
         return ResponseEntity.ok(allProducts);
     }

@@ -89,7 +89,7 @@ public class LoanAutoDistributionController {
         model.addAttribute("smsEntityList", smsEntityList);
 
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
-    }
+}
 
     @GetMapping("distributionlist")
     public String getDistributionList(Model model) {

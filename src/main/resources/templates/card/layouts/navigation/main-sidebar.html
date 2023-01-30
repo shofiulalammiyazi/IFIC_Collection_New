@@ -181,6 +181,13 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/distribution/loan/list')}"
+                                               class="tab"
+                                               th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">UnAllocated Account List- Loan
+                                            </a>
+                                        </li>
+
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"
