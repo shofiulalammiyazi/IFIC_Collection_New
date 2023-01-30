@@ -1,9 +1,13 @@
 package com.unisoft.collection.settings.visitLedger;
 
 import com.unisoft.base.BaseInfo;
+import com.unisoft.collection.settings.district.DistrictEntity;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.unisoft.collection.settings.sectorGroup.SectorGroupEntity;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -46,12 +50,23 @@ public class VisitLedgerEntity extends BaseInfo {
     @Enumerated(EnumType.STRING)
     private VisitLedgerStatus status;
 
-    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<EmployeeInfoEntity> employee= new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private DistrictEntity districtEntity;
+
+    public VisitLedgerEntity(){}
+    @Transient
+    List<String> employeeId = new ArrayList<>();
+
+   /* @ManyToMany
     @JsonIgnore
     @JoinTable(name = "visit_ledger_visitors",
             joinColumns = @JoinColumn(name = "visit_ledger_entity_id"),
             inverseJoinColumns = @JoinColumn(name = "visitor_id"))
-    private List<EmployeeInfoEntity> visitors = new ArrayList<>();
+    private List<EmployeeInfoEntity> visitors = new ArrayList<>();*/
 
     @Transient
     private List<String> memberIds;

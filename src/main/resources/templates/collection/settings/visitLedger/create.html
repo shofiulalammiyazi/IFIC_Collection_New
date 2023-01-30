@@ -47,6 +47,7 @@
                             <input type="hidden" th:field="*{accountCardNumber}" v-model="accountNumber">
                             <input type="hidden" th:field="*{productUnit}" v-model="cardOrLoan">
                             <input type="hidden" th:field="*{memberIds}" v-model="getSelectedEmployee">
+                            <input type="hidden" th:field="*{employeeId}" v-model="getSelectedEmployee"></input>
 
                             <div class="box-body">
                                 <div class="form-group">
@@ -101,9 +102,20 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Visitors</label>
                                     <div class="col-sm-8">
-                                        <multiselect v-model="selectedEmployeeList" placeholder="Search an Employee" :custom-label="customLabel" track-by="id"  :options="employeeList" :multiple="true" :taggable="true"></multiselect>
+                                        <multiselect v-model="selectedEmployeeList" placeholder="Search an Employee" label="customLabel"  :custom-label="customLabel"  track-by="id"  :options="employeeList" :multiple="true" :taggable="true"></multiselect>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">District</label>
+                                    <div class="col-sm-8" >
+                                        <select  class="form-control required input-sm" th:field="*{DistrictEntity.id}" required>
+                                            <option value="">Select</option>
+                                            <option th:each="ds2 :${district}" th:value="${ds2?.id}" th:text="${ds2.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required" >Location</label>
                                     <div class="col-sm-8">
