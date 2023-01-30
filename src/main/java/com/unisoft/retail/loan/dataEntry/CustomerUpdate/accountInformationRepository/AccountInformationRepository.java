@@ -99,4 +99,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntity(Pageable pageable);
 
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    List<AccountInformationEntity> findAllAccIsSmsEntity();
+
 }
