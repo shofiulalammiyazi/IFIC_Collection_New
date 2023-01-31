@@ -86,6 +86,10 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "<= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'YYYY-MM-DD') " +
+            "<= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    List<AccountInformationEntity> findAllByEmiDatePlusThree();
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
 
@@ -94,5 +98,14 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntity(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZero(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    public Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    List<AccountInformationEntity> findAllAccIsSmsEntity();
 
 }

@@ -13,17 +13,27 @@ import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -49,6 +59,9 @@ public class LoanAutoDistributionController {
 
     @Autowired
     private PeopleAllocationLogicRepository peopleAllocationLogicRepository;
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -76,7 +89,7 @@ public class LoanAutoDistributionController {
         model.addAttribute("smsEntityList", smsEntityList);
 
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
-    }
+}
 
     @GetMapping("distributionlist")
     public String getDistributionList(Model model) {
@@ -125,6 +138,68 @@ public class LoanAutoDistributionController {
         map.put("state",status);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @Scheduled(cron = "0 30 7 * * *")
+    @GetMapping("/sendAllSms")
+    public String autoSmsEmiDateWise(){
+        String smsType = "";
+        String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
+                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
+                "Pls, ignore if it is already paid.";
+
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDatePlusThree();
+
+        List<GeneratedSMS> generatedSMS = new ArrayList<>();
+        for(AccountInformationEntity acc : accountInformationEntities){
+            //sms = templateGenerate.getMassege();
+            if(acc.getNextEMIDate() != null){
+                sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
+                sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+                sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
+                sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
+                sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
+                generatedSMS.add(generatedSMS1);
+            }
+        }
+        String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+
+        return status;
+    }
+
+    public void toExcel() throws IOException {
+        accountInformationService.writeExcel();
+    }
+
+    public void deleteFile() throws IOException {
+        File file = new File("src/main/resources/generatedExcel/");
+
+        FileUtils.cleanDirectory(file);
+    }
+
+    @GetMapping("/download")
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+        toExcel();
+        String fileName = "UnAllocated_Account_List.xlsx";
+        File file = new File("src/main/resources/generatedExcel");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename="+ fileName);
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file + "/" + fileName);
+            int i;
+            while ((i = fileInputStream.read()) != -1) {
+                response.getWriter().write(i);
+            }
+            fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

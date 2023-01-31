@@ -41,7 +41,7 @@
                                         <level th:text="${visitLedger.visitTime}" ></level>
                                     </div>
                                 </div>
-                                <div class="form-group form-group-code row">
+                                <!--<div class="form-group form-group-code row">
                                     <div class="col-sm-4">
                                         <label class="col-sm-12 control-label">Visitors:</label>
                                     </div>
@@ -53,7 +53,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group form-group-code">
                                     <label class="col-sm-4 control-label">Account No:</label>
@@ -66,6 +66,13 @@
                                     <label class="col-sm-4 control-label">Account Type:</label>
                                     <div class="col-sm-8 custom-form-control br">
                                         <level th:text="${visitLedger.productUnit}" ></level>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-code">
+                                    <label class="col-sm-4 control-label">District:</label>
+                                    <div class="col-sm-8 custom-form-control br">
+                                        <level th:text="${visitLedger.DistrictEntity?.name}" ></level>
                                     </div>
                                 </div>
                                 <div class="form-group form-group-code">

@@ -39,7 +39,7 @@
                                 <tr th:each="visitledger,status : ${visitLedgerList}">
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${visitledger.name}"></span></td>
-                                    <td><span th:text="${visitledger.dateOfVisit}"></span></td>
+                                    <td><span th:text="${#dates.format(visitledger.dateOfVisit, 'dd-MMM-yyyy')}"></span></td>
                                     <td><span th:text="${visitledger.visitTime}"></span></td>
                                     <td><span th:text="${visitledger.productUnit}"></span></td>
                                     <td><span th:text="${visitledger.accountCardNumber}"></span></td>
