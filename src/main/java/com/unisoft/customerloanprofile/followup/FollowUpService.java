@@ -115,8 +115,9 @@ public class FollowUpService {
 
         followUpReasons = followUpReasons.stream().map(String::toLowerCase).collect(Collectors.toList());
 
-        for (FollowUpSummaryModel followUpSummaryModel : followUpDataModels)
+        for (FollowUpSummaryModel followUpSummaryModel : followUpDataModels) {
             followUpReasons.remove(followUpSummaryModel.getReason().toLowerCase().replace(" ", "_"));
+        }
 
         for (String followUpReason : followUpReasons)
             followUpDataModels.add(new FollowUpSummaryModel(followUpReason.replace("_", " "), "", 0L, 0D));
