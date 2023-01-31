@@ -51,7 +51,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="visitLedger in visitLedgerList">
-                        <td><a :href="'/profile/loanprofile/search?account='+visitLedger.accountCardNumber">{{visitLedger.accountCardNumber}}</a></td>
+                        <td><a :href="'/profile/loanprofile/search?account='+subString(visitLedger.accountCardNumber)">{{subString(visitLedger.accountCardNumber)}}</a></td>
                         <td>{{visitLedger.username}}</td>
                         <td>{{formatDate(visitLedger.dateOfVisit)}}</td>
                         <td>{{visitLedger.visitTime}}</td>
@@ -79,6 +79,12 @@
 
             },
             methods: {
+
+                subString: function (accountNo) {
+
+                    return accountNo == null?"":accountNo.substr(0, 13);
+
+                },
                 formatDateInput: function (date) {
                     let date1 = date ? new Date(date) : new Date()
 
