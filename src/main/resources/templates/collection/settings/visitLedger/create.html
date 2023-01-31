@@ -44,13 +44,10 @@
                         </style>
                         <form id="app" class="form-horizontal validate" method="post" th:action="@{/collection/visitledger/create}" th:object="${visitLedger}">
                             <input type="hidden" th:field="*{id}"></input>
-
-
                             <input type="hidden" th:field="*{accountCardNumber}" v-model="accountNumber">
-
                             <input type="hidden" th:field="*{productUnit}" v-model="cardOrLoan">
                             <input type="hidden" th:field="*{memberIds}" v-model="getSelectedEmployee">
-                            <input type="hidden" th:field="*{employeeId}" v-model="getSelectedEmployee"/>
+                            <input type="hidden" th:field="*{employeeId}" v-model="getSelectedEmployee"></input>
 
                             <div class="box-body">
                                 <div class="form-group">
@@ -105,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Visitors</label>
                                     <div class="col-sm-8">
-                                        <multiselect v-model="selectedEmployeeList" placeholder="Search an Employee"  :custom-label="customLabel"  track-by="id"  :options="employeeList" :multiple="true" :taggable="true"></multiselect>
+                                        <multiselect v-model="selectedEmployeeList" placeholder="Search an Employee" label="customLabel"  :custom-label="customLabel"  track-by="id"  :options="employeeList" :multiple="true" :taggable="true"></multiselect>
                                     </div>
                                 </div>
 

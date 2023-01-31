@@ -5,10 +5,12 @@ import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.distribution.card.CardRepository;
+import com.unisoft.collection.settings.assetMainClassificationLoan.LoanMainClassificationDto;
+import com.unisoft.collection.settings.district.DistrictEntity;
+import com.unisoft.collection.settings.district.DistrictRepository;
 import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
-import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.loanApi.model.CustomerInfo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
@@ -67,8 +69,7 @@ public class VisitLedgerController {
     private DistrictService districtService;
 
     @Autowired
-
-
+    private DistrictRepository districtRepository;
 
 
     @GetMapping("customer-info")
@@ -116,9 +117,7 @@ public class VisitLedgerController {
 
     @GetMapping("create")
     public String createVisitLedger(Model model) {
-        //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        //model.addAttribute("employeeList",gson.toJson(employeeRepository.findAll()));
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         model.addAttribute("employeeList",gson.toJson(employeeRepository.findAll()));
         model.addAttribute("sectorGroupList", gson.toJson(employeeService.getAll()));
         List<EmployeeInfoEntity> employeeInfoEntities = employeeService.getAll();
@@ -179,6 +178,7 @@ public class VisitLedgerController {
             }
         }
         visitLedgerEntity.setVisitors(employeeInfoEntities);*/
+
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM YYYY");
         //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd MMM YYYY");
