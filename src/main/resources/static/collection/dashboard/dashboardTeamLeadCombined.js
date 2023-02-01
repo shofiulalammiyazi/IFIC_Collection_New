@@ -78,8 +78,9 @@ $(document).ready(function () {
                                 + '<td class="text-right">' + formatBdIntegers(data.brokenPtp) + '</td>'
                                 + '<td class="text-right">' + formatBdIntegers(data.curedPtp) + '</td>'
                              + '<td class="text-right">' + data.branchMnemonic + '</td>'
-                             + '<td class="text-right">' + data.productCode + '</td>'
+
                              + '<td class="text-right">' + data.dealReference + '</td>'
+                                + '<td class="text-right">'+data.branchMnemonic +data.dealReference+ data.productCode + '</td>'
                              + '<td class="text-left">' + data.productShortName + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfRightPartyContact) + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfGuarantorOrThirdPartyContact) + '</td>'
