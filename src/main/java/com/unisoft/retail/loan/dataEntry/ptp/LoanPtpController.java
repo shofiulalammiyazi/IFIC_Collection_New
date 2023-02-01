@@ -38,6 +38,24 @@ public class LoanPtpController {
     @Autowired
     private SendSmsToCustomerService sendSmsToCustomerService;
 
+
+    private static Date getNextOrPreviousDate(Date date, int dayIndex) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, dayIndex);
+        return getFormattedDate(calendar.getTime(), "dd-MM-yyyy");
+    }
+
+    private static Date getFormattedDate(Date date, String pattern) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            return simpleDateFormat.parse(simpleDateFormat.format(date));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
     @PostMapping(value="/save")
     public boolean saveReferenceInfo(LoanPtp loanPtp) {
         String sms = "";
@@ -50,15 +68,16 @@ public class LoanPtpController {
 
         service.save(loanPtp);
 
-        //if(loanPtp.get)
-        sms = "Your {{F.productName}} EMI due date is " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())+
-                ". Pls, deposit BDT "+loanPtp.getLoan_amount()+" to keep the loan regular. " +
-                "Pls, ignore if it is already paid.";
+        //for contact success based on consideration as attempt = Call Received
+        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
+              "Pls, repay the amount within" +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+                +" as per your commitment to keep the loan regular.";
 
+        //if contact fail based on consideration as attempt = Call Not Received
         if(loanPtp.getConsiderAsAttempt().equalsIgnoreCase("Call Not Received"))
-            sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}." +
-                    "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular." +
-                    "Pls, ignore if it is already paid.";
+            sms = "We have tried and failed to reach you over phone." +
+                    " Pls, pay the unpaid installment {{F.installmentAmount}} against " +
+                    "{{F.productName}} by "+getNextOrPreviousDate(new Date(),3)+" to avoid penal charge.";
 
         AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
 
@@ -69,6 +88,7 @@ public class LoanPtpController {
             sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
             sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+            //TODO change phone number here use acc.getMobile()
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
             generatedSMS.add(generatedSMS1);
             String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
