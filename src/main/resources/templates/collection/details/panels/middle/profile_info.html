@@ -23,56 +23,49 @@
                         <!--<label class="col-sm-3 custom-details-lebel-left">Account Name :</label>
                         <label class="col-sm-3 custom-form-lebel" >{{loanAccInfo.accountName}}</label>-->
 
-                    </div>
-
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Borrower's Name :</label>
                         <label class="col-sm-3 custom-form-lebel"
                                id="companyName">{{accountInformation.borrowersName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel"-->
                         <!--id="companyName">{{customerInfo.proprietorName}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Customer ID :</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="customerId">{{loanAccInfo.customerId}}</label>-->
                         <label class="col-sm-3 custom-form-lebel" id="customerId">{{accountInformation.customerId || "-"}}</label>
 
-                    </div>
-
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Loan/Deal Reference :</label>
                         <label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{accountInformation.branchMnemonic+""+accountInformation.productCode+""+accountInformation.dealReference}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{loanAccDetails.liabilityNo}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left ">Product Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="productName">{{accountInformation.productName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="productName">*</label>-->
 
-                    </div>
-
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left ">Branch Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="branchName">{{accountInformation.branchName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="branchName">{{branchInfo.branchName}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left"> Profession :</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="occupation">{{customerInfo.employer}}</label>-->
                         <label class="col-sm-3 custom-form-lebel" id="occupation">{{accountInformation.profession || "-"}}</label>
-
-                    </div>
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Contact No(Mobile) :</label>
-
                         <!--<label class="col-sm-4 custom-form-lebel" id="contactNoMobile">{{customerInfo.mobileNumber}}</label>-->
-                        <label class="col-sm-4 custom-form-lebel" id="contactNoMobile">
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoMobile">
                             <span id="val-mobile-no">{{accountInformation.mobile || "-"}}</span>
                             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#callThroughApi">Call</button>
+                            <!--<div class="col-sm-2">-->
+                            <!--<button  v-if="customerAndBorrowerInfo.entity && customerAndBorrowerInfo.entity.contactNo && !showContactNo" @click="showContactNo=true">Additional Info</button>-->
+                            <!--</div>-->
+                            <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{"-"}}</label>-->
+                            <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{customerAndBorrowerInfo.entity.contactNo}}</label>-->
                         </label>
-                        <!--<div class="col-sm-2">-->
-                        <!--<button  v-if="customerAndBorrowerInfo.entity && customerAndBorrowerInfo.entity.contactNo && !showContactNo" @click="showContactNo=true">Additional Info</button>-->
-                        <!--</div>-->
-                        <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{"-"}}</label>-->
-                        <!--<label class="col-sm-3 custom-form-lebel" v-if="showContactNo">{{customerAndBorrowerInfo.entity.contactNo}}</label>-->
-
-
                     </div>
-
                     <div class="modal fade" id="callThroughApi" tabindex="-1" role="dialog" aria-labelledby="callThroughApi" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -96,14 +89,14 @@
                     </div>
 
                     <div class="form-group row csi-view-form-group">
-
                         <label class="col-sm-3 custom-details-lebel-left">Gender :</label>
                         <label class="col-sm-3 custom-form-lebel" id="gender">{{accountInformation.gender != null ? (accountInformation.gender == "M" ? "Male" : "Female") : "-"}}</label>
+
                         <label class="col-sm-3 custom-details-lebel-left ">Total Outstanding :</label>
                         <label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt((accountInformation.totalOutstanding/100))}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>-->
-
                     </div>
+
                     <div class="form-group row csi-view-form-group">
 
                         <label class="col-sm-3 custom-details-lebel-left "> Overdue Amount : </label>
@@ -131,35 +124,22 @@
                         <label class="col-sm-3 custom-details-lebel-left ">DPD After Expiry Date :</label>
                         <label class="col-sm-3 custom-form-lebel">{{accountInformation.dpdAfterExpiryDate || "-"}}</label>
 
-
-                    </div>
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Last Payment Amount:</label>
                         <label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt((accountInformation.lastPaymentAmount/100))}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+
                         <label class="col-sm-3 custom-details-lebel-left ">Last Payment Date :</label>
                         <label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{accountInformation.lastPaymentDate || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{loanAccStatement.valueDate | formatDate}}</label>-->
 
-                    </div>
-
-
-
-                    <div class="form-group row csi-view-form-group">
-
-
                         <label class="col-sm-3 custom-details-lebel-left">Co-Applicant Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{"-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{getCoApplicantNames}}</label>-->
-                    </div>
-
-                    <div class="form-group row csi-view-form-group">
-
-
-
 
                     </div>
-
 
                 </div>
             </div>
