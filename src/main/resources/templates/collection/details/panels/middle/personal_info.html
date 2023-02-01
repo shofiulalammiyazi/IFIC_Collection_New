@@ -66,20 +66,18 @@
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Home Address : </label>
-                        <label class="col-sm-4 custom-form-lebel" id="homeAddress">{{"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="homeAddress">{{"-"}}</label>
                         <!--<label class="col-sm-4 custom-form-lebel" id="homeAddress">{{customerInfo.correspondenceAddress}}</label>-->
-
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <button  v-if="additionalInfo.homeAddress && !showHomeAddress" @click="showHomeAddress=true">Additional Info</button>
                         </div>
-                        <label class="col-sm-4 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress || "-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress || "-"}}</label>
                     </div>
 
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Mailing Address :</label>
-                        <label class="col-sm-4 custom-form-lebel" id="officeAddress">{{accountInformation.address1+", "+accountInformation.address2+", "+accountInformation.address3+", "+accountInformation.address4 +" , "+accountInformation.address5}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="officeAddress">{{accountInformation.address1+", "+accountInformation.address2+", "+accountInformation.address3+", "+accountInformation.address4 +" , "+accountInformation.address5}}</label>
                         <!--<label class="col-sm-4 custom-form-lebel" id="officeAddress">{{customerInfo.correspondenceAddress}}</label>-->
-
                         <div class="col-sm-2">
                             <button  v-if="additionalInfo.officeAddress && !showOfficeAddress" @click="showOfficeAddress=true">Additional Info</button>
                         </div>
@@ -103,7 +101,6 @@
                     </div>
 
                     <div class="form-group row csi-view-form-group">
-
                         <label class="col-sm-3 custom-details-lebel-left">Profession Segment :</label>
                         <label class="col-sm-3 custom-form-lebel" >{{accountInformation.professionSegment != null?accountInformation.professionSegment:"-"}}</label>
                         <label class="col-sm-3 custom-form-lebel" >{{professionSegment !==null?professionSegment.groupName:"-"}}</label>
