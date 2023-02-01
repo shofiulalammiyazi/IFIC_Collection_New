@@ -140,7 +140,7 @@ public class LoanAutoDistributionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @Scheduled(cron = "0 30 7 * * *")
+    @Scheduled(cron = "0 30 10 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise(){
         String smsType = "";
@@ -148,7 +148,7 @@ public class LoanAutoDistributionController {
                 "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
                 "Pls, ignore if it is already paid.";
 
-        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDatePlusThree();
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDateOnlyPlusThree();
 
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for(AccountInformationEntity acc : accountInformationEntities){
@@ -159,6 +159,7 @@ public class LoanAutoDistributionController {
                 sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
                 sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+                //TODO change phone number here use acc.getMobile()
                 GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
                 generatedSMS.add(generatedSMS1);
             }

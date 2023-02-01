@@ -90,6 +90,10 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "<= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDatePlusThree();
 
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'YYYY-MM-DD') " +
+            "== (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
 
