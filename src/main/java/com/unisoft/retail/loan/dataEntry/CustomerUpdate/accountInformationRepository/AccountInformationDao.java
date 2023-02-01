@@ -40,14 +40,14 @@ public class AccountInformationDao {
 
                 AccountInformationDto accountInformationDto = new AccountInformationDto();
 
-                double noOfInstallmentDue = 0.0;
-                double odAmt = resultSet.getString("OVERDUE") == null
-                        ?0.0:Double.parseDouble(resultSet.getString("OVERDUE"));
-                double emiAmt = resultSet.getString("EMIAMNT") == null
-                        ?0.0:Double.parseDouble(resultSet.getString("EMIAMNT"));
-
-                if(emiAmt != 0.0 && odAmt != 0.0)
-                    noOfInstallmentDue = odAmt/emiAmt;
+//                double noOfInstallmentDue = 0.0;
+//                double odAmt = resultSet.getString("OVERDUE") == null
+//                        ?0.0:Double.parseDouble(resultSet.getString("OVERDUE"));
+//                double emiAmt = resultSet.getString("EMIAMNT") == null
+//                        ?0.0:Double.parseDouble(resultSet.getString("EMIAMNT"));
+//
+//                if(emiAmt != 0.0 && odAmt != 0.0)
+//                    noOfInstallmentDue = odAmt/emiAmt;
 
 
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
@@ -143,9 +143,10 @@ public class AccountInformationDao {
                 accountInformationDto.setLastPaymentAmount(resultSet.getString("LPAYAMNT"));
                 accountInformationDto.setLatestDisbursementDate(resultSet.getString("LDISDATE"));
                 accountInformationDto.setLatestDisbursementAmount(resultSet.getString("LDISAMNT"));
-                accountInformationDto.setSanctionAmount(resultSet.getString("SANCAMNT"));
+                //accountInformationDto.setSanctionAmount(resultSet.getString("SANCAMNT")); removed at 1/2/2023
                 accountInformationDto.setJointStatus(resultSet.getString("SCAIC7"));
-                accountInformationDto.setNoOfInstallmentDue(String.valueOf(noOfInstallmentDue));
+                accountInformationDto.setNoOfInstallmentDue(resultSet.getString("NUMOFDUE"));
+                accountInformationDto.setFirstInstDueDate(resultSet.getString("ODUEDATE"));
 
                 accountInformationDtoList.add(accountInformationDto);
 

@@ -98,7 +98,7 @@ public class LoanAccountDistributionService {
     public List<LoanAccountDistributionSummary> getCurrentMonthLoanDistributionSummaryForDealer(String dealerPin) {
         Date startDate = dateUtils.getMonthStartDate();
         Date endDate = dateUtils.getMonthEndDate();
-        List<Tuple> summaries = repository.getLoanAccountDistributionSummary(dealerPin, startDate, endDate);
+        List<Tuple> summaries = repository.getLoanAccountDistributionSummary(dealerPin);//, startDate, endDate
         return summaries.stream().map(item -> new LoanAccountDistributionSummary(item)).collect(Collectors.toList());
 //    return summaries.stream().map(LoanAccountDistributionSummary::new).collect(Collectors.toList());
     }
