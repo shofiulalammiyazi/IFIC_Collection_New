@@ -4,6 +4,8 @@ package com.unisoft.detailsOfCollection.controller;
 import com.unisoft.collection.reasonDelinquency.ReasonDelinquencyServiceImpl;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccount;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccountService;
+import com.unisoft.collection.settings.district.DistrictEntity;
+import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.loansectorcode.SectorCodeEntity;
@@ -147,6 +149,9 @@ public class ProfileLoanController {
     @Autowired
     private AccountInformationService accountInformationService;
 
+    @Autowired
+    private DistrictService districtService;
+
 
 
     @GetMapping("/loan")
@@ -156,7 +161,7 @@ public class ProfileLoanController {
         model.addAttribute("branchMnemonic","");
         model.addAttribute("productCode","");
         model.addAttribute("dealReference","");
-
+        model.addAttribute("district",districtService.getAll());
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(user.getUsername());
 
