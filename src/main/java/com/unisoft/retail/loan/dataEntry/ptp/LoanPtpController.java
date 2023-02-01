@@ -1,7 +1,11 @@
 package com.unisoft.retail.loan.dataEntry.ptp;
 
+import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
+import com.unisoft.collection.settings.SMS.sendSms.SendSmsToCustomerService;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/collection/loan/ptp")
@@ -31,10 +32,15 @@ public class LoanPtpController {
 
     private DateUtils dateUtils;
 
-    @PostMapping(value="/save")
-    public boolean saveReferenceInfo(LoanPtp loanPtp) throws IOException, ParseException {
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
 
-        //String dateString = loanPtp.getLoan_ptp_date();
+    @Autowired
+    private SendSmsToCustomerService sendSmsToCustomerService;
+
+    @PostMapping(value="/save")
+    public boolean saveReferenceInfo(LoanPtp loanPtp) {
+        String sms = "";
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loanPtp.setCreatedBy(user.getUsername());
         loanPtp.setCreatedDate(new Date());
@@ -42,20 +48,32 @@ public class LoanPtpController {
         loanPtp.setPin(user.getUsername());
         loanPtp.setUsername(user.getLastName());
 
-
-        //Date LoanPtpDate = dateUtils.getFormattedDate(dateString, "dd-MM-yyyy");
-        //loanPtp.setLoan_ptp_date(LoanPtpDate);
-        //loanPtp.setLoan_ptp_date(new Date());
-        //loanPtp.setLoan_ptp_time(DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now()));
-
-       // Date ptpDate = null;
-        //String stringToDate = "";
-        //loanPtp.setLoan_ptp_status("kept");
-        //stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
-        //ptpDate = new SimpleDateFormat("dd-MM-yyyy").parse(stringToDate);
-
-        //loanPtp.setLoan_ptp_date(ptpDate);
         service.save(loanPtp);
+
+        //if(loanPtp.get)
+        sms = "Your {{F.productName}} EMI due date is " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())+
+                ". Pls, deposit BDT "+loanPtp.getLoan_amount()+" to keep the loan regular. " +
+                "Pls, ignore if it is already paid.";
+
+        if(loanPtp.getConsiderAsAttempt().equalsIgnoreCase("Call Not Received"))
+            sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}." +
+                    "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular." +
+                    "Pls, ignore if it is already paid.";
+
+        AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
+
+        List<GeneratedSMS> generatedSMS = new ArrayList<>();
+        if(acc.getNextEMIDate() != null){
+            sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
+            sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+            sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
+            sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
+            sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
+            generatedSMS.add(generatedSMS1);
+            String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+        }
+
         return true;
     }
 

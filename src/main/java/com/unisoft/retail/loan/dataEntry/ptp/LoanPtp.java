@@ -265,6 +265,12 @@ public class LoanPtp extends BaseInfo {
     @Transient
     private String loan_ptp_dates;
 
+    @Transient
+    private String accNo;
+
+    @Transient
+    private String considerAsAttempt;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "CUSTOMER_ID")

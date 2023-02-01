@@ -895,6 +895,7 @@
                                                 $('#contact_category_id, #ptp_promisor_details_id').html('<option value="">Select One </option>')
 
                                                 if (!!id) {
+                                                    $("#consider-as-attempt").val(id);
                                                     var selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
                                                     for(var j=0; j<selected[0].contactCategoryObj.length; j++){
                                                         if(selected[0].contactCategoryObj[j].contactCategoryName != null)
@@ -909,6 +910,13 @@
                                                             $('#ptp_promisor_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
                                                         }
                                                     }
+                                                }
+
+                                                if(id == "Call Not Received"){
+                                                    $("#loan_amount").val("");
+                                                }
+                                                else{
+                                                    $("#loan_amount").val(Number(profile_information.accountInformation.overdue)/100);
                                                 }
                                             });
                                             
@@ -1101,6 +1109,8 @@
                                                 <input type="hidden" name="loan_promisor_details" id="ptp_promisor_details" value=""/>
                                                 <input type="hidden" name="id" id="id" value=""/>
                                                 <input type="hidden" name="loan_ptp_dates" v-model="getDate"/>
+                                                <input type="hidden" name="accNo" id="acc-no"/>
+                                                <input type="hidden" name="considerAsAttempt" id="consider-as-attempt"/>
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label">PTP Amount </label>
@@ -1169,7 +1179,6 @@
 
                                             date:  '',
                                             time: '',
-                                            ptpAmount:profile_information.accountInformation.overdue/100,
 
                                         }),
 
@@ -1271,6 +1280,7 @@
 
                                     $('#reasonForDelinquencyForm input[name="_csrf"]').val(csrfToken);
                                     $('#reasonForDelinquencyForm input[name="accountNo"]').val(accountNo);
+                                    $('#acc-no').val(accountNo);
 
 
                                     function getMemoNote() {
