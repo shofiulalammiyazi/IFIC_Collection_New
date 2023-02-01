@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1"></meta>
-    <title>Profile Information</title>
+    <title>Communication Summary</title>
 </head>
 <body>
 <div id="layout-cibReport" th:fragment="profile-info">
     <div class="loandetail-area-sp box box-primary">
         <div class="box-header with-border">
-            <label class="box-title col-sm-6">Profile Information</label>
+            <label class="box-title col-sm-6">Communication Summary</label>
 
 
         </div>
@@ -31,13 +31,31 @@
                                id="companyName">{{accountInformation.borrowersName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel"-->
                         <!--id="companyName">{{customerInfo.proprietorName}}</label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">Customer ID :</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="customerId">{{loanAccInfo.customerId}}</label>-->
+                        <label class="col-sm-3 custom-form-lebel" id="customerId">{{accountInformation.customerId || "-"}}</label>
 
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Loan/Deal Reference :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{accountInformation.branchMnemonic+""+accountInformation.productCode+""+accountInformation.dealReference}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{loanAccDetails.liabilityNo}}</label>-->
+                        <label class="col-sm-3 custom-details-lebel-left ">Product Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="productName">{{accountInformation.productName || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="productName">*</label>-->
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left ">Branch Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="branchName">{{accountInformation.branchName || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="branchName">{{branchInfo.branchName}}</label>-->
                         <label class="col-sm-3 custom-details-lebel-left"> Profession :</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="occupation">{{customerInfo.employer}}</label>-->
                         <label class="col-sm-3 custom-form-lebel" id="occupation">{{accountInformation.profession || "-"}}</label>
 
                     </div>
-
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Contact No(Mobile) :</label>
 
@@ -78,99 +96,70 @@
                     </div>
 
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Contact No(Home) :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{accountInformation.contractNoHome}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{customerInfo.homePhone}}</label>-->
-
-                        <label class="col-sm-3 custom-details-lebel-left">Customer ID :</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="customerId">{{loanAccInfo.customerId}}</label>-->
-                        <label class="col-sm-3 custom-form-lebel" id="customerId">{{accountInformation.customerId || "-"}}</label>
-
-                    </div>
-                    <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Co-Applicant Name :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{"-"}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{getCoApplicantNames}}</label>-->
-
-                        <label class="col-sm-3 custom-details-lebel-left">Loan/Deal Reference :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{accountInformation.branchMnemonic+""+accountInformation.productCode+""+accountInformation.dealReference}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="liabilityNo">{{loanAccDetails.liabilityNo}}</label>-->
-
-                    </div>
-                    <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Customer Type :</label>
-                        <label class="col-sm-3 custom-form-lebel"
-                               id="customerType">{{accountInformation.customerType || "-"}}</label>
 
                         <label class="col-sm-3 custom-details-lebel-left">Gender :</label>
                         <label class="col-sm-3 custom-form-lebel" id="gender">{{accountInformation.gender != null ? (accountInformation.gender == "M" ? "Male" : "Female") : "-"}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left ">Total Outstanding :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt((accountInformation.totalOutstanding/100))}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="outstanding">{{numberToBdt(loanAccDetails.outStandingLocalCurrency + loanAccDetails.interestOutstanding)}}</label>-->
+
+                    </div>
+                    <div class="form-group row csi-view-form-group">
+
+                        <label class="col-sm-3 custom-details-lebel-left "> Overdue Amount : </label>
+                        <label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt((accountInformation.overdue/100) || "0")}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt(loanAccInfo.totalOverdue)}}</label>-->
+
+                        <label class="col-sm-3 custom-details-lebel-left">No. Overdue Installment :</label>
+                        <label class="col-sm-3 custom-form-lebel">{{accountInformation.noOverdueInstallment || "-"}}</label>
 
                     </div>
 
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Home Address : </label>
-                        <label class="col-sm-4 custom-form-lebel" id="homeAddress">{{"-"}}</label>
-                        <!--<label class="col-sm-4 custom-form-lebel" id="homeAddress">{{customerInfo.correspondenceAddress}}</label>-->
 
-                        <div class="col-sm-2">
-                            <button  v-if="additionalInfo.homeAddress && !showHomeAddress" @click="showHomeAddress=true">Additional Info</button>
-                        </div>
-                        <label class="col-sm-4 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress || "-"}}</label>
-
-                    </div>
-                    <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Mailing Address :</label>
-                        <label class="col-sm-4 custom-form-lebel" id="officeAddress">{{accountInformation.address1+", "+accountInformation.address2+", "+accountInformation.address3+", "+accountInformation.address4 +" , "+accountInformation.address5}}</label>
-                        <!--<label class="col-sm-4 custom-form-lebel" id="officeAddress">{{customerInfo.correspondenceAddress}}</label>-->
-
-
-                        <div class="col-sm-2">
-                            <button  v-if="additionalInfo.officeAddress && !showOfficeAddress" @click="showOfficeAddress=true">Additional Info</button>
-                        </div>
-                        <label class="col-sm-4 custom-form-lebel" v-if="showOfficeAddress">{{additionalInfo.officeAddress}}</label>
+                        <label class="col-sm-3 custom-details-lebel-left ">EMI Amount:</label>
+                        <label class="col-sm-3 custom-form-lebel" id="emiAmount">{{numberToBdt((accountInformation.emiAmount/100))}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="emiAmount">{{numberToBdt(loanAccDetails.emiAmount)}}</label>-->
+                        <label class="col-sm-3 custom-details-lebel-left">DPD (Days Past Due) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dpd">{{accountInformation.dpd || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="dpd">{{loanAccDetails.overdueDays}}</label>-->
 
                     </div>
+
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Mortgaged Property Address :</label>
-                        <label class="col-sm-4 custom-form-lebel">-</label>
-                        <!--<label class="col-sm-4 custom-form-lebel" id="mortgagedAddress"></label>-->
+
+                        <label class="col-sm-3 custom-details-lebel-left ">DPD After Expiry Date :</label>
+                        <label class="col-sm-3 custom-form-lebel">{{accountInformation.dpdAfterExpiryDate || "-"}}</label>
 
 
                     </div>
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>
-                        <label class="col-sm-4 custom-form-lebel" id="permanentAddress">{{"-"}}</label>
-                        <!--<label class="col-sm-4 custom-form-lebel" id="permanentAddress">{{customerInfo.permanentAddress}}</label>-->
-
-                        <div class="col-sm-2">
-                            <!--<button  v-if="additionalInfo.permanentAddress && !showPermanentAddress" @click="showPermanentAddress=true">Additional Info</button>-->
-                        </div>
-                        <!--<label class="col-sm-4 custom-form-lebel" v-if="showPermanentAddress">{{additionalInfo.permanentAddress}}</label>-->
-
+                        <label class="col-sm-3 custom-details-lebel-left">Last Payment Amount:</label>
+                        <label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt((accountInformation.lastPaymentAmount/100))}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="lastPaidAmount">{{numberToBdt(loanAccStatement.lastPayment)}}</label>-->
+                        <label class="col-sm-3 custom-details-lebel-left ">Last Payment Date :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{accountInformation.lastPaymentDate || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{loanAccStatement.valueDate | formatDate}}</label>-->
 
                     </div>
+
+
+
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Date of Birth :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{accountInformation.dob || "-"}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{customerInfo.dateOfBirth}}</label>-->
-
-                        <label class="col-sm-3 custom-details-lebel-left">Profession Segment :</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{accountInformation.professionSegment != null?accountInformation.professionSegment:"-"}}</label>
-                        <label class="col-sm-3 custom-form-lebel" >{{professionSegment !==null?professionSegment.groupName:"-"}}</label>
 
 
+                        <label class="col-sm-3 custom-details-lebel-left">Co-Applicant Name :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{"-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{getCoApplicantNames}}</label>-->
                     </div>
+
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">District :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="district">{{accountInformation.district || "-"}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="district"></label>-->
 
-                        <label class="col-sm-3 custom-details-lebel-left">Division :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="division">{{accountInformation.division || "-"}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" ></label>-->
+
 
 
                     </div>
+
 
                 </div>
             </div>
