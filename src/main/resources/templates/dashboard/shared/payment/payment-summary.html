@@ -129,7 +129,7 @@
                                 <td class="text-right">{{index+1}}</td>
                                 <td class="text-right"><a
                                         :href="'/profile/loanprofile/search?account='+ payment.accountNo"
-                                        target="_blank">{{payment.accountNo}}</a></td>
+                                        target="_blank">{{payment.accountNo.slice(0,13)}}</a></td>
                                 <td>{{payment.accountName}}</td>
                                 <td>{{payment.bucketName}}</td>
                                 <td class="text-right">{{payment.currentMonthPayment| formatBdtInEnglish}}</td>

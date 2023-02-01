@@ -203,7 +203,7 @@
                     </thead>
                     <tbody id="supervisor-account-escalation-table-body">
                     <tr v-for="(accountEscalation,index) in accountEscalationList">
-                        <td><a :href="'/profile/loanprofile/search?account='+accountEscalation.accountNumber">{{accountEscalation.accountNumber}}</a></td>
+                        <td><a :href="'/profile/loanprofile/search?account='+subString(accountEscalation.accountNumber)">{{subString(accountEscalation.accountNumber)}}</a></td>
                         <td>{{accountEscalation.fromUserPin}}</td>
                         <td>{{formatDate(accountEscalation.createdDate)}}</td>
                         <td>{{accountEscalation.bucket}}</td>
@@ -239,6 +239,12 @@
                 accountEscalationHistoryList: [],
             },
             methods: {
+
+                subString: function (accountNo) {
+
+                    return accountNo == null?"":accountNo.substr(0, 13);
+
+                },
                 formatDateInput: function (date) {
                     let date1 = date ? new Date(date) : new Date()
 
