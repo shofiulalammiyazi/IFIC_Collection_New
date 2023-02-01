@@ -22,7 +22,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (Array.isArray(response)) {
                     $.each(response, function (index, data) {
-                        console.log(data)
+                        //console.log(data)
                         var tr = '';
                         if (unit == 'Card') {
                             tr+= '<tr>'
@@ -78,8 +78,9 @@ $(document).ready(function () {
                                 + '<td class="text-right">' + formatBdIntegers(data.brokenPtp) + '</td>'
                                 + '<td class="text-right">' + formatBdIntegers(data.curedPtp) + '</td>'
                              + '<td class="text-right">' + data.branchMnemonic + '</td>'
-                             + '<td class="text-right">' + data.productCode + '</td>'
+
                              + '<td class="text-right">' + data.dealReference + '</td>'
+                                + '<td class="text-right">'+data.branchMnemonic +data.dealReference+ data.productCode + '</td>'
                              + '<td class="text-left">' + data.productShortName + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfRightPartyContact) + '</td>'
                             + '<td class="text-right">' + formatBdIntegers(data.numberOfGuarantorOrThirdPartyContact) + '</td>'
@@ -486,7 +487,7 @@ $(document).ready(function () {
                         return;
                     }
                     dealerPaymentDetails.categories = data;
-                    console.log(data);
+                   // console.log(data);
                 }
             })
         } else if (unit == 'Card') {
@@ -504,7 +505,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     // console.log("card data for test : "+JSON.stringify(data));
-                    console.log(data)
+                    //console.log(data)
                     // if (typeof data === 'string') {
                     //     // swal("Something went wrong");
                     //     // window.location.reload();
@@ -515,7 +516,7 @@ $(document).ready(function () {
                     var total = 0;
                     var arr = new Array();
 
-                    console.log(data);
+                    //console.log(data);
                     //dealerPaymentDetails.narration = [];
                     dealerPaymentDetails.categories = data;
 
@@ -672,7 +673,7 @@ $(document).ready(function () {
                     var total = 0;
                     var arr = new Array();
 
-                    console.log(data);
+                    //console.log(data);
 
                     $(".agency_details_row").html('');
                     for (var i = 0; i < data.length; i++) {
@@ -716,7 +717,7 @@ $(document).ready(function () {
                     var total = 0;
                     var arr = new Array();
 
-                    console.log(data);
+                    //console.log(data);
 
                     $(".agency_details_row").html('');
                     for (var i = 0; i < data.length; i++) {
@@ -796,7 +797,7 @@ $(document).ready(function () {
                             '<td  class="text-center text-nowrap">' + formatDate_DD_MMM_YYYY(data[i].followUpDate) + '</td>\n' +
                             '</tr>'
 
-                        console.log(tr);
+                        //console.log(tr);
                         $("#team_datewise_followUp_tbody").append(tr);
                         // $("#team_accountwise_followUp_tbody").append(trr);
 
@@ -875,7 +876,7 @@ $(document).ready(function () {
 
     $("#team_summary_details_account").click(function () {
         $('.dass_account_custom').remove();
-        console.log("Team");
+        //console.log("Team");
 
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -911,7 +912,7 @@ $(document).ready(function () {
                     var arr = new Array();
                     var arrPer = new Array();
 
-                    console.log(data);
+                    //console.log(data);
                     for (var i = 0; i < data.length; i++) {
 
                         var tr = '';
@@ -1215,7 +1216,7 @@ $(document).ready(function () {
 
     $("#team_summary_details").click(function () {
         $('.dass_amount_custom').remove();
-        console.log("TEAM super");
+        //console.log("TEAM super");
 
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -1251,7 +1252,7 @@ $(document).ready(function () {
                     var arr = new Array();
                     var arrPer = new Array();
 
-                    console.log(data);
+                    //console.log(data);
                     $(".outstanding_wise_total_amount_per_row").html('');
                     $(".outstanding_wise_total_amount_row").html('');
 
@@ -1499,7 +1500,7 @@ $(document).ready(function () {
                     var arr = new Array();
                     var arrPer = new Array();
 
-                    console.log(data);
+                    //console.log(data);
                     $(".outstanding_wise_total_amount_per_row").html('');
                     $(".outstanding_wise_total_amount_row").html('');
 
@@ -1758,7 +1759,7 @@ $(document).ready(function () {
         var header = $("meta[name='_csrf_header']").attr("content");
         var unit = $("#globalUnitForSummary").val().toLowerCase();
         var userPin= $("#globalUserPinForSummary").val();
-       console.log(" unitrw "+unit +'  '+userPin);
+       //console.log(" unitrw "+unit +'  '+userPin);
         $.ajax({
             type: "GET",
             url: "/collection/dashboard/team/rfd_detail?pin="+userPin+"&unit=" + unit,
