@@ -104,7 +104,7 @@
                         <!--<label class="col-sm-3 custom-form-lebel" id="overdue">{{numberToBdt(loanAccInfo.totalOverdue)}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">No. Overdue Installment :</label>
-                        <label class="col-sm-3 custom-form-lebel">{{accountInformation.noOverdueInstallment || "-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel">{{accountInformation.noOfInstallmentDue || "-"}}</label>
 
                     </div>
 
@@ -136,7 +136,7 @@
                         <!--<label class="col-sm-3 custom-form-lebel" id="lastPaymentDate">{{loanAccStatement.valueDate | formatDate}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left">Co-Applicant Name :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{accountInformation.jointStatus || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="coApplicantName">{{getCoApplicantNames}}</label>-->
 
                     </div>

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -396,5 +397,19 @@ public class DateUtils {
        }
        return format2.format(date);
    }
+
+    public static long getDiffernceBetweenTwoDate(String startDate, Date endDate, String datePattern) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+        try {
+            Date formatedDate = simpleDateFormat.parse(startDate);
+            if (formatedDate.compareTo(endDate) < 0) {
+                return ChronoUnit.DAYS.between(formatedDate.toInstant(), endDate.toInstant());
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }

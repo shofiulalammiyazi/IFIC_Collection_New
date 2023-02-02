@@ -107,9 +107,15 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZero(Pageable pageable);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
-    public Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
+    Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
     List<AccountInformationEntity> findAllAccIsSmsEntity();
+
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
 }

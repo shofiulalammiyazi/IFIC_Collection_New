@@ -270,8 +270,9 @@ public class AccountInformationService {
                     accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
                 }
+                String expiryDate = dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim());
                 try {
-                    accountInformationEntity.setExpiryDate(dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()));
+                    accountInformationEntity.setExpiryDate(expiryDate);
                 } catch (Exception e) {
                     accountInformationEntity.setExpiryDate(dto.getExpiryDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getExpiryDate());
@@ -282,7 +283,17 @@ public class AccountInformationService {
                     accountInformationEntity.setDob(dto.getDob());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
                 }
-                accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
+                String firstInstallmentDueDate = dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim());
+                try{
+
+                    accountInformationEntity.setFirstInstDueDate(firstInstallmentDueDate);
+                }
+                catch (Exception e) {
+                    accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
+                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
+                }
+                accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-mm-dd")));
+                accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-mm-dd")));
                 accountInformationEntities.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());
@@ -310,7 +321,7 @@ public class AccountInformationService {
                     loanAccountDistributionInfo1.setStatusDate(new Date());
                     loanAccountDistributionInfo1.setOutStanding(dto.getTotalOutstanding());
                     loanAccountDistributionInfo1.setOpeningOverDue(dto.getOverdue() != null ? Double.parseDouble(dto.getOverdue()) : 0.0);
-                    loanAccountDistributionInfo1.setDpdBucket(dto.getDpd());
+                    loanAccountDistributionInfo1.setDpdBucket(accountInformationEntity.getDpd());
                     loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(dto.getEmiAmount()));
                     loanAccountDistributionInfo1.setStartDate(new Date());
                     loanAccountDistributionRepository.save(loanAccountDistributionInfo1);
@@ -391,6 +402,17 @@ public class AccountInformationService {
             allProducts = accountInformationRepository.findAllByLoanACNoAndCurrentDatePlusThree(accountNo, pageElements);
         } else {
             allProducts = accountInformationRepository.findAllAccByCurrentDatePlusThree(pageElements);
+        }
+        return ResponseEntity.ok(allProducts);
+    }
+
+    public ResponseEntity findAllByOverdueGreaterThanZero(int page, int length, String accountNo) {
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInformationEntity> allProducts;
+        if (accountNo != null && accountNo != "") {
+            allProducts = accountInformationRepository.findAllByOverdueGreaterThanZero(accountNo, pageElements);
+        } else {
+            allProducts = accountInformationRepository.findAllByOverdueGreaterThanZero(pageElements);
         }
         return ResponseEntity.ok(allProducts);
     }

@@ -91,6 +91,15 @@ public class LoanAutoDistributionController {
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
 }
 
+    @GetMapping("delinquint-ac-list")
+    public String getAllDelinquentAccList(Model model) {
+
+        List<SMSEntity> smsEntityList = smsService.findAll();
+        model.addAttribute("smsEntityList", smsEntityList);
+
+        return "retail/loan/dataEntry/distribution/auto/delinquentaccountlist";
+    }
+
     @GetMapping("distributionlist")
     public String getDistributionList(Model model) {
 
@@ -126,7 +135,7 @@ public class LoanAutoDistributionController {
             String[] content = acc.split(":");
             sms = templateGenerate.getMassege();
             sms = sms.replace("{{F.accountNo}}",content[0]);
-            sms = sms.replace("{{F.installmentAmount}}",content[3]);
+            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(content[3])/100));
             sms = sms.replace("{{F.nextEmiDate}}",content[4]);
             sms = sms.replace("{{F.currentMonth}}",content[5]);
             sms = sms.replace("{{F.productName}}",content[2]);
@@ -155,7 +164,7 @@ public class LoanAutoDistributionController {
             //sms = templateGenerate.getMassege();
             if(acc.getNextEMIDate() != null){
                 sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
-                sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+                sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getEmiAmount())/100));
                 sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
                 sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}",acc.getProductName().trim());

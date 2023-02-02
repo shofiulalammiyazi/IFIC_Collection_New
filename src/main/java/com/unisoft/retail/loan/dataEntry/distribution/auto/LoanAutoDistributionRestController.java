@@ -31,6 +31,12 @@ public class LoanAutoDistributionRestController {
         return accountInformationService.findAllAndPagination(page, length, search);
     }
 
+    @RequestMapping("get-all-overdue-not-zero")
+    ResponseEntity findAllByOverdueGreaterThanZero(@RequestParam("page") int page, @RequestParam(required = false) String search,
+                                                          @RequestParam("length") int length){
+        return accountInformationService.findAllByOverdueGreaterThanZero(page, length, search);
+    }
+
     @RequestMapping("get-page-by-issmssent")
     ResponseEntity accountInformationEntitiesByPaginationByIsSmsSent(@RequestParam("page") int page,
                                                           @RequestParam(required = false) String search,

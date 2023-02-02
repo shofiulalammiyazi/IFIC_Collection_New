@@ -74,7 +74,7 @@ public class LoanPtpController {
                 +" as per your commitment to keep the loan regular.";
 
         //if contact fail based on consideration as attempt = Call Not Received
-        if(loanPtp.getConsiderAsAttempt().equalsIgnoreCase("Call Not Received"))
+        if(!loanPtp.getConsiderAsAttempt().equalsIgnoreCase("Call Received"))
             sms = "We have tried and failed to reach you over phone." +
                     " Pls, pay the unpaid installment {{F.installmentAmount}} against " +
                     "{{F.productName}} by "+getNextOrPreviousDate(new Date(),3)+" to avoid penal charge.";
@@ -84,7 +84,7 @@ public class LoanPtpController {
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         if(acc.getNextEMIDate() != null){
             sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
-            sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getEmiAmount())/100));
             sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
             sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
