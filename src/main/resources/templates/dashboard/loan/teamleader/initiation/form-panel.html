@@ -27,7 +27,8 @@
 									<a  id="tab_rfd_detail" href="#" class="list-group-item" title="RFD Details">RFD Details</a>
 									<!--<a  id="layout-cibReport" href="#" class="list-group-item" title="Product & DPD">Product & DPD</a>-->
 									<a  id="layout-cibReport" href="#" class="list-group-item" title="Advanced Account Search">Advanced Account Search</a>
-									<a  id="layout-checker" href="#" class="list-group-item" title="Authorization" th:text="'Authorization('+${totalChecker}+')'"></a>
+									<a  id="layout-checker" href="#" class="list-group-item" title="Authorization" th:text="'Authorization('+${totalChecker}+')'"></a> <!--(<span id="notification"></span>)-->
+
 									<a  id="tab-teamleader-work-management-loan" href="#" class="list-group-item" title="Work Management">Work Management</a>
 
 								</div>
@@ -122,9 +123,49 @@
 						</div>
 					</div>
 			</section>
+
+			<script th:inline="javascript">
+                /*<![CDATA[*/
+                var prev = /*[[${totalChecker}]]*/ || {};
+
+                /*]]>*/
+			</script>
+
+
+			<script>
+
+                // var notificationCount =0;
+                /*<![CDATA[*/
+               // var prev = /*[[${totalChecker}]]*/  {};
+                /*]]>*/
+
+				var notifLabel  = $("#layout-checker").text();
+                function getNotification() {
+                    $.ajax({
+                        url: '/home/rest/notification',
+                        success: function (response) {
+                            if(Number(prev)< Number(response)){
+                                $("#layout-checker").text(notifLabel+'+'+(Number(response)-Number(prev)));
+                                $("#layout-checker").css({"color":"red","font-weight":"bolder"});
+                            }
+                        },
+                        error: function (response) {
+                        }
+                    })
+                }
+                getNotification();
+                setInterval(function () {
+                    getNotification();
+                },10000);
+
+
+			</script>
 		</div>
 		<!-- /.box-body -->
 	</div>
 	<!-- /.box -->
+
 </body>
+
+
 </html>
