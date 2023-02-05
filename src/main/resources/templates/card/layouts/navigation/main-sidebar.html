@@ -770,6 +770,14 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:href="@{/collection/loanstatus/list}">
+                                                Loan Status
+                                            </a>
+                                        </li>
+
 
                                     </ul>
                                 </li>
