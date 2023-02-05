@@ -143,4 +143,58 @@ public class HomeRestController {
         return String.valueOf((referenceInfoEntities.size() + guarantorInfoEntities.size()
                 + customerAndBorrowerInfos.size() + customerComplainEntityList.size() + customerRequestsEntities.size() + visitLedgerEntityList.size() + escalationList.size()+additionalInfos.size()));
     }
+
+
+
+
+    @GetMapping(value = "supervisor/notification")
+    public String getSupNotification(){
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<String> pinList = peopleAllocationLogicRepository.getAllDealerPinByAnyPin(principal.getUsername());
+
+        EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(principal.getUsername());
+        pinList.add(employeeInfoEntity.getPin());
+        List<PeopleAllocationLogicInfo> peopleAllocationLogicInfoList = peopleAllocationLogicRepository.findTeamLeadBySupervisorId(employeeInfoEntity.getId());
+
+        List<PeopleAllocationLogicInfo> allocationLogicList =  dashboardService.getAllDealerList(employeeInfoEntity.getId().toString(),
+                employeeInfoEntity.getDesignation().getName(), "Loan");
+
+        List<VisitLedgerEntity> visitLedgerEntityList = new ArrayList<>();
+        List<CustomerComplainViewModel> customerComplainDtos1 = customerComplainService.getCustomerComplainByDealerPinList(pinList);
+        for (PeopleAllocationLogicInfo logicInfo: peopleAllocationLogicInfoList){
+            List<VisitLedgerEntity> visitLedgerEntities = visitLedgerService.findVisitLedgerEntityByCreatedByAndStatusForSupervisor(logicInfo.getDealer().getPin());
+            if (!visitLedgerEntities.isEmpty()){
+                visitLedgerEntityList.addAll(visitLedgerEntities);
+            }
+        }
+
+        List<String> pinList1 = peopleAllocationLogicRepository.getAllDealerPinByAnyPin(employeeInfoEntity.getPin());
+        pinList.add(employeeInfoEntity.getPin());
+        List<AccountEscalation> escalationList = escalationService.findByToUserPinAndStatus(pinList);
+        return String.valueOf((escalationList.size()+visitLedgerEntityList.size()+customerComplainDtos1.size()));
+    }
+
+    @GetMapping(value = "manager/notification")
+    public String getManagerNotification(){
+
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<String> pinList = peopleAllocationLogicRepository.getAllDealerPinByAnyPin(principal.getUsername());
+        EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(principal.getUsername());
+        pinList.add(employeeInfoEntity.getPin());
+        List<PeopleAllocationLogicInfo> peopleAllocationLogicInfoList = peopleAllocationLogicRepository.findTeamLeadBySupervisorId(employeeInfoEntity.getId());
+
+        List<PeopleAllocationLogicInfo> allocationLogicList =  dashboardService.getAllDealerList(employeeInfoEntity.getId().toString(),
+                employeeInfoEntity.getDesignation().getName(), "Loan");
+        List<String> pinList1 = peopleAllocationLogicRepository.getAllDealerPinByAnyPin(employeeInfoEntity.getPin());
+        pinList1.add(employeeInfoEntity.getPin());
+        List<AccountEscalation> escalationList = escalationService.findByToUserPinAndStatus(pinList1);
+        List<CustomerComplainViewModel> customerComplainDtos1 = customerComplainService.getCustomerComplainByDealerPinList(pinList1);
+        return String.valueOf((escalationList.size()+customerComplainDtos1.size()));
+    }
+
+
+
+
+
+
 }
