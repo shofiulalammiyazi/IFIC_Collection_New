@@ -1,4 +1,4 @@
-package com.unisoft.collection.settings.unpaidInstallmentNumber;
+package com.unisoft.collection.settings.smsAndAutoDistributionRules;
 
 import com.unisoft.base.BaseInfo;
 import lombok.Data;
@@ -10,11 +10,12 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class UnpaidInstallmentNumber extends BaseInfo {
+public class SmsAndAutoDistributionRulesEntity extends BaseInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String installmentNumber;
+    private String unpaidInstallmentNumber;
+
 }
