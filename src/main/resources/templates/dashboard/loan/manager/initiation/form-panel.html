@@ -50,7 +50,7 @@
                             <a id="tab-product-and-dpd" href="#" class="list-group-item">Product & DPD</a>
                             <!--<a  id="tab-linkministatement" href="#" class="list-group-item>Graph</a>-->
                             <a id="tab-advance-search" href="#" class="list-group-item">Advanced Account Search</a>
-                            <a id="tab-manager-account-escalation" href="#" class="list-group-item" th:text="'Authorization('+${totalChecker}+')'"></a>
+                            <a id="layout-checker" href="#" class="list-group-item" th:text="'Authorization('+${totalChecker}+')'"></a>
                         </div>
                         <!--/ Details View -->
                         <!-- /TAB HEAD -->
@@ -225,6 +225,41 @@
                 </div>
             </div>
         </section>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var prev = /*[[${totalChecker}]]*/ || {};
+
+            /*]]>*/
+        </script>
+
+        <script>
+
+            var notifLabel  = $("#layout-checker").text();
+            function getNotification() {
+                $.ajax({
+                    url: '/home/rest/manager/notification',
+                    success: function (response) {
+                        if(Number(prev)< Number(response)){
+                            $("#layout-checker").text(notifLabel+'+'+(Number(response)-Number(prev)));
+                            $("#layout-checker").css({"color":"blue","font-weight":"bolder"});
+                        }
+                       // alert(response);
+                    },
+                    error: function (response) {
+                    }
+                })
+            }
+            getNotification();
+            setInterval(function () {
+                getNotification();
+            },10000);
+
+
+        </script>
+
+
+
+
     </div>
     <!-- /.box-body -->
 </div>

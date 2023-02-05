@@ -41,7 +41,7 @@
                             <!--<a  id="tab-product-wise-summary" href="#" class="list-group-item" title="PTP">Product Wise Summary</a>-->
                             <!--<a  id="tab-bufferdetails" href="#" class="list-group-item" title="Buffer Details">Graphical View</a>-->
                             <a id="tab-bufferdetails" href="#" class="list-group-item" title="Buffer Details">Advanced Account Search</a>
-                            <a id="tab-checker-supervisor" href="#" class="list-group-item" th:text="'Authorization('+${totalChecker}+')'" title="Authorization"></a>
+                            <a id="layout-checker" href="#" class="list-group-item" th:text="'Authorization('+${totalChecker}+')'" title="Authorization"></a>
                         </div>
                     </div>
                     <!--/ Details View followUpApp.getFollowupList();-->
@@ -196,6 +196,38 @@
                 </div>
             </div>
         </section>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var prev = /*[[${totalChecker}]]*/ || {};
+
+            /*]]>*/
+        </script>
+
+        <script>
+
+            var notifLabel  = $("#layout-checker").text();
+            function getNotification() {
+                $.ajax({
+                    url: '/home/rest/supervisor/notification',
+                    success: function (response) {
+                        if(Number(prev)< Number(response)){
+                            $("#layout-checker").text(notifLabel+'+'+(Number(response)-Number(prev)));
+                            $("#layout-checker").css({"color":"blue","font-weight":"bolder"});
+                        }
+                    },
+                    error: function (response) {
+                    }
+                })
+            }
+            getNotification();
+            setInterval(function () {
+                getNotification();
+            },10000);
+
+
+        </script>
+
     </div>
     <!-- /.box-body -->
     <!--<script>-->

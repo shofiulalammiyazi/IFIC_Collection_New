@@ -27,7 +27,7 @@
 									<a  id="tab_rfd_detail" href="#" class="list-group-item" title="RFD Details">RFD Details</a>
 									<!--<a  id="layout-cibReport" href="#" class="list-group-item" title="Product & DPD">Product & DPD</a>-->
 									<a  id="layout-cibReport" href="#" class="list-group-item" title="Advanced Account Search">Advanced Account Search</a>
-									<a  id="layout-checker" href="#" class="list-group-item" title="Authorization" th:text="'Authorization('+${totalChecker}+')'"></a> <!--(<span id="notification"></span>)-->
+									<a  id="layout-checker" href="#" class="list-group-item" title="Authorization" th:text="'Authorization('+${totalChecker}+')'"></a>
 
 									<a  id="tab-teamleader-work-management-loan" href="#" class="list-group-item" title="Work Management">Work Management</a>
 
@@ -146,7 +146,7 @@
                         success: function (response) {
                             if(Number(prev)< Number(response)){
                                 $("#layout-checker").text(notifLabel+'+'+(Number(response)-Number(prev)));
-                                $("#layout-checker").css({"color":"red","font-weight":"bolder"});
+                                $("#layout-checker").css({"color":"blue","font-weight":"bolder"});
                             }
                         },
                         error: function (response) {
