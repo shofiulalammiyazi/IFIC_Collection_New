@@ -57,7 +57,7 @@ public class SendSmsToCustomerService {
     @Value("${ific.sms.api.url}")
     private String smsApiUrl;
 
-    public SmsLog setValue(SMSLogDto smsLogDto, String tnxId){
+    public SmsLog setValue(SMSLogDto smsLogDto, String tnxId, String accNo, String sms){
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SmsLog smsLog = new SmsLog();
 
@@ -69,6 +69,8 @@ public class SendSmsToCustomerService {
         smsLog.setStakeholderid(smsLogDto.getStakeholderid().get("0"));
         smsLog.setRefid(smsLogDto.getRefid().get("0"));
         smsLog.setTnxId(tnxId);
+        smsLog.setAccNo(accNo);
+        smsLog.setMsg(sms);
 
         smsLog.setCreatedDate(new Date());
         smsLog.setCreatedBy(principal.getUsername());
@@ -111,7 +113,7 @@ public class SendSmsToCustomerService {
 
                 accountInformationRepository.save(accountInformationEntity);
 
-                SmsLog smsLog = this.setValue(sms,tnxId);
+                SmsLog smsLog = this.setValue(sms,tnxId,generatedSMS.getAccountNo(),generatedSMS.getMassege());
 
                 smsLogRepository.save(smsLog);
             } catch (Exception ex) {
