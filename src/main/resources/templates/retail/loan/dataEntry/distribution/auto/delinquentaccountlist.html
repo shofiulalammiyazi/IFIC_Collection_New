@@ -4,7 +4,7 @@
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="ISO-8859-1"></meta>
-    <title>Auto Distribution List</title>
+    <title>Delinquent Account List</title>
     <style>
         td {
             word-wrap: break-word;
@@ -20,26 +20,44 @@
 
     <div class="content-wrapper">
         <section class="content">
-            <div class="row" id="loan-auto-distribution-list">
+            <div class="row" id="loan-all-delinquent-list">
                 <div class="col-md-12">
                     <div class="box" id="entity-approval">
                         <div class="box-header with-border" style="text-align: center;">
-                            <h3 class="box-title">Auto Distribution List</h3>
+                            <h3 class="box-title">Delinquent Account List</h3>
                         </div>
+
+                        <!--<div class="col-sm-12" style="margin-top: 10px">-->
+                            <!--<div class="col-sm-3 text-right"><label class="control-label">SMS Type </label></div>-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<select name="letterType" v-model="letterType" id="letterType" class="form-control required" @change="getSmsContent()">-->
+                                    <!--<option class="form-control required" value="" selected>Select a Letter Type</option>-->
+                                    <!--<option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-sm-12" style="margin-top: 10px; margin-bottom: 10px;">-->
+                            <!--<div class="col-sm-3 text-right"><label class="control-label">Message </label></div>-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<textarea class="form-control" id="message"></textarea>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-sm-9" style="margin-top: 10px; margin-bottom: 10px;">-->
+                            <!--<button class="btn btn-primary pull-right" @click="generateSms()" id="sendSms">Send SMS</button>-->
+                        <!--</div>-->
+
                         <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <a style="margin-bottom: 10px" class="btn btn-primary btn-xs" th:if="${session.urlList.contains('/distribution/loan/create')}"
-                                   th:href="@{/distribution/loan/create}"><span class="glyphicon glyphicon-plus"> </span>
-                                    Dealer Allocation Via Excel</a>
-                                <button style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary btn-xs btn-excel">
-                                    <a href="/retail/loan/data-entry/distribution/auto/download" target="_blank" style="color: white;">Download Excel</a>
-                                </button>
-                                <button style="margin-bottom: 10px; margin-right: 5px; float: right;"
-                                        class="btn btn-primary btn-xs" data-toggle="modal"
-                                        data-target="#modal-default-dealer" :disabled="!selectedList.length"><span
-                                        class="glyphicon glyphicon-plus"> </span> MA (Dealer)
-                                </button>
+                            <div class="col-sm-5">
+                                <button class="btn btn-primary" @click="fetchData()">Fetch Data</button>
+                                <!--<button class="btn btn-primary pull-right" @click="sendAll()" id="sendSmsToAll">Send SMS To All</button>-->
                             </div>
+
+                            <!--<div class="col-sm-2">-->
+                            <!--<button class="btn btn-primary pull-right" @click="sendAll()" id="sendSmsToAll">Send SMS To All</button>-->
+                            <!--</div>-->
+                            <div class="col-sm-3"></div>
                             <div class="col-sm-3">
                                 <input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">
                             </div>
@@ -88,13 +106,8 @@
                                                 <tr v-for="(data, index) in allAccountInformation.content" class="text-center">
                                                     <td>
                                                         <label>
-                                                            <input :id="'data-' + index" type="checkbox" :value="data.loanACNo"
+                                                            <input :id="'data-' + index" type="checkbox"
                                                                    class="mdl-checkbox__input" @click="getData(data,index)">
-                                                            <!--<label class="mdl-checkbox mdl-js-checkbox">-->
-                                                                <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
-                                                                       <!--:value="loan.accountNo" type="checkbox"-->
-                                                                       <!--class="mdl-checkbox__input" checked>-->
-                                                            <!--</label>-->
                                                         </label>
                                                     </td>
                                                     <td>{{indexNumbering() + index+1}}</td>
@@ -138,48 +151,12 @@
 
 
                 </div>
-                <div class="modal fade" id="modal-default-dealer">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Manual Allocation (Dealer)</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Dealer</label>
-                                    <div class="col-sm-8">
-                                        <select v-model="dealerId" id="dealer_id"
-                                                class="form-control input-sm">
-                                            <option value="">Choose One</option>
-                                            <option th:each="dealer : ${dealerList}" th:value="${dealer.id}"
-                                                    th:text="${dealer.getDealer().getUser().getFirstName()}">
-                                                Loan
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left"
-                                        data-dismiss="modal">Close
-                                </button>
-                                <a href="#" class="btn btn-success" @click="addManualAllocation()"
-                                   id="btn_ingresar">Submit</a>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
             </div>
-
             <script>
                 // var allAccountInformation;
                 var arr = [];
-                var accountDistributionInformationApp = new Vue({
-                    el: '#loan-auto-distribution-list',
+                var allAccountInformationApp = new Vue({
+                    el: '#loan-all-delinquent-list',
                     data: {
                         allAccountInformation: [],
                         page: 0,
@@ -188,7 +165,6 @@
                         dataToBeInExcel: [],
                         selectedList: [],
                         letterType:"",
-                        dealerId: "",
                     },
                     computed: {
                         firstPageButtonShow: function(){
@@ -200,32 +176,46 @@
                         this.getAllAccountInformation(this.page, 100, this.searchField)
                     },
                     methods: {
-                        addManualAllocation: function () {
-                            var host = window.location.host;
-                            this.$http.post('https://' + host + '/distribution/loan/dealer-wise-distribution', {
-                                id: this.dealerId,
-                                list: this.selectedList,
-
-                            }, {
-                                credentials: true, headers: {
-                                    'X-CSRF-TOKEN': window.csrfToken,
+                        fetchData(){
+                            $.ajax({
+                                url: "/account-information/get-data",
+                                type: 'GET',
+                                dataType: 'json', // added data type
+                                success: function (res) {
+                                    if(res == "200"){
+                                        swal("Data fetched Successfully!");
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        swal("Data fetching Unsuccessfull!");
+                                    }
                                 }
-                            }).then(res => {
-
-                                if (res.body) {
-                                    alert("saved successfully");
-                                    document.location.reload();
+                            });
+                        },
+                        sendAll(){
+                            $.ajax({
+                                url: "/retail/loan/data-entry/distribution/auto/sendAllSms",
+                                type: 'GET', // added data type
+                                success: function (res) {
+                                    alert(res)
+                                    if(res == "OK"){
+                                        swal("SMS Sent Successfully!");
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        swal("SMS Sent Unsuccessfull!");
+                                    }
                                 }
-                            }).catch(err => {
-                                console.log(err);
-                            })
+                            });
                         },
                         getData(loan,index) {
 
-                            var l = loan.loanACNo;
+                            var l = loan.loanACNo+":"+loan.mobile+":"+loan.productName+":"
+                                +loan.emiAmount+":"+loan.emiDate+":"+loan.currentMonth+
+                                ":"+loan.customerId+":"+loan.customerName+":"+loan.id;
                             if(arr.indexOf(index) == -1){
                                 arr.push(index);
-                                this.selectedList.push(l+":"+loan.branchMnemonic+":"+loan.productCode+":"+loan.dealReference);
+                                this.selectedList.push(l);
                             }
                             else{
                                 this.selectedList = this.selectedList.splice(this.selectedList.indexOf(l)-1,this.selectedList.indexOf(l));
@@ -271,7 +261,7 @@
                                     else
                                         swal("SMS Not Sent!");
 
-                                    window.location.reload();
+                                    window.location = "/retail/loan/data-entry/distribution/auto/distributionlist";
                                 },
                                 error: function (response) {
                                     if(response.state == "OK")
@@ -285,16 +275,16 @@
                             });
                         },
                         getAllAccountInformation: function(page, length, search){
-                            var url = "/retail/loan/data-entry/distribution/auto/data/get-page-by-issmssent?page="+page+"&length="+length;
+                            var url = "/retail/loan/data-entry/distribution/auto/data/get-all-overdue-not-zero?page="+page+"&length="+length;
                             if (search!=''){
-                                url= "/retail/loan/data-entry/distribution/auto/data/get-page-by-issmssent?page="+page+"&search="+search+"&length="+length;
+                                url= "/retail/loan/data-entry/distribution/auto/data/get-all-overdue-not-zero?page="+page+"&search="+search+"&length="+length;
                             }
                             $.ajax({
                                 url: url,
                                 type: 'GET',
                                 dataType: 'json', // added data type
                                 success: function(res) {
-                                    accountDistributionInformationApp.allAccountInformation = res;
+                                    allAccountInformationApp.allAccountInformation = res;
                                 }
                             });
                         },
@@ -330,10 +320,10 @@
                         },
                         sendDataToExcel: function(){
                             var dateString = new Date().toJSON();
-                            accountDistributionInformationApp.dataToBeInExcel = this.allAccountInformation.content;
+                            allAccountInformationApp.dataToBeInExcel = this.allAccountInformation.content;
                             var CsvString = "";
                             CsvString += "Loan Account No, Employee Id, Employee Name, Branch Mnemonic, Product Code, Deal Reference \r\n";
-                            accountDistributionInformationApp.dataToBeInExcel.forEach(function(RowItem, RowIndex) {
+                            allAccountInformationApp.dataToBeInExcel.forEach(function(RowItem, RowIndex) {
                                 CsvString += RowItem.loanACNo!=null?"'"+RowItem.loanACNo:''; + ',';
                                 CsvString += ", , , ";
                                 CsvString += RowItem.branchMnemonic!=null?"'"+RowItem.branchMnemonic:''; + ',';
