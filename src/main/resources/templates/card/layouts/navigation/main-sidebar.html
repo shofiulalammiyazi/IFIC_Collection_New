@@ -770,6 +770,23 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a  class="tab"
+                                                th:href="@{/collection/settings/smsandautodistributionrules/create}">
+                                                SMS And Auto Distribution Rules
+                                            </a>
+                                        </li>
+
+
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/settings/smsandautodistributionrules/create')}"
+                                                th:href="@{/collection/settings/smsandautodistributionrules/create}">
+                                                SMS & Auto Distribution Rules
+                                            </a>
+                                        </li>
+
+
 
                                     </ul>
                                 </li>
