@@ -891,22 +891,22 @@
 
                                             $('#consider_attempt_id').on('change', function () {
                                                 let id = $(this).val();
-                                                $('#considet_contact_id, #ptp_contact_details_id').html('<option value="">Select One </option>')
-                                                $('#contact_category_id, #ptp_promisor_details_id').html('<option value="">Select One </option>')
+                                                $('#considet_contact_id, #ptp_contact_details_id').html('<option value="" selected="selected">Select One </option>')
+                                                $('#contact_category_id, #ptp_promisor_details_id').html('<option value="" selected="selected">Select One </option>')
 
                                                 if (!!id) {
                                                     $("#consider-as-attempt").val(id);
                                                     var selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
                                                     for(var j=0; j<selected[0].contactCategoryObj.length; j++){
                                                         if(selected[0].contactCategoryObj[j].contactCategoryName != null)
-                                                            $('#considet_contact_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#considet_contact_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" >'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
                                                         if (selected[0].contactCategoryObj[j].contactCategoryName != null){
-                                                            $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].contactCategoryObj[j].id+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].contactCategoryObj[j].id+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
                                                             $('#ptp_contact_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
                                                         }
-                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
                                                         if (selected[0].contactCategoryObj[j].contactCategoryName != null){
-                                                            $('#ptp_promisor_details_id').append('<option value="'+selected[0].contactCategoryObj[j].id+'" selected="selected">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_promisor_details_id').append('<option value="'+selected[0].contactCategoryObj[j].id+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
                                                             $('#ptp_promisor_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
                                                         }
                                                     }

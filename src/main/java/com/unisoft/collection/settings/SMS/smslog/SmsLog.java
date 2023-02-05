@@ -32,4 +32,8 @@ public class SmsLog extends BaseInfo {
 
     private String tnxId;
 
+    private String accNo;
+
+    private String msg;
+
 }
