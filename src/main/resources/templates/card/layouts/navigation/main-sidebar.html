@@ -777,6 +777,13 @@
                                                 Loan Status
                                             </a>
                                         </li>
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:href="@{/collection/loantype/list}">
+                                                Loan Type
+                                            </a>
+                                        </li>
 
                                         <li>
                                             <a  class="tab"
