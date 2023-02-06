@@ -1,8 +1,8 @@
 package com.unisoft.collection.settings.loanType;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface LoanTypeRepository {
-
-    List<LoanTypeEntity> findByEnable(boolean enabled);
+@Repository
+public interface LoanTypeRepository extends JpaRepository<LoanTypeEntity,Long> {
 }
