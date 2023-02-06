@@ -1,5 +1,7 @@
 package com.unisoft.collection.settings.smsAndAutoDistributionRules;
 
+import com.google.gson.Gson;
+import com.unisoft.collection.settings.loanStatus.LoanStatusRepository;
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,50 +20,59 @@ public class SmsAndAutoDistributionRulesController {
     @Autowired
     private SmsAndAutoDistributionRulesRepository smsAndAutoDistributionRulesRepository;
 
+    @Autowired
+    private LoanStatusRepository loanStatusRepository;
+
 
     @GetMapping("create")
     public  String save(Model model){
-        SmsAndAutoDistributionRulesEntity unpaidInstallmentNumberEntity = new SmsAndAutoDistributionRulesEntity();
+        Gson gson = new Gson();
+        SmsAndAutoDistributionRulesEntity smsAndAutoDistributionRulesEntity = new SmsAndAutoDistributionRulesEntity();
 
-        List<SmsAndAutoDistributionRulesEntity> unpaidInstallmentNumberEntities = smsAndAutoDistributionRulesRepository.findAll();
+        List<SmsAndAutoDistributionRulesEntity> smsAndAutoDistributionRulesEntities = smsAndAutoDistributionRulesRepository.findAll();
 
-        if (unpaidInstallmentNumberEntities.size() >0){
-            unpaidInstallmentNumberEntity = unpaidInstallmentNumberEntities.get(0);
+        if (smsAndAutoDistributionRulesEntities.size() >0){
+            smsAndAutoDistributionRulesEntity = smsAndAutoDistributionRulesEntities.get(0);
         }
-         model.addAttribute("unpaidInstallmentNumber", unpaidInstallmentNumberEntity);
+         model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
 
-        if (unpaidInstallmentNumberEntity.getId() !=null){
-            model.addAttribute("unpaidInstallmentNumber", unpaidInstallmentNumberEntity);
+        if (smsAndAutoDistributionRulesEntity.getId() !=null){
+            model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
         }
+
+        model.addAttribute("loanStatusList",gson.toJson(loanStatusRepository.findAll()));
+
         return "collection/settings/smsandautodistributionrules/create";
     }
 
 
     @PostMapping("/create")
-    public String save(SmsAndAutoDistributionRulesEntity unpaidInstallmentNumberEntity, Model model){
+    public String save(SmsAndAutoDistributionRulesEntity smsAndAutoDistributionRulesEntity, Model model){
 
 
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if(unpaidInstallmentNumberEntity.getId() == null){
-            unpaidInstallmentNumberEntity.setCreatedBy(user.getUsername());
-            unpaidInstallmentNumberEntity.setCreatedDate(new Date());
-            smsAndAutoDistributionRulesRepository.save(unpaidInstallmentNumberEntity);
+        if(smsAndAutoDistributionRulesEntity.getId() == null){
+            smsAndAutoDistributionRulesEntity.setCreatedBy(user.getUsername());
+            smsAndAutoDistributionRulesEntity.setCreatedDate(new Date());
+            smsAndAutoDistributionRulesRepository.save(smsAndAutoDistributionRulesEntity);
         }
         else{
-            SmsAndAutoDistributionRulesEntity oldEntity = smsAndAutoDistributionRulesRepository.getOne(unpaidInstallmentNumberEntity.getId());
+            SmsAndAutoDistributionRulesEntity oldEntity = smsAndAutoDistributionRulesRepository.getOne(smsAndAutoDistributionRulesEntity.getId());
             SmsAndAutoDistributionRulesEntity previousEntity = new SmsAndAutoDistributionRulesEntity();
             BeanUtils.copyProperties(oldEntity, previousEntity);
 
-            unpaidInstallmentNumberEntity.setCreatedBy(oldEntity.getCreatedBy());
-            unpaidInstallmentNumberEntity.setCreatedDate(oldEntity.getCreatedDate());
-            unpaidInstallmentNumberEntity.setModifiedBy(user.getUsername());
-            unpaidInstallmentNumberEntity.setModifiedDate(new Date());
-            smsAndAutoDistributionRulesRepository.save(unpaidInstallmentNumberEntity);
+            smsAndAutoDistributionRulesEntity.setCreatedBy(oldEntity.getCreatedBy());
+            smsAndAutoDistributionRulesEntity.setCreatedDate(oldEntity.getCreatedDate());
+            smsAndAutoDistributionRulesEntity.setModifiedBy(user.getUsername());
+            smsAndAutoDistributionRulesEntity.setModifiedDate(new Date());
+            smsAndAutoDistributionRulesRepository.save(smsAndAutoDistributionRulesEntity);
         }
-        return "redirect:/collection/settings/smsandautodistributionrules//create";
+        return "redirect:/collection/settings/smsandautodistributionrules/create";
 
     }
+
+
 
 
 }
