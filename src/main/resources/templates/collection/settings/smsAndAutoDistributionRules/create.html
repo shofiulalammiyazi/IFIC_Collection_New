@@ -23,14 +23,15 @@
                         <form class="form-horizontal" method="post"
                               th:action="@{/collection/settings/smsandautodistributionrules/create}" th:object="${smsAndAutoDistributionRules}">
                             <input type="hidden" th:field="*{id}"/>
-                            <input type="text" class="hidden" th:field="*{LoanTypeIds}" v-model="getSelectedLoanStatusId" />
+                            <input type="text" class="hidden" th:field="*{LoanStatusIds}" v-model="getSelectedLoanStatusId" />
+                            <input type="text" class="hidden" th:field="*{LoanTypeIds}" v-model="getSelectedLoanTypeId" />
                             <div class="box-body">
 
                                 <div class="box-body">
                                     <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Type </label>
                                     <div class="col-sm-8">
-                                        <select class="form-control required" name="type">
+                                        <select class="form-control required" name="type" th:field="*{type}">
                                             <option value="">Select Rule Type</option>
                                             <option value="SMS">SMS</option>
                                             <option value="Distribution">Distribution</option>
@@ -43,7 +44,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right required">No of Days Before EMI Date</label>
                                         <div class="col-sm-8">
-                                            <input type="number" name="noofDaysBeforeEMIDate" class="form-control required"/>
+                                            <input type="number" name="noOfDaysBeforeEmiDate" th:field="*{noOfDaysBeforeEmiDate}" class="form-control required"/>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +53,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right required">Unpaid Installment Number</label>
                                         <div class="col-sm-8">
-                                            <input type="number" name="unpaidInstallmentNumber" class="form-control required"/>
+                                            <input type="number" name="unpaidInstallmentNumber" th:field="*{unpaidInstallmentNumber}" class="form-control required"/>
                                         </div>
 
                                     </div>
@@ -69,6 +70,15 @@
                                         </div>
                                     </div>
                                 </div>-->
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Loan Type </label>
+                                        <div class="col-sm-8">
+                                            <multiselect  v-model="selectedLoanTypes" placeholder="Select Loan Type" label="loanType" track-by="id"  :options="loanTypeOption" :multiple="true" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="box-body">
                                     <div class="form-group">
@@ -105,6 +115,9 @@
             /*<![CDATA[*/
             var interest = /*[[${interest}]]*/ {};
             var loanStatusList = /*[[${loanStatusList}]]*/ [];
+            var loanTypeList = /*[[${loanTypeList}]]*/ [];
+            var selectedLoanStatus = /*[[${selectedLoanStatus}]]*/ [];
+            var selectedLoanTypes = /*[[${selectedLoanTypes}]]*/ [];
 
         </script>
 
@@ -116,21 +129,27 @@
                 },
                 data:{
                     selectedLoanStatus:[],
+                    selectedLoanTypes:[],
                     loanStatusOption:[],
+                    loanTypeOption:[],
                     loanStatusList:[],
                 },
 
                 created: function () {
 
-                     //this.selectedLoanStatus = JSON.parse(selectedLoanStatus) ? JSON.parse(selectedLoanStatus) : [];
                     this.loanStatusOption = JSON.parse(loanStatusList) ? JSON.parse(loanStatusList) : [];
-                    // this.selectedProductType = JSON.parse(selectedProductTypeList) ? JSON.parse(selectedProductTypeList) : [];
+                    this.selectedLoanStatus = JSON.parse(selectedLoanStatus) ? JSON.parse(selectedLoanStatus) : [];
+                    this.loanTypeOption = JSON.parse(loanTypeList) ? JSON.parse(loanTypeList) : [];
+                    this.selectedLoanTypes = JSON.parse(selectedLoanTypes) ? JSON.parse(selectedLoanTypes) : [];
 
                 },
                 computed:{
 
                     getSelectedLoanStatusId: function () {
                         return this.selectedLoanStatus.map(loanStatus => { return loanStatus.id});
+                    },
+                    getSelectedLoanTypeId: function () {
+                        return this.selectedLoanTypes.map(loanType => { return loanType.id});
                     },
                 },
             })
