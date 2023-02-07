@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>Account Escalation List</title>
+    <style>
+        td {
+            word-wrap: break-word;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row" id="loan-auto-distribution-list">
+                <div class="col-md-12">
+                    <div class="box" id="entity-approval">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Account Escalation List</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-8">
+                               <!-- <a style="margin-bottom: 10px" class="btn btn-primary btn-xs" th:if="${session.urlList.contains('/distribution/loan/create')}"
+                                   th:href="@{/distribution/loan/create}"><span class="glyphicon glyphicon-plus"> </span>
+                                    Dealer Allocation Via Excel</a>
+                                <button style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary btn-xs btn-excel">
+                                    <a href="/retail/loan/data-entry/distribution/auto/download" target="_blank" style="color: white;">Download Excel</a>
+                                </button>-->
+                                <button style="margin-bottom: 10px; margin-right: 5px; float: right;"
+                                        class="btn btn-primary btn-xs" data-toggle="modal"
+                                        data-target="#modal-default-dealer" :disabled="!selectedList.length"><span
+                                        class="glyphicon glyphicon-plus"> </span> MA (Dealer)
+                                </button>
+                            </div>
+                            <div class="col-sm-3">
+                                <input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">
+                            </div>
+                            <div class="col-sm-1">
+                                <button @click="searchButton()" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+
+                                <div class="tab-content" style="overflow-y: auto; max-height: 45em">
+                                    <div class="tab-pane active" id="approval">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed table-hover table-bordered"
+                                                   style="max-height: 30em" id="loan-auto-distribution-list-table">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <td class="text-right" colspan="14">
+                                                        <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
+                                                        <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
+                                                        <span>Page : {{allAccountInformation.number+1}}</span>
+                                                        <span> Of</span>
+                                                        <button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>
+                                                        <button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center">Action</th>
+                                                    <th class="text-right">SL</th>
+                                                    <th class="text-center">Account No</th>
+                                                    <th class="text-center">Customer Name</th>
+                                                    <th class="text-center">Mobile</th>
+                                                    <th class="text-center">Branch Mnemonic</th>
+                                                    <th class="text-center">Product Code</th>
+                                                    <th class="text-center">Deal Reference</th>
+                                                    <th class="text-center">Outstanding</th>
+                                                    <th class="text-center">Overdue</th>
+                                                    <th class="text-center">EMI Amount</th>
+                                                    <th class="text-center">EMI Date</th>
+                                                    <th class="text-center">No Of Installment Due</th>
+                                                    <th class="text-center">Loan Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbl-row">
+                                                <tr v-for="(data, index) in allAccountInformation.content" class="text-center">
+                                                    <td>
+                                                        <label>
+                                                            <input :id="'data-' + index" type="checkbox" :value="data.loanACNo"
+                                                                   class="mdl-checkbox__input" @click="getData(data,index)">
+                                                            <!--<label class="mdl-checkbox mdl-js-checkbox">-->
+                                                            <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
+                                                            <!--:value="loan.accountNo" type="checkbox"-->
+                                                            <!--class="mdl-checkbox__input" checked>-->
+                                                            <!--</label>-->
+                                                        </label>
+                                                    </td>
+                                                    <td>{{indexNumbering() + index+1}}</td>
+                                                    <td>{{data.loanACNo}}</td>
+                                                    <td>{{data.customerName}}</td>
+                                                    <td>{{data.mobile}}</td>
+                                                    <td>{{data.branchMnemonic}}</td>
+                                                    <td>{{data.productCode}}</td>
+                                                    <td>{{data.dealReference}}</td>
+                                                    <td>{{data.totalOutstanding}}</td>
+                                                    <td>{{data.overdue}}</td>
+                                                    <td>{{data.emiAmount}}</td>
+                                                    <td>{{data.nextEMIDate}}</td>
+                                                    <td>{{data.noOfInstallmentDue}}</td>
+                                                    <td>{{data.loanCLStatus}}</td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td class="text-right" colspan="14">
+                                                        <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
+                                                        <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
+                                                        <span>Page : {{allAccountInformation.number+1}}</span>
+                                                        <span> Of</span>
+                                                        <button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>
+                                                        <button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal fade" id="modal-default-dealer">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Manual Allocation (Dealer)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Dealer</label>
+                                    <div class="col-sm-8">
+                                        <select v-model="dealerId" id="dealer_id"
+                                                class="form-control input-sm">
+                                            <option value="">Choose One</option>
+                                            <option th:each="dealer : ${dealerList}" th:value="${dealer.id}"
+                                                    th:text="${dealer.getDealer().getUser().getFirstName()}">
+                                                Loan
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <a href="#" class="btn btn-success" @click="addManualAllocation()"
+                                   id="btn_ingresar">Submit</a>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+
+            <script>
+                // var allAccountInformation;
+                var arr = [];
+                var accountDistributionInformationApp = new Vue({
+                    el: '#loan-auto-distribution-list',
+                    data: {
+                        allAccountInformation: [],
+                        page: 0,
+                        searchField: '',
+                        indexPlus: 0,
+                        dataToBeInExcel: [],
+                        selectedList: [],
+                        letterType:"",
+                        dealerId: "",
+                    },
+                    computed: {
+                        firstPageButtonShow: function(){
+                            if (this.allAccountInformation.number!=0) return true;
+                            else return false;
+                        }
+                    },
+                    mounted: function () {
+                        this.getAllAccountInformation(this.page, 100, this.searchField)
+                    },
+                    methods: {
+                        addManualAllocation: function () {
+                            var host = window.location.host;
+                            this.$http.post('https://' + host + '/retail/loan/data-entry/distribution/escalation/dealer-wise-distribution', {
+                                id: this.dealerId,
+                                list: this.selectedList,
+
+                            }, {
+                                credentials: true, headers: {
+                                    'X-CSRF-TOKEN': window.csrfToken,
+                                }
+                            }).then(res => {
+
+                                if (res.body) {
+                                alert("saved successfully");
+                                document.location.reload();
+                            }
+                        }).catch(err => {
+                                console.log(err);
+                        })
+                        },
+                        getData(loan,index) {
+
+                            var l = loan.loanACNo;
+                            if(arr.indexOf(index) == -1){
+                                arr.push(index);
+                                this.selectedList.push(l+":"+loan.branchMnemonic+":"+loan.productCode+":"+loan.dealReference);
+                            }
+                            else{
+                                this.selectedList = this.selectedList.splice(this.selectedList.indexOf(l)-1,this.selectedList.indexOf(l));
+                                arr = arr.slice(arr.indexOf(index)-1,arr.indexOf(index));
+                            }
+                        },
+                        getSmsContent(){
+                            if($("#letterType").val() != "") {
+                                $.ajax({
+                                    url: "/collection/generator/byId?id=" + $("#letterType").val(),
+                                    type: 'GET',
+                                    dataType: 'json', // added data type
+                                    success: function (res) {
+                                        $("#message").val(res.message);
+                                    }
+                                });
+                            }
+                            else{
+                                $("#message").val("");
+                            }
+                        },
+                        generateSms(){
+                            if(this.selectedList.length == 0){
+                                alert("Select a account.");
+                                return;
+                            }
+
+                            if(!this.letterType){
+                                alert("Select a letter type.")
+                                return;
+                            }
+                            var token = $("meta[name='_csrf']").attr("content");
+                            var header = $("meta[name='_csrf_header']").attr("content");
+                            $.ajax({
+                                url:"/retail/loan/data-entry/distribution/auto/sendsms?accountNo="+this.selectedList+"&smsType="+this.letterType,
+                                type: 'GET',
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader(header, token);
+                                },
+                                success: function (response) {
+                                    if(response.state == "OK")
+                                        swal("SMS Sent!");
+                                    else
+                                        swal("SMS Not Sent!");
+
+                                    window.location.reload();
+                                },
+                                error: function (response) {
+                                    if(response.state == "OK")
+                                        swal("SMS Sent!");
+                                    else
+                                        swal("SMS Not Sent!");
+
+                                    window.location.reload();
+                                }
+
+                            });
+                        },
+                        getAllAccountInformation: function(page, length, search){
+                            var url = "/retail/loan/data-entry/distribution/escalation/get-page-by-issmssent?page="+page+"&length="+length;
+                            if (search!=''){
+                                url= "/retail/loan/data-entry/distribution/escalation/get-page-by-issmssent?page="+page+"&search="+search+"&length="+length;
+                            }
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                dataType: 'json', // added data type
+                                success: function(res) {
+                                    accountDistributionInformationApp.allAccountInformation = res;
+                                }
+                            });
+                        },
+                        pageRequest: function(e){
+                            // console.log(e.target.value);
+                            if (e.target.value == "p"){
+                                this.page--;
+                                this.getAllAccountInformation(this.page, 100, this.searchField)
+                                // console.log(e.target.value);
+                            } else if (e.target.value == "n") {
+                                this.page++;
+                                this.getAllAccountInformation(this.page, 100, this.searchField)
+                                // console.log(e.target.value);
+                            } else {
+                                this.page=parseInt(e.target.value);
+                                this.getAllAccountInformation(this.page, 100, this.searchField)
+                            }
+                        },
+                        searchButton: function(){
+                            if (this.searchField != '') {
+                                this.getAllAccountInformation(0, 100, this.searchField);
+                            }
+                        },
+                        setSearchField: function(e){
+                            this.searchField = e.value;
+                        },
+                        indexNumbering: function(){
+                            if (this.allAccountInformation.number != 0){
+                                return this.indexPlus = this.allAccountInformation.number * 100;
+                            } else{
+                                return this.indexPlus = 0;
+                            }
+                        },
+                        sendDataToExcel: function(){
+                            var dateString = new Date().toJSON();
+                            accountDistributionInformationApp.dataToBeInExcel = this.allAccountInformation.content;
+                            var CsvString = "";
+                            CsvString += "Loan Account No, Employee Id, Employee Name, Branch Mnemonic, Product Code, Deal Reference \r\n";
+                            accountDistributionInformationApp.dataToBeInExcel.forEach(function(RowItem, RowIndex) {
+                                CsvString += RowItem.loanACNo!=null?"'"+RowItem.loanACNo:''; + ',';
+                                CsvString += ", , , ";
+                                CsvString += RowItem.branchMnemonic!=null?"'"+RowItem.branchMnemonic:''; + ',';
+                                CsvString += RowItem.productCode!=null?"'"+RowItem.productCode:''; + ',';
+                                CsvString += RowItem.dealReference!=null?"'"+RowItem.dealReference:''; + ',';
+                                CsvString += "\r\n";
+                            });
+                            CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                            var x = document.createElement("A");
+                            x.setAttribute("href", CsvString );
+                            x.setAttribute("download",("loan_distribution_"+dateString+".csv"));
+                            document.body.appendChild(x);
+                            x.click();
+                        },
+                    }
+                })
+            </script>
+        </section>
+    </div>
+</div>
+</body>
+</html>

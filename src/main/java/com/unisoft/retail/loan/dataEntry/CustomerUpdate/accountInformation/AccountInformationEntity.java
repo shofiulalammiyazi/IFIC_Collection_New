@@ -145,4 +145,6 @@ public class AccountInformationEntity extends BaseInfo {
     private String frequencyCode;
     private String jointStatus;
 
+    private String ISEscalated;
+
 }

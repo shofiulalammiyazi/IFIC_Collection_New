@@ -136,6 +136,8 @@ public class LoanDistributionService {
         return errors;
     }
 
+
+
     public Map<String, String>saveMannualDealerWiseDistribution(LoanApiPayload loanApiPayload){
 
         String dealername = "";
@@ -175,6 +177,11 @@ public class LoanDistributionService {
 
             AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(acc[0],acc[1],acc[2],acc[3]);
 
+            if (accountInformationEntity.getISEscalated().equalsIgnoreCase("N")){
+                errors.put(acc[0], "This Account is not Escalated!");
+                continue;
+            }
+
             String branchMnemonic = accountInformationEntity.getBranchMnemonic();
             String productCode = accountInformationEntity.getProductCode();
             String dealReference = accountInformationEntity.getDealReference();
@@ -198,7 +205,7 @@ public class LoanDistributionService {
             AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(accountNumber, distribution.getBranchMnemonic(), distribution.getProductCode(), distribution.getDealReference());
             if (accountInformationEntity != null) {
                 accountInformationEntity.setIsDistributed("Y");
-
+                accountInformationEntity.setISEscalated("N");
                 accountInformationEntity.setModifiedBy(principal.getUsername());
                 accountInformationEntity.setModifiedDate(new Date());
 
@@ -212,6 +219,8 @@ public class LoanDistributionService {
 
         return errors;
     }
+
+
 
     public void updateLoanAccountDistribution(Map<String, LoanAccountDistributionInfo> distributionInfos) {
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
