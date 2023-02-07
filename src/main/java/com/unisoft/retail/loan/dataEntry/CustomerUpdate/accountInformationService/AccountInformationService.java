@@ -478,4 +478,15 @@ public class AccountInformationService {
         out.close();
     }
 
+    public ResponseEntity findAllEscalationAccount(int page, int length, String accountNo) {
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInformationEntity> allProducts;
+        if (accountNo != null && accountNo != "") {
+            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(accountNo, pageElements);
+        } else {
+            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(pageElements);
+        }
+        return ResponseEntity.ok(allProducts);
+    }
+
 }
