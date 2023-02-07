@@ -270,7 +270,7 @@ public class AccountInformationService {
                     accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
                 }
-                String expiryDate = dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim());
+                String expiryDate = dto.getExpiryDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()):"";
                 try {
                     accountInformationEntity.setExpiryDate(expiryDate);
                 } catch (Exception e) {
@@ -283,7 +283,7 @@ public class AccountInformationService {
                     accountInformationEntity.setDob(dto.getDob());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
                 }
-                String firstInstallmentDueDate = dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim());
+                String firstInstallmentDueDate = dto.getFirstInstDueDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim()): "";
                 try{
 
                     accountInformationEntity.setFirstInstDueDate(firstInstallmentDueDate);
@@ -292,8 +292,10 @@ public class AccountInformationService {
                     accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
                 }
-                accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-mm-dd")));
-                accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-mm-dd")));
+                if(!expiryDate.equals(""))
+                    accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-mm-dd")));
+                if(!firstInstallmentDueDate.equals(""))
+                    accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-mm-dd")));
                 accountInformationEntities.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());

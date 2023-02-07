@@ -84,7 +84,7 @@ public class LoanPtpController {
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         if(acc.getNextEMIDate() != null){
             sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
-            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getEmiAmount())/100));
+            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getOverdue())/100));
             sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
             sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
