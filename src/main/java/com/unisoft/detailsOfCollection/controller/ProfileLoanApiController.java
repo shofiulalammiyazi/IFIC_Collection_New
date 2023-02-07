@@ -111,6 +111,10 @@ public class ProfileLoanApiController {
         accountEscalationNote.setAccountEscalation(escalation);
         accountEscalationNoteService.save(accountEscalationNote);
 
+        //AccountInformationEntity accountInformationEntity1 = new AccountInformationEntity();
+        accountInformationEntity.setISEscalated("Y");
+        accountInformationRepository.save(accountInformationEntity);
+
         auditTrailService.saveCreatedData("Account Escalation", accountEscalation);
 
         return getByAccountNumberOrderByCreatedDateDesc(accountEscalationPayLoad.getAccount());

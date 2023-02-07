@@ -294,6 +294,7 @@ public class AccountInformationService {
                 }
                 accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-mm-dd")));
                 accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-mm-dd")));
+                accountInformationEntity.setISEscalated("N");
                 accountInformationEntities.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());
@@ -428,6 +429,17 @@ public class AccountInformationService {
         return ResponseEntity.ok(allProducts);
     }
 
+    public ResponseEntity findAllEscalationAccount(int page, int length, String accountNo) {
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInformationEntity> allProducts;
+        if (accountNo != null && accountNo != "") {
+            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(accountNo, pageElements);
+        } else {
+            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(pageElements);
+        }
+        return ResponseEntity.ok(allProducts);
+    }
+
     public void writeExcel() throws IOException {
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllAccIsSmsEntity();
         SXSSFWorkbook workbook = new SXSSFWorkbook();
@@ -472,5 +484,6 @@ public class AccountInformationService {
 
         out.close();
     }
+
 
 }
