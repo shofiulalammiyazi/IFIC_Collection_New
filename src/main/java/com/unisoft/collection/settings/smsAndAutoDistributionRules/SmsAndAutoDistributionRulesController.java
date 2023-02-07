@@ -53,7 +53,7 @@ public class SmsAndAutoDistributionRulesController {
         model.addAttribute("selectedLoanStatus",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanStatusEntity()));
         model.addAttribute("selectedLoanTypes",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanTypeEntities()));
 
-        return "collection/settings/smsandautodistributionrules/create";
+        return "collection/settings/smsAndAutoDistributionRules/create";
     }
 
 
