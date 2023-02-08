@@ -79,7 +79,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="customer in customerRequestsEntities">
-                        <td>{{customer.customerBasicInfo.accountNo}}</td>
+                        <td>{{subString(customer.customerBasicInfo.accountNo)}}</td>
                         <td>{{customer.customerBasicInfo.customerName}}</td>
                         <td>{{customer.custDate}}</td>
                         <td>{{customer.reqTime}}</td>
@@ -116,7 +116,16 @@
             },
             created: function () {
                 this.customerRequestsEntities = Array.isArray(customerRequestsEntities) ? customerRequestsEntities : [];
+            },
+
+            methods: {
+                subString: function (accountNo) {
+
+                    return accountNo == null?"":accountNo.substr(0, 13);
+
+                },
             }
+
         })
 
         $(document).ready(function () {
@@ -163,6 +172,8 @@
             })
 
         })
+
+
 
     </script>
 
