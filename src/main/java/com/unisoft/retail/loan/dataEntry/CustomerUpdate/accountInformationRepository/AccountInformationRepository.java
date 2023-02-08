@@ -75,7 +75,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' " +
-            "AND TO_DATE(EMI_DATE,'YYYY-MM-DD') <= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+            "AND TO_DATE(EMI_DATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNoAndCurrentDatePlusThree(String accountNo, Pageable pageable);
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N'", nativeQuery = true)
@@ -83,15 +83,15 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
     @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND " +
-            "TO_DATE(EMI_DATE,'YYYY-MM-DD')<= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+            "TO_DATE(EMI_DATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'YYYY-MM-DD') " +
-            "<= (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'yyyy-MM-dd') " +
+            "<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDatePlusThree();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'YYYY-MM-DD') " +
-            "== (SELECT TO_DATE('2022-03-11','YYYY-MM-DD') FROM dual)", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'yyyy-MM-dd') " +
+            "== (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
