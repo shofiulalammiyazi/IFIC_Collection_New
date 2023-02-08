@@ -156,7 +156,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="custcomplain in customerComplainEntities">
-                        <td>{{custcomplain.accountNo}}</td>
+                        <td>{{subString(custcomplain.accountNo)}}</td>
                         <td>{{custcomplain.accountName}}</td>
                         <td v-text="custcomplain.assigneePin == '-'?'Not Assigned' : custcomplain.assigneePin"></td>
                         <td v-text="custcomplain.assignee == '-'?'Not Assigned' : custcomplain.assignee"></td>
@@ -199,6 +199,12 @@
             created: function () {
                 this.customerComplainEntities = Array.isArray(customerComplainEntities) ? customerComplainEntities : [];
                 this.designationList = Array.isArray(designationList) ? designationList : [];
+            },
+            methods:{
+                subString: function (accountNo) {
+                    return accountNo == null ? "" :accountNo.substr(0 ,13);
+
+                }
             }
         })
 
