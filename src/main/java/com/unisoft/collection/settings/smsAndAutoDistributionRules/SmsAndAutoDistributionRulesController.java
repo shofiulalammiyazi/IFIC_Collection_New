@@ -31,27 +31,24 @@ public class SmsAndAutoDistributionRulesController {
     @Autowired
     private LoanTypeRepository loanTypeRepository;
 
+    @Autowired
+    private SmsAndAutoDistributionRulesService smsAndAutoDistributionRulesService;
+
 
     @GetMapping("create")
     public  String save(Model model){
         Gson gson = new Gson();
         SmsAndAutoDistributionRulesEntity smsAndAutoDistributionRulesEntity = new SmsAndAutoDistributionRulesEntity();
 
-        List<SmsAndAutoDistributionRulesEntity> smsAndAutoDistributionRulesEntities = smsAndAutoDistributionRulesRepository.findAll();
+        model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
 
-        if (smsAndAutoDistributionRulesEntities.size() >0){
-            smsAndAutoDistributionRulesEntity = smsAndAutoDistributionRulesEntities.get(0);
-        }
-         model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
 
-        if (smsAndAutoDistributionRulesEntity.getId() !=null){
-            model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
-        }
-
+        model.addAttribute("ruleType",smsAndAutoDistributionRulesEntity.getType());
         model.addAttribute("loanStatusList",gson.toJson(loanStatusRepository.findAll()));
         model.addAttribute("loanTypeList",gson.toJson(loanTypeRepository.findAll()));
         model.addAttribute("selectedLoanStatus",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanStatusEntity()));
         model.addAttribute("selectedLoanTypes",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanTypeEntities()));
+
 
         return "collection/settings/smsAndAutoDistributionRules/create";
     }
@@ -87,6 +84,8 @@ public class SmsAndAutoDistributionRulesController {
             //SmsAndAutoDistributionRulesEntity previousEntity = new SmsAndAutoDistributionRulesEntity();
             //BeanUtils.copyProperties(oldEntity, previousEntity);
 
+            SmsAndAutoDistributionRulesEntity smsAndAutoDistributionRulesEntity1 = smsAndAutoDistributionRulesService.getByType(smsAndAutoDistributionRulesEntity.getType());
+
             for(String id: smsAndAutoDistributionRulesEntity.getLoanStatusIds()){
                 LoanStatusEntity loanStatusEntity = loanStatusRepository.findByLoanStatusId(new Long(id));
                 loanStatusEntities.add(loanStatusEntity);
@@ -97,18 +96,49 @@ public class SmsAndAutoDistributionRulesController {
                 loanTypeEntities.add(loanTypeEntity);
             }
 
-            smsAndAutoDistributionRulesEntity.setLoanStatusEntity(loanStatusEntities);
-            smsAndAutoDistributionRulesEntity.setLoanTypeEntities(loanTypeEntities);
-            smsAndAutoDistributionRulesEntity.setModifiedBy(user.getUsername());
-            smsAndAutoDistributionRulesEntity.setModifiedDate(new Date());
-            smsAndAutoDistributionRulesRepository.save(smsAndAutoDistributionRulesEntity);
+            smsAndAutoDistributionRulesEntity1.setLoanStatusEntity(loanStatusEntities);
+            smsAndAutoDistributionRulesEntity1.setLoanTypeEntities(loanTypeEntities);
+            smsAndAutoDistributionRulesEntity1.setNoOfDaysBeforeEmiDate(smsAndAutoDistributionRulesEntity.getNoOfDaysBeforeEmiDate());
+            smsAndAutoDistributionRulesEntity1.setUnpaidInstallmentNumber(smsAndAutoDistributionRulesEntity.getUnpaidInstallmentNumber());
+            smsAndAutoDistributionRulesEntity1.setModifiedBy(user.getUsername());
+            smsAndAutoDistributionRulesEntity1.setModifiedDate(new Date());
+            smsAndAutoDistributionRulesRepository.save(smsAndAutoDistributionRulesEntity1);
         }
-        return "redirect:/collection/settings/smsandautodistributionrules/create";
+        return "redirect:/collection/settings/smsandautodistributionrules/list";
 
     }
 
 
+    @GetMapping(value = "list")
+    public String viewAll(Model model) {
+        model.addAttribute("SMSDistributionList",smsAndAutoDistributionRulesService.SmsAndAutoDistributionfindAll());
+        model.addAttribute("size",smsAndAutoDistributionRulesService.SmsAndAutoDistributionfindAll().size());
+        return "collection/settings/smsAndAutoDistributionRules/list";
+    }
 
+
+    @GetMapping(value = "edit")
+    public String editPage(Model model, @RequestParam(value = "id") Long id) {
+        Gson gson = new Gson();
+
+        SmsAndAutoDistributionRulesEntity smsAndAutoDistributionRulesEntity = smsAndAutoDistributionRulesService.getById(id);
+
+        model.addAttribute("smsAndAutoDistributionRules", smsAndAutoDistributionRulesEntity);
+        model.addAttribute("ruleType",smsAndAutoDistributionRulesEntity.getType());
+        model.addAttribute("loanStatusList",gson.toJson(loanStatusRepository.findAll()));
+        model.addAttribute("loanTypeList",gson.toJson(loanTypeRepository.findAll()));
+        model.addAttribute("selectedLoanStatus",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanStatusEntity()));
+        model.addAttribute("selectedLoanTypes",gson.toJson(smsAndAutoDistributionRulesEntity.getLoanTypeEntities()));
+
+        return "collection/settings/smsandautodistributionrules/edit";
+    }
+
+    @GetMapping("getByType")
+    @ResponseBody
+    public SmsAndAutoDistributionRulesEntity getByType(@RequestParam("type") String type){
+
+        return smsAndAutoDistributionRulesService.getByType(type);
+    }
 
 }
 
