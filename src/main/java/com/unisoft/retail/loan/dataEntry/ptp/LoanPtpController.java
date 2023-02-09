@@ -73,12 +73,6 @@ public class LoanPtpController {
               "Pls, repay the amount within" +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
                 +" as per your commitment to keep the loan regular.";
 
-        //if contact fail based on consideration as attempt = Call Not Received
-        if(!loanPtp.getConsiderAsAttempt().equalsIgnoreCase("Call Received"))
-            sms = "We have tried and failed to reach you over phone." +
-                    " Pls, pay the unpaid installment {{F.installmentAmount}} against " +
-                    "{{F.productName}} by "+getNextOrPreviousDate(new Date(),3)+" to avoid penal charge.";
-
         AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
 
         List<GeneratedSMS> generatedSMS = new ArrayList<>();

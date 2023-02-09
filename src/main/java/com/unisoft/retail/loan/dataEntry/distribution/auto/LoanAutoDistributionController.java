@@ -11,6 +11,10 @@ import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntity;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntityDto;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesRepository;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
@@ -62,6 +66,9 @@ public class LoanAutoDistributionController {
 
     @Autowired
     private AccountInformationRepository accountInformationRepository;
+
+    @Autowired
+    private SmsAndAutoDistributionRulesService smsAndAutoDistributionRulesService;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -158,11 +165,13 @@ public class LoanAutoDistributionController {
                 "Pls, ignore if it is already paid.";
 
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDateOnlyPlusThree();
-
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for(AccountInformationEntity acc : accountInformationEntities){
+            List<SmsAndAutoDistributionRulesEntityDto> rules = smsAndAutoDistributionRulesService.getByLoanStatusAndLoanType(acc.getProductCode(), acc.getLoanCLStatus());
             //sms = templateGenerate.getMassege();
-            if(acc.getNextEMIDate() != null){
+            if(acc.getNextEMIDate() != null && rules.size()>0 &&
+               Integer.parseInt(acc.getNoOfInstallmentDue())<Integer.parseInt(rules.get(0).getUnpaidInstallmentNumber())
+            && acc.getEmiAmount() != null && acc.getMobile() != null){
                 sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
                 sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getOverdue())/100));
                 sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());

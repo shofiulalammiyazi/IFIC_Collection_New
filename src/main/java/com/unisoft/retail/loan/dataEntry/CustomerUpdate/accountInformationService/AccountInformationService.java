@@ -292,8 +292,6 @@ public class AccountInformationService {
                     accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
                 }
-                accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-MM-dd")));
-                accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-MM-dd")));
                 accountInformationEntity.setISEscalated("N");
                 if(!expiryDate.equals(""))
                     accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-MM-dd")));
