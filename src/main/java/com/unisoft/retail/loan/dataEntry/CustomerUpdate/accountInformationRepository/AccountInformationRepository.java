@@ -83,15 +83,15 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
     @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND " +
-            "TO_DATE(EMI_DATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+            "TO_DATE(NEXTEMIDATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'yyyy-MM-dd') " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
             "<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDatePlusThree();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(EMI_DATE,'yyyy-MM-dd') " +
-            "== (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+            "= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
