@@ -38,8 +38,16 @@
                                     <td><span th:text="${data.noOfDaysBeforeEmiDate}"></span></td>
                                     <td><span th:text="${data.unpaidInstallmentNumber}"></span></td>
 
-                                    <td><span th:each="lts : ${data?.loanTypeEntities}" th:text="${lts.loanType}"></span></td>
-                                    <td><span th:each="ls : ${data?.loanStatusEntity}" th:text="${ls.name}"></span></td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                            <li style="display:inline" th:each="lts : ${data?.loanTypeEntities}"><span class="label label-success" th:text="${lts.loanType}"></span></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                            <li style="display:inline" th:each="ls : ${data?.loanStatusEntity}"><span class="label label-success" th:text="${ls.name}"></span></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" th:href="@{/collection/settings/smsandautodistributionrules/edit(id=${data.id})}"><i class="fa fa-edit"></i>Edit</a>
                                     </td>
