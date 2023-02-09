@@ -1,10 +1,27 @@
 package com.unisoft.collection.settings.smsAndAutoDistributionRules;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SmsAndAutoDistributionRulesService {
 
+    @Autowired
+    private SmsAndAutoDistributionRulesRepository smsAndAutoDistributionRulesRepository;
 
+    public List<SmsAndAutoDistributionRulesEntity> SmsAndAutoDistributionfindAll(){
+        return smsAndAutoDistributionRulesRepository.findAll();
+    }
+
+    public SmsAndAutoDistributionRulesEntity getById(Long id)
+    {
+        return smsAndAutoDistributionRulesRepository.getOne(id);
+    }
+
+    public SmsAndAutoDistributionRulesEntity getByType(String type){
+        return smsAndAutoDistributionRulesRepository.findByType(type);
+    }
 
 }

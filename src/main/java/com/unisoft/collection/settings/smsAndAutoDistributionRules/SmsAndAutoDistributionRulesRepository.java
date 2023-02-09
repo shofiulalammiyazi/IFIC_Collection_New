@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SmsAndAutoDistributionRulesRepository extends JpaRepository<SmsAndAutoDistributionRulesEntity, Long> {
+
+    SmsAndAutoDistributionRulesEntity findByType(String type);
 }
