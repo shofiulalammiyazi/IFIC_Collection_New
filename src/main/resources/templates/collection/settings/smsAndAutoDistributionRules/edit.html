@@ -30,14 +30,14 @@
 
                                 <div class="box-body">
                                     <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Type </label>
-                                    <div class="col-sm-8">
-                                        <select v-model="ruleType" class="form-control required" name="type" th:field="*{type}" @change="getByType">
-                                            <option value="">Select Rule Type</option>
-                                            <option  value="SMS">SMS</option>
-                                            <option value="Distribution">Distribution</option>
-                                        </select>
-                                    </div>
+                                        <label class="col-sm-4 custom-form-lebel-right required">Type </label>
+                                        <div class="col-sm-8">
+                                            <select v-model="ruleType" class="form-control required" name="type" th:field="*{type}" @change="getByType">
+                                                <option value="">Select Rule Type</option>
+                                                <option  value="SMS">SMS</option>
+                                                <option value="Distribution">Distribution</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -93,9 +93,9 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right required">Loan Status </label>
-                                    <div class="col-sm-8">
-                                    <multiselect  v-model="selectedLoanStatus" placeholder="Select Loan Status" label="name" track-by="id"  :options="loanStatusOption" :multiple="true" :taggable="true"></multiselect>
-                                    </div>
+                                        <div class="col-sm-8">
+                                            <multiselect  v-model="selectedLoanStatus" placeholder="Select Loan Status" label="name" track-by="id"  :options="loanStatusOption" :multiple="true" :taggable="true"></multiselect>
+                                        </div>
                                     </div>
                                 </div>
 

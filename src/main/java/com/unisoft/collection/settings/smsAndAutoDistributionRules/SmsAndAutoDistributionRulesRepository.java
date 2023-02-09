@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface SmsAndAutoDistributionRulesRepository extends JpaRepository<SmsAndAutoDistributionRulesEntity, Long> {
 
+    SmsAndAutoDistributionRulesEntity findByType(String type);
+
     @Query(value = "SELECT SAADRE.TYPE                       AS RULE_NAME, " +
             "       SAADRE.UNPAID_INSTALLMENT_NUMBER         AS NO_OF_INSTALLMENT_DUE, " +
             "       SAADRE.NO_OF_DAYS_BEFORE_EMI_DATE        AS NO_OF_DAYS_BEFORE_EMI_DATE, " +
