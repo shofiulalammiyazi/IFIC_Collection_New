@@ -781,14 +781,14 @@
 
                                         <li>
                                             <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:if="${session.urlList.contains('/collection/loanstatus/')}"
                                                 th:href="@{/collection/loanstatus/list}">
                                                 Loan Status
                                             </a>
                                         </li>
                                         <li>
                                             <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:if="${session.urlList.contains('/collection/loantype/')}"
                                                 th:href="@{/collection/loantype/list}">
                                                 Loan Type
                                             </a>
@@ -796,7 +796,7 @@
 
                                         <li>
                                             <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:if="${session.urlList.contains('/collection/settings/smsandautodistributionrules/')}"
                                                 th:href="@{/collection/settings/smsandautodistributionrules/list}">
                                                 SMS And Auto Distribution Rules
                                             </a>
