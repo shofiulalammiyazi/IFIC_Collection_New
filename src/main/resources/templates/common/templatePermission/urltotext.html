@@ -17551,6 +17551,71 @@
                                         </td>
                                     </tr>
 
+
+                                    <tr>
+                                        <td class="col-sm-4">SMS & Auto Distribution Rules</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/')}"
+                                                                   type="checkbox" value="/collection/settings/smsandautodistributionrules/"
+                                                                   id="urlList1" name="urlList">
+                                                            <input type="hidden" name="_urlList" value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/list')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/list" id="urlList2"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/create')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/create" id="urlList3"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Create</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/edit')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/edit" id="urlList4"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Edit</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>

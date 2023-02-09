@@ -796,13 +796,11 @@
 
                                         <li>
                                             <a  class="tab"
-                                                th:href="@{/collection/settings/smsandautodistributionrules/create}">
+                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:href="@{/collection/settings/smsandautodistributionrules/list}">
                                                 SMS And Auto Distribution Rules
                                             </a>
                                         </li>
-
-
-
 
                                     </ul>
                                 </li>
