@@ -204,6 +204,13 @@
 
         <!--END IBM CONFIGURATION-->
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-ldap -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <profiles>
