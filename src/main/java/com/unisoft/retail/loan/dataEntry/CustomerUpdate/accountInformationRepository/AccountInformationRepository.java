@@ -82,7 +82,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
             "TO_DATE(NEXTEMIDATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
