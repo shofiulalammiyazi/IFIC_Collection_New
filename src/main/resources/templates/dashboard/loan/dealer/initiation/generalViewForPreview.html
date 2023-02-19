@@ -16,7 +16,10 @@
             <div class="loandetail-area-sp box box-primary shadow">
                 <form method="post" id="generalInfoFormViw">
                     <div id="layout-form-general" class="loancaseentry-sp general-div" style="margin-left: 0px">
-                        <div class="loan-init-details-sp-inner">
+                        <div>
+                            <a id="show-hide-details"> <i class="fa fa-plus-circle" style="  font-size: 30px; margin-right: 10px; float: right;"></i></i></a>
+                        </div>
+                        <div id="myDIV" class="loan-init-details-sp-inner hidden">
 
                             <input id="globalUserPinForSummary" type="hidden" th:value="${employee?.pin}"/>
                             <input id="globalUserIdForSummary" type="hidden" th:value="${employee?.id}"/>
@@ -123,6 +126,7 @@
 
                         </div>
 
+
                         <div id="admin-lte-div" class="row csi-view-form-group">
                             <div class="col-md-12 shadow-sm" style="padding: 10px 10px">
                                 <div class="col-md-3" style="text-align: center">
@@ -152,6 +156,7 @@
     </div>
 
     <br/>
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         var totalAccounts = /*[[${totalAccounts}]]*/  0;
@@ -190,6 +195,23 @@
                 },
             }
         })
+    </script>
+
+    <script>
+        // function myFunction() {
+        //     var x = document.getElementById("myDIV");
+        //     if (x.style.display === "none") {
+        //         x.style.display = "block";
+        //     } else {
+        //         x.style.display = "none";
+        //     }
+        // }
+
+        $("#show-hide-details").on("click",function () {
+            $("#myDIV").toggleClass("hidden","show");
+        });
+
+
     </script>
 
 </div>
