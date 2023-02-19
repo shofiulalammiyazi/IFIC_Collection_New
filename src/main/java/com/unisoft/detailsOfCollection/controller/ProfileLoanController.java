@@ -354,78 +354,23 @@ public class ProfileLoanController {
 
         List<AccountInformationEntity> accountInformationEntityList = accountInformationService.findAccountInformationEntityByLoanAccountNo(accountNo);
 
-        CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntityList.get(0));
-        LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
-
-
-       // LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
-
+        if(accountInformationEntityList.size() == 0)
+            return returnToSearchPage(redirectAttributes);
 
         if (accountInformationEntityList.size() >1) {
             model.addAttribute("loanList", accountInformationEntityList);
 
             return "collection/search/loanList";
         }else {
-             if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null) {
-                 return returnToSearchPage(redirectAttributes);
-             }
-             else {
-/*
-                 return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model,accountInformationEntityList.get(0).getBranchMnemonic(),
-                         accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
-*/
-                 model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
-                 model.addAttribute("borrowerName",accountInformationEntityList.get(0).getBorrowersName());
+            CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntityList.get(0));
+            LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
 
-                 return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
+            model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
+            model.addAttribute("borrowerName",accountInformationEntityList.get(0).getBorrowersName());
 
-             }
+            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 
         }
-
-
-
-      /*  if (accountNo != null) {
-            List<CardAccountBasicInfo> cardList = cardBasicService.findAllByClientId(accountNo);
-            List<CardAccountBasicInfo> cardList2 = cardBasicService.findAllByContractId(accountNo);
-
-            List<CustomerBasicInfoEntity> custListClientId = customerBasicInfoService.findAllByClientId(accountNo);
-            List<CustomerBasicInfoEntity> custListContractId = customerBasicInfoService.findAllByContractId(accountNo);
-
-
-            if (cardList.size() > 1) {
-                model.addAttribute("cardList", cardList);
-                return "collection/search/cardList";
-            }
-            if (cardList2.size() >1){
-                model.addAttribute("cardList", cardList2);
-                return "collection/search/cardList";
-            }
-            if (custListClientId.size() >1){
-                model.addAttribute("cardList", custListClientId);
-                return "collection/search/cardList";
-            }
-            if (custListContractId.size() >1){
-                model.addAttribute("cardList", custListContractId);
-                return "collection/search/cardList";
-            }
-
-            if (cardList.size() ==1) {
-                return "redirect:/collection/card/searchclientid?clientId=" + accountNo;
-            }
-            if (cardList2.size() ==1){
-                return "redirect:/collection/card/search?contractNo=" + accountNo;
-            }
-
-            if (custListClientId.size() ==1) {
-                return "redirect:/collection/card/searchclientid?clientId=" + accountNo;
-            }
-            if (custListContractId.size() ==1){
-                return "redirect:/collection/card/search?contractNo=" + accountNo;
-            }
-
-        }
-*/
 
     }
 

@@ -241,6 +241,7 @@ function loan_ptp_viewRow(node) {
             $("#loan_ptp_promisor_view").text(data.loanptpList.loan_promisor_details);
             $("#loan_ptp_date_view").text(data.loanptpList.loan_ptp_date);
             $("#loan_ptp_time_view").text(data.loanptpList.loan_ptp_time);
+            $("#created-at").text(data.loanptpList.createdDate);
             // $("#loan_ptp_remark_view").text(data.loanptpList.loan_ptp_remarks);
             $("#loan_ptp_creator_view").text(creator);
 
