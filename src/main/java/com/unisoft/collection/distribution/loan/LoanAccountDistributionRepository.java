@@ -90,8 +90,7 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
      * @param dealerPin
      * @return List of Tuples consisting account summary
      */
-    @Query(value = "" +
-            "SELECT DISTINCT SUBSTR(LABI.ACCOUNT_NO,0,13)                                                 AS accountNo, " +
+    @Query(value = "SELECT DISTINCT SUBSTR(LABI.ACCOUNT_NO,0,13)                                                 AS accountNo, " +
             "                CBIE.CUSTOMER_NAME                                              AS customerName, " +
             "                LADI.BRANCH_MNEMONIC                                              AS branchMnemonic, " +
             "                LADI.PRODUCT_CODE                                              AS dealReference, " +
@@ -118,8 +117,7 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "      FROM (SELECT * " +
             "      FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI_IN " +
             "      WHERE LADI_IN.DEALER_PIN = :pin " +
-            "        AND LADI_IN.LATEST = '1' " +
-            "        AND LADI_IN.CREATED_DATE BETWEEN :startDate AND :endDate) LADI " +
+            "        AND LADI_IN.LATEST = '1') LADI " + //--AND LADI_IN.CREATED_DATE BETWEEN :startDate AND :endDate
             "       JOIN LOAN_ACCOUNT_BASIC_INFO LABI ON LABI.ID = LADI.LOAN_ACCOUNT_BASIC_INFO_ID " +
             "       JOIN CUSTOMER_BASIC_INFO_ENTITY CBIE on LABI.CUSTOMER_ID = CBIE.ID " +
             "       LEFT JOIN LOAN_ACCOUNT_INFO LAI ON LABI.ID = LAI.LOAN_ACCOUNT_BASIC_INFO_ID " +
@@ -133,24 +131,20 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "                         COUNT(LOAN_PTP_STATUS)                                        TOTAL_COUNT, " +
             "                         COUNT(CASE WHEN LOWER(LOAN_PTP_STATUS) = 'cured' THEN 1 END)  CURED_COUNT, " +
             "                         COUNT(CASE WHEN LOWER(LOAN_PTP_STATUS) = 'broken' THEN 1 END) BROKEN_COUNT " +
-            "                  FROM LOAN_PTP " +
-            "                  WHERE CREATED_DATE BETWEEN :startDate AND :endDate " +
-            "                  GROUP BY CUSTOMER_ID) LPTP ON LPTP.CUSTOMER_ID = LABI.CUSTOMER_ID " +
+            "                  FROM LOAN_PTP GROUP BY CUSTOMER_ID) LPTP ON LPTP.CUSTOMER_ID = LABI.CUSTOMER_ID " +
             "       LEFT JOIN (SELECT CUSTOMER_ID, " +
             "                         COUNT(ATTEMPT)                                               TOTAL_CONTACT, " +
             "                         COUNT(CASE WHEN LOWER(CATEGORY) = 'right party' THEN 1 END)  RIGHT_PARTY_COUNT, " +
             "                         COUNT(CASE WHEN LOWER(CATEGORY) != 'right party' THEN 1 END) OTHER_PARTY_COUNT " +
             "                  FROM CONTACT_INFO " +
-            "                  WHERE PIN = :pin " +
-            "                    AND CREATED_DATE BETWEEN :startDate AND :endDate " +
-            "                  GROUP BY CUSTOMER_ID) CI ON CI.CUSTOMER_ID = LABI.CUSTOMER_ID " +
+            "                  WHERE PIN = :pin GROUP BY CUSTOMER_ID) CI ON CI.CUSTOMER_ID = LABI.CUSTOMER_ID " +
             "       LEFT JOIN (SELECT ACCOUNT_CARD_NUMBER, COUNT(ID) VISIT_COUNT " +
             "                  FROM VISIT_LEDGER_ENTITY " +
-            "                  WHERE CREATED_DATE BETWEEN :startDate AND :endDate " +
+            //"--                              WHERE CREATED_DATE BETWEEN :startDate AND :endDate " +
             "                  GROUP BY ACCOUNT_CARD_NUMBER) VLE ON LABI.ACCOUNT_NO = VLE.ACCOUNT_CARD_NUMBER " +
             "       LEFT JOIN (SELECT ACCOUNT_NO, SUM(PAYMENT) CURRENT_MONTH_PAYMENT " +
             "                  FROM LOAN_PAYMENT " +
-            "                  WHERE PAYMENT_DATE BETWEEN :startDate AND :endDate " +
+            //"--                   WHERE PAYMENT_DATE BETWEEN :startDate AND :endDate " +
             "                  GROUP BY ACCOUNT_NO) LPCM ON LABI.ACCOUNT_NO = LPCM.ACCOUNT_NO " +
             "       LEFT JOIN (SELECT * " +
             "                  FROM (SELECT ACCOUNT_NO, PAYMENT_DATE, PAYMENT, ROW_NUMBER() " +
@@ -164,7 +158,7 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "                  WHERE TRUNC(FOLLOW_UP_DATE, 'DD') >= TRUNC(SYSDATE, 'DD') " +
             "                  GROUP BY CUSTOMER_ID) FU ON FU.CUSTOMER_ID = LABI.CUSTOMER_ID " +
             "ORDER BY riskCategory, numberOfContact ASC", nativeQuery = true)
-    List<Tuple> getLoanAccountDistributionSummary(@Param("pin") String dealerPin, @Param("startDate") Date startdate, @Param("endDate") Date endDate);
+    List<Tuple> getLoanAccountDistributionSummary(@Param("pin") String dealerPin);//, @Param("startDate") Date startdate, @Param("endDate") Date endDate
 
     @Modifying
     @Transactional
@@ -217,6 +211,12 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "WHERE baic.accountNo= :accNo AND distribution.latest = '1' AND distribution.createdDate BETWEEN :startDate AND :endDate")
     LetterPayload getLetterInfo(@Param("accNo") String accNo, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+    @Query(value = "" +
+            "SELECT new com.unisoft.letterGeneration.LetterPayload(distribution.currentOverdue,distribution.currentDpdBucket,distribution.emiAmount) FROM LoanAccountDistributionInfo distribution " +
+            "INNER JOIN LoanAccountBasicInfo baic ON distribution.loanAccountBasicInfo = baic.id " +
+            "WHERE substring(baic.accountNo,0,13) = :accNo AND distribution.latest = '1' AND distribution.createdDate BETWEEN :startDate AND :endDate")
+    LetterPayload getLetterInfoBySubAcNo(@Param("accNo") String accNo, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
 
     @Query(value = " SELECT " +
              "LADI.DEALER_NAME AS Dealer_Name, " +
@@ -254,7 +254,8 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     List<String> getCurrentMonthDistributionAccNo(@Param("startDate") Date startDate,@Param("endDate") Date endDate);
 
 
-    List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByLatest(String latest);
+    @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI WHERE LADI.ACCOUNT_NO IN (?1) AND LADI.LATEST = ?2", nativeQuery = true)
+    List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByLatest(List<String> ac,String latest);
 
 
     @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO WHERE TO_CHAR(CREATED_DATE, 'dd-mm-yyyy') between :startDate AND :endDate " +
@@ -262,5 +263,6 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
     List<LoanAccountDistributionInfo> findLoanAccountDistributionInfosByCreatedDateAndLatest(@Param("startDate") String startDate,@Param("endDate") String endDate);
 
 
+    @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI WHERE LADI.ACCOUNT_NO = ?1 AND LADI.LATEST = ?2",nativeQuery = true)
     LoanAccountDistributionInfo findByAccountNoAndLatest(String accountNo, String latest);
 }

@@ -14,6 +14,12 @@ public interface FollowUpRepository extends JpaRepository<FollowUpEntity, Long> 
 
     List<FollowUpEntity> findByCustomerBasicInfoIdAndFollowUpDateGreaterThanEqualOrderByIdDesc(Long customerId, Date startDate);
 
+    @Query(value = "SELECT FUE.*, SUBSTR(CBIE.ACCOUNT_NO,0,13) AS ACCOUNT_NO FROM FOLLOW_UP_ENTITY FUE " +
+            "    LEFT JOIN CUSTOMER_BASIC_INFO_ENTITY CBIE ON FUE.CUSTOMER_ID = CBIE.ID " +
+            "LEFT JOIN LOAN_ACCOUNT_BASIC_INFO LABI ON LABI.ACCOUNT_NO = CBIE.ACCOUNT_NO " +
+            "WHERE FUE.PIN = ?1 AND FUE.FOLLOW_UP_DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<Tuple> findByPinAndFollowUpDateIsBetween(String pin, String startDate, String endDate);
+
     /**
      * Lists down account wise follow ups that should be done today.
      * The list is used to generate notification for dealers.

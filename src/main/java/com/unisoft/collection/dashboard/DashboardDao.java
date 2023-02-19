@@ -165,7 +165,7 @@ public class DashboardDao {
             Session session = entityManager.unwrap(Session.class);
 
             Criteria crt = session.createCriteria(LoanAccountDistributionInfo.class);
-            crt.add(Restrictions.between("createdDate", dateUtils.getMonthStartDate(), dateUtils.getMonthEndDate()));
+            //crt.add(Restrictions.between("createdDate", dateUtils.getMonthStartDate(), dateUtils.getMonthEndDate()));
             crt.add(Restrictions.eq("latest", "1"));
             crt.add(Restrictions.eq("dealerPin", userPin));
             crt.add(Restrictions.eq("latest", "1"));

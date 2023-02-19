@@ -173,21 +173,21 @@ public class LetterController {
                                  LetterModel letterModel,
                                  Model model){
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        CustomerBasicInfoEntity customer = customerBasicInfoEntityRepository.findFirstByAccountNoOrderByAccountNoAsc(Account);
-        AccountInformationEntity accountInformation = accountInformationRepository.getByLoanAccountNo(Account);
+        CustomerBasicInfoEntity customer = customerBasicInfoEntityRepository.findFirstByAccountNoOrderByAccountNoSubStr(Account);
+        AccountInformationEntity accountInformation = accountInformationRepository.getByLoanAccountNoSub(Account);
 
         if(accountInformation != null){
-            accountInformation.setEmiDate(dateUtils.db2ToOracleDateFormat(accountInformation.getEmiDate()));
-            accountInformation.setDisbursementDate(dateUtils.db2ToOracleDateFormat(accountInformation.getDisbursementDate()));
+            accountInformation.setFirstEmiDate(accountInformation.getFirstEmiDate() != null?dateUtils.db2ToOracleDateFormat(accountInformation.getFirstEmiDate()):"N/A");
+            accountInformation.setDisbursementDate(accountInformation.getDisbursementDate() != null ? dateUtils.db2ToOracleDateFormat(accountInformation.getDisbursementDate()):"N/A");
         }
 
         model.addAttribute("customer", customer);
-        model.addAttribute("customerInfo",retailLoanUcbApiService.getCustomerInfo(customer.getCustomerId()));
+        //model.addAttribute("customerInfo",retailLoanUcbApiService.getCustomerInfo(customer.getCustomerId()));
         //model.addAttribute("loanAccDetails",retailLoanUcbApiService.getLoanAccountDetails(Account));
         model.addAttribute("loanAccDetails",accountInformation);
         model.addAttribute("letterModel",letterModel);
         model.addAttribute("guarantorInfo",gurantorInfoRepository.findByAccountNo(Account));
-        model.addAttribute("letterPayload",loanAccountDistributionRepository.getLetterInfo(Account,dateUtils.getMonthStartDate(),dateUtils.getLocalMonthEndDate()));
+        model.addAttribute("letterPayload",loanAccountDistributionRepository.getLetterInfoBySubAcNo(Account,dateUtils.getMonthStartDate(),dateUtils.getLocalMonthEndDate()));
         model.addAttribute("employeeInfo",employeeRepository.findByPin(principal.getUsername()));
         model.addAttribute("vehicleInfo",vehicleRepossessionRepository.findByCustomerId(String.valueOf(customer.getId())));
         if(customer != null){

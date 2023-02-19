@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -382,6 +384,32 @@ public class DateUtils {
 
             return year + "-" + map.get(2) + "-" + map.get(3);
         }
+    }
+
+   public String changeStringDatePattern(String d, String currentPattern, String targetPattern){
+       SimpleDateFormat format1 = new SimpleDateFormat(currentPattern);
+       SimpleDateFormat format2 = new SimpleDateFormat(targetPattern);
+       Date date = null;
+       try {
+           date = format1.parse(d);
+       } catch (ParseException e) {
+           System.err.println(e.getMessage());
+       }
+       return format2.format(date);
+   }
+
+    public static long getDiffernceBetweenTwoDate(String startDate, Date endDate, String datePattern) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+        try {
+            Date formatedDate = simpleDateFormat.parse(startDate);
+            if (formatedDate.compareTo(endDate) < 0) {
+                return ChronoUnit.DAYS.between(formatedDate.toInstant(), endDate.toInstant());
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }

@@ -8,10 +8,7 @@ import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAcco
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionSummary;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
-import com.unisoft.customerloanprofile.followup.DealerWiseFollowUpSummary;
-import com.unisoft.customerloanprofile.followup.FollowUpEntity;
-import com.unisoft.customerloanprofile.followup.FollowUpService;
-import com.unisoft.customerloanprofile.followup.FollowUpSummaryModel;
+import com.unisoft.customerloanprofile.followup.*;
 import com.unisoft.customerloanprofile.loanpayment.DealerWisePayment;
 import com.unisoft.customerloanprofile.loanpayment.LoanPaymentSummaryModel;
 import com.unisoft.loanApi.model.AdvanceSearchDataModel;
@@ -34,7 +31,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Tuple;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -61,6 +61,9 @@ public class RetailLoanDashboardController {
     @Autowired
     private PeopleAllocationLogicService peopleAllocationLogicService;
 
+    @Autowired
+    private FollowUpRepository followUpRepository;
+
     @ResponseBody
     @GetMapping(value = "account-details")
     public List<LoanAccountDistributionSummary> getLoanAccountDetails(@RequestParam("dealerPin") String dealerPin) {
@@ -69,8 +72,53 @@ public class RetailLoanDashboardController {
         return loanAccountDetails;
     }
 
+    @GetMapping(value = "followupbydate")
+    public Map getDateWiseFollowUpSummary(@RequestParam(value = "startDate") String startDate,
+                                          @RequestParam(value = "endDate") String endDate,
+                                          @RequestParam(value = "userId") String userId,
+                                          HttpSession session) {
+
+        String sDate = dateUtils.changeStringDatePattern(startDate,"yyyy-MM-dd","dd-MMM-yyyy");
+        String eDate = dateUtils.changeStringDatePattern(endDate,"yyyy-MM-dd","dd-MMM-yyyy");
+        Map map = new HashMap();
+
+//        List<FollowUpEntity> followups = new ArrayList<>();
+//        List<Tuple> tuples = followUpRepository.findByPinAndFollowUpDateIsBetween(userId,sDate,eDate);
+//        for(Tuple t : tuples){
+//            followups.add(new FollowUpEntity(t));
+//        }
+//
+//        map.put("loanFollowup", followUpRepository.getLoanFollowUpByCusBasicInfoDateWise());
+
+        List<FollowUpEntity> followUpList = new ArrayList<>();
+        List<LoanAccountDistributionInfo> distributionInfos =
+                (List<LoanAccountDistributionInfo>) session.getAttribute("loanDistributionList");
+
+        if (distributionInfos == null) {
+            map.put("loanFollowup", followUpList);
+            return map;
+        }
+
+        for (LoanAccountDistributionInfo distributionInfo : distributionInfos) {
+            Long customerId = distributionInfo.getLoanAccountBasicInfo().getCustomer().getId();
+            List<FollowUpEntity> followups = dashboardService.getLoanFollowUpByCusBasicInfoDateWise(customerId, userId,startDate,endDate);
+            for (FollowUpEntity follow : followups) {
+                follow.setOutstanding(distributionInfo.getOutStanding());
+                follow.setAccNo(distributionInfo.getAccountNo());
+                followUpList.add(follow);
+//                if(follow.getFollowUpDate().after(dateUtils.getFormattedDate(startDate,"yyyy-MM-dd"))
+//                && !dateUtils.getFormattedDate(endDate,"yyyy-MM-dd").after(follow.getFollowUpDate())){
+//
+//                }
+            }
+        }
+        map.put("loanFollowup", followUpList);
+
+        return map;
+    }
+
     @GetMapping(value = "date-wise-follow-up")
-    public Map getDateWiseFollowUpSummary(String userId, HttpSession session) {
+    public Map getDateWiseFollowUp(String userId, HttpSession session) {
         Map map = new HashMap();
         List<FollowUpEntity> followUpList = new ArrayList<>();
         List<LoanAccountDistributionInfo> distributionInfos =
@@ -85,10 +133,12 @@ public class RetailLoanDashboardController {
             Long customerId = distributionInfo.getLoanAccountBasicInfo().getCustomer().getId();
             List<FollowUpEntity> followups = dashboardService.getLoanFollowUpByCusBasicInfo(customerId, userId);
             for (FollowUpEntity follow : followups) {
-                follow.setOutstanding(distributionInfo.getOutStanding());
-                follow.setAccNo(distributionInfo.getLoanAccountBasicInfo().getAccountNo());
+                if(dateUtils.getFormattedDate(new Date(),"yyyy-MM-dd").compareTo(follow.getFollowUpDate()) == 0){
+                    follow.setOutstanding(distributionInfo.getOutStanding());
+                    follow.setAccNo(distributionInfo.getAccountNo());
+                    followUpList.add(follow);
+                }
             }
-            followUpList.addAll(followups);
         }
         map.put("loanFollowup", followUpList);
         return map;

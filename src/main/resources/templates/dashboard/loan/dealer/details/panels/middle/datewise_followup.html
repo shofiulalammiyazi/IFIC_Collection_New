@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1"/>
-    <title>Datewise Follow Up</title>
+    <title>Date Wise Follow Up</title>
 
 </head>
 <body>
@@ -14,6 +14,41 @@
 
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane top-buffer active" id="date-wise">
+            <div class="form-group">
+                <div class="row">
+                    <div class="margin">
+                        <div class="col-sm-2">
+                            &nbsp;&nbsp;Start Date :
+                        </div>
+                        <div  class="col-sm-3 from-group" style="padding-right: 25px;">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="date" name="firstDate" v-model="firstDate" placeholder="Select month"
+                                       class="form-control input-sm from"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin">
+                        <div class="col-sm-2">
+                            End Date :
+                        </div>
+                        <div  class="col-sm-3 from-group" style="padding-right: 25px;">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="date" name="secondDate" v-model="secondDate" placeholder="Select month"
+                                       class="form-control input-sm from"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <button type="button" @click="getFollowUpDataByDateRange">Generate Report</button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <!--<table  class="table table-condensed table-bordered custom_dt dataTable" id="date_wise_follow_up_table">-->
                 <table id="date-wise-followup-table"  class="table table-condensed table-bordered custom_dt dataTable" width="100%">

@@ -1143,24 +1143,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="col-sm-4">Auto Distribution</td>
+                                        <td class="col-sm-4">Send SMS For Auto Distribution</td>
                                         <td class="col-sm-8">
                                             <ul style="padding: 0px;">
                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
-                                                    <!--<div class="ui checkbox">
-                                                        <label class="mdl-checkbox  is-checked is-upgraded"
-                                                               data-upgraded="MaterialCheckbox">
-                                                            <input type="checkbox"
-                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/auto/-checker')}"
-                                                                   value="/retail/loan/data-entry/distribution/auto/-checker"
-                                                                   id="urlList420" name="urlList"><input type="hidden"
-                                                                                                         name="_urlList"
-                                                                                                         value="on">
-                                                            <span data-toggle="tooltip" data-placement="top"
-                                                                  data-trigger="hover" title=""
-                                                                  data-original-title="Auto Distribution">Checker</span>
-                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
-                                                    </div>-->
                                                 </li>
                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
                                                     <div class="ui checkbox">
@@ -1179,32 +1165,10 @@
                                                 </li>
                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
                                                     <div class="ui checkbox">
-                                                        <!--<label class="mdl-checkbox" data-upgraded="MaterialCheckbox">-->
-                                                        <!--<input type="checkbox"-->
-                                                        <!--th:checked="${#strings.contains(selectedUrlList, '/collection/autodistributionview')}"-->
-                                                        <!--value="/collection/autodistributionview"-->
-                                                        <!--id="urlList417" name="urlList"><input type="hidden"-->
-                                                        <!--name="_urlList"-->
-                                                        <!--value="on">-->
-                                                        <!--<span data-toggle="tooltip" data-placement="top"-->
-                                                        <!--data-trigger="hover" title=""-->
-                                                        <!--data-original-title="Auto Distribution">View</span>-->
-                                                        <!--<span class="mdl-checkbox__focus-helper"></span><span></span></label>-->
                                                     </div>
                                                 </li>
                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
                                                     <div class="ui checkbox">
-                                                        <!--<label class="mdl-checkbox" data-upgraded="MaterialCheckbox">-->
-                                                        <!--<input type="checkbox"-->
-                                                        <!--th:checked="${#strings.contains(selectedUrlList, '/collection/autodistributioncreate')}"-->
-                                                        <!--value="/collection/autodistributioncreate"-->
-                                                        <!--id="urlList418" name="urlList"><input type="hidden"-->
-                                                        <!--name="_urlList"-->
-                                                        <!--value="on">-->
-                                                        <!--<span data-toggle="tooltip" data-placement="top"-->
-                                                        <!--data-trigger="hover" title=""-->
-                                                        <!--data-original-title="Auto Distribution">Create</span>-->
-                                                        <!--<span class="mdl-checkbox__focus-helper"></span><span></span></label>-->
                                                     </div>
                                                 </li>
                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
@@ -1220,6 +1184,43 @@
                                                                   data-trigger="hover" title=""
                                                                   data-original-title="Auto Distribution">Edit</span>
                                                             <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-4">Auto Distribution</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/auto/distributionlist')}"
+                                                                   value="/retail/loan/data-entry/distribution/auto/distributionlist"
+                                                                   id="urlList420" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Auto Distribution">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
                                                     </div>
                                                 </li>
 
@@ -17549,6 +17550,338 @@
                                             </ul>
                                         </td>
                                     </tr>
+
+
+                                    <tr>
+                                        <td class="col-sm-4">SMS & Auto Distribution Rules</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/')}"
+                                                                   type="checkbox" value="/collection/settings/smsandautodistributionrules/"
+                                                                   id="urlList1" name="urlList">
+                                                            <input type="hidden" name="_urlList" value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/list')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/list" id="urlList2"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/create')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/create" id="urlList3"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Create</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/settings/smsandautodistributionrules/edit')}"
+                                                                   value="/collection/settings/smsandautodistributionrules/edit" id="urlList4"
+                                                                   name="urlList"><input type="hidden" name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Audit Trail View">Edit</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="col-sm-4">Loan Type</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox  is-checked is-upgraded"
+                                                               data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loantype/')}"
+                                                                   value="/collection/loantype/"
+                                                                   id="urlList211" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loantype/list')}"
+                                                                   value="/collection/loantype/list"
+                                                                   id="urlList212" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loantype/view')}"
+                                                                   value="/collection/loantype/view"
+                                                                   id="urlList213" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">View</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loantype/create')}"
+                                                                   value="/collection/loantype/create"
+                                                                   id="urlList214" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Create</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loantype/edit')}"
+                                                                   value="/collection/loantype/edit"
+                                                                   id="urlList215" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Edit</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                    <tr>
+                                        <td class="col-sm-4">Loan Status </td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox  is-checked is-upgraded"
+                                                               data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loanstatus/')}"
+                                                                   value="/collection/loanstatus/"
+                                                                   id="urlList211" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loanstatus/list')}"
+                                                                   value="/collection/loanstatus/list"
+                                                                   id="urlList212" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loanstatus/view')}"
+                                                                   value="/collection/loanstatus/view"
+                                                                   id="urlList213" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">View</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loanstatus/create')}"
+                                                                   value="/collection/loanstatus/create"
+                                                                   id="urlList214" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Create</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/collection/loanstatus/edit')}"
+                                                                   value="/collection/loanstatus/edit"
+                                                                   id="urlList215" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Edit</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td class="col-sm-4">Escalation List </td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox  is-checked is-upgraded"
+                                                               data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/escalation/')}"
+                                                                   value="/retail/loan/data-entry/distribution/escalation/"
+                                                                   id="urlList211" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/escalation/excalationAccount')}"
+                                                                   value="/retail/loan/data-entry/distribution/escalation/excalationAccount"
+                                                                   id="urlList212" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                    <tr>
+                                        <td class="col-sm-4">Delinquent Account List </td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+                                                <!--<li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox  is-checked is-upgraded"
+                                                               data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/auto/')}"
+                                                                   value="/retail/loan/data-entry/distribution/auto/"
+                                                                   id="urlList211" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">Checker</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>-->
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/auto/delinquint-ac-list')}"
+                                                                   value="/retail/loan/data-entry/distribution/auto/delinquint-ac-list"
+                                                                   id="urlList212" name="urlList"><input type="hidden"
+                                                                                                         name="_urlList"
+                                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="Employee Status">List</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+
 
                                     </tbody>
                                 </table>

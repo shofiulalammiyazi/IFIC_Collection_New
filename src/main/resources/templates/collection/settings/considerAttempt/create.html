@@ -17,8 +17,9 @@
                         <div class="box-header with-border" style="text-align: center;">
                             <h3 th:text="${((considerAttempt.id == null) ? 'Create' : 'Update') + ' Consider Attempt'}" class="box-title">Create New Consideration As Attempt</h3>
                         </div>
-                        <form  class="form-horizontal validate" method="post" th:action="@{/collection/considerAttempt/create}" th:object="${considerAttempt}" >
-                            <input type="hidden" th:field="*{id}"/>
+                        <!--<form  class="form-horizontal validate" method="post" th:action="@{/collection/considerAttempt/create}" th:object="${considerAttempt}" >-->
+                        <!--<input type="hidden"  th:field="*{id}"/>-->
+                        <div class="form-horizontal">
                             <div class="box-body">
 
                                 <p th:if="${error}" class="text-center text-danger" th:text="${error}">Error </p>
@@ -27,13 +28,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Consideration As Attempt</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="attemptName" class="form-control input-sm" th:required="true" th:field="*{attemptName}" placeholder="Name"/>
+                                        <input type="text" name="attemptName" class="form-control input-sm" th:required="true" v-model="considerAttempt.attemptName" placeholder="Name"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Contact Type</label>
                                     <div class="col-sm-6">
-                                        <select id="showHide" name="contactType" class="form-control" th:field="*{contactType}">
+                                        <select id="showHide" name="contactType" class="form-control" v-model="considerAttempt.contactType">
                                             <option value="">Select</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -42,17 +43,23 @@
                                         <!--<input type="text" name="contactType" oninput="showhide(this)" th:required="true" class="form-control input-sm" th:field="*{contactType}" placeholder="Yes/No"/>-->
                                     </div>
                                 </div>
-                                <div style="display: none" id="showFields">
+                                <div v-for="(contactCategory,index) in considerAttempt.contactCategoryObj" id="showFields">
+
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right ">Consideration as Contact</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="considerContact" class="form-control input-sm" th:field="*{considerContact}" placeholder="Name "/>
+                                            <input type="text" name="considerationAsContact" class="form-control input-sm" v-model="contactCategory.considerationAsContact" placeholder="Consideration as Contact "/>
                                         </div>
+
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 custom-form-lebel-right ">Contact Category</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="contactCategory" class="form-control input-sm" th:field="*{contactCategory}" placeholder="Name"/>
+                                            <input type="text" name="contactCategoryName" class="form-control input-sm" v-model="contactCategory.contactCategoryName" placeholder="Contact Category"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button v-if="considerAttempt.contactCategoryObj.length - 1 == index " type="button" class="btn btn-xs btn-success" @click="addContractCategory"><i class="glyphicon glyphicon-plus"></i></button>
+                                            <button v-if="considerAttempt.contactCategoryObj.length > 1 " type="button" class="btn btn-xs btn-danger" @click="removeContactCategory(index)"><i class="glyphicon glyphicon-minus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -69,63 +76,48 @@
 
                                 </div>
 
-                                <div class="form-group" th:if="${considerAttempt.id != null}">
+                                <div class="form-group" v-if="considerAttempt.id != null">
                                     <label class="col-sm-4 custom-form-lebel-right">Status</label>
                                     <div class="col-sm-6">
                                         <fieldset id="group1">
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${considerAttempt?.enabled == true} " th:value="true">
+                                            <input type="radio" name="enabled" value="true" v-model="considerAttempt.enabled" checked="checked"><!--th:checked="${considerAttempt?.enabled == true} " th:value="true"-->
                                             Active</input>
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${considerAttempt?.enabled == false}" th:value="false" >
+                                            <input type="radio" name="enabled" value="false" v-model="considerAttempt.enabled" checked="checked"><!--th:checked="${considerAttempt?.enabled == false}" th:value="false"-->
                                             Inactive </input>
                                         </fieldset>
                                     </div>
                                 </div>
 
-                                <div class="form-group" th:if="${considerAttempt?.id == null}" style="display: none">
-                                    <label class="col-sm-4 custom-form-lebel-right ">Status</label>
-                                    <div class="col-sm-6">
-                                        <fieldset id="group2">
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${considerAttempt?.enabled==true} or ${considerAttempt?.id == null}"
-                                                   th:value="true"> Active</input>
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${considerAttempt?.enabled==false} and ${considerAttempt?.id != null}"
-                                                   th:value="false"> Inactive </input>
-                                        </fieldset>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group" v-if="considerAttempt.id != null" style="display: none">-->
+                                    <!--<label class="col-sm-4 custom-form-lebel-right ">Status</label>-->
+                                    <!--<div class="col-sm-6">-->
+                                        <!--<fieldset id="group2">-->
+                                            <!--&lt;!&ndash;<input type="radio" name="enabled"&ndash;&gt;-->
+                                            <!--&lt;!&ndash;th:checked="${considerAttempt?.enabled==true} or ${considerAttempt?.id == null}"&ndash;&gt;-->
+                                            <!--&lt;!&ndash;th:value="true"> Active</input>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<input type="radio" name="enabled"&ndash;&gt;-->
+                                            <!--&lt;!&ndash;th:checked="${considerAttempt?.enabled==false} and ${considerAttempt?.id != null}"&ndash;&gt;-->
+                                            <!--&lt;!&ndash;th:value="false"> Inactive </input>&ndash;&gt;-->
+                                        <!--</fieldset>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </div>
                             <div class="box-footer text-center">
-                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
-                                <a type="submit" class="btn btn-danger btn-sm" href="/collection/considerAttempt/list">Cancel</a>
-                            </div>
-                        </form>
+                            <button type="button" @click="saveConsiderationAsAttempt" class="btn btn-info btn-sm ">Submit</button>
+                            <a type="submit" class="btn btn-danger btn-sm" href="/collection/considerAttempt/list">Cancel</a>
+                        </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
 
             <script type="text/javascript">
-                // window.onload = function() {
-                //     document.getElementById('ifYes').style.display = 'none';
-                // }
-
                 $(document).ready(function() {
                     $('#showHide').on('change.showFields', function() {
                         $("#showFields").toggle($(this).val() == 'Yes');
                     }).trigger('change.showFields');
                 });
-                /*function showhide(obj) {
-                   console.log($(obj).val());
-                   if($(obj).val().toLowerCase()==="yes"){
-                       $("#showFields").show();
-                   }else {
-                       $("#showFields").hide();
-
-                   }
-                }*/
             </script>
 
             <script th:inline="javascript">
@@ -137,46 +129,79 @@
 
             <script>
 
-              var considerationAttptApp = new Vue({
+                var considerationAttptApp = new Vue({
                     el: '#considerationAttptId',
                     components: {
                         Multiselect: VueMultiselect.default
                     },
                     data:{
-                         options: [
-                                { "name": 'CARD',
-                                    "id":1 },
-                                { "name": 'LOAN',
-                                    "id":2
-                                },
-                                 { "name": 'SAM LOAN',
-                                     "id":3
-                                 },
-                                 { "name": 'LEGAL',
-                                     "id":4
-                                 },
-                            ],
-                        considerAttempt:{},
-                        selectedList: []
+                        options: [
+                            { "name": 'CARD',
+                                "id":1 },
+                            { "name": 'LOAN',
+                                "id":2
+                            },
+                            { "name": 'SAM LOAN',
+                                "id":3
+                            },
+                            { "name": 'LEGAL',
+                                "id":4
+                            },
+                        ],
+                        considerAttempt:considerAttempt,
+                        selectedList: [],
+                        types:[]
                     },
-                  created:function () {
-                      if( Array.isArray(typeList)){
-                          for (i=0; i<typeList.length; i++) {
-                              this.selectedList.push({name:typeList[i]})
-                          }
-                      }else{
-                          this.selectedList.push()
-                      }
-                  },
-                  computed: {
-                      getList: function () {
-                          return this.selectedList.map(item => {
-                              return item.name;
-                      });
-                      }
-                  },
-                    method: {
-
+                    created:function () {
+                        if( Array.isArray(typeList)){
+                            for (i=0; i<typeList.length; i++) {
+                                this.selectedList.push({name:typeList[i]})
+                            }
+                        }else{
+                            this.selectedList.push()
+                        }
+                        if(this.considerAttempt.id == null)
+                            this.considerAttempt.contactCategoryObj = [{}];
+                    },
+                    computed: {
+                        getList: function () {
+                            return this.selectedList.map(item => {
+                                return item.name;
+                            });
+                        }
+                    },
+                    methods: {
+                        saveConsiderationAsAttempt(e){
+                            e.preventDefault();
+                            for(var i = 0; i<this.selectedList.length;i++){
+                             this.types.push(this.selectedList[i].name)
+                            }
+                            this.considerAttempt.type = this.types;
+                            var entity = JSON.stringify(this.considerAttempt);
+                            var host = window.location.host;
+                            this.$http.post('https://' + host + '/collection/considerAttempt/create', entity,
+                                {
+                                    credentials: true,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.csrfToken,
+                                    }
+                                }).then(res => {
+                                if (res.ok) {
+                                    swal("Successfully saved");
+                                } else {
+                                    swal("Failed to save changes");
+                                }
+                            }).catch(err => {
+                                swal("Please fill all the fields correctly");
+                                this.errors = err.body;
+                            })
+                        },
+                        addContractCategory() {
+                            this.considerAttempt.contactCategoryObj.push({});
+                        },
+                        removeContactCategory(index){
+                            this.considerAttempt.contactCategoryObj.splice(index,1);
+                        }
                     }
                 })
 

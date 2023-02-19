@@ -14,7 +14,7 @@ public class VisitLedgerService {
     private VisitLedgerRepository visitLedgerRepository;
 
     public List<VisitLedgerEntity> getVisitLedgerList() {
-        return visitLedgerDao.getList();
+        return visitLedgerRepository.findAll();
     }
 
     public boolean saveVisitLedger(VisitLedgerEntity visitLedgerEntity) {

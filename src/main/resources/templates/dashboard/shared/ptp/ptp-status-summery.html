@@ -52,8 +52,8 @@
                             <tbody class="tbl-row">
                             <tr v-for="(ptp,index) in ptpDetailsList">
                                 <td class="text-center"><a
-                                        :href="'/profile/loanprofile/search?account='+ ptp.accountNo"
-                                        target="_blank">{{ptp.accountNo}}</a></td>
+                                        :href="'/profile/loanprofile/search?account='+ getBeforeDash(ptp.accountNo)"
+                                        target="_blank">{{getBeforeDash(ptp.accountNo)}}</a></td>
                                 <td class="text-left">{{ptp.accountName}}</td>
                                 <td class="text-right">{{ptp.amount | formatBdtInEnglish}}</td>
                                 <td class="text-center text-nowrap">{{ptp.ptpDate}}</td>
@@ -123,7 +123,7 @@
                 </thead>
                 <tbody class="tbl-row">
                     <tr v-for="contactInfoDto in contactInfoDtoList">
-                        <td style="color: red"><a :href="'/profile/loanprofile/search?account='+contactInfoDto.accountNo">{{contactInfoDto.accountNo}}</a></td>
+                        <td style="color: red"><a target="_blank" :href="'/profile/loanprofile/search?account='+contactInfoDto.accountNo">{{contactInfoDto.accountNo}}</a></td>
                         <td><a @click="callAttemptList(contactInfoDto.customerId)" data-toggle="modal" data-target="#modal-call-attempt" style="cursor: pointer">{{contactInfoDto.attempted}}</a></td>
                         <!--<td><a @click="callUnAttemptList(contactInfoDto.customerId)" data-toggle="modal" data-target="#modal-call-attempt" style="cursor: pointer">{{contactInfoDto.unattempted}}</a></td>-->
                     </tr>
@@ -214,12 +214,13 @@
                     })
                 },
                 changeAccountList(index) {
-                    let list = this.ptpList[index].ptpDetails;
-                    let dataTable = this.dataTable;
-                    if (dataTable != null) {
-                        dataTable.clear().destroy();
-                    }
-                    this.initiateTable(list);
+                    //let list = this.ptpList[index].ptpDetails;
+                    this.ptpDetailsList = this.ptpList[index].ptpDetails;
+                    // let dataTable = this.dataTable;
+                    // if (dataTable != null) {
+                    //     dataTable.clear().destroy();
+                    // }
+                    // this.initiateTable(list);
                 },
                 callAttemptList(customerId){
                     let url = 'https://' + window.location.host + '/customerLoanProfile/ContactInfo/attempt-call-list?customerId=' + customerId;
@@ -274,6 +275,10 @@
                         'info': true,
                         'autoWidth': false
                     });
+                },
+
+                getBeforeDash(accNo){
+                    return accNo.substring(0,13);
                 },
             }
         });

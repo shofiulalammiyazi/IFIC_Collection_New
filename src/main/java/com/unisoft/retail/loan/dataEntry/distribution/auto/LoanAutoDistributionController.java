@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.dataEntry.distribution.auto;
 
+import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
 import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
 import com.unisoft.collection.settings.SMS.sendSms.SendSmsToCustomerService;
 import com.unisoft.collection.settings.SMS.smsType.SMSEntity;
@@ -10,19 +11,33 @@ import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntity;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntityDto;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesRepository;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -45,6 +60,15 @@ public class LoanAutoDistributionController {
 
     @Autowired
     private SendSmsToCustomerService sendSmsToCustomerService;
+
+    @Autowired
+    private PeopleAllocationLogicRepository peopleAllocationLogicRepository;
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
+
+    @Autowired
+    private SmsAndAutoDistributionRulesService smsAndAutoDistributionRulesService;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -74,6 +98,24 @@ public class LoanAutoDistributionController {
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
     }
 
+    @GetMapping("delinquint-ac-list")
+    public String getAllDelinquentAccList(Model model) {
+
+        List<SMSEntity> smsEntityList = smsService.findAll();
+        model.addAttribute("smsEntityList", smsEntityList);
+
+        return "retail/loan/dataEntry/distribution/auto/delinquentaccountlist";
+    }
+
+    @GetMapping("distributionlist")
+    public String getDistributionList(Model model) {
+
+        model.addAttribute("dealerList", peopleAllocationLogicRepository.findByUnitAndDistributionType("Loan", "Regular"));
+        List<SMSEntity> smsEntityList = smsService.findAll();
+        model.addAttribute("smsEntityList", smsEntityList);
+
+        return "retail/loan/dataEntry/distribution/auto/autodistributionlist";
+    }
 
 
     @GetMapping("redistribute")
@@ -85,7 +127,7 @@ public class LoanAutoDistributionController {
 
     @GetMapping("/sendsms")
     public ResponseEntity<Map<String, Object>> generatesms(@RequestParam(value = "accountNo") List<String> loanViewModelForSMS,
-                                                           @RequestParam(value = "smsType") Long smsType, Model model){
+                                                           @RequestParam(value = "smsType") Long smsType, Model model) {
 
         Map<String, Object> map = new HashMap<>();
         String sms = "";
@@ -95,22 +137,81 @@ public class LoanAutoDistributionController {
         SMSEntity smsEntity = smsService.findSmsById(smsType);
         TemplateGenerate templateGenerate = templateGenerateRepository.findTemGenBySmsTypeId(smsType);
 
-        for(String acc : loanViewModelForSMS){
+        for (String acc : loanViewModelForSMS) {
             String[] content = acc.split(":");
             sms = templateGenerate.getMassege();
-            sms = sms.replace("{{F.accountNo}}",content[0]);
-            sms = sms.replace("{{F.installmentAmount}}",content[3]);
-            sms = sms.replace("{{F.nextEmiDate}}",content[4]);
-            sms = sms.replace("{{F.currentMonth}}",content[5]);
-            sms = sms.replace("{{F.productName}}",content[2]);
-            GeneratedSMS generatedSMS1 = new GeneratedSMS(Long.valueOf(content[8]),smsEntity,sms,content[0],content[1]);
+            sms = sms.replace("{{F.accountNo}}", content[0]);
+            sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Integer.parseInt(content[3]) / 100));
+            sms = sms.replace("{{F.nextEmiDate}}", content[4]);
+            sms = sms.replace("{{F.currentMonth}}", content[5]);
+            sms = sms.replace("{{F.productName}}", content[2]);
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(Long.valueOf(content[8]), smsEntity, sms, content[0], content[1]);
             generatedSMS.add(generatedSMS1);
         }
 
         String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
-        map.put("state",status);
+        map.put("state", status);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @Scheduled(cron = "0 30 10 * * *")
+    @GetMapping("/sendAllSms")
+    public String autoSmsEmiDateWise() {
+        String smsType = "";
+        String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
+                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
+                "Pls, ignore if it is already paid.";
+
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleSmsList();
+        List<GeneratedSMS> generatedSMS = new ArrayList<>();
+        for (AccountInformationEntity acc : accountInformationEntities) {
+            sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
+            sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Integer.parseInt(acc.getOverdue()) / 100));
+            sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
+            sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
+            sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
+            //TODO change phone number here use acc.getMobile()
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01750734960");
+            generatedSMS.add(generatedSMS1);
+        }
+        String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+
+        return status;
+    }
+
+    public void toExcel() throws IOException {
+        accountInformationService.writeExcel();
+    }
+
+    public void deleteFile() throws IOException {
+        File file = new File("src/main/resources/generatedExcel/");
+
+        FileUtils.cleanDirectory(file);
+    }
+
+    @GetMapping("/download")
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+        toExcel();
+        String fileName = "UnAllocated_Account_List.xlsx";
+        File file = new File("src/main/resources/generatedExcel");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file + "/" + fileName);
+            int i;
+            while ((i = fileInputStream.read()) != -1) {
+                response.getWriter().write(i);
+            }
+            fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

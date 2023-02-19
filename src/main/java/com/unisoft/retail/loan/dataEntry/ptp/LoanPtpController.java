@@ -1,8 +1,13 @@
 package com.unisoft.retail.loan.dataEntry.ptp;
 
+import com.unisoft.collection.settings.SMS.generate.GeneratedSMS;
+import com.unisoft.collection.settings.SMS.sendSms.SendSmsToCustomerService;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
+import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @RestController
 @RequestMapping("/collection/loan/ptp")
@@ -24,9 +30,35 @@ public class LoanPtpController {
     @Autowired
     private CustomerBasicInfoEntityRepository customerBasicInfoEntityRepository;
 
-    @PostMapping(value="/save")
-    public boolean saveReferenceInfo(LoanPtp loanPtp) throws IOException, ParseException {
+    private DateUtils dateUtils;
 
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
+
+    @Autowired
+    private SendSmsToCustomerService sendSmsToCustomerService;
+
+
+    private static Date getNextOrPreviousDate(Date date, int dayIndex) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, dayIndex);
+        return getFormattedDate(calendar.getTime(), "dd-MM-yyyy");
+    }
+
+    private static Date getFormattedDate(Date date, String pattern) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            return simpleDateFormat.parse(simpleDateFormat.format(date));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @PostMapping(value="/save")
+    public boolean saveReferenceInfo(LoanPtp loanPtp) {
+        String sms = "";
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loanPtp.setCreatedBy(user.getUsername());
         loanPtp.setCreatedDate(new Date());
@@ -34,14 +66,28 @@ public class LoanPtpController {
         loanPtp.setPin(user.getUsername());
         loanPtp.setUsername(user.getLastName());
 
-//        Date ptpDate = null;
-//        String stringToDate = "";
-//        loanPtp.setLoan_ptp_status("kept");
-//        stringToDate = loanPtp.getLoan_ptp_dates().replace('/', '-');
-//        ptpDate = new SimpleDateFormat("MM-dd-yyyy").parse(stringToDate);
-//
-//        loanPtp.setLoan_ptp_date(ptpDate);
         service.save(loanPtp);
+
+        //for contact success based on consideration as attempt = Call Received
+        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
+              "Pls, repay the amount within" +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+                +" as per your commitment to keep the loan regular.";
+
+        AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
+
+        List<GeneratedSMS> generatedSMS = new ArrayList<>();
+        if(acc.getNextEMIDate() != null){
+            sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
+            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getOverdue())/100));
+            sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
+            sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
+            sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
+            //TODO change phone number here use acc.getMobile()
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
+            generatedSMS.add(generatedSMS1);
+            String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+        }
+
         return true;
     }
 

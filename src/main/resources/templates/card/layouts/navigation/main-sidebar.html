@@ -168,16 +168,32 @@
 
                                         <li>
                                             <a
-                                                    th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
-                                                    th:href="@{/retail/loan/data-entry/distribution/auto/list}">Delinquent Account List
+                                                    th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/delinquint-ac-list')}"
+                                                    th:href="@{/retail/loan/data-entry/distribution/auto/delinquint-ac-list}">Delinquent Account List
                                             </a>
                                         </li>
+
+                                        <li>
+                                            <a
+                                                    th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/escalation/')}"
+                                                    th:href="@{/retail/loan/data-entry/distribution/escalation/excalationAccount}">Escalated Account List
+                                            </a>
+
+                                        </li>
+
 
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/loan/list')}"
                                                class="tab"
                                                th:href="@{/distribution/loan/list}">Allocated Account List- Loan
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/distribution/loan/list')}"
+                                               class="tab"
+                                               th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">UnAllocated Account List- Loan
                                             </a>
                                         </li>
 
@@ -192,9 +208,19 @@
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
                                                class="tab"
                                                th:href="@{/retail/loan/data-entry/distribution/auto/list}">
-                                                Automatic Distribution
+                                                Send SMS For Automatic Distribution
                                             </a>
                                         </li>
+
+                                        <!--<li>-->
+                                            <!--&lt;!&ndash;th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/approval')&ndash;&gt;-->
+                                            <!--<a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/distributionlist')}"-->
+                                               <!--class="tab"-->
+                                               <!--th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">-->
+                                                <!--Automatic Distribution-->
+                                            <!--</a>-->
+                                        <!--</li>-->
+
                                         <li>
                                             <a class="tab"
                                                th:if="${session.urlList.contains('/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list')}"
@@ -753,6 +779,28 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/loanstatus/')}"
+                                                th:href="@{/collection/loanstatus/list}">
+                                                Loan Status
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/loantype/')}"
+                                                th:href="@{/collection/loantype/list}">
+                                                Loan Type
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/settings/smsandautodistributionrules/')}"
+                                                th:href="@{/collection/settings/smsandautodistributionrules/list}">
+                                                SMS And Auto Distribution Rules
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </li>

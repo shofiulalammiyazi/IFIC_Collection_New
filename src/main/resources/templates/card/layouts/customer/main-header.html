@@ -28,7 +28,7 @@
                     </style>
 
                     <div id="header_search" class="navbar-custom-menu csi-topbar-menu-left">
-                        <form style="padding: 10px; float: left; max-width: 600px" th:action="@{/profile/loanprofile/search}" method="get">
+                       <!-- <form style="padding: 10px; float: left; max-width: 600px" th:action="@{/profile/loanprofile/search}" method="get">
                             <input type="hidden" name="account" v-model="accountNo">
                             <label style="padding: 5px; color: white !important;" class="col-sm-3 custom-details-lebel-left">Acc. No./Card No. :</label>
                             <div class="input-group">
@@ -39,10 +39,12 @@
                                     </button>
                                 </span>
                             </div>
-                        </form>
+                        </form>-->
 
                         <div id="three-sixty-icon" style="padding: 10px; float: left;">
-
+                            <div class="form-group" style="color: white; font-weight: bolder; font-size: 20px">
+                                <label>Customer Name : &nbsp;</label><span>{{borrowerName}}</span>
+                            </div>
                         </div>
 
                         <ul class="nav navbar-nav" style="float: right">
@@ -89,6 +91,7 @@
                         /*<![CDATA[*/
                         var accountNo = /*[[${accountConcatNumber}]]*/ [];
                         var cardNo = /*[[${cardAccountBasic?.cardNo}]]*/ [];
+                        var borrowerName = /*[[${borrowerName}]]*/ [];
                         var isLoan = !!accountNo;
 
                         /*]]>*/
@@ -98,6 +101,7 @@
                             el:'#header_search',
                             data:{
                                 accountNo: accountNo ? accountNo : cardNo ? cardNo : '',
+                                borrowerName :borrowerName,
                             },
                             computed:{
                                 buttonDisableOrNot(){

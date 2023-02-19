@@ -828,6 +828,7 @@
                                                     <input type="hidden" name="consider_attempt_details" id="consider_attempt" value=""/>
                                                     <input type="hidden" name="considet_contact_details" id="considet_contact" value=""/>
                                                     <input type="hidden" name="contact category_details" id="contact category" value=""/>
+                                                    <input type="hidden" name="accNo" id="acc-no1"/>
                                                     <div class="form-group">
                                                         <br>
                                                         <br>
@@ -872,7 +873,7 @@
                                                 considerAttemptListById: []
                                             },
 
-                                        })
+                                        });
 
                                         $(document).ready(function () {
 
@@ -880,7 +881,7 @@
                                                 $.ajax({
                                                     url: "/collection/considerAttempt/attemptList/loan",
                                                     success: function (data) {
-                                                        considerAttemptApp.considerAttemptList= data;
+                                                        considerAttemptApp.considerAttemptList = data;
                                                     },
                                                     error: function (data) {
                                                         //alert("Failure!");
@@ -891,22 +892,44 @@
 
                                             $('#consider_attempt_id').on('change', function () {
                                                 let id = $(this).val();
-                                                $('#considet_contact_id, #ptp_contact_details_id').html('<option value="">Select One </option>')
-                                                $('#contact_category_id, #ptp_promisor_details_id').html('<option value="">Select One </option>')
+                                                $('#considet_contact_id, #ptp_contact_details_id').html('<option value="" selected="selected">Select One </option>')
+                                                $('#contact_category_id, #ptp_promisor_details_id').html('<option value="" selected="selected">Select One </option>')
 
                                                 if (!!id) {
-                                                    let selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
-                                                    if (selected[0].considerContact != null) $('#considet_contact_id').append('<option value="'+selected[0].considerContact+'" selected="selected">'+selected[0].considerContact+'</option>');
-                                                    if (selected[0].considerContact != null){
-                                                        $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].id+'" selected="selected">'+selected[0].considerContact+'</option>');
-                                                        $('#ptp_contact_details').val(selected[0].considerContact)
-                                                    }
-                                                    if (selected[0].contactCategory != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategory+'" selected="selected">'+selected[0].contactCategory+'</option>');
-                                                    if (selected[0].contactCategory != null){
-                                                        $('#ptp_promisor_details_id').append('<option value="'+selected[0].id+'" selected="selected">'+selected[0].contactCategory+'</option>');
-                                                        $('#ptp_promisor_details').val(selected[0].contactCategory)
+                                                    $("#consider-as-attempt").val(id);
+                                                    var selected = considerAttemptApp.considerAttemptList.filter(item => item.attemptName == id ? true : false);
+                                                    for(var j=0; j<selected[0].contactCategoryObj.length; j++){
+                                                        if(selected[0].contactCategoryObj[j].contactCategoryName != null)
+                                                            $('#considet_contact_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'" >'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null){
+                                                            $('#ptp_contact_details_id,#ptp_contact_details_id_single').append('<option value="'+selected[0].contactCategoryObj[j].id+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_contact_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
+                                                        }
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null) $('#contact_category_id').append('<option value="'+selected[0].contactCategoryObj[j].contactCategoryName+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                        if (selected[0].contactCategoryObj[j].contactCategoryName != null){
+                                                            $('#ptp_promisor_details_id').append('<option value="'+selected[0].contactCategoryObj[j].id+'">'+selected[0].contactCategoryObj[j].contactCategoryName+'</option>');
+                                                            $('#ptp_promisor_details').val(selected[0].contactCategoryObj[j].contactCategoryName)
+                                                        }
                                                     }
                                                 }
+
+                                                if(id == "Call Not Received"){
+                                                    $("#loan_amount").val("");
+                                                }
+                                                else{
+                                                    $("#loan_amount").val(Number(profile_information.accountInformation.overdue)/100);
+                                                }
+                                            });
+                                            
+                                            $("#considerAttemptForm").delegate("#contact_category_id","change",function () {
+                                                $('#ptp_promisor_details_id').html(' ');
+                                                $('#ptp_promisor_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
+                                                $('#ptp_promisor_details').val($(this).val());
+                                            });
+                                            $("#considerAttemptForm").delegate("#considet_contact_id","change",function () {
+                                                $('#ptp_contact_details_id').html(' ');
+                                                $('#ptp_contact_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
+                                                $('#ptp_contact_details_id').val($(this).val());
                                             })
                                         })
 
@@ -1081,18 +1104,20 @@
                                         <form id="loan_ptpForm" action="" method="post" class="form-horizontal">
                                             <input type="hidden" id="loanptpcustomerId" th:value="${loanprofileview.id}"
                                                    name="customerBasicInfo.id"/>
-                                            <div >
+                                            <div  id="cureenDateTaim">
                                                 <input type="hidden" name="loan_contact_details" id="ptp_contact_details" value=""/>
                                                 <input type="hidden" name="loan_contact_location" id="ptp_location_details" value=""/>
                                                 <input type="hidden" name="loan_promisor_details" id="ptp_promisor_details" value=""/>
                                                 <input type="hidden" name="id" id="id" value=""/>
                                                 <input type="hidden" name="loan_ptp_dates" v-model="getDate"/>
+                                                <input type="hidden" name="accNo" id="acc-no"/>
+                                                <input type="hidden" name="considerAsAttempt" id="consider-as-attempt"/>
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label">PTP Amount </label>
                                                     <div class="col-sm-4">
                                                         <input type="number" class="form-control ptp-amount-loan" id="loan_amount" name="loan_amount" v-on:change="ptpEmptyCheck"
-                                                               placeholder="PTP Amount">
+                                                               placeholder="PTP Amount" v-model="ptpAmount">
                                                     </div>
                                                     <label class="col-sm-2 control-label">Contact Details</label>
                                                     <div class="col-sm-4">
@@ -1122,17 +1147,20 @@
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </div>
-                                                            <input type="date" name="loan_ptp_date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date">
+                                                            <!--<input type="text" name="loan_ptp_date" v-model="date" class="form-control pull-right ptp-date-loan" id="loan_ptp_date"
+                                                                   placeholder="dd-mm-yyyy" >-->
+
+                                                            <input type="text" name="loan_ptp_date" v-model="date" class="form-control fu2-date-ptp ptp-date-loan"
+                                                                   placeholder="dd-mm-yyyy" />
+
                                                         </div>
                                                     </div>
                                                     <label for="card_ptp_time" class="col-sm-2 control-label">Time</label>
-                                                    <div class="col-sm-4">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-clock-o"></i>
-                                                            </div>
-                                                            <input type="time" name="loan_ptp_time" class="form-control"
-                                                                   id="card_ptp_time" placeholder="12:00 PM"/>
+                                                    <div class="col-sm-4 ">
+                                                        <div class="">
+                                                           <!-- <input type="time" class="form-control " name="followUpTime" >-->
+                                                            <input type="time" name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" />
+                                                            <input type="hidden" v-model="time">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1141,6 +1169,29 @@
                                         <br>
                                     </div>
                                 </div>
+
+
+                                <script>
+
+
+                                    var  currentDateTime = new Vue({
+                                        el: '#cureenDateTaim',
+                                        data: ({
+
+                                            date:  '',
+                                            time: '',
+
+                                        }),
+
+
+                                    });
+
+
+
+                                </script>
+
+
+
 
 
                                 <div class="csi-view-form-full-area csi-view-indtable col-sm-6">
@@ -1230,6 +1281,8 @@
 
                                     $('#reasonForDelinquencyForm input[name="_csrf"]').val(csrfToken);
                                     $('#reasonForDelinquencyForm input[name="accountNo"]').val(accountNo);
+                                    $('#acc-no').val(accountNo);
+                                    $('#acc-no1').val(accountNo);
 
 
                                     function getMemoNote() {
@@ -1564,6 +1617,8 @@
                             for (var i = 0; i < data.length; i++) {
                                 if (data != null) {
 
+                                    console.log(data);
+
                                     let date = new Date(data[i].loan_ptp_date);
                                     date.setHours(0);
                                     date.setMinutes(0);
@@ -1578,11 +1633,15 @@
                                     var str2 = '';
                                     var str3 = '';
                                     let b = date >= date1;
-                                    if (b) {
+                                    /*if (b) {
                                         if(user_designation =='Dealer') {
                                             str1 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_editRow(this," + data[i].loan_contact_details_id + "," + data[i].loan_contact_location_id + "," + data[i].loan_promisor_details_id + ",)\"> <i class=\"fa fa-edit\"></i></a>"
                                         }
+                                    }*/
+                                    if(user_designation !='Dealer') {
+                                        str1 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_editRow(this," + data[i].loan_contact_details_id + "," + data[i].loan_contact_location_id + "," + data[i].loan_promisor_details_id + ",)\"> <i class=\"fa fa-edit\"></i></a>"
                                     }
+
                                     str3 = "<a style=\"margin-left:2px\" class=\"btn btn-xs btn-info\" onclick=\"loan_ptp_viewRow(this)\"> <i class=\"fa fa-eye\"></i></a>";
                                     data[i].createdDate = this.dateFormat(data[i].createdDate);
 

@@ -52,7 +52,7 @@
                     </thead>
                     <tbody id="dealer-account-escalation-table-body">
                     <tr v-for="accountEscalation in accountEscalationList">
-                        <td><a :href="'/profile/loanprofile/search?account='+accountEscalation.accountNumber">{{accountEscalation.accountNumber}}</a></td>
+                        <td><a :href="'/profile/loanprofile/search?account='+subString(accountEscalation.accountNumber)">{{subString(accountEscalation.accountNumber)}}</a></td>
                         <td>{{accountEscalation.fromUserPin}}</td>
                         <td>{{formatDate(accountEscalation.createdDate)}}</td>
                         <td>{{accountEscalation.bucket}}</td>
@@ -95,6 +95,10 @@
                 },
                 formatDate: function (date) {
                     return formatDate_DD_MMM_YYYY(date)
+                },
+                subString: function (accounNo) {
+                    return accounNo == null ? "" :accounNo.substr(0, 13);
+
                 }
             }
         })

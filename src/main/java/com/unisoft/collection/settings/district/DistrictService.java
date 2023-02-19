@@ -4,6 +4,7 @@ Created by   Islam at 7/3/2019
 */
 
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,13 @@ public class DistrictService {
 
     @Autowired
     private DistrictDao districtDao;
+
+    @Autowired
+    private DistrictRepository districtRepository;
+
+    public DistrictEntity geByDistrickId(Long id){
+        return districtRepository.getOne(id);
+    }
 
     public List<DistrictEntity> getAll() {
         return districtDao.getList();

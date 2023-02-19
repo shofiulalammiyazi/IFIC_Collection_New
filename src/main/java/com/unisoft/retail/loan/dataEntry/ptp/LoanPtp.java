@@ -237,8 +237,7 @@ public class LoanPtp extends BaseInfo {
     private String loan_ptp_time;
     @Expose
     @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern ="dd-MM-yyyy" )
     private Date loan_ptp_date;
     @Expose
     private String loan_contact_details;
@@ -265,6 +264,12 @@ public class LoanPtp extends BaseInfo {
 
     @Transient
     private String loan_ptp_dates;
+
+    @Transient
+    private String accNo;
+
+    @Transient
+    private String considerAsAttempt;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.REFRESH)

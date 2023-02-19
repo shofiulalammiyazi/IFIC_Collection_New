@@ -20,7 +20,7 @@
                         <div class="box-body">
                             <a style="margin-bottom: 5px" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/collection/kpi/loan/weightByAmount/create')}"
                                th:href="@{/collection/kpi/loan/weightByAmount/create}"><span class="glyphicon glyphicon-plus"> </span> Add New Target Setup </a>
-                            <table th:if="${loanKPITargetWeightAmountList!=null}" style="display: block; overflow: auto" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
+                            <table th:if="${loanKPITargetWeightAmountList!=null}" style="overflow: auto" id="example" name="datatable-responsive" class="table table-condensed table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Sl No.</th>
@@ -45,31 +45,31 @@
                                     </td>-->
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden; margin-bottom: 0px;">
                                             <li style="display:inline" th:each="productType : ${byAcc?.getProductType()}"><span class="label label-success" th:text="${productType.getName()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="sectorGroup : ${byAcc?.getSectorGroup()}"><span class="label label-success" th:text="${sectorGroup.getName()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="location : ${byAcc?.getLocation()}"><span class="label label-success" th:text="${location.getCity()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="zone : ${byAcc?.getZone()}"><span class="label label-success" th:text="${zone.getName()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="dpdBucket : ${byAcc?.getDpdBucket()}"><span class="label label-success" th:text="${dpdBucket.getBucketName()}"></span></li>
                                         </ul>
                                     </td>

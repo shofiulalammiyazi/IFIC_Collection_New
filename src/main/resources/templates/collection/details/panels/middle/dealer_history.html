@@ -24,17 +24,17 @@
                 </thead>
 
                 <tbody>
-                    <!--<tr th:each="history, state : ${dealerAllocationHistory}">-->
-                        <!--<td class="text-center" th:text="${state.count}"></td>-->
-                        <!--<td th:text="${history.dealer}"></td>-->
-
-                        <!--&lt;!&ndash;<td th:text="${history?.teamleaderName}"></td>&ndash;&gt;-->
+                    <tr th:each="history, state : ${dealerAllocationHistory}">
+                        <td class="text-center" th:text="${state.count}"></td>
+                        <td th:text="${history.dealer}"></td>
 
                         <!--<td th:text="${history?.teamleaderName}"></td>-->
 
-                        <!--<td th:text="${history.teamleaderId}"></td>-->
-                        <!--<td th:text="${history.createdAt} != null ? ${#dates.format(history.createdAt,'dd-MMM-yyyy')} : ''"></td>-->
-                    <!--</tr>-->
+                        <td th:text="${history?.teamleaderName}"></td>
+
+                        <td th:text="${history.teamleaderId}"></td>
+                        <td th:text="${history.createdAt} != null ? ${#dates.format(history.createdAt,'dd-MMM-yyyy')} : ''"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

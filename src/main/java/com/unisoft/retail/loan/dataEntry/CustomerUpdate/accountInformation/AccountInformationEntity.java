@@ -48,7 +48,7 @@ public class AccountInformationEntity extends BaseInfo {
     private String totalNoOfInstallment;
     private String emiAmount;
     private String nextEMIDate;
-    private String emiDate;
+    private String firstEmiDate;
     private String ate;
     private String dpd;
     private String assetClassification;
@@ -128,4 +128,23 @@ public class AccountInformationEntity extends BaseInfo {
     private String uniqueDealLoan;
     private String loanAccountNew;
     private String isSmsSent = "N";
+    private String isDistributed = "N";
+
+    //new field 16/01/2023
+    private String division;
+    private String district;
+    private String scheduleStartDate;
+    private String dealBalanceAtStartDate;
+    private String calculatedMaturityDate;
+    private String calculatedRepaymentDate;
+    //private String calculatedRepaymentAmount;
+    private String firstRepaymentAmount;
+    private String lastRepaymentAmount;
+    private String calculatedNoOfRepayment; //Total No. of Installment :
+    //private String firstEmiDate;
+    private String frequencyCode;
+    private String jointStatus;
+
+    private String ISEscalated;
+
 }

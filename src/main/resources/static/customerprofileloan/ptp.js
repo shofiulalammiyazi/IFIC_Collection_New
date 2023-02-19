@@ -42,7 +42,7 @@ async function save_loan_ptp() {
                     booleanMesg=true;
                     // swal("Successfully saved !!");
                     $('#modal-ptp-data-create').modal('hide');
-                    $("#loan_ptpForm")[0].reset();
+                    //$("#loan_ptpForm")[0].reset();
                     ptpinfo.updateTheList();
                 }else{
                     alert("Something wrong. Please try again !");
@@ -119,7 +119,7 @@ function ptpData() {
     var startDate = new Date(date.getFullYear(), date.getMonth(), 1);
     var endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     $.ajax({
-        url: "/collection/loan/ptp//ptp-list?customerId="+id+"startDate="+startDate+"endDate="+endDate,
+        url: "/collection/loan/ptp/ptp-list?customerId="+id+"startDate="+startDate+"endDate="+endDate,
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -202,7 +202,10 @@ function loan_ptp_editRow(node,contact_id,location_id,promisor_id){
     globalRow=row;
     ptpdetails(1,contact_id,row.cells[3].innerHTML,location_id,row.cells[4].innerHTML,promisor_id,row.cells[5].innerHTML);
 
+
     $("#loan_amount_single").val(parseFloat(row.cells[2].innerHTML.replace(/,/g, '')));
+   // $("#loan_ptp_date_single").val(parseFloat(row.cells[2].innerHTML.replace(/,/g, '')));
+    //$("#loan_ptp_date_single").val(parseFloat(row.cells[3].innerHTML()));
 
     document.getElementById("card_ptp_time_single").value = row.cells[4].innerHTML.trim();
     $("#loan_ptp_remarks_single").val(row.cells[5].innerHTML.trim());
@@ -253,7 +256,7 @@ function loan_ptp_viewRow(node) {
 function ptpdetails(edit=0,contact_id=0,contact_name="",location_id=0,location_name="",promisor_id=0,promisor_name=""){
     console.log("ptp details function : "+edit)
     if(edit==0) {
-        $("#loan_amount").val("");
+        //$("#loan_amount").val("");
         // $("#loan_ptp_date").val("");
         // $("#card_ptp_time").val("");
         // $("#loan_ptp_remarks").val("");
@@ -441,6 +444,7 @@ function clearformdisable() {
 }
 
 
+/*
 $(function(){
     var dtToday = new Date();
 
@@ -472,4 +476,4 @@ $(function(){
     var maxDate = year + '-' + month + '-' + day;
     // alert(maxDate);
     $('#loan_ptp_date').attr('min', maxDate);
-});
+});*/

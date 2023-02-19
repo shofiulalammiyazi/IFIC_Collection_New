@@ -4,6 +4,8 @@ package com.unisoft.detailsOfCollection.controller;
 import com.unisoft.collection.reasonDelinquency.ReasonDelinquencyServiceImpl;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccount;
 import com.unisoft.collection.settings.deferredAccount.DeferredAccountService;
+import com.unisoft.collection.settings.district.DistrictEntity;
+import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.loansectorcode.SectorCodeEntity;
@@ -147,6 +149,9 @@ public class ProfileLoanController {
     @Autowired
     private AccountInformationService accountInformationService;
 
+    @Autowired
+    private DistrictService districtService;
+
 
 
     @GetMapping("/loan")
@@ -156,7 +161,7 @@ public class ProfileLoanController {
         model.addAttribute("branchMnemonic","");
         model.addAttribute("productCode","");
         model.addAttribute("dealReference","");
-
+        model.addAttribute("district",districtService.getAll());
         UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(user.getUsername());
 
@@ -370,6 +375,7 @@ public class ProfileLoanController {
                          accountInformationEntityList.get(0).getProductCode(),accountInformationEntityList.get(0).getDealReference());
 */
                  model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
+                 model.addAttribute("borrowerName",accountInformationEntityList.get(0).getBorrowersName());
 
                  return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
 
@@ -446,7 +452,14 @@ public class ProfileLoanController {
     public String getTest(@RequestParam(value = "account") String accountNo,
                           Model model, RedirectAttributes redirectAttributes){
 
-        LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountNo);
+
+        AccountInformationEntity accountInformationEntity = accountInformationService.findAccountInformationEntityByLoanAccountNew(accountNo);
+
+        CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntity);
+        LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntity,customerBasicInfoEntity);
+
+
+        LoanAccountBasicInfo loanAccountBasicInfo1 = loanAccountBasicService.getByAccountNo(accountNo);
 
         /*model.addAttribute("branchMnemonic",branchMnemonic);
         model.addAttribute("productCode",productCode);
@@ -454,14 +467,14 @@ public class ProfileLoanController {
 */
 
 
-        model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
+        model.addAttribute("accountConcatNumber",loanAccountBasicInfo1.getAccountNo());
 
 
-        if (loanAccountBasicInfo == null || loanAccountBasicInfo.getId() == null)
+        if (loanAccountBasicInfo1 == null || loanAccountBasicInfo1.getId() == null)
             return returnToSearchPage(redirectAttributes);
 //            return createLoanAccountAndReturnToLoan360(accountNo, redirectAttributes);
         else
-            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
+            return profileLoanDetails(loanAccountBasicInfo1.getCustomer().getId(), loanAccountBasicInfo1.getId(), model);
 
     }
 

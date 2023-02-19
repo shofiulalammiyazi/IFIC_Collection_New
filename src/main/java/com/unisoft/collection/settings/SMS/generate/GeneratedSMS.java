@@ -31,6 +31,13 @@ public class GeneratedSMS extends BaseInfo {
         this.mobileNo = mobileNo;
     }
 
+    public GeneratedSMS(Long id, String massege, String accountNo, String mobileNo) {
+        this.id = id;
+        this.massege = massege;
+        this.accountNo = accountNo;
+        this.mobileNo = mobileNo;
+    }
+
     public GeneratedSMS(Long id, SMSEntity smsType, String massege, String accountNo, String mobileNo) {
         this.id = id;
         this.smsType = smsType;

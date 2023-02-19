@@ -29,6 +29,7 @@
                                     <th>Visit Time</th>
                                     <th>Account Type</th>
                                     <th>Account/Card Number</th>
+                                    <th>District</th>
                                     <th>Location</th>
                                     <th>Remark</th>
                                     <th>Action</th>
@@ -38,17 +39,16 @@
                                 <tr th:each="visitledger,status : ${visitLedgerList}">
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${visitledger.name}"></span></td>
-                                    <td><span th:text="${visitledger.dateOfVisit}"></span></td>
+                                    <td><span th:text="${#dates.format(visitledger.dateOfVisit, 'dd-MMM-yyyy')}"></span></td>
                                     <td><span th:text="${visitledger.visitTime}"></span></td>
                                     <td><span th:text="${visitledger.productUnit}"></span></td>
                                     <td><span th:text="${visitledger.accountCardNumber}"></span></td>
+                                    <td><span th:text="${visitledger.DistrictEntity?.name}"></span></td>
                                     <td><span th:text="${visitledger.location}"></span></td>
                                     <td><span th:text="${visitledger.remark}"></span></td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" th:if="${session.urlList.contains('/collection/visitledger/edit')}"
                                            th:href="@{/collection/visitledger/edit(id=${visitledger.id})}"><i class="fa fa-edit"></i>Edit</a>
-                                        <a class="btn btn-xs btn-success" th:if="${session.urlList.contains('/collection/visitledger/view')}"
-                                           th:href="@{/collection/visitledger/view(id=${visitledger.id})}"><i class="fa fa-eye"></i>View</a>
                                         <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
                                     </td>
                                 </tr>

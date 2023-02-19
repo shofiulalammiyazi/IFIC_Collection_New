@@ -39,6 +39,10 @@ public class LoanAccountBasicService {
         return repository.findByAccountNo(accountNO).orElse(new LoanAccountBasicInfo());
     }
 
+    public LoanAccountBasicInfo getByAccountNoNew(String accountNO) {
+        return repository.findByAccountNoNew(accountNO).orElse(new LoanAccountBasicInfo());
+    }
+
     public List<LoanAccountBasicInfo> getActiveList() {
         return repository.findByEnabled(true);
     }

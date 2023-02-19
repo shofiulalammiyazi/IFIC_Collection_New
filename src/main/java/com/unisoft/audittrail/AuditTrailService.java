@@ -1,5 +1,6 @@
 package com.unisoft.audittrail;
 
+import com.google.gson.GsonBuilder;
 import com.unisoft.beans.Validation;
 import com.unisoft.user.UserPrincipal;
 import com.google.gson.Gson;
@@ -32,6 +33,17 @@ public class AuditTrailService {
         auditTrailRepository.save(auditTrail);
     }
 
+    public void saveCreatedData1(String moduleName, Object presentData) {
+        final Gson gson = new GsonBuilder().serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
+                .excludeFieldsWithModifiers()
+                .create();
+        AuditTrail auditTrail = this.newAuditTrail(moduleName, presentData.getClass().getSimpleName());
+        auditTrail.setPresentData(gson.toJson(presentData));
+        auditTrail.setOperationType("Created");
+        auditTrailRepository.save(auditTrail);
+    }
+
     public void saveUpdatedData(String moduleName, Object previosData, Object presentData) {
         AuditTrail auditTrail = this.newAuditTrail(moduleName, presentData.getClass().getSimpleName());
         auditTrail.setPreviousData(new Gson().toJson(previosData));
@@ -39,6 +51,35 @@ public class AuditTrailService {
         auditTrail.setOperationType("Updated");
         auditTrailRepository.save(auditTrail);
     }
+
+
+
+    public void saveUpdatedData1(String moduleName, Object previousData, Object presentData) {
+        AuditTrail auditTrail = this.newAuditTrail(moduleName, presentData.getClass().getSimpleName());
+
+        final Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .excludeFieldsWithModifiers()
+                .create();
+        try{
+            auditTrail.setPreviousData(new Gson().toJson(previousData));
+        }catch (Exception e){
+            auditTrail.setPreviousData(gson.toJson(previousData));
+        }
+
+        try{
+            auditTrail.setPresentData(new Gson().toJson(presentData));
+        }catch (Exception e){
+            auditTrail.setPresentData(gson.toJson(presentData));
+        }
+
+        auditTrail.setOperationType("Updated");
+        auditTrailRepository.save(auditTrail);
+    }
+
+
+
+
 
     public void saveDeletedData(String moduleName, Object presentData) {
         AuditTrail auditTrail = this.newAuditTrail(moduleName, presentData.getClass().getSimpleName());

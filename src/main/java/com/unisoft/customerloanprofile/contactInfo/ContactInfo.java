@@ -26,4 +26,7 @@ public class ContactInfo extends BaseInfo {
     @JoinColumn(name = "CUSTOMER_ID")
     private CustomerBasicInfoEntity customerBasicInfo;
 
+    @Transient
+    private String accNo;
+
 }

@@ -20,8 +20,16 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "select * From account_information_entity Where CUSTOMER_ID = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findByCustomerId(String customerId);
 
+    @Query(value = "select * From account_information_entity Where ID = ?", nativeQuery = true)
+    AccountInformationEntity findByCustId(Long id);
+
     @Query(value = "select * From account_information_entity Where replace(loanacno,' ','') = ? fetch first row only ", nativeQuery = true)
     AccountInformationEntity findAccountInformationEntityByLoanACNo(String loanACNo);
+
+
+    AccountInformationEntity findAccountInformationEntityByLoanAccountNew(String loanAccountNew);
+
+
 
     AccountInformationEntity findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(String accountNumber,String branchMnemonic,String productCode, String dealReference);
 
@@ -30,6 +38,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOAN_ACCOUNT_NEW= ?1", nativeQuery = true)
     public AccountInformationEntity getByLoanAccountNo(String accountNo);
+
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1", nativeQuery = true)
+    public AccountInformationEntity getByLoanAccountNoSub(String accountNo);
 
     @Query(value = "SELECT * " +
             "FROM ACCOUNT_INFORMATION_ENTITY " +
@@ -62,10 +73,84 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
 
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
+    //TO DO: need to change 2022-03-11 to SYSDATE+3
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' " +
+            "AND TO_DATE(EMI_DATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+    public Page<AccountInformationEntity> findAllByLoanACNoAndCurrentDatePlusThree(String accountNo, Pageable pageable);
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
 
+    //TO DO: need to change 2022-03-11 to SYSDATE+3
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
+            "TO_DATE(NEXTEMIDATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
+
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+            "<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+    List<AccountInformationEntity> findAllByEmiDatePlusThree();
+
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+            "= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
+    List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    public Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntity(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccIsSmsEntity(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZero(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    List<AccountInformationEntity> findAllAccIsSmsEntity();
+
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(String accountNo, Pageable pageable);
+
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y'" , nativeQuery = true)
+    Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(String accountNo, Pageable pageable);
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y'", nativeQuery = true)
+    Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(Pageable pageable);
+
+
+    @Query(value = "SELECT AIE.* " +
+            "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
+            "WHERE AIE.IS_SMS_SENT = 'N' " +
+            "  AND TO_DATE(AIE.NEXTEMIDATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual) " +
+            "  AND TO_NUMBER(AIE.OVERDUE) > 0 " +
+            "  AND AIE.NEXTEMIDATE IS NOT NULL " +
+            "  AND AIE.EMI_AMOUNT IS NOT NULL " +
+            "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
+            "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
+            "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
+            "                   LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_STATUS_ENTITY SADRELSE " +
+            "                     ON SADRE.ID = SADRELSE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                   LEFT JOIN LOAN_STATUS_ENTITY LSE ON SADRELSE.LOAN_STATUS_ENTITY_ID = LSE.ID " +
+            "            WHERE LSE.ENABLED = 1 AND SADRE.TYPE = 'SMS') " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.PRODUCT_CODE))) " +
+            "        IN(SELECT DISTINCT LTRIM(RTRIM(UPPER(LTE.LOAN_TYPE))) " +
+            "           FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE1 " +
+            "                  LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_TYPE_ENTITIES SADRELTE " +
+            "                    ON SADRE1.ID = SADRELTE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
+            "           WHERE LTE.ENABLED = 1 AND SADRE1.TYPE = 'SMS') " +
+            "  AND TO_NUMBER(AIE.DPD) > (SELECT TO_NUMBER(SADRE2.NO_OF_DAYS_BEFORE_EMI_DATE) FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE2 WHERE SADRE2.TYPE = 'SMS') " +
+            "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 WHERE " +
+            "    SADRE3.TYPE = 'SMS')", nativeQuery = true)
+    List<AccountInformationEntity> finAllEligibleSmsList();
 
 }

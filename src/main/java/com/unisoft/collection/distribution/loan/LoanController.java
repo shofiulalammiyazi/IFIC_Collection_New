@@ -9,6 +9,7 @@ import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasi
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicService;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionService;
+import com.unisoft.collection.distribution.loan.loanApi.LoanApiPayload;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.customerloanprofile.letterinformation.LetterInformation;
 import com.unisoft.customerloanprofile.letterinformation.LetterInformationRepository;
@@ -23,13 +24,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -188,6 +187,13 @@ public class LoanController {
         return "redirect:/distribution/loan/list";
     }
 
+    @PostMapping("dealer-wise-distribution")
+    public String saveMannualDealerWiseDistribution(@Valid @RequestBody LoanApiPayload loanApiPayload, HttpSession session) {
+        Map errors = loanDistributionService.saveMannualDealerWiseDistribution(loanApiPayload);
+        session.setAttribute("distributionErrors", errors);
+        return "redirect:/distribution/loan/list";
+    }
+
     @GetMapping("createletter")
     public String addLetterInformation() {
 
@@ -315,12 +321,13 @@ public class LoanController {
 
     private LoanViewModelForSMS getLoanViewModelForSMS(LoanAccountDistributionInfo loanAccountDistributionInfo, LoanViewModelForSMS loanViewModel) {
 
-        AccountInformationEntity accountInformationEntity = accountInformationRepository.findByCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
+        AccountInformationEntity accountInformationEntity = accountInformationRepository.getByLoanAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
+                //accountInformationRepository.findByCustId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getId());
 
         loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo());
         loanViewModel.setCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());
         loanViewModel.setCustomerName(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountName());
-        loanViewModel.setMobileNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getMobileNo());
+        loanViewModel.setMobileNo(accountInformationEntity.getMobile());
         loanViewModel.setProductName(accountInformationEntity == null?"":accountInformationEntity.getProductName());
         loanViewModel.setInstallmentAmount(loanAccountDistributionInfo.getEmiAmount().toString());
         loanViewModel.setNextEmiDate(loanAccountDistributionInfo.getEmiDueDate());

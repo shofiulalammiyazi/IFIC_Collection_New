@@ -8,6 +8,8 @@ async function followUpSave() {
     // var formValue = $("#followUpSaveForm").append();
     var formValues = $('#followUpSaveForm').serialize();
     var jsonFormData = JSON.stringify(formValues);
+    console.log("jsonFormData");
+    console.log(jsonFormData);
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     //console.log("token " + token + " Header = " + header);
@@ -22,6 +24,13 @@ async function followUpSave() {
             console.log('follow up reason: '+ followUpReason);
         }
     });
+
+    if(followUpReason.length<1){
+        $('#followUpSaveForm').find(':input:not([type=hidden])').val('');
+        $('#followUpSaveForm').find('input:checkbox').prop('checked', false);
+        return booleanMesg;
+    }
+
 
     await $.ajax({
         type: "post",
@@ -43,7 +52,7 @@ async function followUpSave() {
         $('#followUpSaveForm').find('input:checkbox').prop('checked', false);
     });
 
-    return booleanMesg
+    return booleanMesg;
 }
 
 var date = new Date();
@@ -56,6 +65,13 @@ $('.fu-date').datepicker({
 });
 $('.fu2-date').datepicker({
     endDate: date,
+    format: 'dd-mm-yyyy',
+    autoclose: true,
+    // container:'#modal-filefollowup',
+    forceParse: false
+})
+$('.fu2-date-ptp').datepicker({
+    startDate: date,
     format: 'dd-mm-yyyy',
     autoclose: true,
     // container:'#modal-filefollowup',

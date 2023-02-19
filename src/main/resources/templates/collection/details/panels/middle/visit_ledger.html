@@ -101,6 +101,16 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">District</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="DistrictEntity">
+                                            <option value="">Select District</option>
+
+                                            <option th:each="ds2 :${district}" th:value="${ds2?.id}" th:text="${ds2.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="vl_loan_remark" class="col-sm-2 control-label ">Remarks</label>
@@ -144,6 +154,7 @@
                     <th>Dealer Name</th>
                     <th>Visit Date</th>
                     <th>Visit Time</th>
+                    <th>District</th>
                     <th>Location</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -156,6 +167,7 @@
                     <td>{{visitList.username}}-{{visitList.firstName}}</td>
                     <td>{{formatDate(visitList.dateOfVisit)}}</td>
                     <td>{{visitList.visitTime}}</td>
+                    <td>{{visitList.districtEntity?.name}}</td>
                     <td>{{visitList.location}}</td>
                     <td>{{visitList.status}}</td>
                     <td>
@@ -193,6 +205,7 @@
                     permanentAddress: '',
 
                     allAddress: []
+
                 },
                 methods: {
                     formatDateInput: function (date) {

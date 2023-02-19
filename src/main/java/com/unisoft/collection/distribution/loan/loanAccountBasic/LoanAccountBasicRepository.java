@@ -12,6 +12,9 @@ public interface LoanAccountBasicRepository extends JpaRepository<LoanAccountBas
 
     Optional<LoanAccountBasicInfo> findByAccountNo(String accountNo);
 
+    @Query(value = "SELECT LABI.* FROM LOAN_ACCOUNT_BASIC_INFO LABI WHERE SUBSTR(LABI.ACCOUNT_NO,0,13) = ?1",nativeQuery = true)
+    Optional<LoanAccountBasicInfo> findByAccountNoNew(String accountNo);
+
     List<LoanAccountBasicInfo> findByEnabled(boolean enabled);
 
     @Query("SELECT DISTINCT location FROM LoanAccountBasicInfo WHERE location IS NOT NULL")

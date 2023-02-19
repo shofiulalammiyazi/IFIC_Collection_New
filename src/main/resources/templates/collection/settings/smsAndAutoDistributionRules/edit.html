@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>SMS & Auto Distribution Rules</title>
+    <link rel="stylesheet" href="/css/loader/spinner.css"/>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section id="emiAmount" class="content">
+            <div class="row" id="app">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header " style="text-align: center;">
+                            <h3 th:if="${smsAndAutoDistributionRules.id == null}" class="box-title">Create SMS & Auto Distribution Rules</h3>
+                            <h3 th:if="${smsAndAutoDistributionRules.id !=null}" class="box-title">Update SMS & Auto Distribution Rules</h3>
+
+                        </div>
+                        <form class="form-horizontal" method="post"
+                              th:action="@{/collection/settings/smsandautodistributionrules/create}" th:object="${smsAndAutoDistributionRules}">
+                            <p th:if="${error}" class="text-center text-danger" th:text="${error}">Error </p>
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="text" class="hidden" th:field="*{LoanStatusIds}" v-model="getSelectedLoanStatusId" />
+                            <input type="text" class="hidden" th:field="*{LoanTypeIds}" v-model="getSelectedLoanTypeId" />
+                            <div class="box-body">
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Type </label>
+                                        <div class="col-sm-8">
+                                            <select v-model="ruleType" class="form-control required" name="type" th:field="*{type}" @change="getByType">
+                                                <option value="">Select Rule Type</option>
+                                                <option  value="SMS">SMS</option>
+                                                <option value="Distribution">Distribution</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-body" v-if="ruleType=='SMS'">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Days Before EMI Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" name="noOfDaysBeforeEmiDate" th:field="*{noOfDaysBeforeEmiDate}" class="form-control required"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-body" v-if="ruleType=='Distribution'">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Days past Dues</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" name="noOfDaysBeforeEmiDate" th:field="*{noOfDaysBeforeEmiDate}" class="form-control required"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Unpaid Installment Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" name="unpaidInstallmentNumber" th:field="*{unpaidInstallmentNumber}" class="form-control required"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--<div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Loan Type </label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control required">
+                                                <option value="">Select</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Loan Type </label>
+                                        <div class="col-sm-8">
+                                            <multiselect  v-model="selectedLoanTypes" placeholder="Select Loan Type" label="loanType" track-by="id"  :options="loanTypeOption" :multiple="true" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Loan Status </label>
+                                        <div class="col-sm-8">
+                                            <multiselect  v-model="selectedLoanStatus" placeholder="Select Loan Status" label="name" track-by="id"  :options="loanStatusOption" :multiple="true" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer text-center">
+                                    <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                    <a type="submit" class="btn btn-danger btn-sm"
+                                       href="/collection/settings/smsandautodistributionrules/list">Cancel</a>
+                                </div>
+                                <!--<div class="box-footer text-center">
+                                <button type="submit" th:if="${unpaidInstallmentNumber.id == null && session.urlList.contains('collection/settings/unpaidinstallmentnumber/create')}" class="btn btn-info btn-sm" id="btnSave">Save</button>
+                                <button type="submit" th:if="${unpaidInstallmentNumber.id != null && session.urlList.contains('collection/settings/unpaidinstallmentnumber/create')}" class="btn btn-info btn-sm" id="btnUpdate">Update</button>
+                                </div>-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+            .box{
+                box-shadow:none;
+            }
+        </style>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var interest = /*[[${interest}]]*/ {};
+            var loanStatusList = /*[[${loanStatusList}]]*/ [];
+            var loanTypeList = /*[[${loanTypeList}]]*/ [];
+            var selectedLoanStatus = /*[[${selectedLoanStatus}]]*/ [];
+            var selectedLoanTypes = /*[[${selectedLoanTypes}]]*/ [];
+            var ruleType = /*[[${ruleType}]]*/ [];
+
+        </script>
+
+        <script>
+            var smsAndAutoDistributionRuleApp = new Vue({
+                el: '#app',
+                components:{
+                    Multiselect: VueMultiselect.default
+                },
+                data:{
+                    selectedLoanStatus:[],
+                    selectedLoanTypes:[],
+                    loanStatusOption:[],
+                    loanTypeOption:[],
+                    loanStatusList:[],
+                    active: true,
+                    inactive: false,
+                    ruleType: ruleType,
+                },
+
+                created: function () {
+
+                    this.loanStatusOption = JSON.parse(loanStatusList) ? JSON.parse(loanStatusList) : [];
+                    this.selectedLoanStatus = JSON.parse(selectedLoanStatus) ? JSON.parse(selectedLoanStatus) : [];
+                    this.loanTypeOption = JSON.parse(loanTypeList) ? JSON.parse(loanTypeList) : [];
+                    this.selectedLoanTypes = JSON.parse(selectedLoanTypes) ? JSON.parse(selectedLoanTypes) : [];
+
+                },
+                computed:{
+
+                    getSelectedLoanStatusId: function () {
+                        return this.selectedLoanStatus.map(loanStatus => { return loanStatus.id});
+                    },
+                    getSelectedLoanTypeId: function () {
+                        return this.selectedLoanTypes.map(loanType => { return loanType.id});
+                    },
+                },
+                methods:{
+                    getByType: function(){
+                        $.ajax({
+                            url:"/collection/settings/smsandautodistributionrules/getByType?type="+this.ruleType,
+                            type:"GET",
+                            success: function(res){
+                                $("#id").val(res.id);
+                            }
+                        });
+                    }
+                }
+            })
+        </script>
+
+    </div>
+</div>
+
+
+</body>
+</html>

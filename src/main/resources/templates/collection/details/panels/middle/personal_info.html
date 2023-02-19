@@ -15,43 +15,106 @@
                 <div class="loan-init-details-sp-inner">
 
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left ">Father's Name :</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Customer Type :</label>
+                        <label class="col-sm-3 custom-form-lebel"
+                               id="customerType">{{accountInformation.customerType || "-"}}</label>
 
+                        <label class="col-sm-3 custom-details-lebel-left">Date of Birth :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{accountInformation.dob || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="dateOfBirth">{{customerInfo.dateOfBirth}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left ">Father's Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="fatherName">{{accountInformation.fatherName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="fatherName">{{customerInfo.fatherName}}</label>-->
 
                         <label class="col-sm-3 custom-details-lebel-left "> Mother's Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="motherName">{{accountInformation.motherName || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="motherName">{{customerInfo.motherName}}</label>-->
-
                     </div>
+
                     <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Spouse Name :</label>
                         <label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{accountInformation.spouse != null ? accountInformation.spouse : "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="spouseNamEe">{{customerInfo.spouseName}}</label>-->
 
+                        <label class="col-sm-3 custom-details-lebel-left">Document Type :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="passportNo">{{accountInformation.docType || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="passportNo">{{customerInfo.passportNumber}}</label>-->
                     </div>
 
-
                     <div class="form-group row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Passport No. :</label>
-                        <label class="col-sm-3 custom-form-lebel" id="passportNo">{{"-"}}</label>
-                        <!--<label class="col-sm-3 custom-form-lebel" id="passportNo">{{customerInfo.passportNumber}}</label>-->
-
-                        <label class="col-sm-3 custom-details-lebel-left">National ID :</label>
+                        <label class="col-sm-3 custom-details-lebel-left">NID/Passport/BC Number :</label>
                         <label class="col-sm-3 custom-form-lebel" id="nid">{{accountInformation.nid || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="nid">{{customerInfo.nationalId}}</label>-->
-                    </div>
 
-                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">Email Address :</label>
                         <label class="col-sm-3 custom-form-lebel" id="email">{{accountInformation.email || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="email">{{customerInfo.email}}</label>-->
+                    </div>
 
-
+                    <div class="form-group row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel-left">TIN :</label>
                         <label class="col-sm-3 custom-form-lebel" id="tin">{{accountInformation.tin || "-"}}</label>
                         <!--<label class="col-sm-3 custom-form-lebel" id="tin">{{customerInfo.tinNo}}</label>-->
+
+                        <label class="col-sm-3 custom-details-lebel-left">Contact No(Home) :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{accountInformation.contractNoHome}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="contactNoHome">{{customerInfo.homePhone}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Home Address : </label>
+                        <label class="col-sm-3 custom-form-lebel" id="homeAddress">{{"-"}}</label>
+                        <!--<label class="col-sm-4 custom-form-lebel" id="homeAddress">{{customerInfo.correspondenceAddress}}</label>-->
+                        <div class="col-sm-3">
+                            <button  v-if="additionalInfo.homeAddress && !showHomeAddress" @click="showHomeAddress=true">Additional Info</button>
+                        </div>
+                        <label class="col-sm-3 custom-form-lebel" v-if="showHomeAddress">{{additionalInfo.homeAddress || "-"}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Mailing Address :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="officeAddress">{{accountInformation.address1+", "+accountInformation.address2+", "+accountInformation.address3+", "+accountInformation.address4 +" , "+accountInformation.address5}}</label>
+                        <!--<label class="col-sm-4 custom-form-lebel" id="officeAddress">{{customerInfo.correspondenceAddress}}</label>-->
+                        <div class="col-sm-2">
+                            <button  v-if="additionalInfo.officeAddress && !showOfficeAddress" @click="showOfficeAddress=true">Additional Info</button>
+                        </div>
+                        <label class="col-sm-4 custom-form-lebel" v-if="showOfficeAddress">{{additionalInfo.officeAddress}}</label>
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Permanent Address :</label>
+                        <label class="col-sm-4 custom-form-lebel" id="permanentAddress">{{"-"}}</label>
+                        <!--<label class="col-sm-4 custom-form-lebel" id="permanentAddress">{{customerInfo.permanentAddress}}</label>-->
+                        <div class="col-sm-2">
+                            <!--<button  v-if="additionalInfo.permanentAddress && !showPermanentAddress" @click="showPermanentAddress=true">Additional Info</button>-->
+                        </div>
+                        <!--<label class="col-sm-4 custom-form-lebel" v-if="showPermanentAddress">{{additionalInfo.permanentAddress}}</label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Mortgaged Property Address:</label>
+                        <label class="col-sm-4 custom-form-lebel">-</label>
+                        <!--<label class="col-sm-4 custom-form-lebel" id="mortgagedAddress"></label>-->
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">Profession Segment :</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{accountInformation.professionSegment != null?accountInformation.professionSegment:"-"}}</label>
+                        <label class="col-sm-3 custom-form-lebel" >{{professionSegment !==null?professionSegment.groupName:"-"}}</label>
+
+                    </div>
+
+                    <div class="form-group row csi-view-form-group">
+                        <label class="col-sm-3 custom-details-lebel-left">District :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="district">{{accountInformation.district || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" id="district"></label>-->
+
+                        <label class="col-sm-3 custom-details-lebel-left">Division :</label>
+                        <label class="col-sm-3 custom-form-lebel" id="division">{{accountInformation.division || "-"}}</label>
+                        <!--<label class="col-sm-3 custom-form-lebel" ></label>-->
                     </div>
 
                 </div>
