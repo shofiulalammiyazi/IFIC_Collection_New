@@ -39,25 +39,25 @@
                                 <tr th:each="byAcc,status : ${loanKPIByAmountList}">
                                     <td th:text="${status.count}"></td>
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="productType : ${byAcc?.getProductType()}"><span class="label label-success" th:text="${productType.getName()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="sectorGroup : ${byAcc?.getSectorGroup()}"><span class="label label-success" th:text="${sectorGroup.getName()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="location : ${byAcc?.getLocation()}"><span class="label label-success" th:text="${location.getCity()}"></span></li>
                                         </ul>
                                     </td>
 
                                     <td>
-                                        <ul style="list-style: none; overflow-x:hidden; white-space:nowrap; margin-bottom: 0px;">
+                                        <ul style="list-style: none; overflow-x:hidden;  margin-bottom: 0px;">
                                             <li style="display:inline" th:each="zone : ${byAcc?.getZone()}"><span class="label label-success" th:text="${zone.getName()}"></span></li>
                                         </ul>
                                     </td>
