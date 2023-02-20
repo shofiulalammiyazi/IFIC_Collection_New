@@ -83,18 +83,18 @@
                         You have been logged out
                     </div>
                 </div>
-
+                isUserNull
                 <div th:if="${session.isLate}" style=" text-align: center; width: 100%;">
                     <div class="alert alert-info">
                         Please select a late reason.
                     </div>
                 </div>
 
-                <div th:if="${isUserNull}" style=" text-align: center; width: 100%;">
-                    <div class="alert alert-info">
-                        User not found!
-                    </div>
-                </div>
+                <!--<div th:if="${isUserNull}" style=" text-align: center; width: 100%;">-->
+                    <!--<div class="alert alert-info">-->
+                        <!--User not found!-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="form-group has-feedback">
                     <input

@@ -248,8 +248,8 @@ public class HomeController {
 
         addLateReasonInfo(model);
 
-        if(principal == null)
-            model.addAttribute("isUserNull",true);
+//        if(principal == null)
+//            model.addAttribute("isUserNull",true);
 
         return "common/login/login";
     }
