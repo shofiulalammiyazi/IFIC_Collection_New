@@ -96,7 +96,7 @@ public class LoanAutoDistributionController {
         model.addAttribute("smsEntityList", smsEntityList);
 
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
-}
+    }
 
     @GetMapping("delinquint-ac-list")
     public String getAllDelinquentAccList(Model model) {
@@ -118,7 +118,6 @@ public class LoanAutoDistributionController {
     }
 
 
-
     @GetMapping("redistribute")
     public String redistributeDelinquentAccounts() {
         autoDistributionService.getCurrentMonthDelinquentAccountsFromClientApi();
@@ -128,7 +127,7 @@ public class LoanAutoDistributionController {
 
     @GetMapping("/sendsms")
     public ResponseEntity<Map<String, Object>> generatesms(@RequestParam(value = "accountNo") List<String> loanViewModelForSMS,
-                                                           @RequestParam(value = "smsType") Long smsType, Model model){
+                                                           @RequestParam(value = "smsType") Long smsType, Model model) {
 
         Map<String, Object> map = new HashMap<>();
         String sms = "";
@@ -138,49 +137,43 @@ public class LoanAutoDistributionController {
         SMSEntity smsEntity = smsService.findSmsById(smsType);
         TemplateGenerate templateGenerate = templateGenerateRepository.findTemGenBySmsTypeId(smsType);
 
-        for(String acc : loanViewModelForSMS){
+        for (String acc : loanViewModelForSMS) {
             String[] content = acc.split(":");
             sms = templateGenerate.getMassege();
-            sms = sms.replace("{{F.accountNo}}",content[0]);
-            sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(content[3])/100));
-            sms = sms.replace("{{F.nextEmiDate}}",content[4]);
-            sms = sms.replace("{{F.currentMonth}}",content[5]);
-            sms = sms.replace("{{F.productName}}",content[2]);
-            GeneratedSMS generatedSMS1 = new GeneratedSMS(Long.valueOf(content[8]),smsEntity,sms,content[0],content[1]);
+            sms = sms.replace("{{F.accountNo}}", content[0]);
+            sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Integer.parseInt(content[3]) / 100));
+            sms = sms.replace("{{F.nextEmiDate}}", content[4]);
+            sms = sms.replace("{{F.currentMonth}}", content[5]);
+            sms = sms.replace("{{F.productName}}", content[2]);
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(Long.valueOf(content[8]), smsEntity, sms, content[0], content[1]);
             generatedSMS.add(generatedSMS1);
         }
 
         String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
-        map.put("state",status);
+        map.put("state", status);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @Scheduled(cron = "0 30 10 * * *")
     @GetMapping("/sendAllSms")
-    public String autoSmsEmiDateWise(){
+    public String autoSmsEmiDateWise() {
         String smsType = "";
         String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
                 "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
                 "Pls, ignore if it is already paid.";
 
-        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByEmiDateOnlyPlusThree();
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleSmsList();
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
-        for(AccountInformationEntity acc : accountInformationEntities){
-            List<SmsAndAutoDistributionRulesEntityDto> rules = smsAndAutoDistributionRulesService.getByLoanStatusAndLoanType(acc.getProductCode(), acc.getLoanCLStatus());
-            //sms = templateGenerate.getMassege();
-            if(acc.getNextEMIDate() != null && rules.size()>0 &&
-               Integer.parseInt(acc.getNoOfInstallmentDue())<Integer.parseInt(rules.get(0).getUnpaidInstallmentNumber())
-            && acc.getEmiAmount() != null && acc.getMobile() != null){
-                sms = sms.replace("{{F.accountNo}}",acc.getLoanACNo());
-                sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getOverdue())/100));
-                sms = sms.replace("{{F.nextEmiDate}}",acc.getNextEMIDate());
-                sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
-                sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
-                //TODO change phone number here use acc.getMobile()
-                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01750734960");
-                generatedSMS.add(generatedSMS1);
-            }
+        for (AccountInformationEntity acc : accountInformationEntities) {
+            sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
+            sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Integer.parseInt(acc.getOverdue()) / 100));
+            sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
+            sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
+            sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
+            //TODO change phone number here use acc.getMobile()
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01750734960");
+            generatedSMS.add(generatedSMS1);
         }
         String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
 
@@ -205,7 +198,7 @@ public class LoanAutoDistributionController {
         String fileName = "UnAllocated_Account_List.xlsx";
         File file = new File("src/main/resources/generatedExcel");
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename="+ fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 
         try {
             FileInputStream fileInputStream = new FileInputStream(file + "/" + fileName);

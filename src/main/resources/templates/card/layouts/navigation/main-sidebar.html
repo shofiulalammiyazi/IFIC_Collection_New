@@ -27,7 +27,7 @@
 
                         <!--Administrative Tool-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Administrative Tool')}">
                                 <i class="fa fa-cogs"></i>
                                 <span>Administrative Tool</span>
                                 <span class="pull-right-container">
@@ -122,7 +122,7 @@
 
                         <!--Control Panel-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Control Panel')}">
                                 <i class="fa fa-wrench"></i>
                                 <span>Control Panel</span>
                                 <span class="pull-right-container">
@@ -853,7 +853,7 @@
 
                         <!--Profile-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Profile')}">
                                 <i class="	fa fa-address-book-o"></i>
                                 <span>Profile</span>
                                 <span class="pull-right-container">
@@ -876,7 +876,7 @@
 
                         <!--Report-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Reports')}">
                                 <i class="fa fa-files-o"></i>
                                 <span>Report</span>
                                 <span class="pull-right-container">
@@ -997,7 +997,7 @@
 
                         <!--Search-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Search')}">
                                 <i class="fa fa-search"></i>
                                 <span>Search</span>
                                 <span class="pull-right-container">
@@ -1024,7 +1024,7 @@
 
                         <!--Other-->
                         <li class="treeview">
-                            <a href="#">
+                            <a href="#" th:if="${session.urlList.contains('Other Tab')}">
                                 <i class="fa fa-question"></i>
                                 <span>Other</span>
                                 <span class="pull-right-container">
