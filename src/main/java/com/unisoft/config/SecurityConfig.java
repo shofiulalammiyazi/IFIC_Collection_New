@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 @EnableWebSecurity
-@Order(2)
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 

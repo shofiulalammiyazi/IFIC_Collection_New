@@ -66,6 +66,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -159,14 +160,14 @@ public class HomeController {
     @GetMapping("/")
     public String showLandingPage(Principal principal, HttpSession session, Model model,
                                   @RequestParam(value = "viewCardDash", required = false) boolean viewCardDash,
-                                  HttpServletResponse response) throws Exception {
+                                  HttpServletResponse response, HttpServletRequest request) throws Exception {
 
         Date startDate = dateUtils.getMonthStartDate();
         Date endDate = dateUtils.getMonthEndDate();
 
         if (principal != null) {
 
-            UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserPrincipal userPrincipal = httpSessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userService.getUserByUsername(userPrincipal.getUsername());
 
             if(user.getIsAgency()){
@@ -246,6 +247,9 @@ public class HomeController {
         }
 
         addLateReasonInfo(model);
+
+        if(principal == null)
+            model.addAttribute("isUserNull",true);
 
         return "common/login/login";
     }
@@ -1274,6 +1278,8 @@ public class HomeController {
             model.addAttribute("peopleAllocationLogic", peopleAllocationLogicRepository.findFirstByDealerAndUnitOrderByCreatedDateDesc(employee, "Loan"));
             return "dashboard/loan/dealer/main";
         }
+
+
         return "common/login/login";
     }
 

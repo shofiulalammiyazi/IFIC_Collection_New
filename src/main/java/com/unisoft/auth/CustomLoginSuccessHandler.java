@@ -20,6 +20,7 @@ import com.unisoft.user.UserPrincipal;
 //import org.slf4j.LoggerFactory;
 import com.unisoft.utillity.DateUtils;
 import com.unisoft.utillity.HttpSessionUtils;
+import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,8 +55,16 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     public void
     onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                             Authentication authentication) throws IOException, ServletException {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrincipal principal = sessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //UserPrincipal principal = new UserPrincipal();
+        //UserPrincipal userPrincipal = new UserPrincipal();
+        //principal.setUsername(authentication.getName());
+
+        //(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findUserByUsername(principal.getUsername());
+        //principal.setFirstName(user.getFirstName());
+        //principal.setLastName(user.getLastName());
+
         user.setLoggedIn(true);
         userDao.update(user);
         interceptorConfig.BeginPermissionFilter(request);
@@ -90,6 +99,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         Date endDate = dateUtils.getMonthEndDate();
         if (!user.getIsAgency() && principal != null) {
             EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(principal.getEmpId());
+            //principal.setEmpId(String.valueOf(employeeInfoEntity.getId()));
             List<LateReasonExplainInfo> lateReasonExplainInfos = lateReasonExplainRepository.findByCreatedDateIsBetweenAndUserOrderByCreatedDateDesc(startDate, endDate, employeeInfoEntity.getUser());
             sessionUtils.setEmployeeSessionAttributes(request.getSession(), employeeInfoEntity, lateReasonExplainInfos);
         }

@@ -1,5 +1,6 @@
 package com.unisoft.utillity;
 
+import com.unisoft.collection.settings.employee.EmployeeRepository;
 import com.unisoft.collection.settings.loginPolicy.LoginPolicyService;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
@@ -7,9 +8,13 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainInfo;
 import com.unisoft.role.Role;
+import com.unisoft.user.User;
 import com.unisoft.user.UserPrincipal;
+import com.unisoft.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -84,6 +89,29 @@ public class HttpSessionUtils {
             session.setAttribute("loginStatus", lateReasons.size() == 0 ? "" : lateReasons.get(0).getLateReasonEntity().getReasonTitle());
             session.setMaxInactiveInterval(sessionIdleMinutes * 60); // Convert minutes into seconds
         }
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    public  UserPrincipal getUserPrinciple(){
+
+        UserPrincipal userPrincipal = new UserPrincipal();
+        LdapUserDetails ldapUserDetails = (LdapUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User  user = userRepository.findUserByUsername(ldapUserDetails.getUsername());
+        EmployeeInfoEntity employeeInfoEntity = employeeRepository.findByUserId(user.getUserId());
+
+        userPrincipal.setId(user.getUserId());
+        userPrincipal.setUsername(user.getUsername());
+        userPrincipal.setFirstName(user.getFirstName());
+        userPrincipal.setLastName(user.getLastName());
+        userPrincipal.setEmpId(user.getUsername());
+        userPrincipal.setBranchCode(employeeInfoEntity.getBranch() == null ? "" : employeeInfoEntity.getBranch().getBranchCode());
+
+       return userPrincipal;
     }
 
 

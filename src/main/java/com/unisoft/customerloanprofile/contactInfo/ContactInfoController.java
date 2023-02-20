@@ -71,7 +71,7 @@ public class ContactInfoController {
         //if contact fail based on consideration as attempt = Call Not Received
         if(!contactInfo.getAttempt().equalsIgnoreCase("Call Received")) {
             sms = "We have tried and failed to reach you over phone." +
-                    " Pls, pay the unpaid installment {{F.installmentAmount}} against " +
+                    " Pls, pay the unpaid installment BDT {{F.installmentAmount}} against " +
                     "{{F.productName}} by " + getNextOrPreviousDate(new Date(), 3) + " to avoid penal charge.";
 
             AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(contactInfo.getAccNo());
@@ -79,7 +79,7 @@ public class ContactInfoController {
             List<GeneratedSMS> generatedSMS = new ArrayList<>();
             if (acc.getNextEMIDate() != null) {
                 sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
-                sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Integer.parseInt(acc.getOverdue()) / 100));
+                sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Double.parseDouble(acc.getOverdue()) / 100));
                 sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
                 sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}", acc.getProductName().trim());

@@ -4,9 +4,10 @@ import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainInfo;
 import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainRepository;
 import com.unisoft.user.User;
 import com.unisoft.user.UserDao;
-import com.unisoft.user.UserPrincipal;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+import com.unisoft.user.UserPrincipal;
+import com.unisoft.user.ad.UserADPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.core.Authentication;
@@ -31,7 +32,6 @@ public class SessionEndListener implements ApplicationListener<SessionDestroyedE
     public void onApplicationEvent(SessionDestroyedEvent event) {
         event.getSecurityContexts().parallelStream().forEach(sec -> {
             Authentication auth = sec.getAuthentication();
-//            logger.debug(auth.getName());
             UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
             User user = userDao.findUserByUsername(userPrincipal.getUsername());
             user.setLoggedIn(false);

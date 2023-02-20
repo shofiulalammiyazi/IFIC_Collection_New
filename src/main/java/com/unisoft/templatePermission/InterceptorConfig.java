@@ -6,7 +6,9 @@ import com.unisoft.user.User;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.user.UserRepository;
 import com.google.gson.Gson;
+import com.unisoft.utillity.HttpSessionUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -29,6 +31,9 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
     private HttpSession permissionSession;
     public boolean check = false;
 
+    @Autowired
+    private HttpSessionUtils httpSessionUtils;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(permissionInterceptor);
@@ -36,7 +41,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
 
     public void BeginPermissionFilter(HttpServletRequest request) {
         Gson gson = new Gson();
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrincipal userPrincipal = httpSessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userEntity = userRepository.findById(userPrincipal.getId()).orElse(null);
         if (userEntity == null) return;
 
