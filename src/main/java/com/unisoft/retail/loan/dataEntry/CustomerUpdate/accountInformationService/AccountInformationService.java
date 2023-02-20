@@ -2,9 +2,8 @@ package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationServi
 
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
-import com.unisoft.collection.distribution.loan.LoanDistributionService;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
-import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInfoSMSDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
@@ -17,9 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.unisoft.retail.loan.dataEntry.distribution.auto.Datatable;
+import javax.persistence.Tuple;
 
 @Service
 public class AccountInformationService {
@@ -400,14 +397,34 @@ public class AccountInformationService {
 
     public ResponseEntity findAllAndPagination(int page, int length, String accountNo) {
         Pageable pageElements = PageRequest.of(page, length);
-        Page<AccountInformationEntity> allProducts;
+        Page<AccountInfoSMSDto> accountInfoSMSDtos1 = null;
+
+        int size = accountInformationRepository.finAllEligibleSmsListCount();
+
         if (accountNo != null && accountNo != "") {
-            allProducts = accountInformationRepository.findAllByLoanACNoAndCurrentDatePlusThree(accountNo, pageElements);
+            List<Tuple> tuples = accountInformationRepository.finAllEligibleSmsList(accountNo);
+            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples);
+            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         } else {
-            allProducts = accountInformationRepository.findAllAccByCurrentDatePlusThree(pageElements);
+            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleSmsList1(pageElements);//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
+            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples1);
+            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         }
-        return ResponseEntity.ok(allProducts);
+        return ResponseEntity.ok(accountInfoSMSDtos1);
     }
+
+
+    public List<AccountInfoSMSDto> setValueToSMSDto(List<Tuple> tuples){
+        List<AccountInfoSMSDto> accountInfoSMSDtos = new ArrayList<>();
+
+        for(Tuple t : tuples){
+            accountInfoSMSDtos.add(new AccountInfoSMSDto(t));
+        }
+
+        return accountInfoSMSDtos;
+    }
+
+
 
     public ResponseEntity findAllByOverdueGreaterThanZero(int page, int length, String accountNo) {
         Pageable pageElements = PageRequest.of(page, length);
