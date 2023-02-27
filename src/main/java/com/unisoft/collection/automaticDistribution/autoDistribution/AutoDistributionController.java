@@ -1,5 +1,7 @@
 package com.unisoft.collection.automaticDistribution.autoDistribution;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.automaticDistribution.distributionExceptionLoan.DistributionExceptionLoan;
@@ -30,8 +32,6 @@ import com.unisoft.collection.settings.dealerPerformance.DealerPerformanceReposi
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

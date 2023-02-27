@@ -1,20 +1,13 @@
 package com.unisoft.user;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unisoft.beans.Validation;
+import com.unisoft.collection.settings.branch.Branch;
+import com.unisoft.collection.settings.branch.BranchService;
 import com.unisoft.collection.settings.loginPolicy.LoginPolicyEntity;
 import com.unisoft.collection.settings.loginPolicy.LoginPolicyService;
 import com.unisoft.workflow.propertyBasedMakerChecker.PropertyBasedMakerCheckerService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisUnauthorizedException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +18,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.unisoft.collection.settings.branch.Branch;
-import com.unisoft.collection.settings.branch.BranchService;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor

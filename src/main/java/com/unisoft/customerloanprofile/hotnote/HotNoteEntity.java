@@ -1,9 +1,9 @@
 package com.unisoft.customerloanprofile.hotnote;
 
-import com.unisoft.common.CommonEntity;
-import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
+import com.unisoft.common.CommonEntity;
+import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import lombok.Data;
 
 import javax.persistence.CascadeType;

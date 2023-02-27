@@ -3,17 +3,9 @@ package com.unisoft.collection.distribution.samAccountHandover;
 Created by   Islam at 8/1/2019
 */
 
-import com.unisoft.dms.DmsFileSaver;
+import com.google.gson.Gson;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountOtherInfo.CardAccountOtherInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountOtherInfo.CardAccountOtherService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountInfo.CardAccountInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountInfo.CardAccountService;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountInfo;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountService;
@@ -26,8 +18,16 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
+import com.unisoft.dms.DmsFileSaver;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountInfo.CardAccountInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountInfo.CardAccountService;
+import com.unisoft.retail.card.dataEntry.distribution.accountOtherInfo.CardAccountOtherInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountOtherInfo.CardAccountOtherService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;

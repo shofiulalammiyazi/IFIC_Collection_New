@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.letter;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.LoanController;
 import com.unisoft.collection.distribution.loan.LoanViewModel;
@@ -9,7 +10,6 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

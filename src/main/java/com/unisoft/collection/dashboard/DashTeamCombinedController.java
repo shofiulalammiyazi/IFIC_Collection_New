@@ -13,14 +13,10 @@ import com.unisoft.collection.KPI.Loan.TargetWeightByAccount.LoanKPITargetWeight
 import com.unisoft.collection.KPI.Loan.TargetWeightByAmount.LoanKPITargetWeightByAmountEntity;
 import com.unisoft.collection.KPI.Loan.TargetWeightByAmount.LoanKPITargetWeightByAmountService;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
 import com.unisoft.collection.distribution.agencyAllocation.loan.LoanAgencyDistributionInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.NPLQueueAccRule.NPLQueueAccRuleEntity;
 import com.unisoft.collection.settings.NPLQueueAccRule.NPLQueueAccService;
-import com.unisoft.retail.loan.setup.nplReleaseLoan.NplReleaseLoan;
-import com.unisoft.retail.loan.setup.nplReleaseLoan.NplReleaseLoanService;
 import com.unisoft.collection.settings.PARaccountRuleLoan.PARaccountRuleLoanEntity;
 import com.unisoft.collection.settings.PARaccountRuleLoan.PARaccountRuleLoanService;
 import com.unisoft.collection.settings.PARqueueAccRuleLoan.PARqueueAccRuleLoanEntity;
@@ -40,10 +36,13 @@ import com.unisoft.collection.settings.nplAccountRule.NPLAccountRuleService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.customerloanprofile.diarynote.DairyNotesLoanRepository;
-
 import com.unisoft.customerloanprofile.loanpayment.LoanPayment;
-import com.unisoft.retail.loan.dataEntry.ptp.LoanPtp;
 import com.unisoft.retail.card.dataEntry.dairynotes.DairyNotesRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
+import com.unisoft.retail.loan.dataEntry.ptp.LoanPtp;
+import com.unisoft.retail.loan.setup.nplReleaseLoan.NplReleaseLoan;
+import com.unisoft.retail.loan.setup.nplReleaseLoan.NplReleaseLoanService;
 import com.unisoft.retail.loan.setup.parReleaseLoan.ParReleaseLoan;
 import com.unisoft.retail.loan.setup.parReleaseLoan.ParReleaseLoanService;
 import com.unisoft.user.UserPrincipal;
@@ -62,7 +61,9 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

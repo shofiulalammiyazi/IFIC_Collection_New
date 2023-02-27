@@ -1,8 +1,8 @@
 package com.unisoft.customerloanprofile.contactInfo;
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import javax.persistence.*;

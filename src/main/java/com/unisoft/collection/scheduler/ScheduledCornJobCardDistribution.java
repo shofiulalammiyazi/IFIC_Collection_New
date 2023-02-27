@@ -1,24 +1,23 @@
 package com.unisoft.collection.scheduler;
 
-import com.unisoft.collection.settings.PARAccountRuleCard.PARAccountRuleCardEntity;
-import com.unisoft.collection.settings.PARreleaseAmount.PARReleaseAmountEntity;
-import com.unisoft.collection.settings.PARreleaseAmount.PARReleaseAmountService;
-import com.unisoft.retail.card.dataEntry.ptp.CardPtp;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.dashboard.*;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
-import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardEntity;
-import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardService;
 import com.unisoft.collection.settings.NPLreleaseAmount.NPLReleaseAmountEntity;
 import com.unisoft.collection.settings.NPLreleaseAmount.NPLReleaseAmountService;
+import com.unisoft.collection.settings.PARAccountRuleCard.PARAccountRuleCardEntity;
 import com.unisoft.collection.settings.PARAccountRuleCard.PARAccountRuleCardService;
+import com.unisoft.collection.settings.PARreleaseAmount.PARReleaseAmountEntity;
+import com.unisoft.collection.settings.PARreleaseAmount.PARReleaseAmountService;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeRepository;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeRepository;
+import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardEntity;
+import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
-
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.ptp.CardPtp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;

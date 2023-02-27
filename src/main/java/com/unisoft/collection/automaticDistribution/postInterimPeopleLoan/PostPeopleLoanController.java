@@ -1,10 +1,10 @@
 package com.unisoft.collection.automaticDistribution.postInterimPeopleLoan;
 
 
+import com.google.gson.Gson;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

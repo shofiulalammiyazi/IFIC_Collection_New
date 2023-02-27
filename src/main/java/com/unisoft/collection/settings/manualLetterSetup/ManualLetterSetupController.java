@@ -1,11 +1,11 @@
 package com.unisoft.collection.settings.manualLetterSetup;
 
 
+import com.google.gson.Gson;
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.settings.designation.DesignationEntity;
 import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;

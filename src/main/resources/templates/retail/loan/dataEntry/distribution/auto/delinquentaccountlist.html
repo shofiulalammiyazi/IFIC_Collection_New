@@ -28,24 +28,24 @@
                         </div>
 
                         <!--<div class="col-sm-12" style="margin-top: 10px">-->
-                            <!--<div class="col-sm-3 text-right"><label class="control-label">SMS Type </label></div>-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<select name="letterType" v-model="letterType" id="letterType" class="form-control required" @change="getSmsContent()">-->
-                                    <!--<option class="form-control required" value="" selected>Select a Letter Type</option>-->
-                                    <!--<option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>-->
-                                <!--</select>-->
-                            <!--</div>-->
+                        <!--<div class="col-sm-3 text-right"><label class="control-label">SMS Type </label></div>-->
+                        <!--<div class="col-sm-6">-->
+                        <!--<select name="letterType" v-model="letterType" id="letterType" class="form-control required" @change="getSmsContent()">-->
+                        <!--<option class="form-control required" value="" selected>Select a Letter Type</option>-->
+                        <!--<option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>-->
+                        <!--</select>-->
+                        <!--</div>-->
                         <!--</div>-->
 
                         <!--<div class="col-sm-12" style="margin-top: 10px; margin-bottom: 10px;">-->
-                            <!--<div class="col-sm-3 text-right"><label class="control-label">Message </label></div>-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<textarea class="form-control" id="message"></textarea>-->
-                            <!--</div>-->
+                        <!--<div class="col-sm-3 text-right"><label class="control-label">Message </label></div>-->
+                        <!--<div class="col-sm-6">-->
+                        <!--<textarea class="form-control" id="message"></textarea>-->
+                        <!--</div>-->
                         <!--</div>-->
 
                         <!--<div class="col-sm-9" style="margin-top: 10px; margin-bottom: 10px;">-->
-                            <!--<button class="btn btn-primary pull-right" @click="generateSms()" id="sendSms">Send SMS</button>-->
+                        <!--<button class="btn btn-primary pull-right" @click="generateSms()" id="sendSms">Send SMS</button>-->
                         <!--</div>-->
 
                         <div class="col-sm-12">
@@ -76,7 +76,7 @@
                                                    style="max-height: 30em" id="loan-auto-distribution-list-table">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <td class="text-right" colspan="14">
+                                                    <td class="text-right" colspan="16">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -100,6 +100,8 @@
                                                     <th class="text-center">EMI Date</th>
                                                     <th class="text-center">No Of Installment Due</th>
                                                     <th class="text-center">Loan Status</th>
+                                                    <th class="text-center">Distribution Status</th>
+                                                    <th class="text-center">SMS Sending Status</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
@@ -123,11 +125,16 @@
                                                     <td>{{data.nextEMIDate}}</td>
                                                     <td>{{data.noOfInstallmentDue}}</td>
                                                     <td>{{data.loanCLStatus}}</td>
+                                                    <td>{{data.isDistributed== 'Y' ? "Yes": "No"}}</td>
+                                                    <td>{{data.isSmsSent== 'Y' ? "Yes": "No"}}</td>
+
                                                 </tr>
+
                                                 </tbody>
+
                                                 <tfoot>
                                                 <tr>
-                                                    <td class="text-right" colspan="14">
+                                                    <td class="text-right" colspan="16">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>

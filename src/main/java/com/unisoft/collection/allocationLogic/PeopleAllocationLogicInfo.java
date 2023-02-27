@@ -4,9 +4,9 @@ Created by   Islam at 7/18/2019
 */
 
 import com.unisoft.base.BaseInfo;
+import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.branch.Branch;
-import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.location.LocationEntity;

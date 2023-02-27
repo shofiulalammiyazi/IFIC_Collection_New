@@ -6,7 +6,6 @@ import com.unisoft.collection.settings.loanStatus.LoanStatusRepository;
 import com.unisoft.collection.settings.loanType.LoanTypeEntity;
 import com.unisoft.collection.settings.loanType.LoanTypeRepository;
 import com.unisoft.user.UserPrincipal;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/collection/settings/smsandautodistributionrules/")

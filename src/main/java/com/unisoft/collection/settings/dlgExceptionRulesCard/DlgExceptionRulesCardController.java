@@ -1,6 +1,8 @@
 package com.unisoft.collection.settings.dlgExceptionRulesCard;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
@@ -9,8 +11,6 @@ import com.unisoft.collection.settings.productType.ProductTypeService;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;

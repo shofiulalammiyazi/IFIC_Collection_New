@@ -58,7 +58,7 @@
                                                    style="max-height: 30em" id="loan-auto-distribution-list-table">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <td class="text-right" colspan="14">
+                                                    <td class="text-right" colspan="15">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -82,6 +82,7 @@
                                                     <th class="text-center">EMI Date</th>
                                                     <th class="text-center">No Of Installment Due</th>
                                                     <th class="text-center">Loan Status</th>
+                                                    <th class="text-center">SMS Sending Status</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
@@ -91,9 +92,9 @@
                                                             <input :id="'data-' + index" type="checkbox" :value="data.loanACNo"
                                                                    class="mdl-checkbox__input" @click="getData(data,index)">
                                                             <!--<label class="mdl-checkbox mdl-js-checkbox">-->
-                                                                <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
-                                                                       <!--:value="loan.accountNo" type="checkbox"-->
-                                                                       <!--class="mdl-checkbox__input" checked>-->
+                                                            <!--<input v-model="selectedList" :id="'loan' + loan.index"-->
+                                                            <!--:value="loan.accountNo" type="checkbox"-->
+                                                            <!--class="mdl-checkbox__input" checked>-->
                                                             <!--</label>-->
                                                         </label>
                                                     </td>
@@ -110,11 +111,12 @@
                                                     <td>{{data.nextEMIDate}}</td>
                                                     <td>{{data.noOfInstallmentDue}}</td>
                                                     <td>{{data.loanCLStatus}}</td>
+                                                    <td>{{data.isSmsSent== 'Y' ? "Yes": "No"}}</td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <td class="text-right" colspan="14">
+                                                    <td class="text-right" colspan="15">
                                                         <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
                                                         <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
                                                         <span>Page : {{allAccountInformation.number+1}}</span>
@@ -213,12 +215,12 @@
                             }).then(res => {
 
                                 if (res.body) {
-                                    alert("saved successfully");
-                                    document.location.reload();
-                                }
-                            }).catch(err => {
+                                alert("saved successfully");
+                                document.location.reload();
+                            }
+                        }).catch(err => {
                                 console.log(err);
-                            })
+                        })
                         },
                         getData(loan,index) {
 

@@ -1,16 +1,15 @@
 package com.unisoft.customerloanprofile.followup;
 
 
-import com.unisoft.base.BaseInfo;
-import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
+import com.unisoft.base.BaseInfo;
+import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 

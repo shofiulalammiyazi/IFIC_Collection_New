@@ -1,9 +1,9 @@
 package com.unisoft.user;
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.role.Role;
 import com.unisoft.workflow.propertyBasedMakerChecker.PropertyBasedMakerCheckerModel;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

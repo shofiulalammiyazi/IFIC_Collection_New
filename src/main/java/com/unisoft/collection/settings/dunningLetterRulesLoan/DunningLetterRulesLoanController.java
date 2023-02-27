@@ -1,9 +1,9 @@
 package com.unisoft.collection.settings.dunningLetterRulesLoan;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;
 import com.unisoft.collection.settings.manualLetterSetup.ManualLetterSetupService;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

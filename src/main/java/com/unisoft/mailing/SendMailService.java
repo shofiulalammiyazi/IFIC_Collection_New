@@ -1,6 +1,5 @@
 package com.unisoft.mailing;
 
-import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;

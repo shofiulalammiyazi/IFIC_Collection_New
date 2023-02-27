@@ -14,6 +14,7 @@ import com.unisoft.customerloanprofile.loanpayment.LoanPayment;
 import com.unisoft.customerloanprofile.loanpayment.LoanPaymentRepository;
 import com.unisoft.dataStore.loanListing.LoanListingService;
 import com.unisoft.loanApi.model.LoanAccDetails;
+import com.unisoft.loanApi.model.LoanAccStatement;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.loan.dashboard.kpi.LoanKpiTargetVsAchievementSevrice;
 import com.unisoft.retail.loan.dataEntry.distribution.auto.LoanAutoDistributionService;
@@ -21,7 +22,6 @@ import com.unisoft.retail.loan.dataEntry.manualAccountWriteOff.ManualAccountWrit
 import com.unisoft.retail.loan.dataEntry.ptp.LoanPtp;
 import com.unisoft.retail.loan.dataEntry.ptp.LoanPtpDao;
 import com.unisoft.retail.loan.dataEntry.ptp.LoanPtpRepository;
-import com.unisoft.loanApi.model.LoanAccStatement;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.unisoft.customerloanprofile.followup;
 
-import com.unisoft.utillity.StringUtils;
 import com.google.gson.Gson;
+import com.unisoft.utillity.StringUtils;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 

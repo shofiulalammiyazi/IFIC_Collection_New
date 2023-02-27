@@ -1,8 +1,8 @@
 package com.unisoft.collection.reasonDelinquency;
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.common.CommonEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import javax.persistence.*;

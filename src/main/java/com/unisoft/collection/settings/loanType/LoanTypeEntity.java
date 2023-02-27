@@ -1,6 +1,5 @@
 package com.unisoft.collection.settings.loanType;
 
-import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import lombok.Data;
 

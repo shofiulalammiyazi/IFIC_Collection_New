@@ -5,11 +5,6 @@ Created by   Islam at 8/1/2019
 
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionService;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicService;
@@ -19,6 +14,11 @@ import com.unisoft.collection.distribution.loan.loanApi.LoanApiPayload;
 import com.unisoft.collection.distribution.samAccountHandover.SamAccountHandoverInfo;
 import com.unisoft.collection.distribution.samAccountHandover.SamAccountHandoverRepository;
 import com.unisoft.collection.distribution.samAccountHandover.SamAccountHandoverService;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionService;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,7 @@
 package com.unisoft.user.ad;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
-
-import java.util.Collection;
 
 @Data
 public class UserADPrinciple extends LdapUserDetailsImpl{

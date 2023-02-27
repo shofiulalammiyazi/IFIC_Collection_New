@@ -54,12 +54,7 @@
                                          alt="User Image">
                                     <span class="hidden-xs" sec:authentication="principal.firstName"></span>
                                 </a>
-
-
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <img th:if="${session.userPhoto}"
+~Nif="${session.userPhoto}"
                                              th:src="@{'data:image/png;base64, ' + ${session.userPhoto}}" class="img-circle"
                                              alt="User Image">
                                         <img th:unless="${session.userPhoto}" th:src="@{/images/avatar.png}" class="img-circle"

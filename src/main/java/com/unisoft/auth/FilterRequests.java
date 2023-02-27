@@ -25,9 +25,6 @@ public class FilterRequests implements Filter {
     @Autowired
     private EmployeeService employeeService;
 
-    @Autowired
-    private HttpSessionUtils httpSessionUtils;
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -44,7 +41,7 @@ public class FilterRequests implements Filter {
 
             /* check that user is logged in or not */
             if (!"anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
-                UserPrincipal principal = httpSessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 User user = userDao.findUserByUsername(principal.getUsername());
 
                 /* if the password is common, then force to reset password. */

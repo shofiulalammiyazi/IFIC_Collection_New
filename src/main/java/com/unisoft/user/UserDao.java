@@ -1,10 +1,6 @@
 package com.unisoft.user;
 
-import java.util.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
-
+import com.unisoft.role.Role;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -13,7 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.unisoft.role.Role;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional

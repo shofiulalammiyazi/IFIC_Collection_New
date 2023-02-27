@@ -1,8 +1,5 @@
 package com.unisoft.collection.distribution.loan;
 
-import com.unisoft.loanApi.model.CustomerInfo;
-import com.unisoft.loanApi.model.LoanAccDetails;
-import com.unisoft.loanApi.model.LoanAccInfo;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountInfo;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountService;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
@@ -14,12 +11,16 @@ import com.unisoft.collection.distribution.loan.loanAccountOther.LoanAccountOthe
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
+import com.unisoft.loanApi.model.CustomerInfo;
+import com.unisoft.loanApi.model.LoanAccDetails;
+import com.unisoft.loanApi.model.LoanAccInfo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

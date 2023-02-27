@@ -1,9 +1,9 @@
 package com.unisoft.collection.automaticDistribution.samDistributionRuleCard;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

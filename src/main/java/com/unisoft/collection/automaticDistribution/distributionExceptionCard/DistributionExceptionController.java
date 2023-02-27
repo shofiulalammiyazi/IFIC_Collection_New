@@ -4,12 +4,8 @@ import com.unisoft.collection.settings.ageCode.AgeCodeService;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
-
-
 import org.springframework.web.bind.annotation.RequestMapping;
 
 

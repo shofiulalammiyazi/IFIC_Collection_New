@@ -1,15 +1,6 @@
 package com.unisoft.retail.card.reporttextfileupload;
 
-import com.unisoft.detailsOfCollection.cardviewmodels.RecoveryViewDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 @Repository
 public class RecoveryViewDAO {

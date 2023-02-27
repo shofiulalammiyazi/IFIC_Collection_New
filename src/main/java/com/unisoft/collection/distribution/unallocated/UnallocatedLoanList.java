@@ -1,7 +1,7 @@
 package com.unisoft.collection.distribution.unallocated;
 
-import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
 import com.google.gson.annotations.Expose;
+import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

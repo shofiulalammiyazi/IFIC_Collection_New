@@ -1,7 +1,7 @@
 package com.unisoft.collection.accountescalation;
 
-import com.unisoft.base.BaseInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.unisoft.base.BaseInfo;
 import lombok.Data;
 
 import javax.persistence.*;

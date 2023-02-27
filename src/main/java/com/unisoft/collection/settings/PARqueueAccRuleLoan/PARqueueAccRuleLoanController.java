@@ -4,7 +4,6 @@ Created by   Islam on 7/10/2019
 */
 
 import com.unisoft.audittrail.AuditTrailService;
-
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntityDto;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;
 import com.unisoft.collection.settings.productType.ProductTypeDto;

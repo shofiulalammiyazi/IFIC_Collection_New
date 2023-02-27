@@ -3,11 +3,11 @@ package com.unisoft.collection.settings.district;
 Created by   Islam at 7/3/2019
 */
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.division.DivisionEntity;
 import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.collection.settings.zone.ZoneEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import javax.persistence.*;

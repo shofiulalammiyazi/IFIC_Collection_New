@@ -1,9 +1,9 @@
 package com.unisoft.customerloanprofile.vehicleRepossession;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unisoft.collection.settings.clstatus.CLStatus;
 import com.unisoft.common.CommonEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

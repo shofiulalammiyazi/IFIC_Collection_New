@@ -1,11 +1,12 @@
 package com.unisoft.utillity;
 
-import java.sql.Clob;
-import java.sql.SQLException;
-import java.util.*;
-
 import com.google.gson.Gson;
 import org.springframework.stereotype.Component;
+
+import java.sql.Clob;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author

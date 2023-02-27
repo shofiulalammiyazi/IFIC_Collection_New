@@ -1,9 +1,9 @@
 package com.unisoft.audittrail;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.unisoft.beans.Validation;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,8 +1,5 @@
 package com.unisoft.role;
 
-import java.util.Date;
-import java.util.List;
-
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.user.UserService;
 import com.unisoft.userrole.UserRole;
@@ -10,6 +7,9 @@ import com.unisoft.workflow.propertyBasedMakerChecker.PropertyBasedMakerCheckerS
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Shuvo on 08/01/2017.

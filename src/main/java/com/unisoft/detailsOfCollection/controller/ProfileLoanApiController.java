@@ -11,8 +11,6 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeRepository;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
-import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
-import com.unisoft.loanApi.model.LoanAccDetails;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;

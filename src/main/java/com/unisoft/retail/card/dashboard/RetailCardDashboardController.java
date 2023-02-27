@@ -1,11 +1,14 @@
 package com.unisoft.retail.card.dashboard;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.collection.settings.ExchangeRate.ExchangeRateService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeRepository;
-import com.unisoft.customerloanprofile.followup.*;
+import com.unisoft.customerloanprofile.followup.DealerWiseFollowUpSummary;
+import com.unisoft.customerloanprofile.followup.FollowUpService;
+import com.unisoft.customerloanprofile.followup.FollowUpSummaryModel;
 import com.unisoft.retail.card.dashboard.kpi.CardKpiTargetVsAchievement;
 import com.unisoft.retail.card.dashboard.kpi.CardKpiTargetVsAchievementService;
 import com.unisoft.retail.card.dashboard.model.AdvanceSearchDataModelCard;
@@ -18,7 +21,6 @@ import com.unisoft.retail.card.dataEntry.ptp.PtpStatusSummary;
 import com.unisoft.retail.loan.dataEntry.ptp.DealerWisePtpSummary;
 import com.unisoft.utillity.DateUtils;
 import com.unisoft.utillity.HttpSessionUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;

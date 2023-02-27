@@ -1,5 +1,6 @@
 package com.unisoft.retail.loan.dashboard;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
@@ -11,7 +12,6 @@ import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.customerloanprofile.followup.*;
 import com.unisoft.customerloanprofile.loanpayment.DealerWisePayment;
 import com.unisoft.customerloanprofile.loanpayment.LoanPaymentSummaryModel;
-import com.unisoft.loanApi.model.AdvanceSearchDataModel;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.loan.dashboard.esau.LoanPerformanceAndEsauTrendDataModel;
 import com.unisoft.retail.loan.dashboard.esau.LoanPerformanceAndEsauTrendService;
@@ -25,16 +25,12 @@ import com.unisoft.retail.loan.dataEntry.ptp.PtpStatusSummary;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import com.unisoft.utillity.StringUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Tuple;
 import javax.servlet.http.HttpSession;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

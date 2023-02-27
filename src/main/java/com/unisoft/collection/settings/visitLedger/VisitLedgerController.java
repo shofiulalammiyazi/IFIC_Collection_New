@@ -1,25 +1,23 @@
 package com.unisoft.collection.settings.visitLedger;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.distribution.card.CardRepository;
-import com.unisoft.collection.settings.assetMainClassificationLoan.LoanMainClassificationDto;
-import com.unisoft.collection.settings.district.DistrictEntity;
+import com.unisoft.collection.distribution.loan.LoanRepository;
+import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicService;
 import com.unisoft.collection.settings.district.DistrictRepository;
 import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
+import com.unisoft.collection.settings.employee.EmployeeRepository;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.loanApi.model.CustomerInfo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
-import com.unisoft.collection.distribution.loan.LoanRepository;
-import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicService;
-import com.unisoft.collection.settings.employee.EmployeeRepository;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

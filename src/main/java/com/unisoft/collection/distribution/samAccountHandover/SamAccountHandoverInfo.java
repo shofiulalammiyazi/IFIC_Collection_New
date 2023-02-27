@@ -4,8 +4,8 @@ Created by   Islam at 8/1/2019
 */
 
 import com.unisoft.base.BaseInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
 import lombok.Data;
 
 import javax.persistence.*;

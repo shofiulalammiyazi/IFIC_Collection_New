@@ -1,5 +1,6 @@
 package com.unisoft.collection.settings.dunningLetterRulesCard;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeService;
 import com.unisoft.collection.settings.location.LocationEntity;
@@ -10,7 +11,6 @@ import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.collection.settings.productType.ProductTypeService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

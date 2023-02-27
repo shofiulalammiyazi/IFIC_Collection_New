@@ -3,9 +3,7 @@ package com.unisoft.collection.dashboard;
 
 import com.unisoft.collection.KPI.Card.TargetByManager.DealerTargetCardManager;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
 import com.unisoft.collection.distribution.agencyAllocation.loan.LoanAgencyDistributionInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
@@ -17,6 +15,8 @@ import com.unisoft.customerloanprofile.followup.FollowUpEntity;
 import com.unisoft.customerloanprofile.hotnote.HotNoteEntity;
 import com.unisoft.retail.card.dataEntry.dailyNotes.DailyNotesCard;
 import com.unisoft.retail.card.dataEntry.dairynotes.DairyNotes;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
 import com.unisoft.retail.card.dataEntry.followup.CardFollowUp;
 import com.unisoft.retail.card.dataEntry.hotnotes.CardHotNotes;
 import com.unisoft.retail.card.dataEntry.ptp.CardPtp;

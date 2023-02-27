@@ -2,7 +2,6 @@ package com.unisoft.Company2;
 
 import com.unisoft.base.BaseInfo;
 import lombok.Data;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;

@@ -1,8 +1,8 @@
 package com.unisoft.collection.settings.dunningLetterRulesLoan;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.manualLetterSetup.ManualLetterSetupInfo;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 

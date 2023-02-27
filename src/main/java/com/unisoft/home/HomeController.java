@@ -7,7 +7,6 @@ import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.customerComplain.CustomerComplainDto;
-import com.unisoft.collection.customerComplain.CustomerComplainEntity;
 import com.unisoft.collection.customerComplain.CustomerComplainService;
 import com.unisoft.collection.customerComplain.CustomerComplainViewModel;
 import com.unisoft.collection.dashboard.*;
@@ -166,8 +165,8 @@ public class HomeController {
         Date endDate = dateUtils.getMonthEndDate();
 
         if (principal != null) {
-
-            UserPrincipal userPrincipal = httpSessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //httpSessionUtils.getUserPrinciple();
+            UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userService.getUserByUsername(userPrincipal.getUsername());
 
             if(user.getIsAgency()){

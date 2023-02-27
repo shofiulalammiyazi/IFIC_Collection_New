@@ -5,14 +5,7 @@ Created by   Islam at 7/29/2019
 
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
 import com.unisoft.collection.distribution.card.CardAccountSearchService;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.LoanDualEnum;
 import com.unisoft.collection.distribution.loan.loanApi.LoanApiPayload;
 import com.unisoft.collection.distribution.samAccountHandover.SamAccountHandoverInfo;
@@ -25,6 +18,13 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.collection.settings.location.LocationService;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionRepository;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

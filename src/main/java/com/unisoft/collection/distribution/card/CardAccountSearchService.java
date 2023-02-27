@@ -1,10 +1,10 @@
 package com.unisoft.collection.distribution.card;
 
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
 import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
 import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

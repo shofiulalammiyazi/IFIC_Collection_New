@@ -1,7 +1,6 @@
 package com.unisoft.collection.settings.loanStatus;
 
 
-import com.unisoft.collection.settings.district.DistrictEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

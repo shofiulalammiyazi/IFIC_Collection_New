@@ -1,9 +1,9 @@
 package com.unisoft.customerloanprofile.dailynote;
 
 
-import com.unisoft.user.UserPrincipal;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,5 @@
 package com.unisoft.auth;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainInfo;
@@ -16,11 +8,9 @@ import com.unisoft.templatePermission.InterceptorConfig;
 import com.unisoft.user.User;
 import com.unisoft.user.UserDao;
 import com.unisoft.user.UserPrincipal;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import com.unisoft.utillity.DateUtils;
 import com.unisoft.utillity.HttpSessionUtils;
-import org.apache.catalina.manager.util.SessionUtils;
+import com.unisoft.utillity.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +19,16 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
-import com.unisoft.utillity.StringUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 @Component
@@ -55,7 +54,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     public void
     onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                             Authentication authentication) throws IOException, ServletException {
-        UserPrincipal principal = sessionUtils.getUserPrinciple();//(UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //UserPrincipal principal = new UserPrincipal();
         //UserPrincipal userPrincipal = new UserPrincipal();
         //principal.setUsername(authentication.getName());

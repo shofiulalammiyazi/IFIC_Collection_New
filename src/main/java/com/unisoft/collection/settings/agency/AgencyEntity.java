@@ -3,9 +3,9 @@ package com.unisoft.collection.settings.agency;
 Created by   Islam on 7/7/2019
 */
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.user.User;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

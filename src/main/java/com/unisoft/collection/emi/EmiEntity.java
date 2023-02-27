@@ -1,7 +1,7 @@
 package com.unisoft.collection.emi;
 
-import com.unisoft.base.BaseInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.unisoft.base.BaseInfo;
 import lombok.Data;
 
 import javax.persistence.Entity;

@@ -3,10 +3,10 @@ package com.unisoft.collection.automaticDistribution.postInterimException;
 Created by   Islam at 8/21/2019
 */
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;

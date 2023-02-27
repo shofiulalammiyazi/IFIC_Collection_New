@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Tuple;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface LoanAccountDistributionRepository extends JpaRepository<LoanAccountDistributionInfo, Long> {

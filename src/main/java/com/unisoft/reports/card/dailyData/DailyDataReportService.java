@@ -1,6 +1,5 @@
 package com.unisoft.reports.card.dailyData;
 
-;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
 import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+;
 
 @Service
 public class DailyDataReportService {

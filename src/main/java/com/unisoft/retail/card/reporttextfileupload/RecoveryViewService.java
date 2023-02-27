@@ -1,6 +1,5 @@
 package com.unisoft.retail.card.reporttextfileupload;
 
-import com.unisoft.detailsOfCollection.cardviewmodels.RecoveryViewDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

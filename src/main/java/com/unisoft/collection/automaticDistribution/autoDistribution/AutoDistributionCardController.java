@@ -3,6 +3,7 @@ package com.unisoft.collection.automaticDistribution.autoDistribution;
 Created by   Islam at 9/7/2019
 */
 
+import com.google.gson.Gson;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.automaticDistribution.distributionExceptionCard.DistributionException;
@@ -15,14 +16,6 @@ import com.unisoft.collection.automaticDistribution.postInterimException.PostInt
 import com.unisoft.collection.automaticDistribution.postInterimException.PostInterimExceptionRepository;
 import com.unisoft.collection.automaticDistribution.samDistributionRuleCard.SamRuleCardInfo;
 import com.unisoft.collection.automaticDistribution.samDistributionRuleCard.SamRuleCardRepository;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
-import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.AutoDistributionCardTemp;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.AutoDistributionCardTempRepository;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.cardApi.CardApiPayload;
 import com.unisoft.collection.distribution.samAccountHandover.AutoDistributionCardSamTemp;
 import com.unisoft.collection.distribution.samAccountHandover.AutoDistributionCardSamTempRepository;
@@ -36,8 +29,15 @@ import com.unisoft.collection.settings.dealerPerformance.DealerPerformance;
 import com.unisoft.collection.settings.dealerPerformance.DealerPerformanceRepository;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicService;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.AutoDistributionCardTemp;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.AutoDistributionCardTempRepository;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionInfo;
+import com.unisoft.retail.card.dataEntry.distribution.agency.CardAgencyDistributionRepository;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

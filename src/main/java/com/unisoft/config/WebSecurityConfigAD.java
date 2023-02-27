@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -28,6 +27,9 @@ public class WebSecurityConfigAD extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomLoginSuccessHandler customLoginSuccessHandler;
+
+    @Autowired
+    private ADCustomLoginSuccessHandler adCustomLoginSuccessHandler;
 
     @Autowired
     private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
@@ -89,7 +91,7 @@ public class WebSecurityConfigAD extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .authenticationDetailsSource(authenticationDetailsSource)
                 .failureUrl("/loginError")
-                .successHandler(customLoginSuccessHandler)
+                .successHandler(adCustomLoginSuccessHandler)
                 .loginPage("/")
                 .permitAll()
                 .failureHandler(new ADCustomAuthenticationFailureHandler())

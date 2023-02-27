@@ -1,5 +1,6 @@
 package com.unisoft.collection.settingshelper;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.distribution.card.CardController;
 import com.unisoft.collection.distribution.card.CardViewModel;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
@@ -18,7 +19,6 @@ import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccou
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionRepository;
 import com.unisoft.utillity.JasperReportManager;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,8 +1,8 @@
 package com.unisoft.dms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 

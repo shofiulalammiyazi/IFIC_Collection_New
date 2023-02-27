@@ -4,7 +4,6 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 import com.unisoft.auth.SpringApplicationContext;
 import com.unisoft.collection.dashboard.DashboardDao;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

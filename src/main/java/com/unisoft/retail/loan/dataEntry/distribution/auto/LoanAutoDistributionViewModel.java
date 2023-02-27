@@ -1,8 +1,8 @@
 package com.unisoft.retail.loan.dataEntry.distribution.auto;
 
+import com.google.gson.Gson;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicDto;
 import com.unisoft.utillity.StringUtils;
-import com.google.gson.Gson;
 import lombok.Data;
 
 import javax.persistence.Tuple;

@@ -1,8 +1,8 @@
 package com.unisoft.collection.settings.productType;
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.productGroup.ProductGroupEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import javax.persistence.*;

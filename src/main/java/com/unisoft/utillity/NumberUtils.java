@@ -2,12 +2,12 @@ package com.unisoft.utillity;
 
 import org.springframework.stereotype.Component;
 
-//import com.ibm.icu.text.NumberFormat;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
+
+//import com.ibm.icu.text.NumberFormat;
 
 /**
  * @author
@@ -112,7 +112,7 @@ public class NumberUtils {
         return value != null && value.matches("^\\d+(\\.\\d+)?$");
     }
 
-    public boolean isNumber(String value) {
+    public static boolean isNumber(String value) {
         return isNumberString(value);
     }
 

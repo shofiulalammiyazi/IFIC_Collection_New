@@ -1,11 +1,11 @@
 package com.unisoft.collection.automaticDistribution.distributionExceptionLoan;
 
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.automaticDistribution.distributionExceptionLoanModel.ProductGroupDpdBucket;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;

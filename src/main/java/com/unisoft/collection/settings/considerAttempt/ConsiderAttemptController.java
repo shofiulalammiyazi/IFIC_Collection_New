@@ -1,16 +1,12 @@
 package com.unisoft.collection.settings.considerAttempt;
 
-import com.unisoft.collection.settings.contactCategory.ContactCategory;
-import com.unisoft.exception.NotFoundException;
-
 import com.google.gson.Gson;
+import com.unisoft.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

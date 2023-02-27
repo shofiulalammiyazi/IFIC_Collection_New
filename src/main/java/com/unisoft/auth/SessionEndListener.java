@@ -4,10 +4,7 @@ import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainInfo;
 import com.unisoft.collection.settings.lateReasonExplain.LateReasonExplainRepository;
 import com.unisoft.user.User;
 import com.unisoft.user.UserDao;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import com.unisoft.user.UserPrincipal;
-import com.unisoft.user.ad.UserADPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.core.Authentication;
@@ -18,6 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 @Component
 public class SessionEndListener implements ApplicationListener<SessionDestroyedEvent> {

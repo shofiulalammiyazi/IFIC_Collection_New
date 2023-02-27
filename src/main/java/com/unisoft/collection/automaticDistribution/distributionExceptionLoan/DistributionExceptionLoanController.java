@@ -1,7 +1,8 @@
 package com.unisoft.collection.automaticDistribution.distributionExceptionLoan;
 
 
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.automaticDistribution.distributionExceptionLoanModel.ProductGroupDpdBucket;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
@@ -11,8 +12,6 @@ import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
 package com.unisoft.letterGeneration;
 
+import com.google.gson.Gson;
 import com.unisoft.beans.Validation;
 import com.unisoft.collection.distribution.card.CardController;
 import com.unisoft.collection.distribution.card.CardViewModel;
@@ -18,7 +19,6 @@ import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
 import com.unisoft.customerloanprofile.guarantorinfo.GurantorInfoRepository;
 import com.unisoft.customerloanprofile.vehicleRepossession.VehicleRepossessionRepository;
-import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.loanApi.model.CustomerAndBorrowerInfo;
 import com.unisoft.loanApi.model.CustomerAndBorrowerRepo;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
@@ -32,7 +32,6 @@ import com.unisoft.user.UserPrincipal;
 import com.unisoft.user.UserService;
 import com.unisoft.utillity.DateUtils;
 import com.unisoft.utillity.JasperReportManager;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.poi.ss.usermodel.Cell;

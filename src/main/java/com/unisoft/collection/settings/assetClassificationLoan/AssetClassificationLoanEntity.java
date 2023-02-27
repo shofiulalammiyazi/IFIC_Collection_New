@@ -1,10 +1,10 @@
 package com.unisoft.collection.settings.assetClassificationLoan;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.assetMainClassificationLoan.LoanMainClassification;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;

@@ -4,14 +4,14 @@ import com.unisoft.collection.KPI.Card.TargetByAmount.CardKPITargetByAmountServi
 import com.unisoft.collection.KPI.Card.TargetByManagerAmount.DealerTargetCardManagerDao;
 import com.unisoft.collection.KPI.Card.TargetWeightByAmount.CardKPITargetWeightByAmountEntity;
 import com.unisoft.collection.KPI.Card.TargetWeightByAmount.CardKPITargetWeightByAmountService;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
-import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardService;
 import com.unisoft.collection.settings.PARAccountRuleCard.PARAccountRuleCardService;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeService;
+import com.unisoft.collection.settings.nplAccountRuleCard.NPLAccountRuleCardService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeRepository;
 import com.unisoft.collection.settings.productType.ProductTypeService;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

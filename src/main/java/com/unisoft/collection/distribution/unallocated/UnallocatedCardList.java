@@ -1,7 +1,7 @@
 package com.unisoft.collection.distribution.unallocated;
 
-import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
+import com.unisoft.retail.card.dataEntry.distribution.accountBasicInfo.CardAccountBasicInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

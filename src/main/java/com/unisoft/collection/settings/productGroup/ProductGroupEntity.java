@@ -1,7 +1,7 @@
 package com.unisoft.collection.settings.productGroup;
 
-import com.unisoft.base.BaseInfo;
 import com.google.gson.annotations.Expose;
+import com.unisoft.base.BaseInfo;
 import lombok.Data;
 
 import javax.persistence.*;

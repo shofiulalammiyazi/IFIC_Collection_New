@@ -1,6 +1,5 @@
 package com.unisoft.collection.settings.loanType;
 
-import com.unisoft.collection.settings.loanStatus.LoanStatusEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

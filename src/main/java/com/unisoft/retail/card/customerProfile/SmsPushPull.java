@@ -3,9 +3,9 @@ package com.unisoft.retail.card.customerProfile;
   Created by MR on 9/28/2021
 */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

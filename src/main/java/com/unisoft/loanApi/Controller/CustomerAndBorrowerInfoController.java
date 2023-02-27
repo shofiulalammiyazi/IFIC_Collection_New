@@ -1,7 +1,9 @@
 package com.unisoft.loanApi.Controller;
 
 import com.unisoft.collection.settings.employee.EmployeeService;
-import com.unisoft.loanApi.model.*;
+import com.unisoft.loanApi.model.CustomerAndBorrowerInfo;
+import com.unisoft.loanApi.model.CustomerAndBorrowerInfoDto;
+import com.unisoft.loanApi.model.CustomerAndBorrowerInfoStatus;
 import com.unisoft.loanApi.service.CustomerOtherInfoService;
 import com.unisoft.user.UserPrincipal;
 import lombok.RequiredArgsConstructor;

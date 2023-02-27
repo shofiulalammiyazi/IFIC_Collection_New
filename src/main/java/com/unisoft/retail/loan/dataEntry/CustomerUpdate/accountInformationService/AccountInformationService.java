@@ -438,14 +438,30 @@ public class AccountInformationService {
     }
 
     public ResponseEntity findAllAndPaginationByIsSmsSent(int page, int length, String accountNo) {
-        Pageable pageElements = PageRequest.of(page, length);
         Page<AccountInformationEntity> allProducts;
+
+        Pageable pageElements = PageRequest.of(page, length);
+        Page<AccountInfoSMSDto> accountInfoSMSDtos1 = null;
+
+        int size = accountInformationRepository.finAllEligibleDistributionListCount();
+
         if (accountNo != null && accountNo != "") {
-            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(accountNo, pageElements);
+            List<Tuple> tuples = accountInformationRepository.finAllEligibleDistributionList(accountNo);
+            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples);
+            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         } else {
-            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZero(pageElements);
+            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleDistributionList1(pageElements);//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
+            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples1);
+            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         }
-        return ResponseEntity.ok(allProducts);
+        return ResponseEntity.ok(accountInfoSMSDtos1);
+
+//        if (accountNo != null && accountNo != "") {
+//            allProducts = accountInformationRepository.findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(accountNo, pageElements);
+//        } else {
+//            allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZero(pageElements);
+//        }
+//        return ResponseEntity.ok(allProducts);
     }
 
     public void writeExcel() throws IOException {
@@ -457,7 +473,7 @@ public class AccountInformationService {
         //data.put("1", );
 
         String arr[] = {"Account No","Dealer PIN","Dealer Name","Branch Mnemonic","Product Code",
-                        "Deal Reference"};
+                "Deal Reference"};
 
         Cell cell0 = null;
         Row row1 = sheet.createRow(0);

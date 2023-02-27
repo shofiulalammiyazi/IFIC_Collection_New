@@ -1,8 +1,8 @@
 package com.unisoft.customerloanprofile.guarantorinfo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

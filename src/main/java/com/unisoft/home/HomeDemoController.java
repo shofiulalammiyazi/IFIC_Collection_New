@@ -5,7 +5,6 @@ import com.unisoft.collection.KPI.Card.TargetByAmount.CardKPITargetByAmountServi
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
 import com.unisoft.collection.dashboard.*;
-import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.ageCode.AgeCodeEntity;
 import com.unisoft.collection.settings.ageCode.AgeCodeService;
@@ -19,6 +18,7 @@ import com.unisoft.collection.settings.officeTimeSetup.OfficeTimeSetupInfo;
 import com.unisoft.collection.settings.officeTimeSetup.OfficeTimeSetupService;
 import com.unisoft.collection.settings.productType.ProductTypeEntity;
 import com.unisoft.collection.settings.productType.ProductTypeService;
+import com.unisoft.retail.card.dataEntry.distribution.accountDistributionInfo.CardAccountDistributionInfo;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;

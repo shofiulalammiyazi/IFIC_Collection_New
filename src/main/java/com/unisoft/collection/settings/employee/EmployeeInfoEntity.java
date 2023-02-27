@@ -5,6 +5,7 @@ Created by   Islam at 7/2/2019
 Regex validation by    on June 24, 2021
 */
 
+import com.google.gson.annotations.Expose;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.branch.Branch;
 import com.unisoft.collection.settings.department.DepartmentEntity;
@@ -14,7 +15,6 @@ import com.unisoft.collection.settings.employeeStatus.EmployeeStatusEntity;
 import com.unisoft.collection.settings.jobRole.JobRoleEntity;
 import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.user.User;
-import com.google.gson.annotations.Expose;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

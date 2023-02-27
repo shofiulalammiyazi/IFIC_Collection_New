@@ -1,12 +1,8 @@
 package com.unisoft.dms.logicdoc;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import lombok.Data;
+
+import javax.persistence.*;
 
 /**
  * Created by Tanmoy on 4/23/2017.

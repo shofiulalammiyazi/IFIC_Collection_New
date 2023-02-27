@@ -4,6 +4,7 @@ import com.unisoft.loanApi.model.AdvanceSearchDataModel;
 import com.unisoft.loanApi.model.AdvancedSearchDataModel;
 import com.unisoft.loanApi.model.BaseLoanApiModel;
 import com.unisoft.loanApi.model.LoanAccStatement;
+import com.unisoft.utillity.StringUtils;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.OracleTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
-import com.unisoft.utillity.StringUtils;
 
 import javax.sql.DataSource;
 import java.sql.Types;

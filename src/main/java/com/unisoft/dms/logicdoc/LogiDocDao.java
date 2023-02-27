@@ -1,12 +1,12 @@
 package com.unisoft.dms.logicdoc;
 
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 /**
  * Created by Tanmoy on 4/23/2017.

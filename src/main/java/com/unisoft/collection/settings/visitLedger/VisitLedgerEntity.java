@@ -3,8 +3,6 @@ package com.unisoft.collection.settings.visitLedger;
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.settings.district.DistrictEntity;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.unisoft.collection.settings.sectorGroup.SectorGroupEntity;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;

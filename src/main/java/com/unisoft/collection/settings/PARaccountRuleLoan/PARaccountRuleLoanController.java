@@ -3,11 +3,11 @@ package com.unisoft.collection.settings.PARaccountRuleLoan;
 Created by   Islam on 7/10/2019
 */
 
+import com.google.gson.Gson;
 import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntityDto1;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketService;
 import com.unisoft.user.UserPrincipal;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;

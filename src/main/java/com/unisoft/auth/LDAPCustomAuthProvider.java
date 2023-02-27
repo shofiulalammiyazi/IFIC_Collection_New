@@ -3,7 +3,6 @@ package com.unisoft.auth;
 import com.unisoft.role.Role;
 import com.unisoft.user.User;
 import com.unisoft.user.UserDao;
-import com.unisoft.user.UserPrincipal;
 import com.unisoft.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -11,7 +10,6 @@ import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
