@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -45,6 +46,9 @@ public class AccountInformationService {
 
     @Autowired
     private LoanAccountDistributionRepository loanAccountDistributionRepository;
+
+    @Value("${ific.excel.file-path}")
+    private String excelServerPath;
 
     @Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
@@ -465,7 +469,7 @@ public class AccountInformationService {
     }
 
     public void writeExcel() throws IOException {
-        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllAccIsSmsEntity();
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleDistributionList();
         SXSSFWorkbook workbook = new SXSSFWorkbook();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         Sheet sheet = workbook.createSheet("UnAllocated_Account_List");
@@ -502,7 +506,69 @@ public class AccountInformationService {
             cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
         }
 
-        String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
+        //String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
+        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName()+".xlsx";
+        FileOutputStream out = new FileOutputStream(fileLocation);
+        workbook.write(out);
+
+        out.close();
+    }
+
+    public void writeDelinquentExcel() throws IOException {
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAllByOverdueGreaterThanZero();
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        Sheet sheet = workbook.createSheet("Delinquent_Account_List");
+        Map<String, Object[]> data = new TreeMap<>();
+        //data.put("1", );
+
+        String arr[] = {"Account No","Customer Name","Mobile","Branch Mnemonic","Product Code",
+                "Deal Reference", "Outstanding", "Overdue", "EMI Amount", "No Of Installment Due",
+        "Loan Status", "Distribution Status","SMS Sending Status"};
+
+        Cell cell0 = null;
+        Row row1 = sheet.createRow(0);
+        for(int h=0; h<arr.length; h++){
+            cell0 = row1.createCell(h);
+            cell0.setCellValue(arr[h]);
+        }
+
+        //iterating r number of rows
+        AccountInformationEntity accountInformationEntity;
+        for (int r = 0; r < accountInformationEntities.size(); r++) {
+            Row row = sheet.createRow(r+1);
+            accountInformationEntity = accountInformationEntities.get(r);
+            //iterating c number of columns
+            Cell cell1 = row.createCell(0);
+            cell1.setCellValue(accountInformationEntity.getLoanACNo()==null?"":accountInformationEntity.getLoanACNo());
+            Cell cell2 = row.createCell(1);
+            cell2.setCellValue(accountInformationEntity.getCustomerName() == null ? "":accountInformationEntity.getCustomerName());
+            Cell cell3 = row.createCell(2);
+            cell3.setCellValue(accountInformationEntity.getMobile() == null ? "":accountInformationEntity.getMobile());
+            Cell cell4 = row.createCell(3);
+            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null?"":accountInformationEntity.getBranchMnemonic());
+            Cell cell5 = row.createCell(4);
+            cell5.setCellValue(accountInformationEntity.getProductCode() ==null?"":accountInformationEntity.getProductCode());
+            Cell cell6 = row.createCell(5);
+            cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
+            Cell cell7 = row.createCell(6);
+            cell7.setCellValue(accountInformationEntity.getTotalOutstanding()==null?"":accountInformationEntity.getTotalOutstanding());
+            Cell cell8 = row.createCell(7);
+            cell8.setCellValue(accountInformationEntity.getOverdue()==null?"":accountInformationEntity.getOverdue());
+            Cell cell9 = row.createCell(8);
+            cell9.setCellValue(accountInformationEntity.getEmiAmount()==null?"":accountInformationEntity.getEmiAmount());
+            Cell cell10 = row.createCell(9);
+            cell10.setCellValue(accountInformationEntity.getNoOfInstallmentDue()==null?"":accountInformationEntity.getNoOfInstallmentDue());
+            Cell cell11 = row.createCell(10);
+            cell11.setCellValue(accountInformationEntity.getLoanCLStatus()==null?"":accountInformationEntity.getLoanCLStatus());
+            Cell cell12 = row.createCell(11);
+            cell12.setCellValue(accountInformationEntity.getIsDistributed()==null?"":accountInformationEntity.getIsDistributed());
+            Cell cell13 = row.createCell(12);
+            cell13.setCellValue(accountInformationEntity.getIsSmsSent()==null?"":accountInformationEntity.getIsSmsSent());
+        }
+
+        //String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
+        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName()+".xlsx";
         FileOutputStream out = new FileOutputStream(fileLocation);
         workbook.write(out);
 
