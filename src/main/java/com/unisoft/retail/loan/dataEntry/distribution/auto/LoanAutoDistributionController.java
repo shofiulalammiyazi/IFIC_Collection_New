@@ -11,13 +11,19 @@ import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntity;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntityDto;
+import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesRepository;
 import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -64,6 +70,9 @@ public class LoanAutoDistributionController {
 
     @Autowired
     private SmsAndAutoDistributionRulesService smsAndAutoDistributionRulesService;
+
+    @Value("${ific.excel.file-path}")
+    private String excelServerPath;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -175,8 +184,11 @@ public class LoanAutoDistributionController {
         return status;
     }
 
-    public void toExcel() throws IOException {
-        accountInformationService.writeExcel();
+    public void toExcel(String type) throws IOException {
+        if(type.equalsIgnoreCase("delinquent"))
+            accountInformationService.writeDelinquentExcel();
+        else
+            accountInformationService.writeExcel();
     }
 
     public void deleteFile() throws IOException {
@@ -189,9 +201,34 @@ public class LoanAutoDistributionController {
     public void downloadExcel(HttpServletResponse response) throws IOException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-        toExcel();
+        toExcel("unallocated");
         String fileName = "UnAllocated_Account_List.xlsx";
-        File file = new File("src/main/resources/generatedExcel");
+        //File file = new File("src/main/resources/generatedExcel");
+        File file = new File(excelServerPath);
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file + "/" + fileName);
+            int i;
+            while ((i = fileInputStream.read()) != -1) {
+                response.getWriter().write(i);
+            }
+            fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/delinquent-download")
+    public void downloadDelinquentExcel(HttpServletResponse response) throws IOException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+
+        toExcel("delinquent");
+        String fileName = "Delinquent_Account_List.xlsx";
+        File file = new File(excelServerPath);
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 

@@ -1,14 +1,18 @@
 package com.unisoft.retail.loan.dataEntry.distribution.auto;
 
 import com.google.gson.Gson;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,21 +26,21 @@ public class LoanAutoDistributionRestController {
 
     @RequestMapping("get-pagination")
     ResponseEntity accountInformationEntitiesByPagination(@RequestParam("page") int page,
-                                                                                    @RequestParam(required = false) String search,
-                                                                                    @RequestParam("length") int length, HttpServletRequest request){
+                                                          @RequestParam(required = false) String search,
+                                                          @RequestParam("length") int length, HttpServletRequest request){
         return accountInformationService.findAllAndPagination(page, length, search);
     }
 
     @RequestMapping("get-all-overdue-not-zero")
     ResponseEntity findAllByOverdueGreaterThanZero(@RequestParam("page") int page, @RequestParam(required = false) String search,
-                                                          @RequestParam("length") int length){
+                                                   @RequestParam("length") int length){
         return accountInformationService.findAllByOverdueGreaterThanZero(page, length, search);
     }
 
     @RequestMapping("get-page-by-issmssent")
     ResponseEntity accountInformationEntitiesByPaginationByIsSmsSent(@RequestParam("page") int page,
-                                                          @RequestParam(required = false) String search,
-                                                          @RequestParam("length") int length, HttpServletRequest request){
+                                                                     @RequestParam(required = false) String search,
+                                                                     @RequestParam("length") int length, HttpServletRequest request){
         return accountInformationService.findAllAndPaginationByIsSmsSent(page, length, search);
     }
 

@@ -21,7 +21,7 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="row" id="loan-all-delinquent-list">
-                <div class="col-md-12">
+                <div class="col-md-12" id="target-overlay">
                     <div class="box" id="entity-approval">
                         <div class="box-header with-border" style="text-align: center;">
                             <h3 class="box-title">Delinquent Account List</h3>
@@ -51,19 +51,23 @@
                         <div class="col-sm-12">
                             <div class="col-sm-5">
                                 <button class="btn btn-primary" @click="fetchData()">Fetch Data</button>
+
+                                <button style="" class="btn btn-primary btn-excel">
+                                    <a href="/retail/loan/data-entry/distribution/auto/delinquent-download" target="_blank" style="color: white;">Download Excel</a>
+                                </button>
                                 <!--<button class="btn btn-primary pull-right" @click="sendAll()" id="sendSmsToAll">Send SMS To All</button>-->
                             </div>
 
                             <!--<div class="col-sm-2">-->
                             <!--<button class="btn btn-primary pull-right" @click="sendAll()" id="sendSmsToAll">Send SMS To All</button>-->
                             <!--</div>-->
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-3">
-                                <input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">
-                            </div>
-                            <div class="col-sm-1">
-                                <button @click="searchButton()" class="btn btn-primary">Search</button>
-                            </div>
+                            <!--<div class="col-sm-3"></div>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<input v-model="searchField" @click="setSearchField(this)" type="text" class="form-control" placeholder="Search By Account No">-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1">-->
+                                <!--<button @click="searchButton()" class="btn btn-primary">Search</button>-->
+                            <!--</div>-->
                         </div>
                         <div class="box-body">
 
@@ -72,79 +76,126 @@
                                 <div class="tab-content" style="overflow-y: auto; max-height: 45em">
                                     <div class="tab-pane active" id="approval">
                                         <div class="table-responsive">
-                                            <table class="table table-condensed table-hover table-bordered"
-                                                   style="max-height: 30em" id="loan-auto-distribution-list-table">
+                                            <div  id="myDiv" style="display:block" class="animate-bottom dd-loader">
+                                                <h2 style="color: orangered">Please wait!</h2>
+                                            </div>
+                                            <table id="delinquent-table" class="table table-condensed table-hover table-bordered">
                                                 <thead class="thead-light">
-                                                <tr>
-                                                    <td class="text-right" colspan="16">
-                                                        <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
-                                                        <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
-                                                        <span>Page : {{allAccountInformation.number+1}}</span>
-                                                        <span> Of</span>
-                                                        <button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>
-                                                        <button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-center">Action</th>
-                                                    <th class="text-right">SL</th>
-                                                    <th class="text-center">Account No</th>
-                                                    <th class="text-center">Customer Name</th>
-                                                    <th class="text-center">Mobile</th>
-                                                    <th class="text-center">Branch Mnemonic</th>
-                                                    <th class="text-center">Product Code</th>
-                                                    <th class="text-center">Deal Reference</th>
-                                                    <th class="text-center">Outstanding</th>
-                                                    <th class="text-center">Overdue</th>
-                                                    <th class="text-center">EMI Amount</th>
-                                                    <th class="text-center">EMI Date</th>
-                                                    <th class="text-center">No Of Installment Due</th>
-                                                    <th class="text-center">Loan Status</th>
-                                                    <th class="text-center">Distribution Status</th>
-                                                    <th class="text-center">SMS Sending Status</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th class="text-center">Action</th>
+                                                        <th class="text-right">SL</th>
+                                                        <th class="text-center">Account No</th>
+                                                        <th class="text-center">Customer Name</th>
+                                                        <th class="text-center">Mobile</th>
+                                                        <th class="text-center">Branch Mnemonic</th>
+                                                        <th class="text-center">Product Code</th>
+                                                        <th class="text-center">Deal Reference</th>
+                                                        <th class="text-center">Outstanding</th>
+                                                        <th class="text-center">Overdue</th>
+                                                        <th class="text-center">EMI Amount</th>
+                                                        <th class="text-center">EMI Date</th>
+                                                        <th class="text-center">No Of Installment Due</th>
+                                                        <th class="text-center">Loan Status</th>
+                                                        <th class="text-center">Distribution Status</th>
+                                                        <th class="text-center">SMS Sending Status</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody class="tbl-row">
-                                                <tr v-for="(data, index) in allAccountInformation.content" class="text-center">
-                                                    <td>
-                                                        <label>
-                                                            <input :id="'data-' + index" type="checkbox"
-                                                                   class="mdl-checkbox__input" @click="getData(data,index)">
-                                                        </label>
-                                                    </td>
-                                                    <td>{{indexNumbering() + index+1}}</td>
-                                                    <td>{{data.loanACNo}}</td>
-                                                    <td>{{data.customerName}}</td>
-                                                    <td>{{data.mobile}}</td>
-                                                    <td>{{data.branchMnemonic}}</td>
-                                                    <td>{{data.productCode}}</td>
-                                                    <td>{{data.dealReference}}</td>
-                                                    <td>{{data.totalOutstanding}}</td>
-                                                    <td>{{data.overdue}}</td>
-                                                    <td>{{data.emiAmount}}</td>
-                                                    <td>{{data.nextEMIDate}}</td>
-                                                    <td>{{data.noOfInstallmentDue}}</td>
-                                                    <td>{{data.loanCLStatus}}</td>
-                                                    <td>{{data.isDistributed== 'Y' ? "Yes": "No"}}</td>
-                                                    <td>{{data.isSmsSent== 'Y' ? "Yes": "No"}}</td>
-
-                                                </tr>
-
                                                 </tbody>
-
-                                                <tfoot>
+                                                <tfoot class="thead-light">
                                                 <tr>
-                                                    <td class="text-right" colspan="16">
-                                                        <button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>
-                                                        <button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>
-                                                        <span>Page : {{allAccountInformation.number+1}}</span>
-                                                        <span> Of</span>
-                                                        <button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>
-                                                        <button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>
-                                                    </td>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
+                                            <!--<table class="table table-condensed table-hover table-bordered"-->
+                                                   <!--style="max-height: 30em" id="loan-auto-distribution-list-table">-->
+                                                <!--<thead class="thead-light">-->
+                                                <!--<tr>-->
+                                                    <!--<td class="text-right" colspan="16">-->
+                                                        <!--<button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>-->
+                                                        <!--<button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>-->
+                                                        <!--<span>Page : {{allAccountInformation.number+1}}</span>-->
+                                                        <!--<span> Of</span>-->
+                                                        <!--<button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>-->
+                                                        <!--<button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>-->
+                                                    <!--</td>-->
+                                                <!--</tr>-->
+                                                <!--<tr>-->
+                                                    <!--<th class="text-center">Action</th>-->
+                                                    <!--<th class="text-right">SL</th>-->
+                                                    <!--<th class="text-center">Account No</th>-->
+                                                    <!--<th class="text-center">Customer Name</th>-->
+                                                    <!--<th class="text-center">Mobile</th>-->
+                                                    <!--<th class="text-center">Branch Mnemonic</th>-->
+                                                    <!--<th class="text-center">Product Code</th>-->
+                                                    <!--<th class="text-center">Deal Reference</th>-->
+                                                    <!--<th class="text-center">Outstanding</th>-->
+                                                    <!--<th class="text-center">Overdue</th>-->
+                                                    <!--<th class="text-center">EMI Amount</th>-->
+                                                    <!--<th class="text-center">EMI Date</th>-->
+                                                    <!--<th class="text-center">No Of Installment Due</th>-->
+                                                    <!--<th class="text-center">Loan Status</th>-->
+                                                    <!--<th class="text-center">Distribution Status</th>-->
+                                                    <!--<th class="text-center">SMS Sending Status</th>-->
+                                                <!--</tr>-->
+                                                <!--</thead>-->
+                                                <!--<tbody class="tbl-row">-->
+                                                <!--<tr v-for="(data, index) in allAccountInformation.content" class="text-center">-->
+                                                    <!--<td>-->
+                                                        <!--<label>-->
+                                                            <!--<input :id="'data-' + index" type="checkbox"-->
+                                                                   <!--class="mdl-checkbox__input" @click="getData(data,index)">-->
+                                                        <!--</label>-->
+                                                    <!--</td>-->
+                                                    <!--<td>{{indexNumbering() + index+1}}</td>-->
+                                                    <!--<td>{{data.loanACNo}}</td>-->
+                                                    <!--<td>{{data.customerName}}</td>-->
+                                                    <!--<td>{{data.mobile}}</td>-->
+                                                    <!--<td>{{data.branchMnemonic}}</td>-->
+                                                    <!--<td>{{data.productCode}}</td>-->
+                                                    <!--<td>{{data.dealReference}}</td>-->
+                                                    <!--<td>{{data.totalOutstanding}}</td>-->
+                                                    <!--<td>{{data.overdue}}</td>-->
+                                                    <!--<td>{{data.emiAmount}}</td>-->
+                                                    <!--<td>{{data.nextEMIDate}}</td>-->
+                                                    <!--<td>{{data.noOfInstallmentDue}}</td>-->
+                                                    <!--<td>{{data.loanCLStatus}}</td>-->
+                                                    <!--<td>{{data.isDistributed== 'Y' ? "Yes": "No"}}</td>-->
+                                                    <!--<td>{{data.isSmsSent== 'Y' ? "Yes": "No"}}</td>-->
+
+                                                <!--</tr>-->
+
+                                                <!--</tbody>-->
+
+                                                <!--<tfoot>-->
+                                                <!--<tr>-->
+                                                    <!--<td class="text-right" colspan="16">-->
+                                                        <!--<button :disabled="allAccountInformation.number==0" @click="pageRequest($event)" value="p" name="prevoius-btn-table" class="previous round" role="button" type="button">&#8249; Previous</button>-->
+                                                        <!--<button v-show="firstPageButtonShow" @click="pageRequest($event)" :value="0" role="button" type="button">First Page</button>-->
+                                                        <!--<span>Page : {{allAccountInformation.number+1}}</span>-->
+                                                        <!--<span> Of</span>-->
+                                                        <!--<button @click="pageRequest($event)" :value="allAccountInformation.totalPages-1" role="button" type="button">{{allAccountInformation.totalPages}}</button>-->
+                                                        <!--<button :disabled="allAccountInformation.number==allAccountInformation.totalPages" @click="pageRequest($event)" value="n" name="next-btn-table" class="next round" role="button" type="button">&#8250; Next</button>-->
+                                                    <!--</td>-->
+                                                <!--</tr>-->
+                                                <!--</tfoot>-->
+                                            <!--</table>-->
                                         </div>
                                     </div>
                                     <!-- /.tab-pane -->
@@ -159,8 +210,13 @@
 
                 </div>
             </div>
+            <style>
+                #myDiv {
+                    display: none;
+                    text-align: center;
+                }
+            </style>
             <script>
-                // var allAccountInformation;
                 var arr = [];
                 var allAccountInformationApp = new Vue({
                     el: '#loan-all-delinquent-list',
@@ -178,6 +234,10 @@
                             if (this.allAccountInformation.number!=0) return true;
                             else return false;
                         }
+                    },
+                    created(){
+                        //this.updateDataTable();
+                        //$('#delinquent-table').DataTable();
                     },
                     mounted: function () {
                         this.getAllAccountInformation(this.page, 100, this.searchField)
@@ -291,7 +351,118 @@
                                 type: 'GET',
                                 dataType: 'json', // added data type
                                 success: function(res) {
-                                    allAccountInformationApp.allAccountInformation = res;
+                                    var tr = '';
+                                    $.each(res, function (index, data) {
+                                        tr+= '<tr class="text-center">\n' +
+                                            '    <td>\n' +
+                                            '        <label>\n' +
+                                            '            <input :id="\'data-\' + index" type="checkbox"\n' +
+                                            '            class="mdl-checkbox__input" @click="getData(data,index)">\n' +
+                                            '        </label>\n' +
+                                            '    </td>\n' +
+                                            '    <td>'+(index+1)+'</td>\n' +
+                                            '    <td>'+data.loanACNo+'</td>\n' +
+                                            '    <td>'+data.customerName+'</td>\n' +
+                                            '    <td>'+data.mobile+'</td>\n' +
+                                            '    <td>'+data.branchMnemonic+'</td>\n' +
+                                            '    <td>'+data.productCode+'</td>\n' +
+                                            '    <td>'+data.dealReference+'</td>\n' +
+                                            '    <td>'+data.totalOutstanding+'</td>\n' +
+                                            '    <td>'+data.overdue+'</td>\n' +
+                                            '    <td>'+data.emiAmount+'</td>\n' +
+                                            '    <td>'+data.nextEMIDate+'</td>\n' +
+                                            '    <td>'+data.noOfInstallmentDue+'</td>\n' +
+                                            '    <td>'+data.loanCLStatus+'</td>\n' +
+                                            '    <td>'+data.isDistributed+'</td>\n' +
+                                            '    <td>'+data.isSmsSent+'</td>\n' +
+                                            '\n' +
+                                            '                                                </tr>';
+                                    });
+                                    $(".tbl-row").html(tr);
+                                    //allAccountInformationApp.allAccountInformation = res;
+                                    var table = '';
+                                    table = $('#delinquent-table').DataTable({
+                                        initComplete: function () {
+                                            count = 0;
+                                            this.api().columns().every( function () {
+                                                var title = this.header();
+                                                //replace spaces with dashes
+                                                title = $(title).html().replace(/[\W]/g, '-');
+                                                var column = this;
+                                                var select = $('<select id="' + title + '" class="select2" ></select>')
+                                                    .appendTo( $(column.footer()).empty() )
+                                                    .on( 'change', function () {
+                                                        //Get the "text" property from each selected data
+                                                        //regex escape the value and store in array
+                                                        var data = $.map( $(this).select2('data'), function( value, key ) {
+                                                            return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
+                                                        });
+
+                                                        //if no data selected use ""
+                                                        if (data.length === 0) {
+                                                            data = [""];
+                                                        }
+
+                                                        //join array into string with regex or (|)
+                                                        var val = data.join('|');
+
+                                                        //search for the option(s) selected
+                                                        column.search( val ? val : '', true, false ).draw();
+                                                    } );
+
+                                                column.data().unique().sort().each( function ( d, j ) {
+                                                    if(d.includes("href")){
+                                                        d = d.substring(d.indexOf(">")+1,d.length-4)
+                                                    }
+                                                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                                                } );
+
+                                                //use column title as selector and placeholder
+                                                $('#' + title).select2({
+                                                    multiple: true,
+                                                    closeOnSelect: false,
+                                                    placeholder: "Select a " + title
+                                                });
+
+                                                //initially clear select otherwise first option is selected
+                                                $('.select2').val(null).trigger('change');
+                                            } );
+                                        },
+                                        'bInfo': true,
+                                        paging: true,
+                                        lengthChange: true,
+                                        searching: true,
+                                        ordering: false,
+                                        info: false,
+                                        autoWidth: true,
+                                    });
+                                    $('#delinquent-table thead th').each(function(i) {
+                                        var title = $(this).text();
+                                        if(title == 'Account No' || title=='Customer Name' || title=='Mobile' ||
+                                            title=='Branch Mnemonic' || title=='Product Code' || title=='Deal Reference' ||
+                                            title=='Outstanding' || title=='Overdue' || title == 'EMI Amount' || title == 'EMI Date' ||
+                                            title == 'No Of Installment Due' || title == 'Loan Status' || title == 'Distribution Status' ||
+                                            title == 'SMS Sending Status'
+
+                                        ){
+                                            $(this).append('<br /><input type="text" style="width: 100%;" placeholder="Search ' + title + '" />');
+                                        }
+                                        // DataTable
+                                        // var table = $('#account-details-tbl').DataTable();
+                                        // Apply the search
+                                        table.columns().every(function() {
+                                            var that = this;
+
+                                            $('input', this.header()).on('keyup change', function() {
+                                                if (that.search() !== this.value) {
+                                                    that
+                                                        .search(this.value)
+                                                        .draw();
+                                                }
+                                            });
+                                        });
+                                        $(".dd-loader").remove();
+                                    });
                                 }
                             });
                         },
