@@ -58,7 +58,8 @@ public class LoanAccountDistributionService {
 
     public List<LoanAccountDistributionDto> findDistributionList(){
         List<LoanAccountDistributionDto> loanAccountDistributionDtos = new ArrayList<>();
-        for(Tuple t : loanAccountDistributionRepository.accountDistributionList()){
+        List<Tuple> tuples = loanAccountDistributionRepository.accountDistributionList();
+        for(Tuple t : tuples){
             loanAccountDistributionDtos.add(new LoanAccountDistributionDto(t));
         }
         return loanAccountDistributionDtos;
