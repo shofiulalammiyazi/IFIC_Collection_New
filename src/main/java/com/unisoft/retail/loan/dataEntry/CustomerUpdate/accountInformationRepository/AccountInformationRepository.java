@@ -364,4 +364,10 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
             "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList(String accNo);
+
+
+
+
+
+
 }

@@ -10,6 +10,7 @@ import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasi
 import com.unisoft.user.UserService;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.java2d.pipe.SpanShapeRenderer;
 
@@ -25,6 +26,9 @@ public class LoanAccountDistributionService {
     private final LoanAccountDistributionRepository repository;
 
     private final LoanAccountBasicService loanAccountBasicService;
+
+    @Autowired
+    private LoanAccountDistributionRepository loanAccountDistributionRepository;
 
     private final DateUtils dateUtils;
 
@@ -50,6 +54,14 @@ public class LoanAccountDistributionService {
 
     public List<LoanAccountDistributionInfo> findByLoanAccountBasicInfo(LoanAccountBasicInfo loanAccountBasicInfo) {
         return repository.findByLoanAccountBasicInfo(loanAccountBasicInfo);
+    }
+
+    public List<LoanAccountDistributionDto> findDistributionList(){
+        List<LoanAccountDistributionDto> loanAccountDistributionDtos = new ArrayList<>();
+        for(Tuple t : loanAccountDistributionRepository.accountDistributionList()){
+            loanAccountDistributionDtos.add(new LoanAccountDistributionDto(t));
+        }
+        return loanAccountDistributionDtos;
     }
 
     public List<LoanAccountDistributionInfo> findCurrentMonthAccountDistList() {
