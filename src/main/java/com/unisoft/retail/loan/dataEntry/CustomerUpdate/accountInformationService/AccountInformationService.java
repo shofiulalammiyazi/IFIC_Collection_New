@@ -401,18 +401,18 @@ public class AccountInformationService {
 
     public ResponseEntity findAllAndPagination(int page, int length, String accountNo) {
         Pageable pageElements = PageRequest.of(page, length);
-        Page<AccountInfoSMSDto> accountInfoSMSDtos1 = null;
+        List<AccountInfoSMSDto> accountInfoSMSDtos1 = new ArrayList<>();
 
         int size = accountInformationRepository.finAllEligibleSmsListCount();
 
         if (accountNo != null && accountNo != "") {
             List<Tuple> tuples = accountInformationRepository.finAllEligibleSmsList(accountNo);
-            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples);
-            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
+            accountInfoSMSDtos1 = setValueToSMSDto(tuples);
+            //accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         } else {
-            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleSmsList1(pageElements);//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
-            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples1);
-            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
+            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleSmsList1();//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
+            accountInfoSMSDtos1 = setValueToSMSDto(tuples1);
+            //accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         }
         return ResponseEntity.ok(accountInfoSMSDtos1);
     }

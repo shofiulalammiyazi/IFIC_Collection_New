@@ -267,4 +267,26 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
 
     @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI WHERE LADI.ACCOUNT_NO = ?1 AND LADI.LATEST = ?2",nativeQuery = true)
     LoanAccountDistributionInfo findByAccountNoAndLatest(String accountNo, String latest);
+
+    @Query(value ="SELECT AIE.CUSTOMER_NAME, " +
+            "       AIE.LOANACNO, " +
+            "       AIE.MOBILE, " +
+            "       AIE.BRANCH_MNEMONIC, " +
+            "       AIE.TOTAL_OUTSTANDING, " +
+            "       AIE.PRODUCT_CODE, " +
+            "       AIE.DEAL_REFERENCE, " +
+            "       AIE.OVERDUE, " +
+            "       AIE.EMI_AMOUNT, " +
+            "       AIE.NEXTEMIDATE, " +
+            "       AIE.NO_OF_INSTALLMENT_DUE, " +
+            "       AIE.LOANCLSTATUS, " +
+            "       AIE.IS_SMS_SENT, " +
+            "       AIE.DPD, " +
+            "       LADI.DEALER_PIN, " +
+            "       LADI.DEALER_NAME, " +
+            "       LADI.SUPERVISOR_PIN, " +
+            "       LADI.SUPERVISOR_NAME " +
+            "FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
+            "       LEFT JOIN ACCOUNT_INFORMATION_ENTITY AIE ON AIE.LOANACNO = LADI.ACCOUNT_NO",nativeQuery = true)
+    List<Tuple> accountDistributionList();
 }

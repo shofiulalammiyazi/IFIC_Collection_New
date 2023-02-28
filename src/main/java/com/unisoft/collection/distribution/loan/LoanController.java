@@ -15,6 +15,7 @@ import com.unisoft.customerloanprofile.letterinformation.LetterInformation;
 import com.unisoft.customerloanprofile.letterinformation.LetterInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.utillity.DateUtils;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +65,9 @@ public class LoanController {
 
     @Autowired
     private AccountInformationRepository accountInformationRepository;
+
+    @Autowired
+    AccountInformationService accountInformationService;
 
     @GetMapping(value = "/dealerAllocationList")
     public String dealerList(Model model,HttpSession session){
@@ -166,10 +170,13 @@ public class LoanController {
         }
 
         Gson gson = new Gson();
-        model.addAttribute("loanviewlist", loanViewModels);
-        model.addAttribute("loanviewlistJson", gson.toJson(loanViewModels));
+       // model.addAttribute("loanviewlist", loanViewModels);
+        //model.addAttribute("loanviewlistJson", gson.toJson(loanViewModels));
         model.addAttribute("dealerList", peopleAllocationLogicRepository.findByUnitAndDistributionType("Loan", "Regular"));
         model.addAttribute("agencyList", agencyService.getAll());
+        model.addAttribute("autoDistributionList",loanAccountDistributionService.findDistributionList());
+        model.addAttribute("loanviewlist", loanAccountDistributionService.findDistributionList());
+        model.addAttribute("loanviewlistJson", gson.toJson(loanAccountDistributionService.findDistributionList()));
 //        model.addAttribute("accountDistributionInfoList",accDetailsList);
 
         return "collection/distribution/loan/loan";
@@ -269,7 +276,10 @@ public class LoanController {
         loanAccountDistributionRepositoryByCreatedDateIsBetween.forEach(loanAccountDistributionInfo -> {
             LoanViewModel loanViewModelForBasicInfo = getLoanViewModelForBasicInfo(loanAccountDistributionInfo, new LoanViewModel());
             loanViewModels.add(loanViewModelForBasicInfo);
+
         });
+
+
         return loanViewModels;
 
     }
@@ -285,10 +295,21 @@ public class LoanController {
         return loanViewModel;
     }
 
-    private LoanViewModel getLoanViewModelForBasicInfo(LoanAccountDistributionInfo loanAccountDistributionInfo, LoanViewModel loanViewModel) {
+    private LoanViewModel getLoanViewModelForBasicInfo(LoanAccountDistributionInfo loanAccountDistributionInfo,  LoanViewModel loanViewModel) {
 //        LoanAccountInfo loanAccountInfo = loanAccountService.findByLoanAccountBasicId(
 //                loanAccountDistributionInfo.getLoanAccountBasicInfo());
 
+        //List<AccountInformationEntity> accountInformationEntity = accountInformationService.findAll();
+                /*accountInformationService.findAll()*/
+
+       /* for (int i = 0; i<accountInformationEntity.size(); i++){
+            loanViewModel.getAccountNo();
+            loanViewModel.setMobile(accountInformationEntity.get(i).getMobile());
+    }*/
+
+
+
+       // loanViewModel.setMobile(accountInformationEntity.getMobile());
         loanViewModel.setAccountNo(loanAccountDistributionInfo.getLoanAccountBasicInfo().getAccountNo().substring(0,13));
 //        loanViewModel.setClientId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getClientId());
         loanViewModel.setCustomerId(loanAccountDistributionInfo.getLoanAccountBasicInfo().getCustomer().getCustomerId());

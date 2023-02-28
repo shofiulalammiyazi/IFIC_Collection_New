@@ -247,14 +247,8 @@
 
                         <script th:inline="javascript">
                             /*<![CDATA[*/
-                            var loanviewlist =
-                            /*[[${loanviewlistJson}]]*/  ||
-                            "";
-                            var errors =
-                            /*[[${distributionErrors}]]*/  ||
-                            {
-                            }
-                            ;
+                            var loanviewlist = /*[[${loanviewlistJson}]]*/  || "";
+                            var errors = /*[[${distributionErrors}]]*/  || {};
                             /*]]>*/
 
                         </script>
@@ -364,6 +358,22 @@
                                     }).catch(err => {
                                             console.log(err);
                                     })
+                                    },
+                                    getInterestData() {
+                                        let host = window.location.host;
+                                        let url = 'https://' + host + '/collection/setup/interest/interest-data';
+                                        this.$http.get(url,
+                                            {
+                                                credentials: true,
+                                                headers: {
+                                                    'X-CSRF-TOKEN': window.csrfToken,
+                                                }
+                                            }
+                                        ).then(res => {
+
+                                        }).catch(err => {
+                                            console.log(err);
+                                    });
                                     },
                                 }
 
