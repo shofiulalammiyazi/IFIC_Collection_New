@@ -272,7 +272,8 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.EMI_AMOUNT, " +
             "       AIE.NEXTEMIDATE, " +
             "       AIE.NO_OF_INSTALLMENT_DUE, " +
-            "       AIE.LOANCLSTATUS " +
+            "       AIE.LOANCLSTATUS, " +
+            "       AIE.IS_SMS_SENT " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
@@ -298,6 +299,45 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
             "                                              WHERE SADRE3.TYPE = 'Distribution')",nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList1(Pageable pageable);
+
+    @Query(value = "SELECT AIE.LOANACNO, " +
+            "       AIE.CUSTOMER_NAME, " +
+            "       AIE.MOBILE, " +
+            "       AIE.BRANCH_MNEMONIC, " +
+            "       AIE.PRODUCT_CODE, " +
+            "       AIE.DEAL_REFERENCE, " +
+            "       AIE.TOTAL_OUTSTANDING, " +
+            "       AIE.OVERDUE, " +
+            "       AIE.EMI_AMOUNT, " +
+            "       AIE.NEXTEMIDATE, " +
+            "       AIE.NO_OF_INSTALLMENT_DUE, " +
+            "       AIE.LOANCLSTATUS, " +
+            "       AIE.IS_SMS_SENT " +
+            "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
+            "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
+            "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
+            "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
+            "                   LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_STATUS_ENTITY SADRELSE " +
+            "                     ON SADRE.ID = SADRELSE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                   LEFT JOIN LOAN_STATUS_ENTITY LSE ON SADRELSE.LOAN_STATUS_ENTITY_ID = LSE.ID " +
+            "            WHERE LSE.ENABLED = 1 " +
+            "              AND SADRE.TYPE = 'Distribution') " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.PRODUCT_CODE))) " +
+            "        IN(SELECT DISTINCT LTRIM(RTRIM(UPPER(LTE.LOAN_TYPE))) " +
+            "           FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE1 " +
+            "                  LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_TYPE_ENTITIES SADRELTE " +
+            "                    ON SADRE1.ID = SADRELTE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
+            "           WHERE LTE.ENABLED = 1 " +
+            "             AND SADRE1.TYPE = 'Distribution') " +
+            "  AND TO_NUMBER(AIE.DPD) > (SELECT TO_NUMBER(SADRE2.NO_OF_DAYS_BEFORE_EMI_DATE) " +
+            "                            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE2 " +
+            "                            WHERE SADRE2.TYPE = 'Distribution') " +
+            "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) " +
+            "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
+            "                                              WHERE SADRE3.TYPE = 'Distribution')",nativeQuery = true)
+    List<Tuple> finAllEligibleDistributionList1();
 
     @Query(value = "SELECT COUNT(AIE.LOANACNO) " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +

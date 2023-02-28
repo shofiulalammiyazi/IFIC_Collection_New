@@ -428,6 +428,16 @@ public class AccountInformationService {
         return accountInfoSMSDtos;
     }
 
+    public List<AccountInfoSMSDto> setValueToSMSDto1(List<Tuple> tuples){
+        List<AccountInfoSMSDto> accountInfoSMSDtos = new ArrayList<>();
+
+        for(Tuple t : tuples){
+            accountInfoSMSDtos.add(new AccountInfoSMSDto(t,1));
+        }
+
+        return accountInfoSMSDtos;
+    }
+
 
 
     public ResponseEntity findAllByOverdueGreaterThanZero(int page, int length, String accountNo) {
@@ -446,18 +456,18 @@ public class AccountInformationService {
         Page<AccountInformationEntity> allProducts;
 
         Pageable pageElements = PageRequest.of(page, length);
-        Page<AccountInfoSMSDto> accountInfoSMSDtos1 = null;
+        List<AccountInfoSMSDto> accountInfoSMSDtos1 = null;
 
         int size = accountInformationRepository.finAllEligibleDistributionListCount();
 
         if (accountNo != null && accountNo != "") {
             List<Tuple> tuples = accountInformationRepository.finAllEligibleDistributionList(accountNo);
-            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples);
-            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
+            accountInfoSMSDtos1 = setValueToSMSDto1(tuples);
+            //accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         } else {
-            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleDistributionList1(pageElements);//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
-            List<AccountInfoSMSDto> accountInfoSMSDtos = setValueToSMSDto(tuples1);
-            accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
+            List<Tuple> tuples1 = accountInformationRepository.finAllEligibleDistributionList1();//accountInformationRepository.finAllEligibleSmsList(accountNo, pageElements);
+            accountInfoSMSDtos1 = setValueToSMSDto1(tuples1);
+            //accountInfoSMSDtos1 = new PageImpl<AccountInfoSMSDto>(accountInfoSMSDtos, new PageRequest(page, length), size);
         }
         return ResponseEntity.ok(accountInfoSMSDtos1);
 
