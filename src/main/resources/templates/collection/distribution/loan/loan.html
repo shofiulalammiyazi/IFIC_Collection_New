@@ -20,7 +20,7 @@
                             <h3 class="box-title">Allocated Account List (Loan)</h3>
                         </div>
                         <!-- /.box-header -->
-                        <div id="app" class="box-body">
+                        <div id="app" class="box-body table-responsive">
                             <a style="margin-bottom: 10px" class="btn btn-primary btn-xs" th:if="${session.urlList.contains('/distribution/loan/create')}"
                                th:href="@{/distribution/loan/create}"><span class="glyphicon glyphicon-plus"> </span>
                                 Dealer Allocation </a>
@@ -53,9 +53,19 @@
                                 <tr>
                                     <th>Action</th>
                                     <!--<th>Customer Id</th>-->
-                                    <!--<th>Customer Name</th>-->
+                                    <th>Customer Name</th>
                                     <th>Account No</th>
-                                    <!--<th>Outstanding Amount</th>-->
+                                    <th>Mobile</th>
+                                    <th class="text-center">Branch Mnemonic</th>
+                                    <th>Outstanding Amount</th>
+                                    <th class="text-center">Product Code</th>
+                                    <th class="text-center">Deal Reference</th>
+                                    <th class="text-center">Overdue</th>
+                                    <th class="text-center">EMI Amount</th>
+                                    <th class="text-center">EMI Date</th>
+                                    <th class="text-center">No Of Installment Due</th>
+                                    <th class="text-center">Loan Status</th>
+                                    <th class="text-center">SMS Sending Status</th>
                                     <th>Location</th>
                                     <th>Bucket</th>
                                     <!--<th>Dealer Name</th>-->
@@ -75,9 +85,20 @@
                                         </label>
                                     </td>
                                     <!--<td><span>{{loan.customerId}}</span></td>-->
-                                    <!--<td><div style="height: 16px; overflow: auto">{{loan.customerName}}</div></td>-->
+                                    <td><div style="height: 16px; overflow: auto">{{loan.customerName}}</div></td>
                                     <td><a :href="'/profile/loanprofile/search?account='+ loan.accountNo"
                                            target="_blank">{{loan.accountNo}}</a></td>
+                                    <td><div style="height: 16px; overflow: auto">{{loan.mobile}}</div></td>
+                                    <td>{{loan.branchMnemonic}}</td>
+                                    <td>{{loan.totalOutstanding}}</td>
+                                    <td>{{loan.productCode}}</td>
+                                    <td>{{loan.dealReference}}</td>
+                                    <td>{{loan.overdue}}</td>
+                                    <td>{{loan.emiAmount}}</td>
+                                    <td>{{loan.nextEMIDate}}</td>
+                                    <td>{{loan.noOfInstallmentDue}}</td>
+                                    <td>{{loan.loanCLStatus}}</td>
+
                                     <!--<td><span>{{loan.outstandingAmount}}</span></td>-->
                                     <td><span>{{loan.location}}</span></td>
                                     <td><span>{{loan.dpdBucket}}</span></td>
