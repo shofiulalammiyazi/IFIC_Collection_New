@@ -433,12 +433,13 @@ public class AccountInformationService {
     public ResponseEntity findAllByOverdueGreaterThanZero(int page, int length, String accountNo) {
         Pageable pageElements = PageRequest.of(page, length);
         Page<AccountInformationEntity> allProducts;
+        List<AccountInformationEntity> allProducts1 = new ArrayList<>();
         if (accountNo != null && accountNo != "") {
             allProducts = accountInformationRepository.findAllByOverdueGreaterThanZero(accountNo, pageElements);
         } else {
-            allProducts = accountInformationRepository.findAllByOverdueGreaterThanZero(pageElements);
+            allProducts1 = accountInformationRepository.findAllByOverdueGreaterThanZero();
         }
-        return ResponseEntity.ok(allProducts);
+        return ResponseEntity.ok(allProducts1);
     }
 
     public ResponseEntity findAllAndPaginationByIsSmsSent(int page, int length, String accountNo) {
