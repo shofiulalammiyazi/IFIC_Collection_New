@@ -19,7 +19,7 @@
                             <h3 th:if="${loanType?.id != null}" class="box-title">Update Loan Type</h3>
                         </div>-->
 
-                        <form class="form-horizontal validate" method="post" th:action="@{/collection/loantype/create}" th:object="${loanType}">
+                        <form class="form-horizontal validate" method="post" th:action="@{/collection/loantype/create}" th:object="${entity}">
                             <input type="hidden" ></input> <!--th:field="*{id}"-->
                             <div class="box-body">
                                 <!--<div class="form-group">
@@ -29,6 +29,13 @@
 
                                     </div>
                                 </div>-->
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name=""  class="form-control required" placeholder="Email Address"/>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Full Name</label>
@@ -48,20 +55,21 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">Role</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control " placeholder="Employee Id"/>
-
+                                        <select type="text" class="form-control input-sm" required>
+                                            <!--<option class="form-control input-sm" th:text="Select a " th:value="0"></option>-->
+                                            <option class="form-control input-sm" th:each="role: ${roles}" th:value="${role.roleId}"
+                                                    th:text="${role.name}"></option>
+                                        </select>
                                     </div>
                                 </div>
 
 
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Email Address"/>
-                                    </div>
-                                </div>
+
+
+
+
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Mobile No</label>
@@ -98,17 +106,19 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Supervisor</label>
                                     <div class="col-sm-8">
                                         <input type="text" name=""  class="form-control required" placeholder="Supervisor"/>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Active Status of user</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Active Status of user"/>
+                                        <select type="text" class="form-control input-sm" required>
+                                            <option value="">Select Active Status of user</option>
+                                        </select>
                                     </div>
                                 </div>
 
