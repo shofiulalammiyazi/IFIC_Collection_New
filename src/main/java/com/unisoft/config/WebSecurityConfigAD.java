@@ -111,15 +111,29 @@ public class WebSecurityConfigAD extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.ldapAuthentication()
-                .userDnPatterns("uid={0},ou=people")
-                .groupSearchBase("ou=groups")
+                .userSearchFilter("(sAMAccountName={0})")
+                .userSearchBase("DC=ificbankbd,DC=com")
+//                .groupSearchBase("ou=groups,dc=some,dc=domain,dc=com")
+//                .groupSearchFilter("member={0}")
                 .contextSource()
-                .url("ldap://localhost:8380/dc=springframework,dc=org")
-                .and()
-                .passwordCompare()
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .passwordAttribute("userPassword").and().ldapAuthoritiesPopulator(new LDAPCustomAuthProvider());
+                .url("ldap://192.168.1.5")
+                //.port(639)
+                .managerDn("cn=binduser,ou=users,dc=ificbankbd,dc=ificbankbd,dc=com")
+                .managerPassword("14Aug14##003");
     }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.ldapAuthentication()
+//                .userDnPatterns("uid={0},ou=people")
+//                .groupSearchBase("ou=groups")
+//                .contextSource()
+//                .url("ldap://localhost:8380/dc=springframework,dc=org")
+//                .and()
+//                .passwordCompare()
+//                .passwordEncoder(new BCryptPasswordEncoder())
+//                .passwordAttribute("userPassword").and().ldapAuthoritiesPopulator(new LDAPCustomAuthProvider());
+//    }
 
 //    @Bean
 //    public AuthenticationManager configureManager(HttpSecurity httpSecurity)throws Exception{

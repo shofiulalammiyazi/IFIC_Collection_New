@@ -27,6 +27,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -68,6 +69,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         session.setAttribute("isLate", false);
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
+        String authResult = "";
+        ActiveDirectoryAuthentication customADAuthentication = new ActiveDirectoryAuthentication("ificbankbd.com");
+        try {
+            authResult = customADAuthentication.authenticate(username, password);
+            System.out.print("Auth: " + authResult+" ");
+        } catch (LoginException e) {
+            // e.printStackTrace();
+        }
 
         User user = userDao.findUserAndRolesByUsername(username);
 //        User user = userRepository.findUserByUsername(username);
@@ -107,7 +116,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                     }
 
                     if (!isTemporaryLocked && !isPermanentLocked) {   // Check If the user is not locked for failure login & user not permanent locked
-                        if (new BCryptPasswordEncoder().matches(password, user.getPassword())) {
+                        //if (new BCryptPasswordEncoder().matches(password, user.getPassword())) {
+                        if (authResult.equalsIgnoreCase("true")) {
 
                             // Authorize active roles only
                             List<Role> roles = user.getRoles().stream().filter(Role::isEnabled).collect(Collectors.toList());
