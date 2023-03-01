@@ -71,15 +71,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         String authResult = "";
         ActiveDirectoryAuthentication customADAuthentication = new ActiveDirectoryAuthentication("ificbankbd.com");
+        User user = new User();
         try {
             authResult = customADAuthentication.authenticate(username, password);
+            user = userDao.findUserAndRolesByUsername(username);
             System.out.print("Auth: " + authResult+" ");
         } catch (LoginException e) {
             // e.printStackTrace();
         }
-
-        User user = userDao.findUserAndRolesByUsername(username);
 //        User user = userRepository.findUserByUsername(username);
+        if (user == null) {
+            session.setAttribute("errorMsg", "User Not Found");
+            return null;
+        }
 
         if (user.getIsAgency()) {
             String module = ((CustomWebAuthenticationDetails) authentication.getDetails()).getModudleName();
@@ -247,7 +251,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                     }
 
                     if (!isTemporaryLocked && !isPermanentLocked) {   // Check If the user is not locked for failure login & user not permanent locked
-                        if (new BCryptPasswordEncoder().matches(password, user.getPassword())) {
+                        if (authResult.equalsIgnoreCase("true")) {
 
                             // Authorize active roles only
                             List<Role> roles = user.getRoles().stream().filter(Role::isEnabled).collect(Collectors.toList());
