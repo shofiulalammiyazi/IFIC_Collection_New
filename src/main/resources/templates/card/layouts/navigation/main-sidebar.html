@@ -169,7 +169,7 @@
                                         <li>
                                             <a
                                                     th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/delinquint-ac-list')}"
-                                                    th:href="@{/retail/loan/data-entry/distribution/auto/delinquint-ac-list}">Delinquent Account List
+                                                    th:href="@{/retail/loan/data-entry/distribution/auto/delinquint-ac-list}">All list of Account-EMI Due
                                             </a>
                                         </li>
 
@@ -186,14 +186,14 @@
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/loan/list')}"
                                                class="tab"
-                                               th:href="@{/distribution/loan/list}">Allocated Account List- Loan
+                                               th:href="@{/distribution/loan/list}">List of Distributed Account Loan
                                             </a>
                                         </li>
 
                                         <li>
                                             <a th:if="${session.urlList.contains('/distribution/loan/list')}"
                                                class="tab"
-                                               th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">UnAllocated Account List- Loan
+                                               th:href="@{/retail/loan/data-entry/distribution/auto/distributionlist}">Eligible list for Distribution Loan
                                             </a>
                                         </li>
 
@@ -208,7 +208,7 @@
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
                                                class="tab"
                                                th:href="@{/retail/loan/data-entry/distribution/auto/list}">
-                                                Send SMS For Automatic Distribution
+                                                Eligible list for sending SMS
                                             </a>
                                         </li>
 
