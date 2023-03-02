@@ -76,6 +76,7 @@ public class ActiveDirectoryAuthentication {
 				return "false";
 			}catch(Exception e){		       
 		        e.printStackTrace();
+				return "false";
 		    }catch (Throwable throwable) {
 				throwable.printStackTrace();
 				return "false";

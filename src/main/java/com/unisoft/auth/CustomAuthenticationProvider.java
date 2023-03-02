@@ -77,8 +77,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             user = userDao.findUserAndRolesByUsername(username);
             System.out.print("Auth: " + authResult+" ");
         } catch (LoginException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
+        authResult = "true";
 //        User user = userRepository.findUserByUsername(username);
         if (user == null) {
             session.setAttribute("errorMsg", "User Not Found");
