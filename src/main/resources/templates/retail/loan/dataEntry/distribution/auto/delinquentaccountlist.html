@@ -4,7 +4,7 @@
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="ISO-8859-1"></meta>
-    <title>Delinquent Account List</title>
+    <title>All list of Account-EMI Due List</title>
     <style>
         td {
             word-wrap: break-word;
@@ -24,7 +24,7 @@
                 <div class="col-md-12" id="target-overlay">
                     <div class="box" id="entity-approval">
                         <div class="box-header with-border" style="text-align: center;">
-                            <h3 class="box-title">Delinquent Account List</h3>
+                            <h3 class="box-title">All list of Account-EMI Due</h3>
                         </div>
 
                         <!--<div class="col-sm-12" style="margin-top: 10px">-->
@@ -367,9 +367,9 @@
                                             '    <td>'+data.branchMnemonic+'</td>\n' +
                                             '    <td>'+data.productCode+'</td>\n' +
                                             '    <td>'+data.dealReference+'</td>\n' +
-                                            '    <td>'+data.totalOutstanding+'</td>\n' +
-                                            '    <td>'+data.overdue+'</td>\n' +
-                                            '    <td>'+data.emiAmount+'</td>\n' +
+                                            '    <td>'+Number(data.totalOutstanding)/100+'</td>\n' +
+                                            '    <td>'+Number(data.overdue)/100+'</td>\n' +
+                                            '    <td>'+Number(data.emiAmount)/100+'</td>\n' +
                                             '    <td>'+data.nextEMIDate+'</td>\n' +
                                             '    <td>'+data.noOfInstallmentDue+'</td>\n' +
                                             '    <td>'+data.loanCLStatus+'</td>\n' +
