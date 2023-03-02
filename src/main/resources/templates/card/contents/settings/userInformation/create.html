@@ -9,7 +9,7 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper">
-        <section class="content">
+        <section class="content" id="user-info-app">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="box box-primary">
@@ -33,21 +33,21 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Email Address"/>
+                                        <input type="text" v-model="email" name="EMAIL_ADDRESS" @focusout="getUserDetails" class="form-control required" placeholder="Email Address"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Full Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Full Nmae"/>
+                                        <input type="text" name="FULL_NAME" id="full-name" class="form-control required" placeholder="Full Name"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control " placeholder="Employee Id"/>
+                                        <input type="text" name="EMPLOYEE_ID" id="emp-id" class="form-control " placeholder="Employee Id"/>
 
                                     </div>
                                 </div>
@@ -55,54 +55,44 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">Role</label>
                                     <div class="col-sm-8">
-                                        <select type="text" class="form-control input-sm" required>
-                                            <!--<option class="form-control input-sm" th:text="Select a " th:value="0"></option>-->
-                                            <option class="form-control input-sm" th:each="role: ${roles}" th:value="${role.roleId}"
-                                                    th:text="${role.name}"></option>
-                                        </select>
+                                        <multiselect v-model="user.roles" placeholder="Select Roles"
+                                                     label="name" track-by="roleId" :options="roleList"
+                                                     :multiple="true" :taggable="true"></multiselect>
                                     </div>
                                 </div>
-
-
-
-
-
-
-
-
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Mobile No</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Mobile No"/>
+                                        <input type="text" name="MOBILE_NO" id="mobile-no" class="form-control required" placeholder="Mobile No"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Misys Id</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Misys Id"/>
+                                        <input type="text" name="MISYS_ID" id="misys-id" class="form-control required" placeholder="Misys Id"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Agent ID</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Agent ID"/>
+                                        <input type="text" name="" id="agent-id" class="form-control required" placeholder="Agent ID"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">CBS Branch Code</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="CBS Branch Code"/>
+                                        <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control required" placeholder="CBS Branch Code"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">CBS Branch Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="CBS Branch Name"/>
+                                        <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control required" placeholder="CBS Branch Name"/>
                                     </div>
                                 </div>
 
@@ -113,27 +103,27 @@
                                     </div>
                                 </div>-->
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Active Status of user</label>
-                                    <div class="col-sm-8">
-                                        <select type="text" class="form-control input-sm" required>
-                                            <option value="">Select Active Status of user</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-sm-4 custom-form-lebel-right required">Active Status of user</label>-->
+                                <!--<div class="col-sm-8">-->
+                                <!--<select type="text" class="form-control input-sm" required>-->
+                                <!--<option value="">Select Active Status of user</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--</div>-->
 
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Status</label>
                                     <div class="col-sm-8">
-                                       <!-- <fieldset id="group1">
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${loanType?.enabled==true} or ${loanType?.id == null}"
-                                                   th:value="true"> Active</input>
-                                            <input type="radio" name="enabled"
-                                                   th:checked="${loanType?.enabled==false} and ${loanType?.id != null}"
-                                                   th:value="false"> Inactive </input>
-                                        </fieldset>-->
+                                        <!--<fieldset id="group1">-->
+                                        <!--<input type="radio" name="enabled" id="enabled"-->
+                                        <!--th:checked="${entity.enabled}" th:value="true">-->
+                                        <!--Active </input>-->
+                                        <!--<input type="radio" name="enabled" id="disabled"-->
+                                        <!--th:checked="${!entity.enabled}" th:value="false">-->
+                                        <!--Inactive </input>-->
+                                        <!--</fieldset>-->
                                     </div>
                                 </div>
 
@@ -150,6 +140,92 @@
                 </div>
             </div>
         </section>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var roleList = /*[[${roles}]]*/ [];
+            var userEntity = /*[[${entity}]]*/ [];
+            /*]]>*/
+        </script>
+        <script>
+            var userInfoApp = new Vue({
+                el: '#user-info-app',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    roleList: [],
+                    user: {},
+                    email:""
+
+                },
+                created: function () {
+                    this.roleList = Array.isArray(roleList) ? roleList : [];
+                    this.user = userEntity ? userEntity : {};
+                },
+
+                methods: {
+                    getUserDetails(){
+                        $.ajax({
+                            url: '/employee/api/getEmployee?username='+this.email,
+                            type: "GET",
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data)
+                                $("#full-name").val(data.full_NAME);
+                                $("#emp-id").val(data.employee_ID);
+                                $("#cbs-branch-code").val(data.cbs_BRANCH_CODE);
+                                $("#cbs-branch-name").val(data.cbs_BRANCH_NAME);
+                                $("#mobile-no").val(data.mobile_NO);
+                                $("#misys-id").val(data.misys_ID);
+                                // $('#customerId').val(data.collateralSecurity.customerId);
+                                // $('#colSecId').val(data.collateralSecurity.colSecId);
+                                // $('#colBankName').val(data.collateralSecurity.bankName);
+                                // $('#colBranchName').val(data.collateralSecurity.branchName);
+                                // $('#colAccType').val(data.collateralSecurity.accType);
+                                // $('#colAccName').val(data.collateralSecurity.accName);
+                                // $('#colAccNo').val(data.collateralSecurity.accNo);
+                                // $('#colSecAmount').val(data.collateralSecurity.secAmount);
+                                // $('#colMaturityDate').val(data.collateralSecurity.maturityDate);
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                    // saveUser: function (e) {
+                    //     e.preventDefault();
+                    //     var entity = JSON.stringify(this.user);
+                    //     var host = window.location.host;
+                    //     this.$http.post('https://' + host + '/user-role/authentication/rest/create', entity,
+                    //         {
+                    //             credentials: true,
+                    //             headers: {
+                    //                 'X-CSRF-TOKEN': window.csrfToken,
+                    //                 'Content-Type': "application/json"
+                    //             }
+                    //         }).then(res => {
+                    //         if (res.ok && res.bodyText === 'succeed') {
+                    //         swal("Successfully saved");
+                    //         this.goToList();
+                    //
+                    //     } else {
+                    //         swal('Failed to save changes');
+                    //     }
+                    // }).catch(err => {
+                    //         swal("Failed to save changes");
+                    //     console.log("Something went wrong. " + err);
+                    // })
+                    //
+                    // },
+                    // goToList: function () {
+                    //     console.log('returning url');
+                    //     window.location.href = '/user/list';
+                    // },
+                }
+            })
+
+        </script>
     </div>
 </div>
 </body>

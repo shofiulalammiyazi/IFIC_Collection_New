@@ -1,5 +1,8 @@
 package com.unisoft.collection.settings.employee.API;
 
+import lombok.Data;
+
+@Data
 public class EmployeeDetails{
     private String EMPLOYEE_ID;
     private String EMAIL_ADDRESS;
