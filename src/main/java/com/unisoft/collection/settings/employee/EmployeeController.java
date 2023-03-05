@@ -9,12 +9,17 @@ import com.unisoft.collection.settings.branch.BranchService;
 import com.unisoft.collection.settings.department.DepartmentService;
 import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.collection.settings.division.DivisionService;
+import com.unisoft.collection.settings.employee.API.EmployeeAPIService;
+import com.unisoft.collection.settings.employee.API.EmployeeApiPayload;
+import com.unisoft.collection.settings.employee.API.EmployeeDetails;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
 import com.unisoft.collection.settings.location.LocationService;
 import com.unisoft.collection.settings.unit.UnitService;
 import com.unisoft.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +51,15 @@ public class EmployeeController {
     private final EmployeeStatusService employeeStatusService;
     private final PeopleAllocationLogicService peopleAllocationLogicService;
     private final BranchService branchService;
+
+    @Autowired
+    private EmployeeAPIService employeeAPIService;
+
+    @Value("${ific.employee.api.user}")
+    private String employeeAPIUsername;
+
+    @Value("${ific.employee.api.pass}")
+    private String employeeAPIPass;
 
     @GetMapping(value = "list")
     public String viewAll(Model model) {
@@ -81,6 +95,36 @@ public class EmployeeController {
 
     @PostMapping(value = "create")
     public String saveNew(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
+        if (!result.hasErrors()) {
+            boolean isValid = isValidEmployee(employee, model);
+            boolean isExist = true;
+            if (employee.getId() == null){
+                isExist = isEmailExist(employee.getEmail());
+            }
+            if (isExist == true){
+                if (isValid) {
+                    String output = employeeService.save(employee);
+                    switch (output) {
+                        case "1":
+                            return "redirect:/collection/employee/list";
+                        default:
+                            model.addAttribute("error", output);
+                    }
+                }
+            }else
+                model.addAttribute("emailExist", true);
+
+        }
+        model.addAttribute("entity", employee);
+        return populateDateFormModel(model);
+
+    }
+
+    @PostMapping(value = "create-emp")
+    public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
+
+        EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
+
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
             boolean isExist = true;
@@ -174,6 +218,12 @@ public class EmployeeController {
     @GetMapping(value = "check")
     public boolean checkRoom(@RequestParam("pin") String pin) {
         return employeeService.existsByPin(pin);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "checkByEmail")
+    public boolean checkByEmail(@RequestParam("email") String email) {
+        return employeeService.existsByEmail(email);
     }
 
     private boolean isValidEmployee(EmployeeInfoEntity employee, Model model) {

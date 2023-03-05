@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://www.w3.org/1999/xhtml"
       layout:decorator="card/layouts/main/main-layout">
 <head>
     <meta charset="ISO-8859-1"/>
-    <title>Loan Type</title>
+    <title>New User</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
@@ -14,127 +14,200 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="box box-primary">
 
-                        <!--<div class="box-header with-border" style="text-align: center;">
-                            <h3 th:if="${loanType?.id == null}" class="box-title">Create New Loan Type</h3>
-                            <h3 th:if="${loanType?.id != null}" class="box-title">Update Loan Type</h3>
-                        </div>-->
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 th:if="${entity.id == null}" class="box-title">Add New User</h3>
+                            <h3 th:if="${entity.id != null}" class="box-title">Update User</h3>
+                        </div>
 
-                        <form class="form-horizontal validate" method="post" th:action="@{/collection/loantype/create}" th:object="${entity}">
-                            <input type="hidden" ></input> <!--th:field="*{id}"-->
                             <div class="box-body">
-                                <!--<div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Loan Type</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="loanType" th:field="*{loanType}" class="form-control required" placeholder="Loan Type"/>
 
+                                <form id="app1" class="form-horizontal validate" method="post"
+                                      th:action="@{/collection/employee/create-emp}"  th:object="${entity}">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" v-model="email" v-bind:style="{ border: activeBorder }" @input="checkUsername" name="EMAIL_ADDRESS" @focusout="getUserDetails" class="form-control required" placeholder="Email Address"/>
+                                            <div v-if="showSpinner">
+                                                <ul class="fa-ul">
+                                                    <li>
+                                                        <i class="fa-li fa fa-spinner fa-spin" style="font-size: 20px"></i>
+                                                        <span style="font-size: 12px;" class="label label-success">Checking availability...</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div>
+
+                                            </div>
+
+                                            <div v-if="showText">
+                                                <p style="color: red">
+                                                <span class="label label-danger" style="font-size: 12px">
+                                                    Employee Email already exist, Try different one...
+                                                </span>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>-->
 
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right">Full Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="FULL_NAME" id="full-name" class="form-control" placeholder="Full Name"/>
+                                        </div>
+                                        <input type="hidden" th:field="*{user.firstName}" id="first-name"/>
+                                        <input type="hidden" th:field="*{user.lastName}" id="last-name"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="EMPLOYEE_ID" id="emp-id" class="form-control " placeholder="Employee Id"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Role</label>
+                                        <div class="col-sm-8">
+                                            <multiselect v-model="user.roles" placeholder="Select Roles"
+                                                         label="name" track-by="roleId" :options="roleList"
+                                                         :multiple="true" :taggable="true"></multiselect>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">Mobile No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="MOBILE_NO" id="mobile-no" class="form-control " placeholder="Mobile No"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">Misys Id</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="MISYS_ID" id="misys-id" class="form-control " placeholder="Misys Id"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">Agent ID</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="" id="agent-id" class="form-control " placeholder="Agent ID"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Code</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control " placeholder="CBS Branch Code"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control " placeholder="CBS Branch Name"/>
+                                        </div>
+                                    </div>
                                 <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" v-model="email" name="EMAIL_ADDRESS" @focusout="getUserDetails" class="form-control required" placeholder="Email Address"/>
+                                    <label class="col-sm-4 custom-form-lebel-right required">Unit </label>
+                                    <div class="col-sm-8 checkbox-group require"
+                                         th:with="valid = ${entity?.unit != null and !entity?.unit.isEmpty()}">
+                                        <th:block th:if="${unitList != null and !unitList.isEmpty()}"
+                                                  th:each="unitElement, index :${unitList}">
+                                            <input type="checkbox" required  name="unit" th:field="*{unit}"
+                                                   th:value="${unitElement.name}"
+                                                   th:id="${'unit' + index.index}"
+                                                   th:checked="${valid and #strings.contains(entity.unit, unitElement.name)}"/>
+                                            <label th:for="${'unit' + index.index}"
+                                                   th:text="${unitElement.name}">Unit</label>
+                                        </th:block>
                                     </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Full Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="FULL_NAME" id="full-name" class="form-control required" placeholder="Full Name"/>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Job Nature </label>
+                                        <div class="col-sm-8">
+                                            <select name="contactAddress" class="form-control input-sm" required
+                                                    th:field="*{jobNature}">
+                                                <option class="form-control input-sm" value="">Select</option>
+                                                <option class="form-control input-sm"
+                                                        value="FTE-FULL TIME EMPLOYEE" id="optionFTE">FTE-FULL TIME EMPLOYEE
+                                                </option>
+                                                <option class="form-control input-sm"
+                                                        value="TPC-THIRD PARTY CONTRACTUAL" id="optionTPC">TPC-THIRD PARTY
+                                                    CONTRACTUAL
+                                                </option>
+                                                <option class="form-control input-sm" value="CONTRACTUAL"
+                                                        id="optionC">CONTRACTUAL
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="EMPLOYEE_ID" id="emp-id" class="form-control " placeholder="Employee Id"/>
-
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Job Role </label>
+                                        <div class="col-sm-8">
+                                            <select type="text" name="contactAddress" class="form-control input-sm" required
+                                                    th:field="*{jobRole.id}">
+                                                <option class="form-control input-sm" th:each="role:${roleList}"
+                                                        th:value="${role.id}"
+                                                        th:selected="${role.id == entity?.jobRole?.id}"
+                                                        th:text="${role.name}"></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right ">Role</label>
-                                    <div class="col-sm-8">
-                                        <multiselect v-model="user.roles" placeholder="Select Roles"
-                                                     label="name" track-by="roleId" :options="roleList"
-                                                     :multiple="true" :taggable="true"></multiselect>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required">Joining Date</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" name="joiningDate" th:field="*{joiningDate}" required
+                                                       pattern="[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" title="Enter a date in this format YYYY-MM-DD" class="form-control input-sm datepicker"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Mobile No</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="MOBILE_NO" id="mobile-no" class="form-control required" placeholder="Mobile No"/>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 custom-form-lebel-right required"> Status</label>
+                                        <div class="col-sm-8">
+                                            <select type="text" name="contactAddress" class="form-control input-sm"
+                                                    th:field="*{employeeStatus.id}" required>
+                                                <option class="form-control input-sm"
+                                                        th:each="employeeStatus:${statusList}"
+                                                        th:value="${employeeStatus.id}"
+                                                        th:selected="${employeeStatus.id == entity?.employeeStatus?.id}"
+                                                        th:text="${employeeStatus.name}"></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Misys Id</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="MISYS_ID" id="misys-id" class="form-control required" placeholder="Misys Id"/>
+                                    <div class="box-footer text-center">
+                                        <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                        <a type="submit" class="btn btn-danger btn-sm" href="/">Cancel</a>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Agent ID</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="" id="agent-id" class="form-control required" placeholder="Agent ID"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">CBS Branch Code</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control required" placeholder="CBS Branch Code"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">CBS Branch Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control required" placeholder="CBS Branch Name"/>
-                                    </div>
-                                </div>
-
-                                <!--<div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Supervisor</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name=""  class="form-control required" placeholder="Supervisor"/>
-                                    </div>
-                                </div>-->
-
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-4 custom-form-lebel-right required">Active Status of user</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<select type="text" class="form-control input-sm" required>-->
-                                <!--<option value="">Select Active Status of user</option>-->
-                                <!--</select>-->
-                                <!--</div>-->
-                                <!--</div>-->
-
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 custom-form-lebel-right required">Status</label>
-                                    <div class="col-sm-8">
-                                        <!--<fieldset id="group1">-->
-                                        <!--<input type="radio" name="enabled" id="enabled"-->
-                                        <!--th:checked="${entity.enabled}" th:value="true">-->
-                                        <!--Active </input>-->
-                                        <!--<input type="radio" name="enabled" id="disabled"-->
-                                        <!--th:checked="${!entity.enabled}" th:value="false">-->
-                                        <!--Inactive </input>-->
-                                        <!--</fieldset>-->
-                                    </div>
-                                </div>
-
+                                </form>
                             </div>
 
-                            <div class="box-footer text-center">
-                                <button type="submit" class="btn btn-info btn-sm ">Submit</button>
-                                <a type="submit" class="btn btn-danger btn-sm" href="/">Cancel</a>
-                            </div>
 
-                        </form>
+                        <!--<form id="app" class="form-horizontal validate" method="post"-->
+                              <!--th:action="@{/collection/employee/create}">-->
+                            <!--<input type="hidden" name="pin">-->
+                            <!--<input type="hidden" name="designation">-->
+                            <!--<input type="hidden" name="jobRole">-->
+                            <!--<input type="hidden" name="joiningDate">-->
+                            <!--<input type="hidden" name="DOB">-->
+                            <!--<input type="hidden" name="email">-->
+                            <!--<input type="hidden" name="unit">-->
+                            <!--<input type="hidden" name="employeeStatus">-->
+                            <!--<input type="hidden" name="branch">-->
+                            <!--<input type="hidden" name="user">-->
+                        <!--</form>-->
 
                     </div>
                 </div>
@@ -156,7 +229,11 @@
                 data: {
                     roleList: [],
                     user: {},
-                    email:""
+                    email:"",
+                    activeBorder: '',
+                    userPin: '',
+                    showSpinner: false,
+                    showText: false,
 
                 },
                 created: function () {
@@ -192,7 +269,54 @@
                                 console.log(err);
                             }
                         });
-                    }
+                    },
+                    checkUsername: _.debounce(function (e) {
+                        this.showSpinner = true;
+                        this.showText = false;
+                        this.roomNumber = e.target.value;
+                        this.$http.get('/collection/employee/checkByEmail?email=' + e.target.value)
+                            .then(res => {
+                            this.sleep(500);
+                        this.showSpinner = false;
+                        if (!res.body) {
+                            this.showText = false;
+                            this.activeBorder = '';
+                        } else {
+
+                            this.showText = true;
+                            this.activeBorder = '1px solid red';
+                        }
+                    }).catch(err => {
+                            this.showSpinner = false;
+                    })
+                    }, 500),
+                    sleep: function (milliseconds) {
+                        var start = new Date().getTime();
+                        for (var i = 0; i < 1e7; i++) {
+                            if ((new Date().getTime() - start) > milliseconds) {
+                                break;
+                            }
+                        }
+                    },
+                    preview: function (id) {
+                        let fileInput = $('#' + id + 'Input')[0];
+                        let fileview = $('#' + id + 'View')[0];
+                        file = fileInput.files[0];
+                        if (fileInput.files && file) {
+                            let reader = new FileReader();
+                            reader.onloadend = function () {
+                                var b64 = reader.result;
+                                fileview.src = b64;
+                                $('#' + id + 'Field').val(b64.replace(/^data:.+;base64,/, ''));
+                            };
+                            reader.readAsDataURL(file);
+                            if (id == 'photo') this.photoUploaded = true;
+                            else this.signatureUploaded = true;
+                        } else {
+                            if (id == 'photo') this.photoUploaded = false;
+                            else this.signatureUploaded = false;
+                        }
+                    },
                     // saveUser: function (e) {
                     //     e.preventDefault();
                     //     var entity = JSON.stringify(this.user);

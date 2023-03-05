@@ -39,6 +39,8 @@ public interface EmployeeRepository extends JpaRepository<EmployeeInfoEntity, Lo
 
     boolean existsByPin(String pin);
 
+    boolean existsByEmail(String email);
+
     EmployeeInfoEntity findEmployeeInfoEntityByEmail(String email);
 
 

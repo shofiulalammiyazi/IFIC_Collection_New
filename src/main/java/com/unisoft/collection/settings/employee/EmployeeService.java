@@ -75,7 +75,7 @@ public class EmployeeService {
             employeeStatusManager.setEmployeeInfo(entity);
             employeeStatusManager.setStartDate(entity.getJoiningDate());
             employeeStatusManager.setUserId(entity.getUser().getUserId());
-            employeeStatusManager.setStartDate(entity.getJoiningDate());
+            //employeeStatusManager.setStartDate(entity.getJoiningDate());
 
             employeeStatusmanagerService.saveNew(employeeStatusManager);
 
@@ -134,6 +134,10 @@ public class EmployeeService {
 
     public boolean existsByPin(String pin) {
         return repository.existsByPin(pin);
+    }
+
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
     }
 
     public List<EmployeeInfoEntity> getListByDesignation(String designation) {

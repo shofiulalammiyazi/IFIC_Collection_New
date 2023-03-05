@@ -69,7 +69,8 @@ public class UserService {
         if (user.getUserId() == null) {
             user.setCreatedBy(employee.getCreatedBy());
             user.setCreatedDate(new Date());
-            user.setUsername(employee.getPin());
+            //user.setUsername(employee.getPin());
+            user.setUsername(employee.getEmail());
             user.setEmployeeId(employee.getPin());
             user.setStatus(true);
             user.setEnabled(false);
@@ -84,7 +85,7 @@ public class UserService {
             else
                 oldEntity.setEnabled(true);
 
-            oldEntity.setUsername(employee.getPin());
+            oldEntity.setUsername(employee.getEmail());
             oldEntity.setEmployeeId(employee.getPin());
             oldEntity.setStatus(true);
             // oldEntity.setBranch(user.getBranch());
