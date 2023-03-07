@@ -113,6 +113,11 @@
                                                class="tab" th:href="@{/collection/employee/list}">Employee
                                             </a>
                                         </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/collection/employee/list')}"
+                                               class="tab" th:href="@{/userInformation/create}">User
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </li>
