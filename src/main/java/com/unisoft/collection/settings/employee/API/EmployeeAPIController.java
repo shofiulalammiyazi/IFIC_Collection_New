@@ -37,8 +37,8 @@ public class EmployeeAPIController {
     private String employeeAPIPass;
 
     @GetMapping("getEmployee")
-    public void callApi(@RequestParam("username") String username){
-        employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername,employeeAPIPass.substring(2,employeeAPIPass.length()-2),username,"",""));
+    public EmployeeDetails callApi(@RequestParam("username") String username){
+       return employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername,employeeAPIPass.substring(2,employeeAPIPass.length()-2),username,"",""));
     }
 
 }

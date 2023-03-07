@@ -265,6 +265,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                                     break;
                                 }
                             }
+                            //if (employeeService.getByPin(user.getUsername()).getUnit().toUpperCase().contains("IT SECURITY")) {
                             if (employeeService.getByPin(user.getUsername()).getUnit().toUpperCase().contains("IT SECURITY")) {
                                 hasItSecurity = true;
                             }

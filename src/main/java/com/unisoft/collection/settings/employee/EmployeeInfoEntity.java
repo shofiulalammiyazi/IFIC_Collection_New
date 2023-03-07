@@ -14,6 +14,7 @@ import com.unisoft.collection.settings.division.DivisionEntity;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusEntity;
 import com.unisoft.collection.settings.jobRole.JobRoleEntity;
 import com.unisoft.collection.settings.location.LocationEntity;
+import com.unisoft.role.Role;
 import com.unisoft.user.User;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +24,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -79,7 +82,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     private String presentAddress;
     private String permanentAddress;
     private String officeAddress;
-    @Pattern(regexp = "([a-zA-Z]+|([a-zA-Z]*\\.?[a-zA-Z]+)+)@ucb\\.com\\.bd", message = "Please insert valid email address with suffix 'ificbankbd.com'")
+    @Pattern(regexp = "([a-zA-Z]+|([a-zA-Z]*\\.?[a-zA-Z]+)+)@ificbankbd\\.com", message = "Please insert valid email address with suffix 'ificbankbd.com'")
     private String email;
     @Pattern(regexp = "|(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])",
             message = "Please insert valid IP address")
@@ -166,6 +169,9 @@ public class EmployeeInfoEntity extends BaseInfo {
     @JoinColumn(name = "user_id")
     @Valid
     private User user;
+
+    @Transient
+    private List<String> roles = new ArrayList<>();
 
     public EmployeeInfoEntity() {
 

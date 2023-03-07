@@ -55,4 +55,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeInfoEntity, Lo
             "        WHERE DESIGNATION_ID = ?1 " +
             "          AND (UNIT LIKE '%Loan%' OR UNIT LIKE '%Card%')", nativeQuery = true)
     List<EmployeeInfoEntity> findByDesignationIdAndUnit(Long id);
+
+    @Query(value = "SELECT * FROM EMPLOYEE_INFO_ENTITY WHERE email=? ", nativeQuery = true)
+    EmployeeInfoEntity findByEmail(String userId);
 }

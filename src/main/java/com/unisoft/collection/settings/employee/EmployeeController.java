@@ -16,7 +16,11 @@ import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
 import com.unisoft.collection.settings.location.LocationService;
 import com.unisoft.collection.settings.unit.UnitService;
+import com.unisoft.role.Role;
+import com.unisoft.role.RoleService;
 import com.unisoft.user.User;
+import com.unisoft.userrole.UserRoleDao;
+import com.unisoft.userrole.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //import com.ibm.icu.util.Calendar;
@@ -54,6 +55,12 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeAPIService employeeAPIService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
 
     @Value("${ific.employee.api.user}")
     private String employeeAPIUsername;
@@ -93,6 +100,18 @@ public class EmployeeController {
         return "collection/settings/employee/create";
     }
 
+    private String populateDateFormModel1(Model model) {
+        model.addAttribute("desList", designationService.getActiveList());
+        model.addAttribute("locationList", locationService.getActiveList());
+        model.addAttribute("roleList", jobRoleService.getActiveList());
+        model.addAttribute("deptList", departmentService.getActiveList());
+        model.addAttribute("divList", divisionService.getActiveList());
+        model.addAttribute("unitList", unitService.getActiveList());
+        model.addAttribute("statusList", employeeStatusService.getAllActive());
+        model.addAttribute("branches", branchService.getActiveList());
+        return "card/contents/settings/userInformation/create";
+    }
+
     @PostMapping(value = "create")
     public String saveNew(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
         if (!result.hasErrors()) {
@@ -125,6 +144,28 @@ public class EmployeeController {
 
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
+        List<Integer> roles = new ArrayList<>();
+
+        for(String roleId : employee.getRoles()){
+            roles.add(Integer.parseInt(roleId));
+        }
+
+
+        User user = new User();
+        String []name = employeeInfo.getFULL_NAME().split("\\s+");
+        String firstName = name[0];
+        String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setUsername(employee.getEmail());
+        user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
+        //user.setRoles(roles);
+
+        employee.setUser(user);
+        //user.setRoles();
+        //employee.setBranch();
+        //employee.setDOB(employeeInfo.getDOB());
+
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
             boolean isExist = true;
@@ -134,6 +175,7 @@ public class EmployeeController {
             if (isExist == true){
                 if (isValid) {
                     String output = employeeService.save(employee);
+                    userRoleDao.insert(employee.getUser().getUserId(),roles);
                     switch (output) {
                         case "1":
                             return "redirect:/collection/employee/list";
@@ -146,7 +188,7 @@ public class EmployeeController {
 
         }
         model.addAttribute("entity", employee);
-        return populateDateFormModel(model);
+        return populateDateFormModel1(model);
 
     }
 
@@ -243,10 +285,10 @@ public class EmployeeController {
             isValid = false;
             model.addAttribute("designationValidation", true);
         }
-        if (employee.getDepartment().getId() == null) {
-            isValid = false;
-            model.addAttribute("departmentValidation", true);
-        }
+//        if (employee.getDepartment().getId() == null) {
+//            isValid = false;
+//            model.addAttribute("departmentValidation", true);
+//        }
         return isValid;
     }
 

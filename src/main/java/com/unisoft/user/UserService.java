@@ -71,7 +71,8 @@ public class UserService {
             user.setCreatedDate(new Date());
             //user.setUsername(employee.getPin());
             user.setUsername(employee.getEmail());
-            user.setEmployeeId(employee.getPin());
+            //user.setEmployeeId(employee.getPin());
+            user.setIsAgency(false);
             user.setStatus(true);
             user.setEnabled(false);
             user.setPassword(new BCryptPasswordEncoder().encode("A123"));

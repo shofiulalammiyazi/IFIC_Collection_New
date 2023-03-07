@@ -58,7 +58,7 @@ public class UserInformationController {
     @GetMapping(value = "list")
     public String list(Model model){
 
-        return "/card/contents/settings/userInformation/list";
+        return "card/contents/settings/userInformation/list";
     }
 
     @GetMapping(value = "create")
@@ -76,6 +76,6 @@ public class UserInformationController {
         model.addAttribute("statusList", employeeStatusService.getAllActive());
         model.addAttribute("branches", branchService.getActiveList());
 
-     return "/card/contents/settings/userInformation/create";
+     return "card/contents/settings/userInformation/create";
     }
 }

@@ -128,6 +128,10 @@ public class EmployeeService {
         return Optional.ofNullable(repository.findByPin(pin)).orElse(new EmployeeInfoEntity());
     }
 
+    public EmployeeInfoEntity findByEmail1(String email){
+        return  repository.findByEmail(email);
+    }
+
     public List<Long> getIdList() {
         return repository.findIdList();
     }
