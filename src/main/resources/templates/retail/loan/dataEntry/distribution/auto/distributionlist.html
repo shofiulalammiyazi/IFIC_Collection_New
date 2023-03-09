@@ -27,7 +27,7 @@
                             <h3 class="box-title">Eligible list for sending SMS</h3>
                         </div>
 
-                        <div class="col-sm-12" style="margin-top: 10px">
+                       <!-- <div class="col-sm-12" style="margin-top: 10px">
                             <div class="col-sm-3 text-right"><label class="control-label">SMS Type </label></div>
                             <div class="col-sm-6">
                                 <select name="letterType" v-model="letterType" id="letterType" class="form-control required" @change="getSmsContent()">
@@ -35,18 +35,18 @@
                                     <option th:each="sms : ${smsEntityList}" th:value="${sms.getId()}" th:text="${sms.getName()}"></option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-12" style="margin-top: 10px; margin-bottom: 10px;">
+                      <!--  <div class="col-sm-12" style="margin-top: 10px; margin-bottom: 10px;">
                             <div class="col-sm-3 text-right"><label class="control-label">Message </label></div>
                             <div class="col-sm-6">
                                 <textarea class="form-control" id="message"></textarea>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-9" style="margin-top: 10px; margin-bottom: 10px;">
+                       <!-- <div class="col-sm-9" style="margin-top: 10px; margin-bottom: 10px;">
                             <button class="btn btn-primary pull-right" @click="generateSms()" id="sendSms">Send SMS</button>
-                        </div>
+                        </div>-->
 
                         <div class="col-sm-12">
                             <div class="col-sm-3">
