@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -64,6 +65,7 @@ public class UserService {
         return "System";
     }
 
+    @Transactional
     public void saveOrUpdate(User user, EmployeeInfoEntity employee) {
 
         if (user.getUserId() == null) {

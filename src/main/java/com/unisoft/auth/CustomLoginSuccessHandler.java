@@ -97,8 +97,8 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         Date startDate = dateUtils.getMonthStartDate();
         Date endDate = dateUtils.getMonthEndDate();
         if (!user.getIsAgency() && principal != null) {
-            EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(principal.getEmpId());
-            //EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(principal.getUsername());
+            //EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(principal.getEmpId());
+            EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(principal.getUsername());
             //principal.setEmpId(String.valueOf(employeeInfoEntity.getId()));
             List<LateReasonExplainInfo> lateReasonExplainInfos = lateReasonExplainRepository.findByCreatedDateIsBetweenAndUserOrderByCreatedDateDesc(startDate, endDate, employeeInfoEntity.getUser());
             sessionUtils.setEmployeeSessionAttributes(request.getSession(), employeeInfoEntity, lateReasonExplainInfos);

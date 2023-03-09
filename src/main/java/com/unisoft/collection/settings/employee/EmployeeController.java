@@ -19,6 +19,7 @@ import com.unisoft.collection.settings.unit.UnitService;
 import com.unisoft.role.Role;
 import com.unisoft.role.RoleService;
 import com.unisoft.user.User;
+import com.unisoft.user.UserRepository;
 import com.unisoft.userrole.UserRoleDao;
 import com.unisoft.userrole.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -139,9 +142,16 @@ public class EmployeeController {
 
     }
 
+
+
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping(value = "create-emp")
     public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
         List<Integer> roles = new ArrayList<>();
@@ -151,7 +161,9 @@ public class EmployeeController {
         }
 
 
-        User user = new User();
+        User user = userRepository.findUserByUsername(employee.getEmail());
+        if(user == null)
+            user = new User();
         String []name = employeeInfo.getFULL_NAME().split("\\s+");
         String firstName = name[0];
         String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
@@ -161,6 +173,15 @@ public class EmployeeController {
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
         //user.setRoles(roles);
 
+        employee.setPin(employee.getEmail());
+        employee.setJoiningDate(new Date());
+        //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
+//        try {
+//            employee.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
         employee.setUser(user);
         //user.setRoles();
         //employee.setBranch();

@@ -22,9 +22,13 @@ import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -45,8 +49,17 @@ public class EmployeeService {
     private final BranchRepository branchRepository;
     private final EmployeeStatusRepository employeeStatusRepository;
 
+    Logger logger = LoggerFactory.getLogger(EmployeeService.class);
+
     public List<EmployeeInfoEntity> getAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    public EmployeeInfoEntity saveEmp(EmployeeInfoEntity employeeInfoEntity){
+
+        EmployeeInfoEntity employeeInfoEntity1 = repository.save(employeeInfoEntity);
+        return employeeInfoEntity1;
     }
 
 
@@ -63,8 +76,10 @@ public class EmployeeService {
             if (entity.getUser().getUserId() == null)
                 return "Something went wrong. Couldn't create user";
 
+            //logger.debug("role back:   "+ TransactionAspectSupport.currentTransactionStatus().isRollbackOnly());
+
             // Save employee
-            repository.save(entity);
+            saveEmp(entity);
 
             // Keep audit trail
             auditTrailService.saveCreatedData("Employee", entity);
@@ -83,7 +98,7 @@ public class EmployeeService {
             EmployeeInfoEntity oldEntity = repository.findByPin(entity.getPin());
             EmployeeInfoEntity previousEntity = new EmployeeInfoEntity();
             if (oldEntity !=null)   // new condition
-            BeanUtils.copyProperties(oldEntity, previousEntity);
+                BeanUtils.copyProperties(oldEntity, previousEntity);
 
             entity.setModifiedBy(userPrincipal.getUsername());
             entity.setModifiedDate(new Date());
@@ -104,7 +119,7 @@ public class EmployeeService {
         }
         return "1";
     }
-    
+
     public List<EmployeeInfoEntity> getDealerFromDao() {
         return employeeDao.getDealerList();
     }
@@ -164,7 +179,7 @@ public class EmployeeService {
     public List<EmployeeInfoEntity> getSuperVisorList() {
         return repository.findByDesignationNameOrderByUserFirstNameAsc("Supervisor");
     }
-    
+
     public boolean checkEmployeeAllField(EmployeeInfoEntity employeeInfoEntity){
         if(employeeInfoEntity.getLocation().getId() == null
                 || employeeInfoEntity.getHomePhone() == null

@@ -16,6 +16,9 @@ public class EmployeeStatusService {
     @Autowired
     private EmployeeStatusDao employeeStatusDao;
 
+    @Autowired
+    private EmployeeStatusRepository employeeStatusRepository;
+
 
     public List<EmployeeStatusEntity> getAllStatus()
     {
@@ -44,5 +47,9 @@ public class EmployeeStatusService {
     public List<EmployeeStatusEntity> getAllActive()
     {
         return employeeStatusDao.getActiveOnly();
+    }
+
+    public EmployeeStatusEntity findByName(String name){
+        return employeeStatusRepository.findByName(name);
     }
 }

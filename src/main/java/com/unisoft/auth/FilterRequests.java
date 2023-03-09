@@ -48,12 +48,15 @@ public class FilterRequests implements Filter {
                 if (new BCryptPasswordEncoder().matches("A123", user.getPassword())) {
                     EmployeeInfoEntity employee = employeeService.getByPin(user.getUsername());
                     if (employee.getUnit() != null && employee.getUnit().contains("Loan")) {
-                        httpResponse.sendRedirect("/user/changePassword");
+                        //httpResponse.sendRedirect("/user/changePassword");
+                        httpResponse.sendRedirect("/");
                     } else if (employee.getUnit() != null && employee.getUnit().contains("Legal")) {
                         if ("/collection/legal/dashboard/home".equals(httpRequest.getRequestURI()))
-                            httpResponse.sendRedirect("/user/changePassword");
+                            //httpResponse.sendRedirect("/user/changePassword");
+                            httpResponse.sendRedirect("/");
                     } else
-                        httpResponse.sendRedirect("/user/changePassword");
+                        //httpResponse.sendRedirect("/user/changePassword");
+                        httpResponse.sendRedirect("/");
                 }
             }
         }

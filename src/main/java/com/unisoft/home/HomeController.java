@@ -165,7 +165,7 @@ public class HomeController {
         Date endDate = dateUtils.getMonthEndDate();
 
         if (principal != null) {
-        //httpSessionUtils.getUserPrinciple();
+            //httpSessionUtils.getUserPrinciple();
             UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userService.getUserByUsername(userPrincipal.getUsername());
 
@@ -185,7 +185,8 @@ public class HomeController {
                 return "agency/dashboard/main";
             }
 
-            EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(userPrincipal.getEmpId());
+            //EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(userPrincipal.getEmpId());
+            EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(userPrincipal.getUsername());
 
             OfficeTimeSetupInfo timeSetupInfo = officeTimeSetupService.getOfficeTimeSetup();
             String logoutTimeString = LocalDate.now().toString() + " " + timeSetupInfo.getLogoutHour().toString();
@@ -1130,7 +1131,7 @@ public class HomeController {
 
             Set<String> activeList = loanDist.stream().map(LoanAccountDistributionInfo::getDpdBucket).collect(Collectors.toSet());
             List<Integer> activeListInt = new ArrayList<>();
-                activeListInt = activeList.stream().map(s -> s == null?-1:Integer.parseInt(s)).collect(Collectors.toList());
+            activeListInt = activeList.stream().map(s -> s == null?-1:Integer.parseInt(s)).collect(Collectors.toList());
             Collections.sort(activeListInt);
             model.addAttribute("monitoringBuckets", activeListInt);
 

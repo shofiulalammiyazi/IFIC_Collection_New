@@ -55,6 +55,6 @@ public class EmployeeAPIService {
             ex.printStackTrace();
             return new EmployeeDetails();
         }
-        return employeeAPIResponse.getData().get(0);
+        return employeeAPIResponse.getData().size()>0?employeeAPIResponse.getData().get(0):new EmployeeDetails();
     }
 }
