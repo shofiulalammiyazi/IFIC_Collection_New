@@ -23,6 +23,7 @@ import com.unisoft.user.UserRepository;
 import com.unisoft.userrole.UserRoleDao;
 import com.unisoft.userrole.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -104,6 +105,7 @@ public class EmployeeController {
     }
 
     private String populateDateFormModel1(Model model) {
+        model.addAttribute("roles", roleService.getActiveList());
         model.addAttribute("desList", designationService.getActiveList());
         model.addAttribute("locationList", locationService.getActiveList());
         model.addAttribute("roleList", jobRoleService.getActiveList());
@@ -150,8 +152,11 @@ public class EmployeeController {
     @PostMapping(value = "create-emp")
     public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
+        if(employeeInfoEntity == null)
+            BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
         List<Integer> roles = new ArrayList<>();
@@ -161,7 +166,7 @@ public class EmployeeController {
         }
 
 
-        User user = userRepository.findUserByUsername(employee.getEmail());
+        User user = userRepository.findUserByUsername(employeeInfoEntity.getEmail());
         if(user == null)
             user = new User();
         String []name = employeeInfo.getFULL_NAME().split("\\s+");
@@ -169,34 +174,34 @@ public class EmployeeController {
         String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setUsername(employee.getEmail());
+        user.setUsername(employeeInfoEntity.getEmail());
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
         //user.setRoles(roles);
 
-        employee.setPin(employee.getEmail());
-        employee.setJoiningDate(new Date());
-        //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
+        employeeInfoEntity.setPin(employeeInfoEntity.getEmail());
+        employeeInfoEntity.setJoiningDate(new Date());
+        //employeeInfoEntity.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
 //        try {
-//            employee.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
+//            employeeInfoEntity.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-        //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
-        employee.setUser(user);
+        //employeeInfoEntity.setEmployeeStatus(employeeStatusService.findByName("Working"));
+        employeeInfoEntity.setUser(user);
         //user.setRoles();
-        //employee.setBranch();
-        //employee.setDOB(employeeInfo.getDOB());
+        //employeeInfoEntity.setBranch();
+        //employeeInfoEntity.setDOB(employeeInfo.getDOB());
 
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
             boolean isExist = true;
-            if (employee.getId() == null){
-                isExist = isEmailExist(employee.getEmail());
+            if (employeeInfoEntity.getId() == null){
+                isExist = isEmailExist(employeeInfoEntity.getEmail());
             }
             if (isExist == true){
                 if (isValid) {
-                    String output = employeeService.save(employee);
-                    userRoleDao.insert(employee.getUser().getUserId(),roles);
+                    String output = employeeService.save(employeeInfoEntity);
+                    userRoleDao.insert(employeeInfoEntity.getUser().getUserId(),roles);
                     switch (output) {
                         case "1":
                             return "redirect:/collection/employee/list";

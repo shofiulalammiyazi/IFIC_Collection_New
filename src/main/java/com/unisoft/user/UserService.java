@@ -31,7 +31,7 @@ public class UserService {
 
     private final UserRepository repository;
 
-    private final PropertyBasedMakerCheckerService<User> makerCheckerService;
+    //private final PropertyBasedMakerCheckerService<User> makerCheckerService;
 
     private final AgencyStatusManagerService agencyStatusManagerService;
 
@@ -76,7 +76,7 @@ public class UserService {
             //user.setEmployeeId(employee.getPin());
             user.setIsAgency(false);
             user.setStatus(true);
-            user.setEnabled(false);
+            user.setEnabled(true);
             user.setPassword(new BCryptPasswordEncoder().encode("A123"));
             userDao.save(user);
         } else {
@@ -99,7 +99,7 @@ public class UserService {
 
             userDao.update(oldEntity);
         }
-        makerCheckerService.makePending(User.class, "userId", user.getUserId());
+        //makerCheckerService.makePending(User.class, "userId", user.getUserId());
     }
 
     public void updatePassword(User user, String userName) {

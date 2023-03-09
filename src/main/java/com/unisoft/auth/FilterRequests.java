@@ -37,29 +37,29 @@ public class FilterRequests implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         /* check the resource or common uri is requested */
-        if (!this.isExcluded(httpRequest.getRequestURI())) {
-
-            /* check that user is logged in or not */
-            if (!"anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
-                UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                User user = userDao.findUserByUsername(principal.getUsername());
-
-                /* if the password is common, then force to reset password. */
-                if (new BCryptPasswordEncoder().matches("A123", user.getPassword())) {
-                    EmployeeInfoEntity employee = employeeService.getByPin(user.getUsername());
-                    if (employee.getUnit() != null && employee.getUnit().contains("Loan")) {
-                        //httpResponse.sendRedirect("/user/changePassword");
-                        httpResponse.sendRedirect("/");
-                    } else if (employee.getUnit() != null && employee.getUnit().contains("Legal")) {
-                        if ("/collection/legal/dashboard/home".equals(httpRequest.getRequestURI()))
-                            //httpResponse.sendRedirect("/user/changePassword");
-                            httpResponse.sendRedirect("/");
-                    } else
-                        //httpResponse.sendRedirect("/user/changePassword");
-                        httpResponse.sendRedirect("/");
-                }
-            }
-        }
+//        if (!this.isExcluded(httpRequest.getRequestURI())) {
+//
+//            /* check that user is logged in or not */
+//            if (!"anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
+//                UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//                User user = userDao.findUserByUsername(principal.getUsername());
+//
+//                /* if the password is common, then force to reset password. */
+//                if (new BCryptPasswordEncoder().matches("A123", user.getPassword())) {
+//                    EmployeeInfoEntity employee = employeeService.getByPin(user.getUsername());
+//                    if (employee.getUnit() != null && employee.getUnit().contains("Loan")) {
+//                        //httpResponse.sendRedirect("/user/changePassword");
+//                        httpResponse.sendRedirect("/");
+//                    } else if (employee.getUnit() != null && employee.getUnit().contains("Legal")) {
+//                        if ("/collection/legal/dashboard/home".equals(httpRequest.getRequestURI()))
+//                            //httpResponse.sendRedirect("/user/changePassword");
+//                            httpResponse.sendRedirect("/");
+//                    } else
+//                        //httpResponse.sendRedirect("/user/changePassword");
+//                        httpResponse.sendRedirect("/");
+//                }
+//            }
+//        }
         chain.doFilter(httpRequest, httpResponse);
     }
 

@@ -27,8 +27,8 @@ public class UserRoleDao {
     @Autowired
     private AuditTrailService auditTrailService;
 
-    @Autowired
-    private PropertyBasedMakerCheckerService<User> makerCheckerService;
+//    @Autowired
+//    private PropertyBasedMakerCheckerService<User> makerCheckerService;
 
     public List<UserRole> getUserRoleList() {
         List<UserRole> userRoles = new ArrayList<>();
@@ -146,7 +146,7 @@ public class UserRoleDao {
                 auditTrailService.saveCreatedData("User Role Modification", userRole);
                 session.flush();
             }
-            makerCheckerService.makePending(User.class, "userId", userId);
+            //makerCheckerService.makePending(User.class, "userId", userId);
             save = true;
         } catch (Exception e) {
             System.out.println(e.getMessage());

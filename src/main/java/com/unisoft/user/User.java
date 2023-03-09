@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @Table(name = "los_tb_m_users")
 @EntityListeners(AuditingEntityListener.class)
-public class User extends BaseInfo implements PropertyBasedMakerCheckerModel {
+public class User extends BaseInfo {//implements PropertyBasedMakerCheckerModel
 
     @Expose
     @Id
