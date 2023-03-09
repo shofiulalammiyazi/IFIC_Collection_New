@@ -74,12 +74,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         User user = new User();
         try {
             authResult = customADAuthentication.authenticate(username, password);
-            user = userDao.findUserAndRolesByUsername(username);
+            user = userDao.findUserAndRolesByUsername(username+"@ificbankbd.com");
             System.out.print("Auth: " + authResult+" ");
         } catch (LoginException e) {
             e.printStackTrace();
         }
-        authResult = "true";
+        //authResult = "true";
 //        User user = userRepository.findUserByUsername(username);
         if (user == null) {
             session.setAttribute("errorMsg", "User Not Found");
