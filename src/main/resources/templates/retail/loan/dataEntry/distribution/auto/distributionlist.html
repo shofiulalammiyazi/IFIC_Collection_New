@@ -300,8 +300,7 @@
                             }
                             $.ajax({
                                 url: url,
-                                type: 'GET',
-                                dataType: 'json', // added data type
+                                type: 'GET', dataType: 'json', // added data type
                                 success: function(res) {
                                     var tr = '';
                                     $.each(res, function (index, data) {

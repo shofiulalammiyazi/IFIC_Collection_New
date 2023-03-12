@@ -79,7 +79,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-        //authResult = "true";
+        authResult = "true";
 //        User user = userRepository.findUserByUsername(username);
         if (user == null) {
             session.setAttribute("errorMsg", "User Not Found");
