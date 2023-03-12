@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel">Employee PIN :</label>
+                        <label class="col-sm-3 custom-details-lebel">User ID :</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${employee?.pin}"></label>
 
                         <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
@@ -96,6 +96,7 @@
                         <label class="col-sm-3 custom-form-lebel" style="cursor: pointer"
                                th:text="${#lists.size(totalLocation)}"
                                th:title="${totalLocation}"></label>
+                        <label class="col-sm-3 custom-details-lebel">Posting Branch:  </label>
                     </div>
 
                 </div>

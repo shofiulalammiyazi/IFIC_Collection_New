@@ -83,7 +83,7 @@
                     <h6 class="text-center">Personal Info</h6>
 
                     <div class="row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel">Employee PIN :</label>
+                        <label class="col-sm-3 custom-details-lebel">User ID :</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${employee?.pin}"></label>
 
                         <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
@@ -93,9 +93,12 @@
                     </div>
 
                     <div class="row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel">Designation: </label>
+                        <label class="col-sm-3 custom-details-lebel">User Role: </label>
                         <label class="col-sm-3 custom-form-lebel"
                                th:text="${employee?.getDesignation()?.getName()}"></label>
+
+                        <label class="col-sm-3 custom-details-lebel">Posting Branch: </label>
+                        <label class="col-sm-3 custom-form-lebel"></label>
                     </div>
 
 

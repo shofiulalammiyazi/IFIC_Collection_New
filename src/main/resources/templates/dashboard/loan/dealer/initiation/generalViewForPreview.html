@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Employee ID :</label>
+                                <label class="col-sm-2">User ID  :</label>
                                 <label class="col-sm-3 custom-form-lebel" th:text="${employee?.pin}"></label>
 
                                 <label class="col-sm-3">Employee Name :</label>
@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">TeamLeader PIN :</label>
+                                <label class="col-sm-2">TeamLeader ID :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>
                                 <label class="col-sm-3">TeamLeader Name :</label>
@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Supervisor PIN :</label>
+                                <label class="col-sm-2">Supervisor ID :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>
 
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="row csi-view-form-group">
-                                <label class="col-sm-2">Manager PIN :</label>
+                                <label class="col-sm-2">Manager ID :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${peopleAllocationLogic?.getManager()?.getPin()}"></label>
                                 <label class="col-sm-3">Manager Name :</label>
@@ -114,6 +114,9 @@
                                 <label class="col-sm-2">Current Date :</label>
                                 <label class="col-sm-3 custom-form-lebel"
                                        th:text="${#calendars.format(#calendars.createNow(), 'dd-MMM-yyyy')}"></label>
+
+                                <label class="col-sm-3">Posting Branch: </label>
+                                <label class="col-sm-4 custom-form-lebel"></label>
                             </div>
 
                             <!--<div class="row csi-view-form-group">-->
