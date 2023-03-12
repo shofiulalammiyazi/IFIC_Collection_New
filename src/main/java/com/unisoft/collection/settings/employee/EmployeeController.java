@@ -155,8 +155,8 @@ public class EmployeeController {
         //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
-        if(employeeInfoEntity == null)
-            BeanUtils.copyProperties(employee, employeeInfoEntity);
+        //if(employeeInfoEntity == null)
+            //BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
         List<Integer> roles = new ArrayList<>();

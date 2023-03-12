@@ -227,7 +227,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             EmployeeStatusManagerEntity employeeStatusManager = empoyeeStatusMangerRepository.findFirstByUserIdOrderByIdDesc(user.getUserId());
             boolean isPermanentLocked = false;
             boolean isTemporaryLocked = false;
-            int tryAgainAfterMinutes = 30;    // Locked time minutes
+            int tryAgainAfterMinutes = 5;    // Locked time minutes
 
             if (!employeeStatusManager.getEmployeeStatus().isLoginDisable()) {
                 //Todo: modified endDateNull condition from '&&'  to '||'g
