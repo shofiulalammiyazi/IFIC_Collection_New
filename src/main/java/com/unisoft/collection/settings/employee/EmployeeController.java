@@ -154,7 +154,7 @@ public class EmployeeController {
 
         //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
+        //EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
         //if(employeeInfoEntity == null)
             //BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
@@ -166,7 +166,7 @@ public class EmployeeController {
         }
 
 
-        User user = userRepository.findUserByUsername(employeeInfoEntity.getEmail());
+        User user = userRepository.findUserByUsername(employee.getEmail());
         if(user == null)
             user = new User();
         String []name = employeeInfo.getFULL_NAME().split("\\s+");
@@ -174,34 +174,34 @@ public class EmployeeController {
         String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setUsername(employeeInfoEntity.getEmail());
+        user.setUsername(employee.getEmail());
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
         //user.setRoles(roles);
 
-        employeeInfoEntity.setPin(employeeInfoEntity.getEmail());
-        employeeInfoEntity.setJoiningDate(new Date());
-        //employeeInfoEntity.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
+        employee.setPin(employee.getEmail());
+        employee.setJoiningDate(new Date());
+        //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
 //        try {
-//            employeeInfoEntity.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
+//            employee.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-        //employeeInfoEntity.setEmployeeStatus(employeeStatusService.findByName("Working"));
-        employeeInfoEntity.setUser(user);
+        //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
+        employee.setUser(user);
         //user.setRoles();
-        //employeeInfoEntity.setBranch();
-        //employeeInfoEntity.setDOB(employeeInfo.getDOB());
+        //employee.setBranch();
+        //employee.setDOB(employeeInfo.getDOB());
 
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
             boolean isExist = true;
-            if (employeeInfoEntity.getId() == null){
-                isExist = isEmailExist(employeeInfoEntity.getEmail());
+            if (employee.getId() == null){
+                isExist = isEmailExist(employee.getEmail());
             }
             if (isExist == true){
                 if (isValid) {
-                    String output = employeeService.save(employeeInfoEntity);
-                    userRoleDao.insert(employeeInfoEntity.getUser().getUserId(),roles);
+                    String output = employeeService.save(employee);
+                    userRoleDao.insert(employee.getUser().getUserId(),roles);
                     switch (output) {
                         case "1":
                             return "redirect:/collection/employee/list";
