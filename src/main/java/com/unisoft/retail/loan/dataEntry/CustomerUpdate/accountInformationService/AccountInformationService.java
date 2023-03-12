@@ -86,26 +86,32 @@ public class AccountInformationService {
                 }
 
 
-                String lastPaymentAmount = dto.getLastPaymentAmount();
-                String settlementLinkAccountBalance = dto.getSettlementLinkAccountBalance();
+                String lastPaymentAmount = !dto.getLastPaymentAmount().isEmpty() ||
+                        dto.getLastPaymentAmount() != null ? String.valueOf(Double.parseDouble(dto.getLastPaymentAmount())/100):"0";
+                String settlementLinkAccountBalance = !dto.getSettlementLinkAccountBalance().isEmpty()||
+                        dto.getSettlementLinkAccountBalance() != null ? String.valueOf(Double.parseDouble(dto.getSettlementLinkAccountBalance())/100):"0";
                 String linkMotherAccountNo = dto.getLinkMotherAccountNo();
                 String routingNo = dto.getRoutingNo();
                 String mobile = dto.getMobile();
                 String branchName = dto.getBranchName();
                 String branchCode = dto.getBranchCode();
-                String overDue = dto.getOverdue();
-                String emiAmount = dto.getEmiAmount();
+                String overDue = !dto.getOverdue().isEmpty()||dto.getOverdue() != null
+                        ?String.valueOf(Double.parseDouble(dto.getOverdue())/100):"0";
+                String emiAmount = !dto.getEmiAmount().isEmpty() || dto.getEmiAmount() != null
+                        ?String.valueOf(Double.parseDouble(dto.getEmiAmount())/100):"0";
 
                 String productType = dto.getProductType();
                 String actualTenor = dto.getActualTenor();
-                String totalOutstanding = dto.getTotalOutstanding();
+                String totalOutstanding = !dto.getTotalOutstanding().isEmpty() || dto.getTotalOutstanding() != null
+                        ? String.valueOf(Double.parseDouble(dto.getTotalOutstanding())/100):"0";
                 String borrowerName = dto.getBorrowersName();
                 String profession = dto.getProfession();
                 String email = dto.getEmail();
                 String nid = dto.getNid();
                 String professionSegment = dto.getProfessionSegment();
 
-                String disbursementAmount = dto.getDisbursementAmount();
+                String disbursementAmount = !dto.getDisbursementAmount().isEmpty() || dto.getDisbursementAmount() != null
+                        ?String.valueOf(Double.parseDouble(dto.getDisbursementAmount())/100):"0";
                 String customerId = dto.getCustomerId();
                 String customerName = dto.getCustomerName();
                 String customerType = dto.getCustomerType();
@@ -132,7 +138,8 @@ public class AccountInformationService {
                 String accountTitle = dto.getAccountTitle();
                 String smeCodeIndustryScalID = dto.getSmeCodeIndustryScaleID();
                 String interestRate = dto.getInterestRate();
-                String sanctionAmount = dto.getSanctionAmount();
+                String sanctionAmount = !dto.getSanctionAmount().isEmpty() || dto.getSanctionAmount() != null
+                        ? String.valueOf(Double.parseDouble(dto.getSanctionAmount())/100):"0";
                 String linkAccountStatus = dto.getLinkAccountStatus();
                 String linkAcProductCode = dto.getLinkACProductCode();
                 String dealAcBasic = dto.getDealAcBasic();
@@ -195,13 +202,19 @@ public class AccountInformationService {
                 accountInformationEntity.setScheduleStartDate(dto.getScheduleStartDate());
                 accountInformationEntity.setDealBalanceAtStartDate(dto.getDealBalanceAtStartDate());
                 accountInformationEntity.setCalculatedMaturityDate(dto.getCalculatedMaturityDate());
-                accountInformationEntity.setFirstRepaymentAmount(dto.getFirstRepaymentAmount());
-                accountInformationEntity.setLastRepaymentAmount(dto.getLastRepaymentAmount());
+                String firstRepaymentAmount = !dto.getFirstRepaymentAmount().isEmpty() || dto.getFirstRepaymentAmount() != null
+                        ? String.valueOf(Double.parseDouble(dto.getFirstRepaymentAmount())/100):"0";
+                accountInformationEntity.setFirstRepaymentAmount(firstRepaymentAmount);
+                String lastRepaymentAmount = !dto.getLastRepaymentAmount().isEmpty() || dto.getLastRepaymentAmount() != null
+                        ? String.valueOf(Double.parseDouble(dto.getLastRepaymentAmount())/100):"0";
+                accountInformationEntity.setLastRepaymentAmount(lastRepaymentAmount);
                 accountInformationEntity.setTotalNoOfInstallment(dto.getTotalNoOfInstallment());
                 accountInformationEntity.setFrequencyCode(dto.getFrequencyCode());
                 accountInformationEntity.setLoanCLStatus(dto.getLoanCLStatus());
-                accountInformationEntity.setLatestDisbursementAmount(dto.getLatestDisbursementAmount());
-                accountInformationEntity.setSanctionAmount(dto.getSanctionAmount());
+                String latestDisbursementAmt = !dto.getLatestDisbursementAmount().isEmpty() || dto.getLatestDisbursementAmount() != null
+                        ? String.valueOf(Double.parseDouble(dto.getLatestDisbursementAmount())/100):"0";
+                accountInformationEntity.setLatestDisbursementAmount(latestDisbursementAmt);
+                accountInformationEntity.setSanctionAmount(sanctionAmount);
                 accountInformationEntity.setNoOfInstallmentDue(dto.getNoOfInstallmentDue());
                 //accountInformationEntity.setNextEMIDate(dto.getNextEMIDate());
 
@@ -323,10 +336,10 @@ public class AccountInformationService {
                     loanAccountDistributionInfo1.setCreatedDate(new Date());
                     loanAccountDistributionInfo1.setCreatedBy(user.getUsername());
                     loanAccountDistributionInfo1.setStatusDate(new Date());
-                    loanAccountDistributionInfo1.setOutStanding(dto.getTotalOutstanding());
-                    loanAccountDistributionInfo1.setOpeningOverDue(dto.getOverdue() != null ? Double.parseDouble(dto.getOverdue()) : 0.0);
+                    loanAccountDistributionInfo1.setOutStanding(totalOutstanding);
+                    loanAccountDistributionInfo1.setOpeningOverDue(dto.getOverdue() != null ? Double.parseDouble(dto.getOverdue())/100 : 0.0);
                     loanAccountDistributionInfo1.setDpdBucket(accountInformationEntity.getDpd());
-                    loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(dto.getEmiAmount()));
+                    loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(emiAmount));
                     loanAccountDistributionInfo1.setStartDate(new Date());
                     loanAccountDistributionRepository.save(loanAccountDistributionInfo1);
                 }
