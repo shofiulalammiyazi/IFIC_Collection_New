@@ -23,7 +23,8 @@ public class AccountInformationDao {
 
     public  List<AccountInformationDto> getData(){
 
-        String query = "select * from CRLIB.CRPF";
+        // String query = "select * from CRLIB.CRPF";
+        String query = "select * from USRBASELIB.$CRR1F";
 
         List<AccountInformationDto> accountInformationDtoList = new ArrayList<>();
         Statement statement=null;

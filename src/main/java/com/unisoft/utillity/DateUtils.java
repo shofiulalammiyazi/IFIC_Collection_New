@@ -348,7 +348,10 @@ public class DateUtils {
         String t = "";
         Map<Integer, String> map = new HashMap<>();
         int cnt = 1;
-        if ((s.length() == 7 && s.charAt(0) == '0') || s.length() == 6) {
+        if(s.length()<6){
+            return "0";
+        }
+        else if ((s.length() == 7 && s.charAt(0) == '0') || s.length() == 6) {
             String data = "";
             if (s.length() == 7) {
                 for (i = 1; i < s.length(); i++) {
@@ -386,17 +389,17 @@ public class DateUtils {
         }
     }
 
-   public String changeStringDatePattern(String d, String currentPattern, String targetPattern){
-       SimpleDateFormat format1 = new SimpleDateFormat(currentPattern);
-       SimpleDateFormat format2 = new SimpleDateFormat(targetPattern);
-       Date date = null;
-       try {
-           date = format1.parse(d);
-       } catch (ParseException e) {
-           System.err.println(e.getMessage());
-       }
-       return format2.format(date);
-   }
+    public String changeStringDatePattern(String d, String currentPattern, String targetPattern){
+        SimpleDateFormat format1 = new SimpleDateFormat(currentPattern);
+        SimpleDateFormat format2 = new SimpleDateFormat(targetPattern);
+        Date date = null;
+        try {
+            date = format1.parse(d);
+        } catch (ParseException e) {
+            System.err.println(e.getMessage());
+        }
+        return format2.format(date);
+    }
 
     public static long getDiffernceBetweenTwoDate(String startDate, Date endDate, String datePattern) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);

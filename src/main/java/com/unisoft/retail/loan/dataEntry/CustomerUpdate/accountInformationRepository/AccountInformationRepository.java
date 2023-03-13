@@ -136,6 +136,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -163,6 +164,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -178,17 +180,16 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
             "           WHERE LTE.ENABLED = 1 AND SADRE1.TYPE = 'SMS') " +
             "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 WHERE " +
-            "    SADRE3.TYPE = 'SMS')",nativeQuery = true)
+            "    SADRE3.TYPE = 'SMS')", nativeQuery = true)
     List<Tuple> finAllEligibleSmsList1(Pageable pageable);
 
-    @Query(value = "SELECT AIE.LOANACNO, AIE.CUSTOMER_NAME, AIE.MOBILE, AIE.BRANCH_MNEMONIC, " +
-            "       AIE.PRODUCT_CODE, AIE.DEAL_REFERENCE, AIE.TOTAL_OUTSTANDING, AIE.OVERDUE, " +
-            "       AIE.EMI_AMOUNT, AIE.NEXTEMIDATE, AIE.NO_OF_INSTALLMENT_DUE, AIE.LOANCLSTATUS " +
+    @Query(value = "SELECT COUNT(AIE.LOANACNO) " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE AIE.IS_SMS_SENT = 'N' " +
             "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -204,32 +205,47 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
             "           WHERE LTE.ENABLED = 1 AND SADRE1.TYPE = 'SMS') " +
             "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 WHERE " +
-            "    SADRE3.TYPE = 'SMS')",nativeQuery = true)
-    List<Tuple> finAllEligibleSmsList1();
-
-    @Query(value = "SELECT COUNT(AIE.LOANACNO) "+
-            "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
-            "WHERE AIE.IS_SMS_SENT = 'N' " +
-            "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
-            "  AND AIE.EMI_AMOUNT IS NOT NULL " +
-            "  AND AIE.MOBILE IS NOT NULL " +
-            "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
-            "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
-            "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
-            "                   LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_STATUS_ENTITY SADRELSE " +
-            "                     ON SADRE.ID = SADRELSE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
-            "                   LEFT JOIN LOAN_STATUS_ENTITY LSE ON SADRELSE.LOAN_STATUS_ENTITY_ID = LSE.ID " +
-            "            WHERE LSE.ENABLED = 1 AND SADRE.TYPE = 'SMS') " +
-            "  AND LTRIM(RTRIM(UPPER(AIE.PRODUCT_CODE))) " +
-            "        IN(SELECT DISTINCT LTRIM(RTRIM(UPPER(LTE.LOAN_TYPE))) " +
-            "           FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE1 " +
-            "                  LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_TYPE_ENTITIES SADRELTE " +
-            "                    ON SADRE1.ID = SADRELTE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
-            "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
-            "           WHERE LTE.ENABLED = 1 AND SADRE1.TYPE = 'SMS') " +
-            "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 WHERE " +
-            "    SADRE3.TYPE = 'SMS')",nativeQuery = true)
+            "    SADRE3.TYPE = 'SMS')", nativeQuery = true)
     int finAllEligibleSmsListCount();
+
+    @Query(value = "SELECT AIE.LOANACNO, " +
+            "       AIE.CUSTOMER_NAME, " +
+            "       AIE.MOBILE, " +
+            "       AIE.BRANCH_MNEMONIC, " +
+            "       AIE.PRODUCT_CODE, " +
+            "       AIE.DEAL_REFERENCE, " +
+            "       AIE.TOTAL_OUTSTANDING, " +
+            "       AIE.OVERDUE, " +
+            "       AIE.EMI_AMOUNT, " +
+            "       AIE.NEXTEMIDATE, " +
+            "       AIE.NO_OF_INSTALLMENT_DUE, " +
+            "       AIE.LOANCLSTATUS " +
+            "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
+            "WHERE AIE.IS_SMS_SENT = 'N' " +
+            "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE + 3), 'YYYY-MM-DD') FROM dual) " +
+            "  AND AIE.EMI_AMOUNT IS NOT NULL " +
+            "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
+            "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
+            "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
+            "                   LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_STATUS_ENTITY SADRELSE " +
+            "                     ON SADRE.ID = SADRELSE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                   LEFT JOIN LOAN_STATUS_ENTITY LSE ON SADRELSE.LOAN_STATUS_ENTITY_ID = LSE.ID " +
+            "            WHERE LSE.ENABLED = 1 " +
+            "              AND SADRE.TYPE = 'SMS') " +
+            "  AND LTRIM(RTRIM(UPPER(AIE.PRODUCT_CODE))) " +
+            "        IN(SELECT DISTINCT LTRIM(RTRIM(UPPER(LTE.LOAN_TYPE))) " +
+            "           FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE1 " +
+            "                  LEFT JOIN SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_LOAN_TYPE_ENTITIES SADRELTE " +
+            "                    ON SADRE1.ID = SADRELTE.SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY_ID " +
+            "                  LEFT JOIN LOAN_TYPE_ENTITY LTE ON SADRELTE.LOAN_TYPE_ENTITIES_ID = LTE.ID " +
+            "           WHERE LTE.ENABLED = 1 " +
+            "             AND SADRE1.TYPE = 'SMS') " +
+            "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) " +
+            "      FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
+            "       WHERE SADRE3.TYPE = 'SMS')", nativeQuery = true)
+    List<Tuple> finAllEligibleSmsList1();
 
     @Query(value = "SELECT AIE.LOANACNO, AIE.CUSTOMER_NAME, AIE.MOBILE, AIE.BRANCH_MNEMONIC, " +
             "       AIE.PRODUCT_CODE, AIE.DEAL_REFERENCE, AIE.TOTAL_OUTSTANDING, AIE.OVERDUE, " +
@@ -240,6 +256,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.LOANACNO LIKE %?1% " +
             "  AND AIE.MOBILE IS NOT NULL " +
+            "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -323,7 +340,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                            WHERE SADRE2.TYPE = 'Distribution') " +
             "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) " +
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
-            "                                              WHERE SADRE3.TYPE = 'Distribution')",nativeQuery = true)
+            "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList1(Pageable pageable);
 
     @Query(value = "SELECT AIE.LOANACNO, " +
@@ -362,7 +379,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                            WHERE SADRE2.TYPE = 'Distribution') " +
             "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) " +
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
-            "                                              WHERE SADRE3.TYPE = 'Distribution')",nativeQuery = true)
+            "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList1();
 
     @Query(value = "SELECT COUNT(AIE.LOANACNO) " +
@@ -389,7 +406,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                            WHERE SADRE2.TYPE = 'Distribution') " +
             "  AND TO_NUMBER(AIE.NO_OF_INSTALLMENT_DUE) < (SELECT TO_NUMBER(SADRE3.UNPAID_INSTALLMENT_NUMBER) " +
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
-            "                                              WHERE SADRE3.TYPE = 'Distribution')",nativeQuery = true)
+            "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     int finAllEligibleDistributionListCount();
 
     @Query(value = "SELECT AIE.LOANACNO, " +
@@ -430,10 +447,6 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                                              FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE3 " +
             "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList(String accNo);
-
-
-
-
 
 
 }
