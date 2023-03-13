@@ -1,5 +1,8 @@
 package com.unisoft.collection.settings.SMS.smsType;
 
+import com.unisoft.collection.settings.SMS.generate.GeneratedSMSRepository;
+import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
+import com.unisoft.collection.settings.SMS.smslog.SmsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,9 @@ public class SMSController {
 
     @Autowired
     private SMSService smsService;
+
+    @Autowired
+    private SMSLogRepository smsLogRepository;
 
 
     @GetMapping(value = "/list")
@@ -60,7 +66,6 @@ public class SMSController {
     public String editSMS(@RequestParam Long id, Model model){
 
         SMSEntity smsEntity = smsService.findSmsById(id);
-
         model.addAttribute("smsEntity", smsEntity);
 
         return "collection/settings/sms/create";
@@ -75,6 +80,17 @@ public class SMSController {
 
         return "collection/settings/sms/view";
     }
+
+
+    @GetMapping(value = "/smslog")
+    public String smslog(Model model) {
+
+        List<SmsLog> smsLogs = smsLogRepository.findAll();
+        model.addAttribute("smsList",smsLogs);
+
+        return "collection/settings/sms/smslog";
+    }
+
 
 
 }
