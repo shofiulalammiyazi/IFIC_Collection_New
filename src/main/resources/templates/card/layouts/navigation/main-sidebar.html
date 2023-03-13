@@ -47,6 +47,13 @@
                                 </li>
                                 <li>
                                     <a class="tab"
+                                       th:if="${session.urlList.contains('/collection/smstemplate/smslog')}"
+                                       th:href="@{/collection/smstemplate/smslog}"><i class="	fa fa-edit"></i>
+                                        SMS Log
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tab"
                                        th:if="${session.urlList.contains('/collection/login_policy/create')}"
                                        th:href="@{/collection/login_policy/create}">
                                         <i class="fa fa-sign-in"></i>

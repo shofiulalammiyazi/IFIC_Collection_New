@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"></meta>
+    <title>SMS Log</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title"> SMS Log</h3>
+                        </div>
+
+                        <div class="table-responsive">
+                           <!-- <a style="margin-bottom: 5px" class="btn btn-primary btn-sm"
+                               th:href="@{/}"><span class="glyphicon glyphicon-plus"></span> Add SMS Log</a>-->
+                            <table id="smstemplate" class="table table-condensed table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Sl No.</th>
+                                    <th>Acc No</th>
+                                    <th>Msisdn</th>
+                                    <th>Login </th>
+                                    <th>MSG</th>
+                                    <th>Stakeholderid</th>
+                                    <th>Permitted</th>
+                                    <th>Pushapi</th>
+                                    <th>Parameter</th>
+                                    <th>Refid</th>
+                                    <th>Tnx Id</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="sms,index : ${smsList}">
+                                    <td th:text="${index.count}"></td>
+                                    <td><span th:text="${sms.accNo}"></span></td>
+                                    <td><span th:text="${sms.msisdn}"></span></td>
+                                    <td><span th:text="${sms.login}"></span></td>
+                                    <td><span  th:text="${sms.msg}"></span></td>
+                                    <td><span th:text="${sms.stakeholderid}"></span></td>
+                                    <td><span th:text="${sms.permitted}"></span></td>
+                                    <td><span th:text="${sms.pushapi}"></span></td>
+                                    <td><span th:text="${sms.parameter}"></span></td>
+                                    <td><span th:text="${sms.refid}"></span></td>
+                                    <td><span th:text="${sms.tnxId}"></span></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <script>
+                    $(document).ready( function () {
+                        $('#smstemplate').removeAttr('width').DataTable( {
+                            scrollX:        true,
+                            scrollCollapse: true,
+                            columnDefs: [
+                                { width: 500, targets: 4 }
+                            ],
+                            fixedColumns: true
+                        } );
+
+                    } );
+                </script>
+                <style>
+
+                </style>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>
