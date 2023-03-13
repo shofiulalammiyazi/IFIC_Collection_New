@@ -82,7 +82,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     private String presentAddress;
     private String permanentAddress;
     private String officeAddress;
-    @Pattern(regexp = "([a-zA-Z]+|([a-zA-Z]*\\.?[a-zA-Z]+)+)@ificbankbd\\.com", message = "Please insert valid email address with suffix 'ificbankbd.com'")
+    //@Pattern(regexp = "([a-zA-Z]+|([a-zA-Z]*\\.?[a-zA-Z]+)+)@ificbankbd\\.com", message = "Please insert valid email address with suffix 'ificbankbd.com'")
     private String email;
     //@Pattern(regexp = "|(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])",
     // message = "Please insert valid IP address")
