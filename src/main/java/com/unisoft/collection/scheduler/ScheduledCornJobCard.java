@@ -91,7 +91,7 @@ public class ScheduledCornJobCard {
     }
 
     @Async
-    @Scheduled(cron = "0 0 5 * * ?")
+    /*@Scheduled(cron = "0 0 5 * * ?")*/
     public void getDelenquentAccountCard() {
         log.info("DELENQUENT CARD ACCOUNT SCHEDULER INVOKED: " + new Date().toString());
         return;
@@ -156,7 +156,7 @@ public class ScheduledCornJobCard {
     }
 
     @Async
-    @Scheduled(cron = "0 0 6 * * ?")
+    //@Scheduled(cron = "0 0 6 * * ?")
     public void updateCardPaymentAndPtpStatus(){
         log.info("PTP STATUS CARD SCHEDULER INVOKED: " + new Date().toString());
 
@@ -235,7 +235,7 @@ public class ScheduledCornJobCard {
     }
 
     @Async
-    @Scheduled(cron = "0 0 2 1 1/1 ?")
+    //@Scheduled(cron = "0 0 2 1 1/1 ?")
     public void getDelenquentAccountFromCardAccountDistributionInfo(){
         regularDelenquentAccountCardDao.deletePreviousMonthUnallocatedData();
         List<CardAccountDistributionInfo> cardAccountDistributionInfos = cardAccountDistributionRepository.findByCreatedDateIsBetweenAndSamAccountAndWriteOffAccountAndLatestOrderByCreatedDateDesc(SettingsHelper.getStartDate(), SettingsHelper.getEndDate(), "0", "0", "1");
@@ -278,7 +278,7 @@ public class ScheduledCornJobCard {
     /*-----------------------------------------------------------------------*/
             /*Scheduler for txt file data upload starts from here ${card.scheduler.timer}*/
     /*-----------------------------------------------------------------------*/
-    @Scheduled(cron = "${card.scheduler.timer}")
+    //@Scheduled(cron = "${card.scheduler.timer}")
     public void getTextFileData() {
         try {
             File file = new File("D:/Tajkia Apu/Card text file latest/83_Report_Partial_05062022.txt");
@@ -432,7 +432,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for collection report 1 txt data upload starts from here ${card.collectionReportOne.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.collectionReportOne.timer}")
+    //@Scheduled(cron = "${card.collectionReportOne.timer}")
     public void getCollectionReportOneTextFileData() {
         try {
 
@@ -506,7 +506,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for collection report 2 txt data upload starts from here ${card.collectionReportTwo.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.collectionReportTwo.timer}")
+    //@Scheduled(cron = "${card.collectionReportTwo.timer}")
     public void getCollectionReportTwoTextFileData() {
         try {
 
@@ -581,7 +581,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for collection report 3 txt data upload starts from here ${card.collectionReportThree.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.collectionReportThree.timer}")
+    //@Scheduled(cron = "${card.collectionReportThree.timer}")
     public void getCollectionReportThreeTextFileData() {
         try {
 
@@ -643,7 +643,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for collection report 4 txt data upload start here*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "0 6 15 * * ?")
+    //@Scheduled(cron = "0 6 15 * * ?")
     public void getCollectionReportFourTextFileData() {
         try {
             File file = new File("C:/Users/User/Downloads/card_data/card/card data format/Collection_Report_4 - Sample.txt");
@@ -707,7 +707,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for aging History txt data upload starts from here ${card.aginghistory.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.aginghistory.timer}")
+    //@Scheduled(cron = "${card.aginghistory.timer}")
     public void getAgingHistoryTextFileData() {
         try {
             File file = new File("E:/Move/Shahin/csinfotech data/card data format/SampleData_05042022/AgingHistory.txt");
@@ -767,7 +767,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for aging History txt data upload starts from here ${card.interestSuspenseReport.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.interestSuspenseReport.timer}")
+    //@Scheduled(cron = "${card.interestSuspenseReport.timer}")
     public void getInterestSuspenseReportTextFileData() {
         try {
             File file = new File("E:/Move/Shahin/csinfotech data/card data format/SampleData_05042022/InterestSuspenseReport.txt");
@@ -839,7 +839,7 @@ public class ScheduledCornJobCard {
     /*Scheduler for Approve Transactions Unbilled Transactions Payment txt data upload starts from here ${card.approveUnbilledPayment.timer}*/
     /*-----------------------------------------------------------------------*/
     @Async
-    @Scheduled(cron = "${card.approveUnbilledPayment.timer}")
+    //@Scheduled(cron = "${card.approveUnbilledPayment.timer}")
     public void getApproveTransactionsUnbilledTransactionsPaymentTextFileData() {
         try {
             File file = new File("C:/Users/User/Downloads/card_data/card/card data format/SampleData_05042022/ApproveTransactionsUnbilledTransactionsPayment.txt");
@@ -912,7 +912,7 @@ public class ScheduledCornJobCard {
     /*-----------------------------------------------------------------------*/
     /*Scheduler for txt file data upload starts from here ${card.scheduler.timer}*/
     /*-----------------------------------------------------------------------*/
-    @Scheduled(cron = "${card.scheduler.timer}")
+    //@Scheduled(cron = "${card.scheduler.timer}")
     public void  get83TextFileData() {
         try {
 //            File file = new File("D:/Tajkia Apu/Card text file latest/83_Report_Partial_05062022.txt");
