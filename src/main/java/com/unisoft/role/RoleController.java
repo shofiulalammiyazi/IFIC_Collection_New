@@ -1,8 +1,13 @@
 package com.unisoft.role;
 
+import com.unisoft.collection.settings.department.DepartmentEntity;
+import com.unisoft.collection.settings.department.DepartmentService;
+import com.unisoft.collection.settings.designation.DesignationEntity;
+import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.workflow.propertyBasedMakerChecker.PropertyBasedMakerCheckerService;
 import lombok.RequiredArgsConstructor;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisUnauthorizedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +43,9 @@ public class RoleController {
         return "card/contents/settings/role/role";
     }
 
+    @Autowired
+    private DesignationService designationService;
+
     @GetMapping("/role/create")
     public String createView(Model map) {
         map.addAttribute("role", new Role());
@@ -46,6 +56,14 @@ public class RoleController {
     public String create(@Valid Role role, BindingResult result) {
         if (!result.hasErrors()) {
             rolesService.saveOrUpdate(role);
+            DesignationEntity byName = designationService.findByName(role.getName());
+            if(byName == null) {
+                byName = new DesignationEntity();
+                byName.setDesCode(String.valueOf(Integer.parseInt(designationService.countAll())+1));
+                byName.setName(role.getName());
+                designationService.saveNew(byName);
+            }
+
         } else {
             return "card/contents/settings/role/create";
         }

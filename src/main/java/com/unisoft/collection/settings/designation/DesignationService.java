@@ -14,6 +14,9 @@ public class DesignationService {
     @Autowired
     private DesignationDao designationDao;
 
+    @Autowired
+    private DesignationRepository designationRepository;
+
     public List<DesignationEntity> getAll()
     {
         return  designationDao.getList();
@@ -41,6 +44,10 @@ public class DesignationService {
     public List<DesignationEntity> getActiveList()
     {
         return designationDao.getActiveOnly();
+    }
+
+    public String countAll(){
+        return designationRepository.countAll();
     }
 
 }

@@ -74,8 +74,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         User user = new User();
         try {
             authResult = customADAuthentication.authenticate(username, password);
-            //user = userDao.findUserAndRolesByUsername(username+"@ificbankbd.com");
-            user = userDao.findUserAndRolesByUsername(username);
+            user = userDao.findUserAndRolesByUsername(username+"@ificbankbd.com");
+            //user = userDao.findUserAndRolesByUsername(username);
             System.out.print("Auth: " + authResult+" ");
         } catch (LoginException e) {
             e.printStackTrace();
