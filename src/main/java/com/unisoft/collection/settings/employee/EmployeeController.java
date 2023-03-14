@@ -89,7 +89,8 @@ public class EmployeeController {
     @GetMapping(value = "edit")
     public String editPage(Model model, @RequestParam(value = "id") Long id) {
         model.addAttribute("entity", employeeService.getById(id));
-        return populateDateFormModel(model);
+        //return populateDateFormModel(model);
+        return "card/contents/settings/userInformation/create";
     }
 
     private String populateDateFormModel(Model model) {

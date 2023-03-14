@@ -10,6 +10,7 @@ import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
+import com.unisoft.collection.settings.loanType.LoanTypeEntity;
 import com.unisoft.collection.settings.location.LocationService;
 import com.unisoft.collection.settings.unit.UnitService;
 import com.unisoft.role.RoleService;
@@ -54,6 +55,9 @@ public class UserInformationController {
     @Autowired
     private BranchService branchService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
 
     @GetMapping(value = "list")
     public String list(Model model){
@@ -78,4 +82,5 @@ public class UserInformationController {
 
      return "card/contents/settings/userInformation/create";
     }
+
 }

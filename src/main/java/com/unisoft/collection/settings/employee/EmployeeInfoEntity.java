@@ -43,6 +43,9 @@ public class EmployeeInfoEntity extends BaseInfo {
     private String pin;
     //private String name;
 
+    private String agentId;
+    private String misysId;
+
     @NotNull(message = "Please select designation")
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "designation_id")
