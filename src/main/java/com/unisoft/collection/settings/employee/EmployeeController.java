@@ -7,6 +7,7 @@ import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.settings.branch.BranchService;
 import com.unisoft.collection.settings.department.DepartmentService;
+import com.unisoft.collection.settings.designation.DesignationEntity;
 import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.collection.settings.division.DivisionService;
 import com.unisoft.collection.settings.employee.API.EmployeeAPIService;
@@ -157,17 +158,24 @@ public class EmployeeController {
         //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         //EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
         //if(employeeInfoEntity == null)
-            //BeanUtils.copyProperties(employee, employeeInfoEntity);
+        //BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
-        List<Integer> roles = new ArrayList<>();
+        /*List<Integer> roles = new ArrayList<>();
 
         for(String roleId : employee.getRoles()){
             roles.add(Integer.parseInt(roleId));
-        }
+        }*/
+
+        DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+
+        if(designationEntity == null)
+            designationEntity = designationService.findByName("Manager");
+
+        employee.setDesignation(designationEntity);
 
 
-        User user = userRepository.findUserByUsername(employee.getEmail());
+        User user = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
         if(user == null)
             user = new User();
         String []name = employeeInfo.getFULL_NAME().split("\\s+");
@@ -179,7 +187,7 @@ public class EmployeeController {
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
         //user.setRoles(roles);
 
-        employee.setPin(employee.getEmail());
+        employee.setPin(employeeInfo.getEMAIL_ADDRESS());
         employee.setJoiningDate(new Date());
         //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
 //        try {
@@ -202,6 +210,7 @@ public class EmployeeController {
             if (isExist == true){
                 if (isValid) {
                     String output = employeeService.save(employee);
+                    List<Integer> roles = new ArrayList<>();
                     userRoleDao.insert(employee.getUser().getUserId(),roles);
                     switch (output) {
                         case "1":
@@ -327,7 +336,7 @@ public class EmployeeController {
                 .filter(employeeInfoPendingList -> employeeInfoPendingList.getLocation().getId() == null
                         || employeeInfoPendingList.getHomePhone() == null
                         || employeeInfoPendingList.getJobNature() == null
-                        || employeeInfoPendingList.getJobRole().getId() == null
+                        /* || employeeInfoPendingList.getJobRole().getId() == null*/
                         || employeeInfoPendingList.getJoiningDate() == null
                         || employeeInfoPendingList.getGender() == null
                         || employeeInfoPendingList.getDOB() == null
