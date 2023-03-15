@@ -46,7 +46,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     private String agentId;
     private String misysId;
 
-    @NotNull(message = "Please select designation")
+    //@NotNull(message = "Please select designation")
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "designation_id")
     private DesignationEntity designation;
@@ -62,10 +62,10 @@ public class EmployeeInfoEntity extends BaseInfo {
     private String officePhone;
     //@Pattern(regexp = "[a-zA-Z ,\\-_()]*", message = "Only alphabet and characters like ,-_() allowed")
     private String jobNature;
-
+/*
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "job_role_id")
-    private JobRoleEntity jobRole;
+    private JobRoleEntity jobRole;*/
 
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;
@@ -173,7 +173,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     @Valid
     private User user;
 
-   /* @Transient*/
+    @Transient
     private String roles;
 
     public EmployeeInfoEntity() {

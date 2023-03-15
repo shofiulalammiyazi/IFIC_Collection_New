@@ -158,7 +158,7 @@ public class EmployeeController {
         //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
         //EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
         //if(employeeInfoEntity == null)
-            //BeanUtils.copyProperties(employee, employeeInfoEntity);
+        //BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
         /*List<Integer> roles = new ArrayList<>();
@@ -167,7 +167,6 @@ public class EmployeeController {
             roles.add(Integer.parseInt(roleId));
         }*/
 
-
         DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
 
         if(designationEntity == null)
@@ -175,9 +174,8 @@ public class EmployeeController {
 
         employee.setDesignation(designationEntity);
 
-       // Role role = roleService.findByName();
 
-        User user = userRepository.findUserByUsername(employee.getEmail());
+        User user = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
         if(user == null)
             user = new User();
         String []name = employeeInfo.getFULL_NAME().split("\\s+");
@@ -189,7 +187,7 @@ public class EmployeeController {
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
         //user.setRoles(roles);
 
-        employee.setPin(employee.getEmail());
+        employee.setPin(employeeInfo.getEMAIL_ADDRESS());
         employee.setJoiningDate(new Date());
         //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
 //        try {
@@ -338,7 +336,7 @@ public class EmployeeController {
                 .filter(employeeInfoPendingList -> employeeInfoPendingList.getLocation().getId() == null
                         || employeeInfoPendingList.getHomePhone() == null
                         || employeeInfoPendingList.getJobNature() == null
-                        || employeeInfoPendingList.getJobRole().getId() == null
+                        /* || employeeInfoPendingList.getJobRole().getId() == null*/
                         || employeeInfoPendingList.getJoiningDate() == null
                         || employeeInfoPendingList.getGender() == null
                         || employeeInfoPendingList.getDOB() == null
