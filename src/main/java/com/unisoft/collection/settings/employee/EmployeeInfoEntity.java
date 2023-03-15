@@ -173,8 +173,8 @@ public class EmployeeInfoEntity extends BaseInfo {
     @Valid
     private User user;
 
-    @Transient
-    private List<String> roles = new ArrayList<>();
+   /* @Transient*/
+    private String roles;
 
     public EmployeeInfoEntity() {
 

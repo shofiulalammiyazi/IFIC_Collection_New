@@ -25,6 +25,9 @@ public class RoleDao {
     @Autowired
     private EntityManager manager;
 
+    @Autowired
+    private EntityManager entityManager;
+
 
     // save and update Roles
     public void save(Role role) {
@@ -131,5 +134,20 @@ public class RoleDao {
             System.out.println(e.getMessage());
         }
         return urole;
+    }
+
+    public Role findByName(String name) {
+        Role role=new Role();
+        try{
+            Session session=entityManager.unwrap(Session.class);
+            Criteria crt=session.createCriteria(Role.class);
+            crt.add(Restrictions.eq("name",name));
+            role=(Role) crt.uniqueResult();
+            session.clear();
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return role;
     }
 }
