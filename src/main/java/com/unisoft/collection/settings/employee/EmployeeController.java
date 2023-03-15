@@ -7,6 +7,7 @@ import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
 import com.unisoft.collection.settings.branch.BranchService;
 import com.unisoft.collection.settings.department.DepartmentService;
+import com.unisoft.collection.settings.designation.DesignationEntity;
 import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.collection.settings.division.DivisionService;
 import com.unisoft.collection.settings.employee.API.EmployeeAPIService;
@@ -160,12 +161,21 @@ public class EmployeeController {
             //BeanUtils.copyProperties(employee, employeeInfoEntity);
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
-        List<Integer> roles = new ArrayList<>();
+        /*List<Integer> roles = new ArrayList<>();
 
         for(String roleId : employee.getRoles()){
             roles.add(Integer.parseInt(roleId));
-        }
+        }*/
 
+
+        DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+
+        if(designationEntity == null)
+            designationEntity = designationService.findByName("Manager");
+
+        employee.setDesignation(designationEntity);
+
+       // Role role = roleService.findByName();
 
         User user = userRepository.findUserByUsername(employee.getEmail());
         if(user == null)
@@ -202,6 +212,7 @@ public class EmployeeController {
             if (isExist == true){
                 if (isValid) {
                     String output = employeeService.save(employee);
+                    List<Integer> roles = new ArrayList<>();
                     userRoleDao.insert(employee.getUser().getUserId(),roles);
                     switch (output) {
                         case "1":
