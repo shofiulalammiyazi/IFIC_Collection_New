@@ -29,7 +29,7 @@ public class User extends BaseInfo {//implements PropertyBasedMakerCheckerModel
     @Expose
     private String username;
 
-    @Column(nullable = false)
+    // @Column(nullable = true)
     private String password;
 
     @Transient
@@ -47,11 +47,11 @@ public class User extends BaseInfo {//implements PropertyBasedMakerCheckerModel
     @Column(nullable = false)
     private String lastName;
 
-    @Column(length = 20, nullable = false)
+    // @Column(length = 20, nullable = true)
     private String employeeId;
 
 
-    @Column(length = 20, nullable = false)
+    //@Column(length = 20, nullable = true)
     private String agencyId;
 
     private Boolean isAgency;

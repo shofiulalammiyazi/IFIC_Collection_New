@@ -184,7 +184,7 @@ public class EmployeeService {
         if(employeeInfoEntity.getLocation().getId() == null
                 || employeeInfoEntity.getHomePhone() == null
                 || employeeInfoEntity.getJobNature() == null
-                || employeeInfoEntity.getJobRole().getId() == null
+                /* || employeeInfoEntity.getJobRole().getId() == null*/
                 || employeeInfoEntity.getJoiningDate() == null
                 || employeeInfoEntity.getGender() == null
                 || employeeInfoEntity.getDOB() == null
