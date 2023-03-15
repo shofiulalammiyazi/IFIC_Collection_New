@@ -174,6 +174,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     private User user;
 
     @Transient
+    @NotBlank(message = "Please check Roles")
     private String roles;
 
     public EmployeeInfoEntity() {

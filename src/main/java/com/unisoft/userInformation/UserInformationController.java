@@ -80,7 +80,7 @@ public class UserInformationController {
         model.addAttribute("statusList", employeeStatusService.getAllActive());
         model.addAttribute("branches", branchService.getActiveList());
 
-     return "card/contents/settings/userInformation/create";
+        return "card/contents/settings/userInformation/create";
     }
 
 }
