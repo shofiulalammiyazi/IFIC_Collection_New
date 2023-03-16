@@ -13,9 +13,11 @@ import com.unisoft.collection.settings.designation.DesignationService;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusEntity;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusRepository;
 import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerEntity;
+import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerRepository;
 import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusmanagerService;
 import com.unisoft.user.User;
 import com.unisoft.user.UserPrincipal;
+import com.unisoft.user.UserRepository;
 import com.unisoft.user.UserService;
 import com.unisoft.utillity.ExcelFileUtils;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,13 +58,43 @@ public class EmployeeService {
         return repository.findAll();
     }
 
-    @Transactional
     public EmployeeInfoEntity saveEmp(EmployeeInfoEntity employeeInfoEntity){
 
-        EmployeeInfoEntity employeeInfoEntity1 = repository.save(employeeInfoEntity);
+        EmployeeInfoEntity employeeInfoEntity1 = repository.saveAndFlush(employeeInfoEntity);
         return employeeInfoEntity1;
     }
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private EmployeeStatusManagerRepository employeeStatusManagerRepository;
+
+    public String SaveEmp(EmployeeInfoEntity employeeInfoEntity){
+        EmployeeStatusManagerEntity employeeStatusManager;
+        userRepository.save(employeeInfoEntity.getUser());
+
+        if (employeeInfoEntity.getUser().getUserId() == null)
+            return "Something went wrong. Couldn't create user";
+
+        employeeRepository.save(employeeInfoEntity);
+
+        employeeStatusManager = employeeStatusmanagerService.getByUserId(employeeInfoEntity.getUser().getUserId());
+        if(employeeStatusManager == null)
+            employeeStatusManager = new EmployeeStatusManagerEntity();
+        employeeStatusManager.setEmployeeInfo(employeeInfoEntity);
+        employeeStatusManager.setUserId(employeeInfoEntity.getUser().getUserId());
+        employeeStatusManager.setEmployeeStatus(employeeInfoEntity.getEmployeeStatus());
+        employeeStatusManager.setStartDate(employeeInfoEntity.getJoiningDate());
+        employeeStatusManagerRepository.save(employeeStatusManager);
+
+        auditTrailService.saveCreatedData("Employee", employeeInfoEntity);
+
+        return "1";
+    }
 
     public String save(EmployeeInfoEntity entity) {
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -156,7 +189,8 @@ public class EmployeeService {
     }
 
     public boolean existsByEmail(String email) {
-        return repository.existsByEmail(email);
+        boolean status =  repository.existsByEmail(email);
+        return status;
     }
 
     public List<EmployeeInfoEntity> getListByDesignation(String designation) {
@@ -180,55 +214,55 @@ public class EmployeeService {
         return repository.findByDesignationNameOrderByUserFirstNameAsc("Supervisor");
     }
 
-    public boolean checkEmployeeAllField(EmployeeInfoEntity employeeInfoEntity){
-        if(employeeInfoEntity.getLocation().getId() == null
-                || employeeInfoEntity.getHomePhone() == null
-                || employeeInfoEntity.getJobNature() == null
-                /* || employeeInfoEntity.getJobRole().getId() == null*/
-                || employeeInfoEntity.getJoiningDate() == null
-                || employeeInfoEntity.getGender() == null
-                || employeeInfoEntity.getDOB() == null
-                || employeeInfoEntity.getBloodGroup() == null
-                || employeeInfoEntity.getEmergencyContactPerson() == null
-                || employeeInfoEntity.getEmergencyContactNo() == null
-                || employeeInfoEntity.getEmergencyContactRel() == null
-                || employeeInfoEntity.getPresentAddress() == null
-                || employeeInfoEntity.getPermanentAddress() == null
-                || employeeInfoEntity.getOfficeAddress() == null
-                || employeeInfoEntity.getIpAddress() == null
-                || employeeInfoEntity.getIpPhoneNo() == null
-                || employeeInfoEntity.getMobileLimit() == 0.0
-                || employeeInfoEntity.getDivision().getDivId() == null
-                || employeeInfoEntity.getEmployeeStatus().getId() == null
-                || employeeInfoEntity.getAdviceLetter() == null
-                || employeeInfoEntity.getAdviceLetterDate() == null
-                || employeeInfoEntity.getDomainId() == null
-                || employeeInfoEntity.getLoanAccountNo() == null
-                || employeeInfoEntity.getCreditCardNo() == null
-                || employeeInfoEntity.getClientId() == null
-                || employeeInfoEntity.getAccountNo() == null
-                || employeeInfoEntity.getCif() == null
-                || employeeInfoEntity.getFatherName() == null
-                || employeeInfoEntity.getMotherName() == null
-                || employeeInfoEntity.getServiceTag()== null
-                || employeeInfoEntity.getAssetTag()== null
-                || employeeInfoEntity.getSpouseName()==null
-                || employeeInfoEntity.getSpousePhone()==null
-                || employeeInfoEntity.getLastEducation()==null
-                || employeeInfoEntity.getDomicileAddress()==null
-                || employeeInfoEntity.getPcBrand()==null
-                || employeeInfoEntity.getPcModel()==null
-                || employeeInfoEntity.getTrainingDetails()==null
-                || employeeInfoEntity.getHostName()==null
-                || employeeInfoEntity.getPemail()==null
-                || employeeInfoEntity.getNid()==null
-                || employeeInfoEntity.getETin()==null
-                || employeeInfoEntity.getMaritalStatus()==null){
-            return false;
-        }else {
-            return true;
-        }
-    }
+//    public boolean checkEmployeeAllField(EmployeeInfoEntity employeeInfoEntity){
+//        if(employeeInfoEntity.getLocation().getId() == null
+//                || employeeInfoEntity.getHomePhone() == null
+//                || employeeInfoEntity.getJobNature() == null
+//                /* || employeeInfoEntity.getJobRole().getId() == null*/
+//                || employeeInfoEntity.getJoiningDate() == null
+//                || employeeInfoEntity.getGender() == null
+//                || employeeInfoEntity.getDOB() == null
+//                || employeeInfoEntity.getBloodGroup() == null
+//                || employeeInfoEntity.getEmergencyContactPerson() == null
+//                || employeeInfoEntity.getEmergencyContactNo() == null
+//                || employeeInfoEntity.getEmergencyContactRel() == null
+//                || employeeInfoEntity.getPresentAddress() == null
+//                || employeeInfoEntity.getPermanentAddress() == null
+//                || employeeInfoEntity.getOfficeAddress() == null
+//                || employeeInfoEntity.getIpAddress() == null
+//                || employeeInfoEntity.getIpPhoneNo() == null
+//                || employeeInfoEntity.getMobileLimit() == 0.0
+//                || employeeInfoEntity.getDivision().getDivId() == null
+//                || employeeInfoEntity.getEmployeeStatus().getId() == null
+//                || employeeInfoEntity.getAdviceLetter() == null
+//                || employeeInfoEntity.getAdviceLetterDate() == null
+//                || employeeInfoEntity.getDomainId() == null
+//                || employeeInfoEntity.getLoanAccountNo() == null
+//                || employeeInfoEntity.getCreditCardNo() == null
+//                || employeeInfoEntity.getClientId() == null
+//                || employeeInfoEntity.getAccountNo() == null
+//                || employeeInfoEntity.getCif() == null
+//                || employeeInfoEntity.getFatherName() == null
+//                || employeeInfoEntity.getMotherName() == null
+//                || employeeInfoEntity.getServiceTag()== null
+//                || employeeInfoEntity.getAssetTag()== null
+//                || employeeInfoEntity.getSpouseName()==null
+//                || employeeInfoEntity.getSpousePhone()==null
+//                || employeeInfoEntity.getLastEducation()==null
+//                || employeeInfoEntity.getDomicileAddress()==null
+//                || employeeInfoEntity.getPcBrand()==null
+//                || employeeInfoEntity.getPcModel()==null
+//                || employeeInfoEntity.getTrainingDetails()==null
+//                || employeeInfoEntity.getHostName()==null
+//                || employeeInfoEntity.getPemail()==null
+//                || employeeInfoEntity.getNid()==null
+//                || employeeInfoEntity.getETin()==null
+//                || employeeInfoEntity.getMaritalStatus()==null){
+//            return false;
+//        }else {
+//            return true;
+//        }
+//    }
 
     public boolean isValidPhone(String phoneNo) {
         //validating phone number with -, . or spaces
@@ -331,14 +365,14 @@ public class EmployeeService {
 
                 employee.setPin(employeeId);
                 employee.setDesignation(designationEntity);
-                employee.setDepartment(departmentEntity);
+//                employee.setDepartment(departmentEntity);
                 employee.setBranch(branch);
                 employee.setUnit(unit);
                 employee.setOfficePhone(officePhone);
-                employee.setEmergencyContactNo(emergencyContactPerson);
+//                employee.setEmergencyContactNo(emergencyContactPerson);
                 employee.setEmail(officeEmail);
-                employee.setNid(nid);
-                employee.setETin(eTin);
+//                employee.setNid(nid);
+//                employee.setETin(eTin);
                 employee.setEmployeeStatus(employeeStatusEntity);
 
                 employee.setCreatedBy(userPrincipal.getUsername());

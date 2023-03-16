@@ -2,9 +2,16 @@ package com.unisoft.collection.settings.branch.api;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class BranchDetails {
 
+    Map<String,BranchDetails1> branchDetails1Map;
+
+}
+
+class BranchDetails1{
     private String CODE;
     private String MNEMONIC;
     private String NAME;
@@ -15,5 +22,4 @@ public class BranchDetails {
     private String CABAD4;
     private String CABAD5;
     private String BRANCHBOOTH;
-
 }

@@ -82,7 +82,6 @@ public class HttpSessionUtils {
             int sessionIdleMinutes = (int) loginPolicyService.getPolicy().getSessionIdle();
 
             session.setAttribute("unit", employee.getUnit());
-            session.setAttribute("userPhoto", employee.getPhoto());
             session.setAttribute("userDesignation", employee.getDesignation().getName());
             session.setAttribute("userRole", roles.toString());
             session.setAttribute("loginTime", new Date());
