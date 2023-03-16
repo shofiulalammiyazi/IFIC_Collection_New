@@ -95,7 +95,7 @@
                     <div class="row csi-view-form-group">
                         <label class="col-sm-3 custom-details-lebel">User Role: </label>
                         <label class="col-sm-3 custom-form-lebel"
-                               th:text="${employee?.getDesignation()?.getName()}"></label>
+                               th:text="${employee?.user?.roles[0].name}"></label>
 
                         <label class="col-sm-3 custom-details-lebel">Posting Branch: </label>
                         <label class="col-sm-3 custom-form-lebel"></label>
