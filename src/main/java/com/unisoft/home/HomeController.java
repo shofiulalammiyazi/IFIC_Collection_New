@@ -197,6 +197,7 @@ public class HomeController {
 
             model.addAttribute("employee", employeeInfoEntity);
             model.addAttribute("loginTime", new Date());
+            //model.addAttribute("empRole",employeeInfoEntity.getUser().getRoles().)
 
 
             List<LateReasonExplainInfo> lateReasonExplainInfos = lateReasonRepository.findByCreatedDateIsBetweenAndUserOrderByCreatedDateDesc(startDate, endDate, employeeInfoEntity.getUser());
