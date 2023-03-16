@@ -5,6 +5,7 @@ Created by   Islam at 7/7/2019
 
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
+import com.unisoft.collection.settings.branch.Branch;
 import com.unisoft.collection.settings.branch.BranchService;
 import com.unisoft.collection.settings.department.DepartmentService;
 import com.unisoft.collection.settings.designation.DesignationEntity;
@@ -15,6 +16,7 @@ import com.unisoft.collection.settings.employee.API.EmployeeApiPayload;
 import com.unisoft.collection.settings.employee.API.EmployeeDetails;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
+import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.collection.settings.location.LocationService;
 import com.unisoft.collection.settings.unit.UnitService;
 import com.unisoft.role.Role;
@@ -163,84 +165,138 @@ public class EmployeeController {
 
 
     @PostMapping(value = "create-emp")
-    public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
+    public String saveNewEmpFromApi( Model model, EmployeeInfoEntity employee, BindingResult result) {
 
 
-        EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
+        //EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
+        EmployeeDetails employeeInfo = new EmployeeDetails();
 
-        DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
-        Role role = roleService.findByName(employee.getRoles());
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
+        employeeInfo.setEMAIL_ADDRESS("sk.azim@ificbankbd.com");
+        employeeInfo.setFULL_NAME("Joy Lal");
+        employeeInfo.setCBS_BRANCH_NAME("Head Branch");
+        employeeInfo.setCBS_BRANCH_MNEMONIC("HEB");
 
-        EmployeeInfoEntity employeeInfoEntity = new EmployeeInfoEntity();
-        if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS())) {
-            employeeInfoEntity = employeeService.findByEmail(employeeInfo.getEMAIL_ADDRESS());
-            employee.setId(employeeInfoEntity.getId());
-        }
+        if (employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS())) {
+            User dbDataModel = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
+            dbDataModel.setUsername(employeeInfo.getEMAIL_ADDRESS());
+            dbDataModel.setFirstName(employeeInfo.getFULL_NAME().split("\\s")[0]);
+            dbDataModel.setLastName(employeeInfo.getFULL_NAME().split("\\s")[1]);
 
-        if(designationEntity == null)
-            designationEntity = designationService.findByName("Manager");
+            LocationEntity locationEntity = new LocationEntity(new Long(190));
 
-        employee.setDesignation(designationEntity);
+            Branch branch = new Branch(7038568);
 
 
-        User user = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
-        if(user == null)
-            user = new User();
-        String []name = employeeInfo.getFULL_NAME().split("\\s+");
-        String firstName = name[0];
-        String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setUsername(employeeInfo.getEMAIL_ADDRESS());
-        user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
-        //user.setRoles(roles);
-        //user.setRoles(roles);
+            User response = userRepository.save(dbDataModel);
 
-        employee.setPin(employeeInfo.getEMAIL_ADDRESS());
-        employee.setEmail(employeeInfo.getEMAIL_ADDRESS());
-        employee.setJoiningDate(new Date());
-        //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
-//        try {
-//            employee.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-        //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
-        employee.setUser(user);
+            EmployeeInfoEntity dbEmployeeModel = employeeService.getByUserId(response.getUserId());
 
-        if(employee.getRoles().equalsIgnoreCase("dealer"))
-            if(employee.getAgentId().equalsIgnoreCase(""))
-                result.rejectValue("agentId","","Agent Id must not be empty!");
-
-        if (!result.hasErrors()) {
-            boolean isValid = isValidEmployee(employee, model);
-            boolean isExist = true;
-            if (employee.getId() == null){
-                isExist = isEmailExist(employee.getEmail());
-            }
-            if (isExist == true){
-                if (isValid) {
-                    String output = employeeService.save(employee);
-                    List<Integer> rolesId = new ArrayList<>();
-                    rolesId.add(role.getRoleId());
-                    userRoleDao.insert(employee.getUser().getUserId(),rolesId);
-                    switch (output) {
-                        case "1":
-                            return "redirect:/collection/employee/list";
-                        default:
-                            model.addAttribute("error", output);
-                    }
-                }
-            }else
-                model.addAttribute("emailExist", true);
+            DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+            dbEmployeeModel.setDesignation(designationEntity);
+            dbEmployeeModel.setJoiningDate(new Date());
+            dbEmployeeModel.setUnit(employee.getUnit());
+            dbEmployeeModel.setUser(response);
+            dbEmployeeModel.setLocation(locationEntity);
+            dbEmployeeModel.setBranch(branch);
+            dbEmployeeModel.setFullName("Joy Lal");
+            EmployeeInfoEntity test = employeeService.saveEmp(dbEmployeeModel);
+            System.out.println("Done");
 
         }
-        model.addAttribute("entity", employee);
-        return populateDateFormModel1(model);
+
+
+        return null;
 
     }
+
+
+//    @PostMapping(value = "create-emp")
+//    public String saveNewEmpFromApi( Model model, EmployeeInfoEntity employee, BindingResult result) {
+//
+//
+//        //EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
+//        EmployeeDetails employeeInfo = new EmployeeDetails();
+//
+//        employeeInfo.setEMAIL_ADDRESS("mohit@ificbankbd.com");
+//        employeeInfo.setFULL_NAME("Mohit Lal");
+//        employeeInfo.setCBS_BRANCH_NAME("Head Branch");
+//        employeeInfo.setCBS_BRANCH_MNEMONIC("HEB");
+//
+//
+//
+//        DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+//        Role role = roleService.findByName(employee.getRoles());
+//        List<Role> roles = new ArrayList<>();
+//        roles.add(role);
+//
+//        EmployeeInfoEntity employeeInfoEntity;
+//        if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS())) {
+//            employeeInfoEntity = employeeService.findByEmail(employeeInfo.getEMAIL_ADDRESS());
+//            employee.setId(employeeInfoEntity.getId());
+//        }
+//
+//        if(designationEntity == null)
+//            designationEntity = designationService.findByName("Manager");
+//
+//        employee.setDesignation(designationEntity);
+//
+//
+//        User user = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
+//        if(user == null)
+//            user = new User();
+//        String []name = employeeInfo.getFULL_NAME().split("\\s+");
+//        String firstName = name[0];
+//        String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setUsername(employeeInfo.getEMAIL_ADDRESS());
+//        user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
+//        //user.setRoles(roles);
+//        //user.setRoles(roles);
+//
+//        employee.setPin(employeeInfo.getEMAIL_ADDRESS());
+//        employee.setEmail(employeeInfo.getEMAIL_ADDRESS());
+//        employee.setJoiningDate(new Date());
+//        //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
+////        try {
+////            employee.setJoiningDate(simpleDateFormat1.parse(simpleDateFormat.format(new Date())));
+////        } catch (ParseException e) {
+////            e.printStackTrace();
+////        }
+//        //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
+//        employee.setUser(user);
+//
+//        if(employee.getRoles().equalsIgnoreCase("dealer"))
+//            if(employee.getAgentId().equalsIgnoreCase(""))
+//                result.rejectValue("agentId","","Agent Id must not be empty!");
+//
+//        if (!result.hasErrors()) {
+//            boolean isValid = isValidEmployee(employee, model);
+//            boolean isExist = true;
+//            if (employee.getId() == null){
+//                isExist = isEmailExist(employee.getEmail());
+//            }
+//            if (isExist == true){
+//                if (isValid) {
+//                    String output = employeeService.SaveEmp(employee);
+//                    List<Integer> rolesId = new ArrayList<>();
+//                    rolesId.add(role.getRoleId());
+//                    userRoleDao.insert(employee.getUser().getUserId(),rolesId);
+//                    switch (output) {
+//                        case "1":
+//                            return "redirect:/collection/employee/list";
+//                        default:
+//                            model.addAttribute("error", output);
+//                    }
+//                }
+//            }else
+//                model.addAttribute("emailExist", true);
+//
+//        }
+//        model.addAttribute("entity", employee);
+//        return populateDateFormModel1(model);
+//
+//    }
 
     private boolean isEmailExist(String email) {
         EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(email);
@@ -250,34 +306,34 @@ public class EmployeeController {
         return false;
     }
 
-    @GetMapping(value = "view")
-    public String viewPage(@RequestParam(value = "id") Long id, Model model) {
-        EmployeeInfoEntity employee = employeeService.getById(id);
-        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
-        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
-        String unit = employee.getUnit();
-        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
-        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
-        if (allocationLogicInfo != null) {
-            User user = null;
-            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
-            switch (designation) {
-                case "dealer":
-                    user = allocationLogicInfo.getTeamlead().getUser();
-                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
-                case "teamleader":
-                    user = allocationLogicInfo.getSupervisor().getUser();
-                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
-                case "supervisor":
-                    user = allocationLogicInfo.getManager().getUser();
-                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
-            }
-        }
-        model.addAttribute("age", age);
-        model.addAttribute("workingYear", workingYear);
-        model.addAttribute("entity", employee);
-        return "collection/settings/employee/view";
-    }
+//    @GetMapping(value = "view")
+//    public String viewPage(@RequestParam(value = "id") Long id, Model model) {
+//        EmployeeInfoEntity employee = employeeService.getById(id);
+//        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
+//        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
+//        String unit = employee.getUnit();
+//        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
+//        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
+//        if (allocationLogicInfo != null) {
+//            User user = null;
+//            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
+//            switch (designation) {
+//                case "dealer":
+//                    user = allocationLogicInfo.getTeamlead().getUser();
+//                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
+//                case "teamleader":
+//                    user = allocationLogicInfo.getSupervisor().getUser();
+//                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
+//                case "supervisor":
+//                    user = allocationLogicInfo.getManager().getUser();
+//                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
+//            }
+//        }
+//        model.addAttribute("age", age);
+//        model.addAttribute("workingYear", workingYear);
+//        model.addAttribute("entity", employee);
+//        return "collection/settings/employee/view";
+//    }
 
     public String diffDate(Date start, Date end) {
 
@@ -342,62 +398,62 @@ public class EmployeeController {
     }
 
 
-    @GetMapping(value = "pending-profile")
-    public String pendingProfile(Model model) {
-        List<EmployeeInfoEntity>employeeInfoEntityList=employeeService.getAll();
-        List<EmployeeInfoEntity> empPendingProfileList = employeeInfoEntityList.stream()
-                .filter(employeeInfoPendingList -> employeeInfoPendingList.getLocation().getId() == null
-                        || employeeInfoPendingList.getHomePhone() == null
-                        || employeeInfoPendingList.getJobNature() == null
-                        /* || employeeInfoPendingList.getJobRole().getId() == null*/
-                        || employeeInfoPendingList.getJoiningDate() == null
-                        || employeeInfoPendingList.getGender() == null
-                        || employeeInfoPendingList.getDOB() == null
-                        || employeeInfoPendingList.getBloodGroup() == null
-                        || employeeInfoPendingList.getEmergencyContactPerson() == null
-                        || employeeInfoPendingList.getEmergencyContactNo() == null
-                        || employeeInfoPendingList.getEmergencyContactRel() == null
-                        || employeeInfoPendingList.getPresentAddress() == null
-                        || employeeInfoPendingList.getPermanentAddress() == null
-                        || employeeInfoPendingList.getOfficeAddress() == null
-                        || employeeInfoPendingList.getIpAddress() == null
-                        || employeeInfoPendingList.getIpPhoneNo() == null
-                        || employeeInfoPendingList.getMobileLimit() == 0.0
-                        || employeeInfoPendingList.getDivision().getDivId() == null
-                        || employeeInfoPendingList.getEmployeeStatus().getId() == null
-                        || employeeInfoPendingList.getSignature() == null
-                        || employeeInfoPendingList.getAdviceLetter() == null
-                        || employeeInfoPendingList.getAdviceLetterDate() == null
-                        || employeeInfoPendingList.getDomainId() == null
-                        || employeeInfoPendingList.getLoanAccountNo() == null
-                        || employeeInfoPendingList.getCreditCardNo() == null
-                        || employeeInfoPendingList.getClientId() == null
-                        || employeeInfoPendingList.getAccountNo() == null
-                        || employeeInfoPendingList.getCif() == null
-                        || employeeInfoPendingList.getFatherName() == null
-                        || employeeInfoPendingList.getMotherName() == null
-                        || employeeInfoPendingList.getServiceTag()== null
-                        || employeeInfoPendingList.getAssetTag()== null
-                        || employeeInfoPendingList.getSpouseName()==null
-                        || employeeInfoPendingList.getSpousePhone()==null
-                        || employeeInfoPendingList.getLastEducation()==null
-                        || employeeInfoPendingList.getDomicileAddress()==null
-                        || employeeInfoPendingList.getPcBrand()==null
-                        || employeeInfoPendingList.getPcModel()==null
-                        || employeeInfoPendingList.getTrainingDetails()==null
-                        || employeeInfoPendingList.getHostName()==null
-                        || employeeInfoPendingList.getPemail()==null
-                        || employeeInfoPendingList.getNid()==null
-                        || employeeInfoPendingList.getETin()==null
-                        || employeeInfoPendingList.getMaritalStatus()==null
-                        || employeeInfoPendingList.getPhoto()==null
-
-                )
-                .collect(Collectors.toList());
-
-        model.addAttribute("empList", empPendingProfileList);
-        return "collection/settings/employee/employeependingprofiles";
-    }
+//    @GetMapping(value = "pending-profile")
+//    public String pendingProfile(Model model) {
+//        List<EmployeeInfoEntity>employeeInfoEntityList=employeeService.getAll();
+//        List<EmployeeInfoEntity> empPendingProfileList = employeeInfoEntityList.stream()
+//                .filter(employeeInfoPendingList -> employeeInfoPendingList.getLocation().getId() == null
+//                        || employeeInfoPendingList.getHomePhone() == null
+//                        || employeeInfoPendingList.getJobNature() == null
+//                        /* || employeeInfoPendingList.getJobRole().getId() == null*/
+//                        || employeeInfoPendingList.getJoiningDate() == null
+//                        || employeeInfoPendingList.getGender() == null
+//                        || employeeInfoPendingList.getDOB() == null
+//                        || employeeInfoPendingList.getBloodGroup() == null
+//                        || employeeInfoPendingList.getEmergencyContactPerson() == null
+//                        || employeeInfoPendingList.getEmergencyContactNo() == null
+//                        || employeeInfoPendingList.getEmergencyContactRel() == null
+//                        || employeeInfoPendingList.getPresentAddress() == null
+//                        || employeeInfoPendingList.getPermanentAddress() == null
+//                        || employeeInfoPendingList.getOfficeAddress() == null
+//                        || employeeInfoPendingList.getIpAddress() == null
+//                        || employeeInfoPendingList.getIpPhoneNo() == null
+//                        || employeeInfoPendingList.getMobileLimit() == 0.0
+//                        || employeeInfoPendingList.getDivision().getDivId() == null
+//                        || employeeInfoPendingList.getEmployeeStatus().getId() == null
+//                        || employeeInfoPendingList.getSignature() == null
+//                        || employeeInfoPendingList.getAdviceLetter() == null
+//                        || employeeInfoPendingList.getAdviceLetterDate() == null
+//                        || employeeInfoPendingList.getDomainId() == null
+//                        || employeeInfoPendingList.getLoanAccountNo() == null
+//                        || employeeInfoPendingList.getCreditCardNo() == null
+//                        || employeeInfoPendingList.getClientId() == null
+//                        || employeeInfoPendingList.getAccountNo() == null
+//                        || employeeInfoPendingList.getCif() == null
+//                        || employeeInfoPendingList.getFatherName() == null
+//                        || employeeInfoPendingList.getMotherName() == null
+//                        || employeeInfoPendingList.getServiceTag()== null
+//                        || employeeInfoPendingList.getAssetTag()== null
+//                        || employeeInfoPendingList.getSpouseName()==null
+//                        || employeeInfoPendingList.getSpousePhone()==null
+//                        || employeeInfoPendingList.getLastEducation()==null
+//                        || employeeInfoPendingList.getDomicileAddress()==null
+//                        || employeeInfoPendingList.getPcBrand()==null
+//                        || employeeInfoPendingList.getPcModel()==null
+//                        || employeeInfoPendingList.getTrainingDetails()==null
+//                        || employeeInfoPendingList.getHostName()==null
+//                        || employeeInfoPendingList.getPemail()==null
+//                        || employeeInfoPendingList.getNid()==null
+//                        || employeeInfoPendingList.getETin()==null
+//                        || employeeInfoPendingList.getMaritalStatus()==null
+//                        || employeeInfoPendingList.getPhoto()==null
+//
+//                )
+//                .collect(Collectors.toList());
+//
+//        model.addAttribute("empList", empPendingProfileList);
+//        return "collection/settings/employee/employeependingprofiles";
+//    }
 
 
 
@@ -416,34 +472,34 @@ public class EmployeeController {
     }
 
 
-    @GetMapping(value = "pending-view")
-    public String pendingViewPage(@RequestParam(value = "id") Long id, Model model) {
-        EmployeeInfoEntity employee = employeeService.getById(id);
-        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
-        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
-        String unit = employee.getUnit();
-        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
-        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
-        if (allocationLogicInfo != null) {
-            User user = null;
-            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
-            switch (designation) {
-                case "dealer":
-                    user = allocationLogicInfo.getTeamlead().getUser();
-                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
-                case "teamleader":
-                    user = allocationLogicInfo.getSupervisor().getUser();
-                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
-                case "supervisor":
-                    user = allocationLogicInfo.getManager().getUser();
-                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
-            }
-        }
-        model.addAttribute("age", age);
-        model.addAttribute("workingYear", workingYear);
-        model.addAttribute("entity", employee);
-        return "collection/settings/employee/pendingView";
-    }
+//    @GetMapping(value = "pending-view")
+//    public String pendingViewPage(@RequestParam(value = "id") Long id, Model model) {
+//        EmployeeInfoEntity employee = employeeService.getById(id);
+//        String age = employee.getDOB() != null ? diffDate(employee.getDOB(), new Date()) : "Missing Date of Birth";
+//        String workingYear = employee.getJoiningDate() != null ? diffDate(employee.getJoiningDate(), new Date()) : "Missing Joining Date";
+//        String unit = employee.getUnit();
+//        String[] units = (unit != null) ? employee.getUnit().split(",") : new String[1];
+//        PeopleAllocationLogicInfo allocationLogicInfo = peopleAllocationLogicService.getByDealerId(employee, units[0]);
+//        if (allocationLogicInfo != null) {
+//            User user = null;
+//            String designation = employee.getDesignation().getName().replaceAll("[^a-zA-Z]", " ").toLowerCase();
+//            switch (designation) {
+//                case "dealer":
+//                    user = allocationLogicInfo.getTeamlead().getUser();
+//                    model.addAttribute("teamLeader", user.getFirstName() + " " + user.getLastName());
+//                case "teamleader":
+//                    user = allocationLogicInfo.getSupervisor().getUser();
+//                    model.addAttribute("supervisor", user.getFirstName() + " " + user.getLastName());
+//                case "supervisor":
+//                    user = allocationLogicInfo.getManager().getUser();
+//                    model.addAttribute("manager", user.getFirstName() + " " + user.getLastName());
+//            }
+//        }
+//        model.addAttribute("age", age);
+//        model.addAttribute("workingYear", workingYear);
+//        model.addAttribute("entity", employee);
+//        return "collection/settings/employee/pendingView";
+//    }
 
 
     @GetMapping(value = "/findByDesignation")
