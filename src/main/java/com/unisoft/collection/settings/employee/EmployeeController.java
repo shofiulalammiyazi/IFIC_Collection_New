@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,9 +90,18 @@ public class EmployeeController {
 
     @GetMapping(value = "edit")
     public String editPage(Model model, @RequestParam(value = "id") Long id) {
+        model.addAttribute("roles", roleService.getActiveList());
+        model.addAttribute("desList", designationService.getActiveList());
+        model.addAttribute("locationList", locationService.getActiveList());
+        model.addAttribute("roleList", jobRoleService.getActiveList());
+        model.addAttribute("deptList", departmentService.getActiveList());
+        model.addAttribute("divList", divisionService.getActiveList());
+        model.addAttribute("unitList", unitService.getActiveList());
+        model.addAttribute("statusList", employeeStatusService.getAllActive());
+        model.addAttribute("branches", branchService.getActiveList());
         model.addAttribute("entity", employeeService.getById(id));
         //return populateDateFormModel(model);
-        return "card/contents/settings/userInformation/create";
+        return "card/contents/settings/userInformation/edit";
     }
 
     private String populateDateFormModel(Model model) {
@@ -151,23 +161,23 @@ public class EmployeeController {
     @Autowired
     private UserRepository userRepository;
 
+
     @PostMapping(value = "create-emp")
     public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
 
-        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        //EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail1(employee.getEmail());
-        //if(employeeInfoEntity == null)
-        //BeanUtils.copyProperties(employee, employeeInfoEntity);
+
         EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
-        /*List<Integer> roles = new ArrayList<>();
-
-        for(String roleId : employee.getRoles()){
-            roles.add(Integer.parseInt(roleId));
-        }*/
-
         DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+        Role role = roleService.findByName(employee.getRoles());
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+
+        EmployeeInfoEntity employeeInfoEntity = new EmployeeInfoEntity();
+        if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS())) {
+            employeeInfoEntity = employeeService.findByEmail(employeeInfo.getEMAIL_ADDRESS());
+            employee.setId(employeeInfoEntity.getId());
+        }
 
         if(designationEntity == null)
             designationEntity = designationService.findByName("Manager");
@@ -183,11 +193,13 @@ public class EmployeeController {
         String lastName = name.length>1?name[1]:name.length>2?name[1]+" "+name[2]:" ";
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setUsername(employee.getEmail());
+        user.setUsername(employeeInfo.getEMAIL_ADDRESS());
         user.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
+        //user.setRoles(roles);
         //user.setRoles(roles);
 
         employee.setPin(employeeInfo.getEMAIL_ADDRESS());
+        employee.setEmail(employeeInfo.getEMAIL_ADDRESS());
         employee.setJoiningDate(new Date());
         //employee.setJoiningDate(new SimpleDateFormat("MMM").format(new Date()));
 //        try {
@@ -197,9 +209,10 @@ public class EmployeeController {
 //        }
         //employee.setEmployeeStatus(employeeStatusService.findByName("Working"));
         employee.setUser(user);
-        //user.setRoles();
-        //employee.setBranch();
-        //employee.setDOB(employeeInfo.getDOB());
+
+        if(employee.getRoles().equalsIgnoreCase("dealer"))
+            if(employee.getAgentId().equalsIgnoreCase(""))
+                result.rejectValue("agentId","","Agent Id must not be empty!");
 
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
@@ -210,8 +223,9 @@ public class EmployeeController {
             if (isExist == true){
                 if (isValid) {
                     String output = employeeService.save(employee);
-                    List<Integer> roles = new ArrayList<>();
-                    userRoleDao.insert(employee.getUser().getUserId(),roles);
+                    List<Integer> rolesId = new ArrayList<>();
+                    rolesId.add(role.getRoleId());
+                    userRoleDao.insert(employee.getUser().getUserId(),rolesId);
                     switch (output) {
                         case "1":
                             return "redirect:/collection/employee/list";
@@ -227,7 +241,6 @@ public class EmployeeController {
         return populateDateFormModel1(model);
 
     }
-
 
     private boolean isEmailExist(String email) {
         EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(email);
