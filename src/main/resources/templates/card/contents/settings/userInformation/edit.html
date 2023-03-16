@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>New User</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content" id="user-info-app">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-primary">
+
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Update User</h3>
+                        </div>
+
+                        <div class="box-body">
+
+                            <form id="app1" class="form-horizontal validate" method="post"
+                                  th:action="@{/collection/employee/create-emp}"  th:object="${entity}">
+                                <input type="hidden" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{user.userId}"/>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
+                                    <div class="col-sm-8">
+                                        <input  type="text" name="email" th:field="*{pin}" class="form-control required" placeholder="Email Address" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="EMPLOYEE_ID" id="emp-id" th:field="*{user.employeeId}" class="form-control " placeholder="Employee Id"/>
+
+                                    </div>
+                                </div>
+                                <!--th:field="*{entity.firstName}"-->
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right">Full Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"  name="FULL_NAME" th:field="*{user.firstName}" id="full-name" class="form-control" placeholder="Full Name"/>
+                                    </div>
+                                    <!--<input type="hidden" th:field="*{user.firstName}" id="first-name"/>-->
+                                    <!--<input type="hidden" th:field="*{user.lastName}" id="last-name"/>-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="EMPLOYEE_ID" id="emp-id" th:field="*{user.employeeId}" class="form-control " placeholder="Employee Id"/>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Role</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" v-model="user.roles" name="roles" class="form-control input-sm"
+                                                required>
+                                            <option value="">Select Role</option>
+                                            <option class="form-control input-sm"
+                                                    th:each="role: ${roles}" th:value="${role.name}"
+
+                                                    th:text="${role.name}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
+                                </div>
+
+
+
+                                <div  v-if="user.roles=='Dealer'" class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required ">Agent ID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="agentId" id="agent-id" class="form-control " placeholder="Agent ID"/>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('agentId')}" th:errors="*{agentId}"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Mobile No</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="MOBILE_NO" th:field="*{officePhone}" id="mobile-no" class="form-control " placeholder="Mobile No"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">Misys Id</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="MISYS_ID" id="misys-id" th:field="*{misysId}" class="form-control " placeholder="Misys Id"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Code</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control " placeholder="CBS Branch Code"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control " placeholder="CBS Branch Name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required">Unit </label>
+                                    <div class="col-sm-8 checkbox-group"
+                                         th:with="valid = ${entity?.unit != null and !entity?.unit.isEmpty()}">
+                                        <th:block th:if="${unitList != null and !unitList.isEmpty()}"
+                                                  th:each="unitElement, index :${unitList}">
+                                            <input type="checkbox"  name="unit" th:field="*{unit}"
+                                                   th:value="${unitElement.name}"
+                                                   th:id="${'unit' + index.index}"
+                                                   th:checked="${valid and #strings.contains(entity.unit, unitElement.name)}"/>
+                                            <label th:for="${'unit' + index.index}"
+                                                   th:text="${unitElement.name}">Unit</label>
+                                        </th:block>
+                                    </div>
+                                    <span class="col-sm-10 text-danger" style="padding-left: 320px"
+                                          th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 custom-form-lebel-right required"> Status</label>
+                                    <div class="col-sm-8">
+                                        <select type="text" name="contactAddress" class="form-control input-sm"
+                                                th:field="*{employeeStatus.id}" required>
+                                            <option class="form-control input-sm"
+                                                    th:each="employeeStatus:${statusList}"
+                                                    th:value="${employeeStatus.id}"
+                                                    th:selected="${employeeStatus.id == entity?.employeeStatus?.id}"
+                                                    th:text="${employeeStatus.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="box-footer text-center">
+                                    <button type="submit" class="btn btn-info btn-sm ">Submit</button>
+                                    <a type="submit" class="btn btn-danger btn-sm" href="/collection/employee/list">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var roleList = /*[[${roles}]]*/ [];
+            var userEntity = /*[[${entity}]]*/ [];
+            /*]]>*/
+        </script>
+        <script>
+
+            var userInfoEditApp = new Vue({
+                el: '#user-info-app',
+                components: {
+                    Multiselect: VueMultiselect.default
+                },
+                data: {
+                    roleList: [],
+                    user: {},
+                    email:"",
+                    activeBorder: '',
+                    userPin: '',
+                    showSpinner: false,
+                    showText: false,
+                    role:'',
+
+                },
+                computed: {
+                    getRoles: function () {
+                        return this.user.roles.roleId.toString();
+                    },
+
+                    getSelectedRoleId: function () {
+                        return this.user.roles.map(role => { return role.roleId});
+                    },
+                },
+                created: function () {
+                    this.roleList = Array.isArray(roleList) ? roleList : [];
+                    this.user = userEntity ? userEntity : {};
+                }
+
+            })
+
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                forceParse: false
+            })
+
+        </script>
+    </div>
+</div>
+</body>
+</html>

@@ -90,9 +90,18 @@ public class EmployeeController {
 
     @GetMapping(value = "edit")
     public String editPage(Model model, @RequestParam(value = "id") Long id) {
+        model.addAttribute("roles", roleService.getActiveList());
+        model.addAttribute("desList", designationService.getActiveList());
+        model.addAttribute("locationList", locationService.getActiveList());
+        model.addAttribute("roleList", jobRoleService.getActiveList());
+        model.addAttribute("deptList", departmentService.getActiveList());
+        model.addAttribute("divList", divisionService.getActiveList());
+        model.addAttribute("unitList", unitService.getActiveList());
+        model.addAttribute("statusList", employeeStatusService.getAllActive());
+        model.addAttribute("branches", branchService.getActiveList());
         model.addAttribute("entity", employeeService.getById(id));
         //return populateDateFormModel(model);
-        return "card/contents/settings/userInformation/create";
+        return "card/contents/settings/userInformation/edit";
     }
 
     private String populateDateFormModel(Model model) {
