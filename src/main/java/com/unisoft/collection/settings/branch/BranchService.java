@@ -4,14 +4,17 @@ package com.unisoft.collection.settings.branch;
 
 
 import com.unisoft.audittrail.AuditTrailService;
+import com.unisoft.collection.settings.branch.api.BranchDetails;
 import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.utillity.ExcelFileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -102,5 +105,32 @@ public class BranchService {
         return branchRepository.findFirstByBranchNameIgnoreCase(branchName);
     }
 
+    public String saveBrFromAPI(Map<String, BranchDetails> map){
+
+        List<Branch> branches = new ArrayList<>();
+
+        for(int i=1; i<=map.size();i++){
+            BranchDetails branchDetails = map.get(""+i);
+            // Map<String, BranchDetails1> branchDetails1 = branchDetails.getBranchDetails1Map();
+            Branch branch = new Branch();
+
+            branch.setBranchCode(branchDetails.getCODE());
+            branch.setBranchName(branchDetails.getNAME());
+            branch.setRoutingNo(branchDetails.getROUTING());
+            branch.setMNEMONIC(branchDetails.getMNEMONIC());
+            branch.setBRANCHBOOTH(branchDetails.getBRANCHBOOTH());
+            branch.setCABAD1(branchDetails.getCABAD1());
+            branch.setCABAD2(branchDetails.getCABAD2());
+            branch.setCABAD3(branchDetails.getCABAD3());
+            branch.setCABAD4(branchDetails.getCABAD4());
+            branch.setCABAD5(branchDetails.getCABAD5());
+
+            branches.add(branch);
+        }
+
+        branchRepository.saveAll(branches);
+
+        return "1";
+    }
 
 }

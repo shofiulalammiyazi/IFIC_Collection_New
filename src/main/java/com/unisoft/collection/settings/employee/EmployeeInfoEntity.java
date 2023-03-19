@@ -54,7 +54,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     @JsonIgnore
     private DesignationEntity designation;
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     @JsonIgnore
     private LocationEntity location;
@@ -79,7 +79,7 @@ public class EmployeeInfoEntity extends BaseInfo {
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
 //    private Date DOB;
 
-//    private String bloodGroup;
+    //    private String bloodGroup;
 //    // @Pattern(regexp = "[a-zA-Z .\\-]*", message = "Please insert valid words")
 //    private String emergencyContactPerson;
 //    // @Pattern(regexp = "|[\\d]{11}", message = "Please insert 11 digit phone number")
