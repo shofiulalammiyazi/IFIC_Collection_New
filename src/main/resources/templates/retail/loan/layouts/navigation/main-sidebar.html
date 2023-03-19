@@ -127,21 +127,21 @@
                                                th:href="@{/user/list}">User Permission
                                             </a>
                                         </li>
-                                        <li>
+                                       <!-- <li>
                                             <a th:if="${session.urlList.contains('/user-checker')}" class="tab"
                                                th:href="@{/user/list/approval}">User Approval
                                             </a>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <a th:if="${session.urlList.contains('/role/list')}" class="tab"
                                                th:href="@{/role/list}">Role
                                             </a>
                                         </li>
-                                        <li>
+                                       <!-- <li>
                                             <a th:if="${session.urlList.contains('/role-checker')}" class="tab"
                                                th:href="@{/role/list/approval}">Role Approval
                                             </a>
-                                        </li>
+                                        </li>-->
                                         <li th:if="${session.urlList.contains('/user-role/template/urltolist/list')}">
                                             <a class="tab" th:href="@{/user-role/template/urltolist/list}">Role
                                                 Permission
