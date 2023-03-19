@@ -112,7 +112,10 @@ public class BranchService {
         for(int i=1; i<=map.size();i++){
             BranchDetails branchDetails = map.get(""+i);
             // Map<String, BranchDetails1> branchDetails1 = branchDetails.getBranchDetails1Map();
-            Branch branch = new Branch();
+            Branch branch = branchRepository.findFirstByBranchCode(branchDetails.getCODE());
+
+            if(branch == null)
+                branch = new Branch();
 
             branch.setBranchCode(branchDetails.getCODE());
             branch.setBranchName(branchDetails.getNAME());

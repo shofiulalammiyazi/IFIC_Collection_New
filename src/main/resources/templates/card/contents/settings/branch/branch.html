@@ -18,9 +18,17 @@
                         </div>
 
                         <div class="box-body">
-                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:if="${session.urlList.contains('/branch/create')}"
-                               th:href="@{/branch/create}"><span
-                                    class="glyphicon glyphicon-plus"> </span> Add New </a>
+
+                            <span class="bolder">API Total Branch: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${apiSize}"><span
+                                    class="glyphicon glyphicon-plus"> </span></a>
+
+                            <span class="bolder">System Total Branch: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${dbSize}"><span
+                                    class="glyphicon glyphicon-plus"> </span> </a>
+
+                            <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
+                               th:if="${session.urlList.contains('/branch/create') and apiSize &gt; dbSize}"
+                            th:href="@{/branch/create-from-api}"><span
+                            class="glyphicon glyphicon-refresh"> </span> Sync </a>
                             <table th:if="${branchelist!=null}" id="example" name="datatable-responsive"
                                    class="table table-striped table-bordered dt-responsive nowrap" width="100%">
                                 <thead>
@@ -28,12 +36,12 @@
                                     <th>Sl No.</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <!--<th>Location</th>-->
-                                    <!--<th>Zone</th>-->
-                                    <th>Division</th>
-                                    <th>District</th>
+                                    <th>Mnemonic</th>
+                                    <th>Branch Booth</th>
+                                    <!--<th>Division</th>-->
+                                    <!--<th>District</th>-->
                                     <!-- <th>User List</th> -->
-                                    <th>Actions</th>
+                                    <!--<th>Actions</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,22 +49,22 @@
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${branch.branchName}"></span></td>
                                     <td><span th:text="${branch.branchCode}"></span></td>
-                                    <!--<td th:text="${branch?.district?.location?.city}"></td>-->
-                                    <!--<td th:text="${branch?.district?.zone?.name}"></td>-->
-                                    <td th:text="${branch?.district?.division?.divName}"></td>
-                                    <td th:text="${branch?.district?.name}"></td>
+                                    <td th:text="${branch.MNEMONIC}"></td>
+                                    <td th:text="${branch.BRANCHBOOTH}"></td>
+                                    <!--<td th:text="${branch?.district?.division?.divName}"></td>-->
+                                    <!--<td th:text="${branch?.district?.name}"></td>-->
                                     <!-- <td><a class="btn btn-xs" th:href="@{|/branch/userList/${branch.branchId}|}"><i class="fa fa-eye"></i>View User List</a></td> -->
-                                    <td>
-                                        <a class="btn btn-xs" th:if="${session.urlList.contains('/branch/edit')}" th:href="@{/branch/edit(id=${branch.branchId})}">
-                                            <i class="fa fa-edit"></i>
-                                            Edit
-                                        </a>
-                                        <a class="btn btn-xs" th:if="${session.urlList.contains('/branch/view')}" th:href="@{/branch/view(id=${branch.branchId})}">
-                                            <i class="fa fa-eye"></i>
-                                            View
-                                        </a>
-                                        <!-- <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> -->
-                                    </td>
+                                    <!--<td>-->
+                                    <!--<a class="btn btn-xs" th:if="${session.urlList.contains('/branch/edit')}" th:href="@{/branch/edit(id=${branch.branchId})}">-->
+                                    <!--<i class="fa fa-edit"></i>-->
+                                    <!--Edit-->
+                                    <!--</a>-->
+                                    <!--<a class="btn btn-xs" th:if="${session.urlList.contains('/branch/view')}" th:href="@{/branch/view(id=${branch.branchId})}">-->
+                                    <!--<i class="fa fa-eye"></i>-->
+                                    <!--View-->
+                                    <!--</a>-->
+                                    <!--&lt;!&ndash; <a class="btn btn-xs btn-xs-dlt" th:href="@{/branch/remove(id=${branch.branchId})}"> <i class="fa fa-trash"></i>Delete</a> &ndash;&gt;-->
+                                    <!--</td>-->
                                 </tr>
                                 </tbody>
                             </table>

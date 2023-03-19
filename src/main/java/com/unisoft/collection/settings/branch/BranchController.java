@@ -43,6 +43,10 @@ public class BranchController {
     @GetMapping("/branch/list")
     public String index(ModelMap map) {
         List<Branch> branchelist = branchService.getList();
+        Map<String, BranchDetails> branch = branchAPIService.getBranchInfo().getBranch();
+        map.addAttribute("apiSize",branch.size());
+        map.addAttribute("dbSize",branchelist.size());
+
         map.addAttribute("branchelist", branchelist);
         return "card/contents/settings/branch/branch";
     }
