@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "los_tb_s_roles")
-public class Role extends BaseInfo implements PropertyBasedMakerCheckerModel {
+public class Role extends BaseInfo { //implements PropertyBasedMakerCheckerModel
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

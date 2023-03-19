@@ -37,7 +37,7 @@ public class TemplatePermissionController {
     private final UserRepository userRepository;
 
     private final AuditTrailService auditTrailService;
-    private final PropertyBasedMakerCheckerService<Role> makerCheckerService;
+    //private final PropertyBasedMakerCheckerService<Role> makerCheckerService;
 
     @GetMapping("edit")
     public String textToUrlList(@RequestParam(value = "id") String id, Model model) {
@@ -82,7 +82,7 @@ public class TemplatePermissionController {
         auditTrailService.saveCreatedData("Role Permission", roleToUrl);
 
 
-        makerCheckerService.makePending(Role.class, "roleId", roleToUrl.getRole().getRoleId());
+        //makerCheckerService.makePending(Role.class, "roleId", roleToUrl.getRole().getRoleId());
 
         return "redirect:/user-role/template/urltolist/list";
     }

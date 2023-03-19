@@ -34,7 +34,7 @@ public class RoleController {
 
     private final RoleService rolesService;
 
-    private final PropertyBasedMakerCheckerService<Role> makerCheckerService;
+    //private final PropertyBasedMakerCheckerService<Role> makerCheckerService;
 
     @GetMapping("/role/list")
     public String index(Model map) {
@@ -104,27 +104,27 @@ public class RoleController {
         return "card/contents/settings/role/approval";
     }
 
-    @GetMapping(value = "/role/approve")
-    @ResponseBody
-    public String approve(Integer[] ids, HttpSession session) {
-        String urlList = Objects.toString(session.getAttribute("urlList"), "");
-        if (urlList.contains("/role-checker")) {
-            int numberOfModifiedEntries = makerCheckerService.approve(Role.class, "roleId", ids);
-            return numberOfModifiedEntries > 0 ? "success" : "failed";
-        }
-        throw new CmisUnauthorizedException("Unauthorized Access");
-    }
-
-    @GetMapping(value = "/role/reject")
-    @ResponseBody
-    public String reject(Integer[] ids, String remark, HttpSession session) {
-        String urlList = Objects.toString(session.getAttribute("urlList"), "");
-        if (urlList.contains("/role-checker")) {
-            int numberOfModifiedEntries = makerCheckerService.reject(Role.class, "roleId", ids, remark);
-            return numberOfModifiedEntries > 0 ? "success" : "failed";
-        }
-        throw new CmisUnauthorizedException("Access Denied");
-    }
+//    @GetMapping(value = "/role/approve")
+//    @ResponseBody
+//    public String approve(Integer[] ids, HttpSession session) {
+//        String urlList = Objects.toString(session.getAttribute("urlList"), "");
+//        if (urlList.contains("/role-checker")) {
+//            int numberOfModifiedEntries = makerCheckerService.approve(Role.class, "roleId", ids);
+//            return numberOfModifiedEntries > 0 ? "success" : "failed";
+//        }
+//        throw new CmisUnauthorizedException("Unauthorized Access");
+//    }
+//
+//    @GetMapping(value = "/role/reject")
+//    @ResponseBody
+//    public String reject(Integer[] ids, String remark, HttpSession session) {
+//        String urlList = Objects.toString(session.getAttribute("urlList"), "");
+//        if (urlList.contains("/role-checker")) {
+//            int numberOfModifiedEntries = makerCheckerService.reject(Role.class, "roleId", ids, remark);
+//            return numberOfModifiedEntries > 0 ? "success" : "failed";
+//        }
+//        throw new CmisUnauthorizedException("Access Denied");
+//    }
 
 
 }

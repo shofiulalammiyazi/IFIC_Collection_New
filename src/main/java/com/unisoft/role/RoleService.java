@@ -20,8 +20,8 @@ public class RoleService {
     @Autowired
     private RoleDao roleDao;
 
-    @Autowired
-    private PropertyBasedMakerCheckerService<Role> makerCheckerService;
+    //@Autowired
+    //private PropertyBasedMakerCheckerService<Role> makerCheckerService;
 
     @Autowired
     private AuditTrailService auditTrailService;
@@ -52,7 +52,7 @@ public class RoleService {
             roleDao.update(role);
             auditTrailService.saveUpdatedData("Role", previousRole, role);
         }
-        makerCheckerService.makePending(Role.class, "roleId", role.getRoleId());
+        //makerCheckerService.makePending(Role.class, "roleId", role.getRoleId());
     }
 
     public Role findById(int roleId) {
