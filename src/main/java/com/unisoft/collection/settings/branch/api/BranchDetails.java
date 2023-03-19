@@ -7,11 +7,6 @@ import java.util.Map;
 @Data
 public class BranchDetails {
 
-    Map<String,BranchDetails1> branchDetails1Map;
-
-}
-
-class BranchDetails1{
     private String CODE;
     private String MNEMONIC;
     private String NAME;
@@ -22,4 +17,7 @@ class BranchDetails1{
     private String CABAD4;
     private String CABAD5;
     private String BRANCHBOOTH;
+
 }
+
+

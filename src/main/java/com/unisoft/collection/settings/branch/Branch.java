@@ -1,6 +1,7 @@
 package com.unisoft.collection.settings.branch;
 
 import com.unisoft.base.BaseInfo;
+import com.unisoft.collection.settings.branch.api.BranchDetails;
 import com.unisoft.collection.settings.district.DistrictEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +21,9 @@ public class Branch extends BaseInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer branchId;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "district_id")
-    private DistrictEntity district;
+//    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "district_id")
+//    private DistrictEntity district;
 
     //    @Column(unique = true) //unique for legal case report purpose
     @NotBlank(message = "Branch name cannot be empty")
@@ -41,6 +42,14 @@ public class Branch extends BaseInfo {
     @Column(unique = true, nullable = false)
     @NotBlank(message = "Branch Code Cannot be Empty")
     private String branchCode;
+
+    private String MNEMONIC;
+    private String CABAD1;
+    private String CABAD2;
+    private String CABAD3;
+    private String CABAD4;
+    private String CABAD5;
+    private String BRANCHBOOTH;
 
 //    private String secondayPhoneNo;
 //
@@ -61,6 +70,16 @@ public class Branch extends BaseInfo {
         this.branchCode = branchCode;
         this.branchName = branchName;
     }
+
+//    public Branch(BranchDetails branchDetails) {
+//        this.branchName = branchDetails.;
+//        this.address = address;
+//        this.routingNo = routingNo;
+//        this.contactPerson = contactPerson;
+//        this.primaryPhoneNo = primaryPhoneNo;
+//        this.email = email;
+//        this.branchCode = branchCode;
+//    }
 
     /**
      * Used for generating Json objects without using any third party library

@@ -15,6 +15,9 @@ import com.unisoft.collection.settings.employee.API.EmployeeAPIService;
 import com.unisoft.collection.settings.employee.API.EmployeeApiPayload;
 import com.unisoft.collection.settings.employee.API.EmployeeDetails;
 import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
+import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerEntity;
+import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerRepository;
+import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusmanagerService;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
 import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.collection.settings.location.LocationService;
@@ -78,7 +81,7 @@ public class EmployeeController {
 
     @GetMapping(value = "list")
     public String viewAll(Model model) {
-        List<EmployeeInfoEntity> activeEmployees=employeeService.getAll().stream().filter(e->e.getEmployeeStatus().getName().equalsIgnoreCase("WORKING")).collect(Collectors.toList());
+        List<EmployeeInfoEntity> activeEmployees = employeeService.getAll().stream().filter(e -> e.getEmployeeStatus().getName().equalsIgnoreCase("WORKING")).collect(Collectors.toList());
         model.addAttribute("empList", employeeService.getAll());
         model.addAttribute("activeEmployees", activeEmployees);
         return "collection/settings/employee/employee";
@@ -136,10 +139,10 @@ public class EmployeeController {
         if (!result.hasErrors()) {
             boolean isValid = isValidEmployee(employee, model);
             boolean isExist = true;
-            if (employee.getId() == null){
+            if (employee.getId() == null) {
                 isExist = isEmailExist(employee.getEmail());
             }
-            if (isExist == true){
+            if (isExist == true) {
                 if (isValid) {
                     String output = employeeService.save(employee);
                     switch (output) {
@@ -149,7 +152,7 @@ public class EmployeeController {
                             model.addAttribute("error", output);
                     }
                 }
-            }else
+            } else
                 model.addAttribute("emailExist", true);
 
         }
@@ -159,32 +162,47 @@ public class EmployeeController {
     }
 
 
-
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmployeeStatusmanagerService employeeStatusmanagerService;
+
 
     @PostMapping(value = "create-emp")
-    public String saveNewEmpFromApi( Model model, EmployeeInfoEntity employee, BindingResult result) {
+    public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
 
 
-        //EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
-        EmployeeDetails employeeInfo = new EmployeeDetails();
+        EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
 
-        employeeInfo.setEMAIL_ADDRESS("sk.azim@ificbankbd.com");
-        employeeInfo.setFULL_NAME("Joy Lal");
-        employeeInfo.setCBS_BRANCH_NAME("Head Branch");
-        employeeInfo.setCBS_BRANCH_MNEMONIC("HEB");
 
+        if(employee.getRoles().equalsIgnoreCase("dealer"))
+            if(employee.getAgentId().equalsIgnoreCase(""))
+                result.rejectValue("agentId","","Agent Id must not be empty!");
+
+
+        if (result.hasErrors()) {
+            model.addAttribute("entity", employee);
+            return populateDateFormModel1(model);
+        }
+
+
+
+        List<Integer> rolesId = new ArrayList<>();
+        Role role = roleService.findByName(employee.getRoles());
+        rolesId.add(role.getRoleId());
+        EmployeeStatusManagerEntity employeeStatusManager;
         if (employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS())) {
             User dbDataModel = userRepository.findUserByUsername(employeeInfo.getEMAIL_ADDRESS());
             dbDataModel.setUsername(employeeInfo.getEMAIL_ADDRESS());
             dbDataModel.setFirstName(employeeInfo.getFULL_NAME().split("\\s")[0]);
             dbDataModel.setLastName(employeeInfo.getFULL_NAME().split("\\s")[1]);
+            dbDataModel.setIsAgency(false);
 
-            LocationEntity locationEntity = new LocationEntity(new Long(190));
+            // LocationEntity locationEntity = new LocationEntity(new Long(103));
+            LocationEntity locationEntity = locationService.getById(new Long(103));
 
-            Branch branch = new Branch(7038568);
+            Branch branch = branchService.getByBranchCode(employeeInfo.getCBS_BRANCH_CODE());
 
 
             User response = userRepository.save(dbDataModel);
@@ -198,14 +216,67 @@ public class EmployeeController {
             dbEmployeeModel.setUser(response);
             dbEmployeeModel.setLocation(locationEntity);
             dbEmployeeModel.setBranch(branch);
-            dbEmployeeModel.setFullName("Joy Lal");
+            dbEmployeeModel.setFullName(employeeInfo.getFULL_NAME());
+            dbEmployeeModel.setPin(employeeInfo.getEMAIL_ADDRESS());
+            dbEmployeeModel.setEmployeeStatus(employee.getEmployeeStatus());
+            dbEmployeeModel.setEmail(employeeInfo.getEMAIL_ADDRESS());
             EmployeeInfoEntity test = employeeService.saveEmp(dbEmployeeModel);
             System.out.println("Done");
 
+            employeeStatusManager = employeeStatusmanagerService.getByUserId(test.getUser().getUserId());
+            employeeStatusManager.setEmployeeInfo(test);
+            employeeStatusManager.setUserId(test.getUser().getUserId());
+            employeeStatusManager.setEmployeeStatus(test.getEmployeeStatus());
+            employeeStatusManager.setStartDate(test.getJoiningDate());
+            employeeStatusManager.setStartDate(test.getJoiningDate());
+            employeeStatusmanagerService.updateSts(employeeStatusManager);
+
+            userRoleDao.insert(test.getUser().getUserId(), rolesId);
+
+
+        } else {
+            User dbDataModel = new User();
+            dbDataModel.setUsername(employeeInfo.getEMAIL_ADDRESS());
+            dbDataModel.setFirstName(employeeInfo.getFULL_NAME().split("\\s")[0]);
+            dbDataModel.setLastName(employeeInfo.getFULL_NAME().split("\\s")[1]);
+            dbDataModel.setIsAgency(false);
+
+            LocationEntity locationEntity = locationService.getById(new Long(103));
+
+            Branch branch = branchService.getByBranchCode(employeeInfo.getCBS_BRANCH_CODE());
+
+
+            User response = userRepository.save(dbDataModel);
+
+            EmployeeInfoEntity dbEmployeeModel = new EmployeeInfoEntity();
+
+            DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+            dbEmployeeModel.setDesignation(designationEntity);
+            dbEmployeeModel.setJoiningDate(new Date());
+            dbEmployeeModel.setUnit(employee.getUnit());
+            dbEmployeeModel.setUser(response);
+            dbEmployeeModel.setLocation(locationEntity);
+            dbEmployeeModel.setBranch(branch);
+            dbEmployeeModel.setPin(employeeInfo.getEMAIL_ADDRESS());
+            dbEmployeeModel.setFullName(employeeInfo.getFULL_NAME());
+            dbEmployeeModel.setEmployeeStatus(employee.getEmployeeStatus());
+            dbEmployeeModel.setEmail(employeeInfo.getEMAIL_ADDRESS());
+
+            EmployeeInfoEntity employeeInfoEntity = employeeService.saveEmp(dbEmployeeModel);
+
+            employeeStatusManager = new EmployeeStatusManagerEntity();
+            employeeStatusManager.setEmployeeStatus(employeeInfoEntity.getEmployeeStatus());
+            employeeStatusManager.setEmployeeInfo(employeeInfoEntity);
+            employeeStatusManager.setStartDate(employeeInfoEntity.getJoiningDate());
+            employeeStatusManager.setUserId(employeeInfoEntity.getUser().getUserId());
+            //employeeStatusManager.setStartDate(entity.getJoiningDate());
+
+            employeeStatusmanagerService.saveNew(employeeStatusManager);
+            userRoleDao.insert(employeeInfoEntity.getUser().getUserId(), rolesId);
         }
 
 
-        return null;
+        return "redirect:/collection/employee/list";
 
     }
 
@@ -300,7 +371,7 @@ public class EmployeeController {
 
     private boolean isEmailExist(String email) {
         EmployeeInfoEntity employeeInfoEntity = employeeService.findByEmail(email);
-        if (employeeInfoEntity == null){
+        if (employeeInfoEntity == null) {
             return true;
         }
         return false;
@@ -456,7 +527,6 @@ public class EmployeeController {
 //    }
 
 
-
     @GetMapping(value = "edit-pending")
     public String editPendingPage(Model model, @RequestParam(value = "id") Long id) {
         model.addAttribute("entity", employeeService.getById(id));
@@ -504,7 +574,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/findByDesignation")
     @ResponseBody
-    public List<EmployeeInfoDto> getEmployeeByDesignation(@RequestParam Long id){
+    public List<EmployeeInfoDto> getEmployeeByDesignation(@RequestParam Long id) {
 
         return employeeService.getByDesignationAndUnit(id);
     }

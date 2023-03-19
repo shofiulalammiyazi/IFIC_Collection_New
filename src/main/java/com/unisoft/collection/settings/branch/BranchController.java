@@ -1,5 +1,8 @@
 package com.unisoft.collection.settings.branch;
 
+import com.unisoft.collection.settings.branch.api.BranchAPIResponse;
+import com.unisoft.collection.settings.branch.api.BranchAPIService;
+import com.unisoft.collection.settings.branch.api.BranchDetails;
 import com.unisoft.collection.settings.district.DistrictService;
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by imran on 09/07/2018.
@@ -32,6 +36,9 @@ public class BranchController {
 
     @Autowired
     private DistrictService districtService;
+
+    @Autowired
+    private BranchAPIService branchAPIService;
 
     @GetMapping("/branch/list")
     public String index(ModelMap map) {
@@ -95,5 +102,14 @@ public class BranchController {
         return "card/contents/settings/branch/upload";
     }
 
+    @GetMapping(value = "/branch/create-from-api")
+    public String createFromApi() {
+        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        Map<String, BranchDetails> branch = branchAPIService.getBranchInfo().getBranch();
+
+        branchService.saveBrFromAPI(branch);
+
+        return "redirect:/branch/list";
+    }
 }
