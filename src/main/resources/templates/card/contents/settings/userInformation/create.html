@@ -315,6 +315,12 @@
                                 // $('#colMaturityDate').val(data.collateralSecurity.maturityDate);
                             },
                             error: function (err) {
+                                $("#full-name").val("");
+                                $("#emp-id").val("");
+                                $("#cbs-branch-code").val("");
+                                $("#cbs-branch-name").val("");
+                                $("#mobile-no").val("");
+                                $("#misys-id").val("");
                                 console.log(err);
                             }
                         });
@@ -323,15 +329,16 @@
                         this.showSpinner = true;
                         this.showText = false;
                         this.roomNumber = e.target.value;
-                        this.$http.get('/collection/employee/checkByEmail?email=' + e.target.value)
+                        this.$http.get('/collection/employee/checkByEmail?email=' + e.target.value+"@ificbankbd.com")
                             .then(res => {
                             this.sleep(500);
                         this.showSpinner = false;
                         if (!res.body) {
                             this.showText = false;
                             this.activeBorder = '';
+                            $("button[type='submit']").show();
                         } else {
-
+                            $("button[type='submit']").hide();
                             this.showText = true;
                             this.activeBorder = '1px solid red';
                         }

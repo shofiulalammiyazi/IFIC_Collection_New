@@ -24,7 +24,7 @@ public class EmployeeAPIService {
     @Value("${ific.employee.api.ip}")
     private String employeeApiIp;
 
-    private String getEmployeeApiUrl = "/apigateway/api/employeeinfo";
+    private String getEmployeeApiUrl = "";
 
     public EmployeeDetails getEmployeeInfo(@RequestBody EmployeeApiPayload employeeApiPayload) {
 
