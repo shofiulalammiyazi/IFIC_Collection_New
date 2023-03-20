@@ -19,7 +19,7 @@
                     <div class="box">
 
                         <div class="box-header with-border" style="text-align: center;">
-                            <h1 class="box-title">Employee List (Loan)</h1>
+                            <h1 class="box-title">Employee List</h1>
                         </div>
 
                         <!-- /.box-header -->
@@ -28,11 +28,11 @@
                                th:if="${session.urlList.contains('/collection/employee/create')}"
                                th:href="@{/userInformation/create}"><span class="glyphicon glyphicon-plus"> </span>
                                 Add Employee </a>
-                            <a style="margin-bottom:5px;" class="btn btn-primary btn-sm"
+                            <!--<a style="margin-bottom:5px;" class="btn btn-primary btn-sm"
                                th:if="${session.urlList.contains('/collection/employee/create')}"
                                th:href="@{/collection/employee/upload-excel}"><span class="glyphicon glyphicon-paperclip"> </span>
-                                Upload Employee </a>
-                            <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">Active Employee List</button>
+                                Upload Employee </a>-->
+                           <!-- <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">Active Employee List</button>-->
                             <table style="overflow-x: hidden; display: block;" th:if="${empList!=null}" id="employee"
                                    name="datatable-responsive"
                                    class="table table-condensed table-striped table-bordered">
