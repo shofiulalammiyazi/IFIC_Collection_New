@@ -79,12 +79,12 @@ public class ContactInfoController {
             List<GeneratedSMS> generatedSMS = new ArrayList<>();
             if (acc.getNextEMIDate() != null) {
                 sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
-                sms = sms.replace("{{F.installmentAmount}}", String.valueOf(Double.parseDouble(acc.getOverdue()) / 100));
+                sms = sms.replace("{{F.installmentAmount}}", acc.getOverdue());
                 sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
                 sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
                 //TODO change phone number here use acc.getMobile()
-                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01750734960");
+                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895");
                 generatedSMS.add(generatedSMS1);
                 String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
             }

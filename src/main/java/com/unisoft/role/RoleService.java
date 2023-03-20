@@ -37,7 +37,7 @@ public class RoleService {
     public void saveOrUpdate(Role role) {
         String username = UserService.getSessionUsername();
         if (role.getRoleId() == null) {
-            role.setEnabled(false);
+            role.setEnabled(true);
             role.setCreatedBy(username);
             roleDao.save(role);
             auditTrailService.saveCreatedData("Role", role);
@@ -46,7 +46,7 @@ public class RoleService {
             Role previousRole = new Role();
             BeanUtils.copyProperties(oldRole, previousRole);
 
-            role.setEnabled(false);
+            role.setEnabled(true);
             role.setModifiedBy(username);
             role.setModifiedDate(new Date());
             roleDao.update(role);
@@ -81,7 +81,7 @@ public class RoleService {
     }
 
 
-     public Role findByName(String name) {
+    public Role findByName(String name) {
         return roleDao.findByName(name);
     }
 }

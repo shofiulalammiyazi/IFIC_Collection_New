@@ -88,7 +88,7 @@ public class SMSController {
         List<SmsLog> smsLogs = smsLogRepository.findAll();
         model.addAttribute("smsList",smsLogs);
 
-        return "collection/settings/sms/smslog";
+        return "collection/settings/SMS/smslog";
     }
 
 

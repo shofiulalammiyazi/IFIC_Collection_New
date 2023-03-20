@@ -1,8 +1,11 @@
 package com.unisoft.collection.distribution.loan;
 
 
+
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
+import com.unisoft.collection.distribution.loan.loanApi.LoanApiPayload;
+import com.unisoft.loanApi.model.*;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountInfo;
 import com.unisoft.collection.distribution.loan.loanAccount.LoanAccountService;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
@@ -11,17 +14,14 @@ import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAcco
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionService;
 import com.unisoft.collection.distribution.loan.loanAccountOther.LoanAccountOtherInfo;
 import com.unisoft.collection.distribution.loan.loanAccountOther.LoanAccountOtherService;
-import com.unisoft.collection.distribution.loan.loanApi.LoanApiPayload;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
-import com.unisoft.loanApi.model.*;
 import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
-import com.unisoft.utillity.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,9 +31,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import com.unisoft.utillity.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 @RequiredArgsConstructor
@@ -99,7 +102,7 @@ public class LoanDistributionService {
                         continue;
                     }
 
-                    if (dealerPin.contains(".")) dealerPin = dealerPin.split("\\.")[0];
+                    //if (dealerPin.contains(".")) dealerPin = dealerPin.split("\\.")[0];
 
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 

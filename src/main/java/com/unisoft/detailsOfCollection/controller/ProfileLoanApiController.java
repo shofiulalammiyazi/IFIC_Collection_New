@@ -80,16 +80,16 @@ public class ProfileLoanApiController {
         accountEscalation.setFromUserName(principal.getFirstName());
         accountEscalation.setFromUserPin(principal.getUsername());
 
-        long od = Long.valueOf(accountInformationEntity.getOverdue() == null
-                ? "0":accountInformationEntity.getOverdue());
-        long emi = Long.valueOf(accountInformationEntity.getEmiAmount() == null ? "0":accountInformationEntity.getEmiAmount());
-        long bucket = 0;
-        if(od == 0 || emi == 0)
-            bucket = 0;
-        else
-            bucket = od/emi;
+//        long od = Long.valueOf(accountInformationEntity.getOverdue() == null
+//                ? "0":accountInformationEntity.getOverdue());
+//        long emi = Long.valueOf(accountInformationEntity.getEmiAmount() == null ? "0":accountInformationEntity.getEmiAmount());
+//        long bucket = 0;
+//        if(od == 0 || emi == 0)
+//            bucket = 0;
+//        else
+//            bucket = od/emi;
 
-        accountEscalation.setBucket(Double.valueOf(bucket));
+        accountEscalation.setBucket(Double.valueOf(accountInformationEntity.getDpd()));
         accountEscalation.setCreatedBy(principal.getUsername());
         accountEscalation.setDealerPin(principal.getUsername());
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:v-bind="http://www.w3.org/1999/xhtml"
@@ -15,7 +17,7 @@
                     <div class="box box-primary">
 
                         <div class="box-header with-border" style="text-align: center;">
-                            <h3 class="box-title">Update User</h3>
+                            <h3 th:if="${entity.id != null}" class="box-title">Update User</h3>
                         </div>
 
                         <div class="box-body">
@@ -27,49 +29,75 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Email Address</label>
                                     <div class="col-sm-8">
-                                        <input  type="text" name="email" th:field="*{pin}" class="form-control required" placeholder="Email Address" readonly/>
+                                        <div class="col-sm-6 "><input style="margin-left: -15px;width: 126%;" type="text" v-model="email" v-bind:style="{ border: activeBorder }" @input="checkUsername" name="email" @focusout="getUserDetails" class="form-control required" placeholder="Email Address"/></div>
+                                        <div class="col-sm-6"><input style="margin-left: 10px;" type="text" class="form-control" autocomplete="off" required="required"
+                                                                     value="@ificbankbd.com" disabled /></div>
+
+                                        <div v-if="showSpinner">
+                                            <ul class="fa-ul">
+                                                <li>
+                                                    <i class="fa-li fa fa-spinner fa-spin" style="font-size: 20px"></i>
+                                                    <span style="font-size: 12px;" class="label label-success">Checking availability...</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+
+                                        </div>
+
+                                        <div v-if="showText">
+                                            <p style="color: red">
+                                                <span class="label label-danger" style="font-size: 12px">
+                                                    Employee Email already exist, Try different one...
+                                                </span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-
-                                <!--th:field="*{entity.firstName}"-->
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right">Full Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text"  name="fullName" th:field="*{fullName}" id="full-name" class="form-control" placeholder="Full Name"/>
+                                        <input type="text" name="FULL_NAME" th:field="*{fullName}" id="full-name" class="form-control" placeholder="Full Name"/>
                                     </div>
-
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">Employee Id</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="EMPLOYEE_ID" id="emp-id" th:field="*{user.employeeId}" class="form-control " placeholder="Employee Id"/>
+                                        <input type="text" name="EMPLOYEE_ID" th:field="*{user.employeeId}" id="emp-id" class="form-control " placeholder="Employee Id"/>
 
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required">Role</label>
                                     <div class="col-sm-8">
-                                        <select type="text" v-model="user.roles" name="roles" class="form-control input-sm"
+                                        <select type="text" id="showHide" name="roles"  class="form-control input-sm"
                                                 required>
                                             <option value="">Select Role</option>
-                                            <option class="form-control input-sm"
-                                                    th:each="role: ${roles}" th:value="${role.name}"
+                                            <option th:if="${r.roleId == role.roleId}" class="form-control input-sm"
+                                                    th:each="r: ${roles}" th:value="${r.name}" selected
+                                                    th:text="${r.name}"></option>
 
-                                                    th:text="${role.name}"></option>
+                                            <option th:if="${r.roleId != role.roleId}" class="form-control input-sm"
+                                                    th:each="r: ${roles}" th:value="${r.name}"
+
+                                                    th:text="${r.name}"></option>
                                         </select>
                                     </div>
+                                    <!--<input type="text" class="hidden" th:field="*{roles}" v-model="getSelectedRoleId" />-->
                                     <span class="col-sm-10 text-danger" style="padding-left: 320px"
                                           th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
                                 </div>
 
 
 
-                                <div  v-if="user.roles=='Dealer'" class="form-group">
+                                <div  class="form-group" id="showFields">
                                     <label class="col-sm-4 custom-form-lebel-right required ">Agent ID</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="agentId" id="agent-id" class="form-control " placeholder="Agent ID"/>
+                                        <input type="text" name="agentId" id="agent-id" th:field="*{agentId}" class="form-control " placeholder="Agent ID"/>
                                     </div>
                                     <span class="col-sm-10 text-danger" style="padding-left: 320px"
                                           th:if="${#fields.hasErrors('agentId')}" th:errors="*{agentId}"></span>
@@ -78,7 +106,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">Mobile No</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="MOBILE_NO" th:field="*{officePhone}" id="mobile-no" class="form-control " placeholder="Mobile No"/>
+                                        <input type="text" name="MOBILE_NO" id="mobile-no" th:field="*{officePhone}" class="form-control " placeholder="Mobile No"/>
                                     </div>
                                 </div>
 
@@ -92,14 +120,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Code</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control " placeholder="CBS Branch Code"/>
+                                        <input type="text" name="CBS_BRANCH_CODE" id="cbs-branch-code" class="form-control " th:field="*{branch.branchCode}" placeholder="CBS Branch Code"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right ">CBS Branch Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control " placeholder="CBS Branch Name"/>
+                                        <input type="text" name="CBS_BRANCH_NAME" id="cbs-branch-name" class="form-control " th:field="*{branch.branchName}" placeholder="CBS Branch Name"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -119,7 +147,6 @@
                                     <span class="col-sm-10 text-danger" style="padding-left: 320px"
                                           th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="col-sm-4 custom-form-lebel-right required"> Status</label>
@@ -147,28 +174,42 @@
             </div>
         </section>
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#showHide').on('change.showFields', function() {
+                    $("#showFields").toggle($(this).val() == 'Dealer');
+                }).trigger('change.showFields');
+            });
+        </script>
+
         <script th:inline="javascript">
             /*<![CDATA[*/
             var roleList = /*[[${roles}]]*/ [];
             var userEntity = /*[[${entity}]]*/ [];
+            var email = /*[[${email}]]*/ '';
+            var role = /*[[${role}]]*/ {};
+            var user = /*[[${user}]]*/ {};
+
+
+
             /*]]>*/
         </script>
         <script>
 
-            var userInfoEditApp = new Vue({
+            var userInfoApp = new Vue({
                 el: '#user-info-app',
                 components: {
                     Multiselect: VueMultiselect.default
                 },
                 data: {
                     roleList: [],
-                    user: {},
-                    email:"",
+                    user: user,
+                    email:email,
                     activeBorder: '',
                     userPin: '',
                     showSpinner: false,
                     showText: false,
-                    role:'',
+                    role:role,
 
                 },
                 computed: {
@@ -183,8 +224,85 @@
                 created: function () {
                     this.roleList = Array.isArray(roleList) ? roleList : [];
                     this.user = userEntity ? userEntity : {};
-                }
+                },
 
+                methods: {
+                    getUserDetails(){
+                        $.ajax({
+                            url: '/employee/api/getEmployee?username='+this.email,
+                            type: "GET",
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data)
+                                $("#full-name").val(data.full_NAME);
+                                $("#emp-id").val(data.employee_ID);
+                                $("#cbs-branch-code").val(data.cbs_BRANCH_CODE);
+                                $("#cbs-branch-name").val(data.cbs_BRANCH_NAME);
+                                $("#mobile-no").val(data.mobile_NO);
+                                $("#misys-id").val(data.misys_ID);
+                                // $('#customerId').val(data.collateralSecurity.customerId);
+                                // $('#colSecId').val(data.collateralSecurity.colSecId);
+                                // $('#colBankName').val(data.collateralSecurity.bankName);
+                                // $('#colBranchName').val(data.collateralSecurity.branchName);
+                                // $('#colAccType').val(data.collateralSecurity.accType);
+                                // $('#colAccName').val(data.collateralSecurity.accName);
+                                // $('#colAccNo').val(data.collateralSecurity.accNo);
+                                // $('#colSecAmount').val(data.collateralSecurity.secAmount);
+                                // $('#colMaturityDate').val(data.collateralSecurity.maturityDate);
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    },
+                    checkUsername: _.debounce(function (e) {
+                        this.showSpinner = true;
+                        this.showText = false;
+                        this.roomNumber = e.target.value;
+                        this.$http.get('/collection/employee/checkByEmail?email=' + e.target.value)
+                            .then(res => {
+                            this.sleep(500);
+                        this.showSpinner = false;
+                        if (!res.body) {
+                            this.showText = false;
+                            this.activeBorder = '';
+                        } else {
+
+                            this.showText = true;
+                            this.activeBorder = '1px solid red';
+                        }
+                    }).catch(err => {
+                            this.showSpinner = false;
+                    })
+                    }, 500),
+                    sleep: function (milliseconds) {
+                        var start = new Date().getTime();
+                        for (var i = 0; i < 1e7; i++) {
+                            if ((new Date().getTime() - start) > milliseconds) {
+                                break;
+                            }
+                        }
+                    },
+                    preview: function (id) {
+                        let fileInput = $('#' + id + 'Input')[0];
+                        let fileview = $('#' + id + 'View')[0];
+                        file = fileInput.files[0];
+                        if (fileInput.files && file) {
+                            let reader = new FileReader();
+                            reader.onloadend = function () {
+                                var b64 = reader.result;
+                                fileview.src = b64;
+                                $('#' + id + 'Field').val(b64.replace(/^data:.+;base64,/, ''));
+                            };
+                            reader.readAsDataURL(file);
+                            if (id == 'photo') this.photoUploaded = true;
+                            else this.signatureUploaded = true;
+                        } else {
+                            if (id == 'photo') this.photoUploaded = false;
+                            else this.signatureUploaded = false;
+                        }
+                    },
+                }
             })
 
             $('.datepicker').datepicker({
@@ -198,3 +316,9 @@
 </div>
 </body>
 </html>
+
+
+
+
+
+

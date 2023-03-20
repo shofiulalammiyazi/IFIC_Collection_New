@@ -95,6 +95,8 @@ public class EmployeeController {
 
     @GetMapping(value = "edit")
     public String editPage(Model model, @RequestParam(value = "id") Long id) {
+        EmployeeInfoEntity entity = employeeService.getById(id);
+        Role role = entity.getUser().getRoles().get(0);
         model.addAttribute("roles", roleService.getActiveList());
         model.addAttribute("desList", designationService.getActiveList());
         model.addAttribute("locationList", locationService.getActiveList());
@@ -104,7 +106,10 @@ public class EmployeeController {
         model.addAttribute("unitList", unitService.getActiveList());
         model.addAttribute("statusList", employeeStatusService.getAllActive());
         model.addAttribute("branches", branchService.getActiveList());
-        model.addAttribute("entity", employeeService.getById(id));
+        model.addAttribute("entity", entity);
+        model.addAttribute("user", entity.getUser());
+        model.addAttribute("role",role);
+        model.addAttribute("email",entity.getPin().substring(0,entity.getPin().indexOf("@")));
         //return populateDateFormModel(model);
         return "card/contents/settings/userInformation/edit";
     }
@@ -173,13 +178,16 @@ public class EmployeeController {
     public String saveNewEmpFromApi(@ModelAttribute("entity") @Valid EmployeeInfoEntity employee, BindingResult result, Model model) {
 
 
-        EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername, employeeAPIPass.substring(2, employeeAPIPass.length() - 2), employee.getEmail(), "", ""));
+        EmployeeDetails employeeInfo = employeeAPIService.getEmployeeInfo(new EmployeeApiPayload(employeeAPIUsername,employeeAPIPass.substring(2,employeeAPIPass.length()-2),employee.getEmail()+"@ificbankbd.com","",""));
 
 
         if(employee.getRoles().equalsIgnoreCase("dealer"))
             if(employee.getAgentId().equalsIgnoreCase(""))
                 result.rejectValue("agentId","","Agent Id must not be empty!");
 
+            if(employee.getId() == null)
+                if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS()))
+                    model.addAttribute("email","Employee Email already exist, Try different one...");
 
         if (result.hasErrors()) {
             model.addAttribute("entity", employee);
@@ -197,6 +205,7 @@ public class EmployeeController {
             dbDataModel.setUsername(employeeInfo.getEMAIL_ADDRESS());
             dbDataModel.setFirstName(employeeInfo.getFULL_NAME().split("\\s")[0]);
             dbDataModel.setLastName(employeeInfo.getFULL_NAME().split("\\s")[1]);
+            dbDataModel.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
             dbDataModel.setIsAgency(false);
 
             // LocationEntity locationEntity = new LocationEntity(new Long(103));
@@ -220,6 +229,9 @@ public class EmployeeController {
             dbEmployeeModel.setPin(employeeInfo.getEMAIL_ADDRESS());
             dbEmployeeModel.setEmployeeStatus(employee.getEmployeeStatus());
             dbEmployeeModel.setEmail(employeeInfo.getEMAIL_ADDRESS());
+            dbEmployeeModel.setOfficePhone(employeeInfo.getMOBILE_NO());
+            dbEmployeeModel.setMisysId(employeeInfo.getMISYS_ID());
+            dbEmployeeModel.setAgentId(employee.getAgentId());
             EmployeeInfoEntity test = employeeService.saveEmp(dbEmployeeModel);
             System.out.println("Done");
 
@@ -239,6 +251,7 @@ public class EmployeeController {
             dbDataModel.setUsername(employeeInfo.getEMAIL_ADDRESS());
             dbDataModel.setFirstName(employeeInfo.getFULL_NAME().split("\\s")[0]);
             dbDataModel.setLastName(employeeInfo.getFULL_NAME().split("\\s")[1]);
+            dbDataModel.setEmployeeId(employeeInfo.getEMPLOYEE_ID());
             dbDataModel.setIsAgency(false);
 
             LocationEntity locationEntity = locationService.getById(new Long(103));
@@ -261,7 +274,9 @@ public class EmployeeController {
             dbEmployeeModel.setFullName(employeeInfo.getFULL_NAME());
             dbEmployeeModel.setEmployeeStatus(employee.getEmployeeStatus());
             dbEmployeeModel.setEmail(employeeInfo.getEMAIL_ADDRESS());
-
+            dbEmployeeModel.setOfficePhone(employeeInfo.getMOBILE_NO());
+            dbEmployeeModel.setMisysId(employeeInfo.getMISYS_ID());
+            dbEmployeeModel.setAgentId(employee.getAgentId());
             EmployeeInfoEntity employeeInfoEntity = employeeService.saveEmp(dbEmployeeModel);
 
             employeeStatusManager = new EmployeeStatusManagerEntity();
