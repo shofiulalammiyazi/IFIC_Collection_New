@@ -85,6 +85,8 @@ public class LoanAccountDistributionInfo extends BaseInfo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date endDate;
 
+    private String isPaid;
+
     @Transient
     private double parRelAmnt = 0;
 
