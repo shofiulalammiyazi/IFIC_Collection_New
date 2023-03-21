@@ -358,6 +358,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.IS_SMS_SENT " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
+            " AND AIE.ISESCALATED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -385,6 +386,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT COUNT(AIE.LOANACNO) " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
+            " AND AIE.ISESCALATED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -423,6 +425,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.LOANCLSTATUS " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
+            " AND AIE.ISESCALATED = 'N' " +
             "  AND AIE.LOANACNO LIKE %?1% " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +

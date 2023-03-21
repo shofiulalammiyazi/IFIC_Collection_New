@@ -1,8 +1,12 @@
 package com.unisoft.collection.accountescalation;
 
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicService;
+import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
+import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +37,12 @@ public class AccountEscalationController {
 
     @Autowired
     private AccountEscalationNoteService accountEscalationNoteService;
+
+    @Autowired
+    private AccountInformationService accountInformationService;
+
+    @Autowired
+    private LoanAccountDistributionRepository loanAccountDistributionRepository;
 
     @GetMapping("/list")
     @ResponseBody
@@ -142,6 +152,20 @@ public class AccountEscalationController {
         accountEscalationNote.setAccountEscalation(accountEscalation1);
         accountEscalationNoteService.save(accountEscalationNote);
 
+        AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
+
+        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsDistributed("N");
+        accountInformationEntity.setIsSmsSent("N");
+
+        accountInformationService.save(accountInformationEntity);
+
+        LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountDistributionRepository.findByAccountNoAndLatest(accountEscalation.getAccountNumber().substring(0,13),"1");
+
+        loanAccountDistributionInfo.setLatest("0");
+
+        loanAccountDistributionRepository.save(loanAccountDistributionInfo);
+
         return accountEscalationDto;
     }
 
@@ -174,6 +198,19 @@ public class AccountEscalationController {
         accountEscalationNote.setStatus(accountEscalationDto.getStatus());
         accountEscalationNote.setAccountEscalation(accountEscalation1);
         accountEscalationNoteService.save(accountEscalationNote);
+
+        AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
+
+        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsDistributed("N");
+        accountInformationEntity.setIsSmsSent("N");
+
+        accountInformationService.save(accountInformationEntity);
+        LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountDistributionRepository.findByAccountNoAndLatest(accountEscalation.getAccountNumber().substring(0,13),"1");
+
+        loanAccountDistributionInfo.setLatest("0");
+
+        loanAccountDistributionRepository.save(loanAccountDistributionInfo);
 
         return accountEscalationDto;
 
@@ -236,6 +273,20 @@ public class AccountEscalationController {
         accountEscalationNote.setAccountEscalation(accountEscalation);
         accountEscalationNote.setStatus(accountEscalationDto.getStatus());
         accountEscalationNoteService.save(accountEscalationNote);
+
+        AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
+
+        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsDistributed("N");
+        accountInformationEntity.setIsSmsSent("N");
+
+        accountInformationService.save(accountInformationEntity);
+
+        LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountDistributionRepository.findByAccountNoAndLatest(accountEscalation.getAccountNumber().substring(0,13),"1");
+
+        loanAccountDistributionInfo.setLatest("0");
+
+        loanAccountDistributionRepository.save(loanAccountDistributionInfo);
 
         return accountEscalationDto;
     }
