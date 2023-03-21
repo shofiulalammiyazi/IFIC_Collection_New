@@ -203,7 +203,8 @@ public class LoanDistributionService {
         distributionInfos.forEach((accountNumber,distribution)-> {
             UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(accountNumber, distribution.getBranchMnemonic(), distribution.getProductCode(), distribution.getDealReference());
-            if (accountInformationEntity != null) {
+            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1");
+            if (loanAccountDistributionInfo == null && accountInformationEntity != null) {
                 accountInformationEntity.setIsDistributed("Y");
                 accountInformationEntity.setISEscalated("N");
                 accountInformationEntity.setModifiedBy(principal.getUsername());
@@ -227,20 +228,21 @@ public class LoanDistributionService {
         String username = user.getUsername();
 
         //List<LoanAccountDistributionInfo> list = loanAccountDistributionService.findLoanAccountDistributionInfoByLatest("1");
-        for (var entry : distributionInfos.entrySet()) {
-            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(entry.getKey(),"1");
-            if (loanAccountDistributionInfo !=null) {
-                loanAccountDistributionInfo.setLatest("0");
-                loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
-                loanAccountDistributionInfo.setEndDate(new Date());
-            }
-            loanAccountDistributionService.save(loanAccountDistributionInfo);
-        }
+//        for (var entry : distributionInfos.entrySet()) {
+//            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(entry.getKey(),"1");
+//            if (loanAccountDistributionInfo !=null) {
+//                loanAccountDistributionInfo.setLatest("0");
+//                loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
+//                loanAccountDistributionInfo.setEndDate(new Date());
+//            }
+//            loanAccountDistributionService.save(loanAccountDistributionInfo);
+//        }
 
         distributionInfos.forEach((accountNumber,distribution)->{
             System.out.println(accountNumber);
             AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(accountNumber,distribution.getBranchMnemonic(),distribution.getProductCode(),distribution.getDealReference());
-            if (accountInformationEntity != null){
+            LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1");
+            if (loanAccountDistributionInfo == null && accountInformationEntity != null){
                 CustomerBasicInfoEntity customerBasicInfoEntity = updateCustomerBasiscInfo(accountInformationEntity);
 
                 LoanAccountBasicInfo loanAccountBasicInfo = updateLoanAccountBasicInfo(accountInformationEntity, customerBasicInfoEntity);

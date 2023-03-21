@@ -311,9 +311,7 @@ public class AccountInformationService {
                 LoanAccountDistributionInfo loanAccountDistributionInfo =
                         loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
 
-                if (loanAccountDistributionInfo != null &&
-                        (!loanAccountDistributionInfo.getOutStanding().equals(dto.getTotalOutstanding())
-                                || !String.valueOf(loanAccountDistributionInfo.getOpeningOverDue()).equals(dto.getOverdue()))) {
+                if (loanAccountDistributionInfo != null && dto.getOverdue().equals("0")) {
                     UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                     LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
                     BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);
@@ -330,7 +328,7 @@ public class AccountInformationService {
                     loanAccountDistributionInfo1.setCreatedBy(user.getUsername());
                     loanAccountDistributionInfo1.setStatusDate(new Date());
                     loanAccountDistributionInfo1.setOutStanding(totalOutstanding);
-                    loanAccountDistributionInfo1.setOpeningOverDue(dto.getOverdue() != null ? Double.parseDouble(dto.getOverdue())/100 : 0.0);
+                    loanAccountDistributionInfo1.setOpeningOverDue(Double.valueOf(dto.getOverdue()));
                     loanAccountDistributionInfo1.setDpdBucket(accountInformationEntity.getDpd());
                     loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(emiAmount));
                     loanAccountDistributionInfo1.setStartDate(new Date());
@@ -601,6 +599,12 @@ public class AccountInformationService {
             allProducts = accountInformationRepository.findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(pageElements);
         }
         return ResponseEntity.ok(allProducts);
+    }
+
+    public AccountInformationEntity save(AccountInformationEntity accountInformation){
+
+        return accountInformationRepository.save(accountInformation);
+
     }
 
 }

@@ -221,17 +221,17 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
 
 
     @Query(value = " SELECT " +
-             "LADI.DEALER_NAME AS Dealer_Name, " +
-             "LADI.DEALER_PIN as  Dealer_Id, " +
-             "LADI.DPD_BUCKET, " +
-             "count(LADI.ID ) AS AC_No, " +
-             "sum(TO_NUMBER(LADI.OUT_STANDING)) AS Total_OS, " +
-             "sum(LADI.OPENING_OVER_DUE) AS Total_overdue " +
+            "LADI.DEALER_NAME AS Dealer_Name, " +
+            "LADI.DEALER_PIN as  Dealer_Id, " +
+            "LADI.DPD_BUCKET, " +
+            "count(LADI.ID ) AS AC_No, " +
+            "sum(TO_NUMBER(LADI.OUT_STANDING)) AS Total_OS, " +
+            "sum(LADI.OPENING_OVER_DUE) AS Total_overdue " +
 
-             "FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
-             " WHERE LADI.LATEST = '1' AND LADI.CREATED_DATE BETWEEN ?1 and ?2 " +
-             "group by LADI.DEALER_PIN,LADI.DEALER_NAME, LADI.DPD_BUCKET " +
-             "order by DEALER_NAME ASC", nativeQuery = true)
+            "FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
+            " WHERE LADI.LATEST = '1' AND LADI.CREATED_DATE BETWEEN ?1 and ?2 " +
+            "group by LADI.DEALER_PIN,LADI.DEALER_NAME, LADI.DPD_BUCKET " +
+            "order by DEALER_NAME ASC", nativeQuery = true)
     List<Tuple> findByCurrentMonthAllocationDistribution(Date startDate, Date endDate);
 
 //    @Query(value = " SELECT new com.unisoft.collection.distribution.loan.AllocationDetails( " +
