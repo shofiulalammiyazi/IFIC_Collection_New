@@ -4,9 +4,24 @@ async function contactSave() {
     //     return;
     // }
     var bool = false;
+    var form = $("#considerAttemptForm");
     var formValue = $("#considerAttemptForm").serialize();
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
+
+
+    // if(form.find("#consider_attempt_id").val() == "Call Received") {
+    //     if (form.find("#considet_contact_id").val() == "") {
+    //         alert("Please select Consideration as Contact.");
+    //         return false
+    //     }
+    //
+    //     if (form.find("#contact_category_id").val() == "") {
+    //         alert("Please select Contact Category.");
+    //         return false
+    //     }
+    //
+    // }
 
    await $.ajax({
         type:"post",
