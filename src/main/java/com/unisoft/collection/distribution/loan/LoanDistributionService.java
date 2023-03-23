@@ -100,6 +100,7 @@ public class LoanDistributionService {
                     }
 
                     String dealerPin = Objects.toString(row.getCell(1), "").trim();
+                    if (dealerPin.contains("@")) dealerPin = dealerPin.split("\\@")[0];
 
                     if (!StringUtils.hasText(dealerPin)) {
                         errors.put(accountNumber, "No dealer found");
@@ -111,7 +112,11 @@ public class LoanDistributionService {
                         continue;
                     }
 
-                    if (dealerPin.contains("@")) dealerPin = dealerPin.split("\\@")[0];
+
+                    if(loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1") != null){
+                        errors.put(accountNumber, "Already Distributed!");
+                        continue;
+                    }
 
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 
@@ -181,11 +186,6 @@ public class LoanDistributionService {
 
             if (!StringUtils.hasText(dealerPin)) {
                 errors.put(acc[0], "No dealer found!");
-                continue;
-            }
-
-            if(loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1") != null){
-                errors.put(acc[0], "Already Distributed!");
                 continue;
             }
 
