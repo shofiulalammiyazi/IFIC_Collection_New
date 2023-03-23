@@ -18,6 +18,8 @@ import com.unisoft.collection.settings.employeeStatus.EmployeeStatusService;
 import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerEntity;
 import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusManagerRepository;
 import com.unisoft.collection.settings.employeeStatusManagement.EmployeeStatusmanagerService;
+import com.unisoft.collection.settings.ivrSetupAndConfig.IVRRepository;
+import com.unisoft.collection.settings.ivrSetupAndConfig.IvrEntity;
 import com.unisoft.collection.settings.jobRole.JobRoleService;
 import com.unisoft.collection.settings.location.LocationEntity;
 import com.unisoft.collection.settings.location.LocationService;
@@ -84,6 +86,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeStatusmanagerService employeeStatusmanagerService;
+
+    @Autowired
+    private IVRRepository ivrRepository;
 
     @GetMapping(value = "list")
     public String viewAll(Model model) {
@@ -246,6 +251,18 @@ public class EmployeeController {
 
             userRoleDao.insert(test.getUser().getUserId(), rolesId);
 
+            if(employee.getRoles().equalsIgnoreCase("dealer")) {
+                IvrEntity ivrEntity = ivrRepository.findByDealerPin(employeeInfo.getEMAIL_ADDRESS());
+                if(ivrEntity == null)
+                    ivrEntity = new IvrEntity();
+                ivrEntity.setIvrAccId("550158");
+                ivrEntity.setSkillId("AG");
+                ivrEntity.setIvrAgentId(employee.getAgentId());
+                ivrEntity.setDealerPin(employeeInfo.getEMAIL_ADDRESS());
+
+                ivrRepository.save(ivrEntity);
+            }
+
 
         } else {
             User dbDataModel = new User();
@@ -291,6 +308,19 @@ public class EmployeeController {
 
             employeeStatusmanagerService.saveNew(employeeStatusManager);
             userRoleDao.insert(employeeInfoEntity.getUser().getUserId(), rolesId);
+
+            if(employee.getRoles().equalsIgnoreCase("dealer")) {
+                IvrEntity ivrEntity = ivrRepository.findByDealerPin(employeeInfo.getEMAIL_ADDRESS());
+                if(ivrEntity == null)
+                    ivrEntity = new IvrEntity();
+                ivrEntity.setIvrAccId("550158");
+                ivrEntity.setSkillId("AG");
+                ivrEntity.setIvrAgentId(employee.getAgentId());
+                ivrEntity.setDealerPin(employeeInfo.getEMAIL_ADDRESS());
+
+                ivrRepository.save(ivrEntity);
+            }
+
         }
 
 
