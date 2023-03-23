@@ -284,12 +284,13 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "       AIE.DPD, " +
             "       LADI.DEALER_PIN, " +
             "       LADI.DEALER_NAME, " +
-            "       E.PIN " +
-            "       FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
+            "       E.FULL_NAME " +
+            "FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
             "       LEFT JOIN ACCOUNT_INFORMATION_ENTITY AIE ON AIE.LOANACNO = LADI.ACCOUNT_NO " +
             "       LEFT JOIN EMPLOYEE_INFO_ENTITY EIE ON LADI.DEALER_PIN = EIE.PIN " +
             "       LEFT JOIN PEOPLE_ALLOCATION_LOGIC PAL ON EIE.ID = PAL.DEALER_ID " +
-            "       LEFT JOIN EMPLOYEE_INFO_ENTITY E on PAL.TEAM_LEAD_ID = E.ID" +
-            " WHERE LADI.LATEST='1'",nativeQuery = true)
+            "       LEFT JOIN EMPLOYEE_INFO_ENTITY E on PAL.TEAM_LEAD_ID = E.ID " +
+            "WHERE LADI.LATEST = '1' " +
+            "AND LADI.DEAL_REFERENCE = AIE.DEAL_REFERENCE",nativeQuery = true)
     List<Tuple> accountDistributionList();
 }

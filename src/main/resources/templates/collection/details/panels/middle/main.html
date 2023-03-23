@@ -255,8 +255,8 @@
                         let data = res.body;
                         if (data) {
                             this.accountEscalationList = res.body;
-                            if(this.accountEscalationList.length != 0)
-                                $("#three-sixty-icon").append('<img src="/images/escalation.jpeg" title="Account Escalated" style="height: 30px; width: 30px;margin-left: 8px;">');
+                            // if(this.accountEscalationList.length != 0)
+                            //     $("#three-sixty-icon").append('<img src="/images/escalation.jpeg" title="Account Escalated" style="height: 30px; width: 30px;margin-left: 8px;">');
                         }
                     }).catch(err => {
                         console.log(err);
@@ -277,8 +277,8 @@
                         let data = res.body;
                         if (data) {
                             this.hoteNoteList = res.body;
-                            if(this.hoteNoteList.length != 0)
-                                $("#three-sixty-icon").append('<img src="/images/star.png" style="height: 30px; width: 30px; margin-left: 8px;" title="Hot Note">');
+                            // if(this.hoteNoteList.length != 0)
+                            //     $("#three-sixty-icon").append('<img src="/images/star.png" style="height: 30px; width: 30px; margin-left: 8px;" title="Hot Note">');
                         }
                     }).catch(err => {
                         console.log(err);
@@ -299,8 +299,8 @@
                         let data = res.body;
                         if (data) {
                             this.customerComplainList = res.body;
-                            if(this.customerComplainList.length != 0)
-                                $("#three-sixty-icon").append('<img src="/images/customerComplain.jpeg" title="Customer Complain" style="height: 30px; width: 30px; margin-left: 8px;">');
+                            // if(this.customerComplainList.length != 0)
+                            //     $("#three-sixty-icon").append('<img src="/images/customerComplain.jpeg" title="Customer Complain" style="height: 30px; width: 30px; margin-left: 8px;">');
                         }
                     }).catch(err => {
                         console.log(err);

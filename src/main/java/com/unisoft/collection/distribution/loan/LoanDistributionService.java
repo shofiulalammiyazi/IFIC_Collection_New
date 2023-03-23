@@ -256,6 +256,7 @@ public class LoanDistributionService {
                 distribution.setOutStanding(accountInformationEntity.getTotalOutstanding());
                 distribution.setDpdBucket(accountInformationEntity.getDpd());
                 distribution.setEmiAmount(Double.parseDouble(accountInformationEntity.getEmiAmount()));
+                distribution.setOpeningOverDue(Double.parseDouble(accountInformationEntity.getOverdue()));
                 distribution.setStartDate(new Date());
                 loanAccountDistributionService.saveDistribution(distribution);
 

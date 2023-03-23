@@ -36,7 +36,7 @@ public class LoanAccountDistributionDto {
         this.accountNo = Objects.toString(t.get("LOANACNO"),"-").trim();
         this.customerName = Objects.toString(t.get("CUSTOMER_NAME"),"-").trim();
         this.dpdBucket = Objects.toString(t.get("DPD"),"-").trim();
-        this.teamLeaderPin = Objects.toString(t.get("PIN"),"-").trim();
+        this.teamLeaderPin = Objects.toString(t.get("FULL_NAME"),"-").trim();
         this.delaerPin = Objects.toString(t.get("DEALER_PIN"),"-").trim();
         this.delaerName = Objects.toString(t.get("DEALER_NAME"),"-").trim();
         this.branchMnemonic = Objects.toString(t.get("BRANCH_MNEMONIC"),"-").trim();

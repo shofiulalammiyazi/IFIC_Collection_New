@@ -126,7 +126,6 @@ public class HomeRestController {
 
         List<VisitLedgerEntity> visitLedgerEntityList = new ArrayList<>();
         for (PeopleAllocationLogicInfo logicInfo: allocationLogicList){
-            System.out.println(logicInfo.getDealer().getPin());
             List<VisitLedgerEntity> visitLedgerEntities = visitLedgerService.findVisitLedgerEntityByCreatedByAndStatus(logicInfo.getDealer().getPin());
             if (!visitLedgerEntities.isEmpty()){
                 visitLedgerEntityList.addAll(visitLedgerEntities);
