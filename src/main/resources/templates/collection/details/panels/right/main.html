@@ -1229,6 +1229,7 @@
                                     var noteDetailsMesg = "";
                                     var returnConsiderationData;
                                     var action = true;
+                                    var attemptVal = $('.consider-attempt-loan').val();
                                     if($('.consider-attempt-loan').val()!=''){
 
                                         if($('.consider-attempt-loan').val() == "Call Received"){
@@ -1258,7 +1259,7 @@
                                             await returnConsiderationData.then(function (v) {
                                                 considarationMessage = v;
                                             });
-                                            if($('.consider-attempt-loan').val() == "Call Received"){
+                                            if(attemptVal == "Call Received"){
                                                 var returnData = Promise.resolve(save_loan_ptp());
                                                 await returnData.then(function (v) {
                                                     ptpMesg = v;
