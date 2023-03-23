@@ -79,6 +79,12 @@ public class EmployeeController {
     @Value("${ific.employee.api.pass}")
     private String employeeAPIPass;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmployeeStatusmanagerService employeeStatusmanagerService;
+
     @GetMapping(value = "list")
     public String viewAll(Model model) {
         List<EmployeeInfoEntity> activeEmployees = employeeService.getAll().stream().filter(e -> e.getEmployeeStatus().getName().equalsIgnoreCase("WORKING")).collect(Collectors.toList());
@@ -165,13 +171,6 @@ public class EmployeeController {
         return populateDateFormModel(model);
 
     }
-
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private EmployeeStatusmanagerService employeeStatusmanagerService;
 
 
     @PostMapping(value = "create-emp")

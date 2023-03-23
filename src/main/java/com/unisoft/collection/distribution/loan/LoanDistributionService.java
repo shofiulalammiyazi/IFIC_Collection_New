@@ -21,6 +21,7 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
 import com.unisoft.user.UserPrincipal;
+import com.unisoft.user.UserRepository;
 import com.unisoft.utillity.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
@@ -64,6 +65,9 @@ public class LoanDistributionService {
     @Autowired
     private PeopleAllocationLogicRepository peopleAllocationLogicRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public Map<String, String> saveManuallyDistributedAccounts(MultipartFile multipartFile) {
         Map<String, String> errors = new LinkedHashMap<>();
         Map<String, LoanAccountDistributionInfo> distributionInfos = new HashMap<>();
@@ -99,6 +103,11 @@ public class LoanDistributionService {
 
                     if (!StringUtils.hasText(dealerPin)) {
                         errors.put(accountNumber, "No dealer found");
+                        continue;
+                    }
+
+                    if(!userRepository.findUserByUsername(dealerPin+"@ificbankbd.com").getRoles().get(0).getName().equalsIgnoreCase("dealer")){
+                        errors.put(accountNumber, "Not a dealer");
                         continue;
                     }
 
