@@ -59,6 +59,9 @@ public class SendSmsToCustomerService {
 
     public SmsLog setValue(SMSLogDto smsLogDto, String tnxId, String accNo, String sms){
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal == null)
+            principal.setUsername("System");
+
         SmsLog smsLog = new SmsLog();
 
         smsLog.setMsisdn(smsLogDto.getMsisdn());

@@ -201,7 +201,6 @@ public class LoanAutoDistributionController {
 
     @GetMapping("/download")
     public void downloadExcel(HttpServletResponse response) throws IOException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
         toExcel("unallocated");
         String fileName = "UnAllocated_Account_List.xlsx";
@@ -226,7 +225,6 @@ public class LoanAutoDistributionController {
 
     @GetMapping("/delinquent-download")
     public void downloadDelinquentExcel(HttpServletResponse response) throws IOException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
         toExcel("delinquent");
         String fileName = "Delinquent_Account_List.xlsx";

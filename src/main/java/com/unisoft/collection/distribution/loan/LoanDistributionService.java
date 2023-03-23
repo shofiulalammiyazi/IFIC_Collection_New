@@ -102,7 +102,7 @@ public class LoanDistributionService {
                         continue;
                     }
 
-                    //if (dealerPin.contains(".")) dealerPin = dealerPin.split("\\.")[0];
+                    if (dealerPin.contains("@")) dealerPin = dealerPin.split("\\@")[0];
 
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 
@@ -112,7 +112,7 @@ public class LoanDistributionService {
 
 
                     LoanAccountDistributionInfo accountDistributionInfo = new LoanAccountDistributionInfo();
-                    accountDistributionInfo.setDealerPin(dealerPin);
+                    accountDistributionInfo.setDealerPin(dealerPin+"@ificbankbd.com");
                     accountDistributionInfo.setDealerName(dealerName);
                     accountDistributionInfo.setBranchMnemonic(branchMnemonic);
                     accountDistributionInfo.setProductCode(productCode);
@@ -258,6 +258,10 @@ public class LoanDistributionService {
                 distribution.setEmiAmount(Double.parseDouble(accountInformationEntity.getEmiAmount()));
                 distribution.setStartDate(new Date());
                 loanAccountDistributionService.saveDistribution(distribution);
+
+                accountInformationEntity.setIsDistributed("Y");
+
+                accountInformationRepository.save(accountInformationEntity);
             }
         });
     }

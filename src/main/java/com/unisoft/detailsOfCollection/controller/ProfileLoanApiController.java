@@ -5,6 +5,8 @@ import com.unisoft.audittrail.AuditTrailService;
 import com.unisoft.collection.accountescalation.*;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicInfo;
 import com.unisoft.collection.allocationLogic.PeopleAllocationLogicRepository;
+import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
+import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionService;
 import com.unisoft.collection.settings.dpdBucket.DPDBucketEntity;
 import com.unisoft.collection.settings.dpdBucket.DpdBucketRepository;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
@@ -50,6 +52,9 @@ public class ProfileLoanApiController {
 
     @Autowired
     private AccountInformationRepository accountInformationRepository;
+
+    @Autowired
+    private LoanAccountDistributionService loanAccountDistributionService;
 
     @GetMapping("/list")
     public List<AccountEscalation> getAccountEscalation(@RequestParam(value = "cardAccNumber") String cardNumber) {
@@ -112,6 +117,10 @@ public class ProfileLoanApiController {
         //AccountInformationEntity accountInformationEntity1 = new AccountInformationEntity();
         accountInformationEntity.setISEscalated("Y");
         accountInformationRepository.save(accountInformationEntity);
+
+        LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountInformationEntity.getLoanACNo(),"1");
+        loanAccountDistributionInfo.setLatest("0");
+        loanAccountDistributionService.save(loanAccountDistributionInfo);
 
         auditTrailService.saveCreatedData("Account Escalation", accountEscalation);
 

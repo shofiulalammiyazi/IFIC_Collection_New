@@ -187,7 +187,7 @@ public class EmployeeController {
 
             if(employee.getId() == null)
                 if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS()))
-                    model.addAttribute("email","Employee Email already exist, Try different one...");
+                    result.rejectValue("email","","Employee Email already exist, Try different one...");
 
         if (result.hasErrors()) {
             model.addAttribute("entity", employee);
@@ -219,6 +219,8 @@ public class EmployeeController {
             EmployeeInfoEntity dbEmployeeModel = employeeService.getByUserId(response.getUserId());
 
             DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+            if(designationEntity == null)
+                designationEntity = designationService.findByName("Manager");
             dbEmployeeModel.setDesignation(designationEntity);
             dbEmployeeModel.setJoiningDate(new Date());
             dbEmployeeModel.setUnit(employee.getUnit());
@@ -264,6 +266,8 @@ public class EmployeeController {
             EmployeeInfoEntity dbEmployeeModel = new EmployeeInfoEntity();
 
             DesignationEntity designationEntity = designationService.findByName(employee.getRoles());
+            if(designationEntity == null)
+                designationEntity = designationService.findByName("Manager");
             dbEmployeeModel.setDesignation(designationEntity);
             dbEmployeeModel.setJoiningDate(new Date());
             dbEmployeeModel.setUnit(employee.getUnit());
