@@ -175,12 +175,17 @@ public class LoanDistributionService {
                 continue;
 
             } else if (distributionInfos.get(acc[0]) != null) {
-                errors.put(acc[0], "Duplicate Entry");
+                errors.put(acc[0], "Duplicate Entry!");
                 continue;
             }
 
             if (!StringUtils.hasText(dealerPin)) {
-                errors.put(acc[0], "No dealer found");
+                errors.put(acc[0], "No dealer found!");
+                continue;
+            }
+
+            if(loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1") != null){
+                errors.put(acc[0], "Already Distributed!");
                 continue;
             }
 

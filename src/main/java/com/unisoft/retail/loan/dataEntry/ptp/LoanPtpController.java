@@ -70,7 +70,7 @@ public class LoanPtpController {
 
         //for contact success based on consideration as attempt = Call Received
         sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
-              "Pls, repay the amount within" +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+              "Pls, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
                 +" as per your commitment to keep the loan regular.";
 
         AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
