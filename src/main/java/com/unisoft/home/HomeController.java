@@ -1002,7 +1002,7 @@ public class HomeController {
         }
 
         // Manager Loan
-        if ("manager".equals(designation)) {
+        if ("manager".equals(designation) || designation.equalsIgnoreCase("Access Control Admin")) {
 
             List<LoanAccountDistributionInfo> loanDist = getLoanDistributionByEmp(employee);
 

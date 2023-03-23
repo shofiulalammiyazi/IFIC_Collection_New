@@ -26,7 +26,7 @@ public class ActiveDirectoryAuthentication {
 	private final String domainName;
 
 	public ActiveDirectoryAuthentication(String domainName) {
-		this.domainName = domainName.toUpperCase();
+		this.domainName = domainName;//.toUpperCase();
 
 		try {
 			ldapServerUrls = nsLookup(domainName);
@@ -74,7 +74,7 @@ public class ActiveDirectoryAuthentication {
 			}catch (AuthenticationException e) {
 				e.printStackTrace();
 				return "false";
-			}catch(Exception e){		       
+			}catch(Exception e){
 		        e.printStackTrace();
 				return "false";
 		    }catch (Throwable throwable) {

@@ -314,7 +314,7 @@ public class AccountInformationService {
                 if (loanAccountDistributionInfo != null && overDue.equals("0")) {
                     UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                     //LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
-                   // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);
+                    // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);
                     loanAccountDistributionInfo.setLatest("0");
                     loanAccountDistributionInfo.setIsPaid("Paid");
                     loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
@@ -493,7 +493,7 @@ public class AccountInformationService {
         //data.put("1", );
 
         String arr[] = {"Account No","Dealer PIN","Dealer Name","Branch Mnemonic","Product Code",
-                "Deal Reference"};
+                "Deal Reference","Over Due","No Of Installment Due","Loan Status","EMI Amount"};
 
         Cell cell0 = null;
         Row row1 = sheet.createRow(0);
@@ -520,6 +520,16 @@ public class AccountInformationService {
             cell5.setCellValue(accountInformationEntity.getProductCode() ==null?"":accountInformationEntity.getProductCode());
             Cell cell6 = row.createCell(5);
             cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
+            Cell cell7 = row.createCell(6);
+            cell7.setCellValue(accountInformationEntity.getOverdue() == null?"":accountInformationEntity.getOverdue());
+            Cell cell8 = row.createCell(7);
+            cell8.setCellValue(accountInformationEntity.getNoOfInstallmentDue() ==null?"":accountInformationEntity.getNoOfInstallmentDue());
+            Cell cell9 = row.createCell(8);
+            cell9.setCellValue(accountInformationEntity.getLoanCLStatus() ==null?"":accountInformationEntity.getLoanCLStatus());
+            Cell cell10 = row.createCell(9);
+            cell10.setCellValue(accountInformationEntity.getEmiAmount() ==null?"":accountInformationEntity.getEmiAmount());
+
+
         }
 
         //String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
@@ -540,7 +550,7 @@ public class AccountInformationService {
 
         String arr[] = {"Account No","Customer Name","Mobile","Branch Mnemonic","Product Code",
                 "Deal Reference", "Outstanding", "Overdue", "EMI Amount", "No Of Installment Due",
-        "Loan Status", "Distribution Status","SMS Sending Status"};
+                "Loan Status", "Distribution Status","SMS Sending Status"};
 
         Cell cell0 = null;
         Row row1 = sheet.createRow(0);
