@@ -61,11 +61,11 @@
                                             }
                                         }).then(res => {
                                         if (res.body) {
-                                            this.hoteNoteList = res.body;
-                                        }
-                                    }).catch(err => {
+                                        this.hoteNoteList = res.body;
+                                    }
+                                }).catch(err => {
                                         console.log(err);
-                                    })
+                                })
                                 },
                                 filters: {
                                     dateFormat: function (value) {
@@ -378,11 +378,11 @@
                         <tbody id="contactOne-list">
                         <tr v-for="contactone in contactList">
                             <td :title="contactone.createdBy+'-'+(contactone.pin)+'/'+customDateFormat(contactone.createdDate)">{{contactone.createdBy}}-({{contactone.pin}})</td>
-                        <td>{{contactone.contact}}</td>
-                        <td>{{contactone.category}}</td>
-                        <td>
-                            <a style="margin-left:2px" class="btn btn-xs btn-info" @click="viewCiAsCon(contactone.id)" data-toggle="modal" data-target="#modal-ciascon-view"> <i class="fa fa-eye"></i></a>
-                        </td>
+                            <td>{{contactone.contact}}</td>
+                            <td>{{contactone.category}}</td>
+                            <td>
+                                <a style="margin-left:2px" class="btn btn-xs btn-info" @click="viewCiAsCon(contactone.id)" data-toggle="modal" data-target="#modal-ciascon-view"> <i class="fa fa-eye"></i></a>
+                            </td>
                         </tr>
                         </tbody>
 
@@ -489,7 +489,7 @@
                     <div class="modal-body form-horizontal">
                         <div class="row top-buffer">
                             <label class="col-sm-2 custom-details-lebel-left">Consideration as Contact :</label>
-                             <label class="col-sm-4 custom-form-lebel"  id="ci_con_contact" style="word-break: break-word;"></label>
+                            <label class="col-sm-4 custom-form-lebel"  id="ci_con_contact" style="word-break: break-word;"></label>
 
                             <label class="col-sm-2 custom-details-lebel-left">Contact Category :</label>
                             <label class="col-sm-4 custom-form-lebel"  id="ci_con_category"></label>
@@ -573,7 +573,7 @@
                     $('#reasonForDelinquencyForm input[name="accountNo"]').val(accountNo);
 
                     // getReasonDelinquency = function (customerId) {
-                       getReasonDelinquency = function () {
+                    getReasonDelinquency = function () {
                         var accNo = accountNo;
                         $.ajax({
                             // url: '/collection/reason-delinquency/find?id='+customerId,
@@ -674,11 +674,11 @@
                                             }
                                         }).then(res => {
                                         if (res.body) {
-                                            this.memoNoteList = res.body;
-                                        }
-                                    }).catch(err => {
+                                        this.memoNoteList = res.body;
+                                    }
+                                }).catch(err => {
                                         console.log(err);
-                                    })
+                                })
                                 },
 
                                 filters: {
@@ -810,7 +810,7 @@
                             <div class="modal-header ">
                                 <label class="box-title" style="font-size: 18px">Call Activity</label>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  X
+                                    X
                                 </button>
                             </div>
                             <div class="col-sm-12">
@@ -858,8 +858,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                         <br>
-                                                     </div>
+                                                        <br>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -920,7 +920,7 @@
                                                     $("#loan_amount").val(Number(profile_information.accountInformation.overdue));
                                                 }
                                             });
-                                            
+
                                             $("#considerAttemptForm").delegate("#contact_category_id","change",function () {
                                                 $('#ptp_promisor_details_id').html(' ');
                                                 $('#ptp_promisor_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
@@ -1158,7 +1158,7 @@
                                                     <label for="card_ptp_time" class="col-sm-2 control-label">Time</label>
                                                     <div class="col-sm-4 ">
                                                         <div class="">
-                                                           <!-- <input type="time" class="form-control " name="followUpTime" >-->
+                                                            <!-- <input type="time" class="form-control " name="followUpTime" >-->
                                                             <input type="time" name="loan_ptp_time" v-model="time" class="form-control" id="card_ptp_time" />
                                                             <input type="hidden" v-model="time">
                                                         </div>
@@ -1221,55 +1221,19 @@
 
                             <script>
 
-                               async function saveAllActivityTakenLoan(){
+                                async function saveAllActivityTakenLoan(){
                                     var considarationMessage = "";
                                     var followUpdateMessage = "";
                                     var resonForDelquencyMesg = "";
                                     var ptpMesg = "";
                                     var noteDetailsMesg = "";
-                                    var returnConsiderationData;
-                                    var action = true;
-                                    var attemptVal = $('.consider-attempt-loan').val();
                                     if($('.consider-attempt-loan').val()!=''){
+                                        // var returnData= contactSave();
+                                        var returnData = Promise.resolve(contactSave());
+                                        await returnData.then(function (v) {
+                                            considarationMessage = v;
+                                        });
 
-                                        if($('.consider-attempt-loan').val() == "Call Received"){
-                                            if ($("#considet_contact_id").val() == "") {
-                                                alert("Please select Consideration as Contact.");
-                                                action = false;
-                                            }
-
-                                            if ($("#contact_category_id").val() == "") {
-                                                alert("Please select Contact Category.");
-                                                action = false;
-                                            }
-
-                                            if ($('.ptp-date-loan').val() == '') {
-                                                alert("Please select Ptp Date");
-                                                action = false;
-                                            }
-
-                                            if ($('.ptp-amount-loan').val() == '') {
-                                                alert("Ptp Amount must not be empty");
-                                                action = false;
-                                            }
-                                        }
-
-                                        if(action){
-                                            var returnConsiderationData = Promise.resolve(contactSave());
-                                            await returnConsiderationData.then(function (v) {
-                                                considarationMessage = v;
-                                            });
-                                            if(attemptVal == "Call Received"){
-                                                var returnData = Promise.resolve(save_loan_ptp());
-                                                await returnData.then(function (v) {
-                                                    ptpMesg = v;
-                                                })
-                                            }
-
-                                        }
-                                    }
-                                    else{
-                                        alert("Please select Consideration as Attempt.");
                                     }
                                     if($('.follow-up-date-loan').val()!=''){
                                         var returnData = Promise.resolve(followUpSave());
@@ -1287,23 +1251,30 @@
                                         // saveReasonForDelinquency();
 
                                     }
-                                   // if ((!($('.ptp-amount-loan').val() >= 0) || !($('.ptp-amount-loan').val() < 0))&&( $('.ptp-date-loan').val()!=null || $('.ptp-date-loan').val()!='')){
+                                    // if ((!($('.ptp-amount-loan').val() >= 0) || !($('.ptp-amount-loan').val() < 0))&&( $('.ptp-date-loan').val()!=null || $('.ptp-date-loan').val()!='')){
+                                    if($('.ptp-amount-loan').val()!='' && $('.ptp-date-loan').val()!=''){
+                                        var returnData = Promise.resolve(save_loan_ptp());
+                                        await returnData.then(function (v) {
+                                            ptpMesg = v;
+                                        })
+                                        // save_loan_ptp();
 
+                                    }
 
                                     if($('.note-details-loan').val()!=''){
                                         var returnData = Promise.resolve(dailyNoteSaveLoan());
                                         await returnData.then(function (v) {
                                             noteDetailsMesg = v;
                                         })
-                                         // dailyNoteSave();
+                                        // dailyNoteSave();
 
                                     }
 
-                                   if (considarationMessage === true || followUpdateMessage === true || resonForDelquencyMesg === true || ptpMesg === true || noteDetailsMesg === true) {
-                                       alert("Successfully saved !!");
-                                       $("#modal-follow-up").hide();
+                                    if (considarationMessage === true || followUpdateMessage === true || resonForDelquencyMesg === true || ptpMesg === true || noteDetailsMesg === true) {
+                                        alert("Successfully saved !!");
+                                        $("#modal-follow-up").hide();
 
-                                   }
+                                    }
 
                                 }
                                 $(document).ready(function () {
@@ -1332,15 +1303,15 @@
                                         })
                                     }
                                     getMemoNote();
-                                  })
-                               async function saveReasonForDelinquency() {
+                                })
+                                async function saveReasonForDelinquency() {
 
-                                  var  booleanMesg=false;
+                                    var  booleanMesg=false;
                                     var formValue = $("#reasonForDelinquencyForm").serialize();
                                     var token = $("meta[name='_csrf']").attr("content");
                                     var header = $("meta[name='_csrf_header']").attr("content");
 
-                                await $.ajax({
+                                    await $.ajax({
                                         type:"post",
                                         url:"/collection/reason-delinquency/save",
                                         beforeSend: function (xhr) {
@@ -1353,7 +1324,7 @@
                                             getReasonDelinquency(customerId);
                                         }
                                     })
-                                   return booleanMesg;
+                                    return booleanMesg;
                                 }
                             </script>
                             <div class="box-footer">
@@ -1430,11 +1401,11 @@
                                     }
                                 }).then(res => {
                                 if (res.body) {
-                                    this.followUpList = res.body;
-                                }
-                            }).catch(err => {
+                                this.followUpList = res.body;
+                            }
+                        }).catch(err => {
                                 console.log(err);
-                            })
+                        })
                         },
                         methods: {
                             updateFollowupList: function (list) {
@@ -1595,12 +1566,12 @@
                                 }
                             }).then(res => {
                             if (res.body) {
-                                this.ptpList = res.body;
-                                this.showDataInTheTable(res.body);
-                            }
-                        }).catch(err => {
+                            this.ptpList = res.body;
+                            this.showDataInTheTable(res.body);
+                        }
+                    }).catch(err => {
                             console.log(err);
-                        })
+                    })
                     },
                     methods: {
                         dateFormat: function (value) {
@@ -1632,12 +1603,12 @@
                                     }
                                 }).then(res => {
                                 if (res.body) {
-                                    this.ptpList = res.body;
-                                    this.showDataInTheTable(res.body);
-                                }
-                            }).catch(err => {
+                                this.ptpList = res.body;
+                                this.showDataInTheTable(res.body);
+                            }
+                        }).catch(err => {
                                 console.log(err);
-                            })
+                        })
                         },
                         showDataInTheTable: function (data) {
 
@@ -1678,7 +1649,7 @@
                                         "<td style=\"display:none;\">" + data[i].id + "</td>" +
                                         "<td>" + data[i].username + "-(" + data[i].pin + " )"+"</td>" +
                                         "<td class='text-right'>" + numberToBDTFormat(data[i].loan_amount) + "</td>" +
-                                         "<td>" + (data[i].loan_contact_details == null ? '' : data[i].loan_contact_details) + "</td>" +
+                                        "<td>" + (data[i].loan_contact_details == null ? '' : data[i].loan_contact_details) + "</td>" +
 
                                         "<td>" + (data[i].loan_ptp_date != null ? formatDate_DD_MMM_YYYY(data[i].loan_ptp_date) : '') + "</td>" +
 
@@ -2041,12 +2012,12 @@
                             }
                         }).then(res => {
                         if (typeof res.body !== 'string') {
-                            this.documentUpload = res.body;
+                        this.documentUpload = res.body;
 
-                        }
-                    }).catch(err => {
+                    }
+                }).catch(err => {
                         console.log(err);
-                    })
+                })
                 },
                 filters: {
                     dateFormat: function (value) {
@@ -2095,16 +2066,16 @@
                             }
                         }).then(res => {
                             $('#modal-document-upload-form').modal('hide');
-                            this.disabledSaveButton = false;
-                            if (typeof res.body !== 'string') {
-                                this.documentUpload = res.body;
-                                swal("Successfully Saved");
-                            } else {
-                                swal("Something went wrong");
-                            }
-                        }).catch(err => {
+                        this.disabledSaveButton = false;
+                        if (typeof res.body !== 'string') {
+                            this.documentUpload = res.body;
+                            swal("Successfully Saved");
+                        } else {
+                            swal("Something went wrong");
+                        }
+                    }).catch(err => {
                             console.log(err);
-                        })
+                    })
                     },
                     showDocumentPreview: function (id, name, type) {
                         var host = window.location.host;
@@ -2116,11 +2087,11 @@
                                 }
                             }).then(res => {
                             if (typeof res.body !== 'string') {
-                                this.documentProperty = res.body;
-                            }
-                        }).catch(err => {
+                            this.documentProperty = res.body;
+                        }
+                    }).catch(err => {
                             console.log(err);
-                        })
+                    })
                     }
 
                 }
@@ -2204,27 +2175,27 @@
                         }
                     }).then(res => {
                     if (res.body) {
-                        var commentList = res.body.commentList;
-                        var userList = res.body.userList;
-                        this.userId = res.body.userId;
+                    var commentList = res.body.commentList;
+                    var userList = res.body.userList;
+                    this.userId = res.body.userId;
 
-                        commentList.forEach((c, i) => {
-                            var senderId = c.userId;
-                            var senderName = userList[i];
-                            var time = c.time;
-                            var msg = c.msg;
+                    commentList.forEach((c, i) => {
+                        var senderId = c.userId;
+                    var senderName = userList[i];
+                    var time = c.time;
+                    var msg = c.msg;
 
-                            this.comments.push({
-                                senderId: senderId,
-                                senderName: senderName,
-                                time: time,
-                                msg: msg,
-                            });
-                        });
-                    }
-                }).catch(err => {
+                    this.comments.push({
+                        senderId: senderId,
+                        senderName: senderName,
+                        time: time,
+                        msg: msg,
+                    });
+                });
+                }
+            }).catch(err => {
                     console.log(err);
-                })
+            })
             },
             methods: {
                 send: function () {
@@ -2240,12 +2211,12 @@
                     }).then(res => {
 
                         if (res.body) {
-                            this.msg = '';
-                            this.updateMsg();
-                        }
-                    }).catch(err => {
+                        this.msg = '';
+                        this.updateMsg();
+                    }
+                }).catch(err => {
                         console.log(err);
-                    })
+                })
                 },
                 updateMsg: function () {
                     // this.customerId = customerId;
@@ -2258,27 +2229,27 @@
                             }
                         }).then(res => {
                         if (res.body) {
-                            var commentList = res.body.commentList;
-                            var userList = res.body.userList;
+                        var commentList = res.body.commentList;
+                        var userList = res.body.userList;
 
-                            this.comments = [];
-                            commentList.forEach((c, i) => {
-                                var senderId = c.userId;
-                                var senderName = userList[i];
-                                var time = c.time;
-                                var msg = c.msg;
+                        this.comments = [];
+                        commentList.forEach((c, i) => {
+                            var senderId = c.userId;
+                        var senderName = userList[i];
+                        var time = c.time;
+                        var msg = c.msg;
 
-                                this.comments.push({
-                                    senderId: senderId,
-                                    senderName: senderName,
-                                    time: time,
-                                    msg: msg,
-                                });
-                            });
-                        }
-                    }).catch(err => {
+                        this.comments.push({
+                            senderId: senderId,
+                            senderName: senderName,
+                            time: time,
+                            msg: msg,
+                        });
+                    });
+                    }
+                }).catch(err => {
                         console.log(err);
-                    })
+                })
                 }
             }
         });
