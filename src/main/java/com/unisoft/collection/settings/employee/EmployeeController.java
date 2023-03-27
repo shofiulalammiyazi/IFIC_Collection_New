@@ -189,9 +189,9 @@ public class EmployeeController {
             if(employee.getAgentId().equalsIgnoreCase(""))
                 result.rejectValue("agentId","","Agent Id must not be empty!");
 
-            if(employee.getId() == null)
-                if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS()))
-                    result.rejectValue("email","","Employee Email already exist, Try different one...");
+        if(employee.getId() == null)
+            if(employeeService.existsByEmail(employeeInfo.getEMAIL_ADDRESS()))
+                result.rejectValue("email","","Employee Email already exist, Try different one...");
 
         if (result.hasErrors()) {
             model.addAttribute("entity", employee);

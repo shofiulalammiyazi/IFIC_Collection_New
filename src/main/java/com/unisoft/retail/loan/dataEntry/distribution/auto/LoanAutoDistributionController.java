@@ -172,7 +172,7 @@ public class LoanAutoDistributionController {
         for (AccountInformationEntity acc : accountInformationEntities) {
             sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
             if(acc.getOverdue() != null)
-                sms = sms.replace("{{F.installmentAmount}}",String.valueOf(Integer.parseInt(acc.getOverdue()) / 100));
+                sms = sms.replace("{{F.installmentAmount}}",acc.getOverdue());
             else sms = sms.replace("{{F.installmentAmount}}","0");
             sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
             sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
