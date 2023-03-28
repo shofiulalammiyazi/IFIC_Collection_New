@@ -24,6 +24,9 @@ public class GeneratedSMS extends BaseInfo {
 
     private String mobileNo;
 
+    @Transient
+    private String dealReference;
+
     public GeneratedSMS(SMSEntity smsType, String massege, String accountNo, String mobileNo) {
         this.smsType = smsType;
         this.massege = massege;
@@ -31,11 +34,12 @@ public class GeneratedSMS extends BaseInfo {
         this.mobileNo = mobileNo;
     }
 
-    public GeneratedSMS(Long id, String massege, String accountNo, String mobileNo) {
+    public GeneratedSMS(Long id, String massege, String accountNo, String mobileNo, String dealReference) {
         this.id = id;
         this.massege = massege;
         this.accountNo = accountNo;
         this.mobileNo = mobileNo;
+        this.dealReference = dealReference;
     }
 
     public GeneratedSMS(Long id, SMSEntity smsType, String massege, String accountNo, String mobileNo) {

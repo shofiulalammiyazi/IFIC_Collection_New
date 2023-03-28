@@ -98,7 +98,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             AgencyStatusManagerEntity agencyStatusManagerEntity = agencyStatusManagerService.findFirstByUserIdOrderByIdDesc(user.getUserId());
             boolean isPermanentLocked = false;
             boolean isTemporaryLocked = false;
-            int tryAgainAfterMinutes = 30;    // Locked time minutes
+            int tryAgainAfterMinutes = 5;    // Locked time minutes
 
             if (!agencyStatusManagerEntity.getAgencyStatusEntity().isLoginDisable()) {
                 boolean endDateNull = agencyStatusManagerEntity.getEndDate() == null || agencyStatusManagerEntity.getStartDate().compareTo(new Date()) <= 0;

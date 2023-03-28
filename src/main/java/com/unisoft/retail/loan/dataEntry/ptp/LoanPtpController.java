@@ -69,9 +69,17 @@ public class LoanPtpController {
         service.save(loanPtp);
 
         //for contact success based on consideration as attempt = Call Received
-        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
-              "Pls, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+//        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
+//              "Pls, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+//                +" as per your commitment to keep the loan regular.";
+
+
+
+        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against IFIC Aamar Bari Loan . " +
+                "Please, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
                 +" as per your commitment to keep the loan regular.";
+
+        //Your unpaid installment is BDT990890.0 against IFIC Aamar Bari Loan. Please, repay the amount within ../../2023 as per your commitment to keep the loan regular.
 
         AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
 
@@ -83,7 +91,8 @@ public class LoanPtpController {
             sms = sms.replace("{{F.currentMonth}}",new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
             //TODO change phone number here use acc.getMobile()
-            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01950886895");
+            //GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01950886895");
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),acc.getMobile(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
             String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
         }

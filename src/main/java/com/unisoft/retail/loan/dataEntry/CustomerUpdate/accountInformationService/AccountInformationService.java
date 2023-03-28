@@ -3,6 +3,7 @@ package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationServi
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
+import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInfoSMSDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
@@ -46,6 +47,9 @@ public class AccountInformationService {
 
     @Autowired
     private LoanAccountDistributionRepository loanAccountDistributionRepository;
+
+    @Autowired
+    private SMSLogRepository smsLogRepository;
 
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
@@ -304,6 +308,10 @@ public class AccountInformationService {
                     accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-MM-dd")));
                 if(!firstInstallmentDueDate.equals(""))
                     accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-MM-dd")));
+
+                if(smsLogRepository.getSmslogofLastThirtyDaysByAccNoAndDealReference(account,dealReference).size()<1)
+                    accountInformationEntity.setIsSmsSent("N");
+
                 accountInformationEntities.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());
@@ -311,7 +319,7 @@ public class AccountInformationService {
                 LoanAccountDistributionInfo loanAccountDistributionInfo =
                         loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
 
-                if (loanAccountDistributionInfo != null && overDue.equals("0")) {
+                if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
                     UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                     //LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
                     // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);

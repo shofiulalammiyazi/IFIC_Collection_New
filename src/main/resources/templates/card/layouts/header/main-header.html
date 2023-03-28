@@ -147,10 +147,12 @@
                                      alt="User Image">
                                 <div class="text-capitalize" style="color: white">
                                     <span class="hidden-xs" sec:authentication="principal.username"></span>&nbsp;
-                                    <span class="hidden-xs" sec:authentication="principal.username"></span>
+                                    <!--<span class="hidden-xs" sec:authentication="principal.username"></span>-->
                                 </div>
+                                <!--<small class="text-capitalize" style="color: white"-->
+                                       <!--th:text="${session.userDesignation}"></small>-->
                                 <small class="text-capitalize" style="color: white"
-                                       th:text="${session.userDesignation}"></small>
+                                       th:text="${session.userRole}"></small>
                             </li>
                             <!-- Menu Body -->
                             <!-- Menu Footer-->

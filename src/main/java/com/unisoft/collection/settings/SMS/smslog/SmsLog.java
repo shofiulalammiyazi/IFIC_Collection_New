@@ -36,4 +36,6 @@ public class SmsLog extends BaseInfo {
 
     private String msg;
 
+    private String dealReference;
+
 }
