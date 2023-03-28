@@ -70,9 +70,18 @@ public class ContactInfoController {
         String sms = "";
         //if contact fail based on consideration as attempt = Call Not Received
         if(!contactInfo.getAttempt().equalsIgnoreCase("Call Received")) {
+//            sms = "We have tried and failed to reach you over phone." +
+//                    " Pls, pay the unpaid installment BDT {{F.installmentAmount}} against " +
+//                    "{{F.productName}} by " + getNextOrPreviousDate(new Date(), 3) + " to avoid penal charge.";
+
             sms = "We have tried and failed to reach you over phone." +
                     " Pls, pay the unpaid installment BDT {{F.installmentAmount}} against " +
-                    "{{F.productName}} by " + getNextOrPreviousDate(new Date(), 3) + " to avoid penal charge.";
+                    "IFIC Aamar Bari Loan by " + getNextOrPreviousDate(new Date(), 3) + " keep the loan regular.";
+
+
+
+
+            //We have tried and failed to reach you over phone. Pls, pay the unpaid installment BDT990890.0 against IFIC Aamar Bari Loan by ../../.... keep the loan regular.
 
             AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(contactInfo.getAccNo());
 
@@ -84,9 +93,10 @@ public class ContactInfoController {
                 sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
                 //TODO change phone number here use acc.getMobile()
-                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895");
+                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895",acc.getDealReference());
                 generatedSMS.add(generatedSMS1);
-                String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+                //TODO uncomment the line
+               //String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
             }
         }
         contactInfoService.saveContactInfo(contactInfo);

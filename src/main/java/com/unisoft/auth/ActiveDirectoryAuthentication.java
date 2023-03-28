@@ -50,7 +50,8 @@ public class ActiveDirectoryAuthentication {
 			try {
 				Hashtable<Object, Object> env = new Hashtable<Object, Object>();
 				env.put(Context.INITIAL_CONTEXT_FACTORY, CONTEXT_FACTORY_CLASS);
-				env.put(Context.PROVIDER_URL, ldapServerUrls[currentLdapUrlIndex]);
+				//env.put(Context.PROVIDER_URL, ldapServerUrls[currentLdapUrlIndex]);
+				env.put(Context.PROVIDER_URL, "ldap://192.168.1.5");
 				env.put(Context.SECURITY_PRINCIPAL, username + "@" + domainName);
 				env.put(Context.SECURITY_CREDENTIALS, password);
 				DirContext ctx = new InitialDirContext(env);

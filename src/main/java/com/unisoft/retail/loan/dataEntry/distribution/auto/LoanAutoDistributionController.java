@@ -159,26 +159,39 @@ public class LoanAutoDistributionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @Scheduled(cron = "0 30 10 * * *")
+    @Scheduled(cron = "0 51 11 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
-        String smsType = "";
-        String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
-                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
-                "Pls, ignore if it is already paid.";
+//        String sms1 = "";
+//        String sms = "Your IFIC Aamar Bari Loan EMI due date is {{F.nextEmiDate}}. " +
+//                "Pls, deposit BDT{{F.installmentAmount}} within due date  to keep the loan regular. " +
+//                "Pls, ignore if it is already paid.";
+
+//        String sms = "Your {{F.productName}} EMI due date is {{F.nextEmiDate}}. " +
+//                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
+//                "Pls, ignore if it is already paid.";
+
+
+
 
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleSmsList();
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for (AccountInformationEntity acc : accountInformationEntities) {
+            String sms = "Your IFIC Aamar Bari Loan EMI due date is {{F.nextEmiDate}}. " +
+                    "Pls, deposit BDT{{F.installmentAmount}} within due date  to keep the loan regular. " +
+                    "Pls, ignore if it is already paid.";
             sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
-            if(acc.getOverdue() != null)
-                sms = sms.replace("{{F.installmentAmount}}",acc.getOverdue());
+            if(acc.getEmiAmount() != null)
+                sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
             else sms = sms.replace("{{F.installmentAmount}}","0");
             sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
             sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
             //TODO change phone number here use acc.getMobile()
-            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01750734960");
+            String mobileNo = "";
+            mobileNo = acc.getMobile().replace("+88","");
+            mobileNo = acc.getMobile().replace("88","");
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo().trim(), mobileNo.trim(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
         }
         String status = sendSmsToCustomerService.sendBulksms(generatedSMS);

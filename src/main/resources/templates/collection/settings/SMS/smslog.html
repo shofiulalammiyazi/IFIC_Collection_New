@@ -25,6 +25,7 @@
                                 <tr>
                                     <th>Sl No.</th>
                                     <th>Acc No</th>
+                                    <th>Deal Reference</th>
                                     <th>Msisdn</th>
                                     <th>Login </th>
                                     <th>MSG</th>
@@ -40,6 +41,7 @@
                                 <tr th:each="sms,index : ${smsList}">
                                     <td th:text="${index.count}"></td>
                                     <td><span th:text="${sms.accNo}"></span></td>
+                                    <td><span th:text="${sms.dealReference}"></span></td>
                                     <td><span th:text="${sms.msisdn}"></span></td>
                                     <td><span th:text="${sms.login}"></span></td>
                                     <td><span  th:text="${sms.msg}"></span></td>
@@ -63,7 +65,7 @@
                             scrollX:        true,
                             scrollCollapse: true,
                             columnDefs: [
-                                { width: 500, targets: 4 }
+                                { width: 500, targets: 5 }
                             ],
                             fixedColumns: true
                         } );
