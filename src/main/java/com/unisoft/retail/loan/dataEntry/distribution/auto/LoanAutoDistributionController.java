@@ -159,7 +159,7 @@ public class LoanAutoDistributionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @Scheduled(cron = "0 51 11 * * *")
+    //@Scheduled(cron = "0 51 11 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
 //        String sms1 = "";
