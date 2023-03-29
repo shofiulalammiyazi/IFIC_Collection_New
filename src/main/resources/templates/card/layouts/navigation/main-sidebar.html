@@ -145,7 +145,7 @@
 
                                 <!--Distribution-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#"  th:if="${session.urlList.contains('Distribution Panel')}">
                                         <i class="fa fa-share-alt"></i>
                                         Distribution
                                         <span class="pull-right-container">
@@ -209,12 +209,12 @@
                                             </a>
                                         </li>
 
-<!--
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"
-                                               th:href="@{/distribution/card/list}">Allocated Account List- Card
-                                            </a>
-                                        </li>-->
+                                        <!--
+                                                                                <li>
+                                                                                    <a th:if="${session.urlList.contains('/distribution/card/list')}" class="tab"
+                                                                                       th:href="@{/distribution/card/list}">Allocated Account List- Card
+                                                                                    </a>
+                                                                                </li>-->
                                         <li>
                                             <!--th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/approval')-->
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
@@ -233,13 +233,13 @@
                                         <!--</a>-->
                                         <!--</li>-->
 
-                                      <!--  <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list')}"
-                                               th:href="@{/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list}">
-                                                Dealer Group for Auto Distribution
-                                            </a>
-                                        </li>-->
+                                        <!--  <li>
+                                              <a class="tab"
+                                                 th:if="${session.urlList.contains('/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list')}"
+                                                 th:href="@{/collection/settings/dealer-group-based-on-collector-area-for-auto-distribution/list}">
+                                                  Dealer Group for Auto Distribution
+                                              </a>
+                                          </li>-->
 
                                     </ul>
                                 </li>
@@ -249,9 +249,9 @@
 
                                 <!--Dunning Letter-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('Dunning Letter Panel')}">
                                         <i class="fa fa-envelope"></i>
-                                        Dunning Letter
+                                        Dunning Letter Panel
                                         <span class="pull-right-container">
                                             <i class="fa fa-angle-left pull-right"></i>
                                         </span>
@@ -271,7 +271,7 @@
 
                                 <!-- SMS Template-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('SMS Panel')}">
                                         <i class="fa fa-envelope"></i>
                                         SMS
                                         <span class="pull-right-container">
@@ -310,7 +310,7 @@
 
                                 <!--Employee Management-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('Employee Management Panel')}">
                                         <i class="fa fa-group"></i>
                                         Employee Management
                                         <span class="pull-right-container">
@@ -353,7 +353,7 @@
 
                                 <!--ESAU Management-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('ESAU Management Panel')}">
                                         <i class="fa fa-cog"></i>
                                         ESAU Management
                                         <span class="pull-right-container">
@@ -380,7 +380,7 @@
 
                                 <!--KPI Management-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('KPI Management Panel')}">
                                         <i class="fa fa-cog"></i>
                                         KPI Management
                                         <span class="pull-right-container">
@@ -461,7 +461,7 @@
 
                                 <!--Letter-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('Letter Panel')}">
                                         <i class="fa fa-envelope"></i>
                                         Letter
                                         <span class="pull-right-container">
@@ -518,7 +518,7 @@
                                 </li>
                                 <!--Portfolio Management-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('Portfolio Management Panel')}">
                                         <i class="fa fa-vcard-o"></i>
                                         Portfolio Management
                                         <span class="pull-right-container">
@@ -606,7 +606,7 @@
 
                                 <!--System Management-->
                                 <li class="treeview">
-                                    <a href="#">
+                                    <a href="#" th:if="${session.urlList.contains('System Management Panel')}">
                                         <i class="fa fa-wrench"></i>
                                         System Management
                                         <span class="pull-right-container">
