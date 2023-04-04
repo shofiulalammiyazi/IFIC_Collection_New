@@ -10,7 +10,10 @@
     <div class="box box-primary ">
         <div class="box-header with-border">
             <h2 class="box-title label label-danger" style="margin-top: 10px;">Hot Note</h2>
-            <a class=" btn btn-xs btn-primary pull-right" id="addHotNoteId" data-toggle="modal" data-target="#modal-hotnote">
+
+                <a th:if="${currentDealer == pin}" class=" btn btn-xs btn-primary pull-right" id="addHotNoteId" data-toggle="modal" data-target="#modal-hotnote">
+
+                <!--<a class=" btn btn-xs btn-primary pull-right" id="addHotNoteId" data-toggle="modal" data-target="#modal-hotnote">-->
                 <i class="fa fa-plus-square"></i>
                 Add More
             </a>
@@ -209,7 +212,8 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title" style="margin-top: 10px;">Activities Taken</h3>
-            <a class=" btn btn-xs btn-primary pull-right" data-toggle="modal" onclick="ptpdetails()"  data-target="#modal-follow-up">
+            <a th:if="${currentDealer == pin}" class=" btn btn-xs btn-primary pull-right" data-toggle="modal" onclick="ptpdetails()"  data-target="#modal-follow-up">
+            <!--<a class=" btn btn-xs btn-primary pull-right" data-toggle="modal" onclick="ptpdetails()"  data-target="#modal-follow-up">-->
                 <i class="fa fa-plus-square"></i>
                 Add More
             </a>
@@ -1227,13 +1231,48 @@
                                     var resonForDelquencyMesg = "";
                                     var ptpMesg = "";
                                     var noteDetailsMesg = "";
+                                    var returnConsiderationData;
+                                    var action = true;
                                     if($('.consider-attempt-loan').val()!=''){
-                                        // var returnData= contactSave();
-                                        var returnData = Promise.resolve(contactSave());
-                                        await returnData.then(function (v) {
-                                            considarationMessage = v;
-                                        });
 
+                                        if($('.consider-attempt-loan').val() == "Call Received"){
+                                            if ($("#considet_contact_id").val() == "") {
+                                                alert("Please select Consideration as Contact.");
+                                                action = false;
+                                            }
+
+                                            if ($("#contact_category_id").val() == "") {
+                                                alert("Please select Contact Category.");
+                                                action = false;
+                                            }
+
+                                            if ($('.ptp-date-loan').val() == '') {
+                                                alert("Please select Ptp Date");
+                                                action = false;
+                                            }
+
+                                            if ($('.ptp-amount-loan').val() == '') {
+                                                alert("Ptp Amount must not be empty");
+                                                action = false;
+                                            }
+                                        }
+
+                                        if(action){
+                                            var returnConsiderationData = Promise.resolve(contactSave());
+                                            await returnConsiderationData.then(function (v) {
+                                                considarationMessage = v;
+                                            });
+                                            if($('.consider-attempt-loan').val() == "Call Received"){
+                                                var returnData = Promise.resolve(save_loan_ptp());
+                                                await returnData.then(function (v) {
+                                                    ptpMesg = v;
+                                                })
+                                            }
+
+                                        }
+                                    }
+                                    else{
+                                        alert("Please select Consideration as Attempt.");
                                     }
                                     if($('.follow-up-date-loan').val()!=''){
                                         var returnData = Promise.resolve(followUpSave());
@@ -1252,14 +1291,7 @@
 
                                     }
                                     // if ((!($('.ptp-amount-loan').val() >= 0) || !($('.ptp-amount-loan').val() < 0))&&( $('.ptp-date-loan').val()!=null || $('.ptp-date-loan').val()!='')){
-                                    if($('.ptp-amount-loan').val()!='' && $('.ptp-date-loan').val()!=''){
-                                        var returnData = Promise.resolve(save_loan_ptp());
-                                        await returnData.then(function (v) {
-                                            ptpMesg = v;
-                                        })
-                                        // save_loan_ptp();
 
-                                    }
 
                                     if($('.note-details-loan').val()!=''){
                                         var returnData = Promise.resolve(dailyNoteSaveLoan());
@@ -1859,8 +1891,10 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h2 class="box-title" style="margin-top: 10px;">Document Upload</h2>
-            <a class=" btn btn-xs btn-primary pull-right" data-toggle="modal"
-               data-target="#modal-document-upload-form">
+           <!-- <a class=" btn btn-xs btn-primary pull-right" data-toggle="modal"
+               data-target="#modal-document-upload-form">-->
+                <a th:if="${currentDealer == pin}" class=" btn btn-xs btn-primary pull-right" data-toggle="modal"
+                   data-target="#modal-document-upload-form">
                 <i class="fa fa-plus-square"></i>
                 Add More
             </a>
