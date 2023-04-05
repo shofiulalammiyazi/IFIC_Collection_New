@@ -116,7 +116,7 @@
                                        th:text="${#calendars.format(#calendars.createNow(), 'dd-MMM-yyyy')}"></label>
 
                                 <label class="col-sm-3">Posting Branch: </label>
-                                <label class="col-sm-4 custom-form-lebel"></label>
+                                <label class="col-sm-4 custom-form-lebel" th:text="${employee?.branch?.branchName}"></label>
                             </div>
 
                             <!--<div class="row csi-view-form-group">-->

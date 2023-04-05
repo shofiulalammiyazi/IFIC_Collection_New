@@ -17118,7 +17118,7 @@
                                         <td class="col-sm-4">Account Escalation</td>
                                         <td class="col-sm-8">
                                             <ul style="padding: 0px;">
-                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                               <!-- <li class="col-sm-2" style="padding: 0px; list-style: none">
                                                     <div class="ui checkbox">
                                                         <label class="mdl-checkbox  is-checked is-upgraded"
                                                                data-upgraded="MaterialCheckbox">
@@ -17135,7 +17135,7 @@
                                                             <span></span>
                                                         </label>
                                                     </div>
-                                                </li>
+                                                </li>-->
                                                 <!-- <li class="col-sm-2" style="padding: 0px; list-style: none">
                                                      <div class="ui checkbox">
                                                          &lt;!&ndash;<label class="mdl-checkbox" data-upgraded="MaterialCheckbox">&ndash;&gt;
@@ -17196,6 +17196,34 @@
                                                         <!--<span class="mdl-checkbox__focus-helper"></span><span></span></label>-->
                                                     </div>
                                                 </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr>
+                                        <td class="col-sm-4">Collateral Security Details</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+
+
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, 'tab-Collateral-Security-Details')}"
+                                                                   value="tab-Collateral-Security-Details"
+                                                                   name="urlList"><input type="hidden"
+                                                                                         name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="BB Audit Type">View</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
                                             </ul>
                                         </td>
                                     </tr>

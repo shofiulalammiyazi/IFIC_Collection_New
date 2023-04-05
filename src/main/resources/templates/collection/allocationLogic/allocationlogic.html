@@ -33,21 +33,21 @@
 							<!--<a  style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:href="@{/collection/allocationlogic/create}"><span class="glyphicon glyphicon-plus"> </span> Add Allocation Logic </a>-->
 							<div class="form-group">
 
-								<label  class="col-sm-1 ">Supervisor</label>
+								<label  class="col-sm-1 ">Team Leader</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-supervisor">
 										<option value="">Choose One</option>
 										<option th:each="supervisor : ${teamleaderList}" th:value="${supervisor?.id}" th:text="${supervisor?.getPin()}+ ' - ' +${supervisor?.getUser()?.getFirstName()}">Loan</option>
 									</select>
 								</div>
-								<label  class="col-sm-1  " style="margin-left: 27px">Manager</label>
+								<label  class="col-sm-1  " style="margin-left: 27px">Supervisor</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-manager">
 										<option value="">Choose One</option>
 										<option th:each="manager : ${supervisorList}" th:value="${manager?.id}" th:text="${manager?.getPin()}+ ' - ' +${manager?.getUser()?.getFirstName()}">Loan</option>
 									</select>
 								</div>
-								<label  class="col-sm-1  " style="margin-left: 43px">Sr.Manager</label>
+								<label  class="col-sm-1  " style="margin-left: 43px">Manager</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-srmanager">
 										<option value="">Choose One</option>
@@ -67,12 +67,12 @@
 									<th>Dealer Name</th>
 									<th>Agency Name</th>
 									<th>Agency ID</th>
+									<th>Team Leader ID</th>
+									<th>Team Leader Name</th>
 									<th>Supervisor ID</th>
 									<th>Supervisor Name</th>
 									<th>Manager ID</th>
 									<th>Manager Name</th>
-									<th>Sr.Manager ID</th>
-									<th>Sr.Manager Name</th>
 									<th>Age Code</th>
 									<th>Product Card</th>
 									<th>Bucket</th>
