@@ -1262,12 +1262,10 @@
                                             await returnConsiderationData.then(function (v) {
                                                 considarationMessage = v;
                                             });
-                                            if($('.consider-attempt-loan').val() == "Call Received"){
-                                                var returnData = Promise.resolve(save_loan_ptp());
-                                                await returnData.then(function (v) {
-                                                    ptpMesg = v;
-                                                })
-                                            }
+                                            var returnData = Promise.resolve(save_loan_ptp());
+                                            await returnData.then(function (v) {
+                                                ptpMesg = v;
+                                            })
 
                                         }
                                     }
