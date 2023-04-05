@@ -96,7 +96,7 @@ public class ContactInfoController {
                 GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895",acc.getDealReference());
                 generatedSMS.add(generatedSMS1);
                 //TODO uncomment the line
-               //String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+               //String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");
             }
         }
         contactInfoService.saveContactInfo(contactInfo);
