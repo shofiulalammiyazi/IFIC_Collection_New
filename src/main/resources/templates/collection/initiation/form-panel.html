@@ -47,7 +47,7 @@
 									<a  id="tab-allocationDetails" th:if="${session.urlList.contains('tab-allocationDetails')}" href="#" class="list-group-item" title="MO Information">MO Information</a>
 									<a  id="tab-updateAdditionalInfo" th:if="${session.urlList.contains('tab-updateAdditionalInfo')}" href="#" class="list-group-item" title="Customer And Borrower Information">Customer And Borrower Information</a>
 									<a  id="tab-additionalInfo" th:if="${session.urlList.contains('tab-additionalInfo')}" href="" class="list-group-item" title="Additional Information">Additional Information</a>
-									<a  id="tab-collateralInfo"  href="" class="list-group-item" title="Collateral Security Details">Collateral Security Details</a>
+									<a  id="tab-collateralInfo" th:if="${session.urlList.contains('tab-Collateral-Security-Details')}"  href="" class="list-group-item" title="Collateral Security Details">Collateral Security Details</a>
 
 								</div>
 							</div>
