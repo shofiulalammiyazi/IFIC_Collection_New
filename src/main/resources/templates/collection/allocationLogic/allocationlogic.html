@@ -33,21 +33,21 @@
 							<!--<a  style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:href="@{/collection/allocationlogic/create}"><span class="glyphicon glyphicon-plus"> </span> Add Allocation Logic </a>-->
 							<div class="form-group">
 
-								<label  class="col-sm-1 ">Supervisor</label>
+								<label  class="col-sm-1 ">Team Leader</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-supervisor">
 										<option value="">Choose One</option>
 										<option th:each="supervisor : ${teamleaderList}" th:value="${supervisor?.id}" th:text="${supervisor?.getPin()}+ ' - ' +${supervisor?.getUser()?.getFirstName()}">Loan</option>
 									</select>
 								</div>
-								<label  class="col-sm-1  " style="margin-left: 27px">Manager</label>
+								<label  class="col-sm-1  " style="margin-left: 27px">Supervisor</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-manager">
 										<option value="">Choose One</option>
 										<option th:each="manager : ${supervisorList}" th:value="${manager?.id}" th:text="${manager?.getPin()}+ ' - ' +${manager?.getUser()?.getFirstName()}">Loan</option>
 									</select>
 								</div>
-								<label  class="col-sm-1  " style="margin-left: 43px">Sr.Manager</label>
+								<label  class="col-sm-1  " style="margin-left: 43px">Manager</label>
 								<div class="col-sm-2">
 									<select class="form-control select2 " id="allocation-srmanager">
 										<option value="">Choose One</option>
@@ -63,16 +63,16 @@
 									<th style="text-align: left"><input  id="select_all_allocation_checkbox" type="checkbox"></input>Select All</th>
 									<th>Unit</th>
 									<th>Dealer Location</th>
-									<th>Dealer PIN</th>
+									<th>Dealer ID</th>
 									<th>Dealer Name</th>
 									<th>Agency Name</th>
-									<th>Agency PIN</th>
-									<th>Supervisor PIN</th>
+									<th>Agency ID</th>
+									<th>Team Leader ID</th>
+									<th>Team Leader Name</th>
+									<th>Supervisor ID</th>
 									<th>Supervisor Name</th>
-									<th>Manager PIN</th>
+									<th>Manager ID</th>
 									<th>Manager Name</th>
-									<th>Sr.Manager PIN</th>
-									<th>Sr.Manager Name</th>
 									<th>Age Code</th>
 									<th>Product Card</th>
 									<th>Bucket</th>
@@ -91,15 +91,15 @@
 									<td><span th:text="${allocation.getUnit()}"></span></td>
 									<td><span th:text="${allocation.getDealer()?.getLocation()?.getCity()}"></span></td>
 									<td><span th:text="${allocation.getDealer()?.getPin()}"></span></td>
-									<td><span th:text="${allocation.getDealer()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getDealer()?.getUser()?.getFirstName()+' '+allocation.getDealer()?.getUser()?.getLastName()}"></span></td>
 									<td><span th:text="${allocation.getAgency()?.getName()}"></span></td>
 									<td><span th:text="${allocation.getAgency()?.getPin()}"></span></td>
 									<td><span th:text="${allocation.getTeamlead()?.getPin()}"></span></td>
-									<td><span th:text="${allocation.getTeamlead()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getTeamlead()?.getUser()?.getFirstName()+' '+allocation.getTeamlead()?.getUser()?.getLastName()}"></span></td>
 									<td><span th:text="${allocation.getSupervisor()?.getPin()}"></span></td>
-									<td><span th:text="${allocation.getSupervisor()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getSupervisor()?.getUser()?.getFirstName()+' '+allocation.getSupervisor()?.getUser()?.getLastName()}"></span></td>
 									<td><span th:text="${allocation.getManager()?.getPin()}"></span></td>
-									<td><span th:text="${allocation.getManager()?.getUser()?.getFirstName()}"></span></td>
+									<td><span th:text="${allocation.getManager()?.getUser()?.getFirstName()+' '+allocation.getManager()?.getUser()?.getLastName()}"></span></td>
 
 
 									<td>

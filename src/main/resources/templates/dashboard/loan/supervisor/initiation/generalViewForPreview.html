@@ -96,7 +96,7 @@
                         <label class="col-sm-3 custom-form-lebel" style="cursor: pointer"
                                th:text="${#lists.size(totalLocation)}"
                                th:title="${totalLocation}"></label>
-                        <label class="col-sm-3 custom-details-lebel">Posting Branch:  </label>
+                        <label class="col-sm-3 custom-details-lebel" th:text="${employee?.branch?.branchName}">Posting Branch:  </label>
                     </div>
 
                 </div>

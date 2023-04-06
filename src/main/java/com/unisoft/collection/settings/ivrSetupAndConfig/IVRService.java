@@ -28,6 +28,7 @@ public class IVRService {
         UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Date date = new Date();
         Gson gson = new Gson();
+        callId = callId.trim();
 
         IvrEntity ivrEntity = ivrRepository.findByDealerPin(principal.getUsername());
 

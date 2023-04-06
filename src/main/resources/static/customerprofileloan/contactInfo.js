@@ -23,7 +23,7 @@ async function contactSave() {
     //
     // }
 
-   await $.ajax({
+    await $.ajax({
         type:"post",
         url:"/customerLoanProfile/ContactInfo/save",
         beforeSend: function (xhr) {
@@ -45,7 +45,7 @@ async function contactSave() {
 
         }
     })
-return bool;
+    return bool;
 }
 
 $('#modal-contactInfo').on('show.bs.modal', function () {

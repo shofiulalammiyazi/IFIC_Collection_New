@@ -1,6 +1,7 @@
 package com.unisoft.customerloanprofile.hotnote;
 
 
+import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,9 @@ public class HotNoteController {
 
     @Autowired
     private HotNoteSerivce hotNoteSerivce;
+
+    @Autowired
+    private EmployeeService employeeService;
 
 
     @GetMapping("list")

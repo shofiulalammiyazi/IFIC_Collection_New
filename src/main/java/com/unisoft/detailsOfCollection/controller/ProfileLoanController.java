@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.unisoft.collection.datamigration.VechileRepository;
 import com.unisoft.collection.distribution.accountReschedule.AccountRescheduleRepository;
 import com.unisoft.collection.distribution.agencyAllocation.loan.LoanAgencyDistributionInfo;
+import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.LoanAccountSearchService;
 import com.unisoft.collection.distribution.loan.LoanDistributionService;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
@@ -130,7 +131,7 @@ public class ProfileLoanController {
 
     private final HttpSession session;
 
-
+    private final LoanAccountDistributionRepository loanAccountDistributionRepository;
 
     private final EmployeeService employeeService;
 
@@ -280,6 +281,7 @@ public class ProfileLoanController {
 
         // Hot note related attributes
         model.addAttribute("hotNotes", gson1.toJson(hotNoteSerivce.getHotNoteList(custId)));
+        model.addAttribute("pin", employeeInfoEntity.getPin());
         model.addAttribute("vipStatusList", vipStatusService.getActiveList());
 
         model.addAttribute("dairyNotes", gson1.toJson(dairyNotesLoanService.findByCustomerId(custId)));
@@ -339,6 +341,9 @@ public class ProfileLoanController {
 
             model.addAttribute("dealerAllocationHistory",
                     loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
+        LoanAccountDistributionInfo byAccountNoAndLatest = loanAccountDistributionRepository.findByAccountNoAndLatest(accountNo.substring(0, 13), "1");
+        model.addAttribute("currentDealer", byAccountNoAndLatest == null ? "" : byAccountNoAndLatest.getDealerPin());
+
 
         return "collection/details/main";
     }

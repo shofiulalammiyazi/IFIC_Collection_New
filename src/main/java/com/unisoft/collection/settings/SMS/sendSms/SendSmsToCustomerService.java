@@ -82,7 +82,7 @@ public class SendSmsToCustomerService {
         return smsLog;
     }
 
-    public String sendBulksms(List<GeneratedSMS> generatedSMSes) {
+    public String sendBulksms(List<GeneratedSMS> generatedSMSes,String smsType) {
 
         for(int i = 0; i<generatedSMSes.size(); i++){
             try {
@@ -112,10 +112,11 @@ public class SendSmsToCustomerService {
                 String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
                 SMSLogDto sms = mapper.readValue(jsonStr, SMSLogDto.class);
 
-                AccountInformationEntity accountInformationEntity = accountInformationRepository.getOne(generatedSMSes.get(i).getId());
-                accountInformationEntity.setIsSmsSent("Y");
-
-                accountInformationRepository.save(accountInformationEntity);
+                if(smsType.equalsIgnoreCase("emi")){
+                    AccountInformationEntity accountInformationEntity = accountInformationRepository.getOne(generatedSMSes.get(i).getId());
+                    accountInformationEntity.setIsSmsSent("Y");
+                    accountInformationRepository.save(accountInformationEntity);
+                }
 
                 SmsLog smsLog = this.setValue(sms,tnxId,generatedSMS.getAccountNo(),generatedSMS.getMassege(),generatedSMS.getDealReference());
 
