@@ -12,7 +12,7 @@
                 <div class="loan-init-details-sp-inner">
 
                     <div class="row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Employee PIN :</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Employee ID :</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${employee?.getPin()}"></label>
 
                         <!--<label class="col-sm-3 custom-form-lebel" id="customerName"></label>-->
@@ -21,14 +21,14 @@
                     </div>
                     <div class="row csi-view-form-group">
                        <!-- <label class="col-sm-3 custom-form-lebel" id="accountNo"></label>-->
-                        <label class="col-sm-3 custom-details-lebel-left">Team Leader PIN :</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Team Leader ID :</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getPin()}"></label>
                         <label class="col-sm-3 custom-details-lebel-left">Team Leader Name</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getTeamlead()?.getUser()?.getFirstName()}"></label>
                     </div>
 
                     <div class="row csi-view-form-group">
-                        <label class="col-sm-3 custom-details-lebel-left">Supervisor PIN</label>
+                        <label class="col-sm-3 custom-details-lebel-left">Supervisor ID</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getPin()}"></label>
                         <label class="col-sm-3 custom-details-lebel-left">Supervisor Name :</label>
                         <label class="col-sm-3 custom-form-lebel" th:text="${peopleAllocationLogic?.getSupervisor()?.getUser()?.getFirstName()}"></label>
