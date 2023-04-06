@@ -153,7 +153,7 @@ public class LoanAutoDistributionController {
             generatedSMS.add(generatedSMS1);
         }
 
-        String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+        String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"emi");
         map.put("state", status);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
@@ -194,7 +194,7 @@ public class LoanAutoDistributionController {
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo().trim(), mobileNo.trim(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
         }
-        String status = sendSmsToCustomerService.sendBulksms(generatedSMS);
+        String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"emi");
 
         return status;
     }

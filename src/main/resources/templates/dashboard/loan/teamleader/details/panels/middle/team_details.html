@@ -31,7 +31,7 @@
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                         <tr>
-                            <th>Supervisor PIN</th>
+                            <th>Supervisor ID</th>
                             <th>Supervisor Name</th>
                             <th>Performance Achievement</th>
                             <th>Last month rating</th>
@@ -42,7 +42,7 @@
                     <tbody class="tbl-row">
                         <tr>
                             <td th:text="${employee?.pin}"></td>
-                            <td th:text="${employee.user.firstName}"></td>
+                            <td th:text="${employee.user.firstName}+ ' ' + ${employee?.user?.lastName}"></td>
                             <td id="dealer-performance-achievement" th:text="${teamLeadAchivment}"></td>
                             <td id="dealer-last-Month-rating" th:text="${teamLeadLastMonthRating}"></td>
                             <td th:text="${userTotalAcc}"></td>
@@ -56,7 +56,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th class="text-center">Action</th>
-                            <th class="text-center">Dealer PIN</th>
+                            <th class="text-center">Dealer ID</th>
                             <th class="text-center">Dealer Name</th>
                             <th class="text-center">Performance Achievement</th>
                             <th class="text-center">Last month rating</th>
@@ -86,7 +86,7 @@
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                         <tr>
-                            <th>Supervisor PIN</th>
+                            <th>Supervisor ID</th>
                             <th>Supervisor Name</th>
                             <th>Performance Achievement</th>
                             <th>Last month rating</th>
@@ -118,7 +118,7 @@
                 <table id="idDataTable1" class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                         <tr>
-                            <th>Deader PIN</th>
+                            <th>Deader ID</th>
                             <th>Deader Name</th>
                             <th>Performance Achievement</th>
                             <th>Last month rating</th>

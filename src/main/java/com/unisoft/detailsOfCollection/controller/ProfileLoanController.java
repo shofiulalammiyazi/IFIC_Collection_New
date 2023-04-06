@@ -341,7 +341,8 @@ public class ProfileLoanController {
 
             model.addAttribute("dealerAllocationHistory",
                     loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
-        model.addAttribute("currentDealer", loanAccountDistributionRepository.findByAccountNoAndLatest(accountNo.substring(0,13), "1").getDealerPin());
+        LoanAccountDistributionInfo byAccountNoAndLatest = loanAccountDistributionRepository.findByAccountNoAndLatest(accountNo.substring(0, 13), "1");
+        model.addAttribute("currentDealer", byAccountNoAndLatest == null ? "" : byAccountNoAndLatest.getDealerPin());
 
 
         return "collection/details/main";

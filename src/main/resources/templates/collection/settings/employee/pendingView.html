@@ -31,7 +31,7 @@
                               th:with="isRejected = ${entity?.user?.modifiedBy == null && !#strings.isEmpty(entity?.user?.remark)}">
                             <div class="box-body">
                                 <div class="form-group form-group-code">
-                                    <label class="col-sm-4 control-label"> PIN :</label>
+                                    <label class="col-sm-4 control-label"> User Email :</label>
                                     <div class="col-sm-8 custom-form-control br">
                                         <level th:text="${entity.pin}"></level>&nbsp;
                                     </div>

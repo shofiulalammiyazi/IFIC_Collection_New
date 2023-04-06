@@ -71,7 +71,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "   OR TIN = ?11", nativeQuery = true)
     public List<AccountInformationEntity> advancedSearchDashboard(String accountNo, String customerName, String motherName, String fatherName, String mobileNo, String nid, String dob, String email, String linkAccount, String customerId, String tin);
 
-
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1", nativeQuery = true)
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
