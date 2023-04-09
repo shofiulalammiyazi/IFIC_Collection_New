@@ -27,12 +27,12 @@
         <div role="tabpanel" class="tab-pane top-buffer active" id="dass-amount">
             <div>
                 <center> </center>
-                <center><h4> Supervisor Details</h4></center>
+                <center><h4> Team Leader Details</h4></center>
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                         <tr>
-                            <th>Supervisor ID</th>
-                            <th>Supervisor Name</th>
+                            <th>Team Leader ID</th>
+                            <th>Team Leader Name</th>
                             <th>Performance Achievement</th>
                             <th>Last month rating</th>
                             <th>Total No of Accounts</th>
@@ -42,7 +42,7 @@
                     <tbody class="tbl-row">
                         <tr>
                             <td th:text="${employee?.pin}"></td>
-                            <td th:text="${employee.user.firstName}+ ' ' + ${employee?.user?.lastName}"></td>
+                            <td th:text="${employee?.fullName}"></td>
                             <td id="dealer-performance-achievement" th:text="${teamLeadAchivment}"></td>
                             <td id="dealer-last-Month-rating" th:text="${teamLeadLastMonthRating}"></td>
                             <td th:text="${userTotalAcc}"></td>
@@ -101,7 +101,7 @@
                     <tbody class="tbl-row">
                         <tr>
                             <td th:text="${employee?.pin}"></td>
-                            <td th:text="${employee?.user?.firstName} + ' ' + ${employee?.user?.lastName}"></td>
+                            <td th:text="${employee?.fullName}"></td>
                             <td th:text="${teamLeadAchivment}"></td>
                             <td th:text="${teamLeadLastMonthRating}"></td>
                             <td ></td>

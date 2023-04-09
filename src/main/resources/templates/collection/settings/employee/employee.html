@@ -33,7 +33,7 @@
                                th:href="@{/collection/employee/upload-excel}"><span class="glyphicon glyphicon-paperclip"> </span>
                                 Upload Employee </a>-->
                            <!-- <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">Active Employee List</button>-->
-                            <table style="overflow-x: hidden; display: block;" th:if="${empList!=null}" id="employee"
+                            <table style="overflow-x: hidden;" th:if="${empList!=null}" id="employee"
                                    name="datatable-responsive"
                                    class="table table-condensed table-striped table-bordered">
                                 <thead>
@@ -58,7 +58,7 @@
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${employee?.pin}"></span></td>
                                     <td><span
-                                            th:text="${employee?.user?.firstName + ' ' + employee?.user?.lastName}"></span>
+                                            th:text="${employee?.fullName}"></span>
                                     </td>
                                     <td><p th:each="role : ${employee?.user?.roles}" th:text="${role.name}"></p></td>
                                     <td><span th:text="${employee?.employeeStatus?.name}"></span></td>

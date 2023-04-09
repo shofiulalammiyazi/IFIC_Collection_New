@@ -17,7 +17,7 @@
     <div class="multi-line-broadcom-div">
         <ul id="info-tabs" class="nav nav-tabs">
             <li id="tab-amount" class="active">
-                <a data-toggle="tab" href="#dass-amount" title="Personal Information"> Sr. Manager & Manager & Supervisor & Dealer List</a>
+                <a data-toggle="tab" href="#dass-amount" title="Personal Information">Manager & Supervisor & Team Leader & Dealer List</a>
             </li>
             <li id="tab-account">
                 <a data-toggle="tab" href="#dass-account" title="Family Information">Team Performance</a>
@@ -28,14 +28,14 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane top-buffer active" id="dass-amount">
             <div>
-                <center><h5>Sr. Manager & Manager & Supervisor & Dealer List</h5></center>
+                <center><h5>Manager & Supervisor & Team Leader & Dealer List</h5></center>
 
                 <h4>Manager Details</h4>
                 <table  class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                     <tr>
-                        <th>Sr. Manager ID</th>
-                        <th>Sr. Manager Name</th>
+                        <th>Manager ID</th>
+                        <th>Manager Name</th>
                         <th>Performance Achievement</th>
                         <th>Last month rating</th>
                         <th>Total No of Accounts</th>
@@ -46,7 +46,7 @@
                     <tbody class="tbl-row">
                     <tr>
                         <td th:text="${employee?.pin}"></td>
-                        <td th:text="${employee?.user?.firstName} + ' ' + ${employee?.user?.lastName}"></td>
+                        <td th:text="${employee?.fullName}"></td>
                         <td th:text="${srMangerPerforMance}"></td>
                         <td th:text="${srMangerLastMonthRating}"></td>
                         <td th:text="${userTotalAcc}"></td>
@@ -59,8 +59,8 @@
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                     <tr>
-                        <th>Manager ID</th>
-                        <th>Manager Name</th>
+                        <th>Supervisor ID</th>
+                        <th>Supervisor Name</th>
                         <th>Performance Achievement</th>
                         <th>Last month rating</th>
                         <th>Total No of Accounts</th>
@@ -80,12 +80,12 @@
                     </tbody>
                 </table>
 
-                <h4> TeamLeader Details</h4>
+                <h4> Team Leader Details</h4>
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                     <tr>
-                        <th>Supervisor ID</th>
-                        <th>Supervisor Name</th>
+                        <th>Team Leader ID</th>
+                        <th>Team Leader Name</th>
                         <th>Performance Achievement</th>
                         <th>Last month rating</th>
                         <th>Total No of Accounts</th>
@@ -151,7 +151,7 @@
                     <tbody class="tbl-row">
                     <tr>
                         <td th:text="${employee?.pin}"></td>
-                        <td th:text="${employee?.user?.firstName} + ' ' + ${employee?.user?.lastName}"></td>
+                        <td th:text="${employee?.pin}"></td>
                         <td th:text="${srMangerPerforMance}"></td>
                         <td th:text="${srMangerLastMonthRating}"></td>
                         <td></td>
