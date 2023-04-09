@@ -28,12 +28,12 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane top-buffer active" id="dass-amount">
             <div>
-                <center><h4>Manager Details</h4></center>
+                <center><h4>Supervisor Details</h4></center>
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                     <tr>
-                        <th class="text-center">Manager ID</th>
-                        <th class="text-center">Manager Name</th>
+                        <th class="text-center">Supervisor ID</th>
+                        <th class="text-center">Supervisor Name</th>
                         <th class="text-center">Performance Achievement</th>
                         <th class="text-center">Last month rating</th>
                         <th class="text-center">Total No of Accounts</th>
@@ -44,7 +44,7 @@
                     <tbody class="tbl-row">
                     <tr>
                         <td th:text="${employee.pin}"></td>
-                        <td th:text="${employee?.user.firstName}+' '+${employee?.user.lastName}"></td>
+                        <td th:text="${employee?.fullName}"></td>
                         <td th:text="${superVisorAchivment}"></td>
                         <td th:text="${superVisorLastMonthRating}"></td>
                         <td th:text="${userTotalAcc}"></td>
@@ -54,12 +54,12 @@
                     </tbody>
                 </table>
 
-                <center><h4> Supervisor Details</h4></center>
+                <center><h4> Team Leader Details</h4></center>
                 <table class="table table-condensed table-bordered custom_dt">
                     <thead class="thead-light">
                     <tr>
-                        <th class="text-center">Supervisor ID</th>
-                        <th class="text-center">Supervisor Name</th>
+                        <th class="text-center">Team Leader ID</th>
+                        <th class="text-center">Team Leader Name</th>
                         <th class="text-center">Performance Achievement</th>
                         <th class="text-center">Last month rating</th>
                         <th class="text-center">Total No of Accounts</th>
@@ -132,7 +132,7 @@
                     <tbody class="tbl-row">
                     <tr>
                         <td th:text="${employee.pin}"></td>
-                        <td th:text="${employee.user.firstName}+ ' ' + ${employee?.user?.lastName}"></td>
+                        <td th:text="${employee?.fullName}"></td>
                         <td th:text="${superVisorAchivment}"></td>
                         <td th:text="${superVisorLastMonthRating}"></td>
                         <td></td>

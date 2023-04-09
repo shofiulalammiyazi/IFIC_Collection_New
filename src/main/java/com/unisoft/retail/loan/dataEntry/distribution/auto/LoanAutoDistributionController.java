@@ -10,6 +10,7 @@ import com.unisoft.collection.settings.SMS.template.TemplateGenerateRepository;
 import com.unisoft.collection.settings.agency.AgencyEntity;
 import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
+import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
 import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntity;
 import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntityDto;
@@ -19,6 +20,7 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
+import com.unisoft.user.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,7 +109,10 @@ public class LoanAutoDistributionController {
     @GetMapping("delinquint-ac-list")
     public String getAllDelinquentAccList(Model model) {
 
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        EmployeeInfoEntity employeeInfoEntity = employeeService.getByPin(userPrincipal.getUsername());
         List<SMSEntity> smsEntityList = smsService.findAll();
+        model.addAttribute("roleName",employeeInfoEntity.getUser().getRoles().get(0).getName());
         model.addAttribute("smsEntityList", smsEntityList);
 
         return "retail/loan/dataEntry/distribution/auto/delinquentaccountlist";
