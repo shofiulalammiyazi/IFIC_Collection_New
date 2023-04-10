@@ -115,7 +115,7 @@ public class ProfileLoanApiController {
         accountEscalationNoteService.save(accountEscalationNote);
 
         //AccountInformationEntity accountInformationEntity1 = new AccountInformationEntity();
-        accountInformationEntity.setISEscalated("Y");
+        accountInformationEntity.setIsEscalated("Y");
         accountInformationRepository.save(accountInformationEntity);
 
         LoanAccountDistributionInfo loanAccountDistributionInfo = loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountInformationEntity.getLoanACNo(),"1");

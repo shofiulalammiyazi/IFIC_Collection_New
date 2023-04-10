@@ -11,7 +11,6 @@ public class AccountInformationEntity extends BaseInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
 
     private String loanACNo;
@@ -137,14 +136,13 @@ public class AccountInformationEntity extends BaseInfo {
     private String dealBalanceAtStartDate;
     private String calculatedMaturityDate;
     private String calculatedRepaymentDate;
-    //private String calculatedRepaymentAmount;
     private String firstRepaymentAmount;
     private String lastRepaymentAmount;
     private String calculatedNoOfRepayment; //Total No. of Installment :
-    //private String firstEmiDate;
     private String frequencyCode;
     private String jointStatus;
 
-    private String ISEscalated;
+    private String isEscalated;
+    private String isClosed;
 
 }

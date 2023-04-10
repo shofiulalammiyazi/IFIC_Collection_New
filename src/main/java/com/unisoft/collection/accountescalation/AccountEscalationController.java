@@ -154,7 +154,7 @@ public class AccountEscalationController {
 
         AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
 
-        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsEscalated("N");
         accountInformationEntity.setIsDistributed("N");
         accountInformationEntity.setIsSmsSent("N");
 
@@ -201,7 +201,7 @@ public class AccountEscalationController {
 
         AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
 
-        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsEscalated("N");
         accountInformationEntity.setIsDistributed("N");
         accountInformationEntity.setIsSmsSent("N");
 
@@ -276,7 +276,7 @@ public class AccountEscalationController {
 
         AccountInformationEntity accountInformationEntity = accountInformationService.getAccountInformation(accountEscalation.getAccountNumber());
 
-        accountInformationEntity.setISEscalated("N");
+        accountInformationEntity.setIsEscalated("N");
         accountInformationEntity.setIsDistributed("N");
         accountInformationEntity.setIsSmsSent("N");
 

@@ -41,16 +41,6 @@ public class AccountInformationDao {
 
                 AccountInformationDto accountInformationDto = new AccountInformationDto();
 
-//                double noOfInstallmentDue = 0.0;
-//                double odAmt = resultSet.getString("OVERDUE") == null
-//                        ?0.0:Double.parseDouble(resultSet.getString("OVERDUE"));
-//                double emiAmt = resultSet.getString("EMIAMNT") == null
-//                        ?0.0:Double.parseDouble(resultSet.getString("EMIAMNT"));
-//
-//                if(emiAmt != 0.0 && odAmt != 0.0)
-//                    noOfInstallmentDue = odAmt/emiAmt;
-
-
                 accountInformationDto.setLoanACNo(resultSet.getString("NEEAN"));
                 accountInformationDto.setLastPaymentDate(resultSet.getString("LPAYDATE")); //updated at 16-01-2023
                 //accountInformationDto.setLastPaymentDate(resultSet.getString("OMDTE01"));

@@ -71,68 +71,69 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "   OR TIN = ?11", nativeQuery = true)
     public List<AccountInformationEntity> advancedSearchDashboard(String accountNo, String customerName, String motherName, String fatherName, String mobileNo, String nid, String dob, String email, String linkAccount, String customerId, String tin);
 
-    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1", nativeQuery = true)
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' " +
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' " +
             "AND TO_DATE(EMI_DATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNoAndCurrentDatePlusThree(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
             "TO_DATE(NEXTEMIDATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
             "<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDatePlusThree();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
             "= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntity(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntity(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZero(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     List<AccountInformationEntity> findAllAccIsSmsEntity();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     List<AccountInformationEntity> findAllByOverdueGreaterThanZero();
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(Pageable pageable);
 
 
     @Query(value = "SELECT AIE.* " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE AIE.IS_SMS_SENT = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
@@ -161,6 +162,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.EMI_AMOUNT, AIE.NEXTEMIDATE, AIE.NO_OF_INSTALLMENT_DUE, AIE.LOANCLSTATUS " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE AIE.IS_SMS_SENT = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND AIE.NEXTEMIDATE = (SELECT to_char((SYSDATE+3),'YYYY-MM-DD') FROM dual) " +
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
@@ -190,6 +192,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
             "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -226,6 +229,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.EMI_AMOUNT IS NOT NULL " +
             "  AND AIE.MOBILE IS NOT NULL " +
             "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -257,6 +261,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "  AND AIE.LOANACNO LIKE %?1% " +
             "  AND AIE.MOBILE IS NOT NULL " +
             "  AND LTRIM(RTRIM(AIE.MOBILE)) != ' ' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -280,6 +285,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -320,6 +326,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.IS_SMS_SENT " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -361,6 +368,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
             " AND AIE.ISESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -390,6 +398,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
             " AND AIE.ISESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
             "            FROM SMS_AND_AUTO_DISTRIBUTION_RULES_ENTITY SADRE " +
@@ -430,6 +439,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
             " AND AIE.ISESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
+            " AND AIE.IS_CLOSED = 'N' " +
             "  AND AIE.LOANACNO LIKE %?1% " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
             "        IN (SELECT DISTINCT LTRIM(RTRIM(UPPER(LSE.NAME))) " +
@@ -455,5 +465,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList(String accNo);
 
+
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
+            "WHERE MODIFIED_DATE != SYSDATE", nativeQuery = true)
+    List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate();
 
 }

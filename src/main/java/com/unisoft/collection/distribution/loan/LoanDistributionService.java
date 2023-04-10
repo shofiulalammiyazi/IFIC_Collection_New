@@ -191,7 +191,7 @@ public class LoanDistributionService {
 
             AccountInformationEntity accountInformationEntity = accountInformationService.getAllAccountInformation(acc[0],acc[1],acc[2],acc[3]);
 
-            if (accountInformationEntity.getISEscalated().equalsIgnoreCase("N")){
+            if (accountInformationEntity.getIsEscalated().equalsIgnoreCase("N")){
                 errors.put(acc[0], "This Account is not Escalated!");
                 continue;
             }
@@ -220,7 +220,7 @@ public class LoanDistributionService {
             LoanAccountDistributionInfo loanAccountDistributionInfo=  loanAccountDistributionService.findLoanAccountDistributionInfoByAccountNo(accountNumber,"1");
             if (loanAccountDistributionInfo == null && accountInformationEntity != null) {
                 accountInformationEntity.setIsDistributed("Y");
-                accountInformationEntity.setISEscalated("N");
+                accountInformationEntity.setIsEscalated("N");
                 accountInformationEntity.setModifiedBy(principal.getUsername());
                 accountInformationEntity.setModifiedDate(new Date());
 

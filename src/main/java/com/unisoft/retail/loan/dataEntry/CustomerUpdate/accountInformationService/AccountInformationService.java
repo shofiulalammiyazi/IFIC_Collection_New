@@ -303,7 +303,7 @@ public class AccountInformationService {
                     accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
                     System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
                 }
-                accountInformationEntity.setISEscalated("N");
+                accountInformationEntity.setIsEscalated("N");
                 if(!expiryDate.equals(""))
                     accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-MM-dd")));
                 if(!firstInstallmentDueDate.equals(""))
@@ -312,6 +312,7 @@ public class AccountInformationService {
                 if(smsLogRepository.getSmslogofLastThirtyDaysByAccNoAndDealReference(account,dealReference).size()<1)
                     accountInformationEntity.setIsSmsSent("N");
 
+                accountInformationEntity.setIsClosed("N");
                 accountInformationEntities.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());
@@ -359,7 +360,16 @@ public class AccountInformationService {
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
+        updateClosedAccount();
         return "200";
+    }
+
+    public void updateClosedAccount(){
+        accountInformationRepository.findByModifiedDateBeforeCurrentDate().stream()
+                .forEach(accountInformationEntity -> {
+                    accountInformationEntity.setIsClosed("Y");
+                    accountInformationRepository.save(accountInformationEntity);
+                });
     }
 
     public AccountInformationEntity getAccountInformation(String accountNo) {
