@@ -94,7 +94,7 @@ public class LoanPtpController {
             //GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01950886895");
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),acc.getMobile(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
-            String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
+           // String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
         }
 
         return true;

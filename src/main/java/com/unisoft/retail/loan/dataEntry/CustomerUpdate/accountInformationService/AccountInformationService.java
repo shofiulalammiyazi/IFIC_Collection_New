@@ -54,7 +54,7 @@ public class AccountInformationService {
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
 
-    @Scheduled(cron = "0 30 9 * * *")
+    //@Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
 
         List<AccountInformationDto> dataList = accountInformationDao.getData();

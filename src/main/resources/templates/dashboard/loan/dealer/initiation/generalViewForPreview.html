@@ -61,7 +61,7 @@
 
                                 <label class="col-sm-3">Employee Name :</label>
                                 <label class="col-sm-3 custom-form-lebel"
-                                       th:text="${#strings.concatReplaceNulls('', employee?.user.firstName, ' ', employee?.user.lastName)}">
+                                       th:text="${#strings.concatReplaceNulls('', employee?.fullName)}">
 
                                 </label>
 
