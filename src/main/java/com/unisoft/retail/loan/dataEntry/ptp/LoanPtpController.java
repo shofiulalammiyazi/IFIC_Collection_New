@@ -75,11 +75,13 @@ public class LoanPtpController {
 
 
 
-        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against IFIC Aamar Bari Loan . " +
-                "Please, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
+        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against IFIC Aamar Bari loan. " +
+                "Pls, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
                 +" as per your commitment to keep the loan regular.";
 
-        //Your unpaid installment is BDT990890.0 against IFIC Aamar Bari Loan. Please, repay the amount within ../../2023 as per your commitment to keep the loan regular.
+        //Your unpaid installment is BDT999,999.00 against IFIC Aamar Bari loan. Pls, repay the amount within 18/02/23 as per your commitment to keep the loan regular. (154)
+
+
 
         AccountInformationEntity acc = accountInformationRepository.getByLoanAccountNo(loanPtp.getAccNo());
 
@@ -94,7 +96,7 @@ public class LoanPtpController {
             //GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01950886895");
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),acc.getMobile(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
-           // String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
+            // String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
         }
 
         return true;

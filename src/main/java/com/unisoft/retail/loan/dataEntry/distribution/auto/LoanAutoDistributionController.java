@@ -184,9 +184,12 @@ public class LoanAutoDistributionController {
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleSmsList();
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for (AccountInformationEntity acc : accountInformationEntities) {
-            String sms = "Your IFIC Aamar Bari Loan EMI due date is {{F.nextEmiDate}}. " +
-                    "Pls, deposit BDT{{F.installmentAmount}} within due date  to keep the loan regular. " +
-                    "Pls, ignore if it is already paid.";
+            String sms = "Your IFIC Aamar Bari loan installment due date is {{F.nextEmiDate}}. " +
+                    "If it is unpaid, pls, deposit BDT{{F.installmentAmount}} within due date to keep the loan regular. " ;
+
+
+            //Your IFIC Aamar Bari loan installment due date is 10/02/23. If it is unpaid, pls, deposit BDT999,999.00 within due date to keep the loan regular.  (145)
+
             sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
             if(acc.getEmiAmount() != null)
                 sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());

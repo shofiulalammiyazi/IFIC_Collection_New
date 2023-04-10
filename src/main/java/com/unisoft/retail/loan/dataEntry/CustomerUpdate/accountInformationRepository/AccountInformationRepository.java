@@ -75,58 +75,58 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' " +
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND IS_CLOSED = 'N' " +
             "AND TO_DATE(EMI_DATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNoAndCurrentDatePlusThree(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND IS_CLOSED = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNo(String accountNo, Pageable pageable);
 
     //TO DO: need to change 2022-03-11 to SYSDATE+3
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND IS_CLOSED = 'N' AND NEXTEMIDATE IS NOT NULL AND MOBILE IS NOT NULL AND " +
             "TO_DATE(NEXTEMIDATE,'yyyy-MM-dd')<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccByCurrentDatePlusThree(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
             "<= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDatePlusThree();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND IS_CLOSED = 'N' AND TO_DATE(NEXTEMIDATE,'yyyy-MM-dd') " +
             "= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
     List<AccountInformationEntity> findAllByEmiDateOnlyPlusThree();
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'N' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAcc(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND IS_CLOSED = 'N'", nativeQuery = true)
     public Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntity(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntity(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZero(Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND TO_NUMBER(OVERDUE)>0 AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_SMS_SENT = 'Y' AND IS_DISTRIBUTED = 'N' AND IS_CLOSED = 'N'", nativeQuery = true)
     List<AccountInformationEntity> findAllAccIsSmsEntity();
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(Pageable pageable);
 
-    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * from ACCOUNT_INFORMATION_ENTITY WHERE TO_NUMBER(OVERDUE)>0 AND IS_CLOSED = 'N'", nativeQuery = true)
     List<AccountInformationEntity> findAllByOverdueGreaterThanZero();
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND TO_NUMBER(OVERDUE)>0 AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y' AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(Pageable pageable);
 
 
