@@ -167,6 +167,7 @@ public class LoanAutoDistributionController {
     }
 
     //@Scheduled(cron = "0 51 11 * * *")
+    @Scheduled(cron = "0 0 17 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
 //        String sms1 = "";

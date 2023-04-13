@@ -78,7 +78,7 @@ public class ContactInfoController {
                     " Pls, adjust your unpaid installment BDT {{F.installmentAmount}} against " +
                     "IFIC Aamar Bari Loan by " + getNextOrPreviousDate(new Date(), 3) + " to keep the loan regular.";
 
-            //  We couldn’t reach you over phone. Pls, adjust your unpaid installment BDT999,999.00 against IFIC Aamar Bari loan by 22/07/23 to keep the loan regular.  (152)
+          //  We couldn’t reach you over phone. Pls, adjust your unpaid installment BDT999,999.00 against IFIC Aamar Bari loan by 22/07/23 to keep the loan regular.  (152)
 
 
 
@@ -97,7 +97,7 @@ public class ContactInfoController {
                 GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895",acc.getDealReference());
                 generatedSMS.add(generatedSMS1);
                 //TODO uncomment the line
-                //String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");
+               //String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");
             }
         }
         contactInfoService.saveContactInfo(contactInfo);
@@ -126,7 +126,7 @@ public class ContactInfoController {
             contactInfoDtoList =  contactInfoService.findCurrentMonthContactInfoByTeamleadPin(user.getUsername());
         }
 
-        return contactInfoDtoList;
+       return contactInfoDtoList;
 
     }
 

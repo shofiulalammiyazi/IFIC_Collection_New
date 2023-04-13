@@ -52,4 +52,10 @@ public class AccountInformationController {
                                                    @RequestParam(value = "clsFlag")String clsFlag,@RequestParam(value = "active")String active){
         return accountInformationService.advancedSearch(accountNo, cif, customerName, motherName, mobileNo, nid, dob, email, passportNo, organization, linkAccount, customerId, autoDebit, loanId, clsFlag, active);
     }
+//
+//    @GetMapping("/close-acc")
+//    public void closeacc(){
+//
+//        accountInformationService.updateClosedAccount();
+//    }
 }
