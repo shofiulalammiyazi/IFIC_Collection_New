@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title>Scheduler-List</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title">Scheduler List</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <table id="example" name="datatable-responsive"
+                                   class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Scheduler Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="list : ${list}">
+                                    <td><span  th:text="${#dates.format(list.executionDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
+                                    <td><span th:text="${list.schedulerName}"></span></td>
+                                    <td th:text="${list.Status}"></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

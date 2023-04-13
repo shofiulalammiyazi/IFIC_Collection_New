@@ -6,6 +6,8 @@ import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
+import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatus;
+import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatusService;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class LoanPtpController {
     @Autowired
     private SendSmsToCustomerService sendSmsToCustomerService;
 
+    @Autowired
+    private SchedulerMonitoringStatusService schedulerMonitoringStatusService;
+
 
     private static Date getNextOrPreviousDate(Date date, int dayIndex) {
         Calendar calendar = Calendar.getInstance();
@@ -68,6 +73,8 @@ public class LoanPtpController {
 
         service.save(loanPtp);
 
+        //SchedulerMonitoringStatus schedulerMonitoringStatus = new SchedulerMonitoringStatus();
+
         //for contact success based on consideration as attempt = Call Received
 //        sms = "Your unpaid installment is BDT"+loanPtp.getLoan_amount()+" against {{F.productName}}. " +
 //              "Pls, repay the amount within " +new SimpleDateFormat("dd-MMM-yyyy").format(loanPtp.getLoan_ptp_date())
@@ -97,6 +104,11 @@ public class LoanPtpController {
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),acc.getMobile(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
             // String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
+
+//            schedulerMonitoringStatus.setExecutionDate(new Date());
+//            schedulerMonitoringStatus.setSchedulerName("ptp");
+//            schedulerMonitoringStatus.setStatus("Success");
+//            schedulerMonitoringStatusService.saveCreatedData(schedulerMonitoringStatus);
         }
 
         return true;
