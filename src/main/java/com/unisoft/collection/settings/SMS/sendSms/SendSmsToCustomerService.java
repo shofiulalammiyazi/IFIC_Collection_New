@@ -123,7 +123,8 @@ public class SendSmsToCustomerService {
                 smsLogRepository.save(smsLog);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                return "500";
+                continue;
+                //return "500";
             }
 
         }
