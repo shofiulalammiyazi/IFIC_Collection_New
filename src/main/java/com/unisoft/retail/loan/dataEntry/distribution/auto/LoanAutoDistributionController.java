@@ -199,9 +199,11 @@ public class LoanAutoDistributionController {
             sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
             sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
             //TODO change phone number here use acc.getMobile()
-            String mobileNo = "";
-            mobileNo = acc.getMobile().replace("+88","");
-            mobileNo = acc.getMobile().replace("88","");
+            String mobileNo = acc.getMobile();
+            if(acc.getMobile().substring(0,3).equalsIgnoreCase("+88"))
+                mobileNo = acc.getMobile().replace("+88","");
+            if(acc.getMobile().substring(0,2).equalsIgnoreCase("88"))
+                mobileNo = acc.getMobile().replace("88","");
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo().trim(), mobileNo.trim(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
         }
