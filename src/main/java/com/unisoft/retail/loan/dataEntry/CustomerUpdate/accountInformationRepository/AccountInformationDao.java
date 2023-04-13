@@ -1,10 +1,15 @@
 package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository;
 
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,6 +25,14 @@ public class AccountInformationDao {
     @Autowired
     @Qualifier("clientDbServerIfic")
     private DataSource clientDbServerIfic;
+
+    @Autowired
+    private EntityManager entityManager;
+
+    private Session getSession() {
+        return entityManager.unwrap(Session.class);
+    }
+
 
     public  List<AccountInformationDto> getData(){
 
@@ -164,6 +177,18 @@ public class AccountInformationDao {
     }
 
 
-
+    public void updateCloseStatus() {
+        Session session = entityManager.unwrap(Session.class);
+        try {
+            String sql = "UPDATE ACCOUNT_INFORMATION_ENTITY AIE SET AIE.IS_CLOSED = 'Y'";
+            SQLQuery query = session.createSQLQuery(sql);
+            //session.flush();
+            //String branchId = query.uniqueResult().toString();
+           // return branchId;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //return null;
+        }
+    }
 
 }

@@ -2,8 +2,11 @@ package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation;
 
 import com.unisoft.base.BaseInfo;
 import lombok.Data;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -144,5 +147,10 @@ public class AccountInformationEntity extends BaseInfo {
 
     private String isEscalated;
     private String isClosed;
+//
+//    @LastModifiedDate
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+//    private Date updatedAtDate;
 
 }
