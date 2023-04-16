@@ -4,7 +4,6 @@ import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
-import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInfoSMSDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
@@ -56,19 +55,12 @@ public class AccountInformationService {
     private String excelServerPath;
 
     //@Scheduled(cron = "0 30 9 * * *")
-    @Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
 
         List<AccountInformationDto> dataList = accountInformationDao.getData();
         if(dataList.size()<1)
             return "400";
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
-        List<AccountInformationEntity> colseAccountList = new ArrayList<>();
-        List<String> accNo = new ArrayList<>();
-        List<AccountInformationEntity> accountInformationEntities1 = accountInformationRepository.findAll();
-        updateClosedAccount(accountInformationEntities1);
-        //accountInformationRepository.updateAccountStatusToClosed();
-       // accountInformationDao.updateCloseStatus();
 
         for (AccountInformationDto dto : dataList) {
             if ((dto.getLoanACNo() != null && dto.getLoanACNo().trim().length() == 13)
@@ -321,10 +313,7 @@ public class AccountInformationService {
                     accountInformationEntity.setIsSmsSent("N");
 
                 accountInformationEntity.setIsClosed("N");
-                //accountInformationEntity.setUpdatedAtDate(new Date());
-                accNo.add(dto.getLoanACNo().trim());
                 accountInformationEntities.add(accountInformationEntity);
-                //colseAccountList.add(accountInformationEntity);
 
                 System.out.println("test " + dto.getLoanACNo());
 
@@ -334,7 +323,8 @@ public class AccountInformationService {
                 if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
                     UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                     //LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
-                    // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDistributionInfo1);
+                    // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDSELECT count(*) FROM ACCOUNT_INFORMATION_ENTITY
+                    //    WHERE MODIFIED_DATE = SYSDATE OR MODIFIED_DATE IS NULListributionInfo1);
                     loanAccountDistributionInfo.setLatest("0");
                     loanAccountDistributionInfo.setIsPaid("Paid");
                     loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
@@ -371,39 +361,28 @@ public class AccountInformationService {
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
-        //accountInformationRepository.updateAccountStatusToClosed();
-        //if(accountInformationEntities1.size() == 0)
-            //updateClosedAccount(colseAccountList);
+        updateClosedAccount();
         return "200";
     }
 
-    public void updateClosedAccount(List<AccountInformationEntity>accNos){
-        List<AccountInformationEntity> closeAccNo = new ArrayList<>();
-        accNos.stream().forEach(s -> {
-            System.out.println("------------------- "+s.getIsClosed());
-            s.setIsClosed("Y");
-            s.setModifiedDate(new Date());
-            closeAccNo.add(s);
-            if(closeAccNo.size() == 1000){
-                accountInformationRepository.saveAll(closeAccNo);
-                closeAccNo.clear();
-            }
-        });
-        if(closeAccNo.size()>0)
-            accountInformationRepository.saveAll(closeAccNo);
-//        List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
-//        final List<AccountInformationEntity> byModifiedDateBeforeCurrentDate = accountInformationRepository.findByModifiedDateBeforeCurrentDate();
-//        accountInformationRepository.findByModifiedDateBeforeCurrentDate().stream()
-//                .forEach(accountInformationEntity -> {
-//                    accountInformationEntity.setIsClosed("Y");
-//                    accountInformationEntities.add(accountInformationEntity);
-//                    if(accountInformationEntities.size() == 500){
-//                        accountInformationRepository.saveAll(accountInformationEntities);
-//                        accountInformationEntities.clear();
-//                    }
-//                   // accountInformationRepository.save(accountInformationEntity);
-//                });
-//        accountInformationRepository.saveAll(accountInformationEntities);
+    public void updateClosedAccount(){
+        accountInformationRepository.findByModifiedDateBeforeCurrentDate().stream()
+                .forEach(accountInformationEntity -> {
+                    LoanAccountDistributionInfo loanAccountDistributionInfo =
+                            loanAccountDistributionRepository.findByAccountNoAndLatest(accountInformationEntity.getLoanACNo().trim(), "1");
+
+                    if (loanAccountDistributionInfo != null) {
+                        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        loanAccountDistributionInfo.setLatest("0");
+                        loanAccountDistributionInfo.setIsPaid("Paid");
+                        loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
+                        loanAccountDistributionInfo.setEndDate(new Date());
+
+                        loanAccountDistributionRepository.save(loanAccountDistributionInfo);
+                    }
+                    accountInformationEntity.setIsClosed("Y");
+                    accountInformationRepository.save(accountInformationEntity);
+                });
     }
 
     public AccountInformationEntity getAccountInformation(String accountNo) {
