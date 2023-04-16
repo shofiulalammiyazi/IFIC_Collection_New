@@ -1,13 +1,16 @@
 package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository;
 
+import com.unisoft.collection.dashboard.AdvanceSearchPayload;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
+import com.unisoft.loanApi.model.AdvanceSearchDataModel;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInfoSMSDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Tuple;
 import java.util.List;
@@ -120,10 +123,10 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     Page<AccountInformationEntity> findAllByOverdueGreaterThanZero(String accountNo, Pageable pageable);
 
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND ISESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_ESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllByLoanACNoByIsSmsEntityAndOverdueGreaterThanZeroAndEscalation(String accountNo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE ISESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_ESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(Pageable pageable);
 
 
@@ -363,7 +366,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.IS_SMS_SENT " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
-            " AND AIE.ISESCALATED = 'N' " +
+            " AND AIE.IS_ESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
             " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
@@ -393,7 +396,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT COUNT(AIE.LOANACNO) " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
-            " AND AIE.ISESCALATED = 'N' " +
+            " AND AIE.IS_ESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
             " AND AIE.IS_CLOSED = 'N' " +
             "  AND LTRIM(RTRIM(UPPER(AIE.LOANCLSTATUS))) " +
@@ -434,7 +437,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "       AIE.LOANCLSTATUS " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE TO_NUMBER(AIE.OVERDUE) > 0 " +
-            " AND AIE.ISESCALATED = 'N' " +
+            " AND AIE.IS_ESCALATED = 'N' " +
             " AND AIE.IS_DISTRIBUTED = 'N' " +
             " AND AIE.IS_CLOSED = 'N' " +
             "  AND AIE.LOANACNO LIKE %?1% " +
@@ -463,15 +466,8 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     List<Tuple> finAllEligibleDistributionList(String accNo);
 
 
-    @Query(value = "SELECT * " +
-            "FROM ACCOUNT_INFORMATION_ENTITY " +
-            "WHERE LOANACNO NOT IN(SELECT LOANACNO FROM ACCOUNT_INFORMATION_ENTITY WHERE MODIFIED_DATE = SYSDATE " +
-            " AND MODIFIED_DATE IS NULL)", nativeQuery = true)
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
+            "WHERE MODIFIED_DATE != SYSDATE", nativeQuery = true)
     List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate();
-
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE ACCOUNT_INFORMATION_ENTITY AIE SET AIE.IS_CLOSED = 'Y'", nativeQuery = true)
-    void updateAccountStatusToClosed();
 
 }

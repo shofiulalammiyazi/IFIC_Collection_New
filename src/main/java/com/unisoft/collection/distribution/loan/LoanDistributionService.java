@@ -20,6 +20,7 @@ import com.unisoft.loanApi.service.RetailLoanUcbApiService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
+import com.unisoft.user.User;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.user.UserRepository;
 import com.unisoft.utillity.DateUtils;
@@ -107,7 +108,9 @@ public class LoanDistributionService {
                         continue;
                     }
 
-                    if(!userRepository.findUserByUsername(dealerPin+"@ificbankbd.com").getRoles().get(0).getName().equalsIgnoreCase("dealer")){
+                    User userByUsername = userRepository.findUserByUsername(dealerPin + "@ificbankbd.com");
+
+                    if(!userByUsername.getRoles().get(0).getName().equalsIgnoreCase("dealer")){
                         errors.put(accountNumber, "Not a dealer");
                         continue;
                     }
@@ -127,7 +130,7 @@ public class LoanDistributionService {
 
                     LoanAccountDistributionInfo accountDistributionInfo = new LoanAccountDistributionInfo();
                     accountDistributionInfo.setDealerPin(dealerPin+"@ificbankbd.com");
-                    accountDistributionInfo.setDealerName(dealerName);
+                    accountDistributionInfo.setDealerName(userByUsername.getFirstName()+" "+userByUsername.getLastName());
                     accountDistributionInfo.setBranchMnemonic(branchMnemonic);
                     accountDistributionInfo.setProductCode(productCode);
                     accountDistributionInfo.setDealReference(dealReference);
