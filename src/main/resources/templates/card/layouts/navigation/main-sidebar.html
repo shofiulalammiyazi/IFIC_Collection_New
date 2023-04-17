@@ -61,16 +61,6 @@
                                     </a>
                                 </li>
 
-                                <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
-                                    <a class="tab"
-
-                                       th:href="@{/scheduler/monitoring/list}"><i class="	fa fa-edit"></i>
-                                        Scheduler Monitoring Status
-                                    </a>
-                                </li>
-
-
-
                                 <!--User Management-->
                                 <li class="treeview">
                                     <a href="#">
@@ -251,9 +241,6 @@
 
                                     </ul>
                                 </li>
-
-
-
 
                                 <!--Dunning Letter-->
                                 <li class="treeview">
@@ -720,6 +707,22 @@
                                                 Consideration As Attempt
                                             </a>
                                         </li>
+
+                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
+                                            <a class="tab"
+                                               th:href="@{/scheduler/monitoring/list}"></i>
+                                                Scheduler Monitoring Status
+                                            </a>
+                                        </li>
+
+                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
+                                            <a class="tab"
+                                               th:href="@{/datafetching/dashboard}"></i>
+                                                Data Fetching Dashboard
+                                            </a>
+                                        </li>
+
+
                                         <!--  <li>
                                               <a class="tab"
                                                  th:if="${session.urlList.contains('/collection/clStatus/list')}"
