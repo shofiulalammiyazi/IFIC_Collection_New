@@ -466,8 +466,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     List<Tuple> finAllEligibleDistributionList(String accNo);
 
 
+
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
-            "WHERE MODIFIED_DATE != SYSDATE", nativeQuery = true)
+            "    WHERE TO_CHAR(MODIFIED_DATE,'DD-MM-YYYY') != TO_CHAR(SYSDATE,'DD-MM-YYYY')", nativeQuery = true)
     List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate();
 
 }
