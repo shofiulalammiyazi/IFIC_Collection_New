@@ -74,6 +74,8 @@
 
                             </div>-->
 
+                            <div v-if="fetchloader" class="loader" id="fetchLoader"></div>
+
                             <div class="nav-tabs-custom">
 
                                 <div class="tab-content" style="overflow-y: auto; max-height: 45em">
@@ -234,6 +236,7 @@
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(360deg); }
                 }
+
             </style>
             </head>
             <style>
@@ -254,6 +257,7 @@
                         dataToBeInExcel: [],
                         selectedList: [],
                         letterType:"",
+                        fetchloader:false,
                     },
                     computed: {
                         firstPageButtonShow: function(){
@@ -270,6 +274,7 @@
                     },
                     methods: {
                         fetchData(){
+                            this.fetchloader = true;
                             $.ajax({
                                 url: "/account-information/get-data",
                                 type: 'GET',
@@ -278,11 +283,17 @@
                                     if(res == "200"){
                                         swal("Data fetched Successfully!");
                                         window.location.reload();
+                                        //document.getElementById("fetchLoader").remove();
+                                        allAccountInformationApp.fetchloader = false;
                                     }
                                     else {
+                                        allAccountInformationApp.fetchloader = false;
                                         swal("Data fetching Unsuccessfull!");
                                     }
-                                    //document.getElementById("fetchLoader").style.display = "none";
+
+
+                                  //  $(".dd-loader").remove();
+
                                 }
                             });
 
