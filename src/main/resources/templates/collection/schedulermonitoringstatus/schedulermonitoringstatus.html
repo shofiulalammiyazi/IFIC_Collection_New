@@ -24,9 +24,9 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Scheduler Name</th>
+                                    <th>API Data Count</th>
+                                    <th>System Data Count</th>
                                     <th>Status</th>
-                                    <th>Closed Account No</th>
-                                    <th>Total Account No</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -34,9 +34,9 @@
                                 <tr th:each="list : ${list}">
                                     <td><span  th:text="${#dates.format(list.executionDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
                                     <td><span th:text="${list.schedulerName}"></span></td>
+                                    <td></td>
+                                    <td></td>
                                     <td th:text="${list.Status}"></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                 </tr>
                                 </tbody>

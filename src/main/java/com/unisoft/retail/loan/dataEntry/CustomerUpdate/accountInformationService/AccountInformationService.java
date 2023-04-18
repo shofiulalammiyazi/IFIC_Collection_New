@@ -9,6 +9,8 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
+import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatus;
+import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatusRepository;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -51,6 +53,9 @@ public class AccountInformationService {
     @Autowired
     private SMSLogRepository smsLogRepository;
 
+    @Autowired
+    private SchedulerMonitoringStatusRepository schedulerMonitoringStatusRepository;
+
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
 
@@ -70,10 +75,22 @@ public class AccountInformationService {
 
     //@Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
-
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userPrincipal == null)
+            userPrincipal.setUsername("System");
+        SchedulerMonitoringStatus schedulerMonitoringStatus = new SchedulerMonitoringStatus();
+        schedulerMonitoringStatus.setExecutionDate(new Date());
         List<AccountInformationDto> dataList = accountInformationDao.getData();
-        if(dataList.size()<1)
+        schedulerMonitoringStatus.setDataInApi(String.valueOf(dataList.size()));
+        if(dataList.size()<1) {
+            schedulerMonitoringStatus.setStatus("Failed");
+            schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
             return "400";
+        }
+
+        schedulerMonitoringStatus.setCreatedBy(userPrincipal.getUsername());
+        schedulerMonitoringStatus.setCreatedDate(new Date());
+        schedulerMonitoringStatus.setSchedulerName("Account Information");
         //accountInformationDao.updateCloseStatus();
         updateAccountStatus();
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
@@ -338,28 +355,13 @@ public class AccountInformationService {
 
                 if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
                     UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                    //LoanAccountDistributionInfo loanAccountDistributionInfo1 = new LoanAccountDistributionInfo();
-                    // BeanUtils.copyProperties(loanAccountDistributionInfo, loanAccountDSELECT count(*) FROM ACCOUNT_INFORMATION_ENTITY
-                    //    WHERE MODIFIED_DATE = SYSDATE OR MODIFIED_DATE IS NULListributionInfo1);
+
                     loanAccountDistributionInfo.setLatest("0");
                     loanAccountDistributionInfo.setIsPaid("Paid");
                     loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
                     loanAccountDistributionInfo.setEndDate(new Date());
 
                     loanAccountDistributionRepository.save(loanAccountDistributionInfo);
-
-//                    loanAccountDistributionInfo1.setLatest("1");
-//                    loanAccountDistributionInfo1.setWriteOffAccount("0");
-//                    loanAccountDistributionInfo1.setSamAccount("0");
-//                    loanAccountDistributionInfo1.setCreatedDate(new Date());
-//                    loanAccountDistributionInfo1.setCreatedBy(user.getUsername());
-//                    loanAccountDistributionInfo1.setStatusDate(new Date());
-//                    loanAccountDistributionInfo1.setOutStanding(totalOutstanding);
-//                    loanAccountDistributionInfo1.setOpeningOverDue(Double.valueOf(dto.getOverdue()));
-//                    loanAccountDistributionInfo1.setDpdBucket(accountInformationEntity.getDpd());
-//                    loanAccountDistributionInfo1.setEmiAmount(Double.parseDouble(emiAmount));
-//                    loanAccountDistributionInfo1.setStartDate(new Date());
-//                    loanAccountDistributionRepository.save(loanAccountDistributionInfo1);
                 }
 
                 if (accountInformationEntities.size() == 1000) {
@@ -378,6 +380,10 @@ public class AccountInformationService {
             accountInformationEntities.clear();
         }
         updateClosedAccountDistribution();
+        schedulerMonitoringStatus.setDataInLocal(String.valueOf(accountInformationRepository.count()));
+        schedulerMonitoringStatus.setStatus("Success");
+
+        schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
         return "200";
     }
 
