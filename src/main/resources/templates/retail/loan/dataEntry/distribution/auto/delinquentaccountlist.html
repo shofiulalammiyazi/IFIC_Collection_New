@@ -70,9 +70,11 @@
                             <!--</div>-->
                         </div>
                         <div class="box-body">
-                            <!--<div  style="display:none" class="animate-bottom loader" id="fetchLoader">-->
+                          <!--  <div  style="display:none" class="animate-bottom loader" id="fetchLoader">
 
-                            <!--</div>-->
+                            </div>-->
+
+                            <div v-if="fetchloader" class="loader" id="fetchLoader"></div>
 
                             <div class="nav-tabs-custom">
 
@@ -234,6 +236,7 @@
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(360deg); }
                 }
+
             </style>
             </head>
             <style>
@@ -270,7 +273,7 @@
                     },
                     methods: {
                         fetchData(){
-                            //$("#fetchLoader").style.display = "block";
+                            this.fetchloader = true;
                             $.ajax({
                                 url: "/account-information/get-data",
                                 type: 'GET',
@@ -279,11 +282,17 @@
                                     if(res == "200"){
                                         swal("Data fetched Successfully!");
                                         window.location.reload();
+                                        //document.getElementById("fetchLoader").remove();
+                                        allAccountInformationApp.fetchloader = false;
                                     }
                                     else {
+                                        allAccountInformationApp.fetchloader = false;
                                         swal("Data fetching Unsuccessfull!");
                                     }
-                                    //$("#fetchLoader").style.display = "none";
+
+
+                                  //  $(".dd-loader").remove();
+
                                 }
                             });
 
