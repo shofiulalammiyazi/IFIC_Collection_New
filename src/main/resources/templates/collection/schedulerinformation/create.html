@@ -14,22 +14,19 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="box box-primary">
 
-                        <!--<div class="box-header with-border" style="text-align: center;">
-                            <h3 th:if="${loanKPITargetWeightAmount.id == null}" class="box-title">Create Target Weight By Amount-Loan</h3>
-                            <h3 th:if="${loanKPITargetWeightAmount.id != null}" class="box-title">Update Target Weight By Amount-Loan</h3>
-                        </div>-->
-
                         <div class="box-header with-border" style="text-align: center;">
-                            <h3  class="box-title">Scheduler Information Create</h3>
+                            <h3 th:if="${schedulerInformation.id == null}" class="box-title">Create Scheduler Information</h3>
+                            <h3 th:if="${schedulerInformation.id != null}" class="box-title">Update Scheduler Information</h3>
                         </div>
 
-                        <form class="form-horizontal validate" method="post">
+                        <form class="form-horizontal" method="post" th:action="@{/scheduler/information/save}" th:object="${schedulerInformation}">
+                            <input type="hidden" th:field="*{id}" th:value="${schedulerInformation.getId()}"/>
                             <div class="box-body">
 
                                 <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Scheduler Name</label>
+                                    <label  class="col-sm-4 control-label required" >Scheduler Name</label>
                                     <div class="col-sm-8">
-                                        <select type="text" name="schedulerName" class="form-control input-sm" required>
+                                        <select type="text" name="schedulerName"  class="form-control input-sm" required>
                                             <option value="">Scheduler Name</option>
                                             <option class="form-control">Account Information</option>
                                             <option class="form-control">SMS</option>
@@ -41,24 +38,19 @@
                                 <div class="form-group">
                                     <label  class="col-sm-4 control-label">Time</label>
                                     <div class="col-sm-8">
-
-                                        <input type="time" name="time"  class="form-control sumVal" />
+                                        <input type="time"  name="time"  th:field="*{time}" class="form-control sumVal" />
                                     </div>
                                 </div>
 
-
-
-
-
-                                <!--<div class="form-group">
+                                <div class="form-group">
                                     <label  class="col-sm-4 control-label">Status</label>
                                     <div class="col-sm-6">
                                         <fieldset id="group1">
-                                            <input  type="radio" name="enabled" id="enabled" th:checked="${loanKPITargetWeightAmount.enabled ==true}"  th:value="true"> Active</input>
-                                            <input type="radio"  name="enabled" id="enabled" th:checked="${loanKPITargetWeightAmount.enabled ==false}" th:value="false"> Inactive </input>
+                                            <input  type="radio" name="enabled" th:checked="${schedulerInformation.enabled ==true}"  th:value="true"> Active</input>
+                                            <input type="radio"  name="enabled" th:checked="${schedulerInformation.enabled ==false}" th:value="false"> Inactive </input>
                                         </fieldset>
                                     </div>
-                                </div>-->
+                                </div>
 
                             </div>
                             <!-- /.box-body -->
