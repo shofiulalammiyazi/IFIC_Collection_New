@@ -23,4 +23,8 @@ public class SchedulerMonitoringStatus extends CommonEntity {
     private Date executionDate;
 
     private String Status;
+
+    private String dataInLocal;
+
+    private String dataInApi;
 }
