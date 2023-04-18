@@ -36,6 +36,17 @@ public class SchedulerInformationController {
     public String save(SchedulerInformationEntity schedulerInformationEntity){
 
         schedulerInformationService.save(schedulerInformationEntity);
+
+        //SchedulerInformationEntity schedulerInformationEntity1 = schedulerInformationService.getBySchedulerName(schedulerInformationEntity.getSchedulerName());
+
+//        if(schedulerInformationEntity1 == null) {
+//            schedulerInformationService.save(schedulerInformationEntity);
+//        }
+//        else{
+//            schedulerInformationEntity1.setTime(schedulerInformationEntity.getTime());
+//            schedulerInformationService.save(schedulerInformationEntity1);
+//        }
+
         return "redirect:/scheduler/information/list";
     }
 
