@@ -61,13 +61,242 @@
                                     </a>
                                 </li>
 
-                                <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
-                                    <a class="tab"
-
-                                       th:href="@{/scheduler/monitoring/list}"><i class="	fa fa-edit"></i>
-                                        Scheduler Monitoring Status
+                                <!--System Management-->
+                                <li class="treeview">
+                                    <a href="#" th:if="${session.urlList.contains('System Management Panel')}">
+                                        <i class="fa fa-wrench"></i>
+                                        System Management
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
                                     </a>
+                                    <ul class="treeview-menu">
+                                        <!--<li>
+                                            <a th:if="${session.urlList.contains('/collection/department/list')}"
+                                               class="tab" th:href="@{/collection/department/list}">Department
+                                            </a>
+                                        </li>-->
+
+                                        <!--<li>-->
+                                        <!--<a-->
+                                        <!--class="tab" th:href="@{/collection/smstemplate/list}">SMS Template-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+
+                                        <!--<li>
+                                            <a th:if="${session.urlList.contains('/collection/designation/list')}"
+                                               class="tab" th:href="@{/collection/designation/list}">Collection Role
+                                            </a>
+                                        </li>-->
+                                        <!--
+                                                                                <li>
+                                                                                    <a th:if="${session.urlList.contains('/collection/district/list')}"
+                                                                                       class="tab" th:href="@{/collection/district/list}">District
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a th:if="${session.urlList.contains('/collection/division/list')}"
+                                                                                       class="tab" th:href="@{/collection/division/list}">Division
+                                                                                    </a>
+                                                                                </li>-->
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/branch/list')}" class="tab"
+                                               th:href="@{/branch/list}">Branch
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/collection/settings/unit/list')}"
+                                               class="tab" th:href="@{/collection/settings/unit/list}">Unit
+                                            </a>
+                                        </li>
+                                        <!--<li>
+                                            <a th:if="${session.urlList.contains('/collection/settings/vip-status/list')}"
+                                               class="tab" th:href="@{/collection/settings/vip-status/list}">VIP Status
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/collection/lateReason/list')}"
+                                               class="tab" th:href="@{/collection/lateReason/list}">Late Reason
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/collection/location/list')}"
+                                               class="tab" th:href="@{/collection/location/list}">Location
+                                            </a>
+                                        </li>--><!--
+                                        <li>
+                                            <a th:if="${session.urlList.contains('/collection/product_group/list')}"
+                                               class="tab" th:href="@{/collection/product_group/list}">Product Group
+                                            </a>
+                                        </li>-->
+                                        <!--  <li>
+                                              <a th:if="${session.urlList.contains('/collection/product_type/list')}"
+                                                 class="tab" th:href="@{/collection/product_type/list}">Product Type
+                                              </a>
+                                          </li>-->
+
+                                        <!-- <li>
+                                             <a th:if="${session.urlList.contains('/businessSegment/list')}"
+                                                class="tab" th:href="@{/businessSegment/list}">Business Segment
+                                             </a>
+                                         </li>-->
+                                        <!--   <li>
+                                               <a th:if="${session.urlList.contains('/collection/sector/list')}"
+                                                  class="tab" th:href="@{/collection/sector/list}">Sector
+                                               </a>
+                                           </li>-->
+                                        <!-- <li>
+                                             <a th:if="${session.urlList.contains('/collection/sector_group/list')}"
+                                                class="tab" th:href="@{/collection/sector_group/list}">Sector Group
+                                             </a>
+                                         </li>-->
+                                        <!-- <li>
+                                             <a th:if="${session.urlList.contains('/collection/zone/list')}" class="tab"
+                                                th:href="@{/collection/zone/list}">Zone
+                                             </a>
+                                         </li>-->
+                                        <!--    <li>
+                                                <a class="tab"
+                                                   th:if="${session.urlList.contains('/collection/settings/officeTimeSetup/create')}"
+                                                   th:href="@{/collection/settings/officeTimeSetup/create}">
+                                                    Office Time Setup
+                                                </a>
+                                            </li>-->
+                                        <li>
+                                            <a class="tab"
+                                               th:if="${session.urlList.contains('/collection/considerAttempt/list')}"
+                                               th:href="@{/collection/considerAttempt/list}">
+                                                Consideration As Attempt
+                                            </a>
+                                        </li>
+
+                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
+                                            <a class="tab"
+                                               th:href="@{/scheduler/monitoring/list}"></i>
+                                                Scheduler Monitoring Status
+                                            </a>
+                                        </li>
+
+                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
+                                            <a class="tab"
+                                               th:href="@{/scheduler/information/list}"></i>
+                                                Scheduler Time Setup
+                                            </a>
+                                        </li>
+
+                                     <!--   <li>  &lt;!&ndash;th:if="${session.urlList.contains('/audittrail/list')}"&ndash;&gt;
+                                            <a class="tab"
+                                               th:href="@{/datafetching/dashboard}"></i>
+                                                Data Fetching Dashboard
+                                            </a>
+                                        </li>-->
+
+
+                                        <!--  <li>
+                                              <a class="tab"
+                                                 th:if="${session.urlList.contains('/collection/clStatus/list')}"
+                                                 th:href="@{/collection/clStatus/list}">
+                                                  CL Status
+                                              </a>
+                                          </li>-->
+
+                                        <!--SAM-->
+
+
+
+                                        <!--<li >
+                                            <a class="tab"
+                                               th:if="${session.urlList.contains('/collection/loan/settings/reference-info/list')}"
+                                               th:href="@{/collection/loan/settings/reference-info/list}">
+                                                Reference Info
+                                            </a>
+                                        </li>-->
+                                        <!--  <li>
+                                              <a class="tab"
+                                                 th:if="${session.urlList.contains('/collection/loan/settings/guarantor-info/list')}"
+                                                 th:href="@{/collection/loan/settings/guarantor-info/list}">
+                                                  Guarantor  Info
+                                              </a>
+                                          </li>-->
+                                        <!--  <li>
+                                              <a class="tab"
+                                                 th:if="${session.urlList.contains('/collection/loan/settings/sector-code/list')}"
+                                                 th:href="@{/collection/loan/settings/sector-code/list}">
+                                                  Profession Segment
+                                              </a>
+                                          </li>-->
+                                        <!-- <li>
+                                             <a class="tab"
+                                                th:if="${session.urlList.contains('/collection/loan/settings/previous-account/list')}"
+                                                th:href="@{/collection/loan/settings/previous-account/list}">
+                                                 Previous Account History
+                                             </a>
+                                         </li>-->
+
+                                        <!--  <li>
+                                              <a  class="tab"
+                                                  th:if="${session.urlList.contains('/collection/setting/additionalInfoExcel/list')}"
+                                                  th:href="@{/collection/setting/additionalInfoExcel/list}">
+                                                  Additional Info
+                                              </a>
+                                          </li>-->
+
+                                        <!--  <li>
+                                              <a  class="tab"
+                                                  th:if="${session.urlList.contains('/collection/settings/noteDetailsExcel/list')}"
+                                                  th:href="@{/collection/settings/noteDetailsExcel/list}">
+                                                  Note Details
+                                              </a>
+                                          </li>-->
+
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/settings/reasonForDelinExcel/list')}"
+                                                th:href="@{/collection/settings/reasonForDelinExcel/list}">
+                                                Reason for Delinquency
+                                            </a>
+                                        </li>
+                                        <!-- <li>
+                                             <a  class="tab"
+                                                 th:if="${session.urlList.contains('/collection/deferred/list')}"
+                                                 th:href="@{/collection/deferred/list}">
+                                                 Deferred Account
+                                             </a>
+                                         </li>-->
+                                        <!--<li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
+                                                th:href="@{/collection/setup/interest/create}">
+                                                Save Back Amount
+                                            </a>
+                                        </li>-->
+
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/loanstatus/')}"
+                                                th:href="@{/collection/loanstatus/list}">
+                                                Loan Status
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/loantype/')}"
+                                                th:href="@{/collection/loantype/list}">
+                                                Loan Type
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a  class="tab"
+                                                th:if="${session.urlList.contains('/collection/settings/smsandautodistributionrules/list')}"
+                                                th:href="@{/collection/settings/smsandautodistributionrules/list}">
+                                                SMS And Auto Distribution Rules
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
+
 
 
 
@@ -609,241 +838,6 @@
                                     </ul>
                                 </li>
 
-                                <!--System Management-->
-                                <li class="treeview">
-                                    <a href="#" th:if="${session.urlList.contains('System Management Panel')}">
-                                        <i class="fa fa-wrench"></i>
-                                        System Management
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/department/list')}"
-                                               class="tab" th:href="@{/collection/department/list}">Department
-                                            </a>
-                                        </li>-->
-
-                                        <!--<li>-->
-                                        <!--<a-->
-                                        <!--class="tab" th:href="@{/collection/smstemplate/list}">SMS Template-->
-                                        <!--</a>-->
-                                        <!--</li>-->
-
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/designation/list')}"
-                                               class="tab" th:href="@{/collection/designation/list}">Collection Role
-                                            </a>
-                                        </li>-->
-                                        <!--
-                                                                                <li>
-                                                                                    <a th:if="${session.urlList.contains('/collection/district/list')}"
-                                                                                       class="tab" th:href="@{/collection/district/list}">District
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a th:if="${session.urlList.contains('/collection/division/list')}"
-                                                                                       class="tab" th:href="@{/collection/division/list}">Division
-                                                                                    </a>
-                                                                                </li>-->
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/branch/list')}" class="tab"
-                                               th:href="@{/branch/list}">Branch
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/settings/unit/list')}"
-                                               class="tab" th:href="@{/collection/settings/unit/list}">Unit
-                                            </a>
-                                        </li>
-                                        <!--<li>
-                                            <a th:if="${session.urlList.contains('/collection/settings/vip-status/list')}"
-                                               class="tab" th:href="@{/collection/settings/vip-status/list}">VIP Status
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/lateReason/list')}"
-                                               class="tab" th:href="@{/collection/lateReason/list}">Late Reason
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/location/list')}"
-                                               class="tab" th:href="@{/collection/location/list}">Location
-                                            </a>
-                                        </li>--><!--
-                                        <li>
-                                            <a th:if="${session.urlList.contains('/collection/product_group/list')}"
-                                               class="tab" th:href="@{/collection/product_group/list}">Product Group
-                                            </a>
-                                        </li>-->
-                                        <!--  <li>
-                                              <a th:if="${session.urlList.contains('/collection/product_type/list')}"
-                                                 class="tab" th:href="@{/collection/product_type/list}">Product Type
-                                              </a>
-                                          </li>-->
-
-                                        <!-- <li>
-                                             <a th:if="${session.urlList.contains('/businessSegment/list')}"
-                                                class="tab" th:href="@{/businessSegment/list}">Business Segment
-                                             </a>
-                                         </li>-->
-                                        <!--   <li>
-                                               <a th:if="${session.urlList.contains('/collection/sector/list')}"
-                                                  class="tab" th:href="@{/collection/sector/list}">Sector
-                                               </a>
-                                           </li>-->
-                                        <!-- <li>
-                                             <a th:if="${session.urlList.contains('/collection/sector_group/list')}"
-                                                class="tab" th:href="@{/collection/sector_group/list}">Sector Group
-                                             </a>
-                                         </li>-->
-                                        <!-- <li>
-                                             <a th:if="${session.urlList.contains('/collection/zone/list')}" class="tab"
-                                                th:href="@{/collection/zone/list}">Zone
-                                             </a>
-                                         </li>-->
-                                        <!--    <li>
-                                                <a class="tab"
-                                                   th:if="${session.urlList.contains('/collection/settings/officeTimeSetup/create')}"
-                                                   th:href="@{/collection/settings/officeTimeSetup/create}">
-                                                    Office Time Setup
-                                                </a>
-                                            </li>-->
-                                        <li>
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/considerAttempt/list')}"
-                                               th:href="@{/collection/considerAttempt/list}">
-                                                Consideration As Attempt
-                                            </a>
-                                        </li>
-
-                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
-                                            <a class="tab"
-                                               th:href="@{/scheduler/monitoring/list}"></i>
-                                                Scheduler Monitoring Status
-                                            </a>
-                                        </li>
-
-                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
-                                            <a class="tab"
-                                               th:href="@{/scheduler/information/list}"></i>
-                                                Scheduler Information
-                                            </a>
-                                        </li>
-
-                                        <li>  <!--th:if="${session.urlList.contains('/audittrail/list')}"-->
-                                            <a class="tab"
-                                               th:href="@{/datafetching/dashboard}"></i>
-                                                Data Fetching Dashboard
-                                            </a>
-                                        </li>
-
-
-                                        <!--  <li>
-                                              <a class="tab"
-                                                 th:if="${session.urlList.contains('/collection/clStatus/list')}"
-                                                 th:href="@{/collection/clStatus/list}">
-                                                  CL Status
-                                              </a>
-                                          </li>-->
-
-                                        <!--SAM-->
-
-
-
-                                        <!--<li >
-                                            <a class="tab"
-                                               th:if="${session.urlList.contains('/collection/loan/settings/reference-info/list')}"
-                                               th:href="@{/collection/loan/settings/reference-info/list}">
-                                                Reference Info
-                                            </a>
-                                        </li>-->
-                                        <!--  <li>
-                                              <a class="tab"
-                                                 th:if="${session.urlList.contains('/collection/loan/settings/guarantor-info/list')}"
-                                                 th:href="@{/collection/loan/settings/guarantor-info/list}">
-                                                  Guarantor  Info
-                                              </a>
-                                          </li>-->
-                                        <!--  <li>
-                                              <a class="tab"
-                                                 th:if="${session.urlList.contains('/collection/loan/settings/sector-code/list')}"
-                                                 th:href="@{/collection/loan/settings/sector-code/list}">
-                                                  Profession Segment
-                                              </a>
-                                          </li>-->
-                                        <!-- <li>
-                                             <a class="tab"
-                                                th:if="${session.urlList.contains('/collection/loan/settings/previous-account/list')}"
-                                                th:href="@{/collection/loan/settings/previous-account/list}">
-                                                 Previous Account History
-                                             </a>
-                                         </li>-->
-
-                                        <!--  <li>
-                                              <a  class="tab"
-                                                  th:if="${session.urlList.contains('/collection/setting/additionalInfoExcel/list')}"
-                                                  th:href="@{/collection/setting/additionalInfoExcel/list}">
-                                                  Additional Info
-                                              </a>
-                                          </li>-->
-
-                                        <!--  <li>
-                                              <a  class="tab"
-                                                  th:if="${session.urlList.contains('/collection/settings/noteDetailsExcel/list')}"
-                                                  th:href="@{/collection/settings/noteDetailsExcel/list}">
-                                                  Note Details
-                                              </a>
-                                          </li>-->
-
-                                        <li>
-                                            <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/settings/reasonForDelinExcel/list')}"
-                                                th:href="@{/collection/settings/reasonForDelinExcel/list}">
-                                                Reason for Delinquency
-                                            </a>
-                                        </li>
-                                        <!-- <li>
-                                             <a  class="tab"
-                                                 th:if="${session.urlList.contains('/collection/deferred/list')}"
-                                                 th:href="@{/collection/deferred/list}">
-                                                 Deferred Account
-                                             </a>
-                                         </li>-->
-                                        <!--<li>
-                                            <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/setup/interest/create')}"
-                                                th:href="@{/collection/setup/interest/create}">
-                                                Save Back Amount
-                                            </a>
-                                        </li>-->
-
-                                        <li>
-                                            <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/loanstatus/')}"
-                                                th:href="@{/collection/loanstatus/list}">
-                                                Loan Status
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/loantype/')}"
-                                                th:href="@{/collection/loantype/list}">
-                                                Loan Type
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a  class="tab"
-                                                th:if="${session.urlList.contains('/collection/settings/smsandautodistributionrules/')}"
-                                                th:href="@{/collection/settings/smsandautodistributionrules/list}">
-                                                SMS And Auto Distribution Rules
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
                                 <!--Customer Info Upload-->
                                 <li class="treeview" th:if="${#strings.startsWith(session.unit,'Card')}">
                                     <a href="#">
