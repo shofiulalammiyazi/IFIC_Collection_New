@@ -125,7 +125,7 @@ public class SentSMSToCustomerController {
             String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
             SMSLogDto sms = mapper.readValue(jsonStr, SMSLogDto.class);
 
-            SmsLog smsLog = sendSmsToCustomerService.setValue(sms,tnxId,generatedSMS.getAccountNo(),generatedSMS.getMassege(),generatedSMS.getDealReference());
+            SmsLog smsLog = sendSmsToCustomerService.setValue(sms,tnxId,generatedSMS.getAccountNo(),generatedSMS.getMassege(),generatedSMS.getDealReference(),generatedSMS.getSmsType().getName());
 
             smsLogRepository.save(smsLog);
 

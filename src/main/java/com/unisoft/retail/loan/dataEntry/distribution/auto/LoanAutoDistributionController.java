@@ -168,7 +168,7 @@ public class LoanAutoDistributionController {
     }
 
     //@Scheduled(cron = "0 51 11 * * *")
-    @Scheduled(cron = "0 0 17 * * *")
+    @Scheduled(cron = "0 30 12 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
 //        String sms1 = "";
@@ -187,7 +187,7 @@ public class LoanAutoDistributionController {
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for (AccountInformationEntity acc : accountInformationEntities) {
             String sms = "Your IFIC Aamar Bari loan installment due date is {{F.nextEmiDate}}. " +
-                    "If it is unpaid, pls, deposit BDT{{F.installmentAmount}} within due date to keep the loan regular. " ;
+                    "If it is unpaid, please deposit BDT{{F.installmentAmount}} within due date to keep the loan regular." ;
 
 
             //Your IFIC Aamar Bari loan installment due date is 10/02/23. If it is unpaid, pls, deposit BDT999,999.00 within due date to keep the loan regular.  (145)

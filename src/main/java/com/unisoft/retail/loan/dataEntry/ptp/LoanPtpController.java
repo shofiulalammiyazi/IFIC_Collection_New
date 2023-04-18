@@ -8,6 +8,7 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import com.unisoft.utillity.DateUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -94,9 +95,11 @@ public class LoanPtpController {
             sms = sms.replace("{{F.productName}}",acc.getProductName().trim());
             //TODO change phone number here use acc.getMobile()
             //GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),"01950886895");
-            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),acc.getMobile(),acc.getDealReference());
+            String mobileNo = acc.getMobile().trim();
+            mobileNo = StringUtils.right(mobileNo,11);
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(),sms,acc.getLoanACNo(),mobileNo,acc.getDealReference());
             generatedSMS.add(generatedSMS1);
-           // String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
+            String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"ptp");
         }
 
         return true;

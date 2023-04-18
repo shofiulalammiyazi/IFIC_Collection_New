@@ -180,7 +180,26 @@ public class AccountInformationDao {
     public void updateCloseStatus() {
         Session session = entityManager.unwrap(Session.class);
         try {
-            String sql = "UPDATE ACCOUNT_INFORMATION_ENTITY AIE SET AIE.IS_CLOSED = 'Y'";
+//            String sql = "DECLARE\n" +
+//                    "  CURSOR EXP_CUR IS\n" +
+//                    "    SELECT IS_CLOSED FROM ACCOUNT_INFORMATION_ENTITY\n" +
+//                    "    WHERE IS_CLOSED IS NOT NULL;\n" +
+//                    "\n" +
+//                    "  TYPE NT_FNAME IS TABLE OF VARCHAR2(100);\n" +
+//                    "  FNAME NT_FNAME;\n" +
+//                    "BEGIN\n" +
+//                    "  OPEN EXP_CUR;\n" +
+//                    "  FETCH EXP_CUR BULK COLLECT INTO FNAME LIMIT 1000;\n" +
+//                    "  FORALL IDX IN FNAME.FIRST..FNAME.LAST\n" +
+//                    "  UPDATE ACCOUNT_INFORMATION_ENTITY\n" +
+//                    "  SET IS_CLOSED = 'Y'\n" +
+//                    "  WHERE IS_CLOSED = FNAME(IDX);\n" +
+//                    "\n" +
+//                    "  COMMIT;\n" +
+//                    "  CLOSE EXP_CUR;\n" +
+//                    "END;";
+
+            String sql = "UPDATE ACCOUNT_INFORMATION_ENTITY SET IS_CLOSED = 'Y'";
             SQLQuery query = session.createSQLQuery(sql);
             //session.flush();
             //String branchId = query.uniqueResult().toString();

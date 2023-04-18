@@ -74,6 +74,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.LOANACNO= ?1 AND AIE.IS_CLOSED = 'N'", nativeQuery = true)
     public List<AccountInformationEntity> findAllByLoanACNo(String accountNo);
 
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.IS_CLOSED = 'Y'", nativeQuery = true)
+    public List<AccountInformationEntity> findAllByClosedAccount();
+
     //TO DO: need to change 2022-03-11 to SYSDATE+3
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO like %?1% AND IS_SMS_SENT = 'N' AND IS_CLOSED = 'N' " +
             "AND TO_DATE(EMI_DATE,'yyyy-MM-dd') <= (SELECT TO_DATE('2022-03-11','yyyy-MM-dd') FROM dual)", nativeQuery = true)
@@ -466,9 +469,28 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     List<Tuple> finAllEligibleDistributionList(String accNo);
 
 
+   /* @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
+            "WHERE MODIFIED_DATE < SYSDATE", nativeQuery = true)
+    List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate(); */
 
-    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
-            "    WHERE TO_CHAR(MODIFIED_DATE,'DD-MM-YYYY') != TO_CHAR(SYSDATE,'DD-MM-YYYY')", nativeQuery = true)
+    @Query(value = "DECLARE\n" +
+            "  CURSOR EXP_CUR IS\n" +
+            "    SELECT IS_CLOSED FROM ACCOUNT_INFORMATION_ENTITY\n" +
+            "    WHERE IS_CLOSED IS NOT NULL;\n" +
+            "\n" +
+            "  TYPE NT_FNAME IS TABLE OF VARCHAR2(100);\n" +
+            "  FNAME NT_FNAME;\n" +
+            "BEGIN\n" +
+            "  OPEN EXP_CUR;\n" +
+            "  FETCH EXP_CUR BULK COLLECT INTO FNAME LIMIT 1000;\n" +
+            "  FORALL IDX IN FNAME.FIRST..FNAME.LAST\n" +
+            "  UPDATE ACCOUNT_INFORMATION_ENTITY\n" +
+            "  SET IS_CLOSED = 'Y'\n" +
+            "  WHERE IS_CLOSED = FNAME(IDX);\n" +
+            "\n" +
+            "  COMMIT;\n" +
+            "  CLOSE EXP_CUR;\n" +
+            "END;", nativeQuery = true)
     List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate();
 
 }

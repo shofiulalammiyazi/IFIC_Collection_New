@@ -5,6 +5,7 @@ import com.unisoft.collection.settings.SMS.sendSms.SendSmsToCustomerService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserPrincipal;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,8 +94,11 @@ public class ContactInfoController {
                 sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
                 sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
                 sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
+
+                String mobileNo = acc.getMobile().trim();
+                mobileNo = StringUtils.right(mobileNo,11);
                 //TODO change phone number here use acc.getMobile()
-                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), "01950886895",acc.getDealReference());
+                GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), mobileNo,acc.getDealReference());
                 generatedSMS.add(generatedSMS1);
                 //TODO uncomment the line
                //String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");

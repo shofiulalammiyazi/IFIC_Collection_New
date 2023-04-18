@@ -70,9 +70,9 @@
                             <!--</div>-->
                         </div>
                         <div class="box-body">
-                          <!--  <div  style="display:none" class="animate-bottom loader" id="fetchLoader">
+                            <!--<div  style="display:none" class="animate-bottom loader" id="fetchLoader">-->
 
-                            </div>-->
+                            <!--</div>-->
 
                             <div class="nav-tabs-custom">
 
@@ -270,6 +270,7 @@
                     },
                     methods: {
                         fetchData(){
+                            //$("#fetchLoader").style.display = "block";
                             $.ajax({
                                 url: "/account-information/get-data",
                                 type: 'GET',
@@ -282,7 +283,7 @@
                                     else {
                                         swal("Data fetching Unsuccessfull!");
                                     }
-                                    //document.getElementById("fetchLoader").style.display = "none";
+                                    //$("#fetchLoader").style.display = "none";
                                 }
                             });
 

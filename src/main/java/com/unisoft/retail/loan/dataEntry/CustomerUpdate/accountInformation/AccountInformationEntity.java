@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity
+//@NamedStoredProcedureQuery(name = "DECLARE", procedureName = "DECLARE")
 public class AccountInformationEntity extends BaseInfo {
 
     @Id

@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SMSLogRepository extends JpaRepository<SmsLog, Long> {
 
-    @Query(value = "SELECT * FROM SMS_LOG SL WHERE SL.CREATED_DATE >= SYSDATE-30 and SL.ACC_NO = ?1 AND SL.DEAL_REFERENCE = ?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM SMS_LOG SL WHERE SL.CREATED_DATE >= SYSDATE-30 and SL.ACC_NO = ?1 AND SL.DEAL_REFERENCE = ?2 AND SMS_TYPE = 'emi'", nativeQuery = true)
     List<SmsLog> getSmslogofLastThirtyDaysByAccNoAndDealReference(String accNo, String dealReference);
 }

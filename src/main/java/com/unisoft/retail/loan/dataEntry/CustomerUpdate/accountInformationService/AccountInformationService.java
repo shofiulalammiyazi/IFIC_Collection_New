@@ -54,12 +54,28 @@ public class AccountInformationService {
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
 
+    void updateAccountStatus(){
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAll();
+        List<AccountInformationEntity> accountInformationEntities1 = new ArrayList<>();
+        accountInformationEntities.stream().forEach(accountInformationEntity -> {
+
+            accountInformationEntity.setIsClosed("Y");
+
+            accountInformationEntities1.add(accountInformationEntity);
+            if(accountInformationEntities1.size() == 1000)
+                accountInformationRepository.saveAll(accountInformationEntities1);
+        });
+        accountInformationRepository.saveAll(accountInformationEntities1);
+    }
+
     //@Scheduled(cron = "0 30 9 * * *")
     public String getAccountInformationData() {
 
         List<AccountInformationDto> dataList = accountInformationDao.getData();
         if(dataList.size()<1)
             return "400";
+        //accountInformationDao.updateCloseStatus();
+        updateAccountStatus();
         List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
 
         for (AccountInformationDto dto : dataList) {
@@ -361,18 +377,18 @@ public class AccountInformationService {
             accountInformationRepository.saveAll(accountInformationEntities);
             accountInformationEntities.clear();
         }
-        updateClosedAccount();
+        updateClosedAccountDistribution();
         return "200";
     }
 
-    public void updateClosedAccount(){
-        accountInformationRepository.findByModifiedDateBeforeCurrentDate().stream()
+    public void updateClosedAccountDistribution(){
+        List<AccountInformationEntity> modifiedDateBeforeCurrentDate = accountInformationRepository.findAllByClosedAccount();
+        modifiedDateBeforeCurrentDate.stream()
                 .forEach(accountInformationEntity -> {
                     LoanAccountDistributionInfo loanAccountDistributionInfo =
                             loanAccountDistributionRepository.findByAccountNoAndLatest(accountInformationEntity.getLoanACNo().trim(), "1");
 
                     if (loanAccountDistributionInfo != null) {
-                        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                         loanAccountDistributionInfo.setLatest("0");
                         loanAccountDistributionInfo.setIsPaid("Paid");
                         loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
@@ -380,8 +396,6 @@ public class AccountInformationService {
 
                         loanAccountDistributionRepository.save(loanAccountDistributionInfo);
                     }
-                    accountInformationEntity.setIsClosed("Y");
-                    accountInformationRepository.save(accountInformationEntity);
                 });
     }
 
