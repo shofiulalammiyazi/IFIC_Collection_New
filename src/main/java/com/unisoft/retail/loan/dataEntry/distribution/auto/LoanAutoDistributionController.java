@@ -20,6 +20,8 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
+import com.unisoft.schedulerinformation.SchedulerInformationEntity;
+import com.unisoft.schedulerinformation.SchedulerInformationRepository;
 import com.unisoft.user.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -78,6 +80,9 @@ public class LoanAutoDistributionController {
 
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
+
+    @Autowired
+    private SchedulerInformationRepository schedulerInformationRepository;
 
     @GetMapping("approval")
     public String getDelinquentAccountList(Model model) {
@@ -180,7 +185,10 @@ public class LoanAutoDistributionController {
 //                "Pls, deposit BDT{{F.installmentAmount}} to keep the loan regular. " +
 //                "Pls, ignore if it is already paid.";
 
+        SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("SMS", 1);
 
+        if(accountInformation == null)
+            return "OK";
 
 
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.finAllEligibleSmsList();
@@ -202,10 +210,6 @@ public class LoanAutoDistributionController {
             //TODO change phone number here use acc.getMobile()
             String mobileNo = acc.getMobile().trim();
             mobileNo = StringUtils.right(mobileNo,11);
-//            if(acc.getMobile().substring(0,3).equalsIgnoreCase("+88"))
-//                mobileNo = acc.getMobile().replace("+88","");
-//            if(acc.getMobile().substring(0,2).equalsIgnoreCase("88"))
-//                mobileNo = acc.getMobile().replace("88","");
             GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo().trim(), mobileNo.trim(),acc.getDealReference());
             generatedSMS.add(generatedSMS1);
         }

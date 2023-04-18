@@ -26,4 +26,9 @@ public class SchedulerInformationService {
     {
         return schedulerInformationRepository.getById(id);
     }
+
+    public SchedulerInformationEntity getBySchedulerName(String name)
+    {
+        return schedulerInformationRepository.findBySchedulerName(name);
+    }
 }

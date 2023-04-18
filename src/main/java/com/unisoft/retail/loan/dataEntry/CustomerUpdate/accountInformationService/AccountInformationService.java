@@ -9,6 +9,8 @@ import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.Accou
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationDao;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
+import com.unisoft.schedulerinformation.SchedulerInformationEntity;
+import com.unisoft.schedulerinformation.SchedulerInformationRepository;
 import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatus;
 import com.unisoft.schedulermonitoringstatus.SchedulerMonitoringStatusRepository;
 import com.unisoft.user.UserPrincipal;
@@ -20,6 +22,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -59,6 +62,9 @@ public class AccountInformationService {
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
 
+    @Autowired
+    private SchedulerInformationRepository schedulerInformationRepository;
+
     void updateAccountStatus(){
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAll();
         List<AccountInformationEntity> accountInformationEntities1 = new ArrayList<>();
@@ -73,318 +79,322 @@ public class AccountInformationService {
         accountInformationRepository.saveAll(accountInformationEntities1);
     }
 
-    //@Scheduled(cron = "0 30 9 * * *")
+    @Scheduled(cron = "0 26 16 * * *")
     public String getAccountInformationData() {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(userPrincipal == null)
-            userPrincipal.setUsername("System");
-        SchedulerMonitoringStatus schedulerMonitoringStatus = new SchedulerMonitoringStatus();
-        schedulerMonitoringStatus.setExecutionDate(new Date());
-        List<AccountInformationDto> dataList = accountInformationDao.getData();
-        schedulerMonitoringStatus.setDataInApi(String.valueOf(dataList.size()));
-        if(dataList.size()<1) {
-            schedulerMonitoringStatus.setStatus("Failed");
-            schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
-            return "400";
-        }
+        SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
 
-        schedulerMonitoringStatus.setCreatedBy(userPrincipal.getUsername());
-        schedulerMonitoringStatus.setCreatedDate(new Date());
-        schedulerMonitoringStatus.setSchedulerName("Account Information");
-        //accountInformationDao.updateCloseStatus();
-        updateAccountStatus();
-        List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
+        if(accountInformation != null) {
+//            UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            if (userPrincipal == null)
+//                userPrincipal.setUsername("System");
+            SchedulerMonitoringStatus schedulerMonitoringStatus = new SchedulerMonitoringStatus();
+            schedulerMonitoringStatus.setExecutionDate(new Date());
+            List<AccountInformationDto> dataList = accountInformationDao.getData();
+            schedulerMonitoringStatus.setDataInApi(String.valueOf(dataList.size()));
+            if (dataList.size() < 1) {
+                schedulerMonitoringStatus.setStatus("Failed");
+                schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
+                return "400";
+            }
 
-        for (AccountInformationDto dto : dataList) {
-            if ((dto.getLoanACNo() != null && dto.getLoanACNo().trim().length() == 13)
-                    && (dto.getBranchMnemonic() != null && dto.getBranchMnemonic().trim().length() > 0)
-                    && (dto.getProductCode() != null && dto.getProductCode().trim().length() > 0)
-                    && (dto.getDealReference() != null && dto.getDealReference().trim().length() > 0)) {
+            schedulerMonitoringStatus.setCreatedBy("system");
+            schedulerMonitoringStatus.setCreatedDate(new Date());
+            schedulerMonitoringStatus.setSchedulerName("Account Information");
+            //accountInformationDao.updateCloseStatus();
+            updateAccountStatus();
+            List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
 
-                String account = dto.getLoanACNo().trim();
-                String branchMnemonic = dto.getBranchMnemonic().trim();
-                String productCode = dto.getProductCode().trim();
-                String dealReference = dto.getDealReference().trim();
+            for (AccountInformationDto dto : dataList) {
+                if ((dto.getLoanACNo() != null && dto.getLoanACNo().trim().length() == 13)
+                        && (dto.getBranchMnemonic() != null && dto.getBranchMnemonic().trim().length() > 0)
+                        && (dto.getProductCode() != null && dto.getProductCode().trim().length() > 0)
+                        && (dto.getDealReference() != null && dto.getDealReference().trim().length() > 0)) {
 
-                AccountInformationEntity accountInformationEntity;
+                    String account = dto.getLoanACNo().trim();
+                    String branchMnemonic = dto.getBranchMnemonic().trim();
+                    String productCode = dto.getProductCode().trim();
+                    String dealReference = dto.getDealReference().trim();
 
-                accountInformationEntity = accountInformationRepository.
-                        findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(account, branchMnemonic, productCode, dealReference);
+                    AccountInformationEntity accountInformationEntity;
 
-
-                if (accountInformationEntity == null) {
-                    accountInformationEntity = new AccountInformationEntity();
-                    accountInformationEntity.setCreatedDate(new Date());
-
-                    accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
-
-                } else {
-                    accountInformationEntity.setModifiedDate(new Date());
-                }
+                    accountInformationEntity = accountInformationRepository.
+                            findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(account, branchMnemonic, productCode, dealReference);
 
 
-                String lastPaymentAmount =
-                        dto.getLastPaymentAmount() != null && !dto.getLastPaymentAmount().isEmpty() ? String.valueOf(Double.parseDouble(dto.getLastPaymentAmount())/100):"0";
-                String settlementLinkAccountBalance =
-                        dto.getSettlementLinkAccountBalance() != null && !dto.getSettlementLinkAccountBalance().isEmpty()? String.valueOf(Double.parseDouble(dto.getSettlementLinkAccountBalance())/100):"0";
-                String linkMotherAccountNo = dto.getLinkMotherAccountNo();
-                String routingNo = dto.getRoutingNo();
-                String mobile = dto.getMobile();
-                String branchName = dto.getBranchName();
-                String branchCode = dto.getBranchCode();
-                String overDue =dto.getOverdue() != null ? String.valueOf(Double.parseDouble(dto.getOverdue())/100):"0";
-                String emiAmount = dto.getEmiAmount() != null ? String.valueOf(Double.parseDouble(dto.getEmiAmount())/100):"0";
+                    if (accountInformationEntity == null) {
+                        accountInformationEntity = new AccountInformationEntity();
+                        accountInformationEntity.setCreatedDate(new Date());
 
-                String productType = dto.getProductType();
-                String actualTenor = dto.getActualTenor();
-                String totalOutstanding = dto.getTotalOutstanding() != null ? String.valueOf(Double.parseDouble(dto.getTotalOutstanding())/100):"0";
-                String borrowerName = dto.getBorrowersName();
-                String profession = dto.getProfession();
-                String email = dto.getEmail();
-                String nid = dto.getNid();
-                String professionSegment = dto.getProfessionSegment();
+                        accountInformationEntity.setLoanACNo(dto.getLoanACNo().trim());
 
-                String disbursementAmount = dto.getDisbursementAmount() != null ?String.valueOf(Double.parseDouble(dto.getDisbursementAmount())/100):"0";
-                String customerId = dto.getCustomerId();
-                String customerName = dto.getCustomerName();
-                String customerType = dto.getCustomerType();
-                String spouse = dto.getSpouse();
-
-                String gender = dto.getGender();
-                String fatherName = dto.getFatherName();
-                String motherName = dto.getMotherName();
-                String ni = dto.getNi();
-                String tin = dto.getTin();
-
-                String contractNo = dto.getContractNo();
-                String contractNoHome = dto.getContractNoHome();
-                String economicPurposeName = dto.getEconomicPurposeName();
-                String economicPurposeCode = dto.getEconomicPurposeCode();
-                String productName = dto.getProductName();
-                String sectorCode = dto.getSectorCode();
-                String sectorName = dto.getSectorName();
-                String address1 = dto.getAddress1();
-                String address2 = dto.getAddress2();
-                String address3 = dto.getAddress3();
-                String address4 = dto.getAddress4();
-                String address5 = dto.getAddress5();
-                String accountTitle = dto.getAccountTitle();
-                String smeCodeIndustryScalID = dto.getSmeCodeIndustryScaleID();
-                String interestRate = dto.getInterestRate();
-                String sanctionAmount = dto.getSanctionAmount() != null ? String.valueOf(Double.parseDouble(dto.getSanctionAmount())/100):"0";
-                String linkAccountStatus = dto.getLinkAccountStatus();
-                String linkAcProductCode = dto.getLinkACProductCode();
-                String dealAcBasic = dto.getDealAcBasic();
-                String dealAcSuffix = dto.getDealAcSuffix();
-                String partyId = dto.getPartyId();
-
-                String docType = dto.getDocType();
-
-                accountInformationEntity.setLastPaymentAmount(lastPaymentAmount);
-                accountInformationEntity.setSettlementLinkAccountBalance(settlementLinkAccountBalance);
-                accountInformationEntity.setLinkMotherAccountNo(linkMotherAccountNo);
-                accountInformationEntity.setRoutingNo(routingNo);
-                accountInformationEntity.setMobile(mobile);
-                accountInformationEntity.setBranchName(branchName);
-                accountInformationEntity.setBranchCode(branchCode);
-                accountInformationEntity.setOverdue(overDue);
-                accountInformationEntity.setEmiAmount(emiAmount);
-
-                accountInformationEntity.setProductType(productType);
-                accountInformationEntity.setActualTenor(actualTenor);
-                accountInformationEntity.setTotalOutstanding(totalOutstanding);
-                accountInformationEntity.setBorrowersName(borrowerName);
-                accountInformationEntity.setProfession(profession);
-                accountInformationEntity.setEmail(email);
-                accountInformationEntity.setNid(nid);
-                accountInformationEntity.setProfessionSegment(professionSegment);
-
-                accountInformationEntity.setDisbursementAmount(disbursementAmount);
-                accountInformationEntity.setCustomerId(customerId);
-                accountInformationEntity.setCustomerName(customerName);
-                accountInformationEntity.setCustomerType(customerType);
-                accountInformationEntity.setSpouse(spouse);
-
-                accountInformationEntity.setGender(gender);
-                accountInformationEntity.setFatherName(fatherName);
-                accountInformationEntity.setMotherName(motherName);
-                accountInformationEntity.setNi(ni);
-                accountInformationEntity.setTin(tin);
-
-                accountInformationEntity.setContractNo(contractNo);
-                accountInformationEntity.setContractNoHome(contractNoHome);
-                accountInformationEntity.setEconomicPurposeName(economicPurposeName);
-                accountInformationEntity.setEconomicPurposeCode(economicPurposeCode);
-                accountInformationEntity.setProductName(productName);
-                accountInformationEntity.setSectorCode(sectorCode);
-                accountInformationEntity.setSectorName(sectorName);
-                accountInformationEntity.setAddress1(address1);
-                accountInformationEntity.setAddress2(address2);
-                accountInformationEntity.setAddress3(address3);
-                accountInformationEntity.setAddress4(address4);
-                accountInformationEntity.setAddress5(address5);
-                accountInformationEntity.setAccountTitle(accountTitle);
-                accountInformationEntity.setSmeCodeIndustryScaleID(smeCodeIndustryScalID);
-                accountInformationEntity.setInterestRate(interestRate);
-                accountInformationEntity.setSanctionAmount(sanctionAmount);
-
-                //new added at 16-01-2023
-                accountInformationEntity.setDivision(dto.getDivision());
-                accountInformationEntity.setDistrict(dto.getDistrict());
-                accountInformationEntity.setScheduleStartDate(dto.getScheduleStartDate());
-                accountInformationEntity.setDealBalanceAtStartDate(dto.getDealBalanceAtStartDate());
-                accountInformationEntity.setCalculatedMaturityDate(dto.getCalculatedMaturityDate());
-                String firstRepaymentAmount = dto.getFirstRepaymentAmount() != null ? String.valueOf(Double.parseDouble(dto.getFirstRepaymentAmount())/100):"0";
-                accountInformationEntity.setFirstRepaymentAmount(firstRepaymentAmount);
-                String lastRepaymentAmount = dto.getLastRepaymentAmount() != null ? String.valueOf(Double.parseDouble(dto.getLastRepaymentAmount())/100):"0";
-                accountInformationEntity.setLastRepaymentAmount(lastRepaymentAmount);
-                accountInformationEntity.setTotalNoOfInstallment(dto.getTotalNoOfInstallment());
-                accountInformationEntity.setFrequencyCode(dto.getFrequencyCode());
-                accountInformationEntity.setLoanCLStatus(dto.getLoanCLStatus());
-                String latestDisbursementAmt = dto.getLatestDisbursementAmount() != null && !dto.getLatestDisbursementAmount().isEmpty()
-                        ? String.valueOf(Double.parseDouble(dto.getLatestDisbursementAmount())/100):"0";
-                accountInformationEntity.setLatestDisbursementAmount(latestDisbursementAmt);
-                accountInformationEntity.setSanctionAmount(sanctionAmount);
-                accountInformationEntity.setNoOfInstallmentDue(dto.getNoOfInstallmentDue());
-                //accountInformationEntity.setNextEMIDate(dto.getNextEMIDate());
-
-                try {
-                    accountInformationEntity.setNextEMIDate(dateUtils.db2ToOracleDateFormat(dto.getNextEMIDate().trim()));
-                } catch (Exception e) {
-                    //accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getNextEMIDate());
-                }
-
-                if(dto.getJointStatus() == null || dto.getJointStatus().equalsIgnoreCase("n"))
-                    accountInformationEntity.setJointStatus("NOT JOINT");
-                else
-                    accountInformationEntity.setJointStatus("JOINT");
-
-                try {
-                    accountInformationEntity.setLatestDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getLatestDisbursementDate().trim()));
-                } catch (Exception e) {
-                    accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getLatestDisbursementDate());
-                }
-
-
-                try {
-                    if (linkAccountStatus.toLowerCase().equals("n")) {
-                        accountInformationEntity.setLinkAccountStatus("Active");
-                    } else if (linkAccountStatus.toLowerCase().equals("y")) {
-                        accountInformationEntity.setLinkAccountStatus("Inactive");
+                    } else {
+                        accountInformationEntity.setModifiedDate(new Date());
                     }
-                } catch (Exception e) {
-                    System.out.println("status");
-                }
 
-                accountInformationEntity.setLinkACProductCode(linkAcProductCode);
-                accountInformationEntity.setDealAcBasic(dealAcBasic);
-                accountInformationEntity.setDealAcSuffix(dealAcSuffix);
-                accountInformationEntity.setPartyId(partyId);
 
-                accountInformationEntity.setDocType(docType);
-                accountInformationEntity.setBranchMnemonic(branchMnemonic);
-                accountInformationEntity.setProductCode(productCode);
-                accountInformationEntity.setDealReference(dealReference);
+                    String lastPaymentAmount =
+                            dto.getLastPaymentAmount() != null && !dto.getLastPaymentAmount().isEmpty() ? String.valueOf(Double.parseDouble(dto.getLastPaymentAmount()) / 100) : "0";
+                    String settlementLinkAccountBalance =
+                            dto.getSettlementLinkAccountBalance() != null && !dto.getSettlementLinkAccountBalance().isEmpty() ? String.valueOf(Double.parseDouble(dto.getSettlementLinkAccountBalance()) / 100) : "0";
+                    String linkMotherAccountNo = dto.getLinkMotherAccountNo();
+                    String routingNo = dto.getRoutingNo();
+                    String mobile = dto.getMobile();
+                    String branchName = dto.getBranchName();
+                    String branchCode = dto.getBranchCode();
+                    String overDue = dto.getOverdue() != null ? String.valueOf(Double.parseDouble(dto.getOverdue()) / 100) : "0";
+                    String emiAmount = dto.getEmiAmount() != null ? String.valueOf(Double.parseDouble(dto.getEmiAmount()) / 100) : "0";
 
-                accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
+                    String productType = dto.getProductType();
+                    String actualTenor = dto.getActualTenor();
+                    String totalOutstanding = dto.getTotalOutstanding() != null ? String.valueOf(Double.parseDouble(dto.getTotalOutstanding()) / 100) : "0";
+                    String borrowerName = dto.getBorrowersName();
+                    String profession = dto.getProfession();
+                    String email = dto.getEmail();
+                    String nid = dto.getNid();
+                    String professionSegment = dto.getProfessionSegment();
 
-                if (!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
-                    accountInformationEntity.setIsDistributed("N");
-                else
-                    accountInformationEntity.setIsDistributed("N");
+                    String disbursementAmount = dto.getDisbursementAmount() != null ? String.valueOf(Double.parseDouble(dto.getDisbursementAmount()) / 100) : "0";
+                    String customerId = dto.getCustomerId();
+                    String customerName = dto.getCustomerName();
+                    String customerType = dto.getCustomerType();
+                    String spouse = dto.getSpouse();
 
-                try {
-                    accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
-                } catch (Exception e) {
-                    accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getLastPaymentDate());
-                }
-                try {
-                    accountInformationEntity.setFirstEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
+                    String gender = dto.getGender();
+                    String fatherName = dto.getFatherName();
+                    String motherName = dto.getMotherName();
+                    String ni = dto.getNi();
+                    String tin = dto.getTin();
 
-                } catch (Exception e) {
-                    accountInformationEntity.setFirstEmiDate(dto.getEmiDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getEmiDate());
-                }
-                try {
-                    accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
-                } catch (Exception e) {
-                    accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
-                }
-                String expiryDate = dto.getExpiryDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()):"";
-                try {
-                    accountInformationEntity.setExpiryDate(expiryDate);
-                } catch (Exception e) {
-                    accountInformationEntity.setExpiryDate(dto.getExpiryDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getExpiryDate());
-                }
-                try {
-                    accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
-                } catch (Exception e) {
-                    accountInformationEntity.setDob(dto.getDob());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
-                }
-                String firstInstallmentDueDate = dto.getFirstInstDueDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim()): "";
-                try{
+                    String contractNo = dto.getContractNo();
+                    String contractNoHome = dto.getContractNoHome();
+                    String economicPurposeName = dto.getEconomicPurposeName();
+                    String economicPurposeCode = dto.getEconomicPurposeCode();
+                    String productName = dto.getProductName();
+                    String sectorCode = dto.getSectorCode();
+                    String sectorName = dto.getSectorName();
+                    String address1 = dto.getAddress1();
+                    String address2 = dto.getAddress2();
+                    String address3 = dto.getAddress3();
+                    String address4 = dto.getAddress4();
+                    String address5 = dto.getAddress5();
+                    String accountTitle = dto.getAccountTitle();
+                    String smeCodeIndustryScalID = dto.getSmeCodeIndustryScaleID();
+                    String interestRate = dto.getInterestRate();
+                    String sanctionAmount = dto.getSanctionAmount() != null ? String.valueOf(Double.parseDouble(dto.getSanctionAmount()) / 100) : "0";
+                    String linkAccountStatus = dto.getLinkAccountStatus();
+                    String linkAcProductCode = dto.getLinkACProductCode();
+                    String dealAcBasic = dto.getDealAcBasic();
+                    String dealAcSuffix = dto.getDealAcSuffix();
+                    String partyId = dto.getPartyId();
 
-                    accountInformationEntity.setFirstInstDueDate(firstInstallmentDueDate);
-                }
-                catch (Exception e) {
-                    accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
-                    System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
-                }
-                accountInformationEntity.setIsEscalated("N");
-                if(!expiryDate.equals(""))
-                    accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate,new Date(),"yyyy-MM-dd")));
-                if(!firstInstallmentDueDate.equals(""))
-                    accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate,new Date(),"yyyy-MM-dd")));
+                    String docType = dto.getDocType();
 
-                if(smsLogRepository.getSmslogofLastThirtyDaysByAccNoAndDealReference(account,dealReference).size()<1)
-                    accountInformationEntity.setIsSmsSent("N");
+                    accountInformationEntity.setLastPaymentAmount(lastPaymentAmount);
+                    accountInformationEntity.setSettlementLinkAccountBalance(settlementLinkAccountBalance);
+                    accountInformationEntity.setLinkMotherAccountNo(linkMotherAccountNo);
+                    accountInformationEntity.setRoutingNo(routingNo);
+                    accountInformationEntity.setMobile(mobile);
+                    accountInformationEntity.setBranchName(branchName);
+                    accountInformationEntity.setBranchCode(branchCode);
+                    accountInformationEntity.setOverdue(overDue);
+                    accountInformationEntity.setEmiAmount(emiAmount);
 
-                accountInformationEntity.setIsClosed("N");
-                accountInformationEntities.add(accountInformationEntity);
+                    accountInformationEntity.setProductType(productType);
+                    accountInformationEntity.setActualTenor(actualTenor);
+                    accountInformationEntity.setTotalOutstanding(totalOutstanding);
+                    accountInformationEntity.setBorrowersName(borrowerName);
+                    accountInformationEntity.setProfession(profession);
+                    accountInformationEntity.setEmail(email);
+                    accountInformationEntity.setNid(nid);
+                    accountInformationEntity.setProfessionSegment(professionSegment);
 
-                System.out.println("test " + dto.getLoanACNo());
+                    accountInformationEntity.setDisbursementAmount(disbursementAmount);
+                    accountInformationEntity.setCustomerId(customerId);
+                    accountInformationEntity.setCustomerName(customerName);
+                    accountInformationEntity.setCustomerType(customerType);
+                    accountInformationEntity.setSpouse(spouse);
 
-                LoanAccountDistributionInfo loanAccountDistributionInfo =
-                        loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
+                    accountInformationEntity.setGender(gender);
+                    accountInformationEntity.setFatherName(fatherName);
+                    accountInformationEntity.setMotherName(motherName);
+                    accountInformationEntity.setNi(ni);
+                    accountInformationEntity.setTin(tin);
 
-                if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
-                    UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                    accountInformationEntity.setContractNo(contractNo);
+                    accountInformationEntity.setContractNoHome(contractNoHome);
+                    accountInformationEntity.setEconomicPurposeName(economicPurposeName);
+                    accountInformationEntity.setEconomicPurposeCode(economicPurposeCode);
+                    accountInformationEntity.setProductName(productName);
+                    accountInformationEntity.setSectorCode(sectorCode);
+                    accountInformationEntity.setSectorName(sectorName);
+                    accountInformationEntity.setAddress1(address1);
+                    accountInformationEntity.setAddress2(address2);
+                    accountInformationEntity.setAddress3(address3);
+                    accountInformationEntity.setAddress4(address4);
+                    accountInformationEntity.setAddress5(address5);
+                    accountInformationEntity.setAccountTitle(accountTitle);
+                    accountInformationEntity.setSmeCodeIndustryScaleID(smeCodeIndustryScalID);
+                    accountInformationEntity.setInterestRate(interestRate);
+                    accountInformationEntity.setSanctionAmount(sanctionAmount);
 
-                    loanAccountDistributionInfo.setLatest("0");
-                    loanAccountDistributionInfo.setIsPaid("Paid");
-                    loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
-                    loanAccountDistributionInfo.setEndDate(new Date());
+                    //new added at 16-01-2023
+                    accountInformationEntity.setDivision(dto.getDivision());
+                    accountInformationEntity.setDistrict(dto.getDistrict());
+                    accountInformationEntity.setScheduleStartDate(dto.getScheduleStartDate());
+                    accountInformationEntity.setDealBalanceAtStartDate(dto.getDealBalanceAtStartDate());
+                    accountInformationEntity.setCalculatedMaturityDate(dto.getCalculatedMaturityDate());
+                    String firstRepaymentAmount = dto.getFirstRepaymentAmount() != null ? String.valueOf(Double.parseDouble(dto.getFirstRepaymentAmount()) / 100) : "0";
+                    accountInformationEntity.setFirstRepaymentAmount(firstRepaymentAmount);
+                    String lastRepaymentAmount = dto.getLastRepaymentAmount() != null ? String.valueOf(Double.parseDouble(dto.getLastRepaymentAmount()) / 100) : "0";
+                    accountInformationEntity.setLastRepaymentAmount(lastRepaymentAmount);
+                    accountInformationEntity.setTotalNoOfInstallment(dto.getTotalNoOfInstallment());
+                    accountInformationEntity.setFrequencyCode(dto.getFrequencyCode());
+                    accountInformationEntity.setLoanCLStatus(dto.getLoanCLStatus());
+                    String latestDisbursementAmt = dto.getLatestDisbursementAmount() != null && !dto.getLatestDisbursementAmount().isEmpty()
+                            ? String.valueOf(Double.parseDouble(dto.getLatestDisbursementAmount()) / 100) : "0";
+                    accountInformationEntity.setLatestDisbursementAmount(latestDisbursementAmt);
+                    accountInformationEntity.setSanctionAmount(sanctionAmount);
+                    accountInformationEntity.setNoOfInstallmentDue(dto.getNoOfInstallmentDue());
+                    //accountInformationEntity.setNextEMIDate(dto.getNextEMIDate());
 
-                    loanAccountDistributionRepository.save(loanAccountDistributionInfo);
-                }
+                    try {
+                        accountInformationEntity.setNextEMIDate(dateUtils.db2ToOracleDateFormat(dto.getNextEMIDate().trim()));
+                    } catch (Exception e) {
+                        //accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getNextEMIDate());
+                    }
 
-                if (accountInformationEntities.size() == 1000) {
-                    accountInformationRepository.saveAll(accountInformationEntities);
-                    System.out.println("innerlopp");
-                    accountInformationEntities.clear();
+                    if (dto.getJointStatus() == null || dto.getJointStatus().equalsIgnoreCase("n"))
+                        accountInformationEntity.setJointStatus("NOT JOINT");
+                    else
+                        accountInformationEntity.setJointStatus("JOINT");
+
+                    try {
+                        accountInformationEntity.setLatestDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getLatestDisbursementDate().trim()));
+                    } catch (Exception e) {
+                        accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getLatestDisbursementDate());
+                    }
+
+
+                    try {
+                        if (linkAccountStatus.toLowerCase().equals("n")) {
+                            accountInformationEntity.setLinkAccountStatus("Active");
+                        } else if (linkAccountStatus.toLowerCase().equals("y")) {
+                            accountInformationEntity.setLinkAccountStatus("Inactive");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("status");
+                    }
+
+                    accountInformationEntity.setLinkACProductCode(linkAcProductCode);
+                    accountInformationEntity.setDealAcBasic(dealAcBasic);
+                    accountInformationEntity.setDealAcSuffix(dealAcSuffix);
+                    accountInformationEntity.setPartyId(partyId);
+
+                    accountInformationEntity.setDocType(docType);
+                    accountInformationEntity.setBranchMnemonic(branchMnemonic);
+                    accountInformationEntity.setProductCode(productCode);
+                    accountInformationEntity.setDealReference(dealReference);
+
+                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
+
+                    if (!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
+                        accountInformationEntity.setIsDistributed("N");
+                    else
+                        accountInformationEntity.setIsDistributed("N");
+
+                    try {
+                        accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
+                    } catch (Exception e) {
+                        accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getLastPaymentDate());
+                    }
+                    try {
+                        accountInformationEntity.setFirstEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
+
+                    } catch (Exception e) {
+                        accountInformationEntity.setFirstEmiDate(dto.getEmiDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getEmiDate());
+                    }
+                    try {
+                        accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
+                    } catch (Exception e) {
+                        accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
+                    }
+                    String expiryDate = dto.getExpiryDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()) : "";
+                    try {
+                        accountInformationEntity.setExpiryDate(expiryDate);
+                    } catch (Exception e) {
+                        accountInformationEntity.setExpiryDate(dto.getExpiryDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getExpiryDate());
+                    }
+                    try {
+                        accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
+                    } catch (Exception e) {
+                        accountInformationEntity.setDob(dto.getDob());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
+                    }
+                    String firstInstallmentDueDate = dto.getFirstInstDueDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim()) : "";
+                    try {
+
+                        accountInformationEntity.setFirstInstDueDate(firstInstallmentDueDate);
+                    } catch (Exception e) {
+                        accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
+                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
+                    }
+                    accountInformationEntity.setIsEscalated("N");
+                    if (!expiryDate.equals(""))
+                        accountInformationEntity.setDpdAfterExpiryDate(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(expiryDate, new Date(), "yyyy-MM-dd")));
+                    if (!firstInstallmentDueDate.equals(""))
+                        accountInformationEntity.setDpd(String.valueOf(dateUtils.getDiffernceBetweenTwoDate(firstInstallmentDueDate, new Date(), "yyyy-MM-dd")));
+
+                    if (smsLogRepository.getSmslogofLastThirtyDaysByAccNoAndDealReference(account, dealReference).size() < 1)
+                        accountInformationEntity.setIsSmsSent("N");
+
+                    accountInformationEntity.setIsClosed("N");
+                    accountInformationEntities.add(accountInformationEntity);
+
+                    System.out.println("test " + dto.getLoanACNo());
+
+                    LoanAccountDistributionInfo loanAccountDistributionInfo =
+                            loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
+
+                    if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
+                        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+                        loanAccountDistributionInfo.setLatest("0");
+                        loanAccountDistributionInfo.setIsPaid("Paid");
+                        loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
+                        loanAccountDistributionInfo.setEndDate(new Date());
+
+                        loanAccountDistributionRepository.save(loanAccountDistributionInfo);
+                    }
+
+                    if (accountInformationEntities.size() == 1000) {
+                        accountInformationRepository.saveAll(accountInformationEntities);
+                        System.out.println("innerlopp");
+                        accountInformationEntities.clear();
+                    }
                 }
             }
+
+
+            if (accountInformationEntities.size() > 0 && accountInformationEntities.size() < 1000) {
+                System.out.println("outerloop");
+
+                accountInformationRepository.saveAll(accountInformationEntities);
+                accountInformationEntities.clear();
+            }
+            updateClosedAccountDistribution();
+            schedulerMonitoringStatus.setDataInLocal(String.valueOf(accountInformationRepository.count()));
+            schedulerMonitoringStatus.setStatus("Success");
+
+            schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
+            return "200";
         }
-
-
-        if (accountInformationEntities.size() > 0 && accountInformationEntities.size() < 1000) {
-            System.out.println("outerloop");
-
-            accountInformationRepository.saveAll(accountInformationEntities);
-            accountInformationEntities.clear();
-        }
-        updateClosedAccountDistribution();
-        schedulerMonitoringStatus.setDataInLocal(String.valueOf(accountInformationRepository.count()));
-        schedulerMonitoringStatus.setStatus("Success");
-
-        schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
-        return "200";
+        return "400";
     }
 
     public void updateClosedAccountDistribution(){
