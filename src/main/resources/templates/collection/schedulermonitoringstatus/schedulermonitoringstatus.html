@@ -34,8 +34,8 @@
                                 <tr th:each="list : ${list}">
                                     <td><span  th:text="${#dates.format(list.executionDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
                                     <td><span th:text="${list.schedulerName}"></span></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><span th:text="${list.dataInApi}"></span></td>
+                                    <td><span th:text="${list.dataInLocal}"></span></td>
                                     <td th:text="${list.Status}"></td>
                                     <td></td>
                                 </tr>
