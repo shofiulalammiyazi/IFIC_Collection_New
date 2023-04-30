@@ -12,11 +12,7 @@ import com.unisoft.collection.settings.agency.AgencyService;
 import com.unisoft.collection.settings.employee.EmployeeInfoDto;
 import com.unisoft.collection.settings.employee.EmployeeInfoEntity;
 import com.unisoft.collection.settings.employee.EmployeeService;
-import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntity;
-import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesEntityDto;
-import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesRepository;
 import com.unisoft.collection.settings.smsAndAutoDistributionRules.SmsAndAutoDistributionRulesService;
-import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationService.AccountInformationService;
@@ -28,11 +24,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -172,8 +166,8 @@ public class LoanAutoDistributionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    //@Scheduled(cron = "0 51 11 * * *")
-    @Scheduled(cron = "0 30 12 * * *")
+    @Scheduled(cron = "0 49 15 * * *")
+    //@Scheduled(cron = "0 5 10 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
 //        String sms1 = "";

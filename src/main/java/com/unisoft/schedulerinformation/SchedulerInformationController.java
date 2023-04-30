@@ -35,17 +35,17 @@ public class SchedulerInformationController {
     @PostMapping(value = "/save")
     public String save(SchedulerInformationEntity schedulerInformationEntity){
 
-        schedulerInformationService.save(schedulerInformationEntity);
+        //schedulerInformationService.save(schedulerInformationEntity);
 
-        //SchedulerInformationEntity schedulerInformationEntity1 = schedulerInformationService.getBySchedulerName(schedulerInformationEntity.getSchedulerName());
+        SchedulerInformationEntity schedulerInformationEntity1 = schedulerInformationService.getBySchedulerName(schedulerInformationEntity.getSchedulerName());
 
-//        if(schedulerInformationEntity1 == null) {
-//            schedulerInformationService.save(schedulerInformationEntity);
-//        }
-//        else{
-//            schedulerInformationEntity1.setTime(schedulerInformationEntity.getTime());
-//            schedulerInformationService.save(schedulerInformationEntity1);
-//        }
+        if(schedulerInformationEntity1 == null) {
+            schedulerInformationService.save(schedulerInformationEntity);
+        }
+        else{
+            schedulerInformationEntity.setId(schedulerInformationEntity1.getId());
+            schedulerInformationService.save(schedulerInformationEntity);
+        }
 
         return "redirect:/scheduler/information/list";
     }
