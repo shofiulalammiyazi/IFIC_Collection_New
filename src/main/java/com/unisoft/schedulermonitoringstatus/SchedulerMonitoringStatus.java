@@ -27,4 +27,6 @@ public class SchedulerMonitoringStatus extends CommonEntity {
     private String dataInLocal;
 
     private String dataInApi;
+
+    private String maxTimestamp;
 }

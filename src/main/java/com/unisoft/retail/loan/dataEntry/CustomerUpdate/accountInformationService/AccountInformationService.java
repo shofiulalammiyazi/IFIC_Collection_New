@@ -79,7 +79,7 @@ public class AccountInformationService {
         accountInformationRepository.saveAll(accountInformationEntities1);
     }
 
-    @Scheduled(cron = "0 26 16 * * *")
+    @Scheduled(cron = "0 0 8 * * *")
     public String getAccountInformationData() {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
 
@@ -92,6 +92,9 @@ public class AccountInformationService {
             List<AccountInformationDto> dataList = accountInformationDao.getData();
             schedulerMonitoringStatus.setDataInApi(String.valueOf(dataList.size()));
             if (dataList.size() < 1) {
+                schedulerMonitoringStatus.setCreatedBy("system");
+                schedulerMonitoringStatus.setCreatedDate(new Date());
+                schedulerMonitoringStatus.setSchedulerName("Account Information");
                 schedulerMonitoringStatus.setStatus("Failed");
                 schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
                 return "400";
@@ -100,6 +103,7 @@ public class AccountInformationService {
             schedulerMonitoringStatus.setCreatedBy("system");
             schedulerMonitoringStatus.setCreatedDate(new Date());
             schedulerMonitoringStatus.setSchedulerName("Account Information");
+            schedulerMonitoringStatus.setMaxTimestamp(accountInformationDao.getMaxTimestampFromApi());
             //accountInformationDao.updateCloseStatus();
             updateAccountStatus();
             List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
