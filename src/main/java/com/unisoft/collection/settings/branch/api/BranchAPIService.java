@@ -61,7 +61,7 @@ public class BranchAPIService {
             System.out.println(branchAPIResponse);
         } catch (Exception ex) {
             ex.printStackTrace();
-            schedulerMonitoringStatus.setStatus("UnSuccess");
+            schedulerMonitoringStatus.setStatus("Failed");
             schedulerMonitoringStatusService.saveCreatedData(schedulerMonitoringStatus);
             return new BranchAPIResponse();
         }

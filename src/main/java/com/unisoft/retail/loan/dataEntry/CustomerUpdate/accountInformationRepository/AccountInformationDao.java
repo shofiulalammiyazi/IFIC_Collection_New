@@ -52,7 +52,7 @@ public class AccountInformationDao {
             statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(query);
-            System.out.println(resultSet.next()==true?resultSet.getString("TIMEST"):"");
+           // System.out.println(resultSet.next()==true?resultSet.getString("TIMEST"):"");
             maxTime = resultSet.next()==true?resultSet.getString("TIMEST"):"";
 
         } catch (SQLException e) {
