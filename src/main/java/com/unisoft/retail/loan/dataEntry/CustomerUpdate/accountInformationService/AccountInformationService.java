@@ -79,7 +79,9 @@ public class AccountInformationService {
         accountInformationRepository.saveAll(accountInformationEntities1);
     }
 
-    @Scheduled(cron = "0 0 8 * * *")
+    //@Scheduled(cron = "0 0 8 * * *")
+    //@Scheduled(cron = "0 0 8 * * *")
+    @Scheduled(cron = "0 57 12 * * *")
     public String getAccountInformationData() {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
 
@@ -392,7 +394,7 @@ public class AccountInformationService {
                 accountInformationEntities.clear();
             }
             updateClosedAccountDistribution();
-            schedulerMonitoringStatus.setDataInLocal(String.valueOf(accountInformationRepository.count()));
+            schedulerMonitoringStatus.setDataInLocal(String.valueOf(accountInformationRepository.countNotClosedAccount()));
             schedulerMonitoringStatus.setStatus("Success");
 
             schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);

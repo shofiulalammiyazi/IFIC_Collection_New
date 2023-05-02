@@ -468,7 +468,7 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             "                                              WHERE SADRE3.TYPE = 'Distribution')", nativeQuery = true)
     List<Tuple> finAllEligibleDistributionList(String accNo);
 
-    @Query(value = "", nativeQuery = true)
+    @Query(value = "SELECT COUNT(1) FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.IS_CLOSED = 'N'", nativeQuery = true)
     int countNotClosedAccount();
 
 

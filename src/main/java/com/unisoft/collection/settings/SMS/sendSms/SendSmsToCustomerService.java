@@ -58,9 +58,14 @@ public class SendSmsToCustomerService {
     private String smsApiUrl;
 
     public SmsLog setValue(SMSLogDto smsLogDto, String tnxId, String accNo, String sms, String deal, String smsType){
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal == null)
+        UserPrincipal principal ;
+        try{
+            principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        catch(NullPointerException e){
+            principal = new UserPrincipal();
             principal.setUsername("System");
+        }
 
         SmsLog smsLog = new SmsLog();
 

@@ -26,9 +26,9 @@ public class AccountInformationDao {
     @Qualifier("clientDbServerIfic")
     private DataSource clientDbServerIfic;
 
-    @Autowired
-    @Qualifier("clientDbServer2DataSource")
-    private DataSource clientDbServerIfic2;
+//    @Autowired
+//    @Qualifier("clientDbServer2DataSource")
+//    private DataSource clientDbServerIfic2;
 
     @Autowired
     private EntityManager entityManager;
@@ -39,20 +39,21 @@ public class AccountInformationDao {
 
 
     public String getMaxTimestampFromApi() {
-        //String query = "SELECT MAX(TIMEST) FROM USRBASELIB.$CRS1F";
-        String query = "SELECT MAX(CREATED_DATE) FROM ACCOUNT_INFORMATION_ENTITY";
+        String query = "SELECT MAX(TIMEST) AS TIMEST FROM USRBASELIB.$CRS1F";
+        //String query = "SELECT MAX(CREATED_DATE) AS CREATED_DATE FROM ACCOUNT_INFORMATION_ENTITY";
 
         Statement statement = null;
         Connection connection = null;
+        String maxTime = null;
 
         try {
 
-            connection = clientDbServerIfic2.getConnection();
+            connection = clientDbServerIfic.getConnection();
             statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(query);
-
-            System.out.println(resultSet);
+            System.out.println(resultSet.next()==true?resultSet.getString("TIMEST"):"");
+            maxTime = resultSet.next()==true?resultSet.getString("TIMEST"):"";
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class AccountInformationDao {
             }
 
         }
-        return "";
+        return maxTime;
     }
 
     public  List<AccountInformationDto> getData(){
