@@ -10,44 +10,150 @@
 <div layout:fragment="content" th:remove="tag">
     <div class="content-wrapper">
         <section class="content">
-            <div class="row">
+            <div class="row" id="loan-all-delinquent-list">
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border" style="text-align: center;">
                             <h3 class="box-title">Scheduler List</h3>
                         </div>
 
-                        <div class="box-body">
-                            <table id="example" name="datatable-responsive"
-                                   class="table table-striped table-bordered dt-responsive nowrap" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Scheduler Name</th>
-                                    <th>API Data Count</th>
-                                    <th>System Data Count</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="list : ${list}">
-                                    <td><span  th:text="${#dates.format(list.executionDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
-                                    <td><span th:text="${list.schedulerName}"></span></td>
-                                    <td><span th:text="${list.dataInApi}"></span></td>
-                                    <td><span th:text="${list.dataInLocal}"></span></td>
-                                    <td th:text="${list.Status}"></td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div v-if="fetchloader">
+                            <div  class="loader" id="fetchLoader">
 
+                            </div>
+                            <h2 style="color: orangered ;text-align: center">Please wait!</h2>
+                        </div>
+
+                        <div v-else>
+                            <div class="col-sm-12">
+                                <!--<div>-->
+                                    <!--<button class="btn btn-primary" @click="fetchData()">Fetch Data</button>-->
+                                <!--</div>-->
+
+                                <div>
+                                    <span class="bolder">API Total Data: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${apiSize}"><span
+                                        class="glyphicon glyphicon-plus"> </span></a>
+
+                                    <span class="bolder">System Total Data: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${dbSize}"><span
+                                        class="glyphicon glyphicon-plus"> </span> </a>
+
+                                    <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" @click="fetchData()"><span
+                                            class="glyphicon glyphicon-refresh"> </span> Fetch Data </a>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="box-body">
+                                <table id="example" name="datatable-responsive"
+                                       class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Scheduler Name</th>
+                                        <th>API Data Count</th>
+                                        <th>System Data Count</th>
+                                        <th>Max Timestamp</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="list : ${list}">
+                                        <td><span  th:text="${#dates.format(list.executionDate, 'dd-MMM-yyyy hh:mm:ss aa')}"></span></td>
+                                        <td><span th:text="${list.schedulerName}"></span></td>
+                                        <td><span th:text="${list.dataInApi}"></span></td>
+                                        <td><span th:text="${list.dataInLocal}"></span></td>
+                                        <td><span th:text="${list.maxTimestamp}"></span></td>
+                                        <td th:text="${list.Status}"></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style>
+                .loader {
+                    border: 16px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 16px solid #3498db;
+                    width: 120px;
+                    height: 120px;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 2s linear infinite;
+                    margin-left:500px;
+                }
+
+                /* Safari */
+                @-webkit-keyframes spin {
+                    0% { -webkit-transform: rotate(0deg); }
+                    100% { -webkit-transform: rotate(360deg); }
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                .myDiv {
+                    display: none;
+                    text-align: center;
+                }
+            </style>
+
+            <script>
+                var arr = [];
+                var allAccountInformationApp = new Vue({
+                    el: '#loan-all-delinquent-list',
+                    data: {
+                        allAccountInformation: [],
+                        page: 0,
+                        searchField: '',
+                        indexPlus: 0,
+                        dataToBeInExcel: [],
+                        selectedList: [],
+                        letterType:"",
+                        fetchloader:false,
+                    },
+                    methods: {
+                        fetchData(){
+                            this.fetchloader = true;
+                            $.ajax({
+                                url: "/account-information/get-data",
+                                type: 'GET',
+                                dataType: 'json', // added data type
+                                success: function (res) {
+                                    if(res == "200"){
+                                        swal("Data fetched Successfully!");
+                                        window.location.reload();
+                                        //document.getElementById("fetchLoader").remove();
+                                        allAccountInformationApp.fetchloader = false;
+                                    }
+                                    else {
+                                        allAccountInformationApp.fetchloader = false;
+                                        swal("Data fetching Unsuccessfull!");
+                                    }
+
+
+                                    //  $(".dd-loader").remove();
+
+                                }
+                            });
+
+                        },
+                    }
+                })
+            </script>
         </section>
     </div>
 </div>
+
+
 </body>
 </html>
