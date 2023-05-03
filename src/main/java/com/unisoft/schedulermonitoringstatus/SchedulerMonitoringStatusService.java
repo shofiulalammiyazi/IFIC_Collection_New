@@ -20,6 +20,6 @@ public class SchedulerMonitoringStatusService {
     }
 
     public List<SchedulerMonitoringStatus> findAll(){
-        return schedulerMonitoringStatusRepository.findAll();
+        return schedulerMonitoringStatusRepository.findAllAsDesc();
     }
 }
