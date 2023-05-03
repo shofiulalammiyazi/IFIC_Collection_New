@@ -12,6 +12,6 @@ import java.util.List;
 public interface SchedulerMonitoringStatusRepository extends JpaRepository<SchedulerMonitoringStatus, Long> {
 
 
-
-
+    @Query(value = "SELECT * FROM SCHEDULER_MONITORING_STATUS ORDER BY EXECUTION_DATE DESC", nativeQuery = true)
+    List<SchedulerMonitoringStatus> findAllAsDesc();
 }
