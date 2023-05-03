@@ -131,6 +131,7 @@ public class AccountInformationEntity extends BaseInfo {
     private String uniqueDealLoan;
     private String loanAccountNew;
     private String isSmsSent = "N";
+    private Date smsSentDate;
     private String isDistributed = "N";
 
     //new field 16/01/2023

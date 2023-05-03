@@ -121,6 +121,7 @@ public class SendSmsToCustomerService {
                 if(smsType.equalsIgnoreCase("emi")){
                     AccountInformationEntity accountInformationEntity = accountInformationRepository.getOne(generatedSMSes.get(i).getId());
                     accountInformationEntity.setIsSmsSent("Y");
+                    accountInformationEntity.setSmsSentDate(new Date());
                     accountInformationRepository.save(accountInformationEntity);
                 }
 
