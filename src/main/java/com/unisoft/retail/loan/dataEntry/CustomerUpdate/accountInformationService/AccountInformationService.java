@@ -71,6 +71,7 @@ public class AccountInformationService {
         accountInformationEntities.stream().forEach(accountInformationEntity -> {
 
             accountInformationEntity.setIsClosed("Y");
+            accountInformationEntity.setModifiedDate(new Date());
 
             accountInformationEntities1.add(accountInformationEntity);
             if(accountInformationEntities1.size() == 1000)
@@ -368,7 +369,7 @@ public class AccountInformationService {
                             loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
 
                     if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
-                        UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        //UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
                         loanAccountDistributionInfo.setLatest("0");
                         loanAccountDistributionInfo.setIsPaid("Paid");
