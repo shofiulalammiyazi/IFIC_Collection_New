@@ -132,6 +132,8 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE IS_ESCALATED = 'Y' AND IS_CLOSED = 'N'", nativeQuery = true)
     Page<AccountInformationEntity> findAllAccIsSmsEntityAndOverdueGreaterThanZeroEscalation(Pageable pageable);
 
+    @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY WHERE LOANACNO = ?1 AND IS_CLOSED = 'Y'", nativeQuery = true)
+    List<AccountInformationEntity> findAccByIsClosed(String accNo);
 
     @Query(value = "SELECT AIE.* " +
             "FROM ACCOUNT_INFORMATION_ENTITY AIE " +

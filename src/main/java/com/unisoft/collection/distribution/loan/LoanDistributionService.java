@@ -121,6 +121,11 @@ public class LoanDistributionService {
                         continue;
                     }
 
+                    if(accountInformationService.getByAccNoAndIsClosed(accountNumber).size() > 0){
+                        errors.put(accountNumber, "Account is Closed!");
+                        continue;
+                    }
+
                     String dealerName = Objects.toString(row.getCell(2), "").trim();
 
                     String branchMnemonic = Objects.toString(row.getCell(3), "").trim();

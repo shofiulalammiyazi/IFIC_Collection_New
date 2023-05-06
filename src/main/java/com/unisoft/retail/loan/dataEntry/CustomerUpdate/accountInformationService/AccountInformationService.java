@@ -306,10 +306,17 @@ public class AccountInformationService {
 
                     accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
 
-                    if (!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
-                        accountInformationEntity.setIsDistributed("N");
+                    LoanAccountDistributionInfo loanAccountDistributionInfo =
+                            loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
+
+                    if (loanAccountDistributionInfo != null)
+                        accountInformationEntity.setIsDistributed("Y");
                     else
                         accountInformationEntity.setIsDistributed("N");
+// if (!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
+//                        accountInformationEntity.setIsDistributed("N");
+//                    else
+//                        accountInformationEntity.setIsDistributed("N");
 
                     try {
                         accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
@@ -364,9 +371,6 @@ public class AccountInformationService {
                     accountInformationEntities.add(accountInformationEntity);
 
                     System.out.println("test " + dto.getLoanACNo());
-
-                    LoanAccountDistributionInfo loanAccountDistributionInfo =
-                            loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
 
                     if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
                         //UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -433,6 +437,11 @@ public class AccountInformationService {
 
     public AccountInformationEntity findAccountInformationByLoanAccountNo(String accountNumber) {
         return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
+    }
+
+    public List<AccountInformationEntity> getByAccNoAndIsClosed(String accNo){
+
+        return accountInformationRepository.findAccByIsClosed(accNo);
     }
 
     public List<AccountInformationEntity> findAccountInformationEntityByLoanAccountNo(String accountNumber) {
