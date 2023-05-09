@@ -929,11 +929,13 @@
                                                 $('#ptp_promisor_details_id').html(' ');
                                                 $('#ptp_promisor_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
                                                 $('#ptp_promisor_details').val($(this).val());
+                                                promisorDetails();
                                             });
                                             $("#considerAttemptForm").delegate("#considet_contact_id","change",function () {
                                                 $('#ptp_contact_details_id').html(' ');
                                                 $('#ptp_contact_details_id').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).val()+'</option>');
                                                 $('#ptp_contact_details_id').val($(this).val());
+                                                contactDetails();
                                             })
                                         })
 
@@ -1051,7 +1053,7 @@
                                         },
                                     },
                                     components: {
-                                        vuejsDatepicker
+                                        // vuejsDatepicker
                                     },
                                     computed: {
                                         getDate() {
@@ -1088,6 +1090,7 @@
                                 }
 
                                 function promisorDetails() {
+
                                     var txtValue = $('select#ptp_promisor_details_id option:selected').text();
                                     var value = $('select#ptp_promisor_details_id option:selected').val();
                                     if(value != null && value != ''){
@@ -1130,6 +1133,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label">Contact Location</label>

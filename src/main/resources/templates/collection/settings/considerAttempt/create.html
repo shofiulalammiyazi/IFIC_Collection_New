@@ -188,6 +188,7 @@
                                 }).then(res => {
                                 if (res.ok) {
                                     swal("Successfully saved");
+                                    window.location="/collection/considerAttempt/list"
                                 } else {
                                     swal("Failed to save changes");
                                 }
