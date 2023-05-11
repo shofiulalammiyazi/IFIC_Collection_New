@@ -17,6 +17,7 @@ public class BranchDetails {
     private String CABAD4;
     private String CABAD5;
     private String BRANCHBOOTH;
+    private String MOTHERBRANCHCOD;
 
 }
 

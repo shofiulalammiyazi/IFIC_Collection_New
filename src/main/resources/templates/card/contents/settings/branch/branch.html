@@ -20,22 +20,23 @@
                         <div class="box-body">
 
                             <span class="bolder">API Total Branch: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${apiSize}"><span
-                                    class="glyphicon glyphicon-plus"> </span></a>
+                                class="glyphicon glyphicon-plus"> </span></a>
 
                             <span class="bolder">System Total Branch: </span><a style="margin-bottom: 5px;" class="btn btn-primary btn-sm" th:text="${dbSize}"><span
-                                    class="glyphicon glyphicon-plus"> </span> </a>
+                                class="glyphicon glyphicon-plus"> </span> </a>
 
                             <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"
                                th:if="${session.urlList.contains('/branch/create') and apiSize &gt; dbSize}"
-                            th:href="@{/branch/create-from-api}"><span
-                            class="glyphicon glyphicon-refresh"> </span> Sync </a>
-                            <table th:if="${branchelist!=null}" id="example" name="datatable-responsive"
+                               th:href="@{/branch/create-from-api}"><span
+                                    class="glyphicon glyphicon-refresh"> </span> Sync </a>
+                            <table th:if="${branchelist!=null}" id="branch" name="datatable-responsive"
                                    class="table table-striped table-bordered dt-responsive nowrap" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Sl No.</th>
                                     <th>Name</th>
                                     <th>Code</th>
+                                    <th>Mother Branch</th>
                                     <th>Mnemonic</th>
                                     <th>Branch Booth</th>
                                     <!--<th>Division</th>-->
@@ -49,6 +50,7 @@
                                     <td th:text="${status.count}"></td>
                                     <td><span th:text="${branch.branchName}"></span></td>
                                     <td><span th:text="${branch.branchCode}"></span></td>
+                                    <td><span th:text="${branch.MOTHERBRANCHCOD}"></span></td>
                                     <td th:text="${branch.MNEMONIC}"></td>
                                     <td th:text="${branch.BRANCHBOOTH}"></td>
                                     <!--<td th:text="${branch?.district?.division?.divName}"></td>-->
@@ -75,6 +77,15 @@
             </div>
         </section>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#branch').DataTable({
+                dom: 'Bfrtip',
+                bInfo: false,
+                aaSorting: []
+            } );
+        });
+    </script>
 </div>
 </body>
 </html>
