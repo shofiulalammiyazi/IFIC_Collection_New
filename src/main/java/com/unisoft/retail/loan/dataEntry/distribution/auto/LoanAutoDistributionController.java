@@ -72,6 +72,7 @@ public class LoanAutoDistributionController {
     @Autowired
     private SmsAndAutoDistributionRulesService smsAndAutoDistributionRulesService;
 
+
     @Value("${ific.excel.file-path}")
     private String excelServerPath;
 
@@ -105,6 +106,16 @@ public class LoanAutoDistributionController {
 
         return "retail/loan/dataEntry/distribution/auto/distributionlist";
     }
+
+    @GetMapping("afterEMIList")
+    public String getAfterEMIListList(Model model) {
+
+        List<AccountInformationEntity> accountInformationAfterEMI = accountInformationRepository.getAllBySmsSentDatePlusTwo();
+        model.addAttribute("afterEMI",accountInformationAfterEMI);
+
+        return "retail/loan/dataEntry/distribution/auto/afterEMIList";
+    }
+
 
     @GetMapping("delinquint-ac-list")
     public String getAllDelinquentAccList(Model model) {
