@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="box-body">
-                                <table id="example" name="datatable-responsive"
+                                <table id="scheduler" name="datatable-responsive"
                                        class="table table-striped table-bordered dt-responsive nowrap" width="100%">
                                     <thead>
                                     <tr>
@@ -108,6 +108,10 @@
             </style>
 
             <script>
+                $('#scheduler').DataTable( {
+                    dom: 'Rlfrtip',
+                    "aaSorting": []
+                } );
                 var arr = [];
                 var allAccountInformationApp = new Vue({
                     el: '#loan-all-delinquent-list',
