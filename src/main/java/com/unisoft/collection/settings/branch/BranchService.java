@@ -127,6 +127,7 @@ public class BranchService {
             branch.setCABAD3(branchDetails.getCABAD3());
             branch.setCABAD4(branchDetails.getCABAD4());
             branch.setCABAD5(branchDetails.getCABAD5());
+            branch.setMOTHERBRANCHCOD(branchDetails.getMOTHERBRANCHCOD());
 
             branches.add(branch);
         }
