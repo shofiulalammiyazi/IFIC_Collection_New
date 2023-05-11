@@ -166,7 +166,7 @@ public class LoanAutoDistributionController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @Scheduled(cron = "0 49 15 * * *")
+    @Scheduled(cron = "0 00 11 * * *")
     //@Scheduled(cron = "0 5 10 * * *")
     @GetMapping("/sendAllSms")
     public String autoSmsEmiDateWise() {
@@ -211,6 +211,49 @@ public class LoanAutoDistributionController {
 
         return status;
     }
+
+
+    @Scheduled(cron = "0 30 11 * * *")
+    //@Scheduled(cron = "0 5 10 * * *")
+    @GetMapping("/sendAllSmsAfterEmi")
+    public String autoSmsAfterEmiDateWise() {
+
+        SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("SMS", 1);
+
+        if(accountInformation == null)
+            return "OK";
+
+
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.getAllBySmsSentDatePlusTwo();
+        List<GeneratedSMS> generatedSMS = new ArrayList<>();
+        for (AccountInformationEntity acc : accountInformationEntities) {
+            String sms = "Pls, adjust your unpaid installment of BDT{{F.installmentAmount}} against IFIC Aamar Bari loan within next 03 days to" +
+                    " keep the loan regular. Pls, ignore if  already  paid." ;
+
+
+            //sms = sms.replace("{{F.accountNo}}", acc.getLoanACNo());
+            if(acc.getEmiAmount() != null)
+                sms = sms.replace("{{F.installmentAmount}}",acc.getEmiAmount());
+            else sms = sms.replace("{{F.installmentAmount}}","0");
+//            sms = sms.replace("{{F.nextEmiDate}}", acc.getNextEMIDate());
+//            sms = sms.replace("{{F.currentMonth}}", new SimpleDateFormat("MMM").format(new Date()));
+//            sms = sms.replace("{{F.productName}}", acc.getProductName().trim());
+            //TODO change phone number here use acc.getMobile()
+            String mobileNo = acc.getMobile().trim();
+            mobileNo = StringUtils.right(mobileNo,11);
+            GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo().trim(), mobileNo.trim(),acc.getDealReference());
+            generatedSMS.add(generatedSMS1);
+        }
+        String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"after emi");
+
+        return status;
+    }
+
+
+
+
+
+
 
     public void toExcel(String type) throws IOException {
         if(type.equalsIgnoreCase("delinquent"))

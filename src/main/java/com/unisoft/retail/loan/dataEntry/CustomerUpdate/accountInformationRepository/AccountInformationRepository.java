@@ -477,8 +477,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
     @Query(value = "SELECT AIE.* " +
             "  FROM ACCOUNT_INFORMATION_ENTITY AIE " +
             "WHERE SMS_SENT_DATE IS NOT NULL " +
-            "   AND TO_CHAR(AIE.SMS_SENT_DATE+3,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')", nativeQuery = true)
-    List<AccountInformation> getAllBySmsSentDatePlusTwo();
+            "   AND TO_CHAR(AIE.SMS_SENT_DATE+3,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')" +
+            " AND TO_NUMBER(OVERDUE)>0", nativeQuery = true)
+    List<AccountInformationEntity> getAllBySmsSentDatePlusTwo();
 
    /* @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
             "WHERE MODIFIED_DATE < SYSDATE", nativeQuery = true)

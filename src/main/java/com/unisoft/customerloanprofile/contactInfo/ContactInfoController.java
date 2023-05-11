@@ -34,17 +34,17 @@ public class ContactInfoController {
     private SendSmsToCustomerService sendSmsToCustomerService;
 
 
-    private static Date getNextOrPreviousDate(Date date, int dayIndex) {
+    private static String getNextOrPreviousDate(Date date, int dayIndex) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, dayIndex);
         return getFormattedDate(calendar.getTime(), "dd-MM-yyyy");
     }
 
-    private static Date getFormattedDate(Date date, String pattern) {
+    private static String getFormattedDate(Date date, String pattern) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            return simpleDateFormat.parse(simpleDateFormat.format(date));
+            return simpleDateFormat.format(date);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -101,7 +101,7 @@ public class ContactInfoController {
                 GeneratedSMS generatedSMS1 = new GeneratedSMS(acc.getId(), sms, acc.getLoanACNo(), mobileNo,acc.getDealReference());
                 generatedSMS.add(generatedSMS1);
                 //TODO uncomment the line
-               //String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");
+               String status = sendSmsToCustomerService.sendBulksms(generatedSMS,"contact info");
             }
         }
         contactInfoService.saveContactInfo(contactInfo);
