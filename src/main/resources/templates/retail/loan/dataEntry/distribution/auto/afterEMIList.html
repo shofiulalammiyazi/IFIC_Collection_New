@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="card/layouts/main/main-layout">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title> Eligible List For Sending After EMI SMS</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;">
+                            <h3 class="box-title"> Eligible List For Sending After EMI SMS</h3>
+                        </div>
+
+                        <div class="box-body">
+                          <!--  <a style="margin-bottom: 5px;" class="btn btn-primary btn-sm"  th:if="${session.urlList.contains('/collection/settings/unit/create')}"
+                               th:href="@{/collection/settings/unit/create}">
+                                <span class="glyphicon glyphicon-plus"> </span> Add Unit </a>-->
+                            <div class="table-responsive">
+                                <table  id="after_emi" name="datatable-responsive"
+                                       class="table table-condensed table-striped table-bordered" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-right">SL</th>
+                                        <th class="text-center">Account No</th>
+                                        <th class="text-center">Customer Name</th>
+                                        <th class="text-center">Mobile</th>
+                                        <th class="text-center">Branch Mnemonic</th>
+                                        <th class="text-center">Product Code</th>
+                                        <th class="text-center">Deal Reference</th>
+                                        <th class="text-center">Outstanding</th>
+                                        <th class="text-center">Overdue</th>
+                                        <th class="text-center">EMI Amount</th>
+                                        <th class="text-center">EMI Date</th>
+                                        <th class="text-center">No Of Installment Due</th>
+                                        <th class="text-center">Loan Status</th>
+                                        <th class="text-center">SMS Sending Status</th>
+                                        <th class="text-center">SMS Sending Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="data,status :${afterEMI}">
+                                            <td th:text="${status.count}"></td>
+                                            <td th:text="${data.loanACNo}"></td>
+                                            <td th:text="${data.customerName}"></td>
+                                            <td th:text="${data.mobile}"></td>
+                                            <td th:text="${data.branchMnemonic}"></td>
+                                            <td th:text="${data.productCode}"></td>
+                                            <td th:text="${data.dealReference}"></td>
+                                            <td th:text="${data.totalOutstanding}"></td>
+                                            <td th:text="${data.overdue}"></td>
+                                            <td th:text="${data.emiAmount}"></td>
+                                            <td th:text="${data.nextEMIDate}"></td>
+                                            <td th:text="${data.noOfInstallmentDue}"></td>
+                                            <td th:text="${data.loanCLStatus}"></td>
+                                            <td th:text="${data.isSmsSent}"></td>
+                                            <td th:text="${data.smsSentDate}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        $('#after_emi').DataTable( {
+            dom: 'Rlfrtip',
+            "aaSorting": []
+        } );
+    </script>
+</div>
+</body>
+</html>
