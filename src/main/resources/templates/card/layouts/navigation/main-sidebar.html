@@ -457,7 +457,14 @@
                                             <a th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/list')}"
                                                class="tab"
                                                th:href="@{/retail/loan/data-entry/distribution/auto/list}">
-                                                Eligible list for sending SMS
+                                                Eligible List For Sending SMS
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <!--th:if="${session.urlList.contains('/retail/loan/data-entry/distribution/auto/approval')-->
+                                            <a class="tab"th:href="@{/retail/loan/data-entry/distribution/auto/afterEMIList}">
+                                                Eligible List For Sending After EMI SMS
                                             </a>
                                         </li>
 
