@@ -110,7 +110,7 @@ public class LoanAutoDistributionController {
     @GetMapping("afterEMIList")
     public String getAfterEMIListList(Model model) {
 
-        List<AccountInformationEntity> accountInformationAfterEMI = accountInformationRepository.getAllBySmsSentDatePlusTwo();
+        List<AccountInformationEntity> accountInformationAfterEMI = accountInformationRepository.getAllBySmsSentDatePlus();
         model.addAttribute("afterEMI",accountInformationAfterEMI);
 
         return "retail/loan/dataEntry/distribution/auto/afterEMIList";
@@ -235,7 +235,7 @@ public class LoanAutoDistributionController {
             return "OK";
 
 
-        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.getAllBySmsSentDatePlusTwo();
+        List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.getAllBySmsSentDatePlus();
         List<GeneratedSMS> generatedSMS = new ArrayList<>();
         for (AccountInformationEntity acc : accountInformationEntities) {
             String sms = "Pls, adjust your unpaid installment of BDT{{F.installmentAmount}} against IFIC Aamar Bari loan within next 03 days to" +

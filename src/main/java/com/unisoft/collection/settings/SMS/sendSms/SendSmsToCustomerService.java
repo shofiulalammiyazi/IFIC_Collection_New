@@ -125,6 +125,12 @@ public class SendSmsToCustomerService {
                     accountInformationRepository.save(accountInformationEntity);
                 }
 
+                if(smsType.equalsIgnoreCase("after emi")){
+                    AccountInformationEntity accountInformationEntity = accountInformationRepository.getOne(generatedSMSes.get(i).getId());
+                    accountInformationEntity.setIsAfterEmiSmsSent("Y");
+                    accountInformationRepository.save(accountInformationEntity);
+                }
+
                 SmsLog smsLog = this.setValue(sms,tnxId,generatedSMS.getAccountNo(),generatedSMS.getMassege(),generatedSMS.getDealReference(),smsType);
 
                 smsLogRepository.save(smsLog);

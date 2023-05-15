@@ -368,6 +368,7 @@ public class AccountInformationService {
                         accountInformationEntity.setIsSmsSent("N");
 
                     accountInformationEntity.setIsClosed("N");
+                    accountInformationEntity.setIsAfterEmiSmsSent("N");
                     accountInformationEntities.add(accountInformationEntity);
 
                     System.out.println("test " + dto.getLoanACNo());
