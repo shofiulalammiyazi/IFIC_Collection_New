@@ -1560,18 +1560,7 @@
                                                             <span class="mdl-checkbox__focus-helper"></span><span></span></label>
                                                     </div>
                                                 </li>
-                                                <!-- <li class="col-sm-2" style="padding: 0px; list-style: none">
-                                                     <div class="ui checkbox">
-                                                     </div>
-                                                 </li>
-                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
-                                                     <div class="ui checkbox">
-                                                     </div>
-                                                 </li>
-                                                 <li class="col-sm-2" style="padding: 0px; list-style: none">
-                                                     <div class="ui checkbox">
-                                                     </div>
-                                                 </li>-->
+
 
                                             </ul>
                                         </td>
@@ -1629,6 +1618,32 @@
 
                                                     </div>
                                                 </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-sm-4">Eligible List For Sending After EMI SMS</td>
+                                        <td class="col-sm-8">
+                                            <ul style="padding: 0px;">
+
+
+                                                <li class="col-sm-2" style="padding: 0px; list-style: none">
+                                                    <div class="ui checkbox">
+                                                        <label class="mdl-checkbox" data-upgraded="MaterialCheckbox">
+                                                            <input type="checkbox"
+                                                                   th:checked="${#strings.contains(selectedUrlList, '/retail/loan/data-entry/distribution/auto/afterEMIList')}"
+                                                                   value="/retail/loan/data-entry/distribution/auto/afterEMIList"
+                                                                   name="urlList"><input type="hidden"
+                                                                                         name="_urlList"
+                                                                                         value="on">
+                                                            <span data-toggle="tooltip" data-placement="top"
+                                                                  data-trigger="hover" title=""
+                                                                  data-original-title="BB Audit Type">View</span>
+                                                            <span class="mdl-checkbox__focus-helper"></span><span></span></label>
+                                                    </div>
+                                                </li>
+
                                             </ul>
                                         </td>
                                     </tr>
@@ -17227,6 +17242,9 @@
                                             </ul>
                                         </td>
                                     </tr>
+
+
+
 
                                     <!-- <tr>
                                          <td class="col-sm-4">PTP Summery</td>
