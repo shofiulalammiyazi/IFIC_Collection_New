@@ -87,6 +87,16 @@ public class AccountInformationService {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
 
         if(accountInformation != null) {
+
+                UserPrincipal userPrincipal = null;
+            try{
+                userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            }catch (Exception e){
+                userPrincipal = new UserPrincipal();
+                userPrincipal.setUsername("System");
+                System.out.println(userPrincipal.getUsername());
+            }
+
 //            UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //            if (userPrincipal == null)
 //                userPrincipal.setUsername("System");
