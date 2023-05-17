@@ -181,7 +181,8 @@ public class ProfileLoanController {
             v.setName(employeeInfoEntity.getUser().getFirstName());
         });*/
 
-        LoanAccountDistributionInfo distributionInfo = loanAccountSearchService.findLatestLoanAccountDistributionInfo(loanAccountBasicInfo);
+        //LoanAccountDistributionInfo distributionInfo = loanAccountSearchService.findLatestLoanAccountDistributionInfo(loanAccountBasicInfo);
+        LoanAccountDistributionInfo distributionInfo = loanAccountSearchService.getByLoanAccountBasicInfoAndLatest(loanAccountBasicInfo.getId());
 
         double dayDiff = 0;
         double parAmount = 0;
