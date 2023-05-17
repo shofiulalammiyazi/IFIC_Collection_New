@@ -33,6 +33,10 @@ public class LoanAccountSearchService {
                 .findFirstByLoanAccountBasicInfoOrderByCreatedDateDesc(loanAccountBasicInfo);
     }
 
+    public LoanAccountDistributionInfo getByLoanAccountBasicInfoAndLatest(Long loanAccountBasicInfoId) {
+        return loanAccountDistributionRepository.findByLoanAccountBasicInfoAndLatest(loanAccountBasicInfoId);
+    }
+
     public LoanAgencyDistributionInfo findFromLoanAgencyDistributionInfo(LoanAccountBasicInfo loanAccountBasicInfo) {
         Date startDate = dateUtils.getMonthStartDate();
         Date endDate = dateUtils.getMonthEndDate();
