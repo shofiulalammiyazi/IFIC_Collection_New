@@ -390,6 +390,8 @@ public class AccountInformationService {
                         loanAccountDistributionInfo.setIsPaid("Paid");
                         loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
                         loanAccountDistributionInfo.setEndDate(new Date());
+                        loanAccountDistributionInfo.setModifiedDate(new Date());
+
 
                         loanAccountDistributionRepository.save(loanAccountDistributionInfo);
                     }
@@ -431,6 +433,7 @@ public class AccountInformationService {
                         loanAccountDistributionInfo.setIsPaid("Paid");
                         loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
                         loanAccountDistributionInfo.setEndDate(new Date());
+                        loanAccountDistributionInfo.setModifiedDate(new Date());
 
                         loanAccountDistributionRepository.save(loanAccountDistributionInfo);
                     }
