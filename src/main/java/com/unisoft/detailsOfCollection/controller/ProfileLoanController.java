@@ -340,8 +340,8 @@ public class ProfileLoanController {
         Date currentMonthEndDate = dateUtils.getMonthEndDate();
 
 
-            model.addAttribute("dealerAllocationHistory",
-                    loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
+        model.addAttribute("dealerAllocationHistory",
+                loanAccountDistributionService.getLoanAccountDealerAllocationHistory(accountNo, currentMonthStartDate, currentMonthEndDate));
         LoanAccountDistributionInfo byAccountNoAndLatest = loanAccountDistributionRepository.findByAccountNoAndLatest(accountNo.substring(0, 13), "1");
         model.addAttribute("currentDealer", byAccountNoAndLatest == null ? "" : byAccountNoAndLatest.getDealerPin());
 
@@ -365,13 +365,16 @@ public class ProfileLoanController {
 
             return "collection/search/loanList";
         }else {
-            CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntityList.get(0));
-            LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
+            //CustomerBasicInfoEntity customerBasicInfoEntity = loanDistributionService.updateCustomerBasiscInfo(accountInformationEntityList.get(0));
+            CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntityList.get(0).getLoanAccountNew());
+            //LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
+            //LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntityList.get(0).getLoanAccountNew());
+            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNoNew(accountInformationEntityList.get(0).getLoanACNo());
 
             model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
             model.addAttribute("borrowerName",accountInformationEntityList.get(0).getBorrowersName());
 
-            return profileLoanDetails(loanAccountBasicInfo.getCustomer().getId(), loanAccountBasicInfo.getId(), model);
+            return profileLoanDetails(customerBasicInfoEntity.getId(), loanAccountBasicInfo.getId(), model);
 
         }
 
