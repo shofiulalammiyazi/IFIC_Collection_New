@@ -106,4 +106,9 @@ public class CustomerBasicInfoService {
     public CustomerBasicInfoEntity save(CustomerBasicInfoEntity customerBasicInfoEntity){
         return repository.save(customerBasicInfoEntity);
     }
+
+    public CustomerBasicInfoEntity getFirstByAccountNoOrderByAccountNoSubStr(String accNo){
+
+        return repository.findFirstByAccountNoOrderByAccountNoSubStr(accNo);
+    }
 }
