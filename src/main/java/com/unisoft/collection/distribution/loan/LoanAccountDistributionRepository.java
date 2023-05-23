@@ -293,4 +293,9 @@ public interface LoanAccountDistributionRepository extends JpaRepository<LoanAcc
             "WHERE LADI.LATEST = '1' " +
             "AND LADI.DEAL_REFERENCE = AIE.DEAL_REFERENCE",nativeQuery = true)
     List<Tuple> accountDistributionList();
+
+    @Query(value = "SELECT * FROM LOAN_ACCOUNT_DISTRIBUTION_INFO LADI " +
+            " WHERE LADI.LOAN_ACCOUNT_BASIC_INFO_ID = ?1 " +
+            " AND LADI.LATEST = '1'", nativeQuery = true)
+    LoanAccountDistributionInfo findByLoanAccountBasicInfoAndLatest(Long loanAccountBasicInfoId);
 }

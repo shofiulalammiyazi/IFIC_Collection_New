@@ -98,7 +98,7 @@ public class AccountInformationService {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
         if(accountInformation != null) {
 
-                UserPrincipal userPrincipal = null;
+            UserPrincipal userPrincipal = null;
             try{
                 userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             }catch (Exception e){
@@ -327,7 +327,7 @@ public class AccountInformationService {
                     accountInformationEntity.setProductCode(productCode);
                     accountInformationEntity.setDealReference(dealReference);
 
-                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
+                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference.replaceAll("\\s+", ""));
 
                     LoanAccountDistributionInfo loanAccountDistributionInfo =
                             loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
@@ -404,6 +404,8 @@ public class AccountInformationService {
                         loanAccountDistributionInfo.setIsPaid("Paid");
                         loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
                         loanAccountDistributionInfo.setEndDate(new Date());
+                        loanAccountDistributionInfo.setModifiedDate(new Date());
+
 
                         loanAccountDistributionRepository.save(loanAccountDistributionInfo);
                     }
@@ -448,6 +450,7 @@ public class AccountInformationService {
                         loanAccountDistributionInfo.setIsPaid("Paid");
                         loanAccountDistributionInfo.setStartDate(loanAccountDistributionInfo.getCreatedDate());
                         loanAccountDistributionInfo.setEndDate(new Date());
+                        loanAccountDistributionInfo.setModifiedDate(new Date());
 
                         loanAccountDistributionRepository.save(loanAccountDistributionInfo);
                     }
