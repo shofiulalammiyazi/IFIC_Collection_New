@@ -25,29 +25,6 @@
                                th:if="${session.urlList.contains('/distribution/loan/create')}"
                                th:href="@{/distribution/loan/create}"><span class="glyphicon glyphicon-plus"> </span>
                                 Dealer Allocation </a>
-                            <!--<a style="margin-bottom: 10px; margin-left: 5px" class="btn btn-primary btn-xs"
-                               th:href="@{/collection/loanagency/distribution/add}"><span
-                                    class="glyphicon glyphicon-plus"> </span> Agency Allocation </a>-->
-                            <!-- <button style="margin-bottom: 10px; float: right;" class="btn btn-primary btn-xs"
-                                               data-toggle="modal" data-target="#modal-default-agency"
-                                               :disabled="!selectedList.length"><span class="glyphicon glyphicon-plus"> </span>
-                             MA (Agency)
-                         </button>-->
-                            <!-- <button style="margin-bottom: 10px; margin-right: 5px; float: right;"
-                                     class="btn btn-primary btn-xs" data-toggle="modal"
-                                     data-target="#modal-default-dealer" :disabled="!selectedList.length"><span
-                                     class="glyphicon glyphicon-plus"> </span> MA (Dealer)
-                             </button>
-                             <button @click="addManualAllocationSam"
-                                     style="margin-bottom: 10px; margin-right: 5px; float: right;"
-                                     class="btn btn-primary btn-xs" :disabled="!selectedList.length"><span
-                                     class="glyphicon glyphicon-plus"> </span> MA (SAM)
-                             </button>-->
-                            <!-- <button @click="addManualAllocationWriteOff"
-                                     style="margin-bottom: 10px; margin-right: 5px; float: right;"
-                                     class="btn btn-primary btn-xs" :disabled="!selectedList.length"><span
-                                     class="glyphicon glyphicon-plus"> </span> MA (Write Off)
-                             </button>-->
                             <table id="allocated-account-list-tbl" name="datatable-responsive"
                                    class="table table-striped table-bordered table-condensed text-center" width="100%">
                                 <thead>
@@ -70,8 +47,6 @@
                                     <th class="text-center">Loan Status</th>
                                     <th class="text-center">SMS Sending Status</th>
                                     <th>Bucket</th>
-                                    <!--<th>Dealer Name</th>-->
-                                    <!--<th style="display: none;"></th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -84,8 +59,8 @@
                                         </label>
                                     </td>
                                     <td style="display:block;height: 16px; overflow: auto">{{loan.delaerPin}}</td>
-                                    <td >{{loan.delaerName}}</td>
-                                    <td >{{loan.teamLeaderPin}}</td>
+                                    <td>{{loan.delaerName}}</td>
+                                    <td>{{loan.teamLeaderPin}}</td>
                                     <td>
                                         <div style="height: 16px; overflow: auto">{{loan.customerName}}</div>
                                     </td>
@@ -105,8 +80,6 @@
                                     <td>{{loan.loanCLStatus}}</td>
                                     <td>{{loan.isSmsSent}}</td>
                                     <td><span>{{loan.dpdBucket}}</span></td>
-                                    <!--<td style="display:block;height: 16px; overflow: auto"><span v-if="loan.delaerName">{{loan.delaerName}}</span></td>-->
-                                    <!--<td v-show="loan.monirotingStatus != 'DUAL'"><span >-</span></td>-->
                                 </tr>
                                 </tbody>
                             </table>
@@ -197,10 +170,6 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <!--<button data-target="#modal-error" data-dismiss="modal"-->
-                                            <!--class="btn btn-sm btn-danger pull-right">-->
-                                            <!--<span aria-hidden="true">&times;</span>-->
-                                            <!--</button>-->
                                             <h4 class="modal-title text-center">Distribution Errors</h4>
                                         </div>
                                         <div class="modal-body">
@@ -242,9 +211,14 @@
 
                         <script th:inline="javascript">
                             /*<![CDATA[*/
-                            var loanviewlist =/*[[${loanviewlistJson}]]*/  ||"";
+                            var loanviewlist =
+                            /*[[${loanviewlistJson}]]*/  ||
+                            "";
                             console.log(JSON.parse(loanviewlist))
-                            var errors =/*[[${distributionErrors}]]*/  ||{}
+                            var errors =
+                            /*[[${distributionErrors}]]*/  ||
+                            {
+                            }
                             ;
                             /*]]>*/
 
@@ -266,122 +240,7 @@
                                     this.errors = errors;
                                 },
                                 methods: {
-                                    //     addManualAllocation: function () {
-                                    //         var host = window.location.host;
-                                    //         this.$http.post('https://' + host + '/collection/distribution/api/loanupdate', {
-                                    //             id: this.dealerId,
-                                    //             list: this.selectedList,
-                                    //
-                                    //         }, {
-                                    //             credentials: true, headers: {
-                                    //                 'X-CSRF-TOKEN': window.csrfToken,
-                                    //             }
-                                    //         }).then(res = > {
-                                    //             if(res.body){
-                                    //                 alert("saved successfully");
-                                    //                 document.location.reload();
-                                    //             }
-                                    //         }).catch(err = > {
-                                    //             console.log(err);
-                                    //         });
-                                    //     },
-                                    //     addManualAllocationAgency: function () {
-                                    //
-                                    //         var host = window.location.host;
-                                    //         this.$http.post('https://' + host + '/collection/distribution/api/agencyloanupdate', {
-                                    //             id: this.agencyId,
-                                    //             list: this.selectedList,
-                                    //             dualorsingle: this.dualType,
-                                    //
-                                    //         }, {
-                                    //             credentials: true, headers: {
-                                    //                 'X-CSRF-TOKEN': window.csrfToken,
-                                    //             }
-                                    //         }).then(res = > {
-                                    //
-                                    //             if(res.body
-                                    //     )
-                                    //         {
-                                    //             alert("saved successfully");
-                                    //             document.location.reload();
-                                    //         }
-                                    //     }).
-                                    //         catch(err = > {
-                                    //             console.log(err);
-                                    //     })
-                                    //     },
-                                    //
-                                    //     addManualAllocationSam: function () {
-                                    //         let flag = confirm("Are you sure?");
-                                    //         var host = window.location.host;
-                                    //         if (flag) {
-                                    //             this.$http.post('https://' + host + '/collection/distribution/api/loansendtosam', {
-                                    //                 id: this.agencyId,
-                                    //                 list: this.selectedList,
-                                    //
-                                    //             }, {
-                                    //                 credentials: true, headers: {
-                                    //                     'X-CSRF-TOKEN': window.csrfToken,
-                                    //                 }
-                                    //             }).then(res = > {
-                                    //
-                                    //                 if(res.body
-                                    //         )
-                                    //             {
-                                    //                 alert("saved successfully");
-                                    //                 document.location.reload();
-                                    //             }
-                                    //         }).
-                                    //             catch(err = > {
-                                    //                 console.log(err);
-                                    //         })
-                                    //         }
-                                    //         else
-                                    //             console.log("You Pressed: " + flag);
-                                    //
-                                    //     },
-                                    //
-                                    //     addManualAllocationWriteOff: function () {
-                                    //         alert("Are you sure?")
-                                    //         var host = window.location.host;
-                                    //         this.$http.post('https://' + host + '/collection/distribution/api/loansendtowriteOff', {
-                                    //             id: this.agencyId,
-                                    //             list: this.selectedList,
-                                    //
-                                    //         }, {
-                                    //             credentials: true, headers: {
-                                    //                 'X-CSRF-TOKEN': window.csrfToken,
-                                    //             }
-                                    //         }).then(res = > {
-                                    //
-                                    //             if(res.body
-                                    //     )
-                                    //         {
-                                    //             document.location.reload();
-                                    //         }
-                                    //     }).
-                                    //         catch(err = > {
-                                    //             console.log(err);
-                                    //     })
-                                    //     },
-                                    //     getInterestData() {
-                                    //         let host = window.location.host;
-                                    //         let url = 'https://' + host + '/collection/setup/interest/interest-data';
-                                    //         this.$http.get(url,
-                                    //             {
-                                    //                 credentials: true,
-                                    //                 headers: {
-                                    //                     'X-CSRF-TOKEN': window.csrfToken,
-                                    //                 }
-                                    //             }
-                                    //         ).then(res = > {}
-                                    //     ).
-                                    //         catch(err = > {
-                                    //             console.log(err);
-                                    //     })
-                                    //         ;
-                                    //     },
-                                    // }
+
                                 }
                             })
 

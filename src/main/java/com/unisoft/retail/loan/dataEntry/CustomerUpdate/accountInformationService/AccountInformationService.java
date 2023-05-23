@@ -88,7 +88,7 @@ public class AccountInformationService {
 
         if(accountInformation != null) {
 
-                UserPrincipal userPrincipal = null;
+            UserPrincipal userPrincipal = null;
             try{
                 userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             }catch (Exception e){
@@ -314,7 +314,7 @@ public class AccountInformationService {
                     accountInformationEntity.setProductCode(productCode);
                     accountInformationEntity.setDealReference(dealReference);
 
-                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
+                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference.replaceAll("\\s+", ""));
 
                     LoanAccountDistributionInfo loanAccountDistributionInfo =
                             loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");

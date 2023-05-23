@@ -369,7 +369,7 @@ public class ProfileLoanController {
             CustomerBasicInfoEntity customerBasicInfoEntity = customerBasicInfoService.findByAccountNo(accountInformationEntityList.get(0).getLoanAccountNew());
             //LoanAccountBasicInfo loanAccountBasicInfo = loanDistributionService.updateLoanAccountBasicInfo(accountInformationEntityList.get(0),customerBasicInfoEntity);
             //LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNo(accountInformationEntityList.get(0).getLoanAccountNew());
-            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNoNew(accountInformationEntityList.get(0).getLoanACNo());
+            LoanAccountBasicInfo loanAccountBasicInfo = loanAccountBasicService.getByAccountNoNew(accountInformationEntityList.get(0).getLoanAccountNew());
 
             model.addAttribute("accountConcatNumber",loanAccountBasicInfo.getAccountNo());
             model.addAttribute("borrowerName",accountInformationEntityList.get(0).getBorrowersName());
