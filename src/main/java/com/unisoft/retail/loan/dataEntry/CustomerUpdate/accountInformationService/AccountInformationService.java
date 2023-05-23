@@ -2,8 +2,13 @@ package com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationServi
 
 import com.unisoft.collection.dashboard.AdvanceSearchPayload;
 import com.unisoft.collection.distribution.loan.LoanAccountDistributionRepository;
+import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
+import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicRepository;
 import com.unisoft.collection.distribution.loan.loanAccountDistribution.LoanAccountDistributionInfo;
 import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
+import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
+import com.unisoft.customerbasicinfo.CustomerBasicInfoEntityRepository;
+import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInfoSMSDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
 import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
@@ -48,6 +53,9 @@ public class AccountInformationService {
     private AccountInformationDao accountInformationDao;
 
     @Autowired
+    private CustomerBasicInfoEntityRepository customerBasicInfoEntityRepository;
+
+    @Autowired
     private DateUtils dateUtils;
 
     @Autowired
@@ -64,6 +72,9 @@ public class AccountInformationService {
 
     @Autowired
     private SchedulerInformationRepository schedulerInformationRepository;
+
+    @Autowired
+    private LoanAccountBasicRepository loanAccountBasicRepository;
 
     void updateAccountStatus(){
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAll();
@@ -85,7 +96,6 @@ public class AccountInformationService {
     @Scheduled(cron = "0 57 12 * * *")
     public String getAccountInformationData() {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
-
         if(accountInformation != null) {
 
                 UserPrincipal userPrincipal = null;
@@ -120,6 +130,7 @@ public class AccountInformationService {
             //accountInformationDao.updateCloseStatus();
             updateAccountStatus();
             List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
+            List<CustomerBasicInfoEntity> customerBasicInfoEntities = new ArrayList<>();
 
             for (AccountInformationDto dto : dataList) {
                 if ((dto.getLoanACNo() != null && dto.getLoanACNo().trim().length() == 13)
@@ -133,6 +144,8 @@ public class AccountInformationService {
                     String dealReference = dto.getDealReference().trim();
 
                     AccountInformationEntity accountInformationEntity;
+                    CustomerBasicInfoEntity customerBasicInfoEntity = new CustomerBasicInfoEntity(dto);
+                    //customerBasicInfoEntities.add(customerBasicInfoEntity);
 
                     accountInformationEntity = accountInformationRepository.
                             findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(account, branchMnemonic, productCode, dealReference);
@@ -323,10 +336,6 @@ public class AccountInformationService {
                         accountInformationEntity.setIsDistributed("Y");
                     else
                         accountInformationEntity.setIsDistributed("N");
-// if (!accountInformationEntity.getIsDistributed().equalsIgnoreCase("Y"))
-//                        accountInformationEntity.setIsDistributed("N");
-//                    else
-//                        accountInformationEntity.setIsDistributed("N");
 
                     try {
                         accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
@@ -379,6 +388,11 @@ public class AccountInformationService {
 
                     accountInformationEntity.setIsClosed("N");
                     accountInformationEntity.setIsAfterEmiSmsSent("N");
+                    CustomerBasicInfoEntity customerBasicInfoEntity1 = customerBasicInfoEntityRepository.save(customerBasicInfoEntity);
+                    LoanAccountBasicInfo loanAccountBasicInfo = new LoanAccountBasicInfo(customerBasicInfoEntity1.getCustomerName(),customerBasicInfoEntity1);
+                    loanAccountBasicRepository.save(loanAccountBasicInfo);
+
+
                     accountInformationEntities.add(accountInformationEntity);
 
                     System.out.println("test " + dto.getLoanACNo());
@@ -395,8 +409,10 @@ public class AccountInformationService {
                     }
 
                     if (accountInformationEntities.size() == 1000) {
+                        //customerBasicInfoEntityRepository.saveAll(customerBasicInfoEntities);
                         accountInformationRepository.saveAll(accountInformationEntities);
                         System.out.println("innerlopp");
+                        //customerBasicInfoEntities.clear();
                         accountInformationEntities.clear();
                     }
                 }
@@ -405,7 +421,8 @@ public class AccountInformationService {
 
             if (accountInformationEntities.size() > 0 && accountInformationEntities.size() < 1000) {
                 System.out.println("outerloop");
-
+                //customerBasicInfoEntityRepository.saveAll(customerBasicInfoEntities);
+                //customerBasicInfoEntities.clear();
                 accountInformationRepository.saveAll(accountInformationEntities);
                 accountInformationEntities.clear();
             }

@@ -2,6 +2,8 @@ package com.unisoft.customerbasicinfo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.unisoft.base.BaseInfo;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationDto;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -111,6 +113,20 @@ public class CustomerBasicInfoEntity extends BaseInfo {
 
 
     public CustomerBasicInfoEntity() {
+    }
+
+    public CustomerBasicInfoEntity(AccountInformationDto accountInformationDto) {
+        this.accountNo = accountInformationDto.getLoanAccountNew();
+        this.customerName = accountInformationDto.getCustomerName();
+        this.customerFatherName = accountInformationDto.getFatherName();
+        this.customerMotherName = accountInformationDto.getMotherName();
+        this.mobileNumber = accountInformationDto.getMobile();
+        this.email = accountInformationDto.getEmail();
+        this.branchCode = accountInformationDto.getBranchCode();
+        this.branchName = accountInformationDto.getBranchName();
+        this.sex = accountInformationDto.getGender();
+        this.nid = accountInformationDto.getNid();
+        this.tin = accountInformationDto.getTin();
     }
 
     public CustomerBasicInfoEntity(String accountNo) {
