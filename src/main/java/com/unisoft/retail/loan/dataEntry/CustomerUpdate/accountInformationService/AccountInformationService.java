@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -79,7 +80,7 @@ public class AccountInformationService {
     @Autowired
     private CustomerBasicInfoService customerBasicInfoService;
 
-    void updateAccountStatus(){
+    void updateAccountStatus() {
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAll();
         List<AccountInformationEntity> accountInformationEntities1 = new ArrayList<>();
         accountInformationEntities.stream().forEach(accountInformationEntity -> {
@@ -88,7 +89,7 @@ public class AccountInformationService {
             accountInformationEntity.setModifiedDate(new Date());
 
             accountInformationEntities1.add(accountInformationEntity);
-            if(accountInformationEntities1.size() == 1000)
+            if (accountInformationEntities1.size() == 1000)
                 accountInformationRepository.saveAll(accountInformationEntities1);
         });
         accountInformationRepository.saveAll(accountInformationEntities1);
@@ -99,12 +100,12 @@ public class AccountInformationService {
     @Scheduled(cron = "0 57 12 * * *")
     public String getAccountInformationData() {
         SchedulerInformationEntity accountInformation = schedulerInformationRepository.findBySchedulerNameAndStatus("Account Information", 1);
-        if(accountInformation != null) {
+        if (accountInformation != null) {
 
             UserPrincipal userPrincipal = null;
-            try{
+            try {
                 userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            }catch (Exception e){
+            } catch (Exception e) {
                 userPrincipal = new UserPrincipal();
                 userPrincipal.setUsername("System");
                 System.out.println(userPrincipal.getUsername());
@@ -176,7 +177,26 @@ public class AccountInformationService {
 
                     String productType = dto.getProductType();
                     String actualTenor = dto.getActualTenor();
-                    String totalOutstanding = dto.getTotalOutstanding() != null ? String.valueOf(Double.parseDouble(dto.getTotalOutstanding()) / 100) : "0";
+                    // String totalOutstanding = dto.getTotalOutstanding() != null ? String.valueOf(Double.parseDouble(dto.getTotalOutstanding()) / 100) : "0";
+                    //String totalOutstanding = dto.getTotalOutstanding() != null ? new BigDecimal(dto.getTotalOutstanding()).divide(new BigDecimal("100")).toString() : "0";
+                    //  String totalOutstanding = dto.getTotalOutstanding() != null ? new BigDecimal(dto.getTotalOutstanding()).divide(new BigDecimal("100")).toString() : "0";
+
+                    String totalOutstanding = "";
+                    if (dto.getTotalOutstanding() != null || !dto.getTotalOutstanding().trim().equalsIgnoreCase("")) {
+                        // System.out.println(new BigDecimal(dto.getTotalOutstanding().trim()).divide(new BigDecimal("100")).toString());
+                        totalOutstanding= new BigDecimal(dto.getTotalOutstanding().trim()).divide(new BigDecimal("100")).toString();
+//                        try{
+//                            System.out.println(new BigDecimal(dto.getTotalOutstanding().trim()).divide(new BigDecimal("100")).toString());
+//                            new BigDecimal(dto.getTotalOutstanding().trim()).divide(new BigDecimal("100")).toString();
+//                            BigDecimal outs = new BigDecimal(dto.getTotalOutstanding().trim());
+//                            outs.divide(new BigDecimal("100"));
+//                            outs.toString();
+//                        }catch (Exception e){
+//                            System.out.println(dto.getTotalOutstanding());
+//                        }
+                    } else {
+                        totalOutstanding=" ";
+                    }
                     String borrowerName = dto.getBorrowersName();
                     String profession = dto.getProfession();
                     String email = dto.getEmail();
@@ -430,13 +450,13 @@ public class AccountInformationService {
             schedulerMonitoringStatus.setStatus("Success");
 
             schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
-            customerBasicInfoService.updateCustomer();
+            // customerBasicInfoService.updateCustomer();
             return "200";
         }
         return "400";
     }
 
-    public void updateClosedAccountDistribution(){
+    public void updateClosedAccountDistribution() {
         List<AccountInformationEntity> modifiedDateBeforeCurrentDate = accountInformationRepository.findAllByClosedAccount();
         modifiedDateBeforeCurrentDate.stream()
                 .forEach(accountInformationEntity -> {
@@ -468,7 +488,7 @@ public class AccountInformationService {
         return accountInformationRepository.findAccountInformationEntityByLoanACNo(accountNumber);
     }
 
-    public List<AccountInformationEntity> getByAccNoAndIsClosed(String accNo){
+    public List<AccountInformationEntity> getByAccNoAndIsClosed(String accNo) {
 
         return accountInformationRepository.findAccByIsClosed(accNo);
     }
@@ -529,26 +549,25 @@ public class AccountInformationService {
     }
 
 
-    public List<AccountInfoSMSDto> setValueToSMSDto(List<Tuple> tuples){
+    public List<AccountInfoSMSDto> setValueToSMSDto(List<Tuple> tuples) {
         List<AccountInfoSMSDto> accountInfoSMSDtos = new ArrayList<>();
 
-        for(Tuple t : tuples){
+        for (Tuple t : tuples) {
             accountInfoSMSDtos.add(new AccountInfoSMSDto(t));
         }
 
         return accountInfoSMSDtos;
     }
 
-    public List<AccountInfoSMSDto> setValueToSMSDto1(List<Tuple> tuples){
+    public List<AccountInfoSMSDto> setValueToSMSDto1(List<Tuple> tuples) {
         List<AccountInfoSMSDto> accountInfoSMSDtos = new ArrayList<>();
 
-        for(Tuple t : tuples){
-            accountInfoSMSDtos.add(new AccountInfoSMSDto(t,1));
+        for (Tuple t : tuples) {
+            accountInfoSMSDtos.add(new AccountInfoSMSDto(t, 1));
         }
 
         return accountInfoSMSDtos;
     }
-
 
 
     public ResponseEntity findAllByOverdueGreaterThanZero(int page, int length, String accountNo) {
@@ -598,12 +617,12 @@ public class AccountInformationService {
         Map<String, Object[]> data = new TreeMap<>();
         //data.put("1", );
 
-        String arr[] = {"Account No","Dealer PIN","Dealer Name","Branch Mnemonic","Product Code",
-                "Deal Reference","Over Due","No Of Installment Due","Loan Status","EMI Amount"};
+        String arr[] = {"Account No", "Dealer PIN", "Dealer Name", "Branch Mnemonic", "Product Code",
+                "Deal Reference", "Over Due", "No Of Installment Due", "Loan Status", "EMI Amount"};
 
         Cell cell0 = null;
         Row row1 = sheet.createRow(0);
-        for(int h=0; h<arr.length; h++){
+        for (int h = 0; h < arr.length; h++) {
             cell0 = row1.createCell(h);
             cell0.setCellValue(arr[h]);
         }
@@ -611,35 +630,35 @@ public class AccountInformationService {
         //iterating r number of rows
         AccountInformationEntity accountInformationEntity;
         for (int r = 0; r < accountInformationEntities.size(); r++) {
-            Row row = sheet.createRow(r+1);
+            Row row = sheet.createRow(r + 1);
             accountInformationEntity = accountInformationEntities.get(r);
             //iterating c number of columns
             Cell cell1 = row.createCell(0);
-            cell1.setCellValue(accountInformationEntity.getLoanACNo()==null?"":accountInformationEntity.getLoanACNo());
+            cell1.setCellValue(accountInformationEntity.getLoanACNo() == null ? "" : accountInformationEntity.getLoanACNo());
             Cell cell2 = row.createCell(1);
             cell2.setCellValue("");
             Cell cell3 = row.createCell(2);
             cell3.setCellValue("");
             Cell cell4 = row.createCell(3);
-            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null?"":accountInformationEntity.getBranchMnemonic());
+            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null ? "" : accountInformationEntity.getBranchMnemonic());
             Cell cell5 = row.createCell(4);
-            cell5.setCellValue(accountInformationEntity.getProductCode() ==null?"":accountInformationEntity.getProductCode());
+            cell5.setCellValue(accountInformationEntity.getProductCode() == null ? "" : accountInformationEntity.getProductCode());
             Cell cell6 = row.createCell(5);
-            cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
+            cell6.setCellValue(accountInformationEntity.getDealReference() == null ? "" : accountInformationEntity.getDealReference());
             Cell cell7 = row.createCell(6);
-            cell7.setCellValue(accountInformationEntity.getOverdue() == null?"":accountInformationEntity.getOverdue());
+            cell7.setCellValue(accountInformationEntity.getOverdue() == null ? "" : accountInformationEntity.getOverdue());
             Cell cell8 = row.createCell(7);
-            cell8.setCellValue(accountInformationEntity.getNoOfInstallmentDue() ==null?"":accountInformationEntity.getNoOfInstallmentDue());
+            cell8.setCellValue(accountInformationEntity.getNoOfInstallmentDue() == null ? "" : accountInformationEntity.getNoOfInstallmentDue());
             Cell cell9 = row.createCell(8);
-            cell9.setCellValue(accountInformationEntity.getLoanCLStatus() ==null?"":accountInformationEntity.getLoanCLStatus());
+            cell9.setCellValue(accountInformationEntity.getLoanCLStatus() == null ? "" : accountInformationEntity.getLoanCLStatus());
             Cell cell10 = row.createCell(9);
-            cell10.setCellValue(accountInformationEntity.getEmiAmount() ==null?"":accountInformationEntity.getEmiAmount());
+            cell10.setCellValue(accountInformationEntity.getEmiAmount() == null ? "" : accountInformationEntity.getEmiAmount());
 
 
         }
 
         //String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
-        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName()+".xlsx";
+        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName() + ".xlsx";
         FileOutputStream out = new FileOutputStream(fileLocation);
         workbook.write(out);
 
@@ -654,13 +673,13 @@ public class AccountInformationService {
         Map<String, Object[]> data = new TreeMap<>();
         //data.put("1", );
 
-        String arr[] = {"Account No","Customer Name","Mobile","Branch Mnemonic","Product Code",
+        String arr[] = {"Account No", "Customer Name", "Mobile", "Branch Mnemonic", "Product Code",
                 "Deal Reference", "Outstanding", "Overdue", "EMI Amount", "No Of Installment Due",
-                "Loan Status", "Distribution Status","SMS Sending Status"};
+                "Loan Status", "Distribution Status", "SMS Sending Status"};
 
         Cell cell0 = null;
         Row row1 = sheet.createRow(0);
-        for(int h=0; h<arr.length; h++){
+        for (int h = 0; h < arr.length; h++) {
             cell0 = row1.createCell(h);
             cell0.setCellValue(arr[h]);
         }
@@ -668,39 +687,39 @@ public class AccountInformationService {
         //iterating r number of rows
         AccountInformationEntity accountInformationEntity;
         for (int r = 0; r < accountInformationEntities.size(); r++) {
-            Row row = sheet.createRow(r+1);
+            Row row = sheet.createRow(r + 1);
             accountInformationEntity = accountInformationEntities.get(r);
             //iterating c number of columns
             Cell cell1 = row.createCell(0);
-            cell1.setCellValue(accountInformationEntity.getLoanACNo()==null?"":accountInformationEntity.getLoanACNo());
+            cell1.setCellValue(accountInformationEntity.getLoanACNo() == null ? "" : accountInformationEntity.getLoanACNo());
             Cell cell2 = row.createCell(1);
-            cell2.setCellValue(accountInformationEntity.getCustomerName() == null ? "":accountInformationEntity.getCustomerName());
+            cell2.setCellValue(accountInformationEntity.getCustomerName() == null ? "" : accountInformationEntity.getCustomerName());
             Cell cell3 = row.createCell(2);
-            cell3.setCellValue(accountInformationEntity.getMobile() == null ? "":accountInformationEntity.getMobile());
+            cell3.setCellValue(accountInformationEntity.getMobile() == null ? "" : accountInformationEntity.getMobile());
             Cell cell4 = row.createCell(3);
-            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null?"":accountInformationEntity.getBranchMnemonic());
+            cell4.setCellValue(accountInformationEntity.getBranchMnemonic() == null ? "" : accountInformationEntity.getBranchMnemonic());
             Cell cell5 = row.createCell(4);
-            cell5.setCellValue(accountInformationEntity.getProductCode() ==null?"":accountInformationEntity.getProductCode());
+            cell5.setCellValue(accountInformationEntity.getProductCode() == null ? "" : accountInformationEntity.getProductCode());
             Cell cell6 = row.createCell(5);
-            cell6.setCellValue(accountInformationEntity.getDealReference()==null?"":accountInformationEntity.getDealReference());
+            cell6.setCellValue(accountInformationEntity.getDealReference() == null ? "" : accountInformationEntity.getDealReference());
             Cell cell7 = row.createCell(6);
-            cell7.setCellValue(accountInformationEntity.getTotalOutstanding()==null?"":accountInformationEntity.getTotalOutstanding());
+            cell7.setCellValue(accountInformationEntity.getTotalOutstanding() == null ? "" : accountInformationEntity.getTotalOutstanding());
             Cell cell8 = row.createCell(7);
-            cell8.setCellValue(accountInformationEntity.getOverdue()==null?"":accountInformationEntity.getOverdue());
+            cell8.setCellValue(accountInformationEntity.getOverdue() == null ? "" : accountInformationEntity.getOverdue());
             Cell cell9 = row.createCell(8);
-            cell9.setCellValue(accountInformationEntity.getEmiAmount()==null?"":accountInformationEntity.getEmiAmount());
+            cell9.setCellValue(accountInformationEntity.getEmiAmount() == null ? "" : accountInformationEntity.getEmiAmount());
             Cell cell10 = row.createCell(9);
-            cell10.setCellValue(accountInformationEntity.getNoOfInstallmentDue()==null?"":accountInformationEntity.getNoOfInstallmentDue());
+            cell10.setCellValue(accountInformationEntity.getNoOfInstallmentDue() == null ? "" : accountInformationEntity.getNoOfInstallmentDue());
             Cell cell11 = row.createCell(10);
-            cell11.setCellValue(accountInformationEntity.getLoanCLStatus()==null?"":accountInformationEntity.getLoanCLStatus());
+            cell11.setCellValue(accountInformationEntity.getLoanCLStatus() == null ? "" : accountInformationEntity.getLoanCLStatus());
             Cell cell12 = row.createCell(11);
-            cell12.setCellValue(accountInformationEntity.getIsDistributed()==null?"":accountInformationEntity.getIsDistributed());
+            cell12.setCellValue(accountInformationEntity.getIsDistributed() == null ? "" : accountInformationEntity.getIsDistributed());
             Cell cell13 = row.createCell(12);
-            cell13.setCellValue(accountInformationEntity.getIsSmsSent()==null?"":accountInformationEntity.getIsSmsSent());
+            cell13.setCellValue(accountInformationEntity.getIsSmsSent() == null ? "" : accountInformationEntity.getIsSmsSent());
         }
 
         //String fileLocation = new File("src\\main\\resources\\generatedExcel").getAbsolutePath() + "\\" + sheet.getSheetName()+".xlsx";
-        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName()+".xlsx";
+        String fileLocation = new File(excelServerPath).getAbsolutePath() + "/" + sheet.getSheetName() + ".xlsx";
         FileOutputStream out = new FileOutputStream(fileLocation);
         workbook.write(out);
 
@@ -718,7 +737,7 @@ public class AccountInformationService {
         return ResponseEntity.ok(allProducts);
     }
 
-    public AccountInformationEntity save(AccountInformationEntity accountInformation){
+    public AccountInformationEntity save(AccountInformationEntity accountInformation) {
 
         return accountInformationRepository.save(accountInformation);
 

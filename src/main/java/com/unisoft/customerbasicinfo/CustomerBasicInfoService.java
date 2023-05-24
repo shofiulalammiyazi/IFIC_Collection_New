@@ -122,25 +122,25 @@ public class CustomerBasicInfoService {
     @Autowired private LoanAccountBasicService loanAccountBasicService;
 
     //@Scheduled(cron = "0 0 10 * * *")
-    @Scheduled(cron = "0 30 14 * * *")
-    public void updateCustomer(){
-        Map<String,CustomerBasicInfoEntity> map = new HashMap<>();
-        List<CustomerBasicInfoEntity> customerBasicInfoEntities1;
-        accountInformationRepository.findAllByNotClosedAccount().stream().forEach(accountInformationEntity -> {
-            if(!map.containsKey(accountInformationEntity.getCustomerId()))
-                map.put(accountInformationEntity.getCustomerId(),new CustomerBasicInfoEntity(accountInformationEntity));
-
-            if(map.size() == 1000){
-                List<CustomerBasicInfoEntity> customerBasicInfoEntities = new ArrayList<>(map.values());
-                repository.saveAll(customerBasicInfoEntities);
-                loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities);
-                customerBasicInfoEntities.clear();
-            }
-        });
-
-        customerBasicInfoEntities1 = new ArrayList<>(map.values());
-        repository.saveAll(customerBasicInfoEntities1);
-        loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities1);
-        customerBasicInfoEntities1.clear();
-    }
+//    @Scheduled(cron = "0 30 14 * * *")
+//    public void updateCustomer(){
+//        Map<String,CustomerBasicInfoEntity> map = new HashMap<>();
+//        List<CustomerBasicInfoEntity> customerBasicInfoEntities1;
+//        accountInformationRepository.findAllByNotClosedAccount().stream().forEach(accountInformationEntity -> {
+//            if(!map.containsKey(accountInformationEntity.getCustomerId()))
+//                map.put(accountInformationEntity.getCustomerId(),new CustomerBasicInfoEntity(accountInformationEntity));
+//
+//            if(map.size() == 1000){
+//                List<CustomerBasicInfoEntity> customerBasicInfoEntities = new ArrayList<>(map.values());
+//                repository.saveAll(customerBasicInfoEntities);
+//                loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities);
+//                customerBasicInfoEntities.clear();
+//            }
+//        });
+//
+//        customerBasicInfoEntities1 = new ArrayList<>(map.values());
+//        repository.saveAll(customerBasicInfoEntities1);
+//        loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities1);
+//        customerBasicInfoEntities1.clear();
+//    }
 }

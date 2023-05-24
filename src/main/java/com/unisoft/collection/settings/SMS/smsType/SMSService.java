@@ -1,6 +1,9 @@
 package com.unisoft.collection.settings.SMS.smsType;
 
+import com.unisoft.collection.settings.SMS.smslog.SMSLogRepository;
+import com.unisoft.collection.settings.SMS.smslog.SmsLog;
 import com.unisoft.user.UserPrincipal;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,10 @@ public class SMSService {
 
     @Autowired
     private SMSRepository smsRepository;
+
+
+    @Autowired
+    private SMSLogRepository smsLogRepository;
 
     public List<SMSEntity> getAll()
     {
@@ -44,5 +51,12 @@ public class SMSService {
     public SMSEntity findSmsById(Long id) {
 
         return smsRepository.findSmsById(id);
+    }
+
+
+    public List<SmsLog> findAllDesc() {
+
+        return smsLogRepository.findAllLogDesc();
+
     }
 }
