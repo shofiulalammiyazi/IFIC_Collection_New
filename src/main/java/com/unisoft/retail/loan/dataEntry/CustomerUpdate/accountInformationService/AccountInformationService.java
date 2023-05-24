@@ -76,6 +76,9 @@ public class AccountInformationService {
     @Autowired
     private LoanAccountBasicRepository loanAccountBasicRepository;
 
+    @Autowired
+    private CustomerBasicInfoService customerBasicInfoService;
+
     void updateAccountStatus(){
         List<AccountInformationEntity> accountInformationEntities = accountInformationRepository.findAll();
         List<AccountInformationEntity> accountInformationEntities1 = new ArrayList<>();
@@ -130,7 +133,6 @@ public class AccountInformationService {
             //accountInformationDao.updateCloseStatus();
             updateAccountStatus();
             List<AccountInformationEntity> accountInformationEntities = new ArrayList<>();
-            List<CustomerBasicInfoEntity> customerBasicInfoEntities = new ArrayList<>();
 
             for (AccountInformationDto dto : dataList) {
                 if ((dto.getLoanACNo() != null && dto.getLoanACNo().trim().length() == 13)
@@ -144,8 +146,6 @@ public class AccountInformationService {
                     String dealReference = dto.getDealReference().trim();
 
                     AccountInformationEntity accountInformationEntity;
-                    //CustomerBasicInfoEntity customerBasicInfoEntity = new CustomerBasicInfoEntity(dto);
-                    //customerBasicInfoEntities.add(customerBasicInfoEntity);
 
                     accountInformationEntity = accountInformationRepository.
                             findByLoanACNoAndBranchMnemonicAndProductCodeAndDealReference(account, branchMnemonic, productCode, dealReference);
@@ -388,9 +388,6 @@ public class AccountInformationService {
 
                     accountInformationEntity.setIsClosed("N");
                     accountInformationEntity.setIsAfterEmiSmsSent("N");
-                    //CustomerBasicInfoEntity customerBasicInfoEntity1 = customerBasicInfoEntityRepository.save(customerBasicInfoEntity);
-                    //LoanAccountBasicInfo loanAccountBasicInfo = new LoanAccountBasicInfo(customerBasicInfoEntity1.getCustomerName(),customerBasicInfoEntity1);
-                    //loanAccountBasicRepository.save(loanAccountBasicInfo);
 
 
                     accountInformationEntities.add(accountInformationEntity);
@@ -433,6 +430,7 @@ public class AccountInformationService {
             schedulerMonitoringStatus.setStatus("Success");
 
             schedulerMonitoringStatusRepository.save(schedulerMonitoringStatus);
+            customerBasicInfoService.updateCustomer();
             return "200";
         }
         return "400";
