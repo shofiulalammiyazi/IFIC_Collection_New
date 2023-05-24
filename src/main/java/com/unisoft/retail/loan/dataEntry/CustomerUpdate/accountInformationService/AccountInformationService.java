@@ -144,7 +144,7 @@ public class AccountInformationService {
                     String dealReference = dto.getDealReference().trim();
 
                     AccountInformationEntity accountInformationEntity;
-                    CustomerBasicInfoEntity customerBasicInfoEntity = new CustomerBasicInfoEntity(dto);
+                    //CustomerBasicInfoEntity customerBasicInfoEntity = new CustomerBasicInfoEntity(dto);
                     //customerBasicInfoEntities.add(customerBasicInfoEntity);
 
                     accountInformationEntity = accountInformationRepository.
@@ -388,9 +388,9 @@ public class AccountInformationService {
 
                     accountInformationEntity.setIsClosed("N");
                     accountInformationEntity.setIsAfterEmiSmsSent("N");
-                    CustomerBasicInfoEntity customerBasicInfoEntity1 = customerBasicInfoEntityRepository.save(customerBasicInfoEntity);
-                    LoanAccountBasicInfo loanAccountBasicInfo = new LoanAccountBasicInfo(customerBasicInfoEntity1.getCustomerName(),customerBasicInfoEntity1);
-                    loanAccountBasicRepository.save(loanAccountBasicInfo);
+                    //CustomerBasicInfoEntity customerBasicInfoEntity1 = customerBasicInfoEntityRepository.save(customerBasicInfoEntity);
+                    //LoanAccountBasicInfo loanAccountBasicInfo = new LoanAccountBasicInfo(customerBasicInfoEntity1.getCustomerName(),customerBasicInfoEntity1);
+                    //loanAccountBasicRepository.save(loanAccountBasicInfo);
 
 
                     accountInformationEntities.add(accountInformationEntity);

@@ -3,12 +3,14 @@ package com.unisoft.collection.distribution.loan.loanAccountBasic;
 Created by   Islam at 7/17/2019
 */
 
+import com.unisoft.customerbasicinfo.CustomerBasicInfoEntity;
 import com.unisoft.customerbasicinfo.CustomerBasicInfoService;
 import com.unisoft.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -95,4 +97,16 @@ public class LoanAccountBasicService {
         return repository.save(loanAccountBasicInfo);
     }
 
+    public void updateLoanAccountBasicInfo(List<CustomerBasicInfoEntity> customerBasicInfoEntities){
+        List<LoanAccountBasicInfo> loanAccountBasicInfos = new ArrayList<>();
+        customerBasicInfoEntities.stream().forEach(customerBasicInfoEntity -> {
+            loanAccountBasicInfos.add(new LoanAccountBasicInfo(customerBasicInfoEntity.getCustomerName(), customerBasicInfoEntity));
+
+            if(loanAccountBasicInfos.size() == 1000) {
+                repository.saveAll(loanAccountBasicInfos);
+                loanAccountBasicInfos.clear();
+            }
+        });
+        repository.saveAll(loanAccountBasicInfos);
+    }
 }

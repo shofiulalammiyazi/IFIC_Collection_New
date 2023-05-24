@@ -1,14 +1,18 @@
 package com.unisoft.customerbasicinfo;
 
+import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicService;
+import com.unisoft.detailsOfCollection.cardviewmodels.AccountInformation;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformationRepository.AccountInformationRepository;
 import com.unisoft.user.UserService;
 import com.unisoft.utillity.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -110,5 +114,33 @@ public class CustomerBasicInfoService {
     public CustomerBasicInfoEntity getFirstByAccountNoOrderByAccountNoSubStr(String accNo){
 
         return repository.findFirstByAccountNoOrderByAccountNoSubStr(accNo);
+    }
+
+    @Autowired
+    private AccountInformationRepository accountInformationRepository;
+
+    @Autowired private LoanAccountBasicService loanAccountBasicService;
+
+    //@Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 30 14 * * *")
+    public void updateCustomer(){
+        Map<String,CustomerBasicInfoEntity> map = new HashMap<>();
+        List<CustomerBasicInfoEntity> customerBasicInfoEntities1;
+        accountInformationRepository.findAllByNotClosedAccount().stream().forEach(accountInformationEntity -> {
+            if(!map.containsKey(accountInformationEntity.getCustomerId()))
+                map.put(accountInformationEntity.getCustomerId(),new CustomerBasicInfoEntity(accountInformationEntity));
+
+            if(map.size() == 1000){
+                List<CustomerBasicInfoEntity> customerBasicInfoEntities = new ArrayList<>(map.values());
+                repository.saveAll(customerBasicInfoEntities);
+                loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities);
+                customerBasicInfoEntities.clear();
+            }
+        });
+
+        customerBasicInfoEntities1 = new ArrayList<>(map.values());
+        repository.saveAll(customerBasicInfoEntities1);
+        loanAccountBasicService.updateLoanAccountBasicInfo(customerBasicInfoEntities1);
+        customerBasicInfoEntities1.clear();
     }
 }

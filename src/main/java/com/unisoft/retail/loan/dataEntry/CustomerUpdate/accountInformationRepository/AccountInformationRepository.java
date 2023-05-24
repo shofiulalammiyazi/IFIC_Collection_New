@@ -481,6 +481,9 @@ public interface AccountInformationRepository extends JpaRepository<AccountInfor
             " AND TO_NUMBER(AIE.OVERDUE)>0 AND AIE.IS_AFTER_EMI_SMS_SENT = 'N'", nativeQuery = true)
     List<AccountInformationEntity> getAllBySmsSentDatePlus();
 
+    @Query(value = "SELECT AIE.* FROM ACCOUNT_INFORMATION_ENTITY AIE WHERE AIE.IS_CLOSED = 'N'", nativeQuery = true)
+    List<AccountInformationEntity> findAllByNotClosedAccount();
+
    /* @Query(value = "SELECT * FROM ACCOUNT_INFORMATION_ENTITY " +
             "WHERE MODIFIED_DATE < SYSDATE", nativeQuery = true)
     List<AccountInformationEntity> findByModifiedDateBeforeCurrentDate(); */

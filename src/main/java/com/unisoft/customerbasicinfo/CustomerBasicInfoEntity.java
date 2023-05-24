@@ -115,18 +115,19 @@ public class CustomerBasicInfoEntity extends BaseInfo {
     public CustomerBasicInfoEntity() {
     }
 
-    public CustomerBasicInfoEntity(AccountInformationDto accountInformationDto) {
-        this.accountNo = accountInformationDto.getLoanAccountNew();
-        this.customerName = accountInformationDto.getCustomerName();
-        this.customerFatherName = accountInformationDto.getFatherName();
-        this.customerMotherName = accountInformationDto.getMotherName();
-        this.mobileNumber = accountInformationDto.getMobile();
-        this.email = accountInformationDto.getEmail();
-        this.branchCode = accountInformationDto.getBranchCode();
-        this.branchName = accountInformationDto.getBranchName();
-        this.sex = accountInformationDto.getGender();
-        this.nid = accountInformationDto.getNid();
-        this.tin = accountInformationDto.getTin();
+    public CustomerBasicInfoEntity(AccountInformationEntity accountInformationEntity) {
+        this.customerId = accountInformationEntity.getCustomerId();
+        this.accountNo = accountInformationEntity.getLoanAccountNew();
+        this.customerName = accountInformationEntity.getCustomerName();
+        this.customerFatherName = accountInformationEntity.getFatherName();
+        this.customerMotherName = accountInformationEntity.getMotherName();
+        this.mobileNumber = accountInformationEntity.getMobile();
+        this.email = accountInformationEntity.getEmail();
+        this.branchCode = accountInformationEntity.getBranchCode();
+        this.branchName = accountInformationEntity.getBranchName();
+        this.sex = accountInformationEntity.getGender();
+        this.nid = accountInformationEntity.getNid();
+        this.tin = accountInformationEntity.getTin();
     }
 
     public CustomerBasicInfoEntity(String accountNo) {
