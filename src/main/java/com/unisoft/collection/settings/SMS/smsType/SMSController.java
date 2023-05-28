@@ -85,7 +85,7 @@ public class SMSController {
     @GetMapping(value = "/smslog")
     public String smslog(Model model) {
 
-        List<SmsLog> smsLogs = smsLogRepository.findAll();
+        List<SmsLog> smsLogs = smsService.findAllDesc();
         model.addAttribute("smsList",smsLogs);
 
         return "collection/settings/SMS/smslog";
