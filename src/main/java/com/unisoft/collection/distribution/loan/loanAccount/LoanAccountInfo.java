@@ -2,6 +2,7 @@ package com.unisoft.collection.distribution.loan.loanAccount;
 
 import com.unisoft.base.BaseInfo;
 import com.unisoft.collection.distribution.loan.loanAccountBasic.LoanAccountBasicInfo;
+import com.unisoft.retail.loan.dataEntry.CustomerUpdate.accountInformation.AccountInformationEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -59,6 +60,56 @@ public class LoanAccountInfo extends BaseInfo {
     public LoanAccountInfo() {
     }
 
+    public LoanAccountInfo(AccountInformationEntity accountInformationEntity,
+                           LoanAccountBasicInfo loanAccountBasicInfo,
+                           LoanAccountInfo loanAccountInfo) {
+        this.id = loanAccountInfo.getId();
+        this.schemeCode = accountInformationEntity.getProductCode();
+        this.outstandingPrincipal = accountInformationEntity.getTotalOutstanding() != null?
+                isDouble(accountInformationEntity.getTotalOutstanding()) ?
+                        Double.valueOf(accountInformationEntity.getTotalOutstanding()):0.0:0.0;
+        this.installmentAmount = isDouble(accountInformationEntity.getEmiAmount()) ?
+                Double.valueOf(accountInformationEntity.getEmiAmount()):0.0;
+        this.ate = accountInformationEntity.getAte() != null? isDouble(accountInformationEntity.getAte())?Double.valueOf(accountInformationEntity.getAte()):0.0:0.0;
+        this.assetClassification = accountInformationEntity.getAssetClassification() == null? "-":accountInformationEntity.getAssetClassification();
+        this.totalOverdue = accountInformationEntity.getOverdue()== null?isDouble(accountInformationEntity.getOverdue())?
+                Double. valueOf(accountInformationEntity.getOverdue()):0.0:0.0;
+        this.cumulativePayment = accountInformationEntity.getPrinciplePaid() != null ? isDouble(accountInformationEntity.getPrinciplePaid())?
+                Double.valueOf(accountInformationEntity.getPrinciplePaid()):0.0:0.0;
+        this.dpd = accountInformationEntity.getDpd() != null ?
+                isDouble(accountInformationEntity.getDpd())?Double.valueOf(accountInformationEntity.getDpd()):0.0:0.0;
+        this.dpbBucket = accountInformationEntity.getDpd() == null ?"-":accountInformationEntity.getDpd();
+        //this.nonPerformingLoan = accountInformationEntity.get;
+        this.emiDueDate = accountInformationEntity.getNextEMIDate() == null ? "-":accountInformationEntity.getNextEMIDate();
+        //this.grossDistributionCriteriaNew = loanAccountInfo.;
+        this.moDpdBucket = accountInformationEntity.getDpd() == null ? "-":String.valueOf(accountInformationEntity.getDpd());
+        this.loanAccountBasicInfo = loanAccountBasicInfo;
+    }
+
+    public LoanAccountInfo(AccountInformationEntity accountInformationEntity,
+                           LoanAccountBasicInfo loanAccountBasicInfo) {
+        this.schemeCode = accountInformationEntity.getProductCode();
+        this.outstandingPrincipal = accountInformationEntity.getTotalOutstanding() != null?
+                isDouble(accountInformationEntity.getTotalOutstanding()) ?
+                Double.valueOf(accountInformationEntity.getTotalOutstanding()):0.0:0.0;
+        this.installmentAmount = isDouble(accountInformationEntity.getEmiAmount()) ?
+                Double.valueOf(accountInformationEntity.getEmiAmount()):0.0;
+        this.ate = accountInformationEntity.getAte() != null? isDouble(accountInformationEntity.getAte())?Double.valueOf(accountInformationEntity.getAte()):0.0:0.0;
+        this.assetClassification = accountInformationEntity.getAssetClassification() == null? "-":accountInformationEntity.getAssetClassification();
+        this.totalOverdue = accountInformationEntity.getOverdue()== null?isDouble(accountInformationEntity.getOverdue())?
+                Double. valueOf(accountInformationEntity.getOverdue()):0.0:0.0;
+        this.cumulativePayment = accountInformationEntity.getPrinciplePaid() != null ? isDouble(accountInformationEntity.getPrinciplePaid())?
+                Double.valueOf(accountInformationEntity.getPrinciplePaid()):0.0:0.0;
+        this.dpd = accountInformationEntity.getDpd() != null ?
+                isDouble(accountInformationEntity.getDpd())?Double.valueOf(accountInformationEntity.getDpd()):0.0:0.0;
+        this.dpbBucket = accountInformationEntity.getDpd() == null ?"-":accountInformationEntity.getDpd();
+        //this.nonPerformingLoan = accountInformationEntity.get;
+        this.emiDueDate = accountInformationEntity.getNextEMIDate() == null ? "-":accountInformationEntity.getNextEMIDate();
+        //this.grossDistributionCriteriaNew = loanAccountInfo.;
+        this.moDpdBucket = accountInformationEntity.getDpd() == null ? "-":String.valueOf(accountInformationEntity.getDpd());
+        //this.loanAccountBasicInfo = loanAccountBasicInfo;
+    }
+
     public LoanAccountInfo(LoanAccountBasicInfo loanAccountBasicInfo) {
         this.loanAccountBasicInfo = loanAccountBasicInfo;
     }
@@ -78,6 +129,15 @@ public class LoanAccountInfo extends BaseInfo {
         this.grossDistributionCriteriaNew = grossDistributionCriteriaNew;
         this.moDpdBucket = moDpdBucket;
         this.loanAccountBasicInfo = loanAccountBasicInfo;
+    }
+
+    boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

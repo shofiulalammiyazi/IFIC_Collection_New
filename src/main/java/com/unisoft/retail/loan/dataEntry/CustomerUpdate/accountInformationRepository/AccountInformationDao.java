@@ -80,6 +80,9 @@ public class AccountInformationDao {
         // String query = "select * from CRLIB.CRPF";
         String query = "select * from USRBASELIB.$CRS1F";
 
+        //co-applicant data
+        //String query = "select * from USRBASELIB.$CRS3F";
+
         List<AccountInformationDto> accountInformationDtoList = new ArrayList<>();
         Statement statement=null;
         Connection connection = null;

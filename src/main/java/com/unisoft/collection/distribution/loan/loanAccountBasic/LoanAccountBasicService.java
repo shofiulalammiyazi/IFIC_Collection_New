@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -100,7 +101,9 @@ public class LoanAccountBasicService {
     public void updateLoanAccountBasicInfo(List<CustomerBasicInfoEntity> customerBasicInfoEntities){
         List<LoanAccountBasicInfo> loanAccountBasicInfos = new ArrayList<>();
         customerBasicInfoEntities.stream().forEach(customerBasicInfoEntity -> {
-            loanAccountBasicInfos.add(new LoanAccountBasicInfo(customerBasicInfoEntity.getCustomerName(), customerBasicInfoEntity));
+            Optional<LoanAccountBasicInfo> loanAccountBasicInfo = repository.findByAccountNoNew(customerBasicInfoEntity.getAccountNo());
+            loanAccountBasicInfos.add(loanAccountBasicInfo.isPresent() ? new LoanAccountBasicInfo(loanAccountBasicInfo.get(), customerBasicInfoEntity)
+                    : new LoanAccountBasicInfo(customerBasicInfoEntity.getCustomerName(), customerBasicInfoEntity));
 
             if(loanAccountBasicInfos.size() == 1000) {
                 repository.saveAll(loanAccountBasicInfos);

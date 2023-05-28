@@ -38,4 +38,9 @@ public class CustomerBasicInfoController {
         }
         return "redirect:/customerbasicinfo/list";
     }
+
+    @GetMapping("/update-cus")
+    public void upCus() {
+        customerBasicInfoService.updateCustomer();
+    }
 }

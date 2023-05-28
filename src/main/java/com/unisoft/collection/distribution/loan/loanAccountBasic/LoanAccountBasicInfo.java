@@ -53,6 +53,13 @@ public class LoanAccountBasicInfo extends BaseInfo {
         this.customer = customer;
     }
 
+    public LoanAccountBasicInfo(LoanAccountBasicInfo loanAccountBasicInfo, CustomerBasicInfoEntity customer ) {
+        this.id = loanAccountBasicInfo.getId();
+        this.accountName = customer.getCompanyName();
+        this.accountNo = customer.getAccountNo();
+        this.customer = customer;
+    }
+
     public LoanAccountBasicInfo(CustomerBasicInfoEntity customer) {
         if (customer == null) return;
         this.accountNo = customer.getAccountNo();

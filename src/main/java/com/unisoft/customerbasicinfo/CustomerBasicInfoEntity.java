@@ -130,6 +130,22 @@ public class CustomerBasicInfoEntity extends BaseInfo {
         this.tin = accountInformationEntity.getTin();
     }
 
+    public CustomerBasicInfoEntity(CustomerBasicInfoEntity customerBasicInfoEntity,AccountInformationEntity accountInformationEntity) {
+        this.id = customerBasicInfoEntity.getId();
+        this.customerId = accountInformationEntity.getCustomerId();
+        this.accountNo = accountInformationEntity.getLoanAccountNew();
+        this.customerName = accountInformationEntity.getCustomerName();
+        this.customerFatherName = accountInformationEntity.getFatherName();
+        this.customerMotherName = accountInformationEntity.getMotherName();
+        this.mobileNumber = accountInformationEntity.getMobile();
+        this.email = accountInformationEntity.getEmail();
+        this.branchCode = accountInformationEntity.getBranchCode();
+        this.branchName = accountInformationEntity.getBranchName();
+        this.sex = accountInformationEntity.getGender();
+        this.nid = accountInformationEntity.getNid();
+        this.tin = accountInformationEntity.getTin();
+    }
+
     public CustomerBasicInfoEntity(String accountNo) {
         this.accountNo = accountNo;
     }
