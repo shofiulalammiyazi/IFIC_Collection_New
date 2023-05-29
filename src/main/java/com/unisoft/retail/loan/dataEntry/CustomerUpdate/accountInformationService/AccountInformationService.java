@@ -145,6 +145,7 @@ public class AccountInformationService {
                     String branchMnemonic = dto.getBranchMnemonic().trim();
                     String productCode = dto.getProductCode().trim();
                     String dealReference = dto.getDealReference().trim();
+                    dealReference = dealReference.replaceAll("\\s+","");
 
                     AccountInformationEntity accountInformationEntity;
 
@@ -311,7 +312,7 @@ public class AccountInformationService {
                         accountInformationEntity.setNextEMIDate(dateUtils.db2ToOracleDateFormat(dto.getNextEMIDate().trim()));
                     } catch (Exception e) {
                         //accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getNextEMIDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getNextEMIDate());
                     }
 
                     if (dto.getJointStatus() == null || dto.getJointStatus().equalsIgnoreCase("n"))
@@ -323,7 +324,7 @@ public class AccountInformationService {
                         accountInformationEntity.setLatestDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getLatestDisbursementDate().trim()));
                     } catch (Exception e) {
                         accountInformationEntity.setLatestDisbursementDate(dto.getLatestDisbursementDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getLatestDisbursementDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "getLatestDisbursementDate = " + dto.getLatestDisbursementDate());
                     }
 
 
@@ -334,7 +335,7 @@ public class AccountInformationService {
                             accountInformationEntity.setLinkAccountStatus("Inactive");
                         }
                     } catch (Exception e) {
-                        System.out.println("status");
+                        //System.out.println("status");
                     }
 
                     accountInformationEntity.setLinkACProductCode(linkAcProductCode);
@@ -347,7 +348,7 @@ public class AccountInformationService {
                     accountInformationEntity.setProductCode(productCode);
                     accountInformationEntity.setDealReference(dealReference);
 
-                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference.replaceAll("\\s+", ""));
+                    accountInformationEntity.setLoanAccountNew(account + "" + branchMnemonic + "" + productCode + "" + dealReference);
 
                     LoanAccountDistributionInfo loanAccountDistributionInfo =
                             loanAccountDistributionRepository.findByAccountNoAndLatest(dto.getLoanACNo().trim(), "1");
@@ -361,33 +362,33 @@ public class AccountInformationService {
                         accountInformationEntity.setLastPaymentDate(dateUtils.db2ToOracleDateFormat(dto.getLastPaymentDate().trim()));
                     } catch (Exception e) {
                         accountInformationEntity.setLastPaymentDate(dto.getLastPaymentDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getLastPaymentDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getLastPaymentDate());
                     }
                     try {
                         accountInformationEntity.setFirstEmiDate(dateUtils.db2ToOracleDateFormat(dto.getEmiDate().trim()));
 
                     } catch (Exception e) {
                         accountInformationEntity.setFirstEmiDate(dto.getEmiDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getEmiDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getEmiDate());
                     }
                     try {
                         accountInformationEntity.setDisbursementDate(dateUtils.db2ToOracleDateFormat(dto.getDisbursementDate().trim()));
                     } catch (Exception e) {
                         accountInformationEntity.setDisbursementDate(dto.getDisbursementDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDisbursementDate());
                     }
                     String expiryDate = dto.getExpiryDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getExpiryDate().trim()) : "";
                     try {
                         accountInformationEntity.setExpiryDate(expiryDate);
                     } catch (Exception e) {
                         accountInformationEntity.setExpiryDate(dto.getExpiryDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getExpiryDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getExpiryDate());
                     }
                     try {
                         accountInformationEntity.setDob(dateUtils.db2ToOracleDateFormat(dto.getDob().trim()));
                     } catch (Exception e) {
                         accountInformationEntity.setDob(dto.getDob());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getDob());
                     }
                     String firstInstallmentDueDate = dto.getFirstInstDueDate() != null ? dateUtils.db2ToOracleDateFormat(dto.getFirstInstDueDate().trim()) : "";
                     try {
@@ -395,7 +396,7 @@ public class AccountInformationService {
                         accountInformationEntity.setFirstInstDueDate(firstInstallmentDueDate);
                     } catch (Exception e) {
                         accountInformationEntity.setFirstInstDueDate(dto.getFirstInstDueDate());
-                        System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
+                        //System.out.println("accountNo===" + dto.getLoanACNo() + "emidate = " + dto.getFirstInstDueDate());
                     }
                     accountInformationEntity.setIsEscalated("N");
                     if (!expiryDate.equals(""))
@@ -412,7 +413,7 @@ public class AccountInformationService {
 
                     accountInformationEntities.add(accountInformationEntity);
 
-                    System.out.println("test " + dto.getLoanACNo());
+                    //System.out.println("test " + dto.getLoanACNo());
 
                     if (loanAccountDistributionInfo != null && Double.parseDouble(overDue) < 1) {
                         //UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
